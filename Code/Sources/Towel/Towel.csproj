@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="Structures\Link.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Link.cs</LastGenOutput>
+    </None>
+    <None Update="Structures\Omnitree.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Omnitree.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Structures\Link.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Link.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Structures\Omnitree.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Omnitree.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
