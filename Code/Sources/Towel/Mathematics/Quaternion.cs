@@ -1,9 +1,11 @@
-﻿namespace Towel.Mathematics
+﻿using System;
+
+namespace Towel.Mathematics
 {
 	/// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
 	/// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
 	[System.Serializable]
-	public class Quaternion<T>
+	public struct Quaternion<T>
 	{
 		#region delegates
 
@@ -91,7 +93,7 @@
 		#region fields
 
 		// the values of the quaternion
-		protected T _x, _y, _z, _w;
+		internal T _x, _y, _z, _w;
 
 		#endregion
 
@@ -106,16 +108,23 @@
 		/// <summary>The W component of the quaternion. (rotation ammount, NOT axis)</summary>
 		public T W { get { return _w; } set { _w = value; } }
 
-		#endregion
+        /// <summary>Computes the length of quaternion.</summary>
+        /// <returns>The length of the given quaternion.</returns>
+        public T Magnitude { get { return Quaternion<T>.Quaternion_Magnitude(this); } }
+        /// <summary>Computes the length of a quaternion, but doesn't square root it for optimization possibilities.</summary>
+        /// <returns>The squared length of the given quaternion.</returns>
+        public T MagnitudeSquared { get { return Quaternion<T>.Quaternion_MagnitudeSquared(this); } }
 
-		#region constructor
+        #endregion
 
-		/// <summary>Constructs a quaternion with the desired values.</summary>
-		/// <param name="x">The x component of the quaternion.</param>
-		/// <param name="y">The y component of the quaternion.</param>
-		/// <param name="z">The z component of the quaternion.</param>
-		/// <param name="w">The w component of the quaternion.</param>
-		public Quaternion(T x, T y, T z, T w) { _x = x; _y = y; _z = z; _w = w; }
+        #region constructor
+
+        /// <summary>Constructs a quaternion with the desired values.</summary>
+        /// <param name="x">The x component of the quaternion.</param>
+        /// <param name="y">The y component of the quaternion.</param>
+        /// <param name="z">The z component of the quaternion.</param>
+        /// <param name="w">The w component of the quaternion.</param>
+        public Quaternion(T x, T y, T z, T w) { _x = x; _y = y; _z = z; _w = w; }
 
 		#endregion
 
@@ -143,11 +152,11 @@
             if (matrix.Rows != 3 || matrix.Columns != 3)
                 throw new System.ArithmeticException("error converting matrix to quaternion. matrix is not 3x3.");
 
-            T w = Compute<T>.Subtract(Compute<T>.Add(Compute<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Compute<T>.FromInt32(2));
+            T w = Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Compute.FromInt32<T>(2));
             return new Quaternion<T>(
-                Compute<T>.Divide(Compute<T>.Subtract(matrix[2, 1], matrix[1, 2]), Compute<T>.Multiply(Compute<T>.FromInt32(4), w)),
-                Compute<T>.Divide(Compute<T>.Subtract(matrix[0, 2], matrix[2, 0]), Compute<T>.Multiply(Compute<T>.FromInt32(4), w)),
-                Compute<T>.Divide(Compute<T>.Subtract(matrix[1, 0], matrix[0, 1]), Compute<T>.Multiply(Compute<T>.FromInt32(4), w)),
+                Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), Compute.Multiply(Compute.FromInt32<T>(4), w)),
+                Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), Compute.Multiply(Compute.FromInt32<T>(4), w)),
+                Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), Compute.Multiply(Compute.FromInt32<T>(4), w)),
                 w);
         }
 
@@ -155,38 +164,38 @@
         {
             matrix = matrix.Transpose();
             T w, x, y, z;
-            T diagonal = Compute<T>.Add(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
-            if (Compute<T>.GreaterThan(diagonal, Compute<T>.Zero))
+            T diagonal = Compute.Add(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
+            if (Compute.GreaterThan(diagonal, Compute.Constant<T>.Zero))
             {
-                T w4 = Compute<T>.Multiply(Compute<T>.SquareRoot(Compute<T>.Add(diagonal, Compute<T>.One)), Compute<T>.FromInt32(2));
-                w = Compute<T>.Divide(w4, Compute<T>.FromInt32(4));
-                x = Compute<T>.Divide(Compute<T>.Subtract(matrix[2, 1], matrix[1, 2]), w4);
-                y = Compute<T>.Divide(Compute<T>.Subtract(matrix[0, 2], matrix[2, 0]), w4);
-                z = Compute<T>.Divide(Compute<T>.Subtract(matrix[1, 0], matrix[0, 1]), w4);
+                T w4 = Compute.Multiply(Compute.SquareRoot(Compute.Add(diagonal, Compute.Constant<T>.One)), Compute.FromInt32<T>(2));
+                w = Compute.Divide(w4, Compute.FromInt32<T>(4));
+                x = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), w4);
+                y = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), w4);
+                z = Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), w4);
             }
-            else if (Compute<T>.GreaterThan(matrix[0, 0], matrix[1, 1]) && Compute<T>.GreaterThan(matrix[0, 0], matrix[2, 2]))
+            else if (Compute.GreaterThan(matrix[0, 0], matrix[1, 1]) && Compute.GreaterThan(matrix[0, 0], matrix[2, 2]))
             {
-                T x4 = Compute<T>.Multiply(Compute<T>.SquareRoot(Compute<T>.Subtract(Compute<T>.Subtract(Compute<T>.Add(Compute<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Compute<T>.FromInt32(2));
-                w = Compute<T>.Divide(Compute<T>.Subtract(matrix[2, 1], matrix[1, 2]), x4);
-                x = Compute<T>.Divide(x4, Compute<T>.FromInt32(4));
-                y = Compute<T>.Divide(Compute<T>.Add(matrix[0, 1], matrix[1, 0]), x4);
-                z = Compute<T>.Divide(Compute<T>.Add(matrix[0, 2], matrix[2, 0]), x4);
+                T x4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Compute.FromInt32<T>(2));
+                w = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), x4);
+                x = Compute.Divide(x4, Compute.FromInt32<T>(4));
+                y = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), x4);
+                z = Compute.Divide(Compute.Add(matrix[0, 2], matrix[2, 0]), x4);
             }
-            else if (Compute<T>.GreaterThan(matrix[1, 1], matrix[2, 2]))
+            else if (Compute.GreaterThan(matrix[1, 1], matrix[2, 2]))
             {
-                T y4 = Compute<T>.Multiply(Compute<T>.SquareRoot(Compute<T>.Subtract(Compute<T>.Subtract(Compute<T>.Add(Compute<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Compute<T>.FromInt32(2));
-                w = Compute<T>.Divide(Compute<T>.Subtract(matrix[0, 2], matrix[2, 0]), y4);
-                x = Compute<T>.Divide(Compute<T>.Add(matrix[0, 1], matrix[1, 0]), y4);
-                y = Compute<T>.Divide(y4, Compute<T>.FromInt32(4));
-                z = Compute<T>.Divide(Compute<T>.Add(matrix[1, 2], matrix[2, 1]), y4);
+                T y4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Compute.FromInt32<T>(2));
+                w = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), y4);
+                x = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), y4);
+                y = Compute.Divide(y4, Compute.FromInt32<T>(4));
+                z = Compute.Divide(Compute.Add(matrix[1, 2], matrix[2, 1]), y4);
             }
             else
             {
-                T z4 = Compute<T>.Multiply(Compute<T>.SquareRoot(Compute<T>.Subtract(Compute<T>.Subtract(Compute<T>.Add(Compute<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Compute<T>.FromInt32(2));
-                w = Compute<T>.Divide(Compute<T>.Subtract(matrix[1, 0], matrix[0, 1]), z4);
-                x = Compute<T>.Divide(Compute<T>.Add(matrix[0, 2], matrix[2, 0]), z4);
-                y = Compute<T>.Divide(Compute<T>.Add(matrix[1, 2], matrix[2, 1]), z4);
-                z = Compute<T>.Divide(z4, Compute<T>.FromInt32(4));
+                T z4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Compute.FromInt32<T>(2));
+                w = Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), z4);
+                x = Compute.Divide(Compute.Add(matrix[0, 2], matrix[2, 0]), z4);
+                y = Compute.Divide(Compute.Add(matrix[1, 2], matrix[2, 1]), z4);
+                z = Compute.Divide(z4, Compute.FromInt32<T>(4));
             }
             return new Quaternion<T>(x, y, z, w);
         }
@@ -224,13 +233,13 @@
 		/// <param name="right">The scalar of the multiplication.</param>
 		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
 		public static Quaternion<T> operator *(Quaternion<T> left, T right)
-		{ return Quaternion<T>.Quaternion_Multiply_scalar(left, right); }
+		{ return Quaternion<T>.Quaternion_MultiplyScalar(left, right); }
 		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
 		/// <param name="left">The scalar of the multiplication.</param>
 		/// <param name="right">The quaternion of the multiplication.</param>
 		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
 		public static Quaternion<T> operator *(T left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Multiply_scalar(right, left); }
+		{ return Quaternion<T>.Quaternion_MultiplyScalar(right, left); }
 		/// <summary>Checks for equality by value. (beware float errors)</summary>
 		/// <param name="left">The first quaternion of the equality check.</param>
 		/// <param name="right">The second quaternion of the equality check.</param>
@@ -248,15 +257,6 @@
 
 		#region instance
 
-		/// <summary>Computes the length of quaternion.</summary>
-		/// <returns>The length of the given quaternion.</returns>
-		public T Magnitude()
-		{ return Quaternion<T>.Quaternion_Magnitude(this); }
-		/// <summary>Computes the length of a quaternion, but doesn't square root it
-		/// for optimization possibilities.</summary>
-		/// <returns>The squared length of the given quaternion.</returns>
-		public T MagnitudeSquared()
-		{ return Quaternion<T>.Quaternion_MagnitudeSquared(this); }
 		/// <summary>Gets the conjugate of the quaternion.</summary>
 		/// <returns>The conjugate of teh given quaternion.</returns>
 		public Quaternion<T> Conjugate()
@@ -280,7 +280,7 @@
 		/// <param name="right">The scalar of the multiplication.</param>
 		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
 		public Quaternion<T> Multiply(T right)
-		{ return Quaternion<T>.Quaternion_Multiply_scalar(this, right); }
+		{ return Quaternion<T>.Quaternion_MultiplyScalar(this, right); }
 		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
 		/// <param name="right">The vector to be multiplied.</param>
 		/// <returns>The resulting quaternion of the multiplication.</returns>
@@ -330,17 +330,6 @@
 
 		#region statics
 
-		/// <summary>Computes the length of quaternion.</summary>
-		/// <param name="quaternion">The quaternion to compute the length of.</param>
-		/// <returns>The length of the given quaternion.</returns>
-		public static T Magnitude(Quaternion<T> quaternion)
-		{ return Quaternion<T>.Quaternion_Magnitude(quaternion); }
-		/// <summary>Computes the length of a quaternion, but doesn't square root it
-		/// for optimization possibilities.</summary>
-		/// <param name="quaternion">The quaternion to compute the length squared of.</param>
-		/// <returns>The squared length of the given quaternion.</returns>
-		public static T MagnitudeSquared(Quaternion<T> quaternion)
-		{ return Quaternion<T>.Quaternion_MagnitudeSquared(quaternion); }
 		/// <summary>Gets the conjugate of the quaternion.</summary>
 		/// <param name="quaternion">The quaternion to conjugate.</param>
 		/// <returns>The conjugate of teh given quaternion.</returns>
@@ -369,13 +358,13 @@
 		/// <param name="right">The scalar of the multiplication.</param>
 		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
 		public static Quaternion<T> Multiply(Quaternion<T> left, T right)
-		{ return Quaternion<T>.Quaternion_Multiply_scalar(left, right); }
+		{ return Quaternion<T>.Quaternion_MultiplyScalar(left, right); }
 		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
 		/// <param name="left">The quaternion to pre-multiply the vector by.</param>
 		/// <param name="right">The vector to be multiplied.</param>
 		/// <returns>The resulting quaternion of the multiplication.</returns>
 		public static Quaternion<T> Multiply(Quaternion<T> left, Vector<T> right)
-		{ return Quaternion<T>.Quaternion_Multiply_Vector(left, right); }
+		{ return Quaternion<T>.Quaternion_MultiplyVector(left, right); }
 		/// <summary>Normalizes the quaternion.</summary>
 		/// <param name="quaternion">The quaternion to normalize.</param>
 		/// <returns>The normalization of the given quaternion.</returns>
@@ -434,19 +423,19 @@
             return new Matrix<T>(new T[,]
             {
                 { // row 1
-                    Compute<T>.Subtract(Compute<T>.Subtract(Compute<T>.Add(Compute<T>.Multiply(quaternion.W, quaternion.W), Compute<T>.Multiply(quaternion.X, quaternion.X)), Compute<T>.Multiply(quaternion.Y, quaternion.Y)), Compute<T>.Multiply(quaternion.Z, quaternion.Z)),
-                    Compute<T>.Subtract(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.X), quaternion.Y), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.Z)),
-                    Compute<T>.Add(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.X), quaternion.Z), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.Y)),
+                    Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
+                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z)),
+                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y)),
                 },
                 { // row 2
-                    Compute<T>.Add(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.X), quaternion.Y), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.Z)),
-                    Compute<T>.Subtract(Compute<T>.Add(Compute<T>.Subtract(Compute<T>.Multiply(quaternion.W, quaternion.W), Compute<T>.Multiply(quaternion.X, quaternion.X)), Compute<T>.Multiply(quaternion.Y, quaternion.Y)), Compute<T>.Multiply(quaternion.Z, quaternion.Z)),
-                    Compute<T>.Add(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.Y), quaternion.Z), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.X)),
+                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z)),
+                    Compute.Subtract(Compute.Add(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
+                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X)),
                 },
                 { // row 3
-                    Compute<T>.Subtract(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.X), quaternion.Z), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.Y)),
-                    Compute<T>.Subtract(Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.Y), quaternion.Z), Compute<T>.Multiply(Compute<T>.Multiply(Compute<T>.FromInt32(2), quaternion.W), quaternion.X)),
-                    Compute<T>.Add(Compute<T>.Subtract(Compute<T>.Subtract(Compute<T>.Multiply(quaternion.W, quaternion.W), Compute<T>.Multiply(quaternion.X, quaternion.X)), Compute<T>.Multiply(quaternion.Y, quaternion.Y)), Compute<T>.Multiply(quaternion.Z, quaternion.Z)),
+                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y)),
+                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X)),
+                    Compute.Add(Compute.Subtract(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
                 }
             });
         }
@@ -456,7 +445,7 @@
         {
             get
             {
-                return new Quaternion<T>(Compute<T>.Zero, Compute<T>.Zero, Compute<T>.Zero, Compute<T>.One);
+                return new Quaternion<T>(Compute.Constant<T>.Zero, Compute.Constant<T>.Zero, Compute.Constant<T>.Zero, Compute.Constant<T>.One);
             }
         }
 
@@ -464,220 +453,169 @@
 
 		#region implementations
 
-		#region T_Source
-
-		private static string t_source = null;
-		private static string T_Source
-		{
-			get
-			{
-				if (t_source != null)
-					return t_source;
-				return t_source = Meta.ConvertTypeToCsharpSource(typeof(T));
-			}
-		}
-
-		#endregion
-
 		#region Magnitude
-		/// <summary>Computes the length of quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Magnitude Quaternion_Magnitude = (Quaternion<T> quaternion) =>
+
+		private static Func<Quaternion<T>, T> Quaternion_Magnitude = (Quaternion<T> a) =>
 		{
-			string Quaternion_Magnitude_string =
-				"(Quaternion<" + T_Source + "> _quaternion) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_quaternion, null))" +
-				"		throw new System.Exception(\"null reference: _quaternion\");" +
-				"	return Compute<" + T_Source + ">.SquareRoot(" +
-				"		(_quaternion.X * _quaternion.X +" +
-				"		_quaternion.Y * _quaternion.Y +" +
-				"		_quaternion.Z * _quaternion.Z +" +
-				"		_quaternion.W * _quaternion.W));" +
-				"}";
-
-			Quaternion<T>.Quaternion_Magnitude =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Magnitude>(Quaternion_Magnitude_string);
-
-			return Quaternion<T>.Quaternion_Magnitude(quaternion);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return Compute.SquareRoot(Quaternion_MagnitudeSquared(a));
 		};
+
 		#endregion
 
 		#region MagnitudeSquared
-		/// <summary>Computes the length of a quaternion, but doesn't square root it.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_MagnitudeSquared Quaternion_MagnitudeSquared = (Quaternion<T> quaternion) =>
+
+		private static Func<Quaternion<T>, T> Quaternion_MagnitudeSquared = (Quaternion<T> a) =>
 		{
-			string Quaternion_MagnitudeSquared_string =
-				"(Quaternion<" + T_Source + "> _quaternion) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_quaternion, null))" +
-				"		throw new System.Exception(\"null reference: _quaternion\");" +
-				"	return" +
-				"		_quaternion.X * _quaternion.X +" +
-				"		_quaternion.Y * _quaternion.Y +" +
-				"		_quaternion.Z * _quaternion.Z +" +
-				"		_quaternion.W * _quaternion.W;" +
-				"}";
-
-			Quaternion<T>.Quaternion_MagnitudeSquared =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_MagnitudeSquared>(Quaternion_MagnitudeSquared_string);
-
-			return Quaternion<T>.Quaternion_MagnitudeSquared(quaternion);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return Compute.Add(
+                Compute.Multiply(a.X, a.X),
+                Compute.Multiply(a.Y, a.Y),
+                Compute.Multiply(a.Z, a.Z),
+                Compute.Multiply(a.W, a.W));
 		};
+
 		#endregion
 
 		#region Conjugate
-		/// <summary>Gets the conjugate of the quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Conjugate Quaternion_Conjugate = (Quaternion<T> quaternion) =>
+
+		private static Quaternion<T>.Delegates.Quaternion_Conjugate Quaternion_Conjugate = (Quaternion<T> a) =>
 		{
-			string Quaternion_Conjugate_string =
-				"(Quaternion<" + T_Source + "> _quaternion) =>" +
-				"{" +
-				"	if (_quaternion == null)" +
-				"		throw new System.Exception(\"null reference: quaternion\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		-_quaternion.X," +
-				"		-_quaternion.Y," +
-				"		-_quaternion.Z," +
-				"		_quaternion.W);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Conjugate =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Conjugate>(Quaternion_Conjugate_string);
-
-			return Quaternion<T>.Quaternion_Conjugate(quaternion);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return new Quaternion<T>(
+                Compute.Negate(a.X),
+                Compute.Negate(a.Y),
+                Compute.Negate(a.Z),
+                a.W);
 		};
 		#endregion
 
 		#region Add
-		/// <summary>Adds two quaternions together.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Add Quaternion_Add = (Quaternion<T> left, Quaternion<T> right) =>
+		
+		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Add = (Quaternion<T> a, Quaternion<T> b) =>
 		{
-			string Quaternion_Add_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		throw new System.Exception(\"null reference: _right\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		_left.X + _right.X," +
-				"		_left.Y + _right.Y," +
-				"		_left.Z + _right.Z," +
-				"		_left.W + _right.W);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Add =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Add>(Quaternion_Add_string);
-
-			return Quaternion<T>.Quaternion_Add(left, right);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            return new Quaternion<T>(
+                Compute.Add(a.X, b.X),
+                Compute.Add(a.Y, b.Y),
+                Compute.Add(a.Z, b.Z),
+                Compute.Add(a.W, b.W));
 		};
 		#endregion
 
 		#region Subtract
-		/// <summary>Subtracts two quaternions.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Subtract Quaternion_Subtract = (Quaternion<T> left, Quaternion<T> right) =>
+		
+		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Subtract = (Quaternion<T> a, Quaternion<T> b) =>
 		{
-			string Quaternion_Subtract_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		throw new System.Exception(\"null reference: _right\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		_left.X - _right.X," +
-				"		_left.Y - _right.Y," +
-				"		_left.Z - _right.Z," +
-				"		_left.W - _right.W);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Subtract =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Subtract>(Quaternion_Subtract_string);
-
-			return Quaternion<T>.Quaternion_Subtract(left, right);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            return new Quaternion<T>(
+                Compute.Subtract(a.X, b.X),
+                Compute.Subtract(a.Y, b.Y),
+                Compute.Subtract(a.Z, b.Z),
+                Compute.Subtract(a.W, b.W));
 		};
+
 		#endregion
 
 		#region Multiply
-		/// <summary>Multiplies two quaternions together.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Multiply Quaternion_Multiply = (Quaternion<T> left, Quaternion<T> right) =>
+		
+		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Multiply = (Quaternion<T> a, Quaternion<T> b) =>
 		{
-			string Quaternion_Multiply_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		throw new System.Exception(\"null reference: _right\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		_left.X * _right.W + _left.W * _right.X + _left.Y * _right.Z - _left.Z * _right.Y," +
-				"		_left.Y * _right.W + _left.W * _right.Y + _left.Z * _right.X - _left.X * _right.Z," +
-				"		_left.Z * _right.W + _left.W * _right.Z + _left.X * _right.Y - _left.Y * _right.X," +
-				"		_left.W * _right.W - _left.X * _right.X - _left.Y * _right.Y - _left.Z * _right.Z);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Multiply =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Multiply>(Quaternion_Multiply_string);
-
-			return Quaternion<T>.Quaternion_Multiply(left, right);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            return new Quaternion<T>(
+                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.X, b.W), Compute.Multiply(a.W, b.X)), Compute.Multiply(a.Y, b.Z)), Compute.Multiply(a.Z, b.Y)),
+                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.Y, b.W), Compute.Multiply(a.W, b.Y)), Compute.Multiply(a.Z, b.X)), Compute.Multiply(a.X, b.Z)),
+                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.Z, b.W), Compute.Multiply(a.W, b.Z)), Compute.Multiply(a.X, b.Y)), Compute.Multiply(a.Y, b.X)),
+                Compute.Subtract(Compute.Subtract(Compute.Subtract(Compute.Multiply(a.W, b.W), Compute.Multiply(a.X, b.X)), Compute.Multiply(a.Y, b.Y)), Compute.Multiply(a.Z, b.Z)));
 		};
 		#endregion
 
-		#region Multiply_scalar
-		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Multiply_scalar Quaternion_Multiply_scalar = (Quaternion<T> left, T right) =>
+		#region MultiplyScalar
+		
+		private static Func<Quaternion<T>, T, Quaternion<T>> Quaternion_MultiplyScalar = (Quaternion<T> a, T b) =>
 		{
-			string Quaternion_Multiply_scalar_string =
-				"(Quaternion<" + T_Source + "> _left, " + T_Source + " _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		_left.X * _right," +
-				"		_left.Y * _right," +
-				"		_left.Z * _right," +
-				"		_left.W * _right);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Multiply_scalar =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Multiply_scalar>(Quaternion_Multiply_scalar_string);
-
-			return Quaternion<T>.Quaternion_Multiply_scalar(left, right);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return new Quaternion<T>(
+                Compute.Multiply(a.X, b),
+                Compute.Multiply(a.Y, b),
+                Compute.Multiply(a.Z, b),
+                Compute.Multiply(a.W, b));
 		};
 		#endregion
 
-		#region Multiply_Vector
-		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Multiply_Vector Quaternion_Multiply_Vector = (Quaternion<T> left, Vector<T> right) =>
+		#region MultiplyVector
+		
+		private static Func<Quaternion<T>, Vector<T>, Quaternion<T>>  Quaternion_MultiplyVector = (Quaternion<T> a, Vector<T> b) =>
 		{
-			string Quaternion_Multiply_Vector_string =
-				"(Quaternion<" + T_Source + "> _left, Vector<" + T_Source + "> _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		throw new System.Exception(\"null reference: _right\");" +
-				"	if (_right.Dimensions != 3)" +
-				"		throw new System.Exception(\"my quaternion rotations are only defined for 3-component vectors.\");" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		_left.W * _right.X + _left.Y * _right.Z - _left.Z * _right.Y," +
-				"		_left.W * _right.Y + _left.Z * _right.X - _left.X * _right.Z," +
-				"		_left.W * _right.Z + _left.X * _right.Y - _left.Y * _right.X," +
-				"		-_left.X * _right.X - _left.Y * _right.Y - _left.Z * _right.Z);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Multiply_Vector =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Multiply_Vector>(Quaternion_Multiply_Vector_string);
-
-			return Quaternion<T>.Quaternion_Multiply_Vector(left, right);
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (b.Dimensions != 3)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
+            }
+            return new Quaternion<T>(
+            	Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.X), Compute.Multiply(a.Y, b.Z)), Compute.Multiply(a.Z, b.Y)),
+                Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.Y), Compute.Multiply(a.Z, b.X)), Compute.Multiply(a.X, b.Z)),
+                Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.Z), Compute.Multiply(a.X, b.Y)), Compute.Multiply(a.Y, b.X)),
+            	Compute.Subtract(Compute.Subtract(Compute.Multiply(Compute.Negate(a.X), b.X), Compute.Multiply(a.Y, b.Y)), Compute.Multiply(a.Z, b.Z)));
 		};
+
 		#endregion
 
 		#region Normalize
 		/// <summary>Normalizes the quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Normalize Quaternion_Normalize = (Quaternion<T> quaternion) =>
+		private static Quaternion<T>.Delegates.Quaternion_Normalize Quaternion_Normalize = (Quaternion<T> a) =>
 		{
-			string Quaternion_Normalize_string =
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T normalizer = a.Magnitude();
+            if (normalizer != 0)
+            {
+                return a * (1 / normalizer);
+            }
+            else
+            {
+                return new Quaternion<" + T_Source + ">(0, 0, 0, 1);
+            }
+
+            string Quaternion_Normalize_string =
 				"(Quaternion<" + T_Source + "> _quaternion) =>" +
 				"{" +
 				"	if (object.ReferenceEquals(_quaternion, null))" +
@@ -849,62 +787,6 @@
 
 			return Quaternion<T>.Quaternion_EqualsValue_leniency(left, right, leniency);
 		};
-		#endregion
-
-		#region generic
-
-		///// <summary>Sphereically interpolates between two quaternions.</summary>
-		///// <param name="left">The starting point of the interpolation.</param>
-		///// <param name="right">The ending point of the interpolation.</param>
-		///// <param name="blend">The ratio of how far to interpolate between the left and right quaternions.</param>
-		///// <returns>The result of the interpolation.</returns>
-		//private static Quaternion<generic> Slerp(Quaternion<generic> left, Quaternion<generic> right, generic blend)
-		//{
-		//		throw new System.Exception("requires rational rational types");
-
-		//		//#if no_error_checking
-		//		//			// nothing
-		//		//#else
-		//		//			if (object.ReferenceEquals(left, null))
-		//		//				throw new System.Exception("null reference: left");
-		//		//			if (object.ReferenceEquals(right, null))
-		//		//				throw new System.Exception("null reference: right");
-		//		//#endif
-
-		//		//			if (blend < 0 || blend > 1)
-		//		//				throw new System.Exception("invalid blending value during slerp !(blend < 0.0f || blend > 1.0f).");
-		//		//			if (LinearAlgebra.MagnitudeSquared(left) == 0)
-		//		//			{
-		//		//				if (LinearAlgebra.MagnitudeSquared(right) == 0)
-		//		//					return Quaternion<generic>.FactoryIdentity;
-		//		//				else
-		//		//					return new Quaternion<generic>(right.X, right.Y, right.Z, right.W);
-		//		//			}
-		//		//			else if (LinearAlgebra.MagnitudeSquared(right) == 0)
-		//		//				return new Quaternion<generic>(left.X, left.Y, left.Z, left.W);
-		//		//			generic cosHalfAngle = left.X * right.X + left.Y * right.Y + left.Z * right.Z + left.W * right.W;
-		//		//			if (cosHalfAngle >= 1 || cosHalfAngle <= -1)
-		//		//				return new Quaternion<generic>(left.X, left.Y, left.Z, left.W);
-		//		//			else if (cosHalfAngle < 0)
-		//		//			{
-		//		//				right = new Quaternion<generic>(-left.X, -left.Y, -left.Z, -left.W);
-		//		//				cosHalfAngle = -cosHalfAngle;
-		//		//			}
-		//		//			generic halfAngle = Trigonometry.arccos(cosHalfAngle);
-		//		//			generic sinHalfAngle = Trigonometry.sin(halfAngle);
-		//		//			generic blendA = Trigonometry.sin(halfAngle * (1 - blend)) / sinHalfAngle;
-		//		//			generic blendB = Trigonometry.sin(halfAngle * blend) / sinHalfAngle;
-		//		//			Quaternion<generic> result = new Quaternion<generic>(
-		//		//				blendA * left.X + blendB * right.X,
-		//		//				blendA * left.Y + blendB * right.Y,
-		//		//				blendA * left.Z + blendB * right.Z,
-		//		//				blendA * left.W + blendB * right.W);
-		//		//			if (LinearAlgebra.MagnitudeSquared(result) > 0)
-		//		//				return LinearAlgebra.Normalize(result);
-		//		//			else
-		//		//				return Quaternion<generic>.FactoryIdentity;
-		//}
-
 		#endregion
 
 		#endregion

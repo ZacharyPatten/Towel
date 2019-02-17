@@ -17,7 +17,7 @@
 				throw new System.ArgumentNullException("a");
 			if (b == null)
 				throw new System.ArgumentNullException("b");
-			if (Compute<T>.LessThan(b, a))
+			if (Compute.LessThan(b, a))
 				return false;
 			return true;
 		}
@@ -56,7 +56,7 @@
 		{
 			get
 			{
-				return Compute<T>.Mean(this._min, this._max);
+				return Compute.Mean(this._min, this._max);
 			}
 		}
 
@@ -70,7 +70,7 @@
 				throw new System.ArgumentNullException("min");
 			if (object.ReferenceEquals(null, max))
 				throw new System.ArgumentNullException("max");
-			if (Compute<T>.GreaterThan(min, max))
+			if (Compute.GreaterThan(min, max))
 				throw new System.ArithmeticException("invalid vectors during range construction !(min <= max)");
 			this._min = min;
 			this._max = max;
@@ -92,7 +92,7 @@
 				throw new System.ArgumentNullException("range");
 			if (value == null)
 				throw new System.ArgumentNullException("value");
-			if (Compute<T>.LessThan(value, range._min) || Compute<T>.GreaterThan(value, range._max))
+			if (Compute.LessThan(value, range._min) || Compute.GreaterThan(value, range._max))
 				return false;
 			return true;
 		}
@@ -103,7 +103,7 @@
 				throw new System.ArgumentNullException("a");
 			if (object.ReferenceEquals(null, b))
 				throw new System.ArgumentNullException("b");
-			if (Compute<T>.LessThan(b._min, a._min) || Compute<T>.GreaterThan(b._max, a._max))
+			if (Compute.LessThan(b._min, a._min) || Compute.GreaterThan(b._max, a._max))
 				return false;
 			return true;
 		}
@@ -114,7 +114,7 @@
 				throw new System.ArgumentNullException("a");
 			if (object.ReferenceEquals(null, b))
 				throw new System.ArgumentNullException("b");
-			if (Compute<T>.LessThan(a._max, b._min) || Compute<T>.GreaterThan(a._min, b._max))
+			if (Compute.LessThan(a._max, b._min) || Compute.GreaterThan(a._min, b._max))
 				return false;
 			return true;
 		}
@@ -129,11 +129,11 @@
 				return null;
 			T min;
 			T max;
-			if (Compute<T>.GreaterThan(a._min, b._min))
+			if (Compute.GreaterThan(a._min, b._min))
 				min = a._min;
 			else
 				min = b._min;
-			if (Compute<T>.LessThan(a._max, b._max))
+			if (Compute.LessThan(a._max, b._max))
 				max = a._max;
 			else
 				max = b._max;
@@ -150,11 +150,11 @@
 			{
 				T min;
 				T max;
-				if (Compute<T>.LessThan(a._min, b._min))
+				if (Compute.LessThan(a._min, b._min))
 					min = a._min;
 				else
 					min = b._min;
-				if (Compute<T>.GreaterThan(a._max, b._max))
+				if (Compute.GreaterThan(a._max, b._max))
 					max = a._max;
 				else
 					max = b._max;
@@ -174,15 +174,15 @@
 				throw new System.ArgumentNullException("b");
 			if (!Range<T>.Overlaps(a, b))
 				return new Range<T>[] { new Range<T>(a) };
-			if (Compute<T>.Equate(a._min, b._min) && Compute<T>.Equate(a._max, b._max))
+			if (Compute.Equal(a._min, b._min) && Compute.Equal(a._max, b._max))
 				return null;
 			T min;
 			T max;
-			if (Compute<T>.LessThan(a._min, b._min) && Compute<T>.GreaterThan(a._max, b._max))
+			if (Compute.LessThan(a._min, b._min) && Compute.GreaterThan(a._max, b._max))
 			{
 				return new Range<T>[] { new Range<T>(a._min, b._min), new Range<T>(b._max, a._max) };
 			}
-			if (Compute<T>.LessThan(a._min, b._min))
+			if (Compute.LessThan(a._min, b._min))
 			{
 				min = a._min;
 				max = b._min;
@@ -209,7 +209,7 @@
 				throw new System.ArgumentNullException("a");
 			if (object.ReferenceEquals(null, b))
 				throw new System.ArgumentNullException("b");
-			return object.ReferenceEquals(a, b) || (Compute<T>.Equate(a._min, b._min) && Compute<T>.Equate(a._max, b._max));
+			return object.ReferenceEquals(a, b) || (Compute.Equal(a._min, b._min) && Compute.Equal(a._max, b._max));
 		}
 
 		#endregion

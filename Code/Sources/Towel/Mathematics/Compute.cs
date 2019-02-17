@@ -3,6 +3,7 @@ using Towel.Structures;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
@@ -22,6 +23,8 @@ namespace Towel.Mathematics
             public static readonly T Two = Compute.FromInt32<T>(2);
             /// <summary>Two (2)</summary>
             public static readonly T Three = Compute.FromInt32<T>(3);
+            /// <summary>Negative One (-1)</summary>
+            public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
             /// <summary>Pi (3.14...)</summary>
             public static readonly T Pi = Compute.ComputePi<T>();
             /// <summary>Epsilon (1.192092896...e-012f)</summary>
@@ -379,7 +382,7 @@ namespace Towel.Mathematics
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     ParameterExpression B = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod("Pow"), A, B);
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Pow)), A, B);
                     Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
                     return Function(a, b);
                 }
@@ -411,7 +414,7 @@ namespace Towel.Mathematics
                 if (typeof(double).IsAssignableFrom(typeof(T)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod("Sqrt"), A);
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), A);
                     Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
                     return Function(a);
                 }
@@ -741,32 +744,27 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region EqualsLeniency
+        #region EqualLeniency
 
-        //public static T Clamp(T value, T minimum, T maximum)
-        //{
-        //    return Compute<T>._Clamp(value, minimum, maximum);
-        //}
+        public static bool Equal<T>(T a, T b, T leniency)
+        {
+            return EqualLeniencyImplementation<T>.Function(a, b, leniency);
+        }
 
-        //private static Func<T, T, T, T> _Clamp = (T value, T minimum, T maximum) =>
-        //{
-        //    StringBuilder code = new StringBuilder();
-        //    code.Append("(x, y, z) =>");
-        //    code.Append("{");
-        //    code.Append("    if (x < y)");
-        //    code.Append("   {");
-        //    code.Append("       return y;");
-        //    code.Append("   }");
-        //    code.Append("   else if (x > z)");
-        //    code.Append("   {");
-        //    code.Append("       return z;");
-        //    code.Append("   }");
-        //    code.Append("   return x;");
-        //    code.Append("}");
-
-        //    Meta.Compile<Func<T, T, T, T>>(code.ToString(), x => _Clamp = x);
-        //    return Compute<T>._Clamp(value, minimum, maximum);
-        //};
+        internal static class EqualLeniencyImplementation<T>
+        {
+            internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
+            {
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.And(
+                    Expression.GreaterThan(A, Expression.Subtract(B, C)),
+                    Expression.LessThan(A, Expression.Add(B, C)));
+                Function = Expression.Lambda<Func<T, T, T, bool>>(BODY, A, B, C).Compile();
+                return Function(a, b, c);
+            };
+        }
 
         #endregion
 
@@ -1126,7 +1124,7 @@ namespace Towel.Mathematics
         {
             if (stepper == null)
             {
-                throw new ArgumentNullException("stepper");
+                throw new ArgumentNullException(nameof(stepper));
             }
             bool assigned = false;
             T answer = Constant<T>.Zero;
@@ -1134,11 +1132,11 @@ namespace Towel.Mathematics
             {
                 if (n == null)
                 {
-                    throw new ArgumentNullException("stepper", "Although the argument is not null, it contains null values.");
+                    throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " contains null value(s).");
                 }
                 if (!IsInteger(n))
                 {
-			        throw new System.Exception("Attempting to find the Greatest Common Factor of a non-integer value.");
+			        throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }
                 if (!assigned)
                 {
@@ -1163,7 +1161,7 @@ namespace Towel.Mathematics
             });
             if (!assigned)
             {
-                throw new ArgumentNullException("stepper", "Although the argument is not null, it contains no values.");
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
             }
             return answer;
         }
@@ -1181,7 +1179,7 @@ namespace Towel.Mathematics
         {
             if (stepper == null)
             {
-                throw new ArgumentNullException("stepper");
+                throw new ArgumentNullException(nameof(stepper));
             }
             bool assigned = false;
             T answer = Constant<T>.Zero;
@@ -1194,7 +1192,7 @@ namespace Towel.Mathematics
                 }
                 if (!IsInteger(n))
                 {
-                    throw new Exception("Attempting to find the least common multiple of a non-integer value.");
+                    throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }
                 if (!assigned)
 		        {
@@ -1208,7 +1206,7 @@ namespace Towel.Mathematics
             });
             if (!assigned)
             {
-                throw new ArgumentNullException("stepper", "Although the argument is not null, it contains no values.");
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
             }
             return answer;
         }
@@ -1219,23 +1217,17 @@ namespace Towel.Mathematics
 
         private static T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1)
         {
-            if (GreaterThan(x0, x1))
+            if (GreaterThan(x0, x1) ||
+                GreaterThan(x, x1) ||
+                LessThan(x, x0))
             {
-                throw new Exception("invalid arguments: x0 > x1");
-            }
-            if (GreaterThan(x, x1))
-            {
-                throw new Exception("invalid arguments: x > x1");
-            }
-            if (LessThan(x, x0))
-            {
-                throw new Exception("invalid arguments: x < x0");
+                throw new MathematicsException("Arguments out of range !(" + nameof(x0) + " <= " + nameof(x) + " <= " + nameof(x1) + ") [" + x0 + " <= " + x + " <= " + x1 + "].");
             }
             if (Equal(x0, x1))
             {
                 if (NotEqual(y0, y1))
                 {
-                    throw new Exception("invalid arguments: x0 == x1 && y0 != y1");
+                    throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) +") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
                 }
                 else
                 {
@@ -1253,11 +1245,11 @@ namespace Towel.Mathematics
         {
             if (!IsInteger(a))
             {
-                throw new Exception("invalid factorial: value must be a whole number");
+                throw new ArgumentOutOfRangeException(nameof(a), a, "!" + nameof(a) + "." + nameof(IsInteger));
             }
             if (LessThan(a, Constant<T>.Zero))
             {
-                throw new Exception("invalid factorial: [ value < 0 ]");
+                throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + " >= 0)");
             }
             T result = Constant<T>.One;
             for (; GreaterThan(a, Constant<T>.One); a = Subtract(a, Constant<T>.One))
@@ -1273,7 +1265,7 @@ namespace Towel.Mathematics
         {
             if (!IsInteger(N))
             {
-                throw new Exception("invalid combination: N must be a whole number.");
+                throw new ArgumentOutOfRangeException(nameof(N), N, "!(" + nameof(N) + "." + nameof(IsInteger) + ")");
             }
             T result = Factorial(N);
             T sum = Constant<T>.Zero;
@@ -1281,14 +1273,14 @@ namespace Towel.Mathematics
             {
                 if (!IsInteger(n[i]))
                 {
-                    throw new Exception("invalid combination: n[" + i + "] must be a whole number.");
+                    throw new ArgumentOutOfRangeException(nameof(n) + "[" + i + "]", n[i], "!(" + nameof(n) + "[" + i + "]." + nameof(IsInteger) + ")");
                 }
                 result = Divide(result, Factorial(n[i]));
                 sum = Add(sum, n[i]);
             }
             if (GreaterThan(sum, N))
             {
-                throw new Exception("invalid combination: [ N < Sum(n) ].");
+                throw new MathematicsException("Aurguments out of range !(" + nameof(N) + " < Add(" + nameof(n) + ") [" + N + " < " + sum + "].");
             }
             return result;
         }
@@ -1299,17 +1291,21 @@ namespace Towel.Mathematics
 
         private static T Choose<T>(T N, T n)
         {
+            if (LessThan(N, Compute.Constant<T>.Zero))
+            {
+                throw new ArgumentOutOfRangeException(nameof(N), N, "!(" + nameof(N) + " >= 0)");
+            }
             if (!IsInteger(N))
             {
-                throw new Exception("invalid factorial: N must be a whole number");
+                throw new ArgumentOutOfRangeException(nameof(N), N, "!(" + nameof(N) + "." + nameof(IsInteger) + ")");
             }
             if (!IsInteger(n))
             {
-                throw new Exception("invalid factorial: n must be a whole number");
+                throw new ArgumentOutOfRangeException(nameof(n), n, "!(" + nameof(n) + "." + nameof(IsInteger) + ")");
             }
-            if (!(LessThanOrEqual(N, n) || GreaterThanOrEqual(N, Constant<T>.Zero)))
+            if (GreaterThan(N, n))
             {
-                throw new Exception("invalid choose: [ !(N <= n || N >= 0) ]");
+                throw new MathematicsException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
             }
             return Divide(Factorial(N), Factorial(Subtract(N, n)));
         }
@@ -1520,7 +1516,9 @@ namespace Towel.Mathematics
         public static T[] Quantiles<T>(int quantiles, Stepper<T> stepper)
         {
             if (quantiles < 1)
-                throw new Exception("invalid numer of dimensions on Quantile division");
+            {
+                throw new ArgumentOutOfRangeException(nameof(quantiles), quantiles, "!(" + nameof(quantiles) + " < 1)");
+            }
             int count = stepper.Count();
             T[] ordered = new T[count];
             int a = 0;
@@ -1630,520 +1628,446 @@ namespace Towel.Mathematics
         }
 
         #endregion
-
-        #region Trigonometric functions
-
-        //        #region Sine
-        //        /// <summary>Computes the ratio [length of the side opposite to the angle / hypotenuse] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Sine Sine_private = (Angle<T> angle) =>
-        //                {
-        //                    #region Optimizations
-        //                    if (typeof(T) == typeof(double)) // double optimization
-        //                    {
-        //                        Compute<double>.Sine_private = (Angle<double> _angle) => { return System.Math.Sin(_angle.Radians); };
-        //                        return Compute<T>.Sine(angle);
-        //                    }
-        //                    if (typeof(T) == typeof(float)) // float optimization
-        //                    {
-        //                        Compute<float>.Sine_private = (Angle<float> _angle) => { return (float)System.Math.Sin(_angle.Radians); };
-        //                        return Compute<T>.Sine(angle);
-        //                    }
-        //                    #endregion
-        //                    // Series: sin(x) = x - x^3/3! + x^5/5! - x^7/7! ...
-        //                    // more terms in computation inproves accuracy
-
-        //                    Compute<T>.Sine_private =
-        //                            Meta.Compile<Compute<T>.Delegates.Sine>(
-        //                                    string.Concat(
-        //@"(", Meta.ConvertTypeToCsharpSource(typeof(T)), @" _angle) =>
-        //{
-        //	// get the angle into the positive unit circle
-        //	_angle = _angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 2);
-        //	if (_angle < 0)
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 2) + _angle;
-        //	if (_angle <= Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2)
-        //		goto QuandrantSkip;
-        //	else if (_angle <= Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi)
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">.Pi / 2) - (_angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2));
-        //	else if (_angle <= (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 3) / 2)
-        //		_angle = _angle % Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi;
-        //	else
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">.Pi / 2) - (_angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2));
-        //QuandrantSkip:
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" three_factorial = 6;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" five_factorial = 120;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" seven_factorial = 5040;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleCubed = _angle * _angle * _angle;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFifth = angleCubed * _angle * _angle;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSeventh = angleToTheFifth * _angle * _angle;
-        //	return -(_angle
-        //		- (angleCubed / three_factorial)
-        //		+ (angleToTheFifth / five_factorial)
-        //		- (angleToTheSeventh / seven_factorial));
-        //}"));
-
-        //                    return Compute<T>.Sine(angle);
-        //                };
-
-        //        public static T Sine(Angle<T> angle)
-        //        {
-        //            return Sine_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region Cosine
-        //        /// <summary>Computes the ratio [length of the side adjacent to the angle / hypotenuse] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Cosine Cosine_private = (Angle<T> angle) =>
-        //{
-        //    // rather than computing cos, you could do a phase shift and use sin
-        //    // return Sin(angle + (Pi / 2));
-
-        //    if (typeof(T) == typeof(double)) // double optimization
-        //        Compute<double>.Cosine_private = (Angle<double> _angle) => { return System.Math.Cos(_angle.Radians); };
-        //    else if (typeof(T) == typeof(float)) // float optimization
-        //        Compute<float>.Cosine_private = (Angle<float> _angle) => { return (float)System.Math.Cos(_angle.Radians); };
-        //    else
-        //    {
-        //        // Series: cos(x) = 1 - x^2/2! + x^4/4! - x^6/6! ...
-        //        // more terms in computation inproves accuracy
-
-        //        Compute<T>.Cosine_private =
-        //Meta.Compile<Compute<T>.Delegates.Cosine>(
-        //string.Concat(
-        //@"(", Meta.ConvertTypeToCsharpSource(typeof(T)), @" _angle) =>
-        //{
-        //	// get the angle into the positive unit circle
-        //	_angle = _angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 2);
-        //	if (_angle < 0)
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 2) + _angle;
-        //	if (_angle <= Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2)
-        //		goto QuandrantSkip;
-        //	else if (_angle <= Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi)
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">.Pi / 2) - (_angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2));
-        //	else if (_angle <= (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi * 3) / 2)
-        //		_angle = _angle % Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi;
-        //	else
-        //		_angle = (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">.Pi / 2) - (_angle % (Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.Pi / 2));
-        //QuandrantSkip:
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" one = 1;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" two_factorial = 2;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" four_factorial = 24;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" six_factorial = 720;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleSquared = _angle * _angle;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFourth = angleSquared * _angle * _angle;
-        //	", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSixth = angleToTheFourth * _angle * _angle;
-        //	return one
-        //		- (angleSquared / two_factorial)
-        //		+ (angleToTheFourth / four_factorial)
-        //		- (angleToTheSixth / six_factorial);
-        //}"));
-        //    }
-
-        //    return Compute<T>.Cosine(angle);
-        //};
-
-        //        public static T Cosine(Angle<T> angle)
-        //        {
-        //            return Cosine_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region Tangent
-        //        /// <summary>Computes the ratio [length of the side opposite to the angle / length of the side adjacent to the angle] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Tangent Tangent_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double)) // double optimization
-        //                Compute<double>.Tangent_private = (Angle<double> _angle) => { return System.Math.Tan(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float)) // float optimization
-        //                Compute<float>.Tangent_private = (Angle<float> _angle) => { return (float)System.Math.Tan(_angle.Radians); };
-        //            else
-        //            {
-        //                // Series: tan(x) = x + x^3/3 + 2x^5/15 + 17x^7/315 ...
-        //                // more terms in computation inproves accuracy
-
-        //                Compute<T>.Tangent_private =
-        //    Meta.Compile<Compute<T>.Delegates.Tangent>(
-        //        "(" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " _angle) =>" +
-        //        "{" +
-        //        "	// get the angle into the positive unit circle" +
-        //        "	_angle = _angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2);" +
-        //        "	if (_angle < 0)" +
-        //        "		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2) + _angle;" +
-        //        "	if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) // quadrant 1" +
-        //        "		goto QuandrantSkip;" +
-        //        "	else if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi) // quadrant 2" +
-        //        "		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
-        //        "	else if (_angle <= (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 3) / 2) // quadrant 3" +
-        //        "		_angle = _angle % Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi;" +
-        //        "	else // quadrant 4" +
-        //        "		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
-        //        "QuandrantSkip:" +
-        //        "	// do the computation" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " two = 2;" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " three = 3;" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " fifteen = 15;" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " seventeen = 17;" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " threehundredfifteen = 315;" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleCubed = _angle * _angle * _angle; // angle ^ 3" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheFifth = angleCubed * _angle * _angle; // angle ^ 5" +
-        //        "	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheSeventh = angleToTheFifth * _angle * _angle;  // angle ^ 7" +
-        //        "	return angle" +
-        //        "		+ (angleCubed / three)" +
-        //        "		+ (two * angleToTheFifth / fifteen)" +
-        //        "		+ (seventeen * angleToTheSeventh / threehundredfifteen);" +
-        //        "}");
-        //            }
-
-        //            return Compute<T>.Tangent_private(angle);
-        //        };
-
-        //        public static T Tangent(Angle<T> angle)
-        //        {
-        //            return Tangent_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region Cosecant
-        //        /// <summary>Computes the ratio [hypotenuse / length of the side opposite to the angle] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Cosecant Cosecant_private = (Angle<T> angle) =>
-        //        {
-        //            // Series: csc(x) = x^-1 + x/6 + 7x^3/360 + 31x^5/15120 ...
-        //            // more terms in computation inproves accuracy
-
-        //            Compute<T>.Cosecant_private =
-        //                Meta.Compile<Compute<T>.Delegates.Cosecant>(
-        //                    "(" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " _angle) =>" +
-        //                    "{" +
-        //                    "	return (" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ")1 / Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Sine(_angle);" +
-        //                    "}");
-
-        //            return Compute<T>.Cosecant_private(angle);
-        //        };
-
-        //        public static T Cosecant(Angle<T> angle)
-        //        {
-        //            return Cosecant_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region Secant
-        //        /// <summary>Computes the ratio [hypotenuse / length of the side adjacent to the angle] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Secant Secant_private = (Angle<T> angle) =>
-        //        {
-        //            // Series: sec(x) = ...
-        //            // more terms in computation inproves accuracy
-
-        //            Compute<T>.Secant_private =
-        //                Meta.Compile<Compute<T>.Delegates.Secant>(
-        //                    "(" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " _angle) =>" +
-        //                    "{" +
-        //                    "	return (" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ")1 / Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Cosine(_angle);" +
-        //                    "}");
-
-        //            return Compute<T>.Secant_private(angle);
-        //        };
-
-        //        public static T Secant(Angle<T> angle)
-        //        {
-        //            return Secant_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region Cotangent
-        //        /// <summary>Computes the ratio [length of the side adjacent to the angle / length of the side opposite to the angle] in a right triangle.</summary>
-        //        private static Compute<T>.Delegates.Cotangent Cotangent_private = (Angle<T> angle) =>
-        //        {
-        //            // Series: cot(x) = ...
-        //            // more terms in computation inproves accuracy
-
-        //            Compute<T>.Cotangent_private =
-        //                Meta.Compile<Compute<T>.Delegates.Cotangent>(
-        //                    "(" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " _angle) =>" +
-        //                    "{" +
-        //                    "	return (" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ")1 / Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Tangent(_angle);" +
-        //                    "}");
-
-        //            return Compute<T>.Cotangent_private(angle);
-        //        };
-
-        //        public static T Cotangent(Angle<T> angle)
-        //        {
-        //            return Cotangent_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region InverseSine
-        //        private static Compute<T>.Delegates.InverseSine InverseSine_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseSine_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Asin(_ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseSine_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Asin(_ratio)); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.InverseSine_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseSine(T ratio)
-        //        {
-        //            return InverseSine_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region InverseCosine
-        //        private static Compute<T>.Delegates.InverseCosine InverseCosine_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseCosine_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Acos(_ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseCosine_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Acos(_ratio)); };
-        //            else
-        //                throw new System.NotImplementedException();
-
-        //            return Compute<T>.InverseCosine_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseCosine(T ratio)
-        //        {
-        //            return InverseCosine_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region InverseTangent
-        //        private static Compute<T>.Delegates.InverseTangent InverseTangent_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseTangent_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Atan(_ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseTangent_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Atan(_ratio)); };
-        //            else
-        //                throw new System.NotImplementedException();
-
-        //            return Compute<T>.InverseTangent_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseTangent(T ratio)
-        //        {
-        //            return InverseTangent_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region InverseCosecant
-        //        private static Compute<T>.Delegates.InverseCosecant InverseCosecant_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseCosecant_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Asin(1d / _ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseCosecant_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Asin(1f / _ratio)); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.InverseCosecant_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseCosecant(T ratio)
-        //        {
-        //            return InverseCosecant_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region InverseSecant
-        //        private static Compute<T>.Delegates.InverseSecant InverseSecant_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseSecant_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Acos(1d / _ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseSecant_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Acos(1f / _ratio)); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.InverseSecant_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseSecant(T ratio)
-        //        {
-        //            return InverseSecant_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region InverseCotangent
-        //        private static Compute<T>.Delegates.InverseCotangent InverseCotangent_private = (T ratio) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.InverseCotangent_private = (double _ratio) => { return Angle<double>.Factory_Radians(System.Math.Atan(1d / _ratio)); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.InverseCotangent_private = (float _ratio) => { return Angle<float>.Factory_Radians((float)System.Math.Atan(1f / _ratio)); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.InverseCotangent_private(ratio);
-        //        };
-
-        //        public static Angle<T> InverseCotangent(T ratio)
-        //        {
-        //            return InverseCotangent_private(ratio);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicSine
-        //        private static Compute<T>.Delegates.HyperbolicSine HyperbolicSine_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicSine_private = (Angle<double> _angle) => { return System.Math.Sinh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicSine_private = (Angle<float> _angle) => { return (float)System.Math.Sinh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException();
-
-        //            return Compute<T>.HyperbolicSine_private(angle);
-        //        };
-
-        //        public static T HyperbolicSine(Angle<T> angle)
-        //        {
-        //            return HyperbolicSine_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicCosine
-        //        private static Compute<T>.Delegates.HyperbolicCosine HyperbolicCosine_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicCosine_private = (Angle<double> _angle) => { return System.Math.Cosh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicCosine_private = (Angle<float> _angle) => { return (float)System.Math.Cosh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException();
-
-        //            return Compute<T>.HyperbolicCosine_private(angle);
-        //        };
-
-        //        public static T HyperbolicCosine(Angle<T> angle)
-        //        {
-        //            return HyperbolicCosine_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicTangent
-        //        private static Compute<T>.Delegates.HyperbolicTangent HyperbolicTangent_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicTangent_private = (Angle<double> _angle) => { return System.Math.Tanh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicTangent_private = (Angle<float> _angle) => { return (float)System.Math.Tanh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.HyperbolicTangent_private(angle);
-        //        };
-
-        //        public static T HyperbolicTangent(Angle<T> angle)
-        //        {
-        //            return HyperbolicTangent_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicSecant
-        //        private static Compute<T>.Delegates.HyperbolicSecant HyperbolicSecant_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicSecant_private = (Angle<double> _angle) => { return 1d / System.Math.Cosh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicSecant_private = (Angle<float> _angle) => { return 1f / (float)System.Math.Cosh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.HyperbolicSecant_private(angle);
-        //        };
-
-        //        public static T HyperbolicSecant(Angle<T> angle)
-        //        {
-        //            return HyperbolicSecant_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicCosecant
-        //        private static Compute<T>.Delegates.HyperbolicCosecant HyperbolicCosecant_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicCosecant_private = (Angle<double> _angle) => { return 1d / System.Math.Sinh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicCosecant_private = (Angle<float> _angle) => { return 1f / (float)System.Math.Sinh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.HyperbolicCosecant_private(angle);
-        //        };
-
-        //        public static T HyperbolicCosecant(Angle<T> angle)
-        //        {
-        //            return HyperbolicCosecant_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region HyperbolicCotangent
-        //        private static Compute<T>.Delegates.HyperbolicCotangent HyperbolicCotangent_private = (Angle<T> angle) =>
-        //        {
-        //            if (typeof(T) == typeof(double))
-        //                Compute<double>.HyperbolicCotangent_private = (Angle<double> _angle) => { return 1d / System.Math.Tanh(_angle.Radians); };
-        //            else if (typeof(T) == typeof(float))
-        //                Compute<float>.HyperbolicCotangent_private = (Angle<float> _angle) => { return 1f / (float)System.Math.Tanh(_angle.Radians); };
-        //            else
-        //                throw new System.NotImplementedException("unsupported parameter type for Cot function");
-
-        //            return Compute<T>.HyperbolicCotangent_private(angle);
-        //        };
-
-        //        public static T HyperbolicCotangent(Angle<T> angle)
-        //        {
-        //            return HyperbolicCotangent_private(angle);
-        //        }
-        //        #endregion
-
-        //        #region InverseHyperbolicSine
-        //        private static Compute<T>.Delegates.InverseHyperbolicSine InverseHyperbolicSine_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
-
-        //        #region InverseHyperbolicCosine
-        //        private static Compute<T>.Delegates.InverseHyperbolicCosine InverseHyperbolicCosine_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
-
-        //        #region InverseHyperbolicTangent
-        //        private static Compute<T>.Delegates.InverseHyperbolicTangent InverseHyperbolicTangent_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
-
-        //        #region InverseHyperbolicCosecant
-        //        private static Compute<T>.Delegates.InverseHyperbolicCosecant InverseHyperbolicCosecant_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
-
-        //        #region InverseHyperbolicSecant
-        //        private static Compute<T>.Delegates.InverseHyperbolicSecant InverseHyperbolicSecant_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
-
-        //        #region InverseHyperbolicCotangent
-        //        private static Compute<T>.Delegates.InverseHyperbolicCotangent InverseHyperbolicCotangent_private = (T ratio) =>
-        //        {
-        //            throw new System.NotImplementedException();
-        //        };
-        //        #endregion
+        
+        #region Sine
+
+        public static T Sine<T>(Angle<T> a)
+        {
+            return SineImplementation<T>.Function(a);
+        }
+
+        internal static class SineImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sin)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+
+                //// get the angle into the positive unit circle
+                //_angle = _angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2);
+                //if (_angle < 0)
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2) + _angle;
+                //if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2)
+                //    goto QuandrantSkip;
+                //else if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi)
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
+                //else if (_angle <= (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 3) / 2)
+                //    _angle = _angle % Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi;
+                //else
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
+                //QuandrantSkip:
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" three_factorial = 6;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" five_factorial = 120;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" seven_factorial = 5040;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleCubed = _angle * _angle * _angle;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFifth = angleCubed * _angle * _angle;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSeventh = angleToTheFifth * _angle * _angle;
+                //return -(_angle
+                //    - (angleCubed / three_factorial)
+                //    + (angleToTheFifth / five_factorial)
+                //    - (angleToTheSeventh / seven_factorial));
+
+            };
+        }
 
         #endregion
 
+        #region Cosine
+
+        public static T Cosine<T>(Angle<T> a)
+        {
+            return CosineImplementation<T>.Function(a);
+        }
+
+        internal static class CosineImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cos)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+
+                //// get the angle into the positive unit circle
+                //_angle = _angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2);
+                //if (_angle < 0)
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2) + _angle;
+                //if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2)
+                //    goto QuandrantSkip;
+                //else if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi)
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
+                //else if (_angle <= (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 3) / 2)
+                //    _angle = _angle % Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi;
+                //else
+                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
+                //QuandrantSkip:
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" one = 1;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" two_factorial = 2;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" four_factorial = 24;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" six_factorial = 720;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleSquared = _angle * _angle;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFourth = angleSquared * _angle * _angle;
+                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSixth = angleToTheFourth * _angle * _angle;
+                //return one
+                //    - (angleSquared / two_factorial)
+                //    + (angleToTheFourth / four_factorial)
+                //    - (angleToTheSixth / six_factorial);
+
+            };
+        }
+
+        #endregion
+
+        #region Tangent
+
+        public static T Tangent<T>(Angle<T> a)
+        {
+            return TangentImplementation<T>.Function(a);
+        }
+
+        internal static class TangentImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tan)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+
+        //        "	// get the angle into the positive unit circle" +
+        //"	_angle = _angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2);" +
+        //"	if (_angle < 0)" +
+        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2) + _angle;" +
+        //"	if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) // quadrant 1" +
+        //"		goto QuandrantSkip;" +
+        //"	else if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi) // quadrant 2" +
+        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
+        //"	else if (_angle <= (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 3) / 2) // quadrant 3" +
+        //"		_angle = _angle % Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi;" +
+        //"	else // quadrant 4" +
+        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
+        //"QuandrantSkip:" +
+        //"	// do the computation" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " two = 2;" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " three = 3;" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " fifteen = 15;" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " seventeen = 17;" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " threehundredfifteen = 315;" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleCubed = _angle * _angle * _angle; // angle ^ 3" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheFifth = angleCubed * _angle * _angle; // angle ^ 5" +
+        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheSeventh = angleToTheFifth * _angle * _angle;  // angle ^ 7" +
+        //"	return angle" +
+        //"		+ (angleCubed / three)" +
+        //"		+ (two * angleToTheFifth / fifteen)" +
+        //"		+ (seventeen * angleToTheSeventh / threehundredfifteen);" +
+
+            };
+        }
+
+        #endregion
+
+        #region Cosecant
+
+        public static T Cosecant<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, Sine(a));
+        }
+
+        #endregion
+
+        #region Secant
+
+        public static T Secant<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, Cosine(a));
+        }
+
+        #endregion
+
+        #region Cotangent
+
+        public static T Cotangent<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, Tangent(a));
+        }
+
+        #endregion
+
+        #region InverseSine
+
+        public static Angle<T> InverseSine<T>(T a)
+        {
+            return InverseSineImplementation<T>.Function(a);
+        }
+
+        internal static class InverseSineImplementation<T>
+        {
+            internal static Func<T, Angle<T>> Function = (T a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Asin)), A));
+                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region InverseCosine
+
+        public static Angle<T> InverseCosine<T>(T a)
+        {
+            return InverseCosineImplementation<T>.Function(a);
+        }
+
+        internal static class InverseCosineImplementation<T>
+        {
+            internal static Func<T, Angle<T>> Function = (T a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Acos)), A));
+                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region InverseTangent
+
+        public static Angle<T> InverseTangent<T>(T a)
+        {
+            return InverseTangentImplementation<T>.Function(a);
+        }
+
+        internal static class InverseTangentImplementation<T>
+        {
+            internal static Func<T, Angle<T>> Function = (T a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Atan)), A));
+                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region InverseCosecant
+
+        public static Angle<T> InverseCosecant<T>(T a)
+        {
+            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseSine(a).Radians));
+        }
+
+        #endregion
+
+        #region InverseSecant
+
+        public static Angle<T> InverseSecant<T>(T a)
+        {
+            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseCosine(a).Radians));
+        }
+
+        #endregion
+
+        #region InverseCotangent
+
+        public static Angle<T> InverseCotangent<T>(T a)
+        {
+            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseTangent(a).Radians));
+        }
+
+        #endregion
+
+        #region HyperbolicSine
+
+        public static T HyperbolicSine<T>(Angle<T> a)
+        {
+            return HyperbolicSineImplementation<T>.Function(a);
+        }
+
+        internal static class HyperbolicSineImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sinh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region HyperbolicCosine
+
+        public static T HyperbolicCosine<T>(Angle<T> a)
+        {
+            return HyperbolicCosineImplementation<T>.Function(a);
+        }
+
+        internal static class HyperbolicCosineImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cosh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region HyperbolicTangent
+
+        public static T HyperbolicTangent<T>(Angle<T> a)
+        {
+            return HyperbolicTangentImplementation<T>.Function(a);
+        }
+
+        internal static class HyperbolicTangentImplementation<T>
+        {
+            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+            {
+                // optimization for specific known types
+                if (typeof(double).IsAssignableFrom(typeof(T)))
+                {
+                    ParameterExpression A = Expression.Parameter(typeof(T));
+                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tanh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+                    return Function(a);
+                }
+                throw new NotImplementedException();
+            };
+        }
+
+        #endregion
+
+        #region HyperbolicCosecant
+
+        public static T HyperbolicCosecant<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, HyperbolicSine(a));
+        }
+
+        #endregion
+
+        #region HyperbolicSecant
+
+        public static T HyperbolicSecant<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, HyperbolicCosine(a));
+        }
+
+        #endregion
+
+        #region HyperbolicCotangent
+
+        public static T HyperbolicCotangent<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, HyperbolicTangent(a));
+        }
+
+        #endregion
+
+        #region InverseHyperbolicSine
+
+        public static Angle<T> InverseHyperbolicSine<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region InverseHyperbolicCosine
+
+        public static Angle<T> InverseHyperbolicCosine<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region InverseHyperbolicTangent
+
+        public static Angle<T> InverseHyperbolicTangent<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region InverseHyperbolicCosecant
+
+        public static Angle<T> InverseHyperbolicCosecant<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region InverseHyperbolicSecant
+
+        public static Angle<T> InverseHyperbolicSecant<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region InverseHyperbolicCotangent
+
+        public static Angle<T> InverseHyperbolicCotangent<T>(T a)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+        
         #region Regression
 
         ///// <summary>A stepper through individual points in a 2D data set.</summary>
@@ -2256,13 +2180,13 @@ namespace Towel.Mathematics
         #endregion
 
         #region FactorPrimes
-        
+
         public static void FactorPrimes<T>(T a, Step<T> step)
         {
             T A = a;
             if (!IsInteger(A))
             {
-                throw new System.Exception("Attempting to get the prime factors of a non integer");
+                throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + "." + nameof(IsInteger) + ")");
             }
             if (IsNegative(A))
             {
