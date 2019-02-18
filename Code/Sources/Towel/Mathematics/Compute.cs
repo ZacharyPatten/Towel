@@ -4,6 +4,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using Towel.Measurements;
+using System.ComponentModel;
 
 namespace Towel.Mathematics
 {
@@ -28,7 +29,7 @@ namespace Towel.Mathematics
             /// <summary>Pi (3.14...)</summary>
             public static readonly T Pi = Compute.ComputePi<T>();
             /// <summary>Epsilon (1.192092896...e-012f)</summary>
-            public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
+            //public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
         }
         #endregion
 
@@ -38,6 +39,8 @@ namespace Towel.Mathematics
 
         private static T ComputePi<T>()
         {
+            return default(T);
+
             throw new NotImplementedException();
 
 //            const int pi_maximum_iterations = 100; // NOTE: decimal accuracy for pi requires pi_maximum_iterations = 92
@@ -378,7 +381,7 @@ namespace Towel.Mathematics
             internal static Func<T, T, T> Function = (T a, T b) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     ParameterExpression B = Expression.Parameter(typeof(T));
@@ -411,10 +414,10 @@ namespace Towel.Mathematics
             internal static Func<T, T> Function = (T a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), A);
+                    Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), Expression.Convert(A, typeof(double))), typeof(T));
                     Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
                     return Function(a);
                 }
@@ -623,10 +626,13 @@ namespace Towel.Mathematics
             internal static Func<T, T> Function = (T a) =>
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.IfThenElse(
-                    Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
-                    A,
-                    Expression.Negate(A));
+                LabelTarget RETURN = Expression.Label(typeof(T));
+                Expression BODY = Expression.Block(
+                    Expression.IfThenElse(
+                        Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
+                        Expression.Return(RETURN, A),
+                        Expression.Return(RETURN, Expression.Negate(A))),
+                    Expression.Label(RETURN, Expression.Constant(default(T))));
                 Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
                 return Function(a);
             };
@@ -730,13 +736,16 @@ namespace Towel.Mathematics
                 ParameterExpression VALUE = Expression.Parameter(typeof(T));
                 ParameterExpression MINIMUM = Expression.Parameter(typeof(T));
                 ParameterExpression MAXIMUM = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.IfThenElse(
-                    Expression.LessThan(VALUE, MINIMUM),
-                    MINIMUM,
+                LabelTarget RETURN = Expression.Label(typeof(T));
+                Expression BODY = Expression.Block(
                     Expression.IfThenElse(
-                        Expression.GreaterThan(VALUE, MAXIMUM),
-                        MAXIMUM,
-                        VALUE));
+                        Expression.LessThan(VALUE, MINIMUM),
+                        Expression.Return(RETURN, MINIMUM),
+                        Expression.IfThenElse(
+                            Expression.GreaterThan(VALUE, MAXIMUM),
+                            Expression.Return(RETURN, MAXIMUM),
+                            Expression.Return(RETURN, VALUE))),
+                    Expression.Label(RETURN, Expression.Constant(default(T))));
                 Function = Expression.Lambda<Func<T, T, T, T>>(BODY, VALUE, MINIMUM, MAXIMUM).Compile();
                 return Function(value, minimum, maximum);
             };
@@ -783,13 +792,16 @@ namespace Towel.Mathematics
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.IfThenElse(
-                    Expression.LessThan(A, B),
-                    Expression.Constant(Comparison.Less),
+                LabelTarget RETURN = Expression.Label(typeof(Comparison));
+                Expression BODY = Expression.Block(
                     Expression.IfThenElse(
-                        Expression.GreaterThan(A, B),
-                        Expression.Constant(Comparison.Greater),
-                        Expression.Constant(Comparison.Equal)));
+                        Expression.LessThan(A, B),
+                        Expression.Return(RETURN, Expression.Constant(Comparison.Less)),
+                        Expression.IfThenElse(
+                            Expression.GreaterThan(A, B),
+                            Expression.Return(RETURN, Expression.Constant(Comparison.Greater)),
+                            Expression.Return(RETURN, Expression.Constant(Comparison.Equal)))),
+                    Expression.Label(RETURN, Expression.Constant(default(Comparison))));
                 Function = Expression.Lambda<Func<T, T, Comparison>>(BODY, A, B).Compile();
                 return Function(a, b);
             };
@@ -1117,7 +1129,7 @@ namespace Towel.Mathematics
 
         #region GreatestCommonFactor
 
-        private static T GreatestCommonFactor<T>(params T[] operands)
+        public static T GreatestCommonFactor<T>(params T[] operands)
         {
             return GreatestCommonFactor(operands.Stepper());
         }
@@ -1172,7 +1184,7 @@ namespace Towel.Mathematics
 
         #region LeastCommonMultiple
 
-        private static T LeastCommonMultiple<T>(params T[] operands)
+        public static T LeastCommonMultiple<T>(params T[] operands)
         {
             return LeastCommonMultiple(operands.Stepper());
         }
@@ -1243,7 +1255,7 @@ namespace Towel.Mathematics
 
         #region Factorial
 
-        private static T Factorial<T>(T a)
+        public static T Factorial<T>(T a)
         {
             if (!IsInteger(a))
             {
@@ -1263,7 +1275,7 @@ namespace Towel.Mathematics
 
         #region Combinations
 
-        private static T Combinations<T>(T N, T[] n)
+        public static T Combinations<T>(T N, T[] n)
         {
             if (!IsInteger(N))
             {
@@ -1291,7 +1303,7 @@ namespace Towel.Mathematics
 
         #region Choose
 
-        private static T Choose<T>(T N, T n)
+        public static T Choose<T>(T N, T n)
         {
             if (LessThan(N, Compute.Constant<T>.Zero))
             {
@@ -1550,6 +1562,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region Correlation
+
         //        /// <summary>Computes the median of a set of values.</summary>
         //        private static Compute<T>.Delegates.Correlation Correlation_private = (Stepper<T> a, Stepper<T> b) =>
         //        {
@@ -1603,6 +1616,7 @@ namespace Towel.Mathematics
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region NaturalLogarithm
@@ -1618,7 +1632,7 @@ namespace Towel.Mathematics
             internal static Func<T, T> Function = (T a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod("Log"), A);
@@ -1643,7 +1657,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sin)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
@@ -1693,7 +1707,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cos)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
@@ -1744,7 +1758,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tan)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
@@ -1824,7 +1838,7 @@ namespace Towel.Mathematics
             internal static Func<T, Angle<T>> Function = (T a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Asin)), A));
@@ -1849,7 +1863,7 @@ namespace Towel.Mathematics
             internal static Func<T, Angle<T>> Function = (T a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Acos)), A));
@@ -1874,7 +1888,7 @@ namespace Towel.Mathematics
             internal static Func<T, Angle<T>> Function = (T a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Atan)), A));
@@ -1926,7 +1940,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sinh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
@@ -1951,7 +1965,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cosh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
@@ -1976,7 +1990,7 @@ namespace Towel.Mathematics
             internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
             {
                 // optimization for specific known types
-                if (typeof(double).IsAssignableFrom(typeof(T)))
+                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tanh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));

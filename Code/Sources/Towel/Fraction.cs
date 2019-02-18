@@ -271,10 +271,14 @@
 		/// <param name="rational">The double to convert to a fraction.</param>
 		/// <returns>The resulting double of the conversion.</returns>
 		public static explicit operator Fraction32(double rational) { return new Fraction32(rational); }
-		/// <summary>Implicitly converts an short shorto a fraction.</summary>
-		/// <param name="shorteger">The shorteger to convert shorto a fraction.</param>
+        /// <summary>Implicitly converts an short shorto a fraction.</summary>
+		/// <param name="integer">The integer to convert shorto a fraction.</param>
 		/// <returns>The resulting fraction representation.</returns>
-		public static implicit operator Fraction32(short shorteger) { return new Fraction32(shorteger); }
+		public static explicit operator Fraction32(int integer) { return new Fraction32((short)integer); }
+        /// <summary>Implicitly converts an short shorto a fraction.</summary>
+        /// <param name="shorteger">The shorteger to convert shorto a fraction.</param>
+        /// <returns>The resulting fraction representation.</returns>
+        public static implicit operator Fraction32(short shorteger) { return new Fraction32(shorteger); }
 		/// <summary>Implicitly converts an short shorto a fraction.</summary>
 		/// <param name="literal">The shorteger to convert shorto a fraction.</param>
 		/// <returns>The resulting fraction representation.</returns>
