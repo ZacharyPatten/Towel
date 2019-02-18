@@ -62,7 +62,7 @@ namespace Towel
 					try { comparer = System.Collections.Generic.Comparer<T>.Default; }
 					catch { }
 					if (object.ReferenceEquals(null, comparer))
-						throw new System.InvalidOperationException("no default comparer exists for " + typeof(T).ToCsharpSource());
+						throw new System.InvalidOperationException("no default comparer exists for " + typeof(T).ConvertToCsharpSource());
 					DefaultWrapper<T>.Compare = (T _a, T _b) =>
 						{
 							int comparison = comparer.Compare(_a, _b);

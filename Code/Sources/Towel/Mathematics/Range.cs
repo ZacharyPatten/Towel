@@ -9,22 +9,7 @@
 		private bool _inclusiveMin;
 		private bool _inclusiveMax;
 
-		#region validation
-
-		private static bool Validate(T a, T b)
-		{
-			if (a == null)
-				throw new System.ArgumentNullException("a");
-			if (b == null)
-				throw new System.ArgumentNullException("b");
-			if (Compute.LessThan(b, a))
-				return false;
-			return true;
-		}
-
-		#endregion
-
-		#region properties
+		#region Properties
 
 		public T Min
 		{
@@ -62,7 +47,7 @@
 
 		#endregion
 
-		#region constructor
+		#region Constructors
 
 		public Range(T min, T max)
 		{
@@ -82,11 +67,22 @@
 			this._max = range._max;
 		}
 
-		#endregion
+        #endregion
 
-		#region static
-		
-		public static bool Contains(Range<T> range, T value)
+        #region Static
+
+        private static bool Validate(T a, T b)
+        {
+            if (a == null)
+                throw new System.ArgumentNullException("a");
+            if (b == null)
+                throw new System.ArgumentNullException("b");
+            if (Compute.LessThan(b, a))
+                return false;
+            return true;
+        }
+
+        public static bool Contains(Range<T> range, T value)
 		{
 			if (range == null)
 				throw new System.ArgumentNullException("range");
@@ -214,7 +210,7 @@
 
 		#endregion
 
-		#region instance
+		#region Instance
 
 		public bool Contains(T value)
 		{ return Range<T>.Contains(this, value); }
@@ -230,9 +226,10 @@
 		{ return Range<T>.Complement(this, b); }
 		public Range<T>[] Split(bool inclusiveEdges, params T[] values)
 		{ return Range<T>.Split(this, inclusiveEdges, values); }
+
 		#endregion
 
-		#region operators
+		#region Operators
 		
 		public static bool operator ==(Range<T> a, Range<T> b)
 		{ return Equals(a, b); }
@@ -250,7 +247,7 @@
 
 		#endregion
 
-		#region overrides
+		#region Overrides
 
 		public override string ToString()
 		{

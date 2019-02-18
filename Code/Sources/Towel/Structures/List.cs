@@ -840,7 +840,7 @@ namespace Towel.Structures
             if (this._equate.Target != null)
                 throw new InvalidOperationException("Serializtion of structures requires a static equality functions (equate delegate of ListArray must target a static method).");
 
-            string type = Meta.ConvertTypeToCsharpSource(typeof(T)).Replace("<", "-").Replace(">", "-");
+            string type = (typeof(T).ConvertToCsharpSource()).Replace("<", "-").Replace(">", "-");
 
             StringWriter stringWriter;
             using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter = new StringWriter(), new XmlWriterSettings()
@@ -875,7 +875,7 @@ namespace Towel.Structures
 
         public static ListArray<T> Deserialize(string str, Deserialize<T> deserialize)
         {
-            string type_string = Meta.ConvertTypeToCsharpSource(typeof(T));
+            string type_string = typeof(T).ConvertToCsharpSource();
             string type_string_xml = type_string.Replace("<", "-").Replace(">", "-");
 
             T[] list;
@@ -913,7 +913,8 @@ namespace Towel.Structures
                             string methodName = splits[0];
                             string declaringTypeFullName = splits[1];
                             string assembly = splits[2];
-                            equate = Meta.Compile<Equate<T>>(string.Concat(declaringTypeFullName, ".", methodName));
+                            throw new NotImplementedException();
+                            //equate = Meta.Compile<Equate<T>>(string.Concat(declaringTypeFullName, ".", methodName));
                             equateExists = true;
                             break;
                         case "Count":

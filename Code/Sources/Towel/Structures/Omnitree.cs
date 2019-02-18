@@ -1269,12 +1269,24 @@ namespace Towel.Structures
 
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -1837,7 +1849,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 1)
@@ -2944,8 +2956,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1> LocateVector(T value)
@@ -3332,14 +3344,32 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1,
             Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -4033,7 +4063,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 2)
@@ -5227,8 +5257,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2> LocateVector(T value)
@@ -5650,16 +5680,40 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2,
             Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -6484,7 +6538,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 4)
@@ -7765,8 +7819,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3> LocateVector(T value)
@@ -8223,18 +8277,48 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3,
             Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -9190,7 +9274,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 8)
@@ -10558,8 +10642,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> LocateVector(T value)
@@ -11051,20 +11135,56 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4,
             Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -12151,7 +12271,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 16)
@@ -13606,8 +13726,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> LocateVector(T value)
@@ -14134,22 +14254,64 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5,
             Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
-            Code.AssertArgNonNull(equateAxis6, "equateAxis6");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
+			if (equateAxis6 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis6));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
-            Code.AssertArgNonNull(compare6, "compare6");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
+			if (compare6 == null)
+			{
+				throw new ArgumentNullException(nameof(compare6));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -15367,7 +15529,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 32)
@@ -16909,8 +17071,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> LocateVector(T value)
@@ -17472,24 +17634,72 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6,
             Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
-            Code.AssertArgNonNull(equateAxis6, "equateAxis6");
-            Code.AssertArgNonNull(equateAxis7, "equateAxis7");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
+			if (equateAxis6 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis6));
+			}
+			if (equateAxis7 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis7));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
-            Code.AssertArgNonNull(compare6, "compare6");
-            Code.AssertArgNonNull(compare7, "compare7");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
+			if (compare6 == null)
+			{
+				throw new ArgumentNullException(nameof(compare6));
+			}
+			if (compare7 == null)
+			{
+				throw new ArgumentNullException(nameof(compare7));
+			}
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -18838,7 +19048,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 
             if (child_index >= 64)
@@ -20467,8 +20677,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> LocateVector(T value)
@@ -20825,12 +21035,24 @@ namespace Towel.Structures
 
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -21355,7 +21577,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 1)
@@ -22498,8 +22720,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1> GetBoundings(T value)
@@ -22889,14 +23111,32 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1,
             Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -23560,7 +23800,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 2)
@@ -24813,8 +25053,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2> GetBoundings(T value)
@@ -25250,16 +25490,40 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2,
             Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -26062,7 +26326,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 4)
@@ -27425,8 +27689,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3> GetBoundings(T value)
@@ -27908,18 +28172,48 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3,
             Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -28861,7 +29155,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 8)
@@ -30334,8 +30628,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> GetBoundings(T value)
@@ -30863,20 +31157,56 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4,
             Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -31957,7 +32287,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 16)
@@ -33540,8 +33870,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> GetBoundings(T value)
@@ -34115,22 +34445,64 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5,
             Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
-            Code.AssertArgNonNull(equateAxis6, "equateAxis6");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
+			if (equateAxis6 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis6));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
-            Code.AssertArgNonNull(compare6, "compare6");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
+			if (compare6 == null)
+			{
+				throw new ArgumentNullException(nameof(compare6));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -35350,7 +35722,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 32)
@@ -37043,8 +37415,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> GetBoundings(T value)
@@ -37664,24 +38036,72 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6,
             Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 
-            Code.AssertArgNonNull(equateAxis1, "equateAxis1");
-            Code.AssertArgNonNull(equateAxis2, "equateAxis2");
-            Code.AssertArgNonNull(equateAxis3, "equateAxis3");
-            Code.AssertArgNonNull(equateAxis4, "equateAxis4");
-            Code.AssertArgNonNull(equateAxis5, "equateAxis5");
-            Code.AssertArgNonNull(equateAxis6, "equateAxis6");
-            Code.AssertArgNonNull(equateAxis7, "equateAxis7");
+			if (equateAxis1 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis1));
+			}
+			if (equateAxis2 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis2));
+			}
+			if (equateAxis3 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis3));
+			}
+			if (equateAxis4 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis4));
+			}
+			if (equateAxis5 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis5));
+			}
+			if (equateAxis6 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis6));
+			}
+			if (equateAxis7 == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis7));
+			}
 
-            Code.AssertArgNonNull(compare1, "compare1");
-            Code.AssertArgNonNull(compare2, "compare2");
-            Code.AssertArgNonNull(compare3, "compare3");
-            Code.AssertArgNonNull(compare4, "compare4");
-            Code.AssertArgNonNull(compare5, "compare5");
-            Code.AssertArgNonNull(compare6, "compare6");
-            Code.AssertArgNonNull(compare7, "compare7");
+			if (compare1 == null)
+			{
+				throw new ArgumentNullException(nameof(compare1));
+			}
+			if (compare2 == null)
+			{
+				throw new ArgumentNullException(nameof(compare2));
+			}
+			if (compare3 == null)
+			{
+				throw new ArgumentNullException(nameof(compare3));
+			}
+			if (compare4 == null)
+			{
+				throw new ArgumentNullException(nameof(compare4));
+			}
+			if (compare5 == null)
+			{
+				throw new ArgumentNullException(nameof(compare5));
+			}
+			if (compare6 == null)
+			{
+				throw new ArgumentNullException(nameof(compare6));
+			}
+			if (compare7 == null)
+			{
+				throw new ArgumentNullException(nameof(compare7));
+			}
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -39040,7 +39460,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //
 //            if (child_index >= 64)
@@ -40843,8 +41263,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<int>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> GetBoundings(T value)

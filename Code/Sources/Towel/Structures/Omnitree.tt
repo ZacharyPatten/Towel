@@ -519,12 +519,24 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
             Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #><# } #>)
         {
-            Code.AssertArgNonNull(locate, "locate");
-            Code.AssertArgNonNull(equate, "equate");
+			if (locate == null)
+			{
+				throw new ArgumentNullException(nameof(locate));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 <# for (int j = 1; j <= i; j++) { #>
-            Code.AssertArgNonNull(equateAxis<#= j #>, "equateAxis<#= j #>");<# } #>
+			if (equateAxis<#= j #> == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis<#= j #>));
+			}<# } #>
 <# for (int j = 1; j <= i; j++) { #>
-            Code.AssertArgNonNull(compare<#= j #>, "compare<#= j #>");<# } #>
+			if (compare<#= j #> == null)
+			{
+				throw new ArgumentNullException(nameof(compare<#= j #>));
+			}<# } #>
 
             this._locate = locate;
             this._defaultEquate = defaultEquate;
@@ -1105,7 +1117,7 @@ namespace Towel.Structures
                 return;
             }
 
-            int splits = Compute<int>.Power(2, depth);
+            int splits = Compute.Power(2, depth);
             int mid_child_range = count / splits;
 <# for (int j = i; j >= 1; j--) { #>
             if (child_index >= <#= (2 << (j - 1)) / 2 #>)
@@ -2200,8 +2212,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<<#= child_index_type #>>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Vector<<#= chain_AxisX #>> LocateVector(T value)
@@ -2557,12 +2569,24 @@ namespace Towel.Structures
             Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
             Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #><# } #>)
         {
-            Code.AssertArgNonNull(getBounds, "getBounds");
-            Code.AssertArgNonNull(equate, "equate");
+			if (getBounds == null)
+			{
+				throw new ArgumentNullException(nameof(getBounds));
+			}
+			if (equate == null)
+			{
+				throw new ArgumentNullException(nameof(equate));
+			}
 <# for (int j = 1; j <= i; j++) { #>
-            Code.AssertArgNonNull(equateAxis<#= j #>, "equateAxis<#= j #>");<# } #>
+			if (equateAxis<#= j #> == null)
+			{
+				throw new ArgumentNullException(nameof(equateAxis<#= j #>));
+			}<# } #>
 <# for (int j = 1; j <= i; j++) { #>
-            Code.AssertArgNonNull(compare<#= j #>, "compare<#= j #>");<# } #>
+			if (compare<#= j #> == null)
+			{
+				throw new ArgumentNullException(nameof(compare<#= j #>));
+			}<# } #>
 
             this._getBounds = getBounds;
             this._defaultEquate = defaultEquate;
@@ -3106,7 +3130,7 @@ namespace Towel.Structures
 //                return;
 //            }
 //
-//            int splits = Compute<int>.Power(2, depth);
+//            int splits = Compute.Power(2, depth);
 //            int mid_child_range = count / splits;
 //<# for (int j = i; j >= 1; j--) { #>
 //            if (child_index >= <#= (2 << (j - 1)) / 2 #>)
@@ -4231,8 +4255,8 @@ namespace Towel.Structures
         private void ComputeLoads(int count)
         {
             int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute<<#= child_index_type #>>.Maximum(natural_log, _children_per_node);
+            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
+            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
         }
 
         private Omnitree.Bounds<<#= chain_AxisX #>> GetBoundings(T value)

@@ -54,9 +54,15 @@ namespace Towel.Mathematics
 
             public static bool operator ==(Constant a, Constant b)
             {
-                Code.AssertArgNonNull(a, "a");
-                Code.AssertArgNonNull(b, "b");
-                return Compute<T>.Equate(a, b);
+                if (a == null)
+                {
+                    throw new ArgumentNullException(nameof(a));
+                }
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                return Compute.Equal(a, b);
             }
 
             public static bool operator !=(Constant a, Constant b)
@@ -82,8 +88,14 @@ namespace Towel.Mathematics
 
             public static bool operator ==(Variable a, Variable b)
             {
-                Code.AssertArgNonNull(a, "a");
-                Code.AssertArgNonNull(b, "b");
+                if (a == null)
+                {
+                    throw new ArgumentNullException(nameof(a));
+                }
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
                 return a._name.Equals(b.Name);
             }
 
@@ -96,7 +108,10 @@ namespace Towel.Mathematics
 
             public override bool Equals(object b)
             {
-                Code.AssertArgNonNull(b, "b");
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
                 if (b is Variable)
                 {
                     return this._name.Equals(b as Variable);
@@ -301,13 +316,13 @@ namespace Towel.Mathematics
 			public override string ToString()
 			{
 				string left = this._left.ToString();
-				if (this._left is Multiplication || this._left is Division && left is Constant && Compute<T>.Compare(left as Constant, Compute<T>.Zero) == Comparison.Less)
+				if (this._left is Multiplication || this._left is Division && left is Constant && Compute.Compare(left as Constant, Compute.Constant<T>.Zero) == Comparison.Less)
 					left = string.Concat("(", left, ")");
 				string right = this._right.ToString();
 				if (this._right is Addition || this._right is Subtraction || this._left is Multiplication || this._left is Division)
 					right = string.Concat("(", right, ")");
-				if (this._right is Constant && Compute<T>.Compare(this._right as Constant, Compute<T>.Zero) == Comparison.Less)
-					return string.Concat(left, " - ", Compute<T>.Multiply(this._right as Constant, Compute<T>.FromInt32(-1)));
+				if (this._right is Constant && Compute.Compare(this._right as Constant, Compute.Constant<T>.Zero) == Comparison.Less)
+					return string.Concat(left, " - ", Compute.Multiply(this._right as Constant, Compute.FromInt32<T>(-1)));
 				return string.Concat(left, " + ", right);
 			}
 		}
@@ -567,7 +582,7 @@ namespace Towel.Mathematics
                     (MethodCallExpression methodCallExpression) =>
 					{
                         MethodInfo method = methodCallExpression.Method;
-                        if (method == null || method.DeclaringType != typeof(Compute<T>))
+                        if (method == null || method.DeclaringType != typeof(Compute))
                             throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute<T> allowed): " + methodCallExpression);
 
 						Node[] nodes = null;
@@ -739,7 +754,7 @@ namespace Towel.Mathematics
             // constant node: "7"
             if (tree.All(x => char.IsDigit(x)))
             {
-                return new Constant(Compute<T>.FromInt32(int.Parse(tree)));
+                return new Constant(Compute.FromInt32<T>(int.Parse(tree)));
             }
             // constant node (rational): "7.7"
             if (tree.All(x => char.IsDigit(x) || x == '.'))
@@ -748,10 +763,10 @@ namespace Towel.Mathematics
                 string partial = tree.Substring(tree.IndexOf('.') + 1, (tree.Length - 1) - (tree.IndexOf('.') + 1));
 
                 int dividend = (int)System.Math.Pow(10, partial.Length);
-                T wholeValue = Compute<T>.FromInt32(int.Parse(whole));
-                T partialValue = Compute<T>.Divide(Compute<T>.FromInt32(int.Parse(partial)), Compute<T>.FromInt32(dividend));
+                T wholeValue = Compute.FromInt32<T>(int.Parse(whole));
+                T partialValue = Compute.Divide(Compute.FromInt32<T>(int.Parse(partial)), Compute.FromInt32<T>(dividend));
 
-                return new Constant(Compute<T>.Add(wholeValue, partialValue));
+                return new Constant(Compute.Add(wholeValue, partialValue));
             }
             // variable node: "[variable]"
             else if (tree[0] == '[')
@@ -987,7 +1002,7 @@ namespace Towel.Mathematics
                         }
                     }
                     containsTerm = true; // we know there is at least one term now
-                    if (!Compute<T>.IsInteger(exponent) || !Compute<T>.IsNonNegative(exponent))
+                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
                         return false;
                     if (existingExponents.Contains(variable))
                     {
@@ -1066,7 +1081,7 @@ namespace Towel.Mathematics
                         return false;
                     Variable variable = power.Left as Variable;
                     Constant exponent = power.Right as Constant;
-                    if (!Compute<T>.IsInteger(exponent) || !Compute<T>.IsNonNegative(exponent))
+                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
                         return false;
                     if (existingVariables.Contains(variable))
                         return false;
@@ -1113,7 +1128,7 @@ namespace Towel.Mathematics
         {
             return 
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.One) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.Constant<T>.One) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
 
@@ -1126,7 +1141,7 @@ namespace Towel.Mathematics
         {
             return
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.FromInt32(2)) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.FromInt32<T>(2)) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
 
@@ -1139,7 +1154,7 @@ namespace Towel.Mathematics
         {
             return
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.FromInt32(3)) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.FromInt32<T>(3)) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
 
@@ -1152,7 +1167,7 @@ namespace Towel.Mathematics
         {
             return
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.FromInt32(4)) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.FromInt32<T>(4)) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
         
@@ -1165,7 +1180,7 @@ namespace Towel.Mathematics
         {
             return
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.FromInt32(5)) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.FromInt32<T>(5)) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
 
@@ -1178,7 +1193,7 @@ namespace Towel.Mathematics
         {
             return
                 IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute<T>.Equate(Degree(node), Compute<T>.FromInt32(6)) && // must have a degree of one
+                Compute.Equal(Degree(node), Compute.FromInt32<T>(6)) && // must have a degree of one
                 Variables(node).Count == 1; // must only include one variable
         }
         
@@ -1376,7 +1391,7 @@ namespace Towel.Mathematics
                 T degree = Degree(node, ref assigned);
                 if (!assigned)
                 {
-                    degree = Compute<T>.Zero;
+                    degree = Compute.Constant<T>.Zero;
                 }
                 return degree;
             }
@@ -1386,7 +1401,7 @@ namespace Towel.Mathematics
                 if (node is Power)
                 {
                     Constant exponent = (node as Power).Right as Constant;
-                    if (!assigned || Compute<T>.GreaterThan(exponent, degree))
+                    if (!assigned || Compute.GreaterThan(exponent, degree))
                     {
                         degree = exponent;
                     }
@@ -1395,12 +1410,12 @@ namespace Towel.Mathematics
                 {
                     Binary binary = node as Binary;
                     T degree_left = Degree(binary.Left, ref assigned);
-                    if (!assigned || Compute<T>.GreaterThan(degree_left, degree))
+                    if (!assigned || Compute.GreaterThan(degree_left, degree))
                     {
                         degree = degree_left;
                     }
                     T degree_right = Degree(binary.Right, ref assigned);
-                    if (!assigned || Compute<T>.GreaterThan(degree_right, degree))
+                    if (!assigned || Compute.GreaterThan(degree_right, degree))
                     {
                         degree = degree_right;
                     }
@@ -1408,7 +1423,7 @@ namespace Towel.Mathematics
                 else if (node is Negate)
                 {
                     T operand_degree = Degree((node as Negate).Operand, ref assigned);
-                    if (!assigned || Compute<T>.GreaterThan(operand_degree, degree))
+                    if (!assigned || Compute.GreaterThan(operand_degree, degree))
                     {
                         degree = operand_degree;
                     }
@@ -1464,7 +1479,7 @@ namespace Towel.Mathematics
                     if (!(power.Right is Constant))
                         throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (cannot have variable exponents).");
                     Constant exponent = power.Right as Constant;
-                    if (!Compute<T>.IsInteger(exponent) || !Compute<T>.IsNonNegative(exponent))
+                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
                         throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (conatains an invalid exponent constant).");
                     goto AddTerm;
                 }
@@ -1544,7 +1559,7 @@ namespace Towel.Mathematics
                 }
                 else
                 {
-                    return Compute<T>.One;
+                    return Compute.Constant<T>.One;
                 }
             }
         private static bool Coefficient(Node node, out T coefficient)
@@ -1553,12 +1568,12 @@ namespace Towel.Mathematics
                 {
                     if (Coefficient((node as Negate).Operand, out coefficient))
                     {
-                        coefficient = Compute<T>.Negate(coefficient);
+                        coefficient = Compute.Negate(coefficient);
                         return true;
                     }
                     else
                     {
-                        coefficient = Compute<T>.Negate(Compute<T>.One);
+                        coefficient = Compute.Negate(Compute.Constant<T>.One);
                         return true;
                     }
                 }
@@ -1811,7 +1826,7 @@ namespace Towel.Mathematics
 						if (unary.Operand is Constant)
 						{
 							var A = unary.Operand as Constant;
-							var B = Compute<T>.Negate(A);
+							var B = Compute.Negate(A);
 							return B;
 						}
 					}
@@ -1848,19 +1863,19 @@ namespace Towel.Mathematics
 						{
 							var A = left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							return C;
 						}
 						#endregion
 						#region Additive Identity Property
 						// Rule: [X + 0] => [X]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.Zero))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							var X = left;
 							return X;
 						}
 						// Rule: [0 + X] => [X]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.Zero))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							var X = right;
 							return X;
@@ -1872,7 +1887,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Addition).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (left as Addition).Left;
 							return new Addition(X, C);
 						}
@@ -1881,7 +1896,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Addition).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (left as Addition).Right;
 							return new Addition(X, C);
 						}
@@ -1890,7 +1905,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Addition).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (right as Addition).Left;
 							return new Addition(X, C);
 						}
@@ -1899,7 +1914,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Addition).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (right as Addition).Right;
 							return new Addition(X, C);
 						}
@@ -1908,7 +1923,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Subtraction).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (left as Subtraction).Left;
 							return new Addition(X, C);
 						}
@@ -1917,7 +1932,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Subtraction).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (left as Subtraction).Right;
 							return new Subtraction(C, X);
 						}
@@ -1926,7 +1941,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Subtraction).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (right as Subtraction).Left;
 							return new Addition(X, C);
 						}
@@ -1935,7 +1950,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Subtraction).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (right as Subtraction).Right;
 							return new Addition(X, C);
 						}
@@ -1951,19 +1966,19 @@ namespace Towel.Mathematics
 						{
 							var A = left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Subtract(A, B);
+							var C = Compute.Subtract(A, B);
 							return C;
 						}
 						#endregion
 						#region Identity Property
 						// Rule: [X - 0] => [X]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.Zero))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							var X = left;
 							return X;
 						}
 						// Rule: [0 - X] => [-X]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.Zero))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							var X = right;
 							return new Negate(X);
@@ -1975,7 +1990,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Subtraction).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (left as Subtraction).Left;
 							return new Subtraction(X, C);
 						}
@@ -1984,7 +1999,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Subtraction).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Subtract(A, B);
+							var C = Compute.Subtract(A, B);
 							var X = (left as Subtraction).Right;
 							return new Subtraction(C, X);
 						}
@@ -1993,7 +2008,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Subtraction).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (right as Subtraction).Left;
 							return new Subtraction(C, X);
 						}
@@ -2002,7 +2017,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Subtraction).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (right as Subtraction).Left;
 							return new Subtraction(C, X);
 						}
@@ -2011,7 +2026,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Addition).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Subtract(A, B);
+							var C = Compute.Subtract(A, B);
 							var X = (left as Addition).Left;
 							return new Addition(X, C);
 						}
@@ -2020,7 +2035,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Addition).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Subtract(A, B);
+							var C = Compute.Subtract(A, B);
 							var X = (left as Addition).Right;
 							return new Addition(X, C);
 						}
@@ -2029,7 +2044,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Addition).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Add(A, B);
+							var C = Compute.Add(A, B);
 							var X = (right as Addition).Left;
 							return new Subtraction(C, X);
 						}
@@ -2038,7 +2053,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Addition).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Subtract(B, A);
+							var C = Compute.Subtract(B, A);
 							var X = (right as Addition).Right;
 							return new Addition(C, X);
 						}
@@ -2054,31 +2069,31 @@ namespace Towel.Mathematics
 						{
 							var A = left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							return C;
 						}
 						#endregion
 						#region Zero Property
 						// Rule: [X * 0] => [0]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.Zero))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.Zero))
 						{
-							return Compute<T>.Zero;
+							return Compute.Constant<T>.Zero;
 						}
 						// Rule: [0 * X] => [0]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.Zero))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.Zero))
 						{
-							return Compute<T>.Zero;
+							return Compute.Constant<T>.Zero;
 						}
 						#endregion
 						#region Identity Property
 						// Rule: [X * 1] => [X]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.One))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.One))
 						{
 							var A = left;
 							return A;
 						}
 						// Rule: [1 * X] => [X]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.One))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.One))
 						{
 							var A = right;
 							return A;
@@ -2090,7 +2105,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Multiplication).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (left as Multiplication).Left;
 							return new Multiplication(X, C);
 						}
@@ -2099,7 +2114,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Multiplication).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (left as Multiplication).Right;
 							return new Multiplication(X, C);
 						}
@@ -2108,7 +2123,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Multiplication).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (left as Multiplication).Left;
 							return new Multiplication(X, C);
 						}
@@ -2117,7 +2132,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Multiplication).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (right as Multiplication).Right;
 							return new Multiplication(X, C);
 						}
@@ -2126,7 +2141,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Division).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Divide(B, A);
+							var C = Compute.Divide(B, A);
 							var X = (right as Division).Left;
 							return new Multiplication(X, C);
 						}
@@ -2135,7 +2150,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Division).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (left as Division).Right;
 							return new Division(C, X);
 						}
@@ -2144,7 +2159,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Division).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Divide(B, A);
+							var C = Compute.Divide(B, A);
 							var X = (right as Division).Left;
 							return new Multiplication(X, C);
 						}
@@ -2153,7 +2168,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Division).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (right as Division).Right;
 							return new Division(C, X);
 						}
@@ -2190,7 +2205,7 @@ namespace Towel.Mathematics
 					{
 						#region Error Handling
 						// Rule: [X / 0] => Error
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.Zero))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							throw new System.DivideByZeroException();
 						}
@@ -2201,20 +2216,20 @@ namespace Towel.Mathematics
 						{
 							var A = left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Divide(A, B);
+							var C = Compute.Divide(A, B);
 							return C;
 						}
 						#endregion
 						#region Zero Property
 						// Rule: [0 / X] => [0]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.Zero))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.Zero))
 						{
 							return left;
 						}
 						#endregion
 						#region Identity Property
 						// Rule: [X / 1] => [X]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.One))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.One))
 						{
 							return left;
 						}
@@ -2225,7 +2240,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Division).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (left as Division).Left;
 							return new Division(X, C);
 						}
@@ -2234,7 +2249,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Division).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Divide(A, B);
+							var C = Compute.Divide(A, B);
 							var X = (left as Division).Right;
 							return new Division(C, X);
 						}
@@ -2243,7 +2258,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Division).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Divide(B, A);
+							var C = Compute.Divide(B, A);
 							var X = (left as Division).Left;
 							return new Division(X, C);
 						}
@@ -2252,7 +2267,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Division).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Divide(B, A);
+							var C = Compute.Divide(B, A);
 							var X = (right as Division).Right;
 							return new Division(C, X);
 						}
@@ -2261,7 +2276,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Multiplication).Right as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Divide(A, B);
+							var C = Compute.Divide(A, B);
 							var X = (right as Multiplication).Left;
 							return new Multiplication(X, C);
 						}
@@ -2270,7 +2285,7 @@ namespace Towel.Mathematics
 						{
 							var A = (left as Multiplication).Left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Divide(A, B);
+							var C = Compute.Divide(A, B);
 							var X = (left as Multiplication).Right;
 							return new Multiplication(X, C);
 						}
@@ -2279,7 +2294,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Multiplication).Right as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Multiply(A, B);
+							var C = Compute.Multiply(A, B);
 							var X = (right as Multiplication).Left;
 							return new Division(C, X);
 						}
@@ -2288,7 +2303,7 @@ namespace Towel.Mathematics
 						{
 							var A = (right as Multiplication).Left as Constant;
 							var B = left as Constant;
-							var C = Compute<T>.Divide(B, A);
+							var C = Compute.Divide(B, A);
 							var X = (right as Multiplication).Right;
 							return new Multiplication(X, C);
 						}
@@ -2304,20 +2319,20 @@ namespace Towel.Mathematics
 						{
 							var A = left as Constant;
 							var B = right as Constant;
-							var C = Compute<T>.Power(A, B);
+							var C = Compute.Power(A, B);
 							return C;
 						}
 						#endregion
 						#region Zero Base
 						// Rule: [0 ^ X] => [0]
-						if (left is Constant && Compute<T>.Equate((left as Constant).Value, Compute<T>.Zero))
+						if (left is Constant && Compute.Equal((left as Constant).Value, Compute.Constant<T>.Zero))
 						{
-							return Compute<T>.Zero;
+							return Compute.Constant<T>.Zero;
 						}
 						#endregion
 						#region One Power
 						// Rule: [X ^ 1] => [X]
-						if (right is Constant && Compute<T>.Equate((right as Constant).Value, Compute<T>.One))
+						if (right is Constant && Compute.Equal((right as Constant).Value, Compute.Constant<T>.One))
 						{
 							var A = left;
 							return A;
@@ -2325,9 +2340,9 @@ namespace Towel.Mathematics
 						#endregion
 						#region Zero Power
 						// Rule: [X ^ 0] => [1]
-						if (right is Constant && Compute<T>.Equate(right as Constant, Compute<T>.Zero))
+						if (right is Constant && Compute.Equal(right as Constant, Compute.Constant<T>.Zero))
 						{
-							return new Constant(Compute<T>.One);
+							return new Constant(Compute.Constant<T>.One);
 						}
 						#endregion
 					}

@@ -104,13 +104,13 @@ namespace Towel.Measurements
             {
                 if (!_metersToThousFactorComputed)
                 {
-                    _metersToThousFactor = Compute<T>.Invert(Compute<T>.Divide(Compute<T>.FromInt32(254000), Compute<T>.FromInt32(10000)));
+                    _metersToThousFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(254000), Compute.FromInt32<T>(10000)));
                     _metersToThousFactorComputed = true;
                 }
                 return _metersToThousFactor;
             }
         }
-        public static T MetersToThous(T measurement) { return Compute<T>.Multiply(measurement, MetersToThousFactor); }
+        public static T MetersToThous(T measurement) { return Compute.Multiply(measurement, MetersToThousFactor); }
 
         private static bool _metersToLinesFactorComputed = false;
         private static T _metersToLinesFactor;
@@ -121,7 +121,7 @@ namespace Towel.Measurements
             {
                 if (!_metersToLinesFactorComputed)
                 {
-                    _metersToLinesFactor = Compute<T>.Divide(Compute<T>.FromInt32(47244), Compute<T>.FromInt32(100));
+                    _metersToLinesFactor = Compute.Divide(Compute.FromInt32<T>(47244), Compute.FromInt32<T>(100));
                     _metersToLinesFactorComputed = true;
                 }
                 return _metersToLinesFactor;
@@ -137,7 +137,7 @@ namespace Towel.Measurements
             {
                 if (!_metersToInchsFactorComputed)
                 {
-                    _metersToInchsFactor = Compute<T>.Invert(Compute<T>.Divide(Compute<T>.FromInt32(254), Compute<T>.FromInt32(10000)));
+                    _metersToInchsFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(254), Compute.FromInt32<T>(10000)));
                     _metersToInchsFactorComputed = true;
                 }
                 return _metersToInchsFactor;
@@ -153,7 +153,7 @@ namespace Towel.Measurements
             {
                 if (!_metersToFeetFactorComputed)
                 {
-                    _metersToFeetFactor = Compute<T>.Invert(Compute<T>.Divide(Compute<T>.FromInt32(3048), Compute<T>.FromInt32(10000)));
+                    _metersToFeetFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(3048), Compute.FromInt32<T>(10000)));
                     _metersToFeetFactorComputed = true;
                 }
                 return _metersToFeetFactor;
@@ -169,7 +169,7 @@ namespace Towel.Measurements
             {
                 if (!_metersToYardsFactorComputed)
                 {
-                    _metersToYardsFactor = Compute<T>.Invert(Compute<T>.Divide(Compute<T>.FromInt32(9144), Compute<T>.FromInt32(10000)));
+                    _metersToYardsFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(9144), Compute.FromInt32<T>(10000)));
                     _metersToYardsFactorComputed = true;
                 }
                 return _metersToYardsFactor;

@@ -1,4 +1,5 @@
-﻿using Towel.Mathematics;
+﻿using System;
+using Towel.Mathematics;
 
 namespace Towel.Measurements
 {
@@ -6,16 +7,16 @@ namespace Towel.Measurements
     {
         #region Shared Constants
 
-        private static Predicate<T> EqualsZero = (T value) => { return Compute<T>.Equals(value, Compute<T>.FromInt32(0)); };
-        private static Predicate<T> EqualsOne = (T value) => { return Compute<T>.Equals(value, Compute<T>.FromInt32(0)); };
+        private static Predicate<T> EqualsZero = (T value) => { return Compute.Equal(value, Compute.FromInt32<T>(0)); };
+        private static Predicate<T> EqualsOne = (T value) => { return Compute.Equal(value, Compute.FromInt32<T>(0)); };
 
         private static T TenPowered(int exponent, params Predicate<T>[] predicates)
         {
-            T computed_value = Compute<T>.Power(Compute<T>.FromInt32(10), Compute<T>.FromInt32(exponent));
+            T computed_value = Compute.Power(Compute.FromInt32<T>(10), Compute.FromInt32<T>(exponent));
             foreach (Predicate<T> predicate in predicates)
             {
                 if (predicate(computed_value))
-                    throw new System.InvalidOperationException("Unable to compute 10E" + exponent + " constant for type \"" + Meta.ConvertTypeToCsharpSource(typeof(T)) + "\".");
+                    throw new System.InvalidOperationException("Unable to compute 10E" + exponent + " constant for type \"" + typeof(T).ConvertToCsharpSource() + "\".");
             }
             return computed_value;
         }
@@ -573,140 +574,140 @@ namespace Towel.Measurements
         /// <summary>Converts base to yotta.</summary>
         /// <param name="measurement">The measurement in base to convert to yotta.</param>
         /// <returns>The measurement in yotta.</returns>
-        public static T BaseToYotta(T measurement) { return Compute<T>.Multiply(measurement, BaseToYottaFactor); }
+        public static T BaseToYotta(T measurement) { return Compute.Multiply(measurement, BaseToYottaFactor); }
 
         /// <summary>The factor for converting base to zetta (10E-21).</summary>
         public static T BaseToZettaFactor { get { return _10En21; } }
         /// <summary>Converts base to zetta.</summary>
         /// <param name="measurement">The measurement in base to convert to zetta.</param>
         /// <returns>The measurement in zetta.</returns>
-        public static T BaseToZetta(T measurement) { return Compute<T>.Multiply(measurement, BaseToZettaFactor); }
+        public static T BaseToZetta(T measurement) { return Compute.Multiply(measurement, BaseToZettaFactor); }
 
         /// <summary>The factor for converting base to exa (10E-18).</summary>
         public static T BaseToExaFactor { get { return _10En18; } }
         /// <summary>Converts base to exa.</summary>
         /// <param name="measurement">The measurement in base to convert to exa.</param>
         /// <returns>The measurement in exa.</returns>
-        public static T BaseToExa(T measurement) { return Compute<T>.Multiply(measurement, BaseToExaFactor); }
+        public static T BaseToExa(T measurement) { return Compute.Multiply(measurement, BaseToExaFactor); }
 
         /// <summary>The factor for converting base to peta (10E-15).</summary>
         public static T BaseToPetaFactor { get { return _10En15; } }
         /// <summary>Converts base to peta.</summary>
         /// <param name="measurement">The measurement in base to convert to peta.</param>
         /// <returns>The measurement in peta.</returns>
-        public static T BaseToPeta(T measurement) { return Compute<T>.Multiply(measurement, BaseToPetaFactor); }
+        public static T BaseToPeta(T measurement) { return Compute.Multiply(measurement, BaseToPetaFactor); }
 
         /// <summary>The factor for converting base to tera (10E-12).</summary>
         public static T BaseToTeraFactor { get { return _10En12; } }
         /// <summary>Converts base to tera.</summary>
         /// <param name="measurement">The measurement in base to convert to tera.</param>
         /// <returns>The measurement in tera.</returns>
-        public static T BaseToTera(T measurement) { return Compute<T>.Multiply(measurement, BaseToTeraFactor); }
+        public static T BaseToTera(T measurement) { return Compute.Multiply(measurement, BaseToTeraFactor); }
 
         /// <summary>The factor for converting base to giga (10E-9).</summary>
         public static T BaseToGigaFactor { get { return _10En9; } }
         /// <summary>Converts base to giga.</summary>
         /// <param name="measurement">The measurement in base to convert to giga.</param>
         /// <returns>The measurement in giga.</returns>
-        public static T BaseToGiga(T measurement) { return Compute<T>.Multiply(measurement, BaseToGigaFactor); }
+        public static T BaseToGiga(T measurement) { return Compute.Multiply(measurement, BaseToGigaFactor); }
 
         /// <summary>The factor for converting base to giga (10E-6).</summary>
         public static T BaseToMegaFactor { get { return _10En6; } }
         /// <summary>Converts base to mega.</summary>
         /// <param name="measurement">The measurement in base to convert to mega.</param>
         /// <returns>The measurement in mega.</returns>
-        public static T BaseToMega(T measurement) { return Compute<T>.Multiply(measurement, BaseToMegaFactor); }
+        public static T BaseToMega(T measurement) { return Compute.Multiply(measurement, BaseToMegaFactor); }
 
         /// <summary>The factor for converting base to kilo (10E-3).</summary>
         public static T BaseToKiloFactor { get { return _10En3; } }
         /// <summary>Converts base to kilo.</summary>
         /// <param name="measurement">The measurement in base to convert to kilo.</param>
         /// <returns>The measurement in kilo.</returns>
-        public static T BaseToKilo(T measurement) { return Compute<T>.Multiply(measurement, BaseToKiloFactor); }
+        public static T BaseToKilo(T measurement) { return Compute.Multiply(measurement, BaseToKiloFactor); }
 
         /// <summary>The factor for converting base to hecto (10E-2).</summary>
         public static T BaseToHectoFactor { get { return _10En2; } }
         /// <summary>Converts base to hecto.</summary>
         /// <param name="measurement">The measurement in base to convert to hecto.</param>
         /// <returns>The measurement in hecto.</returns>
-        public static T BaseToHecto(T measurement) { return Compute<T>.Multiply(measurement, BaseToHectoFactor); }
+        public static T BaseToHecto(T measurement) { return Compute.Multiply(measurement, BaseToHectoFactor); }
 
         /// <summary>The factor for converting base to deca (10E-1).</summary>
         public static T BaseToDecaFactor { get { return _10En1; } }
         /// <summary>Converts base to deca.</summary>
         /// <param name="measurement">The measurement in base to convert to deca.</param>
         /// <returns>The measurement in deca.</returns>
-        public static T BaseToDeca(T measurement) { return Compute<T>.Multiply(measurement, BaseToDecaFactor); }
+        public static T BaseToDeca(T measurement) { return Compute.Multiply(measurement, BaseToDecaFactor); }
 
         /// <summary>The factor for converting base to deci (10E1).</summary>
         public static T BaseToDeciFactor { get { return _10E1; } }
         /// <summary>Converts base to deci.</summary>
         /// <param name="measurement">The measurement in base to convert to deci.</param>
         /// <returns>The measurement in deci.</returns>
-        public static T BaseToDeci(T measurement) { return Compute<T>.Multiply(measurement, BaseToDeciFactor); }
+        public static T BaseToDeci(T measurement) { return Compute.Multiply(measurement, BaseToDeciFactor); }
 
         /// <summary>The factor for converting base to centi (10E2).</summary>
         public static T BaseToCentiFactor { get { return _10E2; } }
         /// <summary>Converts base to centi.</summary>
         /// <param name="measurement">The measurement in base to convert to centi.</param>
         /// <returns>The measurement in centi.</returns>
-        public static T BaseToCenti(T measurement) { return Compute<T>.Multiply(measurement, BaseToCentiFactor); }
+        public static T BaseToCenti(T measurement) { return Compute.Multiply(measurement, BaseToCentiFactor); }
 
         /// <summary>The factor for converting base to milli (10E3).</summary>
         public static T BaseToMilliFactor { get { return _10E3; } }
         /// <summary>Converts base to milli.</summary>
         /// <param name="measurement">The measurement in base to convert to milli.</param>
         /// <returns>The measurement in milli.</returns>
-        public static T BaseToMilli(T measurement) { return Compute<T>.Multiply(measurement, BaseToMilliFactor); }
+        public static T BaseToMilli(T measurement) { return Compute.Multiply(measurement, BaseToMilliFactor); }
 
         /// <summary>The factor for converting base to micro (10E6).</summary>
         public static T BaseToMicroFactor { get { return _10E6; } }
         /// <summary>Converts base to micro.</summary>
         /// <param name="measurement">The measurement in base to convert to micro.</param>
         /// <returns>The measurement in micro.</returns>
-        public static T BaseToMicro(T measurement) { return Compute<T>.Multiply(measurement, BaseToMicroFactor); }
+        public static T BaseToMicro(T measurement) { return Compute.Multiply(measurement, BaseToMicroFactor); }
 
         /// <summary>The factor for converting base to nano (10E9).</summary>
         public static T BaseToNanoFactor { get { return _10E9; } }
         /// <summary>Converts base to nano.</summary>
         /// <param name="measurement">The measurement in base to convert to nano.</param>
         /// <returns>The measurement in nano.</returns>
-        public static T BaseToNano(T measurement) { return Compute<T>.Multiply(measurement, BaseToNanoFactor); }
+        public static T BaseToNano(T measurement) { return Compute.Multiply(measurement, BaseToNanoFactor); }
 
         /// <summary>The factor for converting base to pico (10E12).</summary>
         public static T BaseToPicoFactor { get { return _10E12; } }
         /// <summary>Converts base to pico.</summary>
         /// <param name="measurement">The measurement in base to convert to pico.</param>
         /// <returns>The measurement in pico.</returns>
-        public static T BaseToPico(T measurement) { return Compute<T>.Multiply(measurement, BaseToPicoFactor); }
+        public static T BaseToPico(T measurement) { return Compute.Multiply(measurement, BaseToPicoFactor); }
 
         /// <summary>The factor for converting base to femto (10E15).</summary>
         public static T BaseToFemtoFactor { get { return _10E15; } }
         /// <summary>Converts base to femto.</summary>
         /// <param name="measurement">The measurement in base to convert to femto.</param>
         /// <returns>The measurement in femto.</returns>
-        public static T BaseToFemto(T measurement) { return Compute<T>.Multiply(measurement, BaseToFemtoFactor); }
+        public static T BaseToFemto(T measurement) { return Compute.Multiply(measurement, BaseToFemtoFactor); }
 
         /// <summary>The factor for converting base to atto (10E18).</summary>
         public static T BaseToAttoFactor { get { return _10E18; } }
         /// <summary>Converts base to atto.</summary>
         /// <param name="measurement">The measurement in base to convert to atto.</param>
         /// <returns>The measurement in atto.</returns>
-        public static T BaseToAtto(T measurement) { return Compute<T>.Multiply(measurement, BaseToAttoFactor); }
+        public static T BaseToAtto(T measurement) { return Compute.Multiply(measurement, BaseToAttoFactor); }
 
         /// <summary>The factor for converting base to zepto (10E21).</summary>
         public static T BaseToZeptoFactor { get { return _10E21; } }
         /// <summary>Converts base to zepto.</summary>
         /// <param name="measurement">The measurement in base to convert to zepto.</param>
         /// <returns>The measurement in zepto.</returns>
-        public static T BaseToZepto(T measurement) { return Compute<T>.Multiply(measurement, BaseToZeptoFactor); }
+        public static T BaseToZepto(T measurement) { return Compute.Multiply(measurement, BaseToZeptoFactor); }
 
         /// <summary>The factor for converting base to yocto (10E24).</summary>
         public static T BaseToYoctoFactor { get { return _10E24; } }
         /// <summary>Converts base to yocto.</summary>
         /// <param name="measurement">The measurement in base to convert to yocto.</param>
         /// <returns>The measurement in yocto.</returns>
-        public static T BaseToYocto(T measurement) { return Compute<T>.Multiply(measurement, BaseToYoctoFactor); }
+        public static T BaseToYocto(T measurement) { return Compute.Multiply(measurement, BaseToYoctoFactor); }
 
         #endregion
 
@@ -717,140 +718,140 @@ namespace Towel.Measurements
         /// <summary>Converts deci to yotta.</summary>
         /// <param name="measurement">The measurement in deci to convert to yotta.</param>
         /// <returns>The measurement in yotta.</returns>
-        public static T DeciToYotta(T measurement) { return Compute<T>.Multiply(measurement, DeciToYottaFactor); }
+        public static T DeciToYotta(T measurement) { return Compute.Multiply(measurement, DeciToYottaFactor); }
 
         /// <summary>The factor for converting deci to zetta (10E-21).</summary>
         public static T DeciToZettaFactor { get { return _10En21; } }
         /// <summary>Converts deci to zetta.</summary>
         /// <param name="measurement">The measurement in deci to convert to zetta.</param>
         /// <returns>The measurement in zetta.</returns>
-        public static T DeciToZetta(T measurement) { return Compute<T>.Multiply(measurement, DeciToZettaFactor); }
+        public static T DeciToZetta(T measurement) { return Compute.Multiply(measurement, DeciToZettaFactor); }
 
         /// <summary>The factor for converting deci to exa (10E-18).</summary>
         public static T DeciToExaFactor { get { return _10En18; } }
         /// <summary>Converts deci to exa.</summary>
         /// <param name="measurement">The measurement in deci to convert to exa.</param>
         /// <returns>The measurement in exa.</returns>
-        public static T DeciToExa(T measurement) { return Compute<T>.Multiply(measurement, DeciToExaFactor); }
+        public static T DeciToExa(T measurement) { return Compute.Multiply(measurement, DeciToExaFactor); }
 
         /// <summary>The factor for converting deci to peta (10E-15).</summary>
         public static T DeciToPetaFactor { get { return _10En15; } }
         /// <summary>Converts deci to peta.</summary>
         /// <param name="measurement">The measurement in deci to convert to peta.</param>
         /// <returns>The measurement in peta.</returns>
-        public static T DeciToPeta(T measurement) { return Compute<T>.Multiply(measurement, DeciToPetaFactor); }
+        public static T DeciToPeta(T measurement) { return Compute.Multiply(measurement, DeciToPetaFactor); }
 
         /// <summary>The factor for converting deci to tera (10E-12).</summary>
         public static T DeciToTeraFactor { get { return _10En12; } }
         /// <summary>Converts deci to tera.</summary>
         /// <param name="measurement">The measurement in deci to convert to tera.</param>
         /// <returns>The measurement in tera.</returns>
-        public static T DeciToTera(T measurement) { return Compute<T>.Multiply(measurement, DeciToTeraFactor); }
+        public static T DeciToTera(T measurement) { return Compute.Multiply(measurement, DeciToTeraFactor); }
 
         /// <summary>The factor for converting deci to giga (10E-9).</summary>
         public static T DeciToGigaFactor { get { return _10En9; } }
         /// <summary>Converts deci to giga.</summary>
         /// <param name="measurement">The measurement in deci to convert to giga.</param>
         /// <returns>The measurement in giga.</returns>
-        public static T DeciToGiga(T measurement) { return Compute<T>.Multiply(measurement, DeciToGigaFactor); }
+        public static T DeciToGiga(T measurement) { return Compute.Multiply(measurement, DeciToGigaFactor); }
 
         /// <summary>The factor for converting deci to giga (10E-6).</summary>
         public static T DeciToMegaFactor { get { return _10En6; } }
         /// <summary>Converts deci to mega.</summary>
         /// <param name="measurement">The measurement in deci to convert to mega.</param>
         /// <returns>The measurement in mega.</returns>
-        public static T DeciToMega(T measurement) { return Compute<T>.Multiply(measurement, DeciToMegaFactor); }
+        public static T DeciToMega(T measurement) { return Compute.Multiply(measurement, DeciToMegaFactor); }
 
         /// <summary>The factor for converting deci to kilo (10E-3).</summary>
         public static T DeciToKiloFactor { get { return _10En3; } }
         /// <summary>Converts deci to kilo.</summary>
         /// <param name="measurement">The measurement in deci to convert to kilo.</param>
         /// <returns>The measurement in kilo.</returns>
-        public static T DeciToKilo(T measurement) { return Compute<T>.Multiply(measurement, DeciToKiloFactor); }
+        public static T DeciToKilo(T measurement) { return Compute.Multiply(measurement, DeciToKiloFactor); }
 
         /// <summary>The factor for converting deci to hecto (10E-2).</summary>
         public static T DeciToHectoFactor { get { return _10En2; } }
         /// <summary>Converts deci to hecto.</summary>
         /// <param name="measurement">The measurement in deci to convert to hecto.</param>
         /// <returns>The measurement in hecto.</returns>
-        public static T DeciToHecto(T measurement) { return Compute<T>.Multiply(measurement, DeciToHectoFactor); }
+        public static T DeciToHecto(T measurement) { return Compute.Multiply(measurement, DeciToHectoFactor); }
 
         /// <summary>The factor for converting deci to deca (10E-1).</summary>
         public static T DeciToDecaFactor { get { return _10En1; } }
         /// <summary>Converts deci to deca.</summary>
         /// <param name="measurement">The measurement in deci to convert to deca.</param>
         /// <returns>The measurement in deca.</returns>
-        public static T DeciToDeca(T measurement) { return Compute<T>.Multiply(measurement, DeciToDecaFactor); }
+        public static T DeciToDeca(T measurement) { return Compute.Multiply(measurement, DeciToDecaFactor); }
 
         /// <summary>The factor for converting deci to deci (10E1).</summary>
         public static T DeciToDeciFactor { get { return _10E1; } }
         /// <summary>Converts deci to deci.</summary>
         /// <param name="measurement">The measurement in deci to convert to deci.</param>
         /// <returns>The measurement in deci.</returns>
-        public static T DeciToDeci(T measurement) { return Compute<T>.Multiply(measurement, DeciToDeciFactor); }
+        public static T DeciToDeci(T measurement) { return Compute.Multiply(measurement, DeciToDeciFactor); }
 
         /// <summary>The factor for converting deci to centi (10E2).</summary>
         public static T DeciToCentiFactor { get { return _10E2; } }
         /// <summary>Converts deci to centi.</summary>
         /// <param name="measurement">The measurement in deci to convert to centi.</param>
         /// <returns>The measurement in centi.</returns>
-        public static T DeciToCenti(T measurement) { return Compute<T>.Multiply(measurement, DeciToCentiFactor); }
+        public static T DeciToCenti(T measurement) { return Compute.Multiply(measurement, DeciToCentiFactor); }
 
         /// <summary>The factor for converting deci to milli (10E3).</summary>
         public static T DeciToMilliFactor { get { return _10E3; } }
         /// <summary>Converts deci to milli.</summary>
         /// <param name="measurement">The measurement in deci to convert to milli.</param>
         /// <returns>The measurement in milli.</returns>
-        public static T DeciToMilli(T measurement) { return Compute<T>.Multiply(measurement, DeciToMilliFactor); }
+        public static T DeciToMilli(T measurement) { return Compute.Multiply(measurement, DeciToMilliFactor); }
 
         /// <summary>The factor for converting deci to micro (10E6).</summary>
         public static T DeciToMicroFactor { get { return _10E6; } }
         /// <summary>Converts deci to micro.</summary>
         /// <param name="measurement">The measurement in deci to convert to micro.</param>
         /// <returns>The measurement in micro.</returns>
-        public static T DeciToMicro(T measurement) { return Compute<T>.Multiply(measurement, DeciToMicroFactor); }
+        public static T DeciToMicro(T measurement) { return Compute.Multiply(measurement, DeciToMicroFactor); }
 
         /// <summary>The factor for converting deci to nano (10E9).</summary>
         public static T DeciToNanoFactor { get { return _10E9; } }
         /// <summary>Converts deci to nano.</summary>
         /// <param name="measurement">The measurement in deci to convert to nano.</param>
         /// <returns>The measurement in nano.</returns>
-        public static T DeciToNano(T measurement) { return Compute<T>.Multiply(measurement, DeciToNanoFactor); }
+        public static T DeciToNano(T measurement) { return Compute.Multiply(measurement, DeciToNanoFactor); }
 
         /// <summary>The factor for converting deci to pico (10E12).</summary>
         public static T DeciToPicoFactor { get { return _10E12; } }
         /// <summary>Converts deci to pico.</summary>
         /// <param name="measurement">The measurement in deci to convert to pico.</param>
         /// <returns>The measurement in pico.</returns>
-        public static T DeciToPico(T measurement) { return Compute<T>.Multiply(measurement, DeciToPicoFactor); }
+        public static T DeciToPico(T measurement) { return Compute.Multiply(measurement, DeciToPicoFactor); }
 
         /// <summary>The factor for converting deci to femto (10E15).</summary>
         public static T DeciToFemtoFactor { get { return _10E15; } }
         /// <summary>Converts deci to femto.</summary>
         /// <param name="measurement">The measurement in deci to convert to femto.</param>
         /// <returns>The measurement in femto.</returns>
-        public static T DeciToFemto(T measurement) { return Compute<T>.Multiply(measurement, DeciToFemtoFactor); }
+        public static T DeciToFemto(T measurement) { return Compute.Multiply(measurement, DeciToFemtoFactor); }
 
         /// <summary>The factor for converting deci to atto (10E18).</summary>
         public static T DeciToAttoFactor { get { return _10E18; } }
         /// <summary>Converts deci to atto.</summary>
         /// <param name="measurement">The measurement in deci to convert to atto.</param>
         /// <returns>The measurement in atto.</returns>
-        public static T DeciToAtto(T measurement) { return Compute<T>.Multiply(measurement, DeciToAttoFactor); }
+        public static T DeciToAtto(T measurement) { return Compute.Multiply(measurement, DeciToAttoFactor); }
 
         /// <summary>The factor for converting deci to zepto (10E21).</summary>
         public static T DeciToZeptoFactor { get { return _10E21; } }
         /// <summary>Converts deci to zepto.</summary>
         /// <param name="measurement">The measurement in deci to convert to zepto.</param>
         /// <returns>The measurement in zepto.</returns>
-        public static T DeciToZepto(T measurement) { return Compute<T>.Multiply(measurement, DeciToZeptoFactor); }
+        public static T DeciToZepto(T measurement) { return Compute.Multiply(measurement, DeciToZeptoFactor); }
 
         /// <summary>The factor for converting deci to yocto (10E24).</summary>
         public static T DeciToYoctoFactor { get { return _10E24; } }
         /// <summary>Converts deci to yocto.</summary>
         /// <param name="measurement">The measurement in deci to convert to yocto.</param>
         /// <returns>The measurement in yocto.</returns>
-        public static T DeciToYocto(T measurement) { return Compute<T>.Multiply(measurement, DeciToYoctoFactor); }
+        public static T DeciToYocto(T measurement) { return Compute.Multiply(measurement, DeciToYoctoFactor); }
 
         #endregion
     }

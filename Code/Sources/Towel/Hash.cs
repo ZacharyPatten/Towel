@@ -61,12 +61,14 @@ namespace Towel
 			/// <remarks>Runtime: O(1).</remarks>
 			internal HashLinked(int expectedCount)
 			{
-				if (expectedCount < 0)
-					throw new System.ArgumentOutOfRangeException("expectedCount");
+                if (expectedCount < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(expectedCount), expectedCount, "!(" + nameof(expectedCount) + " >= 0)");
+                }
 				if (expectedCount > 0)
 				{
 					int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-					while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+					while (Towel.Mathematics.Compute.IsPrime(prime))
 						prime++;
 					this._table = new NODE[prime];
 				}
@@ -193,7 +195,7 @@ namespace Towel
 			internal void Trim()
 			{
 				int prime = this._count;
-				while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+				while (Towel.Mathematics.Compute.IsPrime(prime))
 					prime++;
 				if (prime != this._table.Length)
 					Resize(prime);
@@ -218,7 +220,7 @@ namespace Towel
 				for (NODE bucket = _table[loc]; bucket != null; bucket = bucket.Next)
 					if (predicate(bucket))
 						return bucket;
-				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
+				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ConvertToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
 			}
 			#endregion
 			#region internal void Find(Predicate<NODE> predicate, int loc, out NODE previous, out NODE find)
@@ -231,7 +233,7 @@ namespace Towel
 						find = bucket;
 						return;
 					}
-				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
+				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ConvertToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
 			}
 			#endregion
 			#region internal void Find(NODE node, int loc, out NODE previous, out NODE find)
@@ -244,7 +246,7 @@ namespace Towel
 						find = bucket;
 						return;
 					}
-				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
+				throw new System.InvalidOperationException("type " + typeof(HashLinked<NODE>).ConvertToCsharpSource() + " attempted to find a non-existing NODE in HashLinked<NODE>");
 			}
 			#endregion
 			#region internal Node Find(T key, int loc)

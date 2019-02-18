@@ -65,7 +65,7 @@
 			if (expectedCount > 0)
 			{
 				int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-                while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+                while (Towel.Mathematics.Compute.IsPrime(prime))
 					prime++;
 				this._table = new Node[prime];
 			}
@@ -258,7 +258,7 @@
 		public void Trim()
 		{
 			int prime = this._count;
-			while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+			while (Towel.Mathematics.Compute.IsPrime(prime))
 				prime++;
 			if (prime != this._table.Length)
 				Resize(prime);
@@ -575,7 +575,7 @@
 		public void Trim()
 		{
 			int prime = this._count;
-			while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+			while (Towel.Mathematics.Compute.IsPrime(prime))
 				prime++;
 			if (prime != this._table.Length)
 				ShrinkTableSize(prime);
@@ -765,7 +765,7 @@
 			if (expectedCount > 0)
 			{
 				int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-				while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+				while (Towel.Mathematics.Compute.IsPrime(prime))
 					prime++;
 				this._table = new STRUCTURE[prime];
 			}
@@ -941,7 +941,7 @@
 		public void Trim()
 		{
 			int prime = this._count;
-			while (Towel.Mathematics.Compute<int>.IsPrime(prime))
+			while (Towel.Mathematics.Compute.IsPrime(prime))
 				prime++;
 			if (prime != this._table.Length)
 				Resize(prime);

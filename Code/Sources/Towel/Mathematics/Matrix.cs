@@ -6,7 +6,7 @@ namespace Towel.Mathematics
     /// <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
     /// <typeparam name="T">The numeric type of this Matrix.</typeparam>
     [Serializable]
-    public class Matrix<T>
+    public struct Matrix<T>
     {
         internal readonly T[] _matrix;
         internal int _rows;
@@ -435,12 +435,12 @@ namespace Towel.Mathematics
 		#region Static
 
 		/// <summary>Negates all the values in a matrix.</summary>
-		/// <param name="matrix">The matrix to have its values negated.</param>
+		/// <param name="a">The matrix to have its values negated.</param>
 		/// <returns>The resulting matrix after the negations.</returns>
-		public static Matrix<T> Negate(Matrix<T> matrix)
+		public static Matrix<T> Negate(Matrix<T> a)
 		{
-            Matrix<T> b = null;
-            Matrix_Negate(matrix, ref b);
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
+            Matrix_Negate(a, ref b);
             return b;
         }
 		/// <summary>Does standard addition of two matrices.</summary>
@@ -449,7 +449,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the addition.</returns>
 		public static Matrix<T> Add(Matrix<T> a, Matrix<T> b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Add(a, b, ref c);
             return c;
         }
@@ -459,7 +459,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the subtractions.</returns>
 		public static Matrix<T> Subtract(Matrix<T> a, Matrix<T> b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Subtract(a, b, ref c);
             return c;
         }
@@ -469,7 +469,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the multiplication.</returns>
 		public static Matrix<T> Multiply(Matrix<T> a, Matrix<T> b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, b.Columns);
             Matrix_Multiply(a, b, ref c);
             return c;
         }
@@ -479,7 +479,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix-vector of the multiplication.</returns>
 		public static Vector<T> Multiply(Matrix<T> a, Vector<T> b)
 		{
-            Vector<T> c = null;
+            Vector<T> c = new Vector<T>(b.Dimensions);
             Matrix_MultiplyVector(a, b, ref c);
             return c;
         }
@@ -489,7 +489,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the multiplications.</returns>
 		public static Matrix<T> Multiply(Matrix<T> a, T b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_MultiplyScalar(a, b, ref c);
             return c;
         }
@@ -499,7 +499,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the power operation.</returns>
 		public static Matrix<T> Power(Matrix<T> a, int b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Power(a, b, ref c);
             return c;
         }
@@ -509,19 +509,19 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix with the divided values.</returns>
 		public static Matrix<T> Divide(Matrix<T> a, T b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_DivideScalar(a, b, ref c);
             return c;
         }
 		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="matrix">The matrix to get the minor of.</param>
+		/// <param name="a">The matrix to get the minor of.</param>
 		/// <param name="row">The restricted row to form the minor.</param>
 		/// <param name="column">The restricted column to form the minor.</param>
 		/// <returns>The minor of the matrix.</returns>
-		public static Matrix<T> Minor(Matrix<T> matrix, int row, int column)
+		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
 		{
-            Matrix<T> c = null;
-            Matrix_Minor(matrix, row, column, ref c);
+            Matrix<T> c = new Matrix<T>(a.Rows - 1, a.Columns - 1);
+            Matrix_Minor(a, row, column, ref c);
             return c;
         }
 		/// <summary>Combines two matrices from left to right 
@@ -531,7 +531,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the concatenation.</returns>
 		public static Matrix<T> ConcatenateRowWise(Matrix<T> a, Matrix<T> b)
 		{
-            Matrix<T> c = null;
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns + b.Columns);
             Matrix_ConcatenateRowWise(a, b, ref c);
             return c;
         }
@@ -547,7 +547,7 @@ namespace Towel.Mathematics
 		/// <returns>The echelon of the matrix (aka REF).</returns>
 		public static Matrix<T> Echelon(Matrix<T> a)
 		{
-            Matrix<T> b = null;
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Echelon(a, ref b);
             return b;
         }
@@ -556,7 +556,7 @@ namespace Towel.Mathematics
 		/// <returns>The reduced echelon of the matrix (aka RREF).</returns>
 		public static Matrix<T> ReducedEchelon(Matrix<T> a)
 		{
-            Matrix<T> b = null;
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_ReducedEchelon(a, ref b);
             return b;
         }
@@ -565,7 +565,7 @@ namespace Towel.Mathematics
 		/// <returns>The inverse of the matrix.</returns>
 		public static Matrix<T> Inverse(Matrix<T> a)
 		{
-            Matrix<T> b = null;
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Inverse(a, ref b);
             return b;
         }
@@ -574,7 +574,7 @@ namespace Towel.Mathematics
 		/// <returns>The adjoint of the matrix.</returns>
 		public static Matrix<T> Adjoint(Matrix<T> a)
 		{
-            Matrix<T> b = null;
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Adjoint(a, ref b);
             return b;
         }
@@ -583,7 +583,7 @@ namespace Towel.Mathematics
 		/// <returns>The transpose of the matrix.</returns>
 		public static Matrix<T> Transpose(Matrix<T> a)
 		{
-            Matrix<T> b = null;
+            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
             Matrix_Transpose(a, ref b);
             return b;
         }
@@ -612,7 +612,7 @@ namespace Towel.Mathematics
 		/// <returns>True if values are equal, false if not.</returns>
 		public static bool EqualsByValue(Matrix<T> left, Matrix<T> right)
 		{
-            return Matrix<T>.Matrix_EqualsByValue(left, right);
+            return Matrix_EqualsByValue(left, right);
         }
 		/// <summary>Does a value equality check with leniency.</summary>
 		/// <param name="left">The first matrix to check for equality.</param>
@@ -621,7 +621,7 @@ namespace Towel.Mathematics
 		/// <returns>True if values are equal, false if not.</returns>
 		public static bool EqualsByValue(Matrix<T> left, Matrix<T> right, T leniency)
 		{
-            return Matrix<T>.Matrix_EqualsByValue_leniency(left, right, leniency);
+            return Matrix_EqualsByValue_leniency(left, right, leniency);
         }
 
         #endregion
@@ -1943,7 +1943,7 @@ namespace Towel.Mathematics
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    if (Compute.Equal(a.Get(i, j), b.Get(i, j), leniency))
+                    if (Compute.EqualLeniency(a.Get(i, j), b.Get(i, j), leniency))
                     {
                         return false;
                     }

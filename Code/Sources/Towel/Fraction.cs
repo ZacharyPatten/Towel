@@ -17,24 +17,20 @@
 	/// </citation>
 	public struct Fraction32
 	{
-		#region constants
+        private short _numerator;
+        private short _denominator;
 
-		/// <summary>The maximum Fraction32 value.</summary>
-		//public static Fraction32 MaxValue = new Fraction32(short.MaxValue, 1);
+        #region Constants
 
-		/// <summary>The minimum Fraction32 value.</summary>
-		//public static Fraction32 MinValue = new Fraction32(short.MinValue, 1);
+        /// <summary>The maximum Fraction32 value.</summary>
+        public static readonly Fraction32 MaxValue = new Fraction32(short.MaxValue, 1);
 
-		#endregion
+        /// <summary>The minimum Fraction32 value.</summary>
+        public static readonly Fraction32 MinValue = new Fraction32(short.MinValue, 1);
 
-		#region field
-
-		private short _numerator;
-		private short _denominator;
-
-		#endregion
-
-		#region property
+        #endregion
+            
+		#region Properties
 
 		/// <summary>The denominator of the fraction.</summary>
 		public short Denominator
@@ -56,7 +52,7 @@
 
 		#endregion
 
-		#region construct
+		#region Constructors
 
 		/// <summary>Constructs a fraction from an short.</summary>
 		/// <param name="shorteger">The short to represent as a fraction.</param>
@@ -214,7 +210,7 @@
 
 		#endregion
 
-		#region operator
+		#region Operators
 
 		public static Fraction32 operator ++(Fraction32 fraction) { return fraction + 1; }
 		/// <summary>Negates a fraction.</summary>
@@ -300,7 +296,7 @@
 
 		#endregion
 
-		#region method
+		#region Instance Methods
 
 		public short CompareTo(Fraction32 right)
 		{
@@ -498,7 +494,7 @@
 		#endregion
 	}
 
-	/// <summary>A fraction represented as two ints (numerator / denomnator).</summary>
+	/// <summary>A fraction represented as two integers (numerator / denomnator).</summary>
 	/// <citation>
 	/// This fraction imlpementation was originally developed by 
 	/// Syed Mehroz Alam and posted as an open source project on 
@@ -515,35 +511,35 @@
 	/// </citation>
 	public struct Fraction64
 	{
-		#region constants
+        private int _numerator;
+        private int _denominator;
 
-		/// <summary>The maximum Fraction64 value.</summary>
-		//public static Fraction64 MaxValue = new Fraction64(int.MaxValue, 1);
+        #region Constants
 
-		/// <summary>The minimum Fraction64 value.</summary>
-		//public static Fraction64 MinValue = new Fraction64(int.MinValue, 1);
+        /// <summary>The maximum Fraction64 value.</summary>
+        public static readonly Fraction64 MaxValue = new Fraction64(int.MaxValue, 1);
 
-		#endregion
+        /// <summary>The minimum Fraction64 value.</summary>
+        public static readonly Fraction64 MinValue = new Fraction64(int.MinValue, 1);
 
-		#region field
+        #endregion
+            
+        #region Properties
 
-		private int _numerator;
-		private int _denominator;
-
-		#endregion
-
-		#region property
-
-		/// <summary>The denominator of the fraction.</summary>
-		public int Denominator
+        /// <summary>The denominator of the fraction.</summary>
+        public int Denominator
 		{
 			get { return _denominator; }
 			set
 			{
-				if (value != 0)
-					_denominator = value;
-				else
-					throw new System.ArgumentOutOfRangeException("Denominator cannot be assigned a ZERO Value");
+                if (value != 0)
+                {
+                    _denominator = value;
+                }
+                else
+                {
+                    throw new System.ArgumentOutOfRangeException("Denominator cannot be assigned a ZERO Value");
+                }
 			}
 		}
 
@@ -556,7 +552,7 @@
 
 		#endregion
 
-		#region construct
+		#region Constructors
 
 		/// <summary>Constructs a fraction from an int.</summary>
 		/// <param name="integer">The int to represent as a fraction.</param>
@@ -713,7 +709,7 @@
 
 		#endregion
 
-		#region operator
+		#region Operators
 
 		public static Fraction64 operator ++(Fraction64 fraction) { return fraction + 1; }
 		/// <summary>Negates a fraction.</summary>
@@ -799,7 +795,7 @@
 
 		#endregion
 
-		#region method
+		#region Instance Methods
 
 		public int CompareTo(Fraction64 right)
 		{
@@ -997,41 +993,37 @@
 		#endregion
 	}
 
-	/// <summary>A fraction represented as two ints (numerator / denomnator).</summary>
-	/// <citation>
-	/// This fraction imlpementation was originally developed by 
-	/// Syed Mehroz Alam and posted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition into the Towel framework.
-	/// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-	/// 
-	/// Original Author:
-	/// Author: Syed Mehroz Alam
-	/// Email: smehrozalam@yahoo.com
-	/// URL: Programming Home http://www.geocities.com/smehrozalam/
-	/// Date: 6/15/2004
-	/// Time: 10:54 AM
-	/// </citation>
-	public struct Fraction128
+    /// <summary>A fraction represented as two longs (numerator / denomnator).</summary>
+    /// <citation>
+    /// This fraction imlpementation was originally developed by 
+    /// Syed Mehroz Alam and posted as an open source project on 
+    /// CodeProject.com. However, it has been modified since its
+    /// addition into the Towel framework.
+    /// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
+    /// 
+    /// Original Author:
+    /// Author: Syed Mehroz Alam
+    /// Email: smehrozalam@yahoo.com
+    /// URL: Programming Home http://www.geocities.com/smehrozalam/
+    /// Date: 6/15/2004
+    /// Time: 10:54 AM
+    /// </citation>
+    public struct Fraction128
 	{
-		#region constants
+        private long _numerator;
+        private long _denominator;
+        
+        #region Constants
 
-		/// <summary>The maximum Fraction128 value.</summary>
-		//public static Fraction128 MaxValue = new Fraction128(long.MaxValue, 1);
+        /// <summary>The maximum Fraction128 value.</summary>
+        public readonly static Fraction128 MaxValue = new Fraction128(long.MaxValue, 1);
 
-		/// <summary>The minimum Fraction128 value.</summary>
-		//public static Fraction128 MinValue = new Fraction128(long.MinValue, 1);
+        /// <summary>The minimum Fraction128 value.</summary>
+        public readonly static Fraction128 MinValue = new Fraction128(long.MinValue, 1);
 
-		#endregion
-
-		#region field
-
-		private long _numerator;
-		private long _denominator;
-
-		#endregion
-
-		#region property
+        #endregion
+            
+		#region Properties
 
 		public long Denominator
 		{
@@ -1053,7 +1045,7 @@
 
 		#endregion
 
-		#region construct
+		#region Constructors
 
 		public Fraction128(long longeger)
 		{
@@ -1190,7 +1182,7 @@
 
 		#endregion
 
-		#region operator
+		#region Operators
 
 		public static Fraction128 operator ++(Fraction128 fraction) { return fraction + 1; }
 		/// <summary>Negates a fraction.</summary>
@@ -1276,7 +1268,7 @@
 
 		#endregion
 
-		#region method
+		#region Instance Methods
 
 		public int CompareTo(Fraction128 right)
 		{
@@ -1441,452 +1433,6 @@
 				}
 
 				long iGCD = GreatestCommonDenominator(frac.Numerator, frac.Denominator);
-				frac.Numerator /= iGCD;
-				frac.Denominator /= iGCD;
-
-				if (frac.Denominator < 0)	// if -ve sign in denominator
-				{
-					//pass -ve sign to numerator
-					frac.Numerator *= -1;
-					frac.Denominator *= -1;
-				}
-			} // end try
-			catch (System.Exception ex)
-			{
-				throw new System.Exception("Cannot reduce Fraction: ", ex);
-			}
-		}
-
-		#endregion
-	}
-
-	/// <summary>A fraction represented as two Integers (numerator / denomnator).</summary>
-	/// <citation>
-	/// This fraction imlpementation was originally developed by 
-	/// Syed Mehroz Alam and posted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition shorto the Towel framework.
-	/// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-	/// 
-	/// Original Author:
-	/// Author: Syed Mehroz Alam
-	/// Email: smehrozalam@yahoo.com
-	/// URL: Programming Home http://www.geocities.com/smehrozalam/
-	/// Date: 6/15/2004
-	/// Time: 10:54 AM
-	/// 
-	/// This class also uses the Integer class. See the Integer class
-	/// for further citations.
-	/// </citation>
-	public struct Fraction
-	{
-		#region constants
-
-		/// <summary>The maximum Fraction value.</summary>
-		//public static Fraction MaxValue = new Fraction(long.MaxValue, 1);
-
-		/// <summary>The minimum Fraction value.</summary>
-		//public static Fraction MinValue = new Fraction(long.MinValue, 1);
-
-		#endregion
-
-		#region field
-
-		private Integer _numerator;
-		private Integer _denominator;
-
-		#endregion
-
-		#region property
-
-		public Integer Denominator
-		{
-			get { return _denominator; }
-			set
-			{
-				if (value != 0)
-					_denominator = value;
-				else
-					throw new System.ArgumentOutOfRangeException("Denominator cannot be assigned a ZERO Value");
-			}
-		}
-
-		public Integer Numerator
-		{
-			get { return _numerator; }
-			set { _numerator = value; }
-		}
-
-		#endregion
-
-		#region construct
-
-		public Fraction(Integer numerator)
-		{
-			this._numerator = numerator;
-			this._denominator = 1;
-		}
-
-		public Fraction(double rational)
-		{
-		Rounded:
-
-			if (rational > long.MaxValue)
-				throw new System.ArgumentOutOfRangeException("Fraction construction invalid (rational > long.MaxValue)");
-			else if (rational < long.MinValue)
-				throw new System.ArgumentOutOfRangeException("Fraction construction invalid (rational < long.MinValue)");
-			else if (rational % 1 == 0)	// if whole number
-			{
-				this._numerator = new Integer(((long)rational).ToString());
-				this._denominator = 1;
-				//Fraction.Reduce(this);
-			}
-			else
-			{
-				try
-				{
-					checked
-					{
-						double temp_rational = rational;
-						Integer multiple = 1;
-						string temp_string = rational.ToString();
-						while (temp_string.IndexOf("E") > 0)	// if in the form like 12E-9
-						{
-							temp_rational *= 10;
-							multiple *= 10;
-							temp_string = temp_rational.ToString();
-						}
-						int i = 0;
-						while (temp_string[i] != '.')
-							i++;
-						long digitsAfterDecimal = temp_string.Length - i - 1;
-						while (digitsAfterDecimal > 0)
-						{
-							temp_rational *= 10;
-							multiple *= 10;
-							digitsAfterDecimal--;
-						}
-						_numerator = new Integer(((long)System.Math.Round(temp_rational)).ToString());
-						_denominator = multiple;
-						//Reduce(this);
-					}
-				}
-				catch (System.OverflowException)
-				{
-					rational = System.Math.Round(rational, 10);
-					goto Rounded;
-				}
-			}
-		}
-
-		public Fraction(Integer numerator, Integer deniminator)
-		{
-			_numerator = numerator;
-			_denominator = deniminator;
-			//Reduce(this);
-		}
-
-		public Fraction(string literal)
-		{
-			int i;
-			for (i = 0; i < literal.Length; i++)
-				if (literal[i] == '/')
-					break;
-
-			if (i == literal.Length)
-			{
-				double rational = System.Convert.ToDouble(literal);
-				try
-				{
-					checked
-					{
-						if (rational % 1 == 0)	// if whole number
-						{
-							this._numerator = new Integer(((long)rational).ToString());
-							this._denominator = 1;
-							//Fraction.Reduce(this);
-						}
-						else
-						{
-							double temp_rational = rational;
-							Integer multiple = 1;
-							string temp_string = rational.ToString();
-							while (temp_string.IndexOf("E") > 0)	// if in the form like 12E-9
-							{
-								temp_rational *= 10;
-								multiple *= 10;
-								temp_string = temp_rational.ToString();
-							}
-							int j = 0;
-							while (temp_string[j] != '.')
-								j++;
-							long iDigitsAfterDecimal = temp_string.Length - j - 1;
-							while (iDigitsAfterDecimal > 0)
-							{
-								temp_rational *= 10;
-								multiple *= 10;
-								iDigitsAfterDecimal--;
-							}
-							_numerator = new Integer(((long)System.Math.Round(temp_rational)).ToString());
-							_denominator = multiple;
-							//Fraction.Reduce(this);
-						}
-					}
-				}
-				catch (System.OverflowException ex)
-				{
-					throw new System.OverflowException("Conversion not possible due to overflow", ex);
-				}
-				catch (System.Exception ex)
-				{
-					throw new System.Exception("Conversion not possible", ex);
-				}
-			}
-			else
-			{
-				// else string is in the form of Numerator/Denominator
-				Integer iNumerator = new Integer((System.Convert.ToInt64(literal.Substring(0, i))).ToString());
-				Integer iDenominator = new Integer((System.Convert.ToInt64(literal.Substring(i + 1))).ToString());
-
-				this._numerator = iNumerator;
-				this._denominator = iDenominator;
-				//Fraction.Reduce(this);
-			}
-		}
-
-		#endregion
-
-		#region operator
-
-		public static Fraction operator ++(Fraction fraction) { return fraction + 1; }
-		/// <summary>Negates a fraction.</summary>
-		/// <param name="fraction">The fraction to negate.</param>
-		/// <returns>The result of the negation.</returns>
-		public static Fraction operator -(Fraction fraction) { return Fraction.Negate(fraction); }
-		/// <summary>Adds two operands together.</summary>
-		/// <param name="left">The left operand of the addition.</param>
-		/// <param name="right">The right operand of the addition.</param>
-		/// <returns>The result of the addition.</returns>
-		public static Fraction operator +(Fraction left, Fraction right) { return (Fraction.Add(left, right)); }
-		/// <summary>Subtracts two operands.</summary>
-		/// <param name="left">The left operand of the subtraction.</param>
-		/// <param name="right">The right operand of the subtraction.</param>
-		/// <returns>The result of the subtraction.</returns>
-		public static Fraction operator -(Fraction left, Fraction right) { return (Fraction.Add(left, -right)); }
-		/// <summary>Multiplies two operands together.</summary>
-		/// <param name="left">The left operand of the multiplication.</param>
-		/// <param name="right">The right operand of the multiplication.</param>
-		/// <returns>The result of the multiplication.</returns>
-		public static Fraction operator *(Fraction left, Fraction right) { return (Fraction.Multiply(left, right)); }
-		/// <summary>Divides two operands.</summary>
-		/// <param name="left">The left operand of the division.</param>
-		/// <param name="right">The right operand of the division.</param>
-		/// <returns>The result of the division.</returns>
-		public static Fraction operator /(Fraction left, Fraction right) { return (Fraction.Multiply(left, Inverse(right))); }
-		/// <summary>Checks for equality between two fractions.</summary>
-		/// <param name="left">The first operand of the equality check.</param>
-		/// <param name="right">The second operand of the equality check.</param>
-		/// <returns>The result of the equality check.</returns>
-		public static bool operator ==(Fraction left, Fraction right) { return Fraction.Equals(left, right); }
-		/// <summary>Checks for equality between two fractions.</summary>
-		/// <param name="left">The first operand of the equality check.</param>
-		/// <param name="right">The second operand of the equality check.</param>
-		/// <returns>The result of the equality check.</returns>
-		public static bool operator !=(Fraction left, Fraction right) { return !Fraction.Equals(left, right); }
-		/// <summary>Performs a less-than inquality between two operands.</summary>
-		/// <param name="left">The left operand of the inequality.</param>
-		/// <param name="right">The right operand of the inequality.</param>
-		/// <returns>The value of the inequality.</returns>
-		public static bool operator <(Fraction left, Fraction right) { return left.Numerator * right.Denominator < right.Numerator * left.Denominator; }
-		/// <summary>Performs a greater-than inquality between two operands.</summary>
-		/// <param name="left">The left operand of the inequality.</param>
-		/// <param name="right">The right operand of the inequality.</param>
-		/// <returns>The value of the inequality.</returns>
-		public static bool operator >(Fraction left, Fraction right) { return left.Numerator * right.Denominator > right.Numerator * left.Denominator; }
-		/// <summary>Performs a less-than-or-equal inquality between two operands.</summary>
-		/// <param name="left">The left operand of the inequality.</param>
-		/// <param name="right">The right operand of the inequality.</param>
-		/// <returns>The value of the inequality.</returns>
-		public static bool operator <=(Fraction left, Fraction right) { return left.Numerator * right.Denominator <= right.Numerator * left.Denominator; }
-		/// <summary>Performs a greater-than-or-equal inquality between two operands.</summary>
-		/// <param name="left">The left operand of the inequality.</param>
-		/// <param name="right">The right operand of the inequality.</param>
-		/// <returns>The value of the inequality.</returns>
-		public static bool operator >=(Fraction left, Fraction right) { return left.Numerator * right.Denominator >= right.Numerator * left.Denominator; }
-		/// <summary>Converts a double to a fraction. Precision will be lost.</summary>
-		/// <param name="rational">The double to convert to a fraction.</param>
-		/// <returns>The resulting double of the conversion.</returns>
-		public static explicit operator Fraction(double rational) { return new Fraction(rational); }
-		/// <summary>Implicitly converts an long longo a fraction.</summary>
-		/// <param name="longeger">The longeger to convert longo a fraction.</param>
-		/// <returns>The resulting fraction representation.</returns>
-		public static implicit operator Fraction(long integer) { return new Fraction((Integer)integer); }
-		/// <summary>Implicitly converts an long longo a fraction.</summary>
-		/// <param name="literal">The longeger to convert longo a fraction.</param>
-		/// <returns>The resulting fraction representation.</returns>
-		public static explicit operator Fraction(string literal) { return new Fraction(literal); }
-		/// <summary>Implicitly converts an long longo a fraction.</summary>
-		/// <param name="fraction">The longeger to convert longo a fraction.</param>
-		/// <returns>The resulting fraction representation.</returns>
-		public static implicit operator string(Fraction fraction) { return fraction.ToString(); }
-		/// <summary>Implicitly converts an long longo a fraction.</summary>
-		/// <param name="fraction">The longeger to convert longo a fraction.</param>
-		/// <returns>The resulting fraction representation.</returns>
-		public static explicit operator double(Fraction fraction) { return fraction.ToDouble(); }
-		public static Fraction operator %(Fraction left, Fraction right)
-		{
-			while (left > right)
-				left = left - right;
-			return left;
-		}
-
-		#endregion
-
-		#region method
-
-		public int CompareTo(Fraction right)
-		{
-			if (this < right)
-				return -1;
-			else if (this > right)
-				return 1;
-			else return 0;
-		}
-
-		public static int CompareTo(Fraction left, Fraction right)
-		{
-			if (left < right)
-				return -1;
-			else if (left > right)
-				return 1;
-			else return 0;
-		}
-
-		private static bool Equals(Fraction left, Fraction right)
-		{
-			return (left._numerator == right._numerator && left._denominator == right._denominator);
-		}
-
-		/// <summary>Checks for equality with another object.</summary>
-		/// <param name="obj">The object to equate with this.</param>
-		/// <returns>The result of the equate.</returns>
-		public override bool Equals(object obj)
-		{
-			if (obj is Fraction)
-				return Fraction.Equals(this, (Fraction)obj);
-			return false;
-		}
-
-		/// <summary>Returns a hash code for this Fraction.</summary>
-		public override int GetHashCode()
-		{
-			throw new System.NotImplementedException();
-			//return (int)((Numerator ^ Denominator) & 0xFFFFFFFF);
-		}
-
-		/// <summary>
-		/// longernal function for negation
-		/// </summary>
-		private static Fraction Negate(Fraction frac1)
-		{
-			Integer iNumerator = -frac1.Numerator;
-			Integer iDenominator = frac1.Denominator;
-			return (new Fraction(iNumerator, iDenominator));
-		}
-
-		private static Fraction Add(Fraction frac1, Fraction frac2)
-		{
-			Integer iNumerator = frac1.Numerator * frac2.Denominator + frac2.Numerator * frac1.Denominator;
-			Integer iDenominator = frac1.Denominator * frac2.Denominator;
-			return (new Fraction(iNumerator, iDenominator));
-		}
-
-		private static Fraction Multiply(Fraction frac1, Fraction frac2)
-		{
-			Integer iNumerator = frac1.Numerator * frac2.Numerator;
-			Integer iDenominator = frac1.Denominator * frac2.Denominator;
-			return (new Fraction(iNumerator, iDenominator));
-		}
-
-		private static Integer GreatestCommonDenominator(Integer first, Integer second)
-		{
-			// take absolute values
-			if (first < 0) first = -first;
-			if (second < 0) second = -second;
-			do
-			{
-				if (first < second)
-				{
-					Integer tmp = first;	// swap the two operands
-					first = second;
-					second = tmp;
-				}
-				first = first % second;
-			} while (first != 0);
-			return second;
-		}
-
-		private double ToDouble()
-		{
-			throw new System.NotImplementedException();
-			//return this.Numerator / (double)this.Denominator;
-		}
-
-		public override string ToString()
-		{
-			string str;
-			if (this.Denominator == 1)
-				str = this.Numerator.ToString();
-			else
-				str = this.Numerator + "/" + this.Denominator;
-			return str;
-		}
-
-		/// <summary>
-		/// The function takes an string as an argument and returns its corresponding reduced fraction64
-		/// the string can be an in the form of and longeger, double or fraction64.
-		/// e.g it can be like "123" or "123.321" or "123/456"
-		/// </summary>
-		public static Fraction Parse(string literal)
-		{
-			return new Fraction(literal);
-		}
-
-		/// <summary>
-		/// The function takes a floating polong number as an argument 
-		/// and returns its corresponding reduced fraction64
-		/// </summary>
-		public static Fraction ToFraction(double rational)
-		{
-			return new Fraction(rational);
-		}
-
-		/// <summary>The function returns the inverse of a Fraction object.</summary>
-		public static Fraction Inverse(Fraction frac1)
-		{
-			if (frac1.Numerator == 0)
-				throw new System.ArgumentOutOfRangeException("Operation not possible (Denominator cannot be assigned a ZERO Value)");
-
-			Integer iNumerator = frac1.Denominator;
-			Integer iDenominator = frac1.Numerator;
-			return (new Fraction(iNumerator, iDenominator));
-		}
-
-		/// <summary>
-		/// The function reduces(simplifies) a Fraction object by dividing both its numerator 
-		/// and denominator by their GCD
-		/// </summary>
-		public static void Reduce(Fraction frac)
-		{
-			try
-			{
-				if (frac.Numerator == 0)
-				{
-					frac.Denominator = 1;
-					return;
-				}
-
-				Integer iGCD = GreatestCommonDenominator(frac.Numerator, frac.Denominator);
 				frac.Numerator /= iGCD;
 				frac.Denominator /= iGCD;
 

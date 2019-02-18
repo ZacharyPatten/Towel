@@ -746,7 +746,7 @@ namespace Towel.Mathematics
 
         #region EqualLeniency
 
-        public static bool Equal<T>(T a, T b, T leniency)
+        public static bool EqualLeniency<T>(T a, T b, T leniency)
         {
             return EqualLeniencyImplementation<T>.Function(a, b, leniency);
         }
@@ -755,6 +755,8 @@ namespace Towel.Mathematics
         {
             internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
             {
+                // Note: might be more efficient to perform [Abs(a - b) < leniency] instead
+
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
                 ParameterExpression C = Expression.Parameter(typeof(T));
@@ -1215,7 +1217,7 @@ namespace Towel.Mathematics
 
         #region LinearInterpolation
 
-        private static T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1)
+        public static T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1)
         {
             if (GreaterThan(x0, x1) ||
                 GreaterThan(x, x1) ||

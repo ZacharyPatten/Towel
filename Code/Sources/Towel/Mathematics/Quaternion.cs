@@ -7,97 +7,12 @@ namespace Towel.Mathematics
 	[System.Serializable]
 	public struct Quaternion<T>
 	{
-		#region delegates
+        internal T _x;
+        internal T _y;
+        internal T _z;
+        internal T _w;
 
-		public class Delegates
-		{
-
-			/// <summary>Computes the length of quaternion.</summary>
-			/// <param name="quaternion">The quaternion to compute the length of.</param>
-			/// <returns>The length of the given quaternion.</returns>
-			public delegate T Quaternion_Magnitude(Quaternion<T> quaternion);
-			/// <summary>Computes the length of a quaternion, but doesn't square root it.</summary>
-			/// <param name="quaternion">The quaternion to compute the length squared of.</param>
-			/// <returns>The squared length of the given quaternion.</returns>
-			public delegate T Quaternion_MagnitudeSquared(Quaternion<T> quaternion);
-			/// <summary>Gets the conjugate of the quaternion.</summary>
-			/// <param name="quaternion">The quaternion to conjugate.</param>
-			/// <returns>The conjugate of teh given quaternion.</returns>
-			public delegate Quaternion<T> Quaternion_Conjugate(Quaternion<T> quaternion);
-			/// <summary>Adds two quaternions together.</summary>
-			/// <param name="left">The first quaternion of the addition.</param>
-			/// <param name="right">The second quaternion of the addition.</param>
-			/// <returns>The result of the addition.</returns>
-			public delegate Quaternion<T> Quaternion_Add(Quaternion<T> left, Quaternion<T> right);
-			/// <summary>Subtracts two quaternions.</summary>
-			/// <param name="left">The left quaternion of the subtraction.</param>
-			/// <param name="right">The right quaternion of the subtraction.</param>
-			/// <returns>The resulting quaternion after the subtraction.</returns>
-			public delegate Quaternion<T> Quaternion_Subtract(Quaternion<T> left, Quaternion<T> right);
-			/// <summary>Multiplies two quaternions together.</summary>
-			/// <param name="left">The first quaternion of the multiplication.</param>
-			/// <param name="right">The second quaternion of the multiplication.</param>
-			/// <returns>The resulting quaternion after the multiplication.</returns>
-			public delegate Quaternion<T> Quaternion_Multiply(Quaternion<T> left, Quaternion<T> right);
-			/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-			/// <param name="left">The quaternion of the multiplication.</param>
-			/// <param name="right">The scalar of the multiplication.</param>
-			/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
-			public delegate Quaternion<T> Quaternion_Multiply_scalar(Quaternion<T> left, T right);
-			/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
-			/// <param name="left">The quaternion to pre-multiply the vector by.</param>
-			/// <param name="right">The vector to be multiplied.</param>
-			/// <returns>The resulting quaternion of the multiplication.</returns>
-			public delegate Quaternion<T> Quaternion_Multiply_Vector(Quaternion<T> left, Vector<T> right);
-			/// <summary>Normalizes the quaternion.</summary>
-			/// <param name="quaternion">The quaternion to normalize.</param>
-			/// <returns>The normalization of the given quaternion.</returns>
-			public delegate Quaternion<T> Quaternion_Normalize(Quaternion<T> quaternion);
-			/// <summary>Inverts a quaternion.</summary>
-			/// <param name="quaternion">The quaternion to find the inverse of.</param>
-			/// <returns>The inverse of the given quaternion.</returns>
-			public delegate Quaternion<T> Quaternion_Invert(Quaternion<T> quaternion);
-			/// <summary>Lenearly interpolates between two quaternions.</summary>
-			/// <param name="left">The starting point of the interpolation.</param>
-			/// <param name="right">The ending point of the interpolation.</param>
-			/// <param name="blend">The ratio 0.0-1.0 of how far to interpolate between the left and right quaternions.</param>
-			/// <returns>The result of the interpolation.</returns>
-			public delegate Quaternion<T> Quaternion_Lerp(Quaternion<T> left, Quaternion<T> right, T blend);
-			/// <summary>Sphereically interpolates between two quaternions.</summary>
-			/// <param name="left">The starting point of the interpolation.</param>
-			/// <param name="right">The ending point of the interpolation.</param>
-			/// <param name="blend">The ratio of how far to interpolate between the left and right quaternions.</param>
-			/// <returns>The result of the interpolation.</returns>
-			public delegate Quaternion<T> Quaternion_Slerp(Quaternion<T> left, Quaternion<T> right, T blend);
-			/// <summary>Rotates a vector by a quaternion [v' = qvq'].</summary>
-			/// <param name="rotation">The quaternion to rotate the vector by.</param>
-			/// <param name="vector">The vector to be rotated by.</param>
-			/// <returns>The result of the rotation.</returns>
-			public delegate Vector<T> Quaternion_Rotate(Quaternion<T> rotation, Vector<T> vector);
-			/// <summary>Does a value equality check.</summary>
-			/// <param name="left">The first quaternion to check for equality.</param>
-			/// <param name="right">The second quaternion to check for equality.</param>
-			/// <returns>True if values are equal, false if not.</returns>
-			public delegate bool Quaternion_EqualsValue(Quaternion<T> left, Quaternion<T> right);
-			/// <summary>Does a value equality check with leniency.</summary>
-			/// <param name="left">The first quaternion to check for equality.</param>
-			/// <param name="right">The second quaternion to check for equality.</param>
-			/// <param name="leniency">How much the values can vary but still be considered equal.</param>
-			/// <returns>True if values are equal, false if not.</returns>
-			public delegate bool Quaternion_EqualsValue_leniency(Quaternion<T> left, Quaternion<T> right, T leniency);
-
-		}
-
-		#endregion
-
-		#region fields
-
-		// the values of the quaternion
-		internal T _x, _y, _z, _w;
-
-		#endregion
-
-		#region property
+		#region Properties
 
 		/// <summary>The X component of the quaternion. (axis, NOT rotation ammount)</summary>
 		public T X { get { return _x; } set { _x = value; } }
@@ -117,7 +32,7 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region constructor
+        #region Constructors
 
         /// <summary>Constructs a quaternion with the desired values.</summary>
         /// <param name="x">The x component of the quaternion.</param>
@@ -125,10 +40,10 @@ namespace Towel.Mathematics
         /// <param name="z">The z component of the quaternion.</param>
         /// <param name="w">The w component of the quaternion.</param>
         public Quaternion(T x, T y, T z, T w) { _x = x; _y = y; _z = z; _w = w; }
-
+        
 		#endregion
 
-		#region factories
+		#region Factories
         
 		///// <summary>Creates a quaternion from an axis and rotation.</summary>
 		///// <param name="axis">The to create the quaternion from.</param>
@@ -202,7 +117,7 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region operator
+        #region Operators
 
         /// <summary>Adds two quaternions together.</summary>
         /// <param name="left">The first quaternion of the addition.</param>
@@ -255,7 +170,7 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region instance
+		#region Instance
 
 		/// <summary>Gets the conjugate of the quaternion.</summary>
 		/// <returns>The conjugate of teh given quaternion.</returns>
@@ -326,9 +241,14 @@ namespace Towel.Mathematics
 		public bool EqualsReference(Quaternion<T> right)
 		{ return Quaternion<T>.EqualsReference(this, right); }
 
+        public Quaternion<T> Clone()
+        {
+            return new Quaternion<T>(this._x, this._y, this._z, this._w);
+        }
+
 		#endregion
 
-		#region statics
+		#region Statics
 
 		/// <summary>Gets the conjugate of the quaternion.</summary>
 		/// <param name="quaternion">The quaternion to conjugate.</param>
@@ -394,7 +314,7 @@ namespace Towel.Mathematics
 		/// <param name="vector">The vector to be rotated by.</param>
 		/// <returns>The result of the rotation.</returns>
 		public static Vector<T> Rotate(Quaternion<T> rotation, Vector<T> vector)
-		{ return Quaternion<T>.Quaternion_Rotate(rotation, vector); }
+		{ return Quaternion<T>.Rotate(rotation, vector); }
 		/// <summary>Does a value equality check.</summary>
 		/// <param name="left">The first quaternion to check for equality.</param>
 		/// <param name="right">The second quaternion	to check for equality.</param>
@@ -449,13 +369,13 @@ namespace Towel.Mathematics
             }
         }
 
-		#endregion
+        #endregion
 
-		#region implementations
+        #region Implementations
 
-		#region Magnitude
+        #region Magnitude
 
-		private static Func<Quaternion<T>, T> Quaternion_Magnitude = (Quaternion<T> a) =>
+        internal static Func<Quaternion<T>, T> Quaternion_Magnitude = (Quaternion<T> a) =>
 		{
             if (a == null)
             {
@@ -464,11 +384,11 @@ namespace Towel.Mathematics
             return Compute.SquareRoot(Quaternion_MagnitudeSquared(a));
 		};
 
-		#endregion
+        #endregion
 
-		#region MagnitudeSquared
+        #region MagnitudeSquared
 
-		private static Func<Quaternion<T>, T> Quaternion_MagnitudeSquared = (Quaternion<T> a) =>
+        internal static Func<Quaternion<T>, T> Quaternion_MagnitudeSquared = (Quaternion<T> a) =>
 		{
             if (a == null)
             {
@@ -485,7 +405,7 @@ namespace Towel.Mathematics
 
 		#region Conjugate
 
-		private static Quaternion<T>.Delegates.Quaternion_Conjugate Quaternion_Conjugate = (Quaternion<T> a) =>
+		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Conjugate = (Quaternion<T> a) =>
 		{
             if (a == null)
             {
@@ -497,11 +417,12 @@ namespace Towel.Mathematics
                 Compute.Negate(a.Z),
                 a.W);
 		};
+
 		#endregion
 
 		#region Add
 		
-		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Add = (Quaternion<T> a, Quaternion<T> b) =>
+		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Add = (Quaternion<T> a, Quaternion<T> b) =>
 		{
             if (a == null)
             {
@@ -521,7 +442,7 @@ namespace Towel.Mathematics
 
 		#region Subtract
 		
-		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Subtract = (Quaternion<T> a, Quaternion<T> b) =>
+		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Subtract = (Quaternion<T> a, Quaternion<T> b) =>
 		{
             if (a == null)
             {
@@ -542,7 +463,7 @@ namespace Towel.Mathematics
 
 		#region Multiply
 		
-		private static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Multiply = (Quaternion<T> a, Quaternion<T> b) =>
+		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Multiply = (Quaternion<T> a, Quaternion<T> b) =>
 		{
             if (a == null)
             {
@@ -562,7 +483,7 @@ namespace Towel.Mathematics
 
 		#region MultiplyScalar
 		
-		private static Func<Quaternion<T>, T, Quaternion<T>> Quaternion_MultiplyScalar = (Quaternion<T> a, T b) =>
+		internal static Func<Quaternion<T>, T, Quaternion<T>> Quaternion_MultiplyScalar = (Quaternion<T> a, T b) =>
 		{
             if (a == null)
             {
@@ -578,7 +499,7 @@ namespace Towel.Mathematics
 
 		#region MultiplyVector
 		
-		private static Func<Quaternion<T>, Vector<T>, Quaternion<T>>  Quaternion_MultiplyVector = (Quaternion<T> a, Vector<T> b) =>
+		internal static Func<Quaternion<T>, Vector<T>, Quaternion<T>>  Quaternion_MultiplyVector = (Quaternion<T> a, Vector<T> b) =>
 		{
             if (b == null)
             {
@@ -598,200 +519,180 @@ namespace Towel.Mathematics
 		#endregion
 
 		#region Normalize
-		/// <summary>Normalizes the quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Normalize Quaternion_Normalize = (Quaternion<T> a) =>
+		
+		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Normalize = (Quaternion<T> a) =>
 		{
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            T normalizer = a.Magnitude();
-            if (normalizer != 0)
+            T normalizer = a.Magnitude;
+            if (Compute.NotEqual(normalizer, Compute.Constant<T>.Zero))
             {
-                return a * (1 / normalizer);
+                return a * Compute.Divide(Compute.Constant<T>.One, normalizer);
             }
             else
             {
-                return new Quaternion<" + T_Source + ">(0, 0, 0, 1);
+                return Quaternion<T>.Identity;
             }
-
-            string Quaternion_Normalize_string =
-				"(Quaternion<" + T_Source + "> _quaternion) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_quaternion, null))" +
-				"		throw new System.Exception(\"null reference: quaternion\");" +
-				"	" + T_Source + " normalizer = Quaternion<" + T_Source + ">.Magnitude(_quaternion);" +
-				"	if (normalizer != 0)" +
-				"		return _quaternion * (1 / normalizer);" +
-				"	else" +
-				"		return new Quaternion<" + T_Source + ">(0, 0, 0, 1);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Normalize =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Normalize>(Quaternion_Normalize_string);
-
-			return Quaternion<T>.Quaternion_Normalize(quaternion);
 		};
 		#endregion
 
 		#region Invert
-		/// <summary>Inverts a quaternion.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Invert Quaternion_Invert = (Quaternion<T> quaternion) =>
-		{
-			string Quaternion_Invert_string =
-				"(Quaternion<" + T_Source + "> _quaternion) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_quaternion, null))" +
-				"		throw new System.Exception(\"null reference: quaternion\");" +
-				"	" + T_Source + " normalizer = Quaternion<" + T_Source + ">.MagnitudeSquared(_quaternion);" +
-				"	if (normalizer == 0)" +
-				"		return new Quaternion<" + T_Source + ">(_quaternion.X, _quaternion.Y, _quaternion.Z, _quaternion.W);" +
-				"	normalizer = 1 / normalizer;" +
-				"	return new Quaternion<" + T_Source + ">(" +
-				"		-_quaternion.X * normalizer," +
-				"		-_quaternion.Y * normalizer," +
-				"		-_quaternion.Z * normalizer," +
-				"		_quaternion.W * normalizer);" +
-				"}";
+		
+		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Invert = (Quaternion<T> a) =>
+        {
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T normalizer = a.MagnitudeSquared;
+            if (Compute.Equal(normalizer, Compute.Constant<T>.Zero))
+            {
+                return new Quaternion<T>(a.X, a.Y, a.Z, a.W);
+            }
+            normalizer = Compute.Divide(Compute.Constant<T>.One, normalizer);
+            return new Quaternion<T>(
+                Compute.Multiply(Compute.Negate(a.X), normalizer),
+                Compute.Multiply(Compute.Negate(a.Y), normalizer),
+                Compute.Multiply(Compute.Negate(a.Z), normalizer),
+                Compute.Multiply(a.W, normalizer));
+        };
 
-			Quaternion<T>.Quaternion_Invert =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Invert>(Quaternion_Invert_string);
-
-			return Quaternion<T>.Quaternion_Normalize(quaternion);
-		};
 		#endregion
 
 		#region Lerp
-		/// <summary>Lenearly interpolates between two quaternions.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Lerp Quaternion_Lerp = (Quaternion<T> left, Quaternion<T> right, T blend) =>
+		
+		internal static Func<Quaternion<T>, Quaternion<T>, T, Quaternion<T>> Quaternion_Lerp = (Quaternion<T> a, Quaternion<T> b, T blend) =>
 		{
-			string Quaternion_Lerp_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right, " + T_Source + " _blend) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		throw new System.Exception(\"null reference: _left\");" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		throw new System.Exception(\"null reference: _right\");" +
-				"	if (_blend < 0 || _blend > 1)" +
-				"		throw new System.Exception(\"invalid _blending value during lerp !(_blend < 0.0f || _blend > 1.0f).\");" +
-				"	if (Quaternion<" + T_Source + ">.MagnitudeSquared(_left) == 0)" +
-				"	{" +
-				"		if (Quaternion<" + T_Source + ">.MagnitudeSquared(_right) == 0)" +
-				"			return new Quaternion<" + T_Source + ">(0, 0, 0, 1);" +
-				"		else" +
-				"			return new Quaternion<" + T_Source + ">(_right.X, _right.Y, _right.Z, _right.W);" +
-				"	}" +
-				"	else if (Quaternion<" + T_Source + ">.MagnitudeSquared(_right) == 0)" +
-				"		return new Quaternion<" + T_Source + ">(_left.X, _left.Y, _left.Z, _left.W);" +
-				"	Quaternion<" + T_Source + "> result = new Quaternion<" + T_Source + ">(" +
-				"		1 - _blend * _left.X + _blend * _right.X," +
-				"		1 - _blend * _left.Y + _blend * _right.Y," +
-				"		1 - _blend * _left.Z + _blend * _right.Z," +
-				"		1 - _blend * _left.W + _blend * _right.W);" +
-				"	if (Quaternion<" + T_Source + ">.MagnitudeSquared(result) > 0)" +
-				"		return Quaternion<" + T_Source + ">.Normalize(result);" +
-				"	else" +
-				"		return new Quaternion<" + T_Source + ">(0, 0, 0, 1);" +
-				"}";
-
-			Quaternion<T>.Quaternion_Lerp =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Lerp>(Quaternion_Lerp_string);
-
-			return Quaternion<T>.Quaternion_Lerp(left, right, blend);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (Compute.LessThan(blend, Compute.Constant<T>.Zero) || Compute.GreaterThan(blend, Compute.Constant<T>.One))
+            {
+                throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
+            }
+            if (Compute.Equal(a.MagnitudeSquared, Compute.Constant<T>.Zero))
+            {
+                if (Compute.Equal(b.MagnitudeSquared, Compute.Constant<T>.Zero))
+                {
+                    return Quaternion<T>.Identity;
+                }
+                else
+                {
+                    return b.Clone();
+                }
+            }
+            else if (Compute.Equal(b.MagnitudeSquared, Compute.Constant<T>.Zero))
+            {
+                return a.Clone();
+            }
+            Quaternion<T> result = new Quaternion<T>(
+                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X)),
+                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y)),
+                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z)),
+                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W)));
+            if (Compute.GreaterThan(result.MagnitudeSquared, Compute.Constant<T>.Zero))
+            {
+                return result.Normalize();
+            }
+            else
+            {
+                return Quaternion<T>.Identity;
+            }
 		};
+
 		#endregion
 
 		#region Slerp
-		/// <summary>Sphereically interpolates between two quaternions.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Slerp Quaternion_Slerp = (Quaternion<T> left, Quaternion<T> right, T blend) =>
+		
+		internal static Func<Quaternion<T>, Quaternion<T>, T, Quaternion<T>> Quaternion_Slerp = (Quaternion<T> left, Quaternion<T> right, T blend) =>
 		{
 			throw new System.NotImplementedException();
 		};
-		#endregion
 
-		#region Rotate
-		/// <summary>Rotates a vector by a quaternion [v' = qvq'].</summary>
-		private static Quaternion<T>.Delegates.Quaternion_Rotate Quaternion_Rotate = (Quaternion<T> rotation, Vector<T> vector) =>
+        #endregion
+
+        #region Rotate
+
+        internal delegate void RotateByQuaternionSignature(Quaternion<T> a, Vector<T> b, ref Vector<T> c);
+        internal static RotateByQuaternionSignature Quaternion_Rotate = (Quaternion<T> a, Vector<T> b, ref Vector<T> c) =>
 		{
-			Quaternion<T>.Quaternion_Rotate =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_Rotate>(
-					string.Concat(
-						"(Quaternion<" + T_Source + "> _rotation, Vector<" + T_Source + "> _vector) =>" +
-						"{" +
-						"	if (object.ReferenceEquals(_rotation, null))" +
-						"		throw new System.Exception(\"null reference: rotation\");" +
-						"	if (object.ReferenceEquals(_vector, null))" +
-						"		throw new System.Exception(\"null reference: vector\");" +
-						"	if (_vector.Dimensions != 3 && _vector.Dimensions != 4)" +
-						"		throw new System.Exception(\"my quaternion rotations are only defined for 3-component vectors.\");" +
-						"	Quaternion<" + T_Source + "> answer =" +
-						"		Quaternion<" + T_Source + ">.Multiply(" +
-						"		Quaternion<" + T_Source + ">.Multiply(_rotation, _vector)," +
-						"		Quaternion<" + T_Source + ">.Conjugate(_rotation));" +
-						"	return new Vector<" + T_Source + ">(answer.X, answer.Y, answer.Z);" +
-						"}"));
-
-			return Quaternion<T>.Quaternion_Rotate(rotation, vector);
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (b.Dimensions != 3 && b.Dimensions != 4)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " != 3 || " + nameof(b) + "." + nameof(b.Dimensions) + " != 4)");
+            }
+            Quaternion<T> result = Quaternion<T>.Multiply(a, b) * a.Conjugate();
+            c = new Vector<T>(result.X, result.Y, result.Z);
 		};
-		#endregion
 
-		#region EqualsValue
-		/// <summary>Does a value equality check.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_EqualsValue Quaternion_EqualsValue = (Quaternion<T> left, Quaternion<T> right) =>
+        #endregion
+
+        #region EqualsValue
+
+        internal static Func<Quaternion<T>, Quaternion<T>, bool> Quaternion_EqualsValue = (Quaternion<T> a, Quaternion<T> b) =>
 		{
-			string Quaternion_EqualsValue_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null) && object.ReferenceEquals(_right, null))" +
-				"		return true;" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		return false;" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		return false;" +
-				"	return" +
-				"		_left.X == _right.X &&" +
-				"		_left.Y == _right.Y &&" +
-				"		_left.Z == _right.Z &&" +
-				"		_left.W == _right.W;" +
-				"}";
-
-			Quaternion<T>.Quaternion_EqualsValue =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_EqualsValue>(Quaternion_EqualsValue_string);
-
-			return Quaternion<T>.Quaternion_EqualsValue(left, right);
+            if (a == null && b == null)
+            {
+                return true;
+            }
+            if (a == null)
+            {
+                return false;
+            }
+            if (b == null)
+            {
+                return false;
+            }
+            return
+                Compute.Equal(a.X, b.X) &&
+                Compute.Equal(a.Y, b.Y) &&
+                Compute.Equal(a.Z, b.Z) &&
+                Compute.Equal(a.W, b.W);
 		};
-		#endregion
 
-		#region EqualsValue_leniency
-		/// <summary>Does a value equality check with leniency.</summary>
-		private static Quaternion<T>.Delegates.Quaternion_EqualsValue_leniency Quaternion_EqualsValue_leniency = (Quaternion<T> left, Quaternion<T> right, T leniency) =>
+        #endregion
+
+        #region EqualsValue_leniency
+
+        internal static Func<Quaternion<T>, Quaternion<T>, T, bool> Quaternion_EqualsValue_leniency = (Quaternion<T> a, Quaternion<T> b, T leniency) =>
 		{
-			string Quaternion_EqualsValue_leniency_string =
-				"(Quaternion<" + T_Source + "> _left, Quaternion<" + T_Source + "> _right, " + T_Source + " _leniency) =>" +
-				"{" +
-				"	if (object.ReferenceEquals(_left, null) && object.ReferenceEquals(_right, null))" +
-				"		return true;" +
-				"	if (object.ReferenceEquals(_left, null))" +
-				"		return false;" +
-				"	if (object.ReferenceEquals(_right, null))" +
-				"		return false;" +
-				"	return" +
-				"		Compute<" + T_Source + ">.AbsoluteValue(_left.X - _right.X) < _leniency &&" +
-				"		Compute<" + T_Source + ">.AbsoluteValue(_left.Y - _right.Y) < _leniency &&" +
-				"		Compute<" + T_Source + ">.AbsoluteValue(_left.Z - _right.Z) < _leniency &&" +
-				"		Compute<" + T_Source + ">.AbsoluteValue(_left.W - _right.W) < _leniency;" +
-				"}";
-
-			Quaternion<T>.Quaternion_EqualsValue_leniency =
-				Meta.Compile<Quaternion<T>.Delegates.Quaternion_EqualsValue_leniency>(Quaternion_EqualsValue_leniency_string);
-
-			return Quaternion<T>.Quaternion_EqualsValue_leniency(left, right, leniency);
-		};
+            if (a == null && b == null)
+            {
+                return true;
+            }
+            if (a == null)
+            {
+                return false;
+            }
+            if (b == null)
+            {
+                return false;
+            }
+            return
+                Compute.EqualLeniency(a.X, b.X, leniency) &&
+                Compute.EqualLeniency(a.Y, b.Y, leniency) &&
+                Compute.EqualLeniency(a.Z, b.Z, leniency) &&
+                Compute.EqualLeniency(a.W, b.W, leniency);
+        };
 		#endregion
 
 		#endregion
 
-		#region overrides
+		#region Overrides
 
 		/// <summary>Converts the quaternion into a string.</summary>
 		/// <returns>The resulting string after the conversion.</returns>

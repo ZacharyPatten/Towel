@@ -45,21 +45,21 @@ namespace Towel.Measurements
 
 		internal static class Constants<T>
 		{
-			internal static readonly T DegreesToTurnsFactor = Compute<T>.Divide(Compute<T>.FromInt32(1), Compute<T>.FromInt32(360));
-			internal static readonly T DegreesToRadiansFactor = Compute<T>.Divide(Compute<T>.Pi, Compute<T>.FromInt32(180));
-			internal static readonly T DegreesToGradiansFactor = Compute<T>.Divide(Compute<T>.FromInt32(10), Compute<T>.FromInt32(9));
+			internal static readonly T DegreesToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(360));
+			internal static readonly T DegreesToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(180));
+			internal static readonly T DegreesToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(10), Compute.FromInt32<T>(9));
 
-			internal static readonly T GradiansToDegreesFactor = Compute<T>.Divide(Compute<T>.FromInt32(9), Compute<T>.FromInt32(10));
-			internal static readonly T GradiansToTurnsFactor = Compute<T>.Divide(Compute<T>.FromInt32(1), Compute<T>.FromInt32(400));
-			internal static readonly T GradiansToRadiansFactor = Compute<T>.Divide(Compute<T>.Pi, Compute<T>.FromInt32(200));
+			internal static readonly T GradiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(9), Compute.FromInt32<T>(10));
+			internal static readonly T GradiansToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(400));
+			internal static readonly T GradiansToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(200));
 
-			internal static readonly T RadiansToTurnsFactor = Compute<T>.Invert(Compute<T>.Multiply(Compute<T>.FromInt32(2), Compute<T>.Pi));
-			internal static readonly T RadiansToDegreesFactor = Compute<T>.Divide(Compute<T>.FromInt32(180), Compute<T>.Pi);
-			internal static readonly T RadiansToGradiansFactor = Compute<T>.Divide(Compute<T>.FromInt32(200), Compute<T>.Pi);
+			internal static readonly T RadiansToTurnsFactor = Compute.Invert(Compute.Multiply(Compute.FromInt32<T>(2), Compute.Constant<T>.Pi));
+			internal static readonly T RadiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(180), Compute.Constant<T>.Pi);
+			internal static readonly T RadiansToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(200), Compute.Constant<T>.Pi);
 
-			internal static readonly T TurnsToDegreesFactor = Compute<T>.FromInt32(360);
-			internal static readonly T TurnsToRadiansFactor = Compute<T>.Divide(Compute<T>.Pi, Compute<T>.FromInt32(180));
-			internal static readonly T TurnsToGradiansFactor = Compute<T>.FromInt32(400);
+			internal static readonly T TurnsToDegreesFactor = Compute.FromInt32<T>(360);
+			internal static readonly T TurnsToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(180));
+			internal static readonly T TurnsToGradiansFactor = Compute.FromInt32<T>(400);
 		}
 
 
@@ -67,68 +67,68 @@ namespace Towel.Measurements
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T DegreesToRadians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.DegreesToRadiansFactor); }
+        public static T DegreesToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToRadiansFactor); }
 		/// <summary>Converts a degrees measurement to turns.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T DegreesToTurns<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.DegreesToTurnsFactor); }
+        public static T DegreesToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToTurnsFactor); }
 		/// <summary>Converts a degrees measurement to gradians.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T DegreesToGradians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.DegreesToGradiansFactor); }
+        public static T DegreesToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToGradiansFactor); }
 
 
 		/// <summary>Converts a gradians measurement to degrees.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T GradiansToDegrees<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.GradiansToDegreesFactor); }
+        public static T GradiansToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToDegreesFactor); }
 		/// <summary>Converts a gradians measurement to radians.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T GradiansToRadians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.GradiansToRadiansFactor); }
+        public static T GradiansToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToRadiansFactor); }
 		/// <summary>Converts a gradians measurement to turns.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T GradiansToTurns<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.GradiansToTurnsFactor); }
+        public static T GradiansToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToTurnsFactor); }
 
 
 		/// <summary>Converts a radians measurement to degrees.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T RadiansToDegrees<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.RadiansToDegreesFactor); }
+        public static T RadiansToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToDegreesFactor); }
 		/// <summary>Converts a radians measurement to turns.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T RadiansToTurns<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.RadiansToTurnsFactor); }
+        public static T RadiansToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToTurnsFactor); }
 		/// <summary>Converts a radians measurement to gradians.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T RadiansToGradians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.RadiansToGradiansFactor); }
+        public static T RadiansToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToGradiansFactor); }
 
 
 		/// <summary>Converts a turns measurement to degrees.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T TurnsToDegrees<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.TurnsToDegreesFactor); }
+        public static T TurnsToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToDegreesFactor); }
 		/// <summary>Converts a turns measurement to radians.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T TurnsToRadians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.TurnsToRadiansFactor); }
+        public static T TurnsToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToRadiansFactor); }
 		/// <summary>Converts a turns measurement to gradians.</summary>
 		/// <typeparam name="T">The numeric type.</typeparam>
 		/// <param name="measurement">The measurement to convert.</param>
 		/// <returns>The converted measurement.</returns>
-        public static T TurnsToGradians<T>(T measurement) { return Compute<T>.Multiply(measurement, Constants<T>.TurnsToGradiansFactor); }
+        public static T TurnsToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToGradiansFactor); }
 
 		#endregion
 	}
@@ -310,64 +310,64 @@ namespace Towel.Measurements
 		public static Angle<T> Add(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return new Angle<T>(Compute<T>.Add(left._measurement, right._measurement), left._units);
+			return new Angle<T>(Compute.Add(left._measurement, right._measurement), left._units);
 		}
 
 		public static Angle<T> Subtract(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return new Angle<T>(Compute<T>.Subtract(left._measurement, right._measurement), left._units);
+			return new Angle<T>(Compute.Subtract(left._measurement, right._measurement), left._units);
 		}
 
 		public static Angle<T> Divide(Angle<T> angle, T constant)
 		{
-			return new Angle<T>(Compute<T>.Divide(angle._measurement, constant), angle._units);
+			return new Angle<T>(Compute.Divide(angle._measurement, constant), angle._units);
 		}
 
 		public static Angle<T> Multiply(Angle<T> angle, T constant)
 		{
-			return new Angle<T>(Compute<T>.Multiply(angle._measurement, constant), angle._units);
+			return new Angle<T>(Compute.Multiply(angle._measurement, constant), angle._units);
 		}
 
 		public static Angle<T> Multiply(T constant, Angle<T> angle)
 		{
-			return new Angle<T>(Compute<T>.Multiply(angle._measurement, constant), angle._units);
+			return new Angle<T>(Compute.Multiply(angle._measurement, constant), angle._units);
 		}
 
 		public static bool LessThan(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return Compute<T>.LessThan(left._measurement, right._measurement);
+			return Compute.LessThan(left._measurement, right._measurement);
 		}
 
 		public static bool GreaterThan(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return Compute<T>.GreaterThan(left._measurement, right._measurement);
+			return Compute.GreaterThan(left._measurement, right._measurement);
 		}
 
 		public static bool LessThanOrEqual(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return Compute<T>.LessThanOrEqualTo(left._measurement, right._measurement);
+			return Compute.LessThanOrEqual(left._measurement, right._measurement);
 		}
 
 		public static bool GreaterThanOrEqual(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return Compute<T>.GreaterThanOrEqualTo(left._measurement, right._measurement);
+			return Compute.GreaterThanOrEqual(left._measurement, right._measurement);
 		}
 
 		public static bool Equal(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return Compute<T>.Equate(left._measurement, right._measurement);
+			return Compute.Equal(left._measurement, right._measurement);
 		}
 
 		public static bool EqualNot(Angle<T> left, Angle<T> right)
 		{
 			GetLikeUnits(left, right, out left, out right);
-			return !Compute<T>.EquateNot(left._measurement, right._measurement);
+			return Compute.NotEqual(left._measurement, right._measurement);
 		}
 
 		#endregion
