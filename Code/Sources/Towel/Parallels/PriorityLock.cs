@@ -1,4 +1,4 @@
-﻿using Towel.Structures;
+﻿using Towel.DataStructures;
 using System.Threading;
 
 namespace Towel.Parallels

@@ -5,7 +5,7 @@ namespace Towel.Mathematics
 	/// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
 	/// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
 	[System.Serializable]
-	public struct Quaternion<T>
+	public class Quaternion<T>
 	{
         internal T _x;
         internal T _y;
@@ -645,23 +645,26 @@ namespace Towel.Mathematics
 
         internal static Func<Quaternion<T>, Quaternion<T>, bool> Quaternion_EqualsValue = (Quaternion<T> a, Quaternion<T> b) =>
 		{
-            if (a == null && b == null)
+            if (object.ReferenceEquals(a, b))
             {
                 return true;
             }
-            if (a == null)
+            else if (object.ReferenceEquals(a, null))
             {
                 return false;
             }
-            if (b == null)
+            else if (object.ReferenceEquals(b, null))
             {
                 return false;
             }
-            return
-                Compute.Equal(a.X, b.X) &&
-                Compute.Equal(a.Y, b.Y) &&
-                Compute.Equal(a.Z, b.Z) &&
-                Compute.Equal(a.W, b.W);
+            else
+            {
+                return
+                    Compute.Equal(a.X, b.X) &&
+                    Compute.Equal(a.Y, b.Y) &&
+                    Compute.Equal(a.Z, b.Z) &&
+                    Compute.Equal(a.W, b.W);
+            }
 		};
 
         #endregion

@@ -7,7 +7,7 @@ namespace Towel.Mathematics
 	/// <summary>Represents a vector with an arbitrary number of components of a generic type.</summary>
 	/// <typeparam name="T">The numeric type of this Vector.</typeparam>
 	[System.Serializable]
-	public struct Vector<T>
+	public class Vector<T>
 	{
 		internal readonly T[] _vector;
 
@@ -16,41 +16,96 @@ namespace Towel.Mathematics
 		/// <summary>Sane as accessing index 0.</summary>
 		public T X
 		{
-			get { return _vector[0]; }
-			set { _vector[0] = value; }
+			get
+            {
+                if (this.Dimensions < 1)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
+                }
+                return _vector[0];
+            }
+			set
+            {
+                if (this.Dimensions < 1)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
+                }
+                this._vector[0] = value;
+            }
 		}
 
 		/// <summary>Same as accessing index 1.</summary>
 		public T Y
 		{
-			get { try { return _vector[1]; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a y component."); } }
-			set { try { _vector[1] = value; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a y component."); } }
-		}
+			get
+            {
+                if (this.Dimensions < 2)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
+                }
+                return _vector[1];
+            }
+            set
+            {
+                if (this.Dimensions < 2)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
+                }
+                this._vector[1] = value;
+            }
+        }
 
 		/// <summary>Same as accessing index 2.</summary>
 		public T Z
 		{
-			get { try { return _vector[2]; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a z component."); } }
-			set { try { _vector[2] = value; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a z component."); } }
-		}
-
-		/// <summary>Same as accessing index 3.</summary>
-		public T W
-		{
-			get { try { return _vector[3]; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a w component."); } }
-			set { try { _vector[3] = value; } catch { throw new System.ArgumentOutOfRangeException("vector does not contains a w component."); } }
-		}
+            get
+            {
+                if (this.Dimensions < 3)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
+                }
+                return _vector[2];
+            }
+            set
+            {
+                if (this.Dimensions < 3)
+                {
+                    throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
+                }
+                this._vector[2] = value;
+            }
+        }
 
 		/// <summary>The number of components in this vector.</summary>
-		public int Dimensions { get { return _vector.Length; } }
+		public int Dimensions
+        {
+            get
+            {
+                return this._vector == null ? 0 : this._vector.Length;
+            }
+        }
 
 		/// <summary>Allows indexed access to this vector.</summary>
 		/// <param name="index">The index to access.</param>
 		/// <returns>The value of the given index.</returns>
 		public T this[int index]
 		{
-			get { try { return _vector[index]; } catch { throw new System.ArgumentOutOfRangeException("index out of bounds."); } }
-			set { try { _vector[index] = value; } catch { throw new System.ArgumentOutOfRangeException("index out of bounds."); } }
+			get
+            {
+                if (0 > index || index > Dimensions)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
+                }
+                return this._vector[index];
+            }
+			set
+            {
+                if (0 > index || index > Dimensions)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
+                }
+                this._vector[index] = value;
+            }
 		}
 
         /// <summary>Computes the length of this vector.</summary>
@@ -81,8 +136,10 @@ namespace Towel.Mathematics
         /// <param name="dimensions">The number of dimensions this vector will have.</param>
         public Vector(int dimensions)
 		{
-			if (dimensions < 1)
-				throw new System.ArithmeticException("vectors must have 1 or greater dimensions");
+			if (dimensions < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(dimensions), dimensions, "!(" + nameof(dimensions) + " >= 0)");
+            }
 			_vector = new T[dimensions];
 		}
 
@@ -90,8 +147,6 @@ namespace Towel.Mathematics
 		/// <param name="vector">The values to initialize the vector to.</param>
 		public Vector(params T[] vector)
 		{
-			if (vector.Length < 1)
-				throw new System.ArithmeticException("vectors must have 1 or greater dimensions");
 			_vector = vector;
 		}
 
@@ -357,7 +412,7 @@ namespace Towel.Mathematics
 		/// <param name="first">The first vector to determine the angle between.</param>
 		/// <param name="second">The second vector to determine the angle between.</param>
 		/// <returns>The angle between the two vectors in radians.</returns>
-		public static T Angle(Vector<T> first, Vector<T> second)
+		public static Angle<T> Angle(Vector<T> first, Vector<T> second)
 		{
             return Vector<T>.Vector_Angle(first._vector, second._vector);
         }
@@ -660,21 +715,23 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null || b.Dimensions != 3)
+            int Dimensions = a.Dimensions;
+            if (Dimensions < 1)
             {
-                b = new Vector<T>(3);
+                throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
             }
             T magnitude = a.Magnitude;
             if (Compute.Equal(magnitude, Compute.Constant<T>.Zero))
             {
                 throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
             }
-            int Length = a.Dimensions;
-            T[] A = a._vector;
-            T[] B = b._vector;
-            for (int i = 0; i < Length; i++)
+            if (b.Dimensions != Dimensions)
             {
-                B[i] = Compute.Divide(A[i], magnitude);
+                b = new Vector<T>(Dimensions);
+            }
+            for (int i = 0; i < Dimensions; i++)
+            {
+                b[i] = Compute.Divide(a[i], magnitude);
             }
 		};
 
@@ -684,6 +741,10 @@ namespace Towel.Mathematics
 		
 		internal static Func<Vector<T>, T> Vector_Magnitude = (Vector<T> a) =>
 		{
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
             return Compute.SquareRoot(Vector_MagnitudeSquared(a));
 		};
 
@@ -693,7 +754,7 @@ namespace Towel.Mathematics
 		
 		internal static Func<Vector<T>, T> Vector_MagnitudeSquared = (Vector<T> a) =>
 		{
-            if (a == null)
+            if (a._vector == null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -711,9 +772,17 @@ namespace Towel.Mathematics
 
 		#region Angle
 		
-		internal static Func<Vector<T>, Vector<T>, T> Vector_Angle = (Vector<T> first, Vector<T> second) =>
+		internal static Func<Vector<T>, Vector<T>, Angle<T>> Vector_Angle = (Vector<T> a, Vector<T> b) =>
 		{
-			throw new NotImplementedException();
+            if (a == null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b == null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            throw new NotImplementedException();
 		};
 
         #endregion
@@ -833,21 +902,30 @@ namespace Towel.Mathematics
 		
 		internal static Func<Vector<T>, Vector<T>, bool> Vector_EqualsValue = (Vector<T> a, Vector<T> b) =>
 		{
-            if (a == null && b == null)
+            if (object.ReferenceEquals(a, b))
+            {
                 return true;
-            if (a == null)
+            }
+            else if (object.ReferenceEquals(a, null))
+            {
                 return false;
-            if (b == null)
+            }
+            else if (object.ReferenceEquals(b, null))
+            {
                 return false;
-            int Length = a.Dimensions;
-            if (Length != b.Dimensions)
-                return false;
-            T[] A = a._vector;
-            T[] B = b._vector;
-            for (int i = 0; i < Length; i++)
-                if (Compute.Equal(A[i], B[i]))
+            }
+            else
+            {
+                int Length = a.Dimensions;
+                if (Length != b.Dimensions)
                     return false;
-            return true;
+                T[] A = a._vector;
+                T[] B = b._vector;
+                for (int i = 0; i < Length; i++)
+                    if (Compute.Equal(A[i], B[i]))
+                        return false;
+                return true;
+            }
         };
 
 		#endregion

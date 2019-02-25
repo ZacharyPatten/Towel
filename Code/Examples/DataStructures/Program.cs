@@ -2,7 +2,7 @@
 
 using Towel;
 using Towel.Mathematics;
-using Towel.Structures;
+using Towel.DataStructures;
 
 namespace DataStructures
 {
@@ -518,10 +518,10 @@ namespace DataStructures
             //// Construction
             //OmnitreePoints<int, double, double, double> omnitree_linked2 = new OmnitreePoints_2<int, double, double, double>(
             //    (int index, out double a, out double b, out double c) => { a = index; b = index; c = index; }, // "N-D" location function
-            //    Theta.Equate.Default,
-            //    Theta.Equate.Default,
-            //    Theta.Equate.Default,
-            //    Theta.Equate.Default,
+            //    Towel.Equate.Default,
+            //    Towel.Equate.Default,
+            //    Towel.Equate.Default,
+            //    Towel.Equate.Default,
             //    Compute<double>.Compare, // axis comparison function
             //    Compute<double>.Compare,
             //    Compute<double>.Compare); // axis average function

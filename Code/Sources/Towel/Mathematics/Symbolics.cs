@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Towel.Structures;
+using Towel.DataStructures;
 using System.Linq;
 
 namespace Towel.Mathematics
@@ -583,7 +583,7 @@ namespace Towel.Mathematics
 					{
                         MethodInfo method = methodCallExpression.Method;
                         if (method == null || method.DeclaringType != typeof(Compute))
-                            throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute<T> allowed): " + methodCallExpression);
+                            throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
 
 						Node[] nodes = null;
                         if (methodCallExpression.Arguments != null)
@@ -738,7 +738,7 @@ namespace Towel.Mathematics
 							case "InverseHyperbolicSecant": break;
 							case "InverseHyperbolicCotangent": break;
 						}
-                        throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute<T> allowed): " + methodCallExpression);
+                        throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
 					};
 
 				return recursive(e);

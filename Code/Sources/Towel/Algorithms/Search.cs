@@ -1,4 +1,4 @@
-﻿using Towel.Structures;
+﻿using Towel.DataStructures;
 using Towel.Mathematics;
 
 namespace Towel.Algorithms
@@ -128,7 +128,7 @@ namespace Towel.Algorithms
 			/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 			/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-			public static Stepper<T> Astar(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, Cost cost, Goal goal)
+			public static Stepper<T> Astar(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Cost cost, Goal goal)
 			{
 				return Astar(start, graph.Neighbors, heuristic, cost, goal);
 			}
@@ -165,7 +165,7 @@ namespace Towel.Algorithms
 			/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 			/// <param name="goal">The goal node.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-            public static Stepper<T> Astar(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, Cost cost, T goal)
+            public static Stepper<T> Astar(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Cost cost, T goal)
 			{
 				return Astar(start, graph, heuristic, cost, goal, Equate.Default);
 			}
@@ -178,7 +178,7 @@ namespace Towel.Algorithms
 			/// <param name="goal">The goal node.</param>
 			/// <param name="equate">A delegate for checking for equality between two nodes.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-            public static Stepper<T> Astar(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, Cost cost, T goal, Equate<T> equate)
+            public static Stepper<T> Astar(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Cost cost, T goal, Equate<T> equate)
 			{
 				return Astar(start, graph.Neighbors, heuristic, cost, (T node) => { return equate(node, goal); });
 			}
@@ -345,7 +345,7 @@ namespace Towel.Algorithms
 			/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 			/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-            public static Stepper<T> Greedy(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, T goal)
+            public static Stepper<T> Greedy(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, T goal)
 			{
 				return Greedy(start, graph, heuristic, goal, Equate.Default);
 			}
@@ -357,7 +357,7 @@ namespace Towel.Algorithms
 			/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 			/// <param name="equate">Delegate for checking for equality between two nodes.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-            public static Stepper<T> Greedy(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, T goal, Equate<T> equate)
+            public static Stepper<T> Greedy(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, T goal, Equate<T> equate)
 			{
 				return Greedy(start, graph.Neighbors, heuristic, (T node) => { return equate(node, goal); });
 			}
@@ -368,7 +368,7 @@ namespace Towel.Algorithms
 			/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 			/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-            public static Stepper<T> Greedy(T start, Towel.Structures.Graph<T> graph, Heuristic heuristic, Goal goal)
+            public static Stepper<T> Greedy(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Goal goal)
 			{
 				return Greedy(start, graph.Neighbors, heuristic, goal);
 			}

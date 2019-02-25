@@ -1,5 +1,5 @@
 ﻿using Towel;
-using Towel.Structures;
+using Towel.DataStructures;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -31,6 +31,7 @@ namespace Towel.Mathematics
             /// <summary>Epsilon (1.192092896...e-012f)</summary>
             //public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
         }
+
         #endregion
 
         #region Constant Computation
@@ -41,7 +42,7 @@ namespace Towel.Mathematics
         {
             return default(T);
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
 //            const int pi_maximum_iterations = 100; // NOTE: decimal accuracy for pi requires pi_maximum_iterations = 92
 
@@ -1131,10 +1132,10 @@ namespace Towel.Mathematics
 
         public static T GreatestCommonFactor<T>(params T[] operands)
         {
-            return GreatestCommonFactor(operands.Stepper());
+            return GreatestCommonFactor<T>(operands.Stepper());
         }
 
-        private static T GreatestCommonFactor<T>(Stepper<T> stepper)
+        public static T GreatestCommonFactor<T>(Stepper<T> stepper)
         {
             if (stepper == null)
             {
@@ -1189,7 +1190,7 @@ namespace Towel.Mathematics
             return LeastCommonMultiple(operands.Stepper());
         }
 
-        private static T LeastCommonMultiple<T>(Stepper<T> stepper)
+        public static T LeastCommonMultiple<T>(Stepper<T> stepper)
         {
             if (stepper == null)
             {
@@ -1317,7 +1318,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentOutOfRangeException(nameof(n), n, "!(" + nameof(n) + "." + nameof(IsInteger) + ")");
             }
-            if (GreaterThan(N, n))
+            if (LessThan(N, n))
             {
                 throw new MathematicsException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
             }
@@ -1564,12 +1565,12 @@ namespace Towel.Mathematics
         #region Correlation
 
         //        /// <summary>Computes the median of a set of values.</summary>
-        //        private static Compute<T>.Delegates.Correlation Correlation_private = (Stepper<T> a, Stepper<T> b) =>
+        //        private static Compute.Delegates.Correlation Correlation_private = (Stepper<T> a, Stepper<T> b) =>
         //        {
         //            throw new System.NotImplementedException("I introduced an error here when I removed the stepref off of structure. will fix soon");
 
-        //            Compute<T>.Correlation_private =
-        //        Meta.Compile<Compute<T>.Delegates.Correlation>(
+        //            Compute.Correlation_private =
+        //        Meta.Compile<Compute.Delegates.Correlation>(
         //        string.Concat(
         //        @"(Stepper<", Meta.ConvertTypeToCsharpSource(typeof(T)), "> _a, Stepper<", Meta.ConvertTypeToCsharpSource(typeof(T)), @"> _b) =>
         //{
@@ -1600,7 +1601,7 @@ namespace Towel.Mathematics
         //	return sum_a_cross_b / Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.sqrt(sum_a_temp * sum_b_temp);
         //}"));
 
-        //            return Compute<T>.Correlation_private(a, b);
+        //            return Compute.Correlation_private(a, b);
         //        };
 
         //        public static T Correlation(Stepper<T> a, Stepper<T> b)
@@ -2105,7 +2106,7 @@ namespace Towel.Mathematics
         //    Code.AssertArgNonNull(points, "points");
         //    int count = 0;
         //    // first find the mean X value (so we can divide the data into two halfs)
-        //    T mean_x = Towel.Mathematics.Compute<T>.Mean((Step<T> step) =>
+        //    T mean_x = Towel.Mathematics.Compute.Mean((Step<T> step) =>
         //    {
         //        points((T x, T y) =>
         //        {
@@ -2119,36 +2120,36 @@ namespace Towel.Mathematics
         //    // based on the mean X value and keeping a running totals
         //    int count_1 = 0;
         //    int count_2 = 0;
-        //    T x_sum_1 = Compute<T>.Zero; T y_sum_1 = Compute<T>.Zero; // represents point 1 of best fit line
-        //    T x_sum_2 = Compute<T>.Zero; T y_sum_2 = Compute<T>.Zero; // represents point 2 of best fit line
+        //    T x_sum_1 = Compute.Constant<T>.Zero; T y_sum_1 = Compute.Constant<T>.Zero; // represents point 1 of best fit line
+        //    T x_sum_2 = Compute.Constant<T>.Zero; T y_sum_2 = Compute.Constant<T>.Zero; // represents point 2 of best fit line
         //    points((T x, T y) =>
         //    {
-        //        if (Compute<T>.Compare(x, mean_x) == Comparison.Less)
+        //        if (Compute.Compare(x, mean_x) == Comparison.Less)
         //        {
         //            count_1++;
-        //            x_sum_1 = Compute<T>.Add(x_sum_1, x);
-        //            y_sum_1 = Compute<T>.Add(y_sum_1, y);
+        //            x_sum_1 = Compute.Add(x_sum_1, x);
+        //            y_sum_1 = Compute.Add(y_sum_1, y);
         //        }
         //        else
         //        {
         //            count_2++;
-        //            x_sum_2 = Compute<T>.Add(x_sum_2, x);
-        //            y_sum_2 = Compute<T>.Add(y_sum_2, y);
+        //            x_sum_2 = Compute.Add(x_sum_2, x);
+        //            y_sum_2 = Compute.Add(y_sum_2, y);
         //        }
         //    });
         //    if (count_1 == 0 || count_2 == 0)
         //        throw new System.InvalidOperationException("Not enough unique X values for 2D linear regression (vertical lines are not supported).");
         //    // divide all summations by the count to calculate means
-        //    T count_1_T = Compute<T>.FromInt32(count_1); // convert int to T
-        //    T x_1 = Compute<T>.Divide(x_sum_1, count_1_T);
-        //    T y_1 = Compute<T>.Divide(y_sum_1, count_1_T);
-        //    T count_2_T = Compute<T>.FromInt32(count_2); // convert int to T
-        //    T x_2 = Compute<T>.Divide(x_sum_2, count_2_T);
-        //    T y_2 = Compute<T>.Divide(y_sum_2, count_2_T);
+        //    T count_1_T = Compute.FromInt32(count_1); // convert int to T
+        //    T x_1 = Compute.Divide(x_sum_1, count_1_T);
+        //    T y_1 = Compute.Divide(y_sum_1, count_1_T);
+        //    T count_2_T = Compute.FromInt32(count_2); // convert int to T
+        //    T x_2 = Compute.Divide(x_sum_2, count_2_T);
+        //    T y_2 = Compute.Divide(y_sum_2, count_2_T);
         //    // At this point we have two points on the best fit line: (x_1, y_1) & (x_2, y_2)
         //    // calculate the slope and the y-intercept
-        //    slope = Compute<T>.Divide(Compute<T>.Subtract(y_2, y_1), Compute<T>.Subtract(x_2, x_1)); // m = (y2- y1) / (x2- x1)
-        //    y_intercept = Compute<T>.Subtract(y_1, Compute<T>.Multiply(x_1, slope)); // b = y' - m * x' where (x', y') is a point on the line
+        //    slope = Compute.Divide(Compute.Subtract(y_2, y_1), Compute.Subtract(x_2, x_1)); // m = (y2- y1) / (x2- x1)
+        //    y_intercept = Compute.Subtract(y_1, Compute.Multiply(x_1, slope)); // b = y' - m * x' where (x', y') is a point on the line
         //}
 
         ///// <summary>Performs simple 2D linear regression to find a best fit line in the form: "y = m * x + b".</summary>

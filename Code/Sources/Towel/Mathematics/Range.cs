@@ -195,7 +195,7 @@
 		{
 			throw new System.NotImplementedException();
 			//T[] ordered = values.Clone() as T[]; // in case they pass in an array they use later
-			//Algorithms.Sort<T>.Merge(Compute<T>.Compare, ordered);
+			//Algorithms.Sort<T>.Merge(Compute.Compare, ordered);
 			//if 
 		}
 		

@@ -1,5 +1,5 @@
 ﻿using System;
-using Towel.Structures;
+using Towel.DataStructures;
 using Towel.Mathematics;
 using Towel.Algorithms;
 using Towel;

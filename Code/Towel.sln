@@ -9,11 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel", "Sources\Towel\Towe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematics", "Examples\Mathematics\Mathematics.csproj", "{B2BF10AF-C7BC-45C0-B5BE-E6320C3A788E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathematics", "Examples\Mathematics\Mathematics.csproj", "{B2BF10AF-C7BC-45C0-B5BE-E6320C3A788E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Examples\Algorithms\Algorithms.csproj", "{3036E067-4A60-450C-BD95-4D28AF88EEAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Examples\Algorithms\Algorithms.csproj", "{3036E067-4A60-450C-BD95-4D28AF88EEAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "Examples\DataStructures\DataStructures.csproj", "{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures", "Examples\DataStructures\DataStructures.csproj", "{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel.Graphics", "Sources\Towel.Graphics\Towel.Graphics.csproj", "{CE8CB030-E8DB-4628-A30C-BC82B41B74DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel.Physics", "Sources\Towel.Physics\Towel.Physics.csproj", "{C874A215-52FA-4F31-A0B6-7110227E6786}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8CB030-E8DB-4628-A30C-BC82B41B74DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8CB030-E8DB-4628-A30C-BC82B41B74DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8CB030-E8DB-4628-A30C-BC82B41B74DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8CB030-E8DB-4628-A30C-BC82B41B74DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C874A215-52FA-4F31-A0B6-7110227E6786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C874A215-52FA-4F31-A0B6-7110227E6786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C874A215-52FA-4F31-A0B6-7110227E6786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C874A215-52FA-4F31-A0B6-7110227E6786}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +58,8 @@ Global
 		{B2BF10AF-C7BC-45C0-B5BE-E6320C3A788E} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{3036E067-4A60-450C-BD95-4D28AF88EEAA} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{A6291CD8-F96F-45F4-A233-7EB7E5637A8E} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
+		{CE8CB030-E8DB-4628-A30C-BC82B41B74DC} = {461AC7D4-6FE4-4DEB-976E-7B0CF8F862E7}
+		{C874A215-52FA-4F31-A0B6-7110227E6786} = {461AC7D4-6FE4-4DEB-976E-7B0CF8F862E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}

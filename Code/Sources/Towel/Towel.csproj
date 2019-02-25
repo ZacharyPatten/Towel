@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Structures\Link.tt">
+    <None Update="DataStructures\Link.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Link.cs</LastGenOutput>
     </None>
-    <None Update="Structures\Omnitree.tt">
+    <None Update="DataStructures\Omnitree.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Omnitree.cs</LastGenOutput>
     </None>
@@ -20,12 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Structures\Link.cs">
+    <Compile Update="DataStructures\Link.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Link.tt</DependentUpon>
     </Compile>
-    <Compile Update="Structures\Omnitree.cs">
+    <Compile Update="DataStructures\Omnitree.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Omnitree.tt</DependentUpon>

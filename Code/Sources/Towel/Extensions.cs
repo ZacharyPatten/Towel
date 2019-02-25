@@ -1,6 +1,6 @@
 ﻿using Towel;
 using Towel.Algorithms;
-using Towel.Structures;
+using Towel.DataStructures;
 
 namespace System
 {

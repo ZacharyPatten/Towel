@@ -238,7 +238,7 @@
         public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Equate<T> equate, Hash<T> hash)
         {
             bool duplicateFound = false;
-            Towel.Structures.SetHashArray<T> set = new Towel.Structures.SetHashArray<T>(equate, hash);
+            Towel.DataStructures.SetHashArray<T> set = new Towel.DataStructures.SetHashArray<T>(equate, hash);
             stepper((T item) =>
             {
                 if (set.Contains(item))
@@ -267,7 +267,7 @@
         public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Equate<T> equate, Hash<T> hash)
         {
             bool duplicateFound = false;
-            Towel.Structures.SetHashArray<T> set = new Towel.Structures.SetHashArray<T>(equate, hash);
+            Towel.DataStructures.SetHashArray<T> set = new Towel.DataStructures.SetHashArray<T>(equate, hash);
             stepper((T item) =>
             {
                 if (set.Contains(item))

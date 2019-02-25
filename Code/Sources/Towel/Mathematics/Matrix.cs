@@ -6,7 +6,7 @@ namespace Towel.Mathematics
     /// <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
     /// <typeparam name="T">The numeric type of this Matrix.</typeparam>
     [Serializable]
-    public struct Matrix<T>
+    public class Matrix<T>
     {
         internal readonly T[] _matrix;
         internal int _rows;
@@ -1352,7 +1352,7 @@ namespace Towel.Mathematics
             int a_columns = a._columns;
             int b_rows = a_rows - 1;
             int b_columns = a_columns - 1;
-            int b_length = (b_rows - 1) * (b_columns - 1);
+            int b_length = b_rows * b_columns;
             if (b == null || b._matrix.Length != b_length)
             {
                 b = new Matrix<T>(b_rows, b_columns, b_length);
@@ -1372,13 +1372,14 @@ namespace Towel.Mathematics
                     continue;
                 }
 			    n = 0;
-			    for (int j = 0; j < b_columns; j++)
+			    for (int j = 0; j < a_columns; j++)
 			    {
                     if (j == column)
                     {
                         continue;
                     }
-                    b_flat[m * b_columns + n] = a_flat[(i * a_columns) + j];
+                    T temp = a_flat[(i * a_columns) + j];
+                    b_flat[m * b_columns + n] = temp;
 			    	n++;
 			    }
 			    m++;
@@ -1681,24 +1682,24 @@ namespace Towel.Mathematics
 			//Matrix<T> rref = matrix.Clone();
 			//for (int i = 0; i < matrix.Rows; i++)
 			//{
-			//	if (Compute<T>.Equate(rref[i, i], Compute<T>.FromInt32(0)))
+			//	if (Compute.Equate(rref[i, i], Compute.FromInt32(0)))
 			//		for (int j = i + 1; j < rref.Rows; j++)
-			//			if (!Compute<T>.Equate(rref[j, i], Compute<T>.FromInt32(0)))
+			//			if (!Compute.Equate(rref[j, i], Compute.FromInt32(0)))
 			//			{
 			//				Matrix<T>.SwapRows(rref, i, j);
 			//				Matrix<T>.SwapRows(identity, i, j);
 			//			}
-			//	Matrix<T>.RowMultiplication(identity, i, Compute<T>.Divide(Compute<T>.FromInt32(1), rref[i, i]));
-			//	Matrix<T>.RowMultiplication(rref, i, Compute<T>.Divide(Compute<T>.FromInt32(1), rref[i, i]));
+			//	Matrix<T>.RowMultiplication(identity, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
+			//	Matrix<T>.RowMultiplication(rref, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
 			//	for (int j = i + 1; j < rref.Rows; j++)
 			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute<T>.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute<T>.Negate(rref[j, i]));
+			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
 			//	}
 			//	for (int j = i - 1; j >= 0; j--)
 			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute<T>.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute<T>.Negate(rref[j, i]));
+			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
 			//	}
 			//}
 			//return identity;

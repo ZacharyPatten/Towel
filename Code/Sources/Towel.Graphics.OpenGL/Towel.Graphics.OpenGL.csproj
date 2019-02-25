@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Towel.Graphics\Towel.Graphics.csproj" />
+    <ProjectReference Include="..\Towel\Towel.csproj" />
+  </ItemGroup>
+
+</Project>

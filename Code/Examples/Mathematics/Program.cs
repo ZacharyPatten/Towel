@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Towel;
-using Towel.Structures;
+using Towel.DataStructures;
 using Towel.Mathematics;
 using Towel.Measurements;
 
@@ -89,15 +89,15 @@ namespace Mathematics
             Console.WriteLine("   1D int");
 
             {
-                Range<int> range1 = new Range<int>(1, 7);
+                Range<double> range1 = new Range<double>(1, 7);
                 Console.WriteLine("    range1: " + range1);
-                Range<int> range2 = new Range<int>(4, 10);
+                Range<double> range2 = new Range<double>(4, 10);
                 Console.WriteLine("    range2: " + range2);
-                Range<int>[] range3 = range1 ^ range2;
+                Range<double>[] range3 = range1 ^ range2;
                 Console.WriteLine("    range1 ^ range2 (Complement): " + range3[0]);
-                Range<int>[] range4 = range1 | range2;
+                Range<double>[] range4 = range1 | range2;
                 Console.WriteLine("    range1 | range2 (Union): " + range4[0]);
-                Range<int> range5 = range1 & range2;
+                Range<double> range5 = range1 & range2;
                 Console.WriteLine("    range1 & range2 (Intersection): " + range5);
             }
 
@@ -107,57 +107,57 @@ namespace Mathematics
 
             #region Angles
 
-            Console.WriteLine("  Angles--------------------------------------");
-            Console.WriteLine();
-            Angle<double> angle1 = Angle<double>.Factory_Degrees(90d);
-            Console.WriteLine("    angle1 = " + angle1);
-            Angle<double> angle2 = Angle<double>.Factory_Turns(0.5d);
-            Console.WriteLine("    angle2 = " + angle2);
-            Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
-            Console.WriteLine("    angle2 - angle1 = " + (angle1 + angle2));
-            Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
-            Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
-            Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
-            Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
-            Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
-            Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
-            Console.WriteLine();
+            //Console.WriteLine("  Angles--------------------------------------");
+            //Console.WriteLine();
+            //Angle<double> angle1 = Angle<double>.Factory_Degrees(90d);
+            //Console.WriteLine("    angle1 = " + angle1);
+            //Angle<double> angle2 = Angle<double>.Factory_Turns(0.5d);
+            //Console.WriteLine("    angle2 = " + angle2);
+            //Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
+            //Console.WriteLine("    angle2 - angle1 = " + (angle1 + angle2));
+            //Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
+            //Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
+            //Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
+            //Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
+            //Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
+            //Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
+            //Console.WriteLine();
 
-            // examples of non-doubles
-            Angle<float> angle10 = Angle<float>.Factory_Degrees(90f);
-            Angle<Fraction128> angle11 = Angle<Fraction128>.Factory_Degrees(new Fraction128("90/1"));
-            Angle<decimal> angle12 = Angle<decimal>.Factory_Degrees(90m);
+            //// examples of non-doubles
+            //Angle<float> angle10 = Angle<float>.Factory_Degrees(90f);
+            //Angle<Fraction128> angle11 = Angle<Fraction128>.Factory_Degrees(new Fraction128("90/1"));
+            //Angle<decimal> angle12 = Angle<decimal>.Factory_Degrees(90m);
 
             #endregion
 
             #region Fraction
 
-            //Console.WriteLine("  Fractions-----------------------------------");
-            //Console.WriteLine();
-            //Fraction128 fraction1 = new Fraction128(2.5);
-            //Console.WriteLine("    fraction1 = " + fraction1);
-            //Fraction128 fraction2 = new Fraction128(3.75);
-            //Console.WriteLine("    fraction2 = " + fraction2);
-            //Console.WriteLine("    fraction1 + fraction2 = " + fraction1 + fraction2);
-            //Console.WriteLine("    fraction2 - fraction1 = " + fraction1 + fraction2);
-            //Console.WriteLine("    fraction1 * 2 = " + fraction1 * 2);
-            //Console.WriteLine("    fraction1 / 2 = " + fraction1 / 2);
-            //Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
-            //Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
-            //Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
-            //Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
-            //Console.WriteLine();
+            Console.WriteLine("  Fractions-----------------------------------");
+            Console.WriteLine();
+            Fraction128 fraction1 = new Fraction128(2.5);
+            Console.WriteLine("    fraction1 = " + fraction1);
+            Fraction128 fraction2 = new Fraction128(3.75);
+            Console.WriteLine("    fraction2 = " + fraction2);
+            Console.WriteLine("    fraction1 + fraction2 = " + fraction1 + fraction2);
+            Console.WriteLine("    fraction2 - fraction1 = " + fraction1 + fraction2);
+            Console.WriteLine("    fraction1 * 2 = " + fraction1 * 2);
+            Console.WriteLine("    fraction1 / 2 = " + fraction1 / 2);
+            Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
+            Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
+            Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
+            Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
+            Console.WriteLine();
 
             #endregion
 
             #region Trigonometry
 
-            Console.WriteLine("  Trigonometry -----------------------------------------");
-            Console.WriteLine();
+            //Console.WriteLine("  Trigonometry -----------------------------------------");
+            //Console.WriteLine();
 
-            Angle<double> testingAngle = Angle<double>.Factory_Degrees(90d);
+            //Angle<double> testingAngle = Angle<double>.Factory_Degrees(90d);
 
-            Console.WriteLine("    Sin(90degrees) = " + Sine(testingAngle));
+            //Console.WriteLine("    Sin(90degrees) = " + Sine(testingAngle));
 
             #endregion
 
@@ -196,20 +196,20 @@ namespace Mathematics
             Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.Stepper())));
 
             // Median
-            Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
+            //Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
 
             // Mode
-            Console.WriteLine("    Mode(data): ");
-            Heap<Link<double, int>> modes = Mode(statistics_data.Stepper());
-            while (modes.Count > 0)
-            {
-                Link<double, int> link = modes.Dequeue();
-                Console.WriteLine("      Point: " + string.Format("{0:0.00}", link._1) + " Occurences: " + link._2);
-            }
-            Console.WriteLine();
+            //Console.WriteLine("    Mode(data): ");
+            //Heap<Link<double, int>> modes = Mode(statistics_data.Stepper());
+            //while (modes.Count > 0)
+            //{
+            //    Link<double, int> link = modes.Dequeue();
+            //    Console.WriteLine("      Point: " + string.Format("{0:0.00}", link._1) + " Occurences: " + link._2);
+            //}
+            //Console.WriteLine();
 
             // Geometric Mean
-            Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
+            //Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
 
             // Range
             Range<double> range = Range(statistics_data.Stepper());
@@ -248,9 +248,9 @@ namespace Mathematics
             Console.WriteLine();
 
             // Logarithms
-            int log_1 = random.Next(0, 11), log_2 = random.Next(0, 100000);
-            Console.WriteLine("    log_" + log_1 + "(" + log_2 + "): " + string.Format("{0:0.00}", Logarithm((double)log_1, (double)log_2)));
-            Console.WriteLine();
+            //int log_1 = random.Next(0, 11), log_2 = random.Next(0, 100000);
+            //Console.WriteLine("    log_" + log_1 + "(" + log_2 + "): " + string.Format("{0:0.00}", Logarithm((double)log_1, (double)log_2)));
+            //Console.WriteLine();
 
             // Summation
             double[] summation_values = new double[]
@@ -398,14 +398,14 @@ namespace Mathematics
             ConsoleWrite(M * V);
 
             // Matrix Lower-Upper Decomposition
-            Matrix<double> l, u;
-            Matrix<double>.DecomposeLU(M, out l, out u);
-            Console.WriteLine("    Lower-Upper Decomposition:");
-            Console.WriteLine();
-            Console.WriteLine("    	lower(M):");
-            ConsoleWrite(l);
-            Console.WriteLine("    	upper(M):");
-            ConsoleWrite(u);
+            //Matrix<double> l, u;
+            //Matrix<double>.DecomposeLU(M, out l, out u);
+            //Console.WriteLine("    Lower-Upper Decomposition:");
+            //Console.WriteLine();
+            //Console.WriteLine("    	lower(M):");
+            //ConsoleWrite(l);
+            //Console.WriteLine("    	upper(M):");
+            //ConsoleWrite(u);
 
             // Quaternion Construction
             Quaternion<double> Q = new Quaternion<double>(
