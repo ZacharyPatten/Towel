@@ -10,7 +10,7 @@ namespace Towel.Physics.Shapes
         private T _halfWidth;
         private T _halfHeight;
 
-        public Cuboid() : this(Compute.Constant<T>.One, Compute.Constant<T>.One, Compute.Constant<T>.One) { }
+        public Cuboid() : this(Constant<T>.One, Constant<T>.One, Constant<T>.One) { }
 
         public Cuboid(T halfLength, T halfWidth, T HalfHeight) : this(halfLength, halfWidth, HalfHeight, Vector<T>.FactoryZero(3), Quaternion<T>.Identity) { }
 
@@ -105,7 +105,7 @@ namespace Towel.Physics.Shapes
             get
             {
                 // volume of a cube = length ^ 3
-                return Compute.Power(Compute.Multiply(this._halfLength, Compute.Constant<T>.Two), Compute.Constant<T>.Three);
+                return Compute.Power(Compute.Multiply(this._halfLength, Constant<T>.Two), Constant<T>.Three);
             }
         }
 
@@ -138,11 +138,11 @@ namespace Towel.Physics.Shapes
             // Notes: helper function for "Cube.SupportMapping". just
             // adjusts the "_halfLength" based on the direction value
 
-            if (Compute.Equals(value, Compute.Constant<T>.Zero))
+            if (Compute.Equals(value, Constant<T>.Zero))
             {
-                return Compute.Constant<T>.Zero;
+                return Constant<T>.Zero;
             }
-            else if (Compute.LessThan(value, Compute.Constant<T>.Zero))
+            else if (Compute.LessThan(value, Constant<T>.Zero))
             {
                 return Compute.Negate(this._halfLength);
             }

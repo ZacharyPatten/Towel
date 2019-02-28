@@ -4,7 +4,7 @@ namespace Towel.Mathematics
 {
 	/// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
 	/// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class Quaternion<T>
 	{
         internal T _x;
@@ -67,7 +67,7 @@ namespace Towel.Mathematics
             if (matrix.Rows != 3 || matrix.Columns != 3)
                 throw new System.ArithmeticException("error converting matrix to quaternion. matrix is not 3x3.");
 
-            T w = Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Compute.FromInt32<T>(2));
+            T w = Compute.Subtract(Compute.Add(Constant<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Compute.FromInt32<T>(2));
             return new Quaternion<T>(
                 Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), Compute.Multiply(Compute.FromInt32<T>(4), w)),
                 Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), Compute.Multiply(Compute.FromInt32<T>(4), w)),
@@ -80,9 +80,9 @@ namespace Towel.Mathematics
             matrix = matrix.Transpose();
             T w, x, y, z;
             T diagonal = Compute.Add(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
-            if (Compute.GreaterThan(diagonal, Compute.Constant<T>.Zero))
+            if (Compute.GreaterThan(diagonal, Constant<T>.Zero))
             {
-                T w4 = Compute.Multiply(Compute.SquareRoot(Compute.Add(diagonal, Compute.Constant<T>.One)), Compute.FromInt32<T>(2));
+                T w4 = Compute.Multiply(Compute.SquareRoot(Compute.Add(diagonal, Constant<T>.One)), Compute.FromInt32<T>(2));
                 w = Compute.Divide(w4, Compute.FromInt32<T>(4));
                 x = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), w4);
                 y = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), w4);
@@ -90,7 +90,7 @@ namespace Towel.Mathematics
             }
             else if (Compute.GreaterThan(matrix[0, 0], matrix[1, 1]) && Compute.GreaterThan(matrix[0, 0], matrix[2, 2]))
             {
-                T x4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Compute.FromInt32<T>(2));
+                T x4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Compute.FromInt32<T>(2));
                 w = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), x4);
                 x = Compute.Divide(x4, Compute.FromInt32<T>(4));
                 y = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), x4);
@@ -98,7 +98,7 @@ namespace Towel.Mathematics
             }
             else if (Compute.GreaterThan(matrix[1, 1], matrix[2, 2]))
             {
-                T y4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Compute.FromInt32<T>(2));
+                T y4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Compute.FromInt32<T>(2));
                 w = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), y4);
                 x = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), y4);
                 y = Compute.Divide(y4, Compute.FromInt32<T>(4));
@@ -106,7 +106,7 @@ namespace Towel.Mathematics
             }
             else
             {
-                T z4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Constant<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Compute.FromInt32<T>(2));
+                T z4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Compute.FromInt32<T>(2));
                 w = Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), z4);
                 x = Compute.Divide(Compute.Add(matrix[0, 2], matrix[2, 0]), z4);
                 y = Compute.Divide(Compute.Add(matrix[1, 2], matrix[2, 1]), z4);
@@ -365,7 +365,7 @@ namespace Towel.Mathematics
         {
             get
             {
-                return new Quaternion<T>(Compute.Constant<T>.Zero, Compute.Constant<T>.Zero, Compute.Constant<T>.Zero, Compute.Constant<T>.One);
+                return new Quaternion<T>(Constant<T>.Zero, Constant<T>.Zero, Constant<T>.Zero, Constant<T>.One);
             }
         }
 
@@ -527,9 +527,9 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(a));
             }
             T normalizer = a.Magnitude;
-            if (Compute.NotEqual(normalizer, Compute.Constant<T>.Zero))
+            if (Compute.NotEqual(normalizer, Constant<T>.Zero))
             {
-                return a * Compute.Divide(Compute.Constant<T>.One, normalizer);
+                return a * Compute.Divide(Constant<T>.One, normalizer);
             }
             else
             {
@@ -547,11 +547,11 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(a));
             }
             T normalizer = a.MagnitudeSquared;
-            if (Compute.Equal(normalizer, Compute.Constant<T>.Zero))
+            if (Compute.Equal(normalizer, Constant<T>.Zero))
             {
                 return new Quaternion<T>(a.X, a.Y, a.Z, a.W);
             }
-            normalizer = Compute.Divide(Compute.Constant<T>.One, normalizer);
+            normalizer = Compute.Divide(Constant<T>.One, normalizer);
             return new Quaternion<T>(
                 Compute.Multiply(Compute.Negate(a.X), normalizer),
                 Compute.Multiply(Compute.Negate(a.Y), normalizer),
@@ -573,13 +573,13 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(b));
             }
-            if (Compute.LessThan(blend, Compute.Constant<T>.Zero) || Compute.GreaterThan(blend, Compute.Constant<T>.One))
+            if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
             {
                 throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
             }
-            if (Compute.Equal(a.MagnitudeSquared, Compute.Constant<T>.Zero))
+            if (Compute.Equal(a.MagnitudeSquared, Constant<T>.Zero))
             {
-                if (Compute.Equal(b.MagnitudeSquared, Compute.Constant<T>.Zero))
+                if (Compute.Equal(b.MagnitudeSquared, Constant<T>.Zero))
                 {
                     return Quaternion<T>.Identity;
                 }
@@ -588,16 +588,16 @@ namespace Towel.Mathematics
                     return b.Clone();
                 }
             }
-            else if (Compute.Equal(b.MagnitudeSquared, Compute.Constant<T>.Zero))
+            else if (Compute.Equal(b.MagnitudeSquared, Constant<T>.Zero))
             {
                 return a.Clone();
             }
             Quaternion<T> result = new Quaternion<T>(
-                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X)),
-                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y)),
-                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z)),
-                Compute.Add(Compute.Subtract(Compute.Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W)));
-            if (Compute.GreaterThan(result.MagnitudeSquared, Compute.Constant<T>.Zero))
+                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X)),
+                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y)),
+                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z)),
+                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W)));
+            if (Compute.GreaterThan(result.MagnitudeSquared, Constant<T>.Zero))
             {
                 return result.Normalize();
             }

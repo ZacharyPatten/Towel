@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Linq.Expressions;
 using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
 	/// <summary>Represents a vector with an arbitrary number of components of a generic type.</summary>
 	/// <typeparam name="T">The numeric type of this Vector.</typeparam>
-	[System.Serializable]
-	public class Vector<T>
+	[Serializable]
+    public class Vector<T>
 	{
 		internal readonly T[] _vector;
 
-		#region Properties
+		#region Basic Properties
 
-		/// <summary>Sane as accessing index 0.</summary>
+		/// <summary>Index 0</summary>
 		public T X
 		{
 			get
@@ -34,7 +33,7 @@ namespace Towel.Mathematics
             }
 		}
 
-		/// <summary>Same as accessing index 1.</summary>
+		/// <summary>Index 1</summary>
 		public T Y
 		{
 			get
@@ -55,7 +54,7 @@ namespace Towel.Mathematics
             }
         }
 
-		/// <summary>Same as accessing index 2.</summary>
+		/// <summary>Index 2</summary>
 		public T Z
 		{
             get
@@ -108,26 +107,6 @@ namespace Towel.Mathematics
             }
 		}
 
-        /// <summary>Computes the length of this vector.</summary>
-		/// <returns>The length of this vector.</returns>
-		public T Magnitude
-        {
-            get
-            {
-                return Vector_Magnitude(this);
-            }
-        }
-        /// <summary>Computes the length of this vector, but doesn't square root it for 
-        /// possible optimization purposes.</summary>
-        /// <returns>The squared length of the vector.</returns>
-        public T MagnitudeSquared
-        {
-            get
-            {
-                return Vector_MagnitudeSquared(this);
-            }
-        }
-
         #endregion
 
         #region Constructors
@@ -140,15 +119,23 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentOutOfRangeException(nameof(dimensions), dimensions, "!(" + nameof(dimensions) + " >= 0)");
             }
-			_vector = new T[dimensions];
+			this._vector = new T[dimensions];
 		}
 
 		/// <summary>Creates a vector out of the given values.</summary>
 		/// <param name="vector">The values to initialize the vector to.</param>
 		public Vector(params T[] vector)
 		{
-			_vector = vector;
+			this._vector = vector;
 		}
+
+        public Vector(int dimensions, Func<int, T> function) : this(dimensions)
+        {
+            for (int i = 0; i < dimensions; i++)
+            {
+                this._vector[i] = function(i);
+            }
+        }
 
 		#endregion
 
@@ -157,494 +144,450 @@ namespace Towel.Mathematics
 		/// <summary>Creates a vector with the given number of components with the values initialized to zeroes.</summary>
 		/// <param name="dimensions">The number of components in the vector.</param>
 		/// <returns>The newly constructed vector.</returns>
-		public static Vector<T> FactoryZero(int dimensions) { return new Vector<T>(dimensions); }
-
-		/// <summary>Creates a vector with the given number of components with the values initialized to ones.</summary>
-		/// <param name="dimensions">The number of components in the vector.</param>
-		/// <returns>The newly constructed vector.</returns>
-		public static Vector<T> FactoryOne(int dimensions) { return new Vector<T>(new T[dimensions]); }
-
-		///// <summary>Returns a 3-component vector representing the x-axis.</summary>
-		//public static readonly Vector<T> Factory_XAxis = new Vector<T>(_one, _zero, _zero);
-		///// <summary>Returns a 3-component vector representing the y-axis.</summary>
-		//public static readonly Vector<T> Factory_YAxis = new Vector<T>(_zero, _one, _zero);
-		///// <summary>Returns a 3-component vector representing the z-axis.</summary>
-		//public static readonly Vector<T> Factory_ZAxis = new Vector<T>(_zero, _zero, _one);
-		///// <summary>Returns a 3-component vector representing the negative x-axis.</summary>
-		//public static readonly Vector<T> Factory_NegXAxis = new Vector<T>(_one, _zero, _zero);
-		///// <summary>Returns a 3-component vector representing the negative y-axis.</summary>
-		//public static readonly Vector<T> Factory_NegYAxis = new Vector<T>(_zero, _one, _zero);
-		///// <summary>Returns a 3-component vector representing the negative z-axis.</summary>
-		//public static readonly Vector<T> Factory_NegZAxis = new Vector<T>(_zero, _zero, _one);
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Adds two vectors together.</summary>
-		/// <param name="left">The first vector of the addition.</param>
-		/// <param name="right">The second vector of the addition.</param>
-		/// <returns>The result of the addition.</returns>
-		public static Vector<T> operator +(Vector<T> left, Vector<T> right)
-		{ return Add(left, right); }
-		/// <summary>Subtracts two vectors.</summary>
-		/// <param name="left">The left operand of the subtraction.</param>
-		/// <param name="right">The right operand of the subtraction.</param>
-		/// <returns>The result of the subtraction.</returns>
-		public static Vector<T> operator -(Vector<T> left, Vector<T> right)
-		{ return Subtract(left, right); }
-		/// <summary>Negates a vector.</summary>
-		/// <param name="vector">The vector to negate.</param>
-		/// <returns>The result of the negation.</returns>
-		public static Vector<T> operator -(Vector<T> vector)
-		{ return Negate(vector); }
-		/// <summary>Multiplies all the values in a vector by a scalar.</summary>
-		/// <param name="left">The vector to have all its values multiplied.</param>
-		/// <param name="right">The scalar to multiply all the vector values by.</param>
-		/// <returns>The result of the multiplication.</returns>
-		public static Vector<T> operator *(Vector<T> left, T right)
-		{ return Multiply(left, right); }
-		/// <summary>Multiplies all the values in a vector by a scalar.</summary>
-		/// <param name="left">The scalar to multiply all the vector values by.</param>
-		/// <param name="right">The vector to have all its values multiplied.</param>
-		/// <returns>The result of the multiplication.</returns>
-		public static Vector<T> operator *(T left, Vector<T> right)
-		{ return Multiply(right, left); }
-		/// <summary>Divides all the values in the vector by a scalar.</summary>
-		/// <param name="left">The vector to have its values divided.</param>
-		/// <param name="right">The scalar to divide all the vectors values by.</param>
-		/// <returns>The vector after the divisions.</returns>
-		public static Vector<T> operator /(Vector<T> left, T right)
-		{ return Divide(left, right); }
-		/// <summary>Does an equality check by value. (warning for float errors)</summary>
-		/// <param name="left">The first vector of the equality check.</param>
-		/// <param name="right">The second vector of the equality check.</param>
-		/// <returns>true if the values are equal, false if not.</returns>
-		public static bool operator ==(Vector<T> left, Vector<T> right)
-		{ return EqualsValue(left, right); }
-		/// <summary>Does an anti-equality check by value. (warning for float errors)</summary>
-		/// <param name="left">The first vector of the anit-equality check.</param>
-		/// <param name="right">The second vector of the anti-equality check.</param>
-		/// <returns>true if the values are not equal, false if they are.</returns>
-		public static bool operator !=(Vector<T> left, Vector<T> right)
-		{ return !EqualsValue(left, right); }
-		/// <summary>Implicit conversions from Vector to T[].</summary>
-		/// <param name="vector">The Vector to be converted to a T[].</param>
-		/// <returns>The T[] of the vector.</returns>
-		public static implicit operator T[](Vector<T> vector)
-		{ return vector._vector; }
-		/// <summary>Implicit conversions from Vector to T[].</summary>
-		/// <param name="array">The Vector to be converted to a T[].</param>
-		/// <returns>The T[] of the vector.</returns>
-		public static implicit operator Vector<T>(T[] array)
-		{ return new Vector<T>(array); }
-		/// <summary>Converts a vector into a matrix.</summary>
-		/// <param name="vector">The vector to convert.</param>
-		/// <returns>The resulting matrix.</returns>
-		public static explicit operator Matrix<T>(Vector<T> vector)
-		{ return new Matrix<T>(vector); }
-		/// <summary>Implicitly converts a scalar into a one dimensional vector.</summary>
-		/// <param name="scalar">The scalar value.</param>
-		/// <returns>The one dimensional vector </returns>
-		public static implicit operator Vector<T>(T scalar)
-		{ return new Vector<T>(scalar); }
-
-		#endregion
-
-		#region Instance Methods
-
-		/// <summary>Adds two vectors together.</summary>
-		/// <param name="right">The vector to add to this one.</param>
-		/// <returns>The result of the vector.</returns>
-		public Vector<T> Add(Vector<T> right)
-		{ return Add(this, right); }
-		/// <summary>Negates this vector.</summary>
-		/// <returns>The result of the negation.</returns>
-		public Vector<T> Negate()
-		{ return Negate(this); }
-		/// <summary>Subtracts another vector from this one.</summary>
-		/// <param name="right">The vector to subtract from this one.</param>
-		/// <returns>The result of the subtraction.</returns>
-		public Vector<T> Subtract(Vector<T> right)
-		{ return Subtract(this, right); }
-		/// <summary>Multiplies the values in this vector by a scalar.</summary>
-		/// <param name="right">The scalar to multiply these values by.</param>
-		/// <returns>The result of the multiplications</returns>
-		public Vector<T> Multiply(T right)
-		{ return Multiply(this, right); }
-		/// <summary>Divides all the values in this vector by a scalar.</summary>
-		/// <param name="right">The scalar to divide the values of the vector by.</param>
-		/// <returns>The resulting vector after teh divisions.</returns>
-		public Vector<T> Divide(T right)
-		{ return Divide(this, right); }
-		/// <summary>Computes the dot product between this vector and another.</summary>
-		/// <param name="right">The second vector of the dot product operation.</param>
-		/// <returns>The result of the dot product.</returns>
-		public T DotProduct(Vector<T> right)
-		{ return DotProduct(this, right); }
-		/// <summary>Computes the cross product between this vector and another.</summary>
-		/// <param name="right">The second vector of the dot product operation.</param>
-		/// <returns>The result of the dot product operation.</returns>
-		public Vector<T> CrossProduct(Vector<T> right)
-		{ return CrossProduct(this, right); }
-		/// <summary>Normalizes this vector.</summary>
-		/// <returns>The result of the normalization.</returns>
-		public Vector<T> Normalize()
-		{ return Normalize(this); }
-		/// <summary>Check for equality by value.</summary>
-		/// <param name="right">The other vector of the equality check.</param>
-		/// <returns>true if the values were equal, false if not.</returns>
-		public bool EqualsValue(Vector<T> right)
-		{ return EqualsValue(this, right); }
-		/// <summary>Checks for equality by value with some leniency.</summary>
-		/// <param name="right">The other vector of the equality check.</param>
-		/// <param name="leniency">The ammount the values can differ but still be considered equal.</param>
-		/// <returns>true if the values were cinsidered equal, false if not.</returns>
-		public bool EqualsValue(Vector<T> right, T leniency)
-		{ return EqualsValue(this, right, leniency); }
-		/// <summary>Rotates this vector by quaternon values.</summary>
-		/// <param name="angle">The amount of rotation about the axis.</param>
-		/// <param name="x">The x component deterniming the axis of rotation.</param>
-		/// <param name="y">The y component determining the axis of rotation.</param>
-		/// <param name="z">The z component determining the axis of rotation.</param>
-		/// <returns>The resulting vector after the rotation.</returns>
-		public Vector<T> RotateBy(Angle<T> angle, T x, T y, T z)
-		{ return RotateBy(this, angle, x, y, z); }
-		/// <summary>Computes the linear interpolation between two vectors.</summary>
-		/// <param name="right">The ending vector of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public Vector<T> Lerp(Vector<T> right, T blend)
-		{ return Lerp(this, right, blend); }
-		/// <summary>Sphereically interpolates between two vectors.</summary>
-		/// <param name="right">The ending vector of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
-		/// <returns>The result of the slerp operation.</returns>
-		public Vector<T> Slerp(Vector<T> right, T blend)
-		{ return Slerp(this, right, blend); }
-		/// <summary>Rotates a vector by a quaternion.</summary>
-		/// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
-		/// <returns>The result of the rotation.</returns>
-		public Vector<T> RotateBy(Quaternion<T> rotation)
-		{ return RotateBy(this, rotation); }
-
-		#endregion
-
-		#region Statics
-
-		/// <summary>Adds two vectors together.</summary>
-		/// <param name="a">The first vector of the addition.</param>
-		/// <param name="b">The second vector of the addiiton.</param>
-		/// <returns>The result of the addiion.</returns>
-		public static Vector<T> Add(Vector<T> a, Vector<T> b)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Add(a, b, ref c);
-            return c;
-        }
-		/// <summary>Negates all the values in a vector.</summary>
-		/// <param name="a">The vector to have its values negated.</param>
-		/// <returns>The result of the negations.</returns>
-		public static Vector<T> Negate(Vector<T> a)
-		{
-            Vector<T> b = new Vector<T>(a.Dimensions);
-            Vector_Negate(a, ref b);
-            return b;
-        }
-		/// <summary>Subtracts two vectors.</summary>
-		/// <param name="a">The left vector of the subtraction.</param>
-		/// <param name="b">The right vector of the subtraction.</param>
-		/// <returns>The result of the vector subtracton.</returns>
-		public static Vector<T> Subtract(Vector<T> a, Vector<T> b)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Subtract(a, b, ref c);
-            return c;
-        }
-		/// <summary>Multiplies all the components of a vecotr by a scalar.</summary>
-		/// <param name="a">The vector to have the components multiplied by.</param>
-		/// <param name="b">The scalars to multiply the vector components by.</param>
-		/// <returns>The result of the multiplications.</returns>
-		public static Vector<T> Multiply(Vector<T> a, T b)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Multiply(a, b, ref c);
-            return c;
-        }
-		/// <summary>Divides all the components of a vector by a scalar.</summary>
-		/// <param name="a">The vector to have the components divided by.</param>
-		/// <param name="b">The scalar to divide the vector components by.</param>
-		/// <returns>The resulting vector after teh divisions.</returns>
-		public static Vector<T> Divide(Vector<T> a, T b)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Divide(a, b, ref c);
-            return c;
-        }
-		/// <summary>Computes the dot product between two vectors.</summary>
-		/// <param name="left">The first vector of the dot product operation.</param>
-		/// <param name="right">The second vector of the dot product operation.</param>
-		/// <returns>The result of the dot product operation.</returns>
-		public static T DotProduct(Vector<T> left, Vector<T> right)
-		{
-            return Vector<T>.Vector_DotProduct(left._vector, right._vector);
-        }
-		/// <summary>Computes teh cross product of two vectors.</summary>
-		/// <param name="a">The first vector of the cross product operation.</param>
-		/// <param name="b">The second vector of the cross product operation.</param>
-		/// <returns>The result of the cross product operation.</returns>
-		public static Vector<T> CrossProduct(Vector<T> a, Vector<T> b)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_CrossProduct(a, b, ref c);
-            return c;
-        }
-		/// <summary>Normalizes a vector.</summary>
-		/// <param name="a">The vector to normalize.</param>
-		/// <returns>The result of the normalization.</returns>
-		public static Vector<T> Normalize(Vector<T> a)
-		{
-            Vector<T> b = new Vector<T>(a.Dimensions);
-            Vector_Normalize(a, ref b);
-            return b;
-        }
-		/// <summary>Computes the angle between two vectors.</summary>
-		/// <param name="first">The first vector to determine the angle between.</param>
-		/// <param name="second">The second vector to determine the angle between.</param>
-		/// <returns>The angle between the two vectors in radians.</returns>
-		public static Angle<T> Angle(Vector<T> first, Vector<T> second)
-		{
-            return Vector<T>.Vector_Angle(first._vector, second._vector);
-        }
-		/// <summary>Rotates a vector by the specified axis and rotation values.</summary>
-		/// <param name="vector">The vector to rotate.</param>
-		/// <param name="angle">The angle of the rotation.</param>
-		/// <param name="x">The x component of the axis vector to rotate about.</param>
-		/// <param name="y">The y component of the axis vector to rotate about.</param>
-		/// <param name="z">The z component of the axis vector to rotate about.</param>
-		/// <returns>The result of the rotation.</returns>
-		public static Vector<T> RotateBy(Vector<T> vector, Angle<T> angle, T x, T y, T z)
-		{
-            Vector<T> result = new Vector<T>();
-            Vector_RotateBy(vector, angle, x, y, z, ref result);
-            return result;
-        }
-		/// <summary>Rotates a vector by a quaternion.</summary>
-		/// <param name="vector">The vector to rotate.</param>
-		/// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
-		/// <returns>The result of the rotation.</returns>
-		public static Vector<T> RotateBy(Vector<T> vector, Quaternion<T> rotation)
-		{
-            Vector<T> result = new Vector<T>(vector.Dimensions);
-            Vector_RotateByQuaternion(vector, rotation, ref result);
-            return result;
-        }
-		/// <summary>Computes the linear interpolation between two vectors.</summary>
-		/// <param name="a">The starting vector of the interpolation.</param>
-		/// <param name="b">The ending vector of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public static Vector<T> Lerp(Vector<T> a, Vector<T> b, T blend)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Lerp(a, b, blend, ref c);
-            return c;
-        }
-		/// <summary>Sphereically interpolates between two vectors.</summary>
-		/// <param name="a">The starting vector of the interpolation.</param>
-		/// <param name="b">The ending vector of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
-		/// <returns>The result of the slerp operation.</returns>
-		public static Vector<T> Slerp(Vector<T> a, Vector<T> b, T blend)
-		{
-            Vector<T> c = new Vector<T>(a.Dimensions);
-            Vector_Slerp(a, b, blend, ref c);
-            return c;
-        }
-		/// <summary>Interpolates between three vectors using barycentric coordinates.</summary>
-		/// <param name="a">The first vector of the interpolation.</param>
-		/// <param name="b">The second vector of the interpolation.</param>
-		/// <param name="c">The thrid vector of the interpolation.</param>
-		/// <param name="u">The "U" value of the barycentric interpolation equation.</param>
-		/// <param name="v">The "V" value of the barycentric interpolation equation.</param>
-		/// <returns>The resulting vector of the barycentric interpolation.</returns>
-		public static Vector<T> Blerp(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v)
-		{
-            Vector<T> d = new Vector<T>(a.Dimensions);
-            Vector_Blerp(a._vector, b._vector, c._vector, u, v, ref d);
-            return d;
-        }
-		/// <summary>Does a value equality check.</summary>
-		/// <param name="a">The first vector to check for equality.</param>
-		/// <param name="b">The second vector	to check for equality.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsValue(Vector<T> a, Vector<T> b)
-		{
-            return Vector<T>.Vector_EqualsValue(a, b);
-        }
-		/// <summary>Does a value equality check with leniency.</summary>
-		/// <param name="a">The first vector to check for equality.</param>
-		/// <param name="b">The second vector to check for equality.</param>
-		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsValue(Vector<T> a, Vector<T> b, T leniency)
-		{
-            return Vector<T>.Vector_EqualsValue_leniency(a, b, leniency);
+		public static Vector<T> FactoryZero(int dimensions)
+        {
+            return FactoryZeroImplementation(dimensions);
         }
 
-		#endregion
+        internal static Func<int, Vector<T>> FactoryZeroImplementation = dimensions =>
+        {
+            if (Compute.Equal(default(T), Constant<T>.Zero))
+            {
+                FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
+            }
+            else
+            {
+                FactoryZeroImplementation = DIMENSIONS =>
+                {
+                    T[] vector = new T[DIMENSIONS];
+                    vector.Fill(Constant<T>.Zero);
+                    return new Vector<T>(vector);
+                };
+            }
+            return FactoryZeroImplementation(dimensions);
+        };
 
-		#region Implementations
+        /// <summary>Creates a vector with the given number of components with the values initialized to ones.</summary>
+        /// <param name="dimensions">The number of components in the vector.</param>
+        /// <returns>The newly constructed vector.</returns>
+        public static Vector<T> FactoryOne(int dimensions)
+        {
+            return FactoryOneImplementation(dimensions);
+        }
 
-        #region Add
+        internal static Func<int, Vector<T>> FactoryOneImplementation = dimensions =>
+        {
+            if (Compute.Equal(default(T), Constant<T>.One))
+            {
+                FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
+            }
+            else
+            {
+                FactoryZeroImplementation = DIMENSIONS =>
+                {
+                    T[] vector = new T[DIMENSIONS];
+                    vector.Fill(Constant<T>.One);
+                    return new Vector<T>(vector);
+                };
+            }
+            return FactoryZeroImplementation(dimensions);
+        };
 
-        internal delegate void AddSignature(Vector<T> a, Vector<T> b, ref Vector<T> c);
-        internal static AddSignature Vector_Add = (Vector<T> a, Vector<T> b, ref Vector<T> c) =>
-		{
+        #endregion
+
+        #region Mathematics
+
+        #region Magnitude
+
+        public static T GetMagnitude(Vector<T> a)
+        {
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
+            return Compute.SquareRoot(GetMagnitudeSquared(a));
+        }
+
+        /// <summary>Computes the length of this vector.</summary>
+        /// <returns>The length of this vector.</returns>
+        public T Magnitude
+        {
+            get
             {
-                throw new ArgumentNullException(nameof(b));
+                return GetMagnitude(this);
+            }
+        }
+
+        #endregion
+
+        #region MagnitudeSquared
+
+        public static T GetMagnitudeSquared(Vector<T> a)
+        {
+            if (a._vector == null)
+            {
+                throw new ArgumentNullException(nameof(a));
             }
             int Length = a.Dimensions;
-            if (Length != b.Dimensions)
-            {
-                throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-            }
-            if (c == null || c.Dimensions != Length)
-            {
-                c = new Vector<T>(Length);
-            }
+            T result = Constant<T>.Zero;
             T[] A = a._vector;
-            T[] B = b._vector;
-            T[] C = c._vector;
             for (int i = 0; i < Length; i++)
             {
-                C[i] = Compute.Add(A[i], B[i]);
+                result = Compute.Add(result, Compute.Multiply(A[i], A[i]));
             }
-		};
+            return result;
+        }
+
+        /// <summary>Computes the length of this vector, but doesn't square root it for 
+        /// possible optimization purposes.</summary>
+        /// <returns>The squared length of the vector.</returns>
+        public T MagnitudeSquared
+        {
+            get
+            {
+                return GetMagnitudeSquared(this);
+            }
+        }
 
         #endregion
 
         #region Negate
 
-        internal delegate void NegateSignature(Vector<T> a, ref Vector<T> b);
-        internal static NegateSignature Vector_Negate = (Vector<T> a, ref Vector<T> b) =>
+        public static void Negate(Vector<T> a, ref Vector<T> b)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            int Length = a.Dimensions;
-            if (b == null || b.Dimensions != Length)
+            T[] A = a._vector;
+            int Length = A.Length;
+            T[] B;
+            if (b is null || b.Dimensions != Length)
             {
                 b = new Vector<T>(Length);
+                B = b._vector;
             }
-            T[] A = a._vector;
-            T[] B = b._vector;
+            else
+            {
+                B = b._vector;
+                if (B.Length != Length)
+                {
+                    b = new Vector<T>(Length);
+                    B = b._vector;
+                }
+            }
             for (int i = 0; i < Length; i++)
             {
                 B[i] = Compute.Negate(A[i]);
             }
-        };
+        }
+
+        /// <summary>Negates all the values in a vector.</summary>
+        /// <param name="a">The vector to have its values negated.</param>
+        /// <returns>The result of the negations.</returns>
+        public static Vector<T> Negate(Vector<T> a)
+        {
+            Vector<T> b = null;
+            Negate(a, ref b);
+            return b;
+        }
+
+        /// <summary>Negates a vector.</summary>
+		/// <param name="vector">The vector to negate.</param>
+		/// <returns>The result of the negation.</returns>
+		public static Vector<T> operator -(Vector<T> vector)
+        {
+            return Negate(vector);
+        }
+
+        /// <summary>Negates this vector.</summary>
+		/// <returns>The result of the negation.</returns>
+		public Vector<T> Negate()
+        {
+            return -this;
+        }
+
+        #endregion
+
+        #region Add
+
+        public static void Add(Vector<T> a, Vector<T> b, ref Vector<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            T[] A = a._vector;
+            T[] B = b._vector;
+            int Length = A.Length;
+            if (Length != B.Length)
+            {
+                throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
+            }
+            T[] C;
+            if (c is null)
+            {
+                c = new Vector<T>(Length);
+                C = c._vector;
+            }
+            else
+            {
+                C = c._vector;
+                if (C.Length != Length)
+                {
+                    c = new Vector<T>(Length);
+                    C = c._vector;
+                }
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                C[i] = Compute.Add(A[i], B[i]);
+            }
+        }
+
+        /// <summary>Adds two vectors together.</summary>
+        /// <param name="a">The first vector of the addition.</param>
+        /// <param name="b">The second vector of the addiiton.</param>
+        /// <returns>The result of the addiion.</returns>
+        public static Vector<T> Add(Vector<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            Add(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Adds two vectors together.</summary>
+        /// <param name="left">The first vector of the addition.</param>
+        /// <param name="right">The second vector of the addition.</param>
+        /// <returns>The result of the addition.</returns>
+        public static Vector<T> operator +(Vector<T> left, Vector<T> right)
+        {
+            return Add(left, right);
+        }
+
+        /// <summary>Adds two vectors together.</summary>
+		/// <param name="b">The vector to add to this one.</param>
+		/// <returns>The result of the vector.</returns>
+		public Vector<T> Add(Vector<T> b)
+        {
+            return this + b;
+        }
 
         #endregion
 
         #region Subtract
 
-        internal delegate void SubtractSignature(Vector<T> a, Vector<T> b, ref Vector<T> c);
-        internal static SubtractSignature Vector_Subtract = (Vector<T> a, Vector<T> b, ref Vector<T> c) =>
+        public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
+            if (b is null)
             {
                 throw new ArgumentNullException(nameof(b));
             }
-            int Length = a.Dimensions;
-            if (Length != b.Dimensions)
+            T[] A = a._vector;
+            T[] B = b._vector;
+            int Length = A.Length;
+            if (Length != B.Length)
             {
                 throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
             }
-            if (c == null || c.Dimensions != Length)
+            T[] C;
+            if (c is null)
             {
                 c = new Vector<T>(Length);
+                C = c._vector;
             }
-            T[] A = a._vector;
-            T[] B = b._vector;
-            T[] C = c._vector;
+            else
+            {
+                C = c._vector;
+                if (C.Length != Length)
+                {
+                    c = new Vector<T>(Length);
+                    C = c._vector;
+                }
+            }
             for (int i = 0; i < Length; i++)
             {
                 C[i] = Compute.Subtract(A[i], B[i]);
             }
-        };
+        }
+
+        /// <summary>Subtracts two vectors.</summary>
+        /// <param name="a">The left vector of the subtraction.</param>
+        /// <param name="b">The right vector of the subtraction.</param>
+        /// <returns>The result of the vector subtracton.</returns>
+        public static Vector<T> Subtract(Vector<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            Subtract(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Subtracts two vectors.</summary>
+		/// <param name="a">The left operand of the subtraction.</param>
+		/// <param name="b">The right operand of the subtraction.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public static Vector<T> operator -(Vector<T> a, Vector<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Subtracts another vector from this one.</summary>
+		/// <param name="b">The vector to subtract from this one.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public Vector<T> Subtract(Vector<T> b)
+        {
+            return this - b;
+        }
 
         #endregion
 
         #region Multiply
 
-        internal delegate void MultiplySignature(Vector<T> a, T b, ref Vector<T> c);
-        internal static MultiplySignature Vector_Multiply = (Vector<T> a, T b, ref Vector<T> c) =>
+        public static void Multiply(Vector<T> a, T b, ref Vector<T> c)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            int Length = a.Dimensions;
-            if (c == null || c.Dimensions != Length)
+            T[] A = a._vector;
+            int Length = A.Length;
+            T[] C;
+            if (c is null)
             {
                 c = new Vector<T>(Length);
+                C = c._vector;
             }
-            T[] A = a._vector;
-            T[] C = c._vector;
+            else
+            {
+                C = c._vector;
+                if (C.Length != Length)
+                {
+                    c = new Vector<T>(Length);
+                    C = c._vector;
+                }
+            }
             for (int i = 0; i < Length; i++)
             {
                 C[i] = Compute.Multiply(A[i], b);
             }
-        };
+        }
+
+        /// <summary>Subtracts two vectors.</summary>
+        /// <param name="a">The left vector of the subtraction.</param>
+        /// <param name="b">The right vector of the subtraction.</param>
+        /// <returns>The result of the vector subtracton.</returns>
+        public static Vector<T> Multiply(Vector<T> a, T b)
+        {
+            Vector<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Multiplies all the values in a vector by a scalar.</summary>
+		/// <param name="a">The vector to have all its values multiplied.</param>
+		/// <param name="b">The scalar to multiply all the vector values by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static Vector<T> operator *(Vector<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies all the values in a vector by a scalar.</summary>
+		/// <param name="a">The scalar to multiply all the vector values by.</param>
+		/// <param name="b">The vector to have all its values multiplied.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static Vector<T> operator *(T a, Vector<T> b)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies the values in this vector by a scalar.</summary>
+		/// <param name="b">The scalar to multiply these values by.</param>
+		/// <returns>The result of the multiplications</returns>
+		public Vector<T> Multiply(T b)
+        {
+            return this * b;
+        }
 
         #endregion
 
         #region Divide
 
-        internal delegate void DivideSignature(Vector<T> a, T b, ref Vector<T> c);
-        internal static DivideSignature Vector_Divide = (Vector<T> a, T b, ref Vector<T> c) =>
+        public static void Divide(Vector<T> a, T b, ref Vector<T> c)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            int Length = a.Dimensions;
-            if (c == null || c.Dimensions != Length)
+            T[] A = a._vector;
+            int Length = A.Length;
+            T[] C;
+            if (c is null)
             {
                 c = new Vector<T>(Length);
+                C = c._vector;
             }
-            T[] A = a._vector;
-            T[] C = c._vector;
+            else
+            {
+                C = c._vector;
+                if (C.Length != Length)
+                {
+                    c = new Vector<T>(Length);
+                    C = c._vector;
+                }
+            }
             for (int i = 0; i < Length; i++)
             {
                 C[i] = Compute.Divide(A[i], b);
             }
-        };
+        }
+
+
+        /// <summary>Divides all the components of a vector by a scalar.</summary>
+        /// <param name="a">The vector to have the components divided by.</param>
+        /// <param name="b">The scalar to divide the vector components by.</param>
+        /// <returns>The resulting vector after teh divisions.</returns>
+        public static Vector<T> Divide(Vector<T> a, T b)
+        {
+            Vector<T> c = null;
+            Divide(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Divides all the values in the vector by a scalar.</summary>
+		/// <param name="a">The vector to have its values divided.</param>
+		/// <param name="b">The scalar to divide all the vectors values by.</param>
+		/// <returns>The vector after the divisions.</returns>
+		public static Vector<T> operator /(Vector<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides all the values in this vector by a scalar.</summary>
+		/// <param name="b">The scalar to divide the values of the vector by.</param>
+		/// <returns>The resulting vector after teh divisions.</returns>
+		public Vector<T> Divide(T b)
+        {
+            return this / b;
+        }
 
         #endregion
 
         #region DotProduct
 
-        internal static Func<Vector<T>, Vector<T>, T> Vector_DotProduct = (Vector<T> a, Vector<T> b) =>
+        /// <summary>Computes the dot product between two vectors.</summary>
+        /// <param name="a">The first vector of the dot product operation.</param>
+        /// <param name="b">The second vector of the dot product operation.</param>
+        /// <returns>The result of the dot product operation.</returns>
+        public static T DotProduct(Vector<T> a, Vector<T> b)
         {
             if (a == null)
             {
@@ -659,7 +602,7 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
             }
-            T result = Compute.Constant<T>.Zero;
+            T result = Constant<T>.Zero;
             T[] A = a._vector;
             T[] B = b._vector;
             for (int i = 0; i < Length; i++)
@@ -667,15 +610,22 @@ namespace Towel.Mathematics
                 result = Compute.Add(result, Compute.Multiply(A[i], B[i]));
             }
             return result;
-        };
+        }
+
+        /// <summary>Computes the dot product between this vector and another.</summary>
+		/// <param name="right">The second vector of the dot product operation.</param>
+		/// <returns>The result of the dot product.</returns>
+		public T DotProduct(Vector<T> right)
+        {
+            return DotProduct(this, right);
+        }
 
         #endregion
 
         #region CrossProduct
 
-        internal delegate void CrossProductSignature(Vector<T> a, Vector<T> b, ref Vector<T> c);
-        internal static CrossProductSignature Vector_CrossProduct = (Vector<T> a, Vector<T> b, ref Vector<T> c) =>
-		{
+        public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T> c)
+        {
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
@@ -684,11 +634,13 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(b));
             }
-            if (a.Dimensions != 3)
+            T[] A = a._vector;
+            T[] B = b._vector;
+            if (A.Length != 3)
             {
                 throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == 3)");
             }
-            if (b.Dimensions != 3)
+            if (B.Length != 3)
             {
                 throw new MathematicsException("Arguments invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
             }
@@ -696,21 +648,37 @@ namespace Towel.Mathematics
             {
                 c = new Vector<T>(3);
             }
-            T[] A = a._vector;
-            T[] B = b._vector;
             T[] C = c._vector;
             C[0] = Compute.Subtract(Compute.Multiply(A[1], B[2]), Compute.Multiply(A[2], B[1]));
             C[1] = Compute.Subtract(Compute.Multiply(A[2], B[0]), Compute.Multiply(A[0], B[2]));
             C[2] = Compute.Subtract(Compute.Multiply(A[0], B[1]), Compute.Multiply(A[1], B[0]));
-		};
+        }
+
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="a">The first vector of the cross product operation.</param>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <returns>The result of the cross product operation.</returns>
+        public static Vector<T> CrossProduct(Vector<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            CrossProduct(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Computes the cross product between this vector and another.</summary>
+		/// <param name="right">The second vector of the dot product operation.</param>
+		/// <returns>The result of the dot product operation.</returns>
+		public Vector<T> CrossProduct(Vector<T> right)
+        {
+            return CrossProduct(this, right);
+        }
 
         #endregion
 
         #region Normalize
 
-        internal delegate void NormalizeSignature(Vector<T> a, ref Vector<T> b);
-        internal static NormalizeSignature Vector_Normalize = (Vector<T> a, ref Vector<T> b) =>
-		{
+        public static void Normalize(Vector<T> a, ref Vector<T> b)
+        {
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
@@ -721,59 +689,49 @@ namespace Towel.Mathematics
                 throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
             }
             T magnitude = a.Magnitude;
-            if (Compute.Equal(magnitude, Compute.Constant<T>.Zero))
+            if (Compute.Equal(magnitude, Constant<T>.Zero))
             {
                 throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
             }
-            if (b.Dimensions != Dimensions)
+            if (b == null ||
+                b.Dimensions != Dimensions)
             {
                 b = new Vector<T>(Dimensions);
             }
+            T[] B = b._vector;
             for (int i = 0; i < Dimensions; i++)
             {
                 b[i] = Compute.Divide(a[i], magnitude);
             }
-		};
+        }
 
-		#endregion
+        /// <summary>Normalizes a vector.</summary>
+        /// <param name="a">The vector to normalize.</param>
+        /// <returns>The result of the normalization.</returns>
+        public static Vector<T> Normalize(Vector<T> a)
+        {
+            Vector<T> b = null;
+            Normalize(a, ref b);
+            return b;
+        }
 
-		#region Magnitude
-		
-		internal static Func<Vector<T>, T> Vector_Magnitude = (Vector<T> a) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            return Compute.SquareRoot(Vector_MagnitudeSquared(a));
-		};
+        /// <summary>Normalizes this vector.</summary>
+		/// <returns>The result of the normalization.</returns>
+		public Vector<T> Normalize()
+        {
+            return Normalize(this);
+        }
 
-		#endregion
+        #endregion
 
-		#region MagnitudeSquared
-		
-		internal static Func<Vector<T>, T> Vector_MagnitudeSquared = (Vector<T> a) =>
-		{
-            if (a._vector == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            int Length = a.Dimensions;
-            T result = Compute.Constant<T>.Zero;
-            T[] A = a._vector;
-            for (int i = 0; i < Length; i++)
-            {
-                result = Compute.Add(result, Compute.Multiply(A[i], A[i]));
-            }
-            return result;
-		};
+        #region Angle
 
-		#endregion
-
-		#region Angle
-		
-		internal static Func<Vector<T>, Vector<T>, Angle<T>> Vector_Angle = (Vector<T> a, Vector<T> b) =>
-		{
+        /// <summary>Computes the angle between two vectors.</summary>
+        /// <param name="a">The first vector to determine the angle between.</param>
+        /// <param name="b">The second vector to determine the angle between.</param>
+        /// <returns>The angle between the two vectors in radians.</returns>
+        public static Angle<T> Angle(Vector<T> a, Vector<T> b)
+        {
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
@@ -783,46 +741,74 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(b));
             }
             throw new NotImplementedException();
-		};
+        }
 
         #endregion
 
         #region RotateBy
 
-        internal delegate void RotateBySignature(Vector<T> a, Angle<T> angle, T x, T y, T z, ref Vector<T> c);
-        internal static RotateBySignature Vector_RotateBy = (Vector<T> a, Angle<T> angle, T x, T y, T z, ref Vector<T> c) =>
-		{
-			throw new NotImplementedException();
+        /// <summary>Rotates a vector by the specified axis and rotation values.</summary>
+        /// <param name="vector">The vector to rotate.</param>
+        /// <param name="angle">The angle of the rotation.</param>
+        /// <param name="x">The x component of the axis vector to rotate about.</param>
+        /// <param name="y">The y component of the axis vector to rotate about.</param>
+        /// <param name="z">The z component of the axis vector to rotate about.</param>
+        /// <returns>The result of the rotation.</returns>
+        public static Vector<T> RotateBy(Vector<T> vector, Angle<T> angle, T x, T y, T z)
+        {
+            throw new NotImplementedException();
+        }
 
-			//#region pre-optimization
+        /// <summary>Rotates this vector by quaternon values.</summary>
+		/// <param name="angle">The amount of rotation about the axis.</param>
+		/// <param name="x">The x component deterniming the axis of rotation.</param>
+		/// <param name="y">The y component determining the axis of rotation.</param>
+		/// <param name="z">The z component determining the axis of rotation.</param>
+		/// <returns>The resulting vector after the rotation.</returns>
+		public Vector<T> RotateBy(Angle<T> angle, T x, T y, T z)
+        {
+            return RotateBy(this, angle, x, y, z);
+        }
 
-			//#endregion
+        /// <summary>Rotates a vector by a quaternion.</summary>
+        /// <param name="vector">The vector to rotate.</param>
+        /// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+        public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T> c)
+        {
+            Quaternion<T>.Quaternion_Rotate(b, a, ref c);
+        }
 
-			//Vector<generic>.Delegates.Vector_Angle compile_testing =
-			//	#region code (compile testing)
+        /// <summary>Rotates a vector by a quaternion.</summary>
+        /// <param name="vector">The vector to rotate.</param>
+        /// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+        /// <returns>The result of the rotation.</returns>
+        public static Vector<T> RotateBy(Vector<T> a, Quaternion<T> b)
+        {
+            Vector<T> c = null;
+            Quaternion<T>.Quaternion_Rotate(b, a, ref c);
+            return c;
+        }
 
-			//	#endregion
+        /// <summary>Rotates a vector by a quaternion.</summary>
+		/// <param name="b">The quaternion to rotate the 3-component vector by.</param>
+		/// <returns>The result of the rotation.</returns>
+		public Vector<T> RotateBy(Quaternion<T> b)
+        {
+            return RotateBy(this, b);
+        }
 
-			//string Vector_RotateBy_string =
-			//	#region code (string)
-
-			//	#endregion
-
-			//Vector_RotateBy_string = Vector_RotateBy_string.Replace("generic", Generate.ToSourceString(typeof(T)));
-
-			//Vector<T>.Vector_RotateBy =
-			//	Generate.Object<Vector<T>.Delegates.Vector_RotateBy>(Vector_RotateBy_string);
-
-			//return Vector<T>.Vector_RotateBy(vector, angle, x, y, z);
-		};
         #endregion
 
-        #region Lerp
+        #region LinearInterpolation
 
-        internal delegate void LerpSignature(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c);
-        internal static LerpSignature Vector_Lerp = (Vector<T> a, Vector<T> b, T blend, ref Vector<T> c) =>
-		{
-            if (Compute.LessThan(blend, Compute.Constant<T>.Zero) || Compute.GreaterThan(blend, Compute.Constant<T>.One))
+        /// <summary>Computes the linear interpolation between two vectors.</summary>
+		/// <param name="a">The starting vector of the interpolation.</param>
+		/// <param name="b">The ending vector of the interpolation.</param>
+		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
+		/// <returns>The result of the interpolation.</returns>
+		public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
+        {
+            if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
             {
                 throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
             }
@@ -842,66 +828,135 @@ namespace Towel.Mathematics
             {
                 C[i] = Compute.Add(A[i], Compute.Multiply(blend, Compute.Subtract(B[i], A[i])));
             }
-		};
-        #endregion
+        }
 
-        #region Slerp
+        /// <summary>Computes the linear interpolation between two vectors.</summary>
+        /// <param name="a">The starting vector of the interpolation.</param>
+        /// <param name="b">The ending vector of the interpolation.</param>
+        /// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
+        /// <returns>The result of the interpolation.</returns>
+        public static Vector<T> LinearInterpolation(Vector<T> a, Vector<T> b, T blend)
+        {
+            Vector<T> c = null;
+            LinearInterpolation(a, b, blend, ref c);
+            return c;
+        }
 
-        internal delegate void SlerpSignature(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c);
-        internal static SlerpSignature Vector_Slerp = (Vector<T> a, Vector<T> b, T blend, ref Vector<T> C) =>
-		{
-			throw new NotImplementedException();
-
-			//#region pre-optimization
-
-			//#endregion
-
-			//Vector<generic>.Delegates.Vector_Angle compile_testing =
-			//	#region code (compile testing)
-
-			//	#endregion
-
-			//string Vector_Slerp_string =
-			//	#region code (string)
-
-			//	#endregion
-
-			//Vector_Slerp_string = Vector_Slerp_string.Replace("generic", Generate.ToSourceString(typeof(T)));
-
-			//Vector<T>.Vector_Slerp =
-			//	Generate.Object<Vector<T>.Delegates.Vector_Slerp>(Vector_Slerp_string);
-
-			//return Vector<T>.Vector_Slerp(left, right, blend);
-		};
+        /// <summary>Computes the linear interpolation between two vectors.</summary>
+		/// <param name="b">The ending vector of the interpolation.</param>
+		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
+		/// <returns>The result of the interpolation.</returns>
+		public Vector<T> LinearInterpolation(Vector<T> b, T blend)
+        {
+            return LinearInterpolation(this, b, blend);
+        }
 
         #endregion
 
-        #region Blerp
+        #region SphericalInterpolation
 
-        internal delegate void BlerpSignature(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d);
-        internal static BlerpSignature Vector_Blerp = (Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d) =>
-		{
-            if (a == null)
+        /// <summary>Spherically interpolates between two vectors.</summary>
+        /// <param name="a">The starting vector of the interpolation.</param>
+        /// <param name="b">The ending vector of the interpolation.</param>
+        /// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
+        public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Spherically interpolates between two vectors.</summary>
+        /// <param name="a">The starting vector of the interpolation.</param>
+        /// <param name="b">The ending vector of the interpolation.</param>
+        /// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
+        /// <returns>The result of the slerp operation.</returns>
+        public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend)
+        {
+            Vector<T> c = null;
+            SphericalInterpolation(a, b, blend, ref c);
+            return c;
+        }
+
+        /// <summary>Sphereically interpolates between two vectors.</summary>
+		/// <param name="b">The ending vector of the interpolation.</param>
+		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
+		/// <returns>The result of the slerp operation.</returns>
+		public Vector<T> SphericalInterpolation(Vector<T> b, T blend)
+        {
+            return SphericalInterpolation(this, b, blend);
+        }
+
+        #endregion
+
+        #region BarycentricInterpolation
+
+        /// <summary>Interpolates between three vectors using barycentric coordinates.</summary>
+        /// <param name="a">The first vector of the interpolation.</param>
+        /// <param name="b">The second vector of the interpolation.</param>
+        /// <param name="c">The thrid vector of the interpolation.</param>
+        /// <param name="u">The "U" value of the barycentric interpolation equation.</param>
+        /// <param name="v">The "V" value of the barycentric interpolation equation.</param>
+        public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d)
+        {
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
+            if (b is null)
             {
                 throw new ArgumentNullException(nameof(b));
             }
-            if (c == null)
+            if (c is null)
             {
                 throw new ArgumentNullException(nameof(c));
             }
+            if (Compute.Equal(a.Dimensions, b.Dimensions, c.Dimensions))
+            {
+                throw new MathematicsException("Arguments invalid !(" + 
+                    nameof(a) + "." + nameof(a.Dimensions) + " == " +
+                    nameof(b) + "." + nameof(b.Dimensions) + " == " +
+                    nameof(c) + "." + nameof(c.Dimensions) + ")");
+            }
+
+            // Note: needs optimization (call the "ref" methods)
             d = a + (u * (b - a)) + (v * (c - a));
-		};
+        }
 
-		#endregion
+        /// <summary>Interpolates between three vectors using barycentric coordinates.</summary>
+        /// <param name="a">The first vector of the interpolation.</param>
+        /// <param name="b">The second vector of the interpolation.</param>
+        /// <param name="c">The thrid vector of the interpolation.</param>
+        /// <param name="u">The "U" value of the barycentric interpolation equation.</param>
+        /// <param name="v">The "V" value of the barycentric interpolation equation.</param>
+        /// <returns>The resulting vector of the barycentric interpolation.</returns>
+        public static Vector<T> BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v)
+        {
+            Vector<T> d = null;
+            BarycentricInterpolation(a._vector, b._vector, c._vector, u, v, ref d);
+            return d;
+        }
 
-		#region EqualsValue
-		
-		internal static Func<Vector<T>, Vector<T>, bool> Vector_EqualsValue = (Vector<T> a, Vector<T> b) =>
-		{
+        /// <summary>Interpolates between three vectors using barycentric coordinates.</summary>
+        /// <param name="a">The first vector of the interpolation.</param>
+        /// <param name="b">The second vector of the interpolation.</param>
+        /// <param name="c">The thrid vector of the interpolation.</param>
+        /// <param name="u">The "U" value of the barycentric interpolation equation.</param>
+        /// <param name="v">The "V" value of the barycentric interpolation equation.</param>
+        /// <returns>The resulting vector of the barycentric interpolation.</returns>
+        public Vector<T> BarycentricInterpolation(Vector<T> b, Vector<T> c, T u, T v)
+        {
+            return BarycentricInterpolation(this, b._vector, c._vector, u, v);
+        }
+
+        #endregion
+
+        #region Equal
+
+        /// <summary>Does a value equality check.</summary>
+        /// <param name="a">The first vector to check for equality.</param>
+        /// <param name="b">The second vector	to check for equality.</param>
+        /// <returns>True if values are equal, false if not.</returns>
+        public static bool Equal(Vector<T> a, Vector<T> b)
+        {
             if (object.ReferenceEquals(a, b))
             {
                 return true;
@@ -926,14 +981,41 @@ namespace Towel.Mathematics
                         return false;
                 return true;
             }
-        };
+        }
 
-		#endregion
+        /// <summary>Does an equality check by value. (warning for float errors)</summary>
+		/// <param name="a">The first vector of the equality check.</param>
+		/// <param name="b">The second vector of the equality check.</param>
+		/// <returns>true if the values are equal, false if not.</returns>
+		public static bool operator ==(Vector<T> a, Vector<T> b)
+        {
+            return Equal(a, b);
+        }
 
-		#region EqualsValue_leniency
-		
-		internal static Func<Vector<T>, Vector<T>, T, bool> Vector_EqualsValue_leniency = (Vector<T> a, Vector<T> b, T leniency) =>
-		{
+        /// <summary>Does an anti-equality check by value. (warning for float errors)</summary>
+		/// <param name="a">The first vector of the anit-equality check.</param>
+		/// <param name="b">The second vector of the anti-equality check.</param>
+		/// <returns>true if the values are not equal, false if they are.</returns>
+		public static bool operator !=(Vector<T> a, Vector<T> b)
+        {
+            return !Equal(a, b);
+        }
+
+        /// <summary>Check for equality by value.</summary>
+		/// <param name="b">The other vector of the equality check.</param>
+		/// <returns>true if the values were equal, false if not.</returns>
+		public bool Equal(Vector<T> b)
+        {
+            return this == b;
+        }
+
+        /// <summary>Does a value equality check with leniency.</summary>
+        /// <param name="a">The first vector to check for equality.</param>
+        /// <param name="b">The second vector to check for equality.</param>
+        /// <param name="leniency">How much the values can vary but still be considered equal.</param>
+        /// <returns>True if values are equal, false if not.</returns>
+        public static bool Equal(Vector<T> a, Vector<T> b, T leniency)
+        {
             if (a == null && b == null)
                 return true;
             if (a == null)
@@ -949,19 +1031,54 @@ namespace Towel.Mathematics
                 if (Compute.EqualLeniency(A[i], B[i], leniency))
                     return false;
             return true;
-		};
+        }
+
+        /// <summary>Checks for equality by value with some leniency.</summary>
+		/// <param name="right">The other vector of the equality check.</param>
+		/// <param name="leniency">The ammount the values can differ but still be considered equal.</param>
+		/// <returns>true if the values were cinsidered equal, false if not.</returns>
+		public bool EqualsValue(Vector<T> right, T leniency)
+        {
+            return Equal(this, right, leniency);
+        }
 
         #endregion
 
-        #region RotateByQuaternion
+        #endregion
 
-        internal delegate void RotateByQuaternionSignature(Vector<T> a, Quaternion<T> b, ref Vector<T> c);
-        internal static RotateByQuaternionSignature Vector_RotateByQuaternion = (Vector<T> a, Quaternion<T> b, ref Vector<T> c) =>
+        #region Casting Operators
+
+        /// <summary>Implicit conversions from Vector to T[].</summary>
+        /// <param name="vector">The Vector to be converted to a T[].</param>
+        /// <returns>The T[] of the vector.</returns>
+        public static implicit operator T[](Vector<T> vector)
 		{
-			Quaternion<T>.Quaternion_Rotate(b, a, ref c);
-		};
+            return vector._vector;
+        }
 
-		#endregion
+		/// <summary>Implicit conversions from Vector to T[].</summary>
+		/// <param name="array">The Vector to be converted to a T[].</param>
+		/// <returns>The T[] of the vector.</returns>
+		public static implicit operator Vector<T>(T[] array)
+		{
+            return new Vector<T>(array);
+        }
+
+		/// <summary>Converts a vector into a matrix.</summary>
+		/// <param name="vector">The vector to convert.</param>
+		/// <returns>The resulting matrix.</returns>
+		public static explicit operator Matrix<T>(Vector<T> vector)
+		{
+            return new Matrix<T>(vector);
+        }
+
+		/// <summary>Implicitly converts a scalar into a one dimensional vector.</summary>
+		/// <param name="scalar">The scalar value.</param>
+		/// <returns>The one dimensional vector </returns>
+		public static explicit operator Vector<T>(T scalar)
+		{
+            return new Vector<T>(scalar);
+        }
 
 		#endregion
 
@@ -1009,21 +1126,6 @@ namespace Towel.Mathematics
 
 		#region Overrides
 
-		/// <summary>Prints out a string representation of this matrix.</summary>
-		/// <returns>A string representing this matrix.</returns>
-		public override string ToString()
-		{
-			System.Text.StringBuilder str = new System.Text.StringBuilder();
-			str.Append("[");
-			str.Append(this._vector[0]);
-			for (int i = 1; i < this.Dimensions; i++)
-			{
-				str.Append(", ");
-				str.Append(this._vector[i]);
-			}
-			str.Append("]");
-			return str.ToString(); 
-		}
 		/// <summary>Computes a hash code from the values of this matrix.</summary>
 		/// <returns>A hash code for the matrix.</returns>
 		public override int GetHashCode()
@@ -1035,6 +1137,7 @@ namespace Towel.Mathematics
             }
 			return hash;
 		}
+
 		/// <summary>Does an equality check by reference.</summary>
 		/// <param name="right">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
@@ -1046,7 +1149,7 @@ namespace Towel.Mathematics
             }
             else
             {
-                return Vector<T>.EqualsValue(this, (Vector<T>)right);
+                return Equal(this, (Vector<T>)right);
             }
 		}
 

@@ -65,7 +65,7 @@ namespace Towel.Physics.Shapes
             {
                 penetration = Compute.Subtract(combinedRadius, distance);
                 normal = b_minus_a.Normalize();
-                point = (b_minus_a * Compute.Divide(Compute.Constant<T>.One, Compute.Constant<T>.Two)) + a.Position;
+                point = (b_minus_a * Compute.Divide(Constant<T>.One, Constant<T>.Two)) + a.Position;
                 return true;
             }
             else
@@ -94,15 +94,15 @@ namespace Towel.Physics.Shapes
 
             if (NearlyZero(minkowskiDifference.MagnitudeSquared))
                 minkowskiDifference = new Vector<T>(
-                    Compute.Divide(Compute.Constant<T>.One, Compute.FromInt32<T>(100000)),
-                    Compute.Constant<T>.Zero,
-                    Compute.Constant<T>.Zero);
+                    Compute.Divide(Constant<T>.One, Compute.FromInt32<T>(100000)),
+                    Constant<T>.Zero,
+                    Constant<T>.Zero);
             
             Vector<T> a_xenoScan1 = Quaternion<T>.Rotate(a.Orientation, a.XenoScan(Quaternion<T>.Rotate(a.Orientation, minkowskiDifference)));
             Vector<T> b_xenoScan1 = Quaternion<T>.Rotate(b.Orientation, b.XenoScan(Quaternion<T>.Rotate(b.Orientation, normal)));
             Vector<T> xenoScans1_subtract = b_xenoScan1 - a_xenoScan1;
 
-            if (Compute.LessThanOrEqual(Vector<T>.DotProduct(xenoScans1_subtract, normal), Compute.Constant<T>.Zero))
+            if (Compute.LessThanOrEqual(Vector<T>.DotProduct(xenoScans1_subtract, normal), Constant<T>.Zero))
             {
                 return false;
             }
@@ -112,7 +112,7 @@ namespace Towel.Physics.Shapes
             if (NearlyZero(crossOfXenoAndMD.MagnitudeSquared))
             {
                 crossOfXenoAndMD = (xenoScans1_subtract - minkowskiDifference).Normalize();
-                point = (a_xenoScan1 + b_xenoScan1) * Compute.Divide(Compute.Constant<T>.One, Compute.Constant<T>.Two);
+                point = (a_xenoScan1 + b_xenoScan1) * Compute.Divide(Constant<T>.One, Constant<T>.Two);
                 penetration = Vector<T>.DotProduct(xenoScans1_subtract, crossOfXenoAndMD);
                 return true;
             }
@@ -121,7 +121,7 @@ namespace Towel.Physics.Shapes
             Vector<T> b_xenoScan2 = Quaternion<T>.Rotate(b.Orientation, b.XenoScan(Quaternion<T>.Rotate(b.Orientation, normal)));
             Vector<T> xenoScans2_subtract = b_xenoScan2 - a_xenoScan2;
 
-            if (Compute.LessThanOrEqual(Vector<T>.DotProduct(xenoScans2_subtract, normal), Compute.Constant<T>.Zero))
+            if (Compute.LessThanOrEqual(Vector<T>.DotProduct(xenoScans2_subtract, normal), Constant<T>.Zero))
             {
                 return false;
             }
@@ -130,7 +130,7 @@ namespace Towel.Physics.Shapes
 
             T distance = Vector<T>.DotProduct(crossOfXenoAndMD, minkowskiDifference);
 
-            if (Compute.LessThan(distance, Compute.Constant<T>.Zero))
+            if (Compute.LessThan(distance, Constant<T>.Zero))
             {
                 Vector<T> temp;
 
@@ -166,10 +166,10 @@ namespace Towel.Physics.Shapes
                 Vector<T> b_xenoScan3 = Quaternion<T>.Rotate(b.Orientation, b.XenoScan(Quaternion<T>.Rotate(b.Orientation, normal)));
                 Vector<T> xenoScans3_subtract = b_xenoScan3 - a_xenoScan3;
 
-                if (Compute.LessThan(Vector<T>.DotProduct(xenoScans3_subtract, normal), Compute.Constant<T>.Zero))
+                if (Compute.LessThan(Vector<T>.DotProduct(xenoScans3_subtract, normal), Constant<T>.Zero))
                     return false;
 
-                if (Compute.LessThan(Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans1_subtract, xenoScans3_subtract), minkowskiDifference), Compute.Constant<T>.Zero))
+                if (Compute.LessThan(Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans1_subtract, xenoScans3_subtract), minkowskiDifference), Constant<T>.Zero))
                 {
                     xenoScans2_subtract = xenoScans3_subtract;
                     a_xenoScan2 = a_xenoScan3;
@@ -178,7 +178,7 @@ namespace Towel.Physics.Shapes
                     continue;
                 }
 
-                if (Compute.LessThan(Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans3_subtract, xenoScans2_subtract), minkowskiDifference), Compute.Constant<T>.Zero))
+                if (Compute.LessThan(Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans3_subtract, xenoScans2_subtract), minkowskiDifference), Constant<T>.Zero))
                 {
                     xenoScans1_subtract = xenoScans3_subtract;
                     a_xenoScan1 = a_xenoScan3;
@@ -199,7 +199,7 @@ namespace Towel.Physics.Shapes
 
                     normal = normal.Normalize();
 
-                    if (!hit && Compute.GreaterThanOrEqual(Vector<T>.DotProduct(normal, xenoScans1_subtract), Compute.Constant<T>.Zero))
+                    if (!hit && Compute.GreaterThanOrEqual(Vector<T>.DotProduct(normal, xenoScans1_subtract), Constant<T>.Zero))
                     {
                         hit = true;
                     }
@@ -214,7 +214,7 @@ namespace Towel.Physics.Shapes
                     penetration = Vector<T>.DotProduct(xenoScans4_subtract, normal);
 
                     // If the boundary is thin enough or the origin is outside the support plane for the newly discovered vertex, then we can terminate
-                    if (Compute.LessThanOrEqual(delta, CollideEpsilon) || Compute.LessThanOrEqual(penetration, Compute.Constant<T>.Zero) || phase2 > maxIterations)
+                    if (Compute.LessThanOrEqual(delta, CollideEpsilon) || Compute.LessThanOrEqual(penetration, Constant<T>.Zero) || phase2 > maxIterations)
                     {
 
                         if (hit)
@@ -226,9 +226,9 @@ namespace Towel.Physics.Shapes
 
                             T sum = Compute.Add(b0, b1, b2, b3);
 
-                            if (Compute.LessThanOrEqual(sum, Compute.Constant<T>.Zero))
+                            if (Compute.LessThanOrEqual(sum, Constant<T>.Zero))
                             {
-                                b0 = Compute.Constant<T>.Zero;
+                                b0 = Constant<T>.Zero;
                                 b1 = Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans2_subtract, xenoScans3_subtract), normal);
                                 b2 = Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans3_subtract, xenoScans1_subtract), normal);
                                 b3 = Vector<T>.DotProduct(Vector<T>.CrossProduct(xenoScans1_subtract, xenoScans2_subtract), normal);
@@ -236,7 +236,7 @@ namespace Towel.Physics.Shapes
                                 sum = Compute.Add(b0, b1, b2, b3);
                             }
 
-                            T inv = Compute.Divide(Compute.Constant<T>.One, sum);
+                            T inv = Compute.Divide(Constant<T>.One, sum);
 
                             point =
                                 (a.Position * b0 +
@@ -257,11 +257,11 @@ namespace Towel.Physics.Shapes
                     Vector<T> xeno4CrossMD = Vector<T>.CrossProduct(xenoScans4_subtract, minkowskiDifference);
                     T dot = Vector<T>.DotProduct(xeno4CrossMD, xenoScans1_subtract);
 
-                    if (Compute.GreaterThanOrEqual(dot, Compute.Constant<T>.Zero))
+                    if (Compute.GreaterThanOrEqual(dot, Constant<T>.Zero))
                     {
                         dot = Vector<T>.DotProduct(xeno4CrossMD, xenoScans2_subtract);
 
-                        if (Compute.GreaterThanOrEqual(dot, Compute.Constant<T>.Zero))
+                        if (Compute.GreaterThanOrEqual(dot, Constant<T>.Zero))
                         {
                             xenoScans1_subtract = xenoScans4_subtract;
                             a_xenoScan1 = a_xenoScan4;
@@ -278,7 +278,7 @@ namespace Towel.Physics.Shapes
                     {
                         dot = Vector<T>.DotProduct(xeno4CrossMD, xenoScans3_subtract);
 
-                        if (Compute.GreaterThanOrEqual(dot, Compute.Constant<T>.Zero))
+                        if (Compute.GreaterThanOrEqual(dot, Constant<T>.Zero))
                         {
                             xenoScans2_subtract = xenoScans4_subtract;
                             a_xenoScan2 = a_xenoScan4;
@@ -298,12 +298,12 @@ namespace Towel.Physics.Shapes
         #region XenoDetection Helpers
 
         private const int DefaultMaxXenoIterations = 34;
-        private static T CollideEpsilon = Compute.Divide(Compute.Constant<T>.One, Compute.FromInt32<T>(10000));
+        private static T CollideEpsilon = Compute.Divide(Constant<T>.One, Compute.FromInt32<T>(10000));
 
         private static bool NearlyZero(T value)
         {
             throw new NotImplementedException();
-            //return Compute.LessThan(value, Compute.Power(Compute.Constant<T>.Epsilon, Compute.FromInt32<T>(2)));
+            //return Compute.LessThan(value, Compute.Power(Constant<T>.Epsilon, Compute.FromInt32<T>(2)));
         }
 
         #endregion
@@ -353,7 +353,7 @@ namespace Towel.Physics.Shapes
         private static bool GetIntersection<T>(T fDst1, T fDst2, Bounds<T> bounds, out Vector<T> hit)
         {
             hit = null;
-            if (Compute.GreaterThanOrEqual(Compute.Multiply(fDst1, fDst2), Compute.Constant<T>.Zero))
+            if (Compute.GreaterThanOrEqual(Compute.Multiply(fDst1, fDst2), Constant<T>.Zero))
                 return false;
             if (Compute.Equal(fDst1, fDst2))
                 return false;

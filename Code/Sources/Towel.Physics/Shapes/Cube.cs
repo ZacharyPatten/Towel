@@ -9,7 +9,7 @@ namespace Towel.Physics.Shapes
         private Quaternion<T> _orientation;
         private T _halfLength;
 
-        public Cube() : this(Compute.Constant<T>.One) { }
+        public Cube() : this(Constant<T>.One) { }
 
         public Cube(T halfLength) : this(halfLength, Vector<T>.FactoryZero(3), Quaternion<T>.Identity) { }
 
@@ -139,11 +139,11 @@ namespace Towel.Physics.Shapes
             // Notes: helper function for "Cube.SupportMapping". just
             // adjusts the "_halfLength" based on the direction value
 
-            if (Compute.Equals(value, Compute.Constant<T>.Zero))
+            if (Compute.Equals(value, Constant<T>.Zero))
             {
-                return Compute.Constant<T>.Zero;
+                return Constant<T>.Zero;
             }
-            else if (Compute.LessThan(value, Compute.Constant<T>.Zero))
+            else if (Compute.LessThan(value, Constant<T>.Zero))
             {
                 return Compute.Negate(this._halfLength);
             }

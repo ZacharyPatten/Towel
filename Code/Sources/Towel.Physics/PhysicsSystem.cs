@@ -7,7 +7,7 @@ namespace Towel.Physics
 {
     public class PhysicsSystem<T>
     {
-        public static Vector<T> DefaultGravity { get { return new Vector<T>(Compute.Constant<T>.Zero, Compute.Divide(Compute.FromInt32<T>(-981), Compute.FromInt32<T>(100)), Compute.Constant<T>.Zero); } }
+        public static Vector<T> DefaultGravity { get { return new Vector<T>(Constant<T>.Zero, Compute.Divide(Compute.FromInt32<T>(-981), Compute.FromInt32<T>(100)), Constant<T>.Zero); } }
 
         public Vector<T> _gravity;
         public OmnitreePoints<RigidPhysicsObject<T>, T, T, T> _rigidPhysicsObjects;

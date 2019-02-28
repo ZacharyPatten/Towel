@@ -156,7 +156,7 @@ namespace Towel.Graphics
                     Link<Vector<float>, Quaternion<float>> previousTransform = previousFrame.JointTransformations[joint];
                     Link<Vector<float>, Quaternion<float>> nextTransform = nextFrame.JointTransformations[joint];
 
-                    Vector<float> currentTranslation = Vector<float>.Lerp(previousTransform._1, nextTransform._1, keyFrameRatio);
+                    Vector<float> currentTranslation = Vector<float>.LinearInterpolation(previousTransform._1, nextTransform._1, keyFrameRatio);
                     Quaternion<float> currentRotation = Quaternion<float>.Lerp(previousTransform._2, nextTransform._2, keyFrameRatio);
 
                     Matrix<float> rotation3x3 = Quaternion<float>.ToMatrix3x3(currentRotation);

@@ -46,19 +46,19 @@ namespace Towel.Measurements
 		internal static class Constants<T>
 		{
 			internal static readonly T DegreesToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(360));
-			internal static readonly T DegreesToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(180));
+			internal static readonly T DegreesToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(180));
 			internal static readonly T DegreesToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(10), Compute.FromInt32<T>(9));
 
 			internal static readonly T GradiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(9), Compute.FromInt32<T>(10));
 			internal static readonly T GradiansToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(400));
-			internal static readonly T GradiansToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(200));
+			internal static readonly T GradiansToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(200));
 
-			internal static readonly T RadiansToTurnsFactor = Compute.Invert(Compute.Multiply(Compute.FromInt32<T>(2), Compute.Constant<T>.Pi));
-			internal static readonly T RadiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(180), Compute.Constant<T>.Pi);
-			internal static readonly T RadiansToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(200), Compute.Constant<T>.Pi);
+			internal static readonly T RadiansToTurnsFactor = Compute.Invert(Compute.Multiply(Compute.FromInt32<T>(2), Constant<T>.Pi));
+			internal static readonly T RadiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(180), Constant<T>.Pi);
+			internal static readonly T RadiansToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(200), Constant<T>.Pi);
 
 			internal static readonly T TurnsToDegreesFactor = Compute.FromInt32<T>(360);
-			internal static readonly T TurnsToRadiansFactor = Compute.Divide(Compute.Constant<T>.Pi, Compute.FromInt32<T>(180));
+			internal static readonly T TurnsToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(180));
 			internal static readonly T TurnsToGradiansFactor = Compute.FromInt32<T>(400);
 		}
 

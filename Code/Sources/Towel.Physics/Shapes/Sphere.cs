@@ -11,7 +11,7 @@ namespace Towel.Physics.Shapes
 
         public Sphere() : base()
         {
-            this._radius = Compute.Constant<T>.One;
+            this._radius = Constant<T>.One;
         }
 
         public Sphere(T radius)
@@ -107,7 +107,7 @@ namespace Towel.Physics.Shapes
                 if (_fourThirdsPiComputed)
                     return _fourThirdsPi;
                 T fourThirds = Compute.Divide(Compute.FromInt32<T>(4), Compute.FromInt32<T>(3));
-                Sphere<T>._fourThirdsPi = Compute.Multiply(fourThirds, Compute.Constant<T>.Pi);
+                Sphere<T>._fourThirdsPi = Compute.Multiply(fourThirds, Constant<T>.Pi);
                 Sphere<T>._fourThirdsPiComputed = true;
                 return Sphere<T>.FourThirdsPi;
             }

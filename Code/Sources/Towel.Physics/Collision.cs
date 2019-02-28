@@ -10,8 +10,8 @@ namespace Towel.Physics
     {
         public class Contact
         {
-            private T _penetration = Compute.Constant<T>.Zero;
-            private T _initialPenetration = Compute.Constant<T>.Zero;
+            private T _penetration = Constant<T>.Zero;
+            private T _initialPenetration = Constant<T>.Zero;
         }
 
         private RigidPhysicsObject<T> _a;

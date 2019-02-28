@@ -44,7 +44,7 @@ namespace Mathematics
             // Clamp
             Console.WriteLine("    Clamp(-123, 7, 14): " + Clamp((Fraction32)(-123), (Fraction32)7, (Fraction32)14));
             // Maximum
-            Console.WriteLine("    Maximum(1, 2, 3): " + Maximum((Step<byte> step) => { step((byte)1); step((byte)2); step((byte)3); }));
+            Console.WriteLine("    Maximum(1, 2, 3): " + Maximum((Step<int> step) => { step(1); step(2); step(3); }));
             // Minimum
             Console.WriteLine("    Minimum(1, 2, 3): " + Minimum((Step<int> step) => { step(1); step(2); step(3); }));
             // Less Than
@@ -77,30 +77,6 @@ namespace Mathematics
             // LCM Checking
             int[] lcm = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
             Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.Stepper()));
-            Console.WriteLine();
-
-            #endregion
-
-            #region Range
-
-            Console.WriteLine("  Range---------------------------------------------");
-            Console.WriteLine();
-
-            Console.WriteLine("   1D int");
-
-            {
-                Range<double> range1 = new Range<double>(1, 7);
-                Console.WriteLine("    range1: " + range1);
-                Range<double> range2 = new Range<double>(4, 10);
-                Console.WriteLine("    range2: " + range2);
-                Range<double>[] range3 = range1 ^ range2;
-                Console.WriteLine("    range1 ^ range2 (Complement): " + range3[0]);
-                Range<double>[] range4 = range1 | range2;
-                Console.WriteLine("    range1 | range2 (Union): " + range4[0]);
-                Range<double> range5 = range1 & range2;
-                Console.WriteLine("    range1 & range2 (Intersection): " + range5);
-            }
-
             Console.WriteLine();
 
             #endregion
@@ -212,8 +188,10 @@ namespace Mathematics
             //Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
 
             // Range
-            Range<double> range = Range(statistics_data.Stepper());
-            Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", range.Min) + "-" + string.Format("{0:0.00}", range.Max));
+            double min;
+            double max;
+            Range(out min, out max, statistics_data.Stepper());
+            Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", min) + "-" + string.Format("{0:0.00}", max));
 
             // Variance
             Console.WriteLine("    Variance(data): " + string.Format("{0:0.00}", Variance(statistics_data.Stepper())));

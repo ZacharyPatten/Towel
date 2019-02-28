@@ -698,7 +698,7 @@ namespace Towel.Mathematics
             {
                 for (int j = 0; j < a_columns; j++)
                 {
-                    a.Set(i, j, Compute.Constant<T>.One);
+                    a.Set(i, j, Constant<T>.One);
                 }
             }
         };
@@ -744,7 +744,7 @@ namespace Towel.Mathematics
 
         internal static Func<int, int, Matrix<T>> Matrix_FactoryZero = (int rows, int columns) =>
 		{
-			if (Compute.Equal(default(T), Compute.Constant<T>.Zero))
+			if (Compute.Equal(default(T), Constant<T>.Zero))
 			{
 				Matrix_FactoryZero = (int ROWS, int COLUMNS) =>
 				{
@@ -773,7 +773,7 @@ namespace Towel.Mathematics
                         throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
                     }
                     Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Compute.Constant<T>.Zero);
+                    result._matrix.Fill(Constant<T>.Zero);
                     return result;
 				};
 			}
@@ -786,7 +786,7 @@ namespace Towel.Mathematics
 		
 		private static Func<int, int, Matrix<T>> Matrix_FactoryOne = (int rows, int columns) =>
 		{
-            if (Compute.Equal(default(T), Compute.Constant<T>.One))
+            if (Compute.Equal(default(T), Constant<T>.One))
             {
                 Matrix_FactoryOne = (int ROWS, int COLUMNS) =>
                 {
@@ -815,7 +815,7 @@ namespace Towel.Mathematics
                         throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
                     }
                     Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Compute.Constant<T>.One);
+                    result._matrix.Fill(Constant<T>.One);
                     return result;
                 };
             }
@@ -828,7 +828,7 @@ namespace Towel.Mathematics
 		
 		private static Func<int, int, Matrix<T>> Matrix_FactoryIdentity = (int rows, int columns) =>
 		{
-            if (Compute.Equal(default(T), Compute.Constant<T>.Zero))
+            if (Compute.Equal(default(T), Constant<T>.Zero))
             {
                 Matrix_FactoryIdentity = (int ROWS, int COLUMNS) =>
                 {
@@ -859,7 +859,7 @@ namespace Towel.Mathematics
                         throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
                     }
                     Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Compute.Constant<T>.Zero);
+                    result._matrix.Fill(Constant<T>.Zero);
                     DiagonalOnes(result);
                     return result;
                 };
@@ -1062,7 +1062,7 @@ namespace Towel.Mathematics
             {
                 for (int j = 0; j < c_Columns; j++)
                 {
-                    sum = Compute.Constant<T>.Zero;
+                    sum = Constant<T>.Zero;
                     for (int k = 0; k < a_Columns; k++)
                     {
                         sum = Compute.Add(sum, Compute.Multiply(a_flat[i * a_Columns + k], b_flat[k * c_Columns + j]));
@@ -1107,7 +1107,7 @@ namespace Towel.Mathematics
             }
             for (int i = 0; i < a_rows; i++)
             {
-                c_flat[i] = Compute.Constant<T>.Zero;
+                c_flat[i] = Constant<T>.Zero;
                 for (int j = 0; j < a_columns; j++)
                 {
                     c_flat[i] = Compute.Add(c_flat[i], Compute.Multiply(a_flat[i * a_columns + j], b_flat[j]));
@@ -1202,7 +1202,7 @@ namespace Towel.Mathematics
                 {
                     c._rows = a._rows;
                     c._columns = a._columns;
-                    c._matrix.Fill(Compute.Constant<T>.Zero);
+                    c._matrix.Fill(Constant<T>.Zero);
                     DiagonalOnes(c);
                 }
                 else
@@ -1265,14 +1265,14 @@ namespace Towel.Mathematics
             }
 
             // if the angle is zero, no rotation is required
-            if (Compute.Equal(angle._measurement, Compute.Constant<T>.Zero))
+            if (Compute.Equal(angle._measurement, Constant<T>.Zero))
             {
                 return matrix.Clone();
             }
 
             T cosine = Compute.Cosine(angle);
             T sine = Compute.Sine(angle);
-            T oneMinusCosine = Compute.Subtract(Compute.Constant<T>.One, cosine);
+            T oneMinusCosine = Compute.Subtract(Constant<T>.One, cosine);
             T xy = Compute.Multiply(axis.X, axis.Y);
             T yz = Compute.Multiply(axis.Y, axis.Z);
             T xz = Compute.Multiply(axis.X, axis.Z);
@@ -1308,10 +1308,10 @@ namespace Towel.Mathematics
             T _2_2 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 2], f20), Compute.Multiply(matrix[1, 2], f21)), Compute.Multiply(matrix[2, 2], f22));
             T _2_3 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 3], f20), Compute.Multiply(matrix[1, 3], f21)), Compute.Multiply(matrix[2, 3], f22));
             // Row 4
-            T _3_0 = Compute.Constant<T>.Zero;
-            T _3_1 = Compute.Constant<T>.Zero;
-            T _3_2 = Compute.Constant<T>.Zero;
-            T _3_3 = Compute.Constant<T>.One;
+            T _3_0 = Constant<T>.Zero;
+            T _3_1 = Constant<T>.Zero;
+            T _3_2 = Constant<T>.Zero;
+            T _3_3 = Constant<T>.One;
 
             return new Matrix<T>(new T[,]
             {
@@ -1459,24 +1459,24 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
             }
-            T determinant = Compute.Constant<T>.One;
+            T determinant = Constant<T>.One;
             Matrix<T> rref = a.Clone();
             int a_rows = a._rows;
             for (int i = 0; i < a_rows; i++)
             {
-                if (Compute.Equal(rref[i, i], Compute.Constant<T>.Zero))
+                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
                 {
                     for (int j = i + 1; j < rref.Rows; j++)
                     {
-                        if (Compute.NotEqual(rref.Get(j, i), Compute.Constant<T>.Zero))
+                        if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
                         {
                             SwapRows(rref, i, j);
-                            determinant = Compute.Multiply(determinant, Compute.Constant<T>.NegativeOne);
+                            determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
                         }
                     }
                 }
                 determinant = Compute.Multiply(determinant, rref.Get(i, i));
-                T temp_rowMultiplication = Compute.Divide(Compute.Constant<T>.One, rref.Get(i, i));
+                T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
                 RowMultiplication(rref, i, temp_rowMultiplication);
                 for (int j = i + 1; j < rref.Rows; j++)
                 {
@@ -1522,31 +1522,31 @@ namespace Towel.Mathematics
             }
             for (int i = 0; i < Rows; i++)
             {
-                if (Compute.Equal(b.Get(i, i), Compute.Constant<T>.Zero))
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
                 {
                     for (int j = i + 1; j < Rows; j++)
                     {
-                        if (Compute.NotEqual(b.Get(j, i), Compute.Constant<T>.Zero))
+                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
                         {
                             SwapRows(b, i, j);
                         }
                     }
                 }
-                if (Compute.Equal(b.Get(i, i), Compute.Constant<T>.Zero))
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
                 {
                     continue;
                 }
-                if (Compute.NotEqual(b.Get(i, i), Compute.Constant < T > .One))
+                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
                 {
                     for (int j = i + 1; j < Rows; j++)
                     {
-                        if (Compute.Equal(b.Get(j, i), Compute.Constant<T>.One))
+                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
                         {
                             SwapRows(b, i, j);
                         }
                     }
                 }
-                T rowMultipier = Compute.Divide(Compute.Constant<T>.One, b.Get(i, i));
+                T rowMultipier = Compute.Divide(Constant<T>.One, b.Get(i, i));
                 RowMultiplication(b, i, rowMultipier);
                 for (int j = i + 1; j < Rows; j++)
                 {
@@ -1584,31 +1584,31 @@ namespace Towel.Mathematics
             }
             for (int i = 0; i < Rows; i++)
             {
-                if (Compute.Equal(b.Get(i, i), Compute.Constant<T>.Zero))
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
                 {
                     for (int j = i + 1; j < Rows; j++)
                     {
-                        if (Compute.NotEqual(b.Get(j, i), Compute.Constant<T>.Zero))
+                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
                         {
                             SwapRows(b, i, j);
                         }
                     }
                 }
-                if (Compute.Equal(b.Get(i, i), Compute.Constant<T>.Zero))
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
                 {
                     continue;
                 }
-                if (Compute.NotEqual(b.Get(i, i), Compute.Constant<T>.One))
+                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
                 {
                     for (int j = i + 1; j < Rows; j++)
                     {
-                        if (Compute.Equal(b.Get(j, i), Compute.Constant<T>.One))
+                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
                         {
                             SwapRows(b, i, j);
                         }
                     }
                 }
-                T rowMiltiplier = Compute.Divide(Compute.Constant<T>.One, b.Get(i, i));
+                T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
                 RowMultiplication(b, i, rowMiltiplier);
                 for (int j = i + 1; j < Rows; j++)
                 {

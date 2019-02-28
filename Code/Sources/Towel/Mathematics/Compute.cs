@@ -8,72 +8,37 @@ using System.ComponentModel;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Primary class for generic mathematics in the Towel Framework.</summary>
-	/// <typeparam name="T">The generic type to perform mathematics on (expected to be numeric).</typeparam>
+	/// <summary>Generic Mathematics Computation.</summary>
 	public static class Compute
 	{
-        #region Fields
-
-        public class Constant<T>
-        {
-            /// <summary>Zero (0)</summary>
-            public static readonly T Zero = Compute.FromInt32<T>(0);
-            /// <summary>One (1)</summary>
-            public static readonly T One = Compute.FromInt32<T>(1);
-            /// <summary>Two (2)</summary>
-            public static readonly T Two = Compute.FromInt32<T>(2);
-            /// <summary>Two (2)</summary>
-            public static readonly T Three = Compute.FromInt32<T>(3);
-            /// <summary>Negative One (-1)</summary>
-            public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
-            /// <summary>Pi (3.14...)</summary>
-            public static readonly T Pi = Compute.ComputePi<T>();
-            /// <summary>Epsilon (1.192092896...e-012f)</summary>
-            //public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
-        }
-
-        #endregion
-
-        #region Constant Computation
-
         #region Pi
 
-        private static T ComputePi<T>()
+        public static T Pi<T>(int maxIterations = 100)
         {
-            return default(T);
+            // Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
+            // more terms in computation inproves accuracy
 
-            //throw new NotImplementedException();
-
-//            const int pi_maximum_iterations = 100; // NOTE: decimal accuracy for pi requires pi_maximum_iterations = 92
-
-//            string type = Meta.ConvertTypeToCsharpSource(typeof(T));
-
-//            // Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
-//            // more terms in computation inproves accuracy
-//            var script = CSharpScript.Create<Func<T>>(string.Concat(@"() =>
-//{
-//	int j = 1, max = 1;
-//	// the actual computation
-//	Compute<", type, @">.Delegates.ComputePi function = null;
-//	function = () =>
-//		{
-//			if (j > max)
-//				return 1;
-//			return (", type, @")(1 + (", type, @")j / (", type, @")(2 * (j++) + 1) * function());
-//		};
-//	// continually compute with higher accuracy
-//	", type, @" pi = 1, previous = 0;
-//	for (int i = 1; previous != pi && i < ", pi_maximum_iterations, @"; i++)
-//	{
-//		previous = pi;
-//		j = 1;
-//		max = i;
-//		pi = ((", type, @")2) * function();
-//	}
-//	return (", type, @")pi;
-//}"));
-//            _pi = (await script.RunAsync()).ReturnValue();
+            T pi = Constant<T>.One;
+            T previous = Constant<T>.Zero;
+            for (int i = 1; NotEqual(previous, pi) && i < maxIterations; i++)
+            {
+                previous = pi;
+                pi = Constant<T>.One;
+                for (int j = i; j >= 1; j--)
+                {
+                    T J = FromInt32<T>(j);
+                    T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
+                    T b = Divide(J, a);
+                    T c = Multiply(b, pi);
+                    T d = Add(Constant<T>.One, c);
+                    pi = d;
+                }
+                pi = Multiply(Constant<T>.Two, pi);
+            }
+            pi = Maximum(pi, Constant<T>.Three);
+            return pi;
         }
+
         #endregion
 
         #region Epsilon
@@ -86,8 +51,6 @@ namespace Towel.Mathematics
             }
             throw new System.NotImplementedException();
         }
-
-        #endregion
 
         #endregion
 
@@ -671,10 +634,13 @@ namespace Towel.Mathematics
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.IfThenElse(
-                    Expression.GreaterThan(A, B),
-                    A,
-                    B);
+                LabelTarget RETURN = Expression.Label(typeof(T));
+                Expression BODY = Expression.Block(
+                    Expression.IfThenElse(
+                        Expression.LessThan(A, B),
+                        Expression.Return(RETURN, B),
+                        Expression.Return(RETURN, A)),
+                    Expression.Label(RETURN, Expression.Constant(default(T))));
                 Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
                 return Function(a, b);
             };
@@ -712,10 +678,13 @@ namespace Towel.Mathematics
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.IfThenElse(
-                    Expression.LessThan(A, B),
-                    A,
-                    B);
+                LabelTarget RETURN = Expression.Label(typeof(T));
+                Expression BODY = Expression.Block(
+                    Expression.IfThenElse(
+                        Expression.GreaterThan(A, B),
+                        Expression.Return(RETURN, B),
+                        Expression.Return(RETURN, A)),
+                    Expression.Label(RETURN, Expression.Constant(default(T))));
                 Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
                 return Function(a, b);
             };
@@ -1306,7 +1275,7 @@ namespace Towel.Mathematics
 
         public static T Choose<T>(T N, T n)
         {
-            if (LessThan(N, Compute.Constant<T>.Zero))
+            if (LessThan(N, Constant<T>.Zero))
             {
                 throw new ArgumentOutOfRangeException(nameof(N), N, "!(" + nameof(N) + " >= 0)");
             }
@@ -1502,26 +1471,22 @@ namespace Towel.Mathematics
 
         #region Range
 
-        public static Range<T> Range<T>(Stepper<T> stepper)
+        public static void Range<T>(out T minimum, out T maximum, Stepper<T> stepper)
         {
-            bool set = false;
-            T min = default(T);
-            T max = default(T);
-            stepper(i =>
+            T MINIMUM = default(T);
+            T MAXIMUM = default(T);
+            Step<T> step = i =>
             {
-                if (!set)
+                MINIMUM = i;
+                MAXIMUM = i;
+                step = j =>
                 {
-                    min = i;
-                    max = i;
-                    set = true;
-                }
-                else
-                {
-                    min = LessThan(i, min) ? i : min;
-                    max = GreaterThan(i, max) ? i : max;
-                }
-            });
-            return new Range<T>(min, max);
+                    MINIMUM = LessThan(i, MINIMUM) ? i : MINIMUM;
+                    MAXIMUM = LessThan(MAXIMUM, i) ? i : MAXIMUM;
+                };
+            };
+            minimum = MINIMUM;
+            maximum = MAXIMUM;
         }
 
         #endregion
@@ -2120,8 +2085,8 @@ namespace Towel.Mathematics
         //    // based on the mean X value and keeping a running totals
         //    int count_1 = 0;
         //    int count_2 = 0;
-        //    T x_sum_1 = Compute.Constant<T>.Zero; T y_sum_1 = Compute.Constant<T>.Zero; // represents point 1 of best fit line
-        //    T x_sum_2 = Compute.Constant<T>.Zero; T y_sum_2 = Compute.Constant<T>.Zero; // represents point 2 of best fit line
+        //    T x_sum_1 = Constant<T>.Zero; T y_sum_1 = Constant<T>.Zero; // represents point 1 of best fit line
+        //    T x_sum_2 = Constant<T>.Zero; T y_sum_2 = Constant<T>.Zero; // represents point 2 of best fit line
         //    points((T x, T y) =>
         //    {
         //        if (Compute.Compare(x, mean_x) == Comparison.Less)
