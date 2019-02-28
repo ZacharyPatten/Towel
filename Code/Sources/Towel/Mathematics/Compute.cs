@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Generic Mathematics Computation.</summary>
+	/// <summary>Static Generic Mathematics Computation :).</summary>
 	public static class Compute
 	{
         #region Pi

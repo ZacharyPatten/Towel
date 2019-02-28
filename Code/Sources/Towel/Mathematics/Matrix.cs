@@ -115,6 +115,19 @@ namespace Towel.Mathematics
             }
         }
 
+        public Matrix(int rows, int columns, Func<int, int, T> function) : this(rows, columns)
+        {
+            T[] THIS = this._matrix;
+            int current = 0;
+            for (int i = 0; i < this._rows; i++)
+            {
+                for (int j = 0; j < this._columns; j++)
+                {
+                    THIS[current++] = function(i, j);
+                }
+            }
+        }
+
         private Matrix(Matrix<T> matrix)
         {
             this._rows = matrix._rows;

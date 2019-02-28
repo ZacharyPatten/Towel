@@ -3,7 +3,7 @@
 namespace Towel
 {
 	/// <summary>Comparison operator between two operands in a logical expression.</summary>
-	[System.Serializable]
+	[Serializable]
 	public enum Comparison
 	{
 		/// <summary>The left operand is less than the right operand.</summary>
@@ -19,7 +19,7 @@ namespace Towel
 	/// <param name="left">The left operand of the comparison.</param>
 	/// <param name="right">The right operand of the comparison.</param>
 	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	[System.Serializable]
+	[Serializable]
 	public delegate Comparison Compare<T>(T left, T right);
 
 	/// <summary>Delegate for comparing two instances of different types.</summary>
@@ -28,10 +28,10 @@ namespace Towel
 	/// <param name="left">The left operand of the comparison.</param>
 	/// <param name="right">The right operand of the comparison.</param>
 	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	[System.Serializable]
+	[Serializable]
 	public delegate Comparison Compare<Left, Right>(Left left, Right right);
 
-    [System.Serializable]
+    [Serializable]
     public delegate Comparison CompareToExpectedValue<T>(T value);
 
 	/// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
