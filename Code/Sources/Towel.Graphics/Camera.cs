@@ -134,13 +134,15 @@ namespace Towel.Graphics
             Vector<float> x = Vector<float>.Normalize(Vector<float>.CrossProduct(up, z));
             Vector<float> y = Vector<float>.Normalize(Vector<float>.CrossProduct(z, x));
 
-            Matrix<float> result = new Matrix<float>(new float[,]
+            float[,] floatData = new float[,]
             {
                 { x.X, y.X, z.X, 0 },
                 { x.Y, y.Y, z.Y, 0 },
                 { x.Z, y.Z, z.Z, 0 },
                 { -((x.X * eye.X) + (x.Y * eye.Y) + (x.Z * eye.Z)), -((y.X * eye.X) + (y.Y * eye.Y) + (y.Z * eye.Z)), -((z.X * eye.X) + (z.Y * eye.Y) + (z.Z * eye.Z)), 1 },
-            });
+            };
+
+            Matrix<float> result = new Matrix<float>(4, 4, (row, column) => floatData[row, column]);
 
             return result;
         }

@@ -161,13 +161,15 @@ namespace Towel.Graphics
 
                     Matrix<float> rotation3x3 = Quaternion<float>.ToMatrix3x3(currentRotation);
 
-                    Matrix<float> currentJointMatrix = new Matrix<float>(new float[,]
+                    float[,] floatData = new float[,]
                     {
                         { rotation3x3[0, 0], rotation3x3[0, 1], rotation3x3[0, 2], currentTranslation[0] },
                         { rotation3x3[1, 0], rotation3x3[1, 1], rotation3x3[1, 2], currentTranslation[1] },
                         { rotation3x3[2, 0], rotation3x3[2, 1], rotation3x3[2, 2], currentTranslation[2] },
                         { 0, 0, 0, 1 },
-                    });
+                    };
+
+                    Matrix<float> currentJointMatrix = new Matrix<float>(4, 4, (row, column) => floatData[row, column]);
 
                     currentPose.Add(joint.Name, currentJointMatrix);
                 });

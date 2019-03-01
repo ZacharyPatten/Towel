@@ -97,35 +97,9 @@ namespace Towel.Mathematics
             this._columns = columns;
         }
 
-        /// <summary>Constructs a matrix from a T[,] (using FlattenedArray format).</summary>
-        /// <param name="matrix">The float[,] to wrap in a matrix class.</param>
-        public Matrix(T[,] matrix)
-        {
-            this._rows = matrix.GetLength(0);
-            this._columns = matrix.GetLength(1);
-            this._matrix = new T[this._rows * this._columns];
-            T[] this_matrix_flat = this._matrix;
-            int current = 0;
-            for (int i = 0; i < this._rows; i++)
-            {
-                for (int j = 0; j < this._columns; j++)
-                {
-                    this_matrix_flat[current++] = matrix[i, j];
-                }
-            }
-        }
-
         public Matrix(int rows, int columns, Func<int, int, T> function) : this(rows, columns)
         {
-            T[] THIS = this._matrix;
-            int current = 0;
-            for (int i = 0; i < this._rows; i++)
-            {
-                for (int j = 0; j < this._columns; j++)
-                {
-                    THIS[current++] = function(i, j);
-                }
-            }
+            Fill(this, function);
         }
 
         private Matrix(Matrix<T> matrix)
@@ -152,33 +126,86 @@ namespace Towel.Mathematics
 		/// <returns>The newly constructed zero-matrix.</returns>
 		public static Matrix<T> FactoryZero(int rows, int columns)
 		{
-			return Matrix<T>.Matrix_FactoryZero(rows, columns);
+            if (rows < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
+            }
+            if (columns < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
+            }
+            return FactoryZeroImplementation(rows, columns);
 		}
 
-		/// <summary>Constructs a new identity-matrix of the given dimensions.</summary>
-		/// <param name="rows">The number of rows of the matrix.</param>
-		/// <param name="columns">The number of columns of the matrix.</param>
-		/// <returns>The newly constructed identity-matrix.</returns>
-		public static Matrix<T> FactoryIdentity(int rows, int columns)
+        internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
+        {
+            if (Compute.Equal(default(T), Constant<T>.Zero))
+            {
+                FactoryZeroImplementation = (ROWS, COLUMNS) => new Matrix<T>(ROWS, COLUMNS);
+            }
+            else
+            {
+                FactoryZeroImplementation = (ROWS, COLUMNS) =>
+                {
+                    Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+                    matrix._matrix.Fill(Constant<T>.Zero);
+                    return matrix;
+                };
+            }
+            return FactoryZeroImplementation(rows, columns);
+        };
+
+        /// <summary>Constructs a new identity-matrix of the given dimensions.</summary>
+        /// <param name="rows">The number of rows of the matrix.</param>
+        /// <param name="columns">The number of columns of the matrix.</param>
+        /// <returns>The newly constructed identity-matrix.</returns>
+        public static Matrix<T> FactoryIdentity(int rows, int columns)
 		{
-			return Matrix<T>.Matrix_FactoryIdentity(rows, columns);
+            if (rows < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
+            }
+            if (columns < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
+            }
+            return FactoryIdentityImplementation(rows, columns);
 		}
 
-		/// <summary>Constructs a new matrix where every entry is 1.</summary>
-		/// <param name="rows">The number of rows of the matrix.</param>
-		/// <param name="columns">The number of columns of the matrix.</param>
-		/// <returns>The newly constructed matrix filled with 1's.</returns>
-		public static Matrix<T> FactoryOne(int rows, int columns)
-		{
-			return Matrix<T>.Matrix_FactoryOne(rows, columns);
-		}
+        internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
+        {
+            if (Compute.Equal(default(T), Constant<T>.Zero))
+            {
+                FactoryIdentityImplementation = (ROWS, COLUMNS) =>
+                {
+                    Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+                    T[] MATRIX = matrix._matrix;
+                    int minimum = Compute.Minimum(rows, columns);
+                    for (int i = 1; i < minimum; i++)
+                    {
+                        MATRIX[i * i] = Constant<T>.One;
+                    }
+                    return matrix;
+                };
+            }
+            else
+            {
+                FactoryIdentityImplementation = (ROWS, COLUMNS) =>
+                {
+                    Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+                    Fill(matrix, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
+                    return matrix;
+                };
+            }
+            return FactoryIdentityImplementation(rows, columns);
+        };
 
-		/// <summary>Constructs a new matrix where every entry is the same uniform value.</summary>
-		/// <param name="rows">The number of rows of the matrix.</param>
-		/// <param name="columns">The number of columns of the matrix.</param>
-		/// <param name="uniform">The value to assign every spot in the matrix.</param>
-		/// <returns>The newly constructed matrix filled with the uniform value.</returns>
-		public static Matrix<T> FactoryUniform(int rows, int columns, T uniform)
+        /// <summary>Constructs a new matrix where every entry is the same uniform value.</summary>
+        /// <param name="rows">The number of rows of the matrix.</param>
+        /// <param name="columns">The number of columns of the matrix.</param>
+        /// <param name="value">The value to assign every spot in the matrix.</param>
+        /// <returns>The newly constructed matrix filled with the uniform value.</returns>
+        public static Matrix<T> FactoryUniform(int rows, int columns, T value)
 		{
             if (rows < 1)
             {
@@ -189,171 +216,937 @@ namespace Towel.Mathematics
                 throw new ArgumentOutOfRangeException("columns", columns, "!(columns > 0)");
             }
             Matrix<T> matrix = new Matrix<T>(rows, columns);
-            matrix._matrix.Fill(uniform);
+            matrix._matrix.Fill(value);
 			return matrix;
 		}
 
-		/// <summary>Constructs a 2-component vector matrix with all values being 0.</summary>
-		/// <returns>The constructed 2-component vector matrix.</returns>
-		public static Matrix<T> Factory2x1() { return new Matrix<T>(2, 1); }
-		/// <summary>Constructs a 3-component vector matrix with all values being 0.</summary>
-		/// <returns>The constructed 3-component vector matrix.</returns>
-		public static Matrix<T> Factory3x1() { return new Matrix<T>(3, 1); }
-		/// <summary>Constructs a 4-component vector matrix with all values being 0.</summary>
-		/// <returns>The constructed 4-component vector matrix.</returns>
-		public static Matrix<T> Factory4x1() { return new Matrix<T>(4, 1); }
+        ///// <param name="angle">Angle of rotation in radians.</param>
+        //public static Matrix<T> Factory3x3RotationX(T angle)
+        //{
+        //	T cos = _cos(angle);
+        //	T sin = _sin(angle);
+        //	return new Matrix<T>(new T[,] {
+        //		{ _one, _zero, _zero },
+        //		{ _zero, cos, sin },
+        //		{ _zero, _negate(sin), cos }});
+        //}
 
-		/// <summary>Constructs a 2x2 matrix with all values being 0.</summary>
-		/// <returns>The constructed 2x2 matrix.</returns>
-		public static Matrix<T> Factory2x2() { return new Matrix<T>(2, 2); }
-		/// <summary>Constructs a 3x3 matrix with all values being 0.</summary>
-		/// <returns>The constructed 3x3 matrix.</returns>
-		public static Matrix<T> Factory3x3() { return new Matrix<T>(3, 3); }
-		/// <summary>Constructs a 4x4 matrix with all values being 0.</summary>
-		/// <returns>The constructed 4x4 matrix.</returns>
-		public static Matrix<T> Factory4x4() { return new Matrix<T>(4, 4); }
+        ///// <param name="angle">Angle of rotation in radians.</param>
+        //public static Matrix<T> Factory3x3RotationY(T angle)
+        //{
+        //	T cos = _cos(angle);
+        //	T sin = _sin(angle);
+        //	return new Matrix<T>(new T[,] {
+        //		{ cos, _zero, _negate(sin) },
+        //		{ _zero, _one, _zero },
+        //		{ sin, _zero, cos }});
+        //}
 
-		///// <param name="angle">Angle of rotation in radians.</param>
-		//public static Matrix<T> Factory3x3RotationX(T angle)
-		//{
-		//	T cos = _cos(angle);
-		//	T sin = _sin(angle);
-		//	return new Matrix<T>(new T[,] {
-		//		{ _one, _zero, _zero },
-		//		{ _zero, cos, sin },
-		//		{ _zero, _negate(sin), cos }});
-		//}
+        ///// <param name="angle">Angle of rotation in radians.</param>
+        //public static Matrix<T> Factory3x3RotationZ(T angle)
+        //{
+        //	T cos = _cos(angle);
+        //	T sin = _sin(angle);
+        //	return new Matrix<T>(new T[,] {
+        //		{ cos, _negate(sin), _zero },
+        //		{ sin, cos, _zero },
+        //		{ _zero, _zero, _zero }});
+        //}
 
-		///// <param name="angle">Angle of rotation in radians.</param>
-		//public static Matrix<T> Factory3x3RotationY(T angle)
-		//{
-		//	T cos = _cos(angle);
-		//	T sin = _sin(angle);
-		//	return new Matrix<T>(new T[,] {
-		//		{ cos, _zero, _negate(sin) },
-		//		{ _zero, _one, _zero },
-		//		{ sin, _zero, cos }});
-		//}
+        ///// <param name="angleX">Angle about the X-axis in radians.</param>
+        ///// <param name="angleY">Angle about the Y-axis in radians.</param>
+        ///// <param name="angleZ">Angle about the Z-axis in radians.</param>
+        //public static Matrix<T> Factory3x3RotationXthenYthenZ(T angleX, T angleY, T angleZ)
+        //{
+        //	T xCos = _cos(angleX), xSin = _sin(angleX),
+        //		yCos = _cos(angleY), ySin = _sin(angleY),
+        //		zCos = _cos(angleZ), zSin = _sin(angleZ);
+        //	return new Matrix<T>(new T[,] {
+        //		{ _multiply(yCos, zCos), _negate(_multiply(yCos, zSin)), ySin },
+        //		{ _add(_multiply(xCos, zSin), _multiply(_multiply(xSin, ySin), zCos)), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _negate(_multiply(xSin, yCos)) },
+        //		{ _subtract(_multiply(xSin, zSin), _multiply(_multiply(xCos, ySin), zCos)), _add(_multiply(xSin, zCos), _multiply(_multiply(xCos, ySin), zSin)), _multiply(xCos, yCos) }});
+        //}
 
-		///// <param name="angle">Angle of rotation in radians.</param>
-		//public static Matrix<T> Factory3x3RotationZ(T angle)
-		//{
-		//	T cos = _cos(angle);
-		//	T sin = _sin(angle);
-		//	return new Matrix<T>(new T[,] {
-		//		{ cos, _negate(sin), _zero },
-		//		{ sin, cos, _zero },
-		//		{ _zero, _zero, _zero }});
-		//}
+        ///// <param name="angleX">Angle about the X-axis in radians.</param>
+        ///// <param name="angleY">Angle about the Y-axis in radians.</param>
+        ///// <param name="angleZ">Angle about the Z-axis in radians.</param>
+        //public static Matrix<T> Factory3x3RotationZthenYthenX(T angleX, T angleY, T angleZ)
+        //{
+        //	T xCos = _cos(angleX), xSin = _sin(angleX),
+        //		yCos = _cos(angleY), ySin = _sin(angleY),
+        //		zCos = _cos(angleZ), zSin = _sin(angleZ);
+        //	return new Matrix<T>(new T[,] {
+        //		{ _multiply(yCos, zCos), _subtract(_multiply(_multiply(zCos, xSin), ySin), _multiply(xCos, zSin)), _add(_multiply(_multiply(xCos, zCos), ySin), _multiply(xSin, zSin)) },
+        //		{ _multiply(yCos, zSin), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _add(_multiply(_negate(zCos), xSin), _multiply(_multiply(xCos, ySin), zSin)) },
+        //		{ _negate(ySin), _multiply(yCos, xSin), _multiply(xCos, yCos) }});
+        //}
 
-		///// <param name="angleX">Angle about the X-axis in radians.</param>
-		///// <param name="angleY">Angle about the Y-axis in radians.</param>
-		///// <param name="angleZ">Angle about the Z-axis in radians.</param>
-		//public static Matrix<T> Factory3x3RotationXthenYthenZ(T angleX, T angleY, T angleZ)
-		//{
-		//	T xCos = _cos(angleX), xSin = _sin(angleX),
-		//		yCos = _cos(angleY), ySin = _sin(angleY),
-		//		zCos = _cos(angleZ), zSin = _sin(angleZ);
-		//	return new Matrix<T>(new T[,] {
-		//		{ _multiply(yCos, zCos), _negate(_multiply(yCos, zSin)), ySin },
-		//		{ _add(_multiply(xCos, zSin), _multiply(_multiply(xSin, ySin), zCos)), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _negate(_multiply(xSin, yCos)) },
-		//		{ _subtract(_multiply(xSin, zSin), _multiply(_multiply(xCos, ySin), zCos)), _add(_multiply(xSin, zCos), _multiply(_multiply(xCos, ySin), zSin)), _multiply(xCos, yCos) }});
-		//}
+        ///// <summary>Creates a 3x3 matrix initialized with a shearing transformation.</summary>
+        ///// <param name="shearXbyY">The shear along the X-axis in the Y-direction.</param>
+        ///// <param name="shearXbyZ">The shear along the X-axis in the Z-direction.</param>
+        ///// <param name="shearYbyX">The shear along the Y-axis in the X-direction.</param>
+        ///// <param name="shearYbyZ">The shear along the Y-axis in the Z-direction.</param>
+        ///// <param name="shearZbyX">The shear along the Z-axis in the X-direction.</param>
+        ///// <param name="shearZbyY">The shear along the Z-axis in the Y-direction.</param>
+        ///// <returns>The constructed shearing matrix.</returns>
+        //public static Matrix<T> Factory3x3Shear(
+        //	T shearXbyY, T shearXbyZ, T shearYbyX,
+        //	T shearYbyZ, T shearZbyX, T shearZbyY)
+        //{
+        //	return new Matrix<T>(new T[,] {
+        //		{ _one, shearYbyX, shearZbyX },
+        //		{ shearXbyY, _one, shearYbyZ },
+        //		{ shearXbyZ, shearYbyZ, _one }});
+        //}
 
-		///// <param name="angleX">Angle about the X-axis in radians.</param>
-		///// <param name="angleY">Angle about the Y-axis in radians.</param>
-		///// <param name="angleZ">Angle about the Z-axis in radians.</param>
-		//public static Matrix<T> Factory3x3RotationZthenYthenX(T angleX, T angleY, T angleZ)
-		//{
-		//	T xCos = _cos(angleX), xSin = _sin(angleX),
-		//		yCos = _cos(angleY), ySin = _sin(angleY),
-		//		zCos = _cos(angleZ), zSin = _sin(angleZ);
-		//	return new Matrix<T>(new T[,] {
-		//		{ _multiply(yCos, zCos), _subtract(_multiply(_multiply(zCos, xSin), ySin), _multiply(xCos, zSin)), _add(_multiply(_multiply(xCos, zCos), ySin), _multiply(xSin, zSin)) },
-		//		{ _multiply(yCos, zSin), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _add(_multiply(_negate(zCos), xSin), _multiply(_multiply(xCos, ySin), zSin)) },
-		//		{ _negate(ySin), _multiply(yCos, xSin), _multiply(xCos, yCos) }});
-		//}
+        #endregion
 
-		///// <summary>Creates a 3x3 matrix initialized with a shearing transformation.</summary>
-		///// <param name="shearXbyY">The shear along the X-axis in the Y-direction.</param>
-		///// <param name="shearXbyZ">The shear along the X-axis in the Z-direction.</param>
-		///// <param name="shearYbyX">The shear along the Y-axis in the X-direction.</param>
-		///// <param name="shearYbyZ">The shear along the Y-axis in the Z-direction.</param>
-		///// <param name="shearZbyX">The shear along the Z-axis in the X-direction.</param>
-		///// <param name="shearZbyY">The shear along the Z-axis in the Y-direction.</param>
-		///// <returns>The constructed shearing matrix.</returns>
-		//public static Matrix<T> Factory3x3Shear(
-		//	T shearXbyY, T shearXbyZ, T shearYbyX,
-		//	T shearYbyZ, T shearZbyX, T shearZbyY)
-		//{
-		//	return new Matrix<T>(new T[,] {
-		//		{ _one, shearYbyX, shearZbyX },
-		//		{ shearXbyY, _one, shearYbyZ },
-		//		{ shearXbyZ, shearYbyZ, _one }});
-		//}
+        #region Mathematics
 
-		#endregion
+        #region Negate
 
-		#region Operators
+        /// <summary>Negates all the values in a matrix.</summary>
+        /// <param name="a">The matrix to have its values negated.</param>
+        /// <param name="b">The resulting matrix after the negation.</param>
+        private static void Negate(Matrix<T> a, ref Matrix<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            int Length = a._matrix.Length;
+            T[] A = a._matrix;
+            T[] B;
+            if (b != null && b._matrix.Length == Length)
+            {
+                B = b._matrix;
+                b._rows = a._rows;
+                b._columns = a._columns;
+            }
+            else
+            {
+                b = new Matrix<T>(a._rows, a._columns, Length);
+                B = b._matrix;
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                B[i] = Compute.Negate(A[i]);
+            }
+        }
 
-		/// <summary>Negates all the values in a matrix.</summary>
+        /// <summary>Negates all the values in a matrix.</summary>
 		/// <param name="a">The matrix to have its values negated.</param>
-		/// <returns>The resulting matrix after the negations.</returns>
-		public static Matrix<T> operator -(Matrix<T> a)
-		{ return Negate(a); }
-		/// <summary>Does a standard matrix addition.</summary>
+		/// <returns>The resulting matrix after the negation.</returns>
+		public static Matrix<T> Negate(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            Negate(a, ref b);
+            return b;
+        }
+
+        /// <summary>Negates all the values in a matrix.</summary>
+        /// <param name="a">The matrix to have its values negated.</param>
+        /// <returns>The resulting matrix after the negation.</returns>
+        public static Matrix<T> operator -(Matrix<T> a)
+        {
+            return Negate(a);
+        }
+
+        /// <summary>Negates all the values in this matrix.</summary>
+		/// <returns>The resulting matrix after the negation.</returns>
+		public Matrix<T> Negate()
+        {
+            return -this;
+        }
+
+        #endregion
+
+        #region Add
+
+        /// <summary>Does standard addition of two matrices.</summary>
 		/// <param name="a">The left matrix of the addition.</param>
 		/// <param name="b">The right matrix of the addition.</param>
-		/// <returns>The resulting matrix after teh addition.</returns>
-		public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b)
-		{ return Add(a, b); }
-		/// <summary>Does a standard matrix subtraction.</summary>
+        /// <param name="c">The resulting matrix after the addition.</param>
+        private static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (a._rows != b._rows || a._columns != b._columns)
+            {
+                throw new MathematicsException("Arguments invalid !(" +
+                    nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + " && " +
+                    nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Columns) + ")");
+            }
+            int Length = a._matrix.Length;
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            T[] C;
+            if (c != null && c._matrix.Length == Length)
+            {
+                C = c._matrix;
+                c._rows = a._rows;
+                c._columns = a._columns;
+            }
+            else
+            {
+                c = new Matrix<T>(a._rows, a._columns, Length);
+                C = c._matrix;
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                C[i] = Compute.Add(A[i], B[i]);
+            }
+        }
+
+        /// <summary>Does standard addition of two matrices.</summary>
+		/// <param name="a">The left matrix of the addition.</param>
+		/// <param name="b">The right matrix of the addition.</param>
+		/// <returns>The resulting matrix after the addition.</returns>
+		public static Matrix<T> Add(Matrix<T> a, Matrix<T> b)
+        {
+            Matrix<T> c = null;
+            Add(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Does a standard matrix addition.</summary>
+        /// <param name="a">The left matrix of the addition.</param>
+        /// <param name="b">The right matrix of the addition.</param>
+        /// <returns>The resulting matrix after teh addition.</returns>
+        public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Does a standard matrix addition.</summary>
+		/// <param name="b">The matrix to add to this matrix.</param>
+		/// <returns>The resulting matrix after the addition.</returns>
+		public Matrix<T> Add(Matrix<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Does a standard matrix subtraction.</summary>
 		/// <param name="a">The left matrix of the subtraction.</param>
+        /// <param name="b">The right matrix of the subtraction.</param>
+        /// <param name="c">The resulting matrix after the subtraction.</param>
+        private static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (a._rows != b._rows || a._columns != b._columns)
+            {
+                throw new MathematicsException("Arguments invalid !(" +
+                    nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + " && " +
+                    nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Columns) + ")");
+            }
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            int Length = A.Length;
+            T[] C;
+            if (c != null && c._matrix.Length == Length)
+            {
+                C = c._matrix;
+                c._rows = a._rows;
+                c._columns = a._columns;
+            }
+            else
+            {
+                c = new Matrix<T>(a._rows, a._columns, Length);
+                C = c._matrix;
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                C[i] = Compute.Subtract(A[i], B[i]);
+            }
+        }
+
+        /// <summary>Does a standard matrix subtraction.</summary>
+		/// <param name="a">The left matrix of the subtraction.</param>
+        /// <param name="b">The right matrix of the subtraction.</param>
+		/// <returns>The resulting matrix after the subtraction.</returns>
+		public static Matrix<T> Subtract(Matrix<T> a, Matrix<T> b)
+        {
+            Matrix<T> c = null;
+            Subtract(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Does a standard matrix subtraction.</summary>
+        /// <param name="a">The left matrix of the subtraction.</param>
+        /// <param name="b">The right matrix of the subtraction.</param>
+        /// <returns>The resulting matrix after the subtraction.</returns>
+        public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Does a standard matrix subtraction.</summary>
 		/// <param name="b">The right matrix of the subtraction.</param>
-		/// <returns>The result of the matrix subtraction.</returns>
-		public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b)
-		{ return Subtract(a, b); }
-		/// <summary>Multiplies a vector by a matrix.</summary>
-		/// <param name="a">The matrix of the multiplication.</param>
-		/// <param name="b">The vector of the multiplication.</param>
-		/// <returns>The resulting vector after the multiplication.</returns>
-		public static Vector<T> operator *(Matrix<T> a, Vector<T> b)
-		{ return Multiply(a, b); }
-		/// <summary>Does a standard matrix multiplication.</summary>
+		/// <returns>The resulting matrix after the subtraction.</returns>
+		public Matrix<T> Subtract(Matrix<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply (Matrix * Matrix)
+
+        /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
 		/// <param name="a">The left matrix of the multiplication.</param>
 		/// <param name="b">The right matrix of the multiplication.</param>
-		/// <returns>The resulting matrix after the multiplication.</returns>
+        /// <param name="c">The resulting matrix of the multiplication.</param>
+        private static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (a._columns != b._rows)
+            {
+                throw new MathematicsException("Arguments invalid !(" +
+                    nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
+            }
+            if (object.ReferenceEquals(a, b) && object.ReferenceEquals(a, c))
+            {
+                Matrix<T> clone = a.Clone();
+                a = clone;
+                b = clone;
+            }
+            else if (object.ReferenceEquals(a, c))
+            {
+                a = a.Clone();
+            }
+            else if (object.ReferenceEquals(b, c))
+            {
+                b = b.Clone();
+            }
+            int c_Rows = a._rows;
+            int a_Columns = a._columns;
+            int c_Columns = b._columns;
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            T[] C;
+            if (c != null && c._matrix.Length == c_Rows * c_Columns)
+            {
+                C = c._matrix;
+                c._rows = c_Rows;
+                c._columns = c_Columns;
+            }
+            else
+            {
+                c = new Matrix<T>(c_Rows, c_Columns);
+                C = c._matrix;
+            }
+            for (int i = 0; i < c_Rows; i++)
+            {
+                int i_times_a_Columns = i * a_Columns;
+                int i_times_c_Columns = i * c_Columns;
+                for (int j = 0; j < c_Columns; j++)
+                {
+                    T sum = Constant<T>.Zero;
+                    for (int k = 0; k < a_Columns; k++)
+                    {
+                        sum = Compute.Add(sum, Compute.Multiply(A[i_times_a_Columns + k], B[k * c_Columns + j]));
+                    }
+                    C[i_times_c_Columns + j] = sum;
+                }
+            }
+        }
+
+        /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
+		/// <param name="a">The left matrix of the multiplication.</param>
+		/// <param name="b">The right matrix of the multiplication.</param>
+		/// <returns>The resulting matrix of the multiplication.</returns>
+		public static Matrix<T> Multiply(Matrix<T> a, Matrix<T> b)
+        {
+            Matrix<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
+		/// <param name="a">The left matrix of the multiplication.</param>
+		/// <param name="b">The right matrix of the multiplication.</param>
+		/// <returns>The resulting matrix of the multiplication.</returns>
 		public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b)
-		{ return Multiply(a, b); }
-		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
-		/// <param name="a">The matrix to have its values multiplied.</param>
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
+		/// <param name="b">The right matrix of the multiplication.</param>
+		/// <returns>The resulting matrix of the multiplication.</returns>
+		public Matrix<T> Multiply(Matrix<T> b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Multiply (Matrix * Vector)
+
+        /// <summary>Does a matrix-vector multiplication.</summary>
+        /// <param name="a">The left matrix of the multiplication.</param>
+        /// <param name="b">The right vector of the multiplication.</param>
+        /// <param name="c">The resulting vector of the multiplication.</param>
+        private static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            int rows = a._rows;
+            int columns = a._columns;
+            if (columns != b.Dimensions)
+            {
+                throw new MathematicsException("Arguments invalid !(" +
+                    nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
+            }
+            T[] A = a._matrix;
+            T[] B = b._vector;
+            T[] C;
+            if (c != null && c.Dimensions == columns)
+            {
+                C = c._vector;
+            }
+            else
+            {
+                c = new Vector<T>(columns);
+                C = c._vector;
+            }
+            for (int i = 0; i < rows; i++)
+            {
+                int i_times_columns = i * columns;
+                T sum = Constant<T>.Zero;
+                for (int j = 0; j < columns; j++)
+                {
+                    sum = Compute.Add(sum, Compute.Multiply(A[i_times_columns + j], B[j]));
+                }
+                C[i] = sum;
+            }
+        }
+
+        /// <summary>Does a matrix-vector multiplication.</summary>
+		/// <param name="a">The left matrix of the multiplication.</param>
+		/// <param name="b">The right vector of the multiplication.</param>
+		/// <returns>The resulting vector of the multiplication.</returns>
+		public static Vector<T> Multiply(Matrix<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Does a matrix-vector multiplication.</summary>
+		/// <param name="a">The left matrix of the multiplication.</param>
+		/// <param name="b">The right vector of the multiplication.</param>
+		/// <returns>The resulting vector of the multiplication.</returns>
+        public static Vector<T> operator *(Matrix<T> a, Vector<T> b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Does a matrix-vector multiplication.</summary>
+		/// <param name="b">The right vector of the multiplication.</param>
+		/// <returns>The resulting vector of the multiplication.</returns>
+		public Vector<T> Multiply(Vector<T> b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Multiply (Matrix * Scalar)
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="a">The matrix to have the values multiplied.</param>
+		/// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="c">The resulting matrix after the multiplications.</param>
+        private static void Multiply(Matrix<T> a, T b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T[] A = a._matrix;
+            int Length = A.Length;
+            T[] C;
+            if (c != null && c._matrix.Length == Length)
+            {
+                C = c._matrix;
+                c._rows = a._rows;
+                c._columns = a._columns;
+            }
+            else
+            {
+                c = new Matrix<T>(a._rows, a._columns, Length);
+                C = c._matrix;
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                C[i] = Compute.Multiply(A[i], b);
+            }
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="a">The matrix to have the values multiplied.</param>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <returns>The resulting matrix after the multiplications.</returns>
-		public static Matrix<T> operator *(Matrix<T> a, T b)
-		{ return Multiply(a, b); }
-		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
-		/// <param name="a">The scalar to multiply the values by.</param>
-		/// <param name="b">The matrix to have its values multiplied.</param>
+		public static Matrix<T> Multiply(Matrix<T> a, T b)
+        {
+            Matrix<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+        /// <param name="b">The scalar to multiply the values by.</param>
+		/// <param name="a">The matrix to have the values multiplied.</param>
 		/// <returns>The resulting matrix after the multiplications.</returns>
-		public static Matrix<T> operator *(T a, Matrix<T> b)
-		{ return Multiply(b, a); }
-		/// <summary>Divides all the values in a matrix by a scalar.</summary>
-		/// <param name="a">The matrix to have its values divided.</param>
-		/// <param name="b">The scalar to divide the values by.</param>
-		/// <returns>The resulting matrix after the divisions.</returns>
-		public static Matrix<T> operator /(Matrix<T> a, T b)
-		{ return Divide(a, b); }
-		/// <summary>Applies a power to a matrix.</summary>
-		/// <param name="a">The matrix to apply a power to.</param>
+		public static Matrix<T> Multiply(T b, Matrix<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="a">The matrix to have the values multiplied.</param>
+		/// <param name="b">The scalar to multiply the values by.</param>
+		/// <returns>The resulting matrix after the multiplications.</returns>
+        public static Matrix<T> operator *(Matrix<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+        /// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="a">The matrix to have the values multiplied.</param>
+        /// <returns>The resulting matrix after the multiplications.</returns>
+        public static Matrix<T> operator *(T b, Matrix<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="b">The scalar to multiply the values by.</param>
+		/// <returns>The resulting matrix after the multiplications.</returns>
+		public Matrix<T> Multiply(T b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Divide (Matrix / Scalar)
+
+        /// <summary>Divides all the values in the matrix by a scalar.</summary>
+        /// <param name="a">The matrix to divide the values of.</param>
+        /// <param name="b">The scalar to divide all the matrix values by.</param>
+        /// <param name="c">The resulting matrix after the division.</param>
+        private static void Divide(Matrix<T> a, T b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T[] A = a._matrix;
+            int Length = A.Length;
+            T[] C;
+            if (c != null && c._matrix.Length == Length)
+            {
+                C = c._matrix;
+                c._rows = a._rows;
+                c._columns = a._columns;
+            }
+            else
+            {
+                c = new Matrix<T>(a._rows, a._columns, Length);
+                C = c._matrix;
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                C[i] = Compute.Divide(A[i], b);
+            }
+        }
+
+
+        /// <summary>Divides all the values in the matrix by a scalar.</summary>
+        /// <param name="a">The matrix to divide the values of.</param>
+        /// <param name="b">The scalar to divide all the matrix values by.</param>
+        /// <returns>The resulting matrix after the division.</returns>
+        public static Matrix<T> Divide(Matrix<T> a, T b)
+        {
+            Matrix<T> c = null;
+            Divide(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Divides all the values in the matrix by a scalar.</summary>
+        /// <param name="a">The matrix to divide the values of.</param>
+        /// <param name="b">The scalar to divide all the matrix values by.</param>
+        /// <returns>The resulting matrix after the division.</returns>
+        public static Matrix<T> operator /(Matrix<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides all the values in the matrix by a scalar.</summary>
+        /// <param name="b">The scalar to divide all the matrix values by.</param>
+        /// <returns>The resulting matrix after the division.</returns>
+		public Matrix<T> Divide(T b)
+        {
+            return this / b;
+        }
+
+        #endregion
+
+        #region Power (Matrix ^ Scalar)
+
+        /// <summary>Applies a power to a square matrix.</summary>
+		/// <param name="a">The matrix to be powered by.</param>
 		/// <param name="b">The power to apply to the matrix.</param>
-		/// <returns>The result of the power operation.</returns>
-		public static Matrix<T> operator ^(Matrix<T> a, int b)
-		{ return Power(a, b); }
-		/// <summary>Checks for equality by value.</summary>
-		/// <param name="a">The left matrix of the equality check.</param>
-		/// <param name="b">The right matrix of the equality check.</param>
-		/// <returns>True if the values of the matrices are equal, false if not.</returns>
-		public static bool operator ==(Matrix<T> a, Matrix<T> b)
+        /// <param name="c">The resulting matrix of the power operation.</param>
+        private static void Power(Matrix<T> a, int b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
+            }
+            if (b < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(b), b, "!(" + nameof(b) + " >= 0)");
+            }
+            if (b == 0)
+            {
+                if (c != null && c._matrix.Length == a._matrix.Length)
+                {
+                    c._rows = a._rows;
+                    c._columns = a._columns;
+                    Fill(c, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
+                }
+                else
+                {
+                    c = Matrix<T>.FactoryIdentity(a._rows, a._columns);
+                }
+                return;
+            }
+            if (c != null && c._matrix.Length == a._matrix.Length)
+            {
+                c._rows = a._rows;
+                c._columns = a._columns;
+                T[] A = a._matrix;
+                T[] C = c._matrix;
+                for (int i = 0; i < a._matrix.Length; i++)
+                {
+                    C[i] = A[i];
+                }
+            }
+            else
+            {
+                c = a.Clone();
+            }
+            Matrix<T> d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
+            for (int i = 0; i < b; i++)
+            {
+                Multiply(c, c, ref d);
+                Matrix<T> temp = d;
+                d = c;
+                c = d;
+            }
+        }
+
+        /// <summary>Applies a power to a square matrix.</summary>
+		/// <param name="a">The matrix to be powered by.</param>
+		/// <param name="b">The power to apply to the matrix.</param>
+		/// <returns>The resulting matrix of the power operation.</returns>
+		public static Matrix<T> Power(Matrix<T> a, int b)
+        {
+            Matrix<T> c = null;
+            Power(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Applies a power to a square matrix.</summary>
+		/// <param name="a">The matrix to be powered by.</param>
+		/// <param name="b">The power to apply to the matrix.</param>
+		/// <returns>The resulting matrix of the power operation.</returns>
+        public static Matrix<T> operator ^(Matrix<T> a, int b)
+        {
+            return Power(a, b);
+        }
+
+        /// <summary>Applies a power to a square matrix.</summary>
+		/// <param name="b">The power to apply to the matrix.</param>
+		/// <returns>The resulting matrix of the power operation.</returns>
+		public Matrix<T> Power(int b)
+        {
+            return this ^ b;
+        }
+
+        #endregion
+
+        #region Determinent
+
+        /// <summary>Computes the determinent of a square matrix.</summary>
+        /// <param name="a">The matrix to compute the determinent of.</param>
+		/// <returns>The computed determinent.</returns>
+        public static T Determinent(Matrix<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            }
+            T determinant = Constant<T>.One;
+            Matrix<T> rref = a.Clone();
+            int a_rows = a._rows;
+            for (int i = 0; i < a_rows; i++)
+            {
+                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+                {
+                    for (int j = i + 1; j < rref.Rows; j++)
+                    {
+                        if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
+                        {
+                            SwapRows(rref, i, j);
+                            determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
+                        }
+                    }
+                }
+                determinant = Compute.Multiply(determinant, rref.Get(i, i));
+                T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
+                RowMultiplication(rref, i, temp_rowMultiplication);
+                for (int j = i + 1; j < rref.Rows; j++)
+                {
+                    T scalar = Compute.Negate(rref.Get(j, i));
+                    RowAddition(rref, j, i, scalar);
+
+                }
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    T scalar = Compute.Negate(rref.Get(j, i));
+                    RowAddition(rref, j, i, scalar);
+
+                }
+            }
+            return determinant;
+        }
+
+        /// <summary>Computes the determinent of a square matrix.</summary>
+		/// <returns>The computed determinent.</returns>
+		public T Determinent()
+        {
+            return Determinent(this);
+        }
+
+        #endregion
+        
+        #region Minor
+
+        /// <summary>Gets the minor of a matrix.</summary>
+        /// <param name="a">The matrix to get the minor of.</param>
+        /// <param name="row">The restricted row to form the minor.</param>
+        /// <param name="column">The restricted column to form the minor.</param>
+        /// <param name="b">The minor of the matrix.</param>
+        private static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (a._rows < 2 || a._columns < 2)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.Rows) + " >= 2 && " + nameof(a) + "." + nameof(a.Columns) + " >= 2)");
+            }
+            if (row < 0 || row >= a._rows)
+            {
+                throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " > 0)");
+            }
+            if (column < 0 || column >= a._columns)
+            {
+                throw new ArgumentOutOfRangeException(nameof(column), column, "!(" + nameof(column) + " > 0)");
+            }
+            if (object.ReferenceEquals(a, b))
+            {
+                a = a.Clone();
+            }
+            int a_rows = a._rows;
+            int a_columns = a._columns;
+            int b_rows = a_rows - 1;
+            int b_columns = a_columns - 1;
+            int b_length = b_rows * b_columns;
+            if (b is null || b._matrix.Length != b_length)
+            {
+                b = new Matrix<T>(b_rows, b_columns, b_length);
+            }
+            else
+            {
+                b._rows = b_rows;
+                b._columns = b_columns;
+            }
+            T[] B = b._matrix;
+            T[] A = a._matrix;
+            int m = 0, n = 0;
+            for (int i = 0; i < a_rows; i++, m++)
+            {
+                if (i == row)
+                {
+                    continue;
+                }
+                int i_times_a_columns = i * a_columns;
+                int m_times_b_columns = m * b_columns;
+                n = 0;
+                for (int j = 0; j < a_columns; j++, n++)
+                {
+                    if (j == column)
+                    {
+                        continue;
+                    }
+                    T temp = A[i_times_a_columns + j];
+                    B[m_times_b_columns + n] = temp;
+                }
+            }
+        }
+
+        /// <summary>Gets the minor of a matrix.</summary>
+		/// <param name="a">The matrix to get the minor of.</param>
+		/// <param name="row">The restricted row to form the minor.</param>
+		/// <param name="column">The restricted column to form the minor.</param>
+		/// <returns>The minor of the matrix.</returns>
+		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
+        {
+            Matrix<T> c = null;
+            Minor(a, row, column, ref c);
+            return c;
+        }
+
+        /// <summary>Gets the minor of a matrix.</summary>
+		/// <param name="row">The restricted row to form the minor.</param>
+		/// <param name="column">The restricted column to form the minor.</param>
+		/// <returns>The minor of the matrix.</returns>
+		public Matrix<T> Minor(int row, int column)
+        {
+            return Minor(this, row, column);
+        }
+
+        #endregion
+
+        #region ConcatenateRowWise
+
+        /// <summary>Combines two matrices from left to right 
+		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// <param name="a">The left matrix of the concatenation.</param>
+		/// <param name="b">The right matrix of the concatenation.</param>
+        /// <param name="c">The resulting matrix of the concatenation.</param>
+        private static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (a._rows != b._rows)
+            {
+                throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
+            }
+            int a_columns = a._columns;
+            int b_columns = b._columns;
+            int c_rows = a._rows;
+            int c_columns = a._columns + b._columns;
+            int c_length = c_rows * c_columns;
+            if (c is null ||
+                c._matrix.Length != c_length ||
+                object.ReferenceEquals(a, c) ||
+                object.ReferenceEquals(b, c))
+            {
+                c = new Matrix<T>(c_rows, c_columns, c_length);
+            }
+            else
+            {
+                c._rows = c_rows;
+                c._columns = c_columns;
+            }
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            T[] C = c._matrix;
+            for (int i = 0; i < c_rows; i++)
+            {
+                int i_times_a_columns = i * a_columns;
+                int i_times_b_columns = i * b_columns;
+                int i_times_c_columns = i * c_columns;
+                for (int j = 0; j < c_columns; j++)
+                {
+                    if (j < a_columns)
+                    {
+                        C[i_times_c_columns + j] = A[i_times_a_columns + j];
+                    }
+                    else
+                    {
+                        C[i_times_c_columns + j] = B[i_times_b_columns + j - a_columns];
+                    }
+                }
+            }
+        }
+
+        /// <summary>Combines two matrices from left to right 
+		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// <param name="a">The left matrix of the concatenation.</param>
+		/// <param name="b">The right matrix of the concatenation.</param>
+		/// <returns>The resulting matrix of the concatenation.</returns>
+		public static Matrix<T> ConcatenateRowWise(Matrix<T> a, Matrix<T> b)
+        {
+            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns + b.Columns);
+            ConcatenateRowWise(a, b, ref c);
+            return c;
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>Checks for equality by value.</summary>
+        /// <param name="a">The left matrix of the equality check.</param>
+        /// <param name="b">The right matrix of the equality check.</param>
+        /// <returns>True if the values of the matrices are equal, false if not.</returns>
+        public static bool operator ==(Matrix<T> a, Matrix<T> b)
 		{ return EqualsByValue(a, b); }
 		/// <summary>Checks for false-equality by value.</summary>
 		/// <param name="a">The left matrix of the false-equality check.</param>
@@ -361,11 +1154,11 @@ namespace Towel.Mathematics
 		/// <returns>True if the values of the matrices are not equal, false if they are.</returns>
 		public static bool operator !=(Matrix<T> a, Matrix<T> b)
 		{ return !Matrix_EqualsByValue(a, b); }
-		/// <summary>Automatically converts a float[,] into a matrix if necessary.</summary>
-		/// <param name="a">The float[,] to convert to a matrix.</param>
-		/// <returns>The reference to the matrix representing the T[,].</returns>
-		public static explicit operator Matrix<T>(T[,] a)
-		{ return new Matrix<T>(a); }
+		///// <summary>Automatically converts a float[,] into a matrix if necessary.</summary>
+		///// <param name="a">The float[,] to convert to a matrix.</param>
+		///// <returns>The reference to the matrix representing the T[,].</returns>
+		//public static explicit operator Matrix<T>(T[,] a)
+		//{ return new Matrix<T>(a); }
 		///// <summary>Automatically converts a matrix into a T[,] if necessary.</summary>
 		///// <param name="matrix">The matrix to convert to a T[,].</param>
 		///// <returns>The reference to the T[,] representing the matrix.</returns>
@@ -378,46 +1171,13 @@ namespace Towel.Mathematics
 
 		#region Instance
 
-		/// <summary>Negates all the values in this matrix.</summary>
-		/// <returns>The resulting matrix after the negations.</returns>
-		public Matrix<T> Negate()
-		{ return Matrix<T>.Negate(this); }
-		/// <summary>Does a standard matrix addition.</summary>
-		/// <param name="right">The matrix to add to this matrix.</param>
-		/// <returns>The resulting matrix after the addition.</returns>
-		public Matrix<T> Add(Matrix<T> right)
-		{ return Matrix<T>.Add(this, right); }
-		/// <summary>Does a standard matrix multiplication (triple for loop).</summary>
-		/// <param name="right">The matrix to multiply this matrix by.</param>
-		/// <returns>The resulting matrix after the multiplication.</returns>
-		public Matrix<T> Multiply(Matrix<T> right)
-		{ return Matrix<T>.Multiply(this, right); }
-		/// <summary>Multiplies all the values in this matrix by a scalar.</summary>
-		/// <param name="right">The scalar to multiply all the matrix values by.</param>
-		/// <returns>The retulting matrix after the multiplications.</returns>
-		public Matrix<T> Multiply(T right)
-		{ return Matrix<T>.Multiply(this, right); }
-		/// <summary>Divides all the values in this matrix by a scalar.</summary>
-		/// <param name="right">The scalar to divide the matrix values by.</param>
-		/// <returns>The resulting matrix after teh divisions.</returns>
-		public Matrix<T> Divide(T right)
-		{ return Matrix<T>.Divide(this, right); }
-		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="row">The restricted row of the minor.</param>
-		/// <param name="column">The restricted column of the minor.</param>
-		/// <returns>The minor from the row/column restrictions.</returns>
-		public Matrix<T> Minor(int row, int column)
-		{ return Matrix<T>.Minor(this, row, column); }
 		/// <summary>Combines two matrices from left to right 
 		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="right">The matrix to combine with on the right side.</param>
 		/// <returns>The resulting row-wise concatination.</returns>
 		public Matrix<T> ConcatenateRowWise(Matrix<T> right)
 		{ return Matrix<T>.ConcatenateRowWise(this, right); }
-		/// <summary>Matrixs the determinent if this matrix is square.</summary>
-		/// <returns>The computed determinent if this matrix is square.</returns>
-		public T Determinent()
-		{ return Matrix<T>.Matrix_Determinent(this); }
+		
 		/// <summary>Matrixs the echelon form of this matrix (aka REF).</summary>
 		/// <returns>The computed echelon form of this matrix (aka REF).</returns>
 		public Matrix<T> Echelon()
@@ -447,114 +1207,9 @@ namespace Towel.Mathematics
 
 		#region Static
 
-		/// <summary>Negates all the values in a matrix.</summary>
-		/// <param name="a">The matrix to have its values negated.</param>
-		/// <returns>The resulting matrix after the negations.</returns>
-		public static Matrix<T> Negate(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Negate(a, ref b);
-            return b;
-        }
-		/// <summary>Does standard addition of two matrices.</summary>
-		/// <param name="a">The left matrix of the addition.</param>
-		/// <param name="b">The right matrix of the addition.</param>
-		/// <returns>The resulting matrix after the addition.</returns>
-		public static Matrix<T> Add(Matrix<T> a, Matrix<T> b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Add(a, b, ref c);
-            return c;
-        }
-		/// <summary>Subtracts a scalar from all the values in a matrix.</summary>
-		/// <param name="a">The matrix to have the values subtracted from.</param>
-		/// <param name="b">The scalar to subtract from all the matrix values.</param>
-		/// <returns>The resulting matrix after the subtractions.</returns>
-		public static Matrix<T> Subtract(Matrix<T> a, Matrix<T> b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Subtract(a, b, ref c);
-            return c;
-        }
-		/// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
-		/// <param name="a">The left matrix of the multiplication.</param>
-		/// <param name="b">The right matrix of the multiplication.</param>
-		/// <returns>The resulting matrix of the multiplication.</returns>
-		public static Matrix<T> Multiply(Matrix<T> a, Matrix<T> b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, b.Columns);
-            Matrix_Multiply(a, b, ref c);
-            return c;
-        }
-		/// <summary>Does a matrix-vector multiplication.</summary>
-		/// <param name="a">The left matrix of the multiplication.</param>
-		/// <param name="b">The right vector of the multiplication.</param>
-		/// <returns>The resulting matrix-vector of the multiplication.</returns>
-		public static Vector<T> Multiply(Matrix<T> a, Vector<T> b)
-		{
-            Vector<T> c = new Vector<T>(b.Dimensions);
-            Matrix_MultiplyVector(a, b, ref c);
-            return c;
-        }
-		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
-		/// <param name="left">The matrix to have the values multiplied.</param>
-		/// <param name="right">The scalar to multiply the values by.</param>
-		/// <returns>The resulting matrix after the multiplications.</returns>
-		public static Matrix<T> Multiply(Matrix<T> a, T b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_MultiplyScalar(a, b, ref c);
-            return c;
-        }
-		/// <summary>Applies a power to a square matrix.</summary>
-		/// <param name="a">The matrix to be powered by.</param>
-		/// <param name="b">The power to apply to the matrix.</param>
-		/// <returns>The resulting matrix of the power operation.</returns>
-		public static Matrix<T> Power(Matrix<T> a, int b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Power(a, b, ref c);
-            return c;
-        }
-		/// <summary>Divides all the values in the matrix by a scalar.</summary>
-		/// <param name="a">The matrix to divide the values of.</param>
-		/// <param name="b">The scalar to divide all the matrix values by.</param>
-		/// <returns>The resulting matrix with the divided values.</returns>
-		public static Matrix<T> Divide(Matrix<T> a, T b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_DivideScalar(a, b, ref c);
-            return c;
-        }
-		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="a">The matrix to get the minor of.</param>
-		/// <param name="row">The restricted row to form the minor.</param>
-		/// <param name="column">The restricted column to form the minor.</param>
-		/// <returns>The minor of the matrix.</returns>
-		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows - 1, a.Columns - 1);
-            Matrix_Minor(a, row, column, ref c);
-            return c;
-        }
-		/// <summary>Combines two matrices from left to right 
-		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
-		/// <param name="a">The left matrix of the concatenation.</param>
-		/// <param name="b">The right matrix of the concatenation.</param>
-		/// <returns>The resulting matrix of the concatenation.</returns>
-		public static Matrix<T> ConcatenateRowWise(Matrix<T> a, Matrix<T> b)
-		{
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns + b.Columns);
-            Matrix_ConcatenateRowWise(a, b, ref c);
-            return c;
-        }
-		/// <summary>Calculates the determinent of a square matrix.</summary>
-		/// <param name="matrix">The matrix to calculate the determinent of.</param>
-		/// <returns>The determinent of the matrix.</returns>
-		public static T Determinent(Matrix<T> matrix)
-		{
-            return Matrix_Determinent(matrix);
-        }
+		
+		
+		
 		/// <summary>Calculates the echelon of a matrix (aka REF).</summary>
 		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
 		/// <returns>The echelon of the matrix (aka REF).</returns>
@@ -641,20 +1296,35 @@ namespace Towel.Mathematics
 
         #region Implementations
 
-        #region Get
+        #region Get/Set
 
         internal T Get(int row, int column)
         {
             return this._matrix[row * this.Columns + column];
         }
-
-        #endregion
-
-        #region Set
-
+        
         internal void Set(int row, int column, T value)
         {
             this._matrix[row * this.Columns + column] = value;
+        }
+
+        #endregion
+
+        #region Fill
+
+        public static void Fill(Matrix<T> matrix, Func<int, int, T> function)
+        {
+            int Rows = matrix.Rows;
+            int Columns = matrix.Columns;
+            T[] MATRIX = matrix._matrix;
+            int i = 0;
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int column = 0; column < Columns; column++)
+                {
+                    MATRIX[i++] = function(row, column);
+                }
+            }
         }
 
         #endregion
@@ -701,23 +1371,6 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region DiagonalOnes
-
-        private static Action<Matrix<T>> DiagonalOnes = (Matrix<T> a) =>
-        {
-            int a_rows = a._rows;
-            int a_columns = a._columns;
-            for (int i = 0; i < a_rows; i++)
-            {
-                for (int j = 0; j < a_columns; j++)
-                {
-                    a.Set(i, j, Constant<T>.One);
-                }
-            }
-        };
-
-        #endregion
-
         #region CloneContents
 
         internal static void CloneContents(Matrix<T> a, Matrix<T> b)
@@ -753,140 +1406,11 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region FactoryZero
-
-        internal static Func<int, int, Matrix<T>> Matrix_FactoryZero = (int rows, int columns) =>
-		{
-			if (Compute.Equal(default(T), Constant<T>.Zero))
-			{
-				Matrix_FactoryZero = (int ROWS, int COLUMNS) =>
-				{
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-					return result;
-				};
-			}
-			else
-			{
-				Matrix_FactoryZero = (int ROWS, int COLUMNS) =>
-				{
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Constant<T>.Zero);
-                    return result;
-				};
-			}
-			return Matrix_FactoryZero(rows, columns);
-		};
-
-		#endregion
-
-		#region FactoryOne
-		
-		private static Func<int, int, Matrix<T>> Matrix_FactoryOne = (int rows, int columns) =>
-		{
-            if (Compute.Equal(default(T), Constant<T>.One))
-            {
-                Matrix_FactoryOne = (int ROWS, int COLUMNS) =>
-                {
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    return result;
-                };
-            }
-            else
-            {
-                Matrix_FactoryOne = (int ROWS, int COLUMNS) =>
-                {
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Constant<T>.One);
-                    return result;
-                };
-            }
-            return Matrix_FactoryOne(rows, columns);
-        };
-
-		#endregion
-
-		#region FactoryIdentity
-		
-		private static Func<int, int, Matrix<T>> Matrix_FactoryIdentity = (int rows, int columns) =>
-		{
-            if (Compute.Equal(default(T), Constant<T>.Zero))
-            {
-                Matrix_FactoryIdentity = (int ROWS, int COLUMNS) =>
-                {
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    T[] result_flat = result._matrix;
-                    DiagonalOnes(result);
-                    return result;
-                };
-            }
-            else
-            {
-                Matrix_FactoryIdentity = (int ROWS, int COLUMNS) =>
-                {
-                    if (ROWS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
-                    }
-                    if (COLUMNS < 1)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
-                    }
-                    Matrix<T> result = new Matrix<T>(ROWS, COLUMNS);
-                    result._matrix.Fill(Constant<T>.Zero);
-                    DiagonalOnes(result);
-                    return result;
-                };
-            }
-            return Matrix_FactoryIdentity(rows, columns);
-        };
-
-		#endregion
-
 		#region IsSymetric
 		
 		private static Func<Matrix<T>, bool> Matrix_IsSymetric = (Matrix<T> a) =>
 		{
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -911,346 +1435,6 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region Negate
-
-        private delegate void NegateSignature(Matrix<T> a, ref Matrix<T> c);
-        private static NegateSignature Matrix_Negate = (Matrix<T> a, ref Matrix<T> b) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            int length = a._matrix.Length;
-            T[] a_flat = a._matrix;
-            T[] b_flat;
-            if (b != null && b._matrix.Length == length)
-            {
-                b_flat = b._matrix;
-                b._rows = a._rows;
-                b._columns = a._columns;
-            }
-            else
-            {
-                b = new Matrix<T>(a._rows, a._columns, length);
-                b_flat = b._matrix;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                b_flat[i] = Compute.Negate(a_flat[i]);
-            }
-		};
-
-        #endregion
-
-        #region Add
-
-        private delegate void AddSignature(Matrix<T> a, Matrix<T> b, ref Matrix<T> c);
-        private static AddSignature Matrix_Add = (Matrix<T> a, Matrix<T> b, ref Matrix<T> c) =>
-        {
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (a._rows != b._rows && a._columns != b._columns)
-            {
-                throw new MathematicsException("Invalid multiplication (size miss-match).");
-            }
-            int length = a._matrix.Length;
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._matrix;
-            T[] c_flat;
-            if (c != null && c._matrix.Length == length)
-            {
-                c_flat = c._matrix;
-                c._rows = a._rows;
-                c._columns = a._columns;
-            }
-            else
-            {
-                c = new Matrix<T>(a._rows, a._columns, length);
-                c_flat = c._matrix;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                c_flat[i] = Compute.Add(a_flat[i], b_flat[i]);
-            }
-        };
-
-        #endregion
-
-        #region Subtract
-
-        private delegate void SubtractSignature(Matrix<T> a, Matrix<T> b, ref Matrix<T> c);
-        private static SubtractSignature Matrix_Subtract = (Matrix<T> a, Matrix<T> b, ref Matrix<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (a._rows != b._rows && a._columns != b._columns)
-            {
-                throw new MathematicsException("Invalid multiplication (size miss-match).");
-            }
-            int length = a._matrix.Length;
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._matrix;
-            T[] c_flat;
-            if (c != null && c._matrix.Length == length)
-            {
-                c_flat = c._matrix;
-                c._rows = a._rows;
-                c._columns = a._columns;
-            }
-            else
-            {
-                c = new Matrix<T>(a._rows, a._columns, length);
-                c_flat = c._matrix;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                c_flat[i] = Compute.Subtract(a_flat[i], b_flat[i]);
-            }
-        };
-
-        #endregion
-
-        #region Multiply
-
-        private delegate void MultiplySignature(Matrix<T> a, Matrix<T> b, ref Matrix<T> c);
-		private static MultiplySignature Matrix_Multiply = (Matrix<T> a, Matrix<T> b, ref Matrix<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (a._columns != b._rows)
-            {
-                throw new MathematicsException("Invalid multiplication (size miss-match).");
-            }
-            if (object.ReferenceEquals(a, b) && object.ReferenceEquals(a, c))
-            {
-                Matrix<T> clone = a.Clone();
-                a = clone;
-                b = clone;
-            }
-            else if (object.ReferenceEquals(a, c))
-            {
-                a = a.Clone();
-            }
-            else if (object.ReferenceEquals(b, c))
-            {
-                b = b.Clone();
-            }
-            int c_Rows = a._rows;
-            int a_Columns = a._columns;
-            int c_Columns = b._columns;
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._matrix;
-            T[] c_flat;
-            T sum;
-            if (c != null && c._matrix.Length == c_Rows * c_Columns)
-            {
-                c_flat = c._matrix;
-                c._rows = c_Rows;
-                c._columns = c_Columns;
-            }
-            else
-            {
-                c = new Matrix<T>(c_Rows, c_Columns);
-                c_flat = c._matrix;
-            }
-            for (int i = 0; i < c_Rows; i++)
-            {
-                for (int j = 0; j < c_Columns; j++)
-                {
-                    sum = Constant<T>.Zero;
-                    for (int k = 0; k < a_Columns; k++)
-                    {
-                        sum = Compute.Add(sum, Compute.Multiply(a_flat[i * a_Columns + k], b_flat[k * c_Columns + j]));
-                    }
-                    c_flat[i * c_Columns + j] = sum;
-                }
-            }
-		};
-
-        #endregion
-
-        #region MultiplyVector
-
-        private delegate void MultiplyVectorSignature(Matrix<T> a, Vector<T> b, ref Vector<T> c);
-        private static MultiplyVectorSignature Matrix_MultiplyVector = (Matrix<T> a, Vector<T> b, ref Vector<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-	        if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-		    if (a._columns != b._vector.Length)
-            { 
-		        throw new MathematicsException("Invalid multiplication (size miss-match).");
-            }
-	        int a_rows = a._rows;
-	        int a_columns = a._columns;
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._vector;
-            T[] c_flat;
-            if (c == null && c._vector.Length == b._vector.Length)
-            {
-                c_flat = c._vector;
-            }
-            else
-            {
-                c = new Vector<T>(b._vector.Length);
-                c_flat = c._vector;
-            }
-            for (int i = 0; i < a_rows; i++)
-            {
-                c_flat[i] = Constant<T>.Zero;
-                for (int j = 0; j < a_columns; j++)
-                {
-                    c_flat[i] = Compute.Add(c_flat[i], Compute.Multiply(a_flat[i * a_columns + j], b_flat[j]));
-                }
-            }
-		};
-
-        #endregion
-
-        #region MultiplyScalar
-        
-        private delegate void MultiplyScalarSignature(Matrix<T> a, T b, ref Matrix<T> c);
-        private static MultiplyScalarSignature Matrix_MultiplyScalar = (Matrix<T> a, T b, ref Matrix<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            int length = a._matrix.Length;
-            T[] a_flat = a._matrix;
-            T[] c_flat;
-            if (c != null && c._matrix.Length == length)
-            {
-                c_flat = c._matrix;
-                c._rows = a._rows;
-                c._columns = a._columns;
-            }
-            else
-            {
-                c = new Matrix<T>(a._rows, a._columns, length);
-                c_flat = c._matrix;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                c_flat[i] = Compute.Add(a_flat[i], b);
-            }
-		};
-
-        #endregion
-
-        #region DivideScalar
-
-        private delegate void DivideScalarSignature(Matrix<T> a, T b, ref Matrix<T> c);
-        private static DivideScalarSignature Matrix_DivideScalar = (Matrix<T> a, T b, ref Matrix<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            int length = a._matrix.Length;
-            T[] a_flat = a._matrix;
-            T[] c_flat;
-            if (c != null && c._matrix.Length == length)
-            {
-                c_flat = c._matrix;
-                c._rows = a._rows;
-                c._columns = a._columns;
-            }
-            else
-            {
-                c = new Matrix<T>(a._rows, a._columns, length);
-                c_flat = c._matrix;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                c_flat[i] = Compute.Divide(a_flat[i], b);
-            }
-        };
-
-        #endregion
-
-        #region Power
-
-        private delegate void PowerSignature(Matrix<T> a, int b, ref Matrix<T> c);
-        private static PowerSignature Matrix_Power = (Matrix<T> a, int b, ref Matrix<T> c) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (!a.IsSquare)
-            {
-                throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
-            }
-            if (!(b >= 0))
-            {
-                throw new ArgumentOutOfRangeException(nameof(b), b, "Invalid power !(" + nameof(b) + " > -1).");
-            }
-            if (b == 0)
-            {
-                if (c != null && c._matrix.Length == a._matrix.Length)
-                {
-                    c._rows = a._rows;
-                    c._columns = a._columns;
-                    c._matrix.Fill(Constant<T>.Zero);
-                    DiagonalOnes(c);
-                }
-                else
-                {
-                    c = Matrix<T>.FactoryIdentity(a._rows, a._columns);
-                }
-                return;
-            }
-            if (c != null && c._matrix.Length == a._matrix.Length)
-            {
-                c._rows = a._rows;
-                c._columns = a._columns;
-                T[] a_flat = a._matrix;
-                T[] c_flat = c._matrix;
-                for (int i = 0; i < a._matrix.Length; i++)
-                {
-                    c_flat[i] = a_flat[i];
-                }
-            }
-            else
-            {
-                c = a.Clone();
-            }
-            Matrix<T> d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
-            for (int i = 0; i < b; i++)
-            {
-                Matrix_Multiply(c, c, ref d);
-                Matrix<T> temp = d;
-                d = c;
-                c = d;
-            }
-		};
-
-		#endregion
-
         #region Rotate
 
         /// <summary>Rotates a 4x4 matrix around an 3D axis by a specified angle.</summary>
@@ -1260,11 +1444,11 @@ namespace Towel.Mathematics
         /// <returns>The rotated matrix.</returns>
         public static Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis, Matrix<T> matrix)
         {
-            if (axis == null)
+            if (axis is null)
             {
                 throw new ArgumentNullException(nameof(axis));
             }
-            if (matrix == null)
+            if (matrix is null)
             {
                 throw new ArgumentNullException(nameof(matrix));
             }
@@ -1326,186 +1510,51 @@ namespace Towel.Mathematics
             T _3_2 = Constant<T>.Zero;
             T _3_3 = Constant<T>.One;
 
-            return new Matrix<T>(new T[,]
+            return new Matrix<T>(4, 4, (row, column) =>
             {
-                { _0_0, _0_1, _0_2, _0_3 },
-                { _1_0, _1_1, _1_2, _1_3 },
-                { _2_0, _2_1, _2_2, _2_3 },
-                { _3_0, _3_1, _3_2, _3_3 }
+                switch (row)
+                {
+                    case 0:
+                        switch (column)
+                        {
+                            case 0: return _0_0;
+                            case 1: return _0_1;
+                            case 2: return _0_2;
+                            case 3: return _0_3;
+                            default: throw new MathematicsException("BUG");
+                        }
+                    case 1:
+                        switch (column)
+                        {
+                            case 0: return _1_0;
+                            case 1: return _1_1;
+                            case 2: return _1_2;
+                            case 3: return _1_3;
+                            default: throw new MathematicsException("BUG");
+                        }
+                    case 2:
+                        switch (column)
+                        {
+                            case 0: return _2_0;
+                            case 1: return _2_1;
+                            case 2: return _2_2;
+                            case 3: return _2_3;
+                            default: throw new MathematicsException("BUG");
+                        }
+                    case 3:
+                        switch (column)
+                        {
+                            case 0: return _3_0;
+                            case 1: return _3_1;
+                            case 2: return _3_2;
+                            case 3: return _3_3;
+                            default: throw new MathematicsException("BUG");
+                        }
+                    default:
+                        throw new MathematicsException("BUG");
+                }
             });
         }
-
-        #endregion
-
-        #region Minor
-
-        private static void Matrix_Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (a._rows < 2 || a._columns < 2)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.Rows) + " >= 2 && " + nameof(a) + "." + nameof(a.Columns) + " >= 2)");
-            }
-            if (row < 0 || row >= a._rows)
-            {
-                throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " > 0)");
-            }
-            if (column < 0 || column >= a._columns)
-            {
-                throw new ArgumentOutOfRangeException(nameof(column), column, "!(" + nameof(column) + " > 0)");
-            }
-            if (object.ReferenceEquals(a, b))
-            {
-                a = a.Clone();
-            }
-            int a_rows = a._rows;
-            int a_columns = a._columns;
-            int b_rows = a_rows - 1;
-            int b_columns = a_columns - 1;
-            int b_length = b_rows * b_columns;
-            if (b == null || b._matrix.Length != b_length)
-            {
-                b = new Matrix<T>(b_rows, b_columns, b_length);
-            }
-            else
-            {
-                b._rows = b_rows;
-                b._columns = b_columns;
-            }
-            T[] b_flat = b._matrix;
-            T[] a_flat = a._matrix;
-	        int m = 0, n = 0;
-	        for (int i = 0; i < a_rows; i++)
-	        {
-                if (i == row)
-                {
-                    continue;
-                }
-			    n = 0;
-			    for (int j = 0; j < a_columns; j++)
-			    {
-                    if (j == column)
-                    {
-                        continue;
-                    }
-                    T temp = a_flat[(i * a_columns) + j];
-                    b_flat[m * b_columns + n] = temp;
-			    	n++;
-			    }
-			    m++;
-	        }
-		}
-
-		#endregion
-
-		#region ConcatenateRowWise
-
-		private static void Matrix_ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (object.ReferenceEquals(a, c))
-            {
-                throw new MathematicsException("Arguments invalid (object.ReferenceEquals(" + nameof(a) + ", " + nameof(c) + "))");
-            }
-            if (object.ReferenceEquals(b, c))
-            {
-                throw new MathematicsException("Arguments invalid (object.ReferenceEquals(" + nameof(b) + ", " + nameof(c) + "))");
-            }
-            if (a._rows != b._rows)
-            {
-                throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
-            }
-            int a_columns = a._columns;
-            int b_columns = b._columns;
-            int c_rows = a._rows;
-            int c_columns = a._columns + b._columns;
-            int c_length = c_rows * c_columns;
-            if (c == null || c._matrix.Length != c_length)
-            {
-                c = new Matrix<T>(c_rows, c_columns, c_length);
-            }
-            else
-            {
-                c._rows = c_rows;
-                c._columns = c_columns;
-            }
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._matrix;
-            T[] c_flat = c._matrix;
-            for (int i = 0; i < c_rows; i++)
-            {
-                for (int j = 0; j < c_columns; j++)
-                {
-                    if (j < a_columns)
-                    {
-                        c_flat[(i * c_columns) + j] = a_flat[(i * a_columns) + j];
-                    }
-                    else
-                    {
-                        c_flat[(i * c_columns) + j] = b_flat[(i * b_columns) + (j - a_columns)];
-                    }
-                }
-            }
-		}
-
-        #endregion
-
-        #region Determinent
-
-        private static Func<Matrix<T>, T> Matrix_Determinent = (Matrix<T> a) =>
-        {
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (!a.IsSquare)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-            }
-            T determinant = Constant<T>.One;
-            Matrix<T> rref = a.Clone();
-            int a_rows = a._rows;
-            for (int i = 0; i < a_rows; i++)
-            {
-                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
-                {
-                    for (int j = i + 1; j < rref.Rows; j++)
-                    {
-                        if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
-                        {
-                            SwapRows(rref, i, j);
-                            determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
-                        }
-                    }
-                }
-                determinant = Compute.Multiply(determinant, rref.Get(i, i));
-                T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
-                RowMultiplication(rref, i, temp_rowMultiplication);
-                for (int j = i + 1; j < rref.Rows; j++)
-                {
-                    T scalar = Compute.Negate(rref.Get(j, i));
-                    RowAddition(rref, j, i, scalar);
-
-                }
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    T scalar = Compute.Negate(rref.Get(j, i));
-                    RowAddition(rref, j, i, scalar);
-
-                }
-            }
-            return determinant;
-        };
 
         #endregion
 
@@ -1514,7 +1563,7 @@ namespace Towel.Mathematics
         private delegate void EchelonSignature(Matrix<T> a, ref Matrix<T> b);
         private static EchelonSignature Matrix_Echelon = (Matrix<T> a, ref Matrix<T> b) =>
 		{
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -1576,7 +1625,7 @@ namespace Towel.Mathematics
         private delegate void ReducedEchelonSignature(Matrix<T> a, ref Matrix<T> b);
         private static ReducedEchelonSignature Matrix_ReducedEchelon = (Matrix<T> a, ref Matrix<T> b) =>
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -1725,7 +1774,7 @@ namespace Towel.Mathematics
         private delegate void AdjointSignature(Matrix<T> a, ref Matrix<T> c);
         private static AdjointSignature Matrix_Adjoint = (Matrix<T> a, ref Matrix<T> b) =>
 		{
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -1771,7 +1820,7 @@ namespace Towel.Mathematics
 
 		private static void Matrix_Transpose(Matrix<T> a, ref Matrix<T> b)
 		{
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }

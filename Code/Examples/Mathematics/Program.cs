@@ -319,14 +319,16 @@ namespace Mathematics
             Console.WriteLine("    V3 cross V3: ");
             ConsoleWrite(Vector<double>.CrossProduct(V3, V3));
 
-            // Matrix Construction
-            Matrix<double> M = (Matrix<double>)new double[,]
+            double[,] doubleData = new double[,]
             {
                 { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
                 { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
                 { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
                 { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
             };
+
+            // Matrix Construction
+            Matrix<double> M = new Matrix<double>(4, 4, (row, column) => doubleData[row, column]);
 
             Console.WriteLine("    Matrix<double>.Identity(4, 4): ");
             ConsoleWrite(Matrix<double>.FactoryIdentity(4, 4));
@@ -360,8 +362,8 @@ namespace Mathematics
             ConsoleWrite(M ^ 3);
 
             // Matrix Multiplication
-            Console.WriteLine("    minor(M, 1, 1): ");
-            ConsoleWrite(M.Minor(1, 1));
+            //Console.WriteLine("    minor(M, 1, 1): ");
+            //ConsoleWrite(M.Minor(1, 1));
 
             // Matrix Reduced Row Echelon
             Console.WriteLine("    rref(M): ");

@@ -340,22 +340,36 @@ namespace Towel.Mathematics
         /// <returns>The resulting 3x3 matrix.</returns>
         public static Matrix<T> ToMatrix3x3(Quaternion<T> quaternion)
         {
-            return new Matrix<T>(new T[,]
+            return new Matrix<T>(3, 3, (int x, int y) =>
             {
-                { // row 1
-                    Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
-                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z)),
-                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y)),
-                },
-                { // row 2
-                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z)),
-                    Compute.Subtract(Compute.Add(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
-                    Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X)),
-                },
-                { // row 3
-                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y)),
-                    Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X)),
-                    Compute.Add(Compute.Subtract(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z)),
+                switch (x)
+                {
+                    case 0:
+                        switch (y)
+                        {
+                            case 0: return Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
+                            case 1: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z));
+                            case 2: return Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y));
+                            default: throw new MathematicsException("BUG");
+                        }
+                    case 1:
+                        switch (y)
+                        {
+                            case 0: return Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Z));
+                            case 1: return Compute.Subtract(Compute.Add(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
+                            case 2: return Compute.Add(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X));
+                            default: throw new MathematicsException("BUG");
+                        }
+                    case 2:
+                        switch (y)
+                        {
+                            case 0: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.Y));
+                            case 1: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Compute.FromInt32<T>(2), quaternion.W), quaternion.X));
+                            case 2: return Compute.Add(Compute.Subtract(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
+                            default: throw new MathematicsException("BUG");
+                        }
+                    default:
+                        throw new MathematicsException("BUG");
                 }
             });
         }

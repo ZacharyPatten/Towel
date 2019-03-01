@@ -254,13 +254,16 @@ namespace Towel.Graphics.Formats
                     }
                 }
                 string[] matrixStringSplits = xmlNode.First(x => x.Name == "matrix").InnerText.Split(' ');
-                Matrix<float> jointBindLocalTransform = new Matrix<float>(new float[,]
+
+                float[,] floatData = new float[,]
                 {
                     { float.Parse(matrixStringSplits[0]), float.Parse(matrixStringSplits[1]), float.Parse(matrixStringSplits[2]), float.Parse(matrixStringSplits[3]), },
                     { float.Parse(matrixStringSplits[4]), float.Parse(matrixStringSplits[5]), float.Parse(matrixStringSplits[6]), float.Parse(matrixStringSplits[7]), },
                     { float.Parse(matrixStringSplits[8]), float.Parse(matrixStringSplits[9]), float.Parse(matrixStringSplits[10]), float.Parse(matrixStringSplits[11]), },
                     { float.Parse(matrixStringSplits[12]), float.Parse(matrixStringSplits[13]), float.Parse(matrixStringSplits[14]), float.Parse(matrixStringSplits[15]), },
-                });
+                };
+
+                Matrix<float> jointBindLocalTransform = new Matrix<float>(4, 4, (row, column) => floatData[row, column]);
                 //jointBindLocalTransform = jointBindLocalTransform.Transpose();
 
                 return new Model.Joint()
@@ -328,13 +331,16 @@ namespace Towel.Graphics.Formats
                     {
                         matrixData[j] = float.Parse(rawData[i * 16 + j]);
                     }
-                    Matrix<float> transform = new Matrix<float>(new float[,]
+
+                    float[,] floatData = new float[,]
                     {
                         { matrixData[0], matrixData[1], matrixData[2], matrixData[3], },
                         { matrixData[4], matrixData[5], matrixData[6], matrixData[7], },
                         { matrixData[8], matrixData[9], matrixData[10], matrixData[11], },
                         { matrixData[12], matrixData[13], matrixData[14], matrixData[15], },
-                    });
+                    };
+
+                    Matrix<float> transform = new Matrix<float>(4, 4, (row, column) => floatData[row, column]);
                     transform = transform.Transpose();
                     
                     if (jointNameId == rootJointName)
