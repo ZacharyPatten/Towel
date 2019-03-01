@@ -1019,7 +1019,7 @@ namespace Towel.Mathematics
             T[] B = b._matrix;
             T[] A = a._matrix;
             int m = 0, n = 0;
-            for (int i = 0; i < a_rows; i++, m++)
+            for (int i = 0; i < a_rows; i++)
             {
                 if (i == row)
                 {
@@ -1028,7 +1028,7 @@ namespace Towel.Mathematics
                 int i_times_a_columns = i * a_columns;
                 int m_times_b_columns = m * b_columns;
                 n = 0;
-                for (int j = 0; j < a_columns; j++, n++)
+                for (int j = 0; j < a_columns; j++)
                 {
                     if (j == column)
                     {
@@ -1036,7 +1036,9 @@ namespace Towel.Mathematics
                     }
                     T temp = A[i_times_a_columns + j];
                     B[m_times_b_columns + n] = temp;
+                    n++;
                 }
+                m++;
             }
         }
 

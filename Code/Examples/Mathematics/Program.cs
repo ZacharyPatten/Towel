@@ -362,8 +362,8 @@ namespace Mathematics
             ConsoleWrite(M ^ 3);
 
             // Matrix Multiplication
-            //Console.WriteLine("    minor(M, 1, 1): ");
-            //ConsoleWrite(M.Minor(1, 1));
+            Console.WriteLine("    minor(M, 1, 1): ");
+            ConsoleWrite(M.Minor(1, 1));
 
             // Matrix Reduced Row Echelon
             Console.WriteLine("    rref(M): ");
