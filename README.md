@@ -117,4 +117,7 @@ Here are extensions on "System.Random" to generate more random types:
     decimal NextDecimal(this Random random)
     DateTime DateTime(this Random random)
     TimeSpan TimeSpan(this Random random)
-    
+
+Ever want to convert a generic type to the string as it appears in source code? Towel has you covered:
+
+    string ConvertToCsharpSource(this Type type)
