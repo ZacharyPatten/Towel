@@ -127,7 +127,7 @@ namespace Algorithms
 
                 // Bogo
                 //Sort<int>.Bogo(Logic.compare, get, set, 0, dataSet.Length);
-                Console.Write("  Bogo: Enable (uncomment) in Source Code");
+                Console.Write("  Bogo: Disabled (takes forever)");
                 //Console.Write(dataSet[0]);
                 //for (int i = 1; i < dataSet.Length; i++)
                 //	Console.Write(", " + dataSet[i]);

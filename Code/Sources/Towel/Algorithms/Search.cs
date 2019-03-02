@@ -87,7 +87,9 @@ namespace Towel.Algorithms
 				// construct the f(n) for this A* execution
 				Astar_function function = (T node, Astar_Node previous) =>
 				{
-					Math costFromStart = Compute.Add(computed_costs.Get(previous), cost(previous.Value, node));
+                    Math previousCost = computed_costs.Get(previous);
+                    Math currentCost = cost(previous.Value, node);
+                    Math costFromStart = Compute.Add(previousCost, currentCost);
 					return Compute.Add(costFromStart, heuristic(node));
 				};
 
