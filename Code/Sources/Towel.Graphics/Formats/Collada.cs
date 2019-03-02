@@ -89,9 +89,9 @@ namespace Towel.Graphics.Formats
             int maxJointEffectors = 3;
 
             Matrix<float> correction = Matrix<float>.Rotate4x4(
+                Matrix<float>.FactoryIdentity(4, 4),
                 Angle<float>.Factory_Degrees(-90f),
-                new Vector<float>(1, 0, 0),
-                Matrix<float>.FactoryIdentity(4, 4)).Transpose();
+                new Vector<float>(1, 0, 0)).Transpose();
 
             // Load the contents into an xml reader
             XmlDocument xml_document = new XmlDocument();

@@ -121,9 +121,9 @@ namespace Towel.Mathematics
             return AddImplementation<T>.Function(a, b);
         }
 
-        public static T Add<T>(params T[] operands)
+        public static T Add<T>(T a, T b, T c, params T[] d)
         {
-            return Add(operands.Stepper());
+            return Add((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Add<T>(Stepper<T> stepper)
@@ -154,9 +154,9 @@ namespace Towel.Mathematics
             return SubtractImplementation<T>.Function(a, b);
         }
 
-        public static T Subtract<T>(params T[] operands)
+        public static T Subtract<T>(T a, T b, T c, params T[] d)
         {
-            return Subtract(operands.Stepper());
+            return Subtract((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Subtract<T>(Stepper<T> stepper)
@@ -192,9 +192,9 @@ namespace Towel.Mathematics
             return MultiplyImplementation<T>.Function(a, b);
         }
 
-        public static T Multiply<T>(params T[] operands)
+        public static T Multiply<T>(T a, T b, T c, params T[] d)
         {
-            return Multiply(operands.Stepper());
+            return Multiply((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Multiply<T>(Stepper<T> stepper)
@@ -225,9 +225,9 @@ namespace Towel.Mathematics
             return DivideImplementation<T>.Function(a, b);
         }
 
-        public static T Divide<T>(params T[] operands)
+        public static T Divide<T>(T a, T b, T c, params T[] d)
         {
-            return Divide(operands.Stepper());
+            return Divide((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Divide<T>(Stepper<T> stepper)
@@ -267,12 +267,10 @@ namespace Towel.Mathematics
         {
             internal static Func<T, T> Function = (T a) =>
             {
-                throw new NotImplementedException();
-
-                //ParameterExpression A = Expression.Parameter(typeof(T));
-                //Expression BODY = ;
-                //Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-                //return Function(a);
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.Divide(Expression.Constant(Constant<T>.One), A);
+                Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
+                return Function(a);
             };
         }
 
@@ -285,9 +283,9 @@ namespace Towel.Mathematics
             return ModuloImplementation<T>.Function(a, b);
         }
 
-        public static T Modulo<T>(params T[] operands)
+        public static T Modulo<T>(T a, T b, T c, params T[] d)
         {
-            return Modulo(operands.Stepper());
+            return Modulo((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Modulo<T>(Stepper<T> operands)
@@ -323,9 +321,9 @@ namespace Towel.Mathematics
             return PowerImplementation<T>.Function(a, b);
         }
 
-        public static T Power<T>(params T[] operands)
+        public static T Power<T>(T a, T b, T c, params T[] d)
         {
-            return Power(operands.Stepper());
+            return Power((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Power<T>(Stepper<T> operands)
@@ -611,9 +609,9 @@ namespace Towel.Mathematics
             return MaximumImplementation<T>.Function(a, b);
         }
 
-        public static T Maximum<T>(params T[] operands)
+        public static T Maximum<T>(T a, T b, T c, params T[] d)
         {
-            return Maximum(operands.Stepper());
+            return Maximum((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Maximum<T>(Stepper<T> stepper)
@@ -655,9 +653,9 @@ namespace Towel.Mathematics
             return MinimumImplementation<T>.Function(a, b);
         }
 
-        public static T Minimum<T>(params T[] operands)
+        public static T Minimum<T>(T a, T b, T c, params T[] d)
         {
-            return Minimum(operands.Stepper());
+            return Minimum((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
         public static T Minimum<T>(Stepper<T> stepper)
@@ -1099,9 +1097,9 @@ namespace Towel.Mathematics
 
         #region GreatestCommonFactor
 
-        public static T GreatestCommonFactor<T>(params T[] operands)
+        public static T GreatestCommonFactor<T>(T a, T b, params T[] c)
         {
-            return GreatestCommonFactor<T>(operands.Stepper());
+            return GreatestCommonFactor<T>((Step<T> step) => { step(a); step(b); c.Stepper()(step); });
         }
 
         public static T GreatestCommonFactor<T>(Stepper<T> stepper)
@@ -1154,9 +1152,9 @@ namespace Towel.Mathematics
 
         #region LeastCommonMultiple
 
-        public static T LeastCommonMultiple<T>(params T[] operands)
+        public static T LeastCommonMultiple<T>(T a, T b, params T[] c)
         {
-            return LeastCommonMultiple(operands.Stepper());
+            return LeastCommonMultiple((Step<T> step) => { step(a); step(b); c.Stepper()(step); });
         }
 
         public static T LeastCommonMultiple<T>(Stepper<T> stepper)
@@ -1298,9 +1296,9 @@ namespace Towel.Mathematics
 
         #region Mode
 
-        public static Heap<Link<T, int>> Mode<T>(params T[] data)
+        public static Heap<Link<T, int>> Mode<T>(T a, params T[] b)
         {
-            return Mode(data.Stepper());
+            return Mode((Step<T> step) => { step(a); b.Stepper()(step); });
         }
 
         public static Heap<Link<T, int>> Mode<T>(Stepper<T> stepper)
@@ -1312,9 +1310,9 @@ namespace Towel.Mathematics
 
         #region Mean
 
-        public static T Mean<T>(params T[] data)
+        public static T Mean<T>(T a, params T[] b)
         {
-            return Mean(data.Stepper());
+            return Mean((Step<T> step) => { step(a); b.Stepper()(step); });
         }
 
         public static T Mean<T>(Stepper<T> stepper)

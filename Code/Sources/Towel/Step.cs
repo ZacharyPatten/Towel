@@ -73,8 +73,10 @@
 		{
 			return (Step<T> step) =>
 			{
-				foreach (T _step in enumerable)
-					step(_step);
+                foreach (T _step in enumerable)
+                {
+                    step(_step);
+                }
 			};
 		}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Towel.Measurements;
 
 namespace Towel.Mathematics
@@ -79,7 +80,7 @@ namespace Towel.Mathematics
             this._columns = columns;
         }
 
-        /// <summary>Constructs a new zero-matrix of the given dimensions (using FlattenedArray format).</summary>
+        /// <summary>Constructs a new default matrix of the given dimensions.</summary>
         /// <param name="rows">The number of row dimensions.</param>
         /// <param name="columns">The number of column dimensions.</param>
         public Matrix(int rows, int columns)
@@ -97,9 +98,35 @@ namespace Towel.Mathematics
             this._columns = columns;
         }
 
+        /// <summary>Constructs a new matrix and initializes it via function.</summary>
+        /// <param name="rows">The number of rows to construct.</param>
+        /// <param name="columns">The number of columns to construct.</param>
+        /// <param name="function">The initialization function.</param>
         public Matrix(int rows, int columns, Func<int, int, T> function) : this(rows, columns)
         {
             Fill(this, function);
+        }
+
+        /// <summary>
+        /// Creates a new matrix using ROW MAJOR ORDER. The data will be referenced to, so 
+        /// changes to it will modify the constructed matrix.
+        /// </summary>
+        /// <param name="rows">The number of rows to construct.</param>
+        /// <param name="columns">The number of columns to construct.</param>
+        /// <param name="data">The data of the matrix in ROW MAJOR ORDER.</param>
+        internal Matrix(int rows, int columns, params T[] data) : this(rows, columns)
+        {
+            if (data is null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (data.Length != rows * columns)
+            {
+                throw new ArgumentException("!(" + nameof(rows) + " * " + nameof(columns) + " == " + nameof(data) + "." + nameof(data.Length) + ")");
+            }
+            this._rows = rows;
+            this._columns = columns;
+            this._matrix = data;
         }
 
         private Matrix(Matrix<T> matrix)
@@ -209,99 +236,104 @@ namespace Towel.Mathematics
 		{
             if (rows < 1)
             {
-                throw new ArgumentOutOfRangeException("rows", rows, "!(rows > 0)");
+                throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
             }
             if (columns < 1)
             {
-                throw new ArgumentOutOfRangeException("columns", columns, "!(columns > 0)");
+                throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
             }
             Matrix<T> matrix = new Matrix<T>(rows, columns);
             matrix._matrix.Fill(value);
 			return matrix;
 		}
 
-        ///// <param name="angle">Angle of rotation in radians.</param>
-        //public static Matrix<T> Factory3x3RotationX(T angle)
-        //{
-        //	T cos = _cos(angle);
-        //	T sin = _sin(angle);
-        //	return new Matrix<T>(new T[,] {
-        //		{ _one, _zero, _zero },
-        //		{ _zero, cos, sin },
-        //		{ _zero, _negate(sin), cos }});
-        //}
-
-        ///// <param name="angle">Angle of rotation in radians.</param>
-        //public static Matrix<T> Factory3x3RotationY(T angle)
-        //{
-        //	T cos = _cos(angle);
-        //	T sin = _sin(angle);
-        //	return new Matrix<T>(new T[,] {
-        //		{ cos, _zero, _negate(sin) },
-        //		{ _zero, _one, _zero },
-        //		{ sin, _zero, cos }});
-        //}
-
-        ///// <param name="angle">Angle of rotation in radians.</param>
-        //public static Matrix<T> Factory3x3RotationZ(T angle)
-        //{
-        //	T cos = _cos(angle);
-        //	T sin = _sin(angle);
-        //	return new Matrix<T>(new T[,] {
-        //		{ cos, _negate(sin), _zero },
-        //		{ sin, cos, _zero },
-        //		{ _zero, _zero, _zero }});
-        //}
-
-        ///// <param name="angleX">Angle about the X-axis in radians.</param>
-        ///// <param name="angleY">Angle about the Y-axis in radians.</param>
-        ///// <param name="angleZ">Angle about the Z-axis in radians.</param>
-        //public static Matrix<T> Factory3x3RotationXthenYthenZ(T angleX, T angleY, T angleZ)
-        //{
-        //	T xCos = _cos(angleX), xSin = _sin(angleX),
-        //		yCos = _cos(angleY), ySin = _sin(angleY),
-        //		zCos = _cos(angleZ), zSin = _sin(angleZ);
-        //	return new Matrix<T>(new T[,] {
-        //		{ _multiply(yCos, zCos), _negate(_multiply(yCos, zSin)), ySin },
-        //		{ _add(_multiply(xCos, zSin), _multiply(_multiply(xSin, ySin), zCos)), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _negate(_multiply(xSin, yCos)) },
-        //		{ _subtract(_multiply(xSin, zSin), _multiply(_multiply(xCos, ySin), zCos)), _add(_multiply(xSin, zCos), _multiply(_multiply(xCos, ySin), zSin)), _multiply(xCos, yCos) }});
-        //}
-
-        ///// <param name="angleX">Angle about the X-axis in radians.</param>
-        ///// <param name="angleY">Angle about the Y-axis in radians.</param>
-        ///// <param name="angleZ">Angle about the Z-axis in radians.</param>
-        //public static Matrix<T> Factory3x3RotationZthenYthenX(T angleX, T angleY, T angleZ)
-        //{
-        //	T xCos = _cos(angleX), xSin = _sin(angleX),
-        //		yCos = _cos(angleY), ySin = _sin(angleY),
-        //		zCos = _cos(angleZ), zSin = _sin(angleZ);
-        //	return new Matrix<T>(new T[,] {
-        //		{ _multiply(yCos, zCos), _subtract(_multiply(_multiply(zCos, xSin), ySin), _multiply(xCos, zSin)), _add(_multiply(_multiply(xCos, zCos), ySin), _multiply(xSin, zSin)) },
-        //		{ _multiply(yCos, zSin), _add(_multiply(xCos, zCos), _multiply(_multiply(xSin, ySin), zSin)), _add(_multiply(_negate(zCos), xSin), _multiply(_multiply(xCos, ySin), zSin)) },
-        //		{ _negate(ySin), _multiply(yCos, xSin), _multiply(xCos, yCos) }});
-        //}
-
-        ///// <summary>Creates a 3x3 matrix initialized with a shearing transformation.</summary>
-        ///// <param name="shearXbyY">The shear along the X-axis in the Y-direction.</param>
-        ///// <param name="shearXbyZ">The shear along the X-axis in the Z-direction.</param>
-        ///// <param name="shearYbyX">The shear along the Y-axis in the X-direction.</param>
-        ///// <param name="shearYbyZ">The shear along the Y-axis in the Z-direction.</param>
-        ///// <param name="shearZbyX">The shear along the Z-axis in the X-direction.</param>
-        ///// <param name="shearZbyY">The shear along the Z-axis in the Y-direction.</param>
-        ///// <returns>The constructed shearing matrix.</returns>
-        //public static Matrix<T> Factory3x3Shear(
-        //	T shearXbyY, T shearXbyZ, T shearYbyX,
-        //	T shearYbyZ, T shearZbyX, T shearZbyY)
-        //{
-        //	return new Matrix<T>(new T[,] {
-        //		{ _one, shearYbyX, shearZbyX },
-        //		{ shearXbyY, _one, shearYbyZ },
-        //		{ shearXbyZ, shearYbyZ, _one }});
-        //}
-
         #endregion
 
         #region Mathematics
+
+        #region RowMultiplication
+
+        private static void RowMultiplication(Matrix<T> matrix, int row, T scalar)
+        {
+            int columns = matrix.Columns;
+            for (int i = 0; i < columns; i++)
+            {
+                matrix.Set(row, i, Compute.Multiply(matrix.Get(row, i), scalar));
+            }
+        }
+
+        #endregion
+
+        #region RowAddition
+
+        private static void RowAddition(Matrix<T> matrix, int target, int second, T scalar)
+        {
+            int columns = matrix.Columns;
+            for (int i = 0; i < columns; i++)
+            {
+                matrix.Set(target, i, Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar)));
+                matrix[target, i] = Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar));
+            }
+        }
+
+        #endregion
+
+        #region SwapRows
+
+        private static void SwapRows(Matrix<T> matrix, int row1, int row2)
+        {
+            int columns = matrix.Columns;
+            for (int i = 0; i < columns; i++)
+            {
+                T temp = matrix.Get(row1, i);
+                matrix.Set(row1, i, matrix.Get(row2, i));
+                matrix.Set(row2, i, temp);
+            }
+        }
+
+        #endregion
+
+        #region IsSymetric
+
+        /// <summary>Determines if the matrix is symetric.</summary>
+        /// <param name="a">The matrix to determine if symetric.</param>
+        /// <returns>True if the matrix is symetric; false if not.</returns>
+        public static bool GetIsSymetric(Matrix<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            int rows = a._rows;
+            if (rows != a._columns)
+            {
+                return false;
+            }
+            T[] A = a._matrix;
+            for (int row = 0; row < rows; row++)
+            {
+                for (int column = row + 1; column < rows; column++)
+                {
+                    if (Compute.NotEqual(A[row * rows + column], A[column * rows + row]))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>Determines if the matrix is symetric.</summary>
+        /// <returns>True if the matrix is symetric; false if not.</returns>
+        public bool IsSymetric
+        {
+            get
+            {
+                return GetIsSymetric(this);
+            }
+        }
+
+        #endregion
 
         #region Negate
 
@@ -350,6 +382,13 @@ namespace Towel.Mathematics
         public static Matrix<T> operator -(Matrix<T> a)
         {
             return Negate(a);
+        }
+
+        /// <summary>Negates all the values in a matrix.</summary>
+        /// <param name="b">The resulting matrix after the negation.</param>
+		public void Negate(ref Matrix<T> b)
+        {
+            Negate(this, ref b);
         }
 
         /// <summary>Negates all the values in this matrix.</summary>
@@ -424,6 +463,14 @@ namespace Towel.Mathematics
             return Add(a, b);
         }
 
+        /// <summary>Does standard addition of two matrices.</summary>
+		/// <param name="b">The right matrix of the addition.</param>
+        /// <param name="c">The resulting matrix after the addition.</param>
+		public void Add(Matrix<T> b, ref Matrix<T> c)
+        {
+            Add(this, b, ref c);
+        }
+
         /// <summary>Does a standard matrix addition.</summary>
 		/// <param name="b">The matrix to add to this matrix.</param>
 		/// <returns>The resulting matrix after the addition.</returns>
@@ -431,7 +478,7 @@ namespace Towel.Mathematics
         {
             return this + b;
         }
-
+        
         #endregion
 
         #region Subtract
@@ -495,6 +542,14 @@ namespace Towel.Mathematics
         public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b)
         {
             return Subtract(a, b);
+        }
+
+        /// <summary>Does a standard matrix subtraction.</summary>
+        /// <param name="b">The right matrix of the subtraction.</param>
+        /// <param name="c">The resulting matrix after the subtraction.</param>
+		public void Subtract(Matrix<T> b, ref Matrix<T> c)
+        {
+            Subtract(this, b, ref c);
         }
 
         /// <summary>Does a standard matrix subtraction.</summary>
@@ -568,11 +623,24 @@ namespace Towel.Mathematics
                     T sum = Constant<T>.Zero;
                     for (int k = 0; k < a_Columns; k++)
                     {
-                        sum = Compute.Add(sum, Compute.Multiply(A[i_times_a_Columns + k], B[k * c_Columns + j]));
+                        sum = MultiplyThenAddImplementation.Function(A[i_times_a_Columns + k], B[k * c_Columns + j], sum);
                     }
                     C[i_times_c_Columns + j] = sum;
                 }
             }
+        }
+
+        internal static class MultiplyThenAddImplementation
+        {
+            internal static Func<T, T, T, T> Function = (T a, T b, T c) =>
+            {
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.Add(Expression.Multiply(A, B), C);
+                Function = Expression.Lambda<Func<T, T, T, T>>(BODY, A, B, C).Compile();
+                return Function(a, b, c);
+            };
         }
 
         /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
@@ -593,6 +661,14 @@ namespace Towel.Mathematics
 		public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b)
         {
             return Multiply(a, b);
+        }
+
+        /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
+		/// <param name="b">The right matrix of the multiplication.</param>
+        /// <param name="c">The resulting matrix of the multiplication.</param>
+        public void Multiply(Matrix<T> b, ref Matrix<T> c)
+        {
+            Multiply(this, b, ref c);
         }
 
         /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
@@ -670,6 +746,14 @@ namespace Towel.Mathematics
         public static Vector<T> operator *(Matrix<T> a, Vector<T> b)
         {
             return Multiply(a, b);
+        }
+
+        /// <summary>Does a matrix-vector multiplication.</summary>
+        /// <param name="b">The right vector of the multiplication.</param>
+        /// <param name="c">The resulting vector of the multiplication.</param>
+		public void Multiply(Vector<T> b, ref Vector<T> c)
+        {
+            Multiply(this, b, ref c);
         }
 
         /// <summary>Does a matrix-vector multiplication.</summary>
@@ -754,6 +838,14 @@ namespace Towel.Mathematics
 
         /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
 		/// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="c">The resulting matrix after the multiplications.</param>
+		public void Multiply(T b, ref Matrix<T> c)
+        {
+            Multiply(this, b, ref c);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <returns>The resulting matrix after the multiplications.</returns>
 		public Matrix<T> Multiply(T b)
         {
@@ -813,6 +905,14 @@ namespace Towel.Mathematics
         public static Matrix<T> operator /(Matrix<T> a, T b)
         {
             return Divide(a, b);
+        }
+
+        /// <summary>Divides all the values in the matrix by a scalar.</summary>
+        /// <param name="b">The scalar to divide all the matrix values by.</param>
+        /// <param name="c">The resulting matrix after the division.</param>
+        public void Divide(T b, ref Matrix<T> c)
+        {
+            Divide(this, b, ref c);
         }
 
         /// <summary>Divides all the values in the matrix by a scalar.</summary>
@@ -902,6 +1002,14 @@ namespace Towel.Mathematics
         public static Matrix<T> operator ^(Matrix<T> a, int b)
         {
             return Power(a, b);
+        }
+
+        /// <summary>Applies a power to a square matrix.</summary>
+		/// <param name="b">The power to apply to the matrix.</param>
+        /// <param name="c">The resulting matrix of the power operation.</param>
+		public void Power(int b, ref Matrix<T> c)
+        {
+            Power(this, b, ref c);
         }
 
         /// <summary>Applies a power to a square matrix.</summary>
@@ -1049,9 +1157,18 @@ namespace Towel.Mathematics
 		/// <returns>The minor of the matrix.</returns>
 		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
         {
-            Matrix<T> c = null;
-            Minor(a, row, column, ref c);
-            return c;
+            Matrix<T> b = null;
+            Minor(a, row, column, ref b);
+            return b;
+        }
+
+        /// <summary>Gets the minor of a matrix.</summary>
+        /// <param name="row">The restricted row to form the minor.</param>
+        /// <param name="column">The restricted column to form the minor.</param>
+        /// <param name="b">The minor of the matrix.</param>
+		public void Minor(int row, int column, ref Matrix<T> b)
+        {
+            Minor(this, row, column, ref b);
         }
 
         /// <summary>Gets the minor of a matrix.</summary>
@@ -1132,319 +1249,577 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the concatenation.</returns>
 		public static Matrix<T> ConcatenateRowWise(Matrix<T> a, Matrix<T> b)
         {
-            Matrix<T> c = new Matrix<T>(a.Rows, a.Columns + b.Columns);
+            Matrix<T> c = null;
             ConcatenateRowWise(a, b, ref c);
             return c;
         }
 
-        #endregion
-
-
-        #endregion
-
-        #region Operators
-
-        /// <summary>Checks for equality by value.</summary>
-        /// <param name="a">The left matrix of the equality check.</param>
-        /// <param name="b">The right matrix of the equality check.</param>
-        /// <returns>True if the values of the matrices are equal, false if not.</returns>
-        public static bool operator ==(Matrix<T> a, Matrix<T> b)
-		{ return EqualsByValue(a, b); }
-		/// <summary>Checks for false-equality by value.</summary>
-		/// <param name="a">The left matrix of the false-equality check.</param>
-		/// <param name="b">The right matrix of the false-equality check.</param>
-		/// <returns>True if the values of the matrices are not equal, false if they are.</returns>
-		public static bool operator !=(Matrix<T> a, Matrix<T> b)
-		{ return !Matrix_EqualsByValue(a, b); }
-		///// <summary>Automatically converts a float[,] into a matrix if necessary.</summary>
-		///// <param name="a">The float[,] to convert to a matrix.</param>
-		///// <returns>The reference to the matrix representing the T[,].</returns>
-		//public static explicit operator Matrix<T>(T[,] a)
-		//{ return new Matrix<T>(a); }
-		///// <summary>Automatically converts a matrix into a T[,] if necessary.</summary>
-		///// <param name="matrix">The matrix to convert to a T[,].</param>
-		///// <returns>The reference to the T[,] representing the matrix.</returns>
-		//public static explicit operator T[,](Matrix<T> matrix)
-		//{ 
-		//	T[,] array = new T[matrix.Rows, matrix.Columns];
-		//	for (int i = 0; i < i )
-		//	return matrix; }
-		#endregion
-
-		#region Instance
-
-		/// <summary>Combines two matrices from left to right 
+        /// <summary>Combines two matrices from left to right 
 		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
-		/// <param name="right">The matrix to combine with on the right side.</param>
-		/// <returns>The resulting row-wise concatination.</returns>
-		public Matrix<T> ConcatenateRowWise(Matrix<T> right)
-		{ return Matrix<T>.ConcatenateRowWise(this, right); }
-		
-		/// <summary>Matrixs the echelon form of this matrix (aka REF).</summary>
-		/// <returns>The computed echelon form of this matrix (aka REF).</returns>
-		public Matrix<T> Echelon()
-		{ return Matrix<T>.Echelon(this); }
-		/// <summary>Matrixs the reduced echelon form of this matrix (aka RREF).</summary>
-		/// <returns>The computed reduced echelon form of this matrix (aka RREF).</returns>
-		public Matrix<T> ReducedEchelon()
-		{ return Matrix<T>.ReducedEchelon(this); }
-		/// <summary>Matrixs the inverse of this matrix.</summary>
-		/// <returns>The inverse of this matrix.</returns>
-		public Matrix<T> Inverse()
-		{ return Matrix<T>.Inverse(this); }
-		/// <summary>Gets the adjoint of this matrix.</summary>
-		/// <returns>The adjoint of this matrix.</returns>
-		public Matrix<T> Adjoint()
-		{ return Matrix<T>.Adjoint(this); }
-		/// <summary>Transposes this matrix.</summary>
-		/// <returns>The transpose of this matrix.</returns>
-		public Matrix<T> Transpose()
-		{ return Matrix<T>.Transpose(this); }
-		/// <summary>Copies this matrix.</summary>
-		/// <returns>The copy of this matrix.</returns>
-		public Matrix<T> Clone()
-		{ return Matrix<T>.Clone(this); }
-
-		#endregion
-
-		#region Static
-
-		
-		
-		
-		/// <summary>Calculates the echelon of a matrix (aka REF).</summary>
-		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
-		/// <returns>The echelon of the matrix (aka REF).</returns>
-		public static Matrix<T> Echelon(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Echelon(a, ref b);
-            return b;
-        }
-		/// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
-		/// <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>
-		/// <returns>The reduced echelon of the matrix (aka RREF).</returns>
-		public static Matrix<T> ReducedEchelon(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_ReducedEchelon(a, ref b);
-            return b;
-        }
-		/// <summary>Calculates the inverse of a matrix.</summary>
-		/// <param name="a">The matrix to calculate the inverse of.</param>
-		/// <returns>The inverse of the matrix.</returns>
-		public static Matrix<T> Inverse(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Inverse(a, ref b);
-            return b;
-        }
-		/// <summary>Calculates the adjoint of a matrix.</summary>
-		/// <param name="a">The matrix to calculate the adjoint of.</param>
-		/// <returns>The adjoint of the matrix.</returns>
-		public static Matrix<T> Adjoint(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Adjoint(a, ref b);
-            return b;
-        }
-		/// <summary>Returns the transpose of a matrix.</summary>
-		/// <param name="a">The matrix to transpose.</param>
-		/// <returns>The transpose of the matrix.</returns>
-		public static Matrix<T> Transpose(Matrix<T> a)
-		{
-            Matrix<T> b = new Matrix<T>(a.Rows, a.Columns, a.Length);
-            Matrix_Transpose(a, ref b);
-            return b;
-        }
-		/// <summary>Decomposes a matrix into lower-upper reptresentation.</summary>
-		/// <param name="matrix">The matrix to decompose.</param>
-		/// <param name="lower">The computed lower triangular matrix.</param>
-		/// <param name="upper">The computed upper triangular matrix.</param>
-		/// <summary>Decomposes a matrix into lower-upper reptresentation.</summary>
-		/// <param name="matrix">The matrix to decompose.</param>
-		/// <param name="lower">The computed lower triangular matrix.</param>
-		/// <param name="upper">The computed upper triangular matrix.</param>
-		public static void DecomposeLU(Matrix<T> matrix, out Matrix<T> lower, out Matrix<T> upper)
-		{
-            Matrix<T>.Matrix_DecomposeLU(matrix, out lower, out upper);
-        }
-		/// <summary>Creates a copy of a matrix.</summary>
-		/// <param name="matrix">The matrix to copy.</param>
-		/// <returns>A copy of the matrix.</returns>
-		public static Matrix<T> Clone(Matrix<T> matrix)
-		{
-            return new Matrix<T>(matrix);
-        }
-		/// <summary>Does a value equality check.</summary>
-		/// <param name="left">The first matrix to check for equality.</param>
-		/// <param name="right">The second matrix to check for equality.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsByValue(Matrix<T> left, Matrix<T> right)
-		{
-            return Matrix_EqualsByValue(left, right);
-        }
-		/// <summary>Does a value equality check with leniency.</summary>
-		/// <param name="left">The first matrix to check for equality.</param>
-		/// <param name="right">The second matrix to check for equality.</param>
-		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsByValue(Matrix<T> left, Matrix<T> right, T leniency)
-		{
-            return Matrix_EqualsByValue_leniency(left, right, leniency);
-        }
-
-        #endregion
-
-        #region Implementations
-
-        #region Get/Set
-
-        internal T Get(int row, int column)
+		/// <param name="b">The right matrix of the concatenation.</param>
+        /// <param name="c">The resulting matrix of the concatenation.</param>
+        public void ConcatenateRowWise(Matrix<T> b, ref Matrix<T> c)
         {
-            return this._matrix[row * this.Columns + column];
+            ConcatenateRowWise(this, b, ref c);
         }
-        
-        internal void Set(int row, int column, T value)
+
+        /// <summary>Combines two matrices from left to right 
+		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// <param name="b">The right matrix of the concatenation.</param>
+		/// <returns>The resulting matrix of the concatenation.</returns>
+        public Matrix<T> ConcatenateRowWise(Matrix<T> b)
         {
-            this._matrix[row * this.Columns + column] = value;
+            return ConcatenateRowWise(this, b);
         }
 
         #endregion
 
-        #region Fill
+        #region Echelon
 
-        public static void Fill(Matrix<T> matrix, Func<int, int, T> function)
+        /// <summary>Calculates the echelon of a matrix (aka REF).</summary>
+        /// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
+        /// <param name="b">The echelon of the matrix (aka REF).</param>
+        private static void Echelon(Matrix<T> a, ref Matrix<T> b)
         {
-            int Rows = matrix.Rows;
-            int Columns = matrix.Columns;
-            T[] MATRIX = matrix._matrix;
-            int i = 0;
-            for (int row = 0; row < Rows; row++)
-            {
-                for (int column = 0; column < Columns; column++)
-                {
-                    MATRIX[i++] = function(row, column);
-                }
-            }
-        }
-
-        #endregion
-
-        #region RowMultiplication
-
-        private static void RowMultiplication(Matrix<T> matrix, int row, T scalar)
-		{
-            int columns = matrix.Columns;
-            for (int i = 0; i < columns; i++)
-			{
-                matrix.Set(row, i, Compute.Multiply(matrix.Get(row, i), scalar));
-			}
-		}
-
-		#endregion
-
-		#region RowAddition
-
-		private static void RowAddition(Matrix<T> matrix, int target, int second, T scalar)
-		{
-            int columns = matrix.Columns;
-			for (int i = 0; i < columns; i++)
-			{
-                matrix.Set(target, i, Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar)));
-				matrix[target, i] = Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar));
-			}
-		}
-
-        #endregion
-
-        #region SwapRows
-
-        private static void SwapRows(Matrix<T> matrix, int row1, int row2)
-        {
-            int columns = matrix.Columns;
-            for (int i = 0; i < columns; i++)
-            {
-                T temp = matrix.Get(row1, i);
-                matrix.Set(row1, i, matrix.Get(row2, i));
-                matrix.Set(row2, i, temp);
-            }
-        }
-
-        #endregion
-
-        #region CloneContents
-
-        internal static void CloneContents(Matrix<T> a, Matrix<T> b)
-        {
-            T[] a_flat = a._matrix;
-            T[] b_flat = b._matrix;
-            int length = a_flat.Length;
-            for (int i = 0; i < length; i++)
-            {
-                b_flat[i] = a_flat[i];
-            }
-        }
-
-        #endregion
-
-        #region TransposeContents
-
-        internal static void TransposeContents(Matrix<T> a)
-        {
-            int Rows = a.Rows;
-            int Columns = a.Columns;
-            for (int i = 0; i < Rows; i++)
-            {
-                int Rows_Minus_i = Rows - i;
-                for (int j = 0; j < Rows_Minus_i; j++)
-                {
-                    T temp = a.Get(i, j);
-                    a.Set(i, j, a.Get(j, i));
-                    a.Set(j, i, temp);
-                }
-            }
-        }
-
-        #endregion
-
-		#region IsSymetric
-		
-		private static Func<Matrix<T>, bool> Matrix_IsSymetric = (Matrix<T> a) =>
-		{
             if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (a._rows != a._columns)
+            if (object.ReferenceEquals(a, b))
             {
-                return false;
+                a = a.Clone();
             }
-            int side_length = a._rows;
-            T[] a_flat = a._matrix;
-            for (int row = 0; row < side_length; row++)
+            int Rows = a.Rows;
+            if (b != null && b._matrix.Length == a._matrix.Length)
             {
-                for (int column = row + 1; column < side_length; column++)
+                b._rows = Rows;
+                b._columns = a._columns;
+                CloneContents(a, b);
+            }
+            else
+            {
+                b = a.Clone();
+            }
+            for (int i = 0; i < Rows; i++)
+            {
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
                 {
-                    if (Compute.NotEqual(a_flat[row * side_length + column], a_flat[column * side_length + row]))
+                    for (int j = i + 1; j < Rows; j++)
                     {
-                        return false;
+                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+                        {
+                            SwapRows(b, i, j);
+                        }
+                    }
+                }
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+                {
+                    continue;
+                }
+                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+                {
+                    for (int j = i + 1; j < Rows; j++)
+                    {
+                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+                        {
+                            SwapRows(b, i, j);
+                        }
+                    }
+                }
+                T rowMultipier = Compute.Divide(Constant<T>.One, b.Get(i, i));
+                RowMultiplication(b, i, rowMultipier);
+                for (int j = i + 1; j < Rows; j++)
+                {
+                    T rowAddend = Compute.Negate(b.Get(j, i));
+                    RowAddition(b, j, i, rowAddend);
+                }
+            }
+        }
+
+        /// <summary>Calculates the echelon of a matrix (aka REF).</summary>
+		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
+		/// <returns>The echelon of the matrix (aka REF).</returns>
+		public static Matrix<T> Echelon(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            Echelon(a, ref b);
+            return b;
+        }
+
+        /// <summary>Calculates the echelon of a matrix (aka REF).</summary>
+        /// <param name="b">The echelon of the matrix (aka REF).</param>
+		public void Echelon(ref Matrix<T> b)
+        {
+            Echelon(this, ref b);
+        }
+
+        /// <summary>Calculates the echelon of a matrix (aka REF).</summary>
+		/// <returns>The echelon of the matrix (aka REF).</returns>
+		public Matrix<T> Echelon()
+        {
+            return Echelon(this);
+        }
+
+        #endregion
+
+        #region ReducedEchelon
+
+        /// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
+		/// <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>
+        /// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
+        private static void ReducedEchelon(Matrix<T> a, ref Matrix<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (object.ReferenceEquals(a, b))
+            {
+                a = a.Clone();
+            }
+            int Rows = a.Rows;
+            if (b != null && b._matrix.Length == a._matrix.Length)
+            {
+                b._rows = Rows;
+                b._columns = a._columns;
+                CloneContents(a, b);
+            }
+            else
+            {
+                b = a.Clone();
+            }
+            for (int i = 0; i < Rows; i++)
+            {
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+                {
+                    for (int j = i + 1; j < Rows; j++)
+                    {
+                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+                        {
+                            SwapRows(b, i, j);
+                        }
+                    }
+                }
+                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+                {
+                    continue;
+                }
+                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+                {
+                    for (int j = i + 1; j < Rows; j++)
+                    {
+                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+                        {
+                            SwapRows(b, i, j);
+                        }
+                    }
+                }
+                T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
+                RowMultiplication(b, i, rowMiltiplier);
+                for (int j = i + 1; j < Rows; j++)
+                {
+                    T rowAddend = Compute.Negate(b.Get(j, i));
+                    RowAddition(b, j, i, rowAddend);
+                }
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    T rowAddend = Compute.Negate(b.Get(j, i));
+                    RowAddition(b, j, i, rowAddend);
+                }
+            }
+        }
+
+        /// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
+		/// <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>
+		/// <returns>The reduced echelon of the matrix (aka RREF).</returns>
+		public static Matrix<T> ReducedEchelon(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            ReducedEchelon(a, ref b);
+            return b;
+        }
+
+        /// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
+        /// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
+        public void ReducedEchelon(ref Matrix<T> b)
+        {
+            ReducedEchelon(this, ref b);
+        }
+
+        /// <summary>Matrixs the reduced echelon form of this matrix (aka RREF).</summary>
+		/// <returns>The computed reduced echelon form of this matrix (aka RREF).</returns>
+		public Matrix<T> ReducedEchelon()
+        {
+            return ReducedEchelon(this);
+        }
+
+        #endregion
+
+        #region Inverse
+
+        /// <summary>Calculates the inverse of a matrix.</summary>
+		/// <param name="a">The matrix to calculate the inverse of.</param>
+        /// <param name="b">The inverse of the matrix.</param>
+        private static void Inverse(Matrix<T> a, ref Matrix<T> b)
+        {
+            throw new NotImplementedException();
+
+            //			Matrix<T>.Matrix_Inverse =
+            //				Meta.Compile<Matrix<T>.Delegates.Matrix_Inverse>(
+            //					string.Concat(
+            //@"(Matrix<", T_Source, @">.Delegates.Matrix_Inverse)(
+            //(Matrix<", T_Source, @"> _matrix) =>
+            //{
+            //	if (object.ReferenceEquals(_matrix, null))
+            //		throw new System.ArgumentNullException(", "\"matrix\"", @");
+            //	if (Matrix<", T_Source, @">.Determinent(_matrix) == 0)
+            //		throw new System.ArithmeticException(", "\"inverse calculation failed.\"", @");
+            //	Matrix<", T_Source, @"> identity = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
+            //	Matrix<", T_Source, @"> rref = _matrix.Clone();
+            //	for (int i = 0; i < _matrix.Rows; i++)
+            //	{
+            //		if (rref[i, i] == 0)
+            //			for (int j = i + 1; j < rref.Rows; j++)
+            //				if (rref[j, i] != 0)
+            //				{
+            //					", SwapRows("temp", "k", "rref", "i", "j"), @"
+            //					", SwapRows("temp", "k", "identity", "i", "j"), @"
+            //				}
+            //		", T_Source, @" temp_rowMultiplication1 = 1 / rref[i, i];
+            //		", RowMultiplication("j", "identity", "i", "temp_rowMultiplication1"), @"
+            //		", T_Source, @" temp_rowMultiplication2 = 1 / rref[i, i];
+            //		", RowMultiplication("j", "rref", "i", "temp_rowMultiplication2"), @"
+            //		for (int j = i + 1; j < rref.Rows; j++)
+            //		{
+            //			", T_Source, @" scalar1 = -rref[j, i];
+            //			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
+            //			", T_Source, @" scalar2 = -rref[j, i];
+            //			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
+            //		}
+            //		for (int j = i - 1; j >= 0; j--)
+            //		{
+            //			", T_Source, @" scalar1 = -rref[j, i];
+            //			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
+            //			", T_Source, @" scalar2 = -rref[j, i];
+            //			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
+            //		}
+            //	}
+            //	return identity;
+            //})"));
+
+            //			return Matrix<T>.Matrix_Inverse(matrix);
+
+            #region Alternate Version
+            //Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
+            //Matrix<T> rref = matrix.Clone();
+            //for (int i = 0; i < matrix.Rows; i++)
+            //{
+            //	if (Compute.Equate(rref[i, i], Compute.FromInt32(0)))
+            //		for (int j = i + 1; j < rref.Rows; j++)
+            //			if (!Compute.Equate(rref[j, i], Compute.FromInt32(0)))
+            //			{
+            //				Matrix<T>.SwapRows(rref, i, j);
+            //				Matrix<T>.SwapRows(identity, i, j);
+            //			}
+            //	Matrix<T>.RowMultiplication(identity, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
+            //	Matrix<T>.RowMultiplication(rref, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
+            //	for (int j = i + 1; j < rref.Rows; j++)
+            //	{
+            //		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+            //		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
+            //	}
+            //	for (int j = i - 1; j >= 0; j--)
+            //	{
+            //		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+            //		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
+            //	}
+            //}
+            //return identity;
+            #endregion
+        }
+
+        /// <summary>Calculates the inverse of a matrix.</summary>
+		/// <param name="a">The matrix to calculate the inverse of.</param>
+		/// <returns>The inverse of the matrix.</returns>
+		public static Matrix<T> Inverse(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            Inverse(a, ref b);
+            return b;
+        }
+
+        /// <summary>Matrixs the inverse of this matrix.</summary>
+		/// <returns>The inverse of this matrix.</returns>
+		public Matrix<T> Inverse()
+        {
+            return Inverse(this);
+        }
+
+        #endregion
+
+        #region Adjoint
+
+        /// <summary>Calculates the adjoint of a matrix.</summary>
+		/// <param name="a">The matrix to calculate the adjoint of.</param>
+        /// <param name="b">The adjoint of the matrix.</param>
+        private static void Adjoint(Matrix<T> a, ref Matrix<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            }
+            if (object.ReferenceEquals(a, b))
+            {
+                a = a.Clone();
+            }
+            int Length = a.Length;
+            int Rows = a.Rows;
+            int Columns = a.Columns;
+            if (b != null && b.Length == Length)
+            {
+                b._rows = Rows;
+                b._columns = Columns;
+            }
+            else
+            {
+                b = new Matrix<T>(Rows, Columns, Length);
+            }
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (Compute.IsEven(a.Get(i, j)))
+                    {
+                        b[i, j] = Determinent(Minor(a, i, j));
+                    }
+                    else
+                    {
+                        b[i, j] = Compute.Negate(Determinent(Minor(a, i, j)));
                     }
                 }
             }
-            return true;
-		};
+        }
+
+        /// <summary>Calculates the adjoint of a matrix.</summary>
+		/// <param name="a">The matrix to calculate the adjoint of.</param>
+		/// <returns>The adjoint of the matrix.</returns>
+		public static Matrix<T> Adjoint(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            Adjoint(a, ref b);
+            return b;
+        }
+
+        /// <summary>Calculates the adjoint of a matrix.</summary>
+        /// <param name="b">The adjoint of the matrix.</param>
+		public void Adjoint(ref Matrix<T> b)
+        {
+            Adjoint(this, ref b);
+        }
+
+        /// <summary>Calculates the adjoint of a matrix.</summary>
+		/// <returns>The adjoint of the matrix.</returns>
+		public Matrix<T> Adjoint()
+        {
+            return Adjoint(this);
+        }
+
+        #endregion
+
+        #region Transpose
+
+        /// <summary>Returns the transpose of a matrix.</summary>
+		/// <param name="a">The matrix to transpose.</param>
+        /// <param name="b">The transpose of the matrix.</param>
+        private static void Transpose(Matrix<T> a, ref Matrix<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (object.ReferenceEquals(a, b))
+            {
+                TransposeContents(b);
+                return;
+            }
+            int Length = a.Length;
+            int Rows = a.Rows;
+            int Columns = a.Columns;
+            if (b != null && b.Length == a.Length)
+            {
+                b._rows = Rows;
+                b._columns = Columns;
+            }
+            else
+            {
+                b = new Matrix<T>(Rows, Columns, Length);
+            }
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    b.Set(i, j, a.Get(j, i));
+                }
+            }
+        }
+
+        /// <summary>Returns the transpose of a matrix.</summary>
+		/// <param name="a">The matrix to transpose.</param>
+		/// <returns>The transpose of the matrix.</returns>
+		public static Matrix<T> Transpose(Matrix<T> a)
+        {
+            Matrix<T> b = null;
+            Transpose(a, ref b);
+            return b;
+        }
+
+        /// <summary>Returns the transpose of a matrix.</summary>
+        /// <param name="b">The transpose of the matrix.</param>
+		public void Transpose(ref Matrix<T> b)
+        {
+            Transpose(this, ref b);
+        }
+
+        /// <summary>Returns the transpose of a matrix.</summary>
+		/// <returns>The transpose of the matrix.</returns>
+		public Matrix<T> Transpose()
+        {
+            return Transpose(this);
+        }
+
+        #endregion
+
+        #region DecomposeLowerUpper
+
+        /// <summary>Decomposes a matrix into lower-upper reptresentation.</summary>
+		/// <param name="matrix">The matrix to decompose.</param>
+		/// <param name="lower">The computed lower triangular matrix.</param>
+		/// <param name="upper">The computed upper triangular matrix.</param>
+        private static void DecomposeLowerUpper(Matrix<T> matrix, ref Matrix<T> lower, ref Matrix<T> upper)
+        {
+            throw new NotImplementedException();
+
+            //			Matrix<T>.Matrix_DecomposeLU =
+            //				Meta.Compile<Matrix<T>.Delegates.Matrix_DecomposeLU>(
+            //					string.Concat(
+            //"(Matrix<", T_Source, "> _matrix, out Matrix<", T_Source, "> _Lower, out Matrix<", T_Source, @"> _Upper) =>
+            //{
+            //	if (object.ReferenceEquals(_matrix, null))
+            //		throw new System.Exception(", "\"null reference: _matrix\"", @");
+            //	if (_matrix.Rows != _matrix.Columns)
+            //		throw new System.Exception(", "\"non-square _matrix during DecomposeLU function\"", @");
+            //	_Lower = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
+            //	_Upper = _matrix.Clone();
+            //	int[] permutation = new int[_matrix.Rows];
+            //	for (int i = 0; i < _matrix.Rows; i++) permutation[i] = i;
+            //	", T_Source, @" p = 0, pom2, detOfP = 1;
+            //	int k0 = 0, pom1 = 0;
+            //	for (int k = 0; k < _matrix.Columns - 1; k++)
+            //	{
+            //		p = 0;
+            //		for (int i = k; i < _matrix.Rows; i++)
+            //				if ((_Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k]) > p)
+            //				{
+            //						p = _Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k];
+            //						k0 = i;
+            //				}
+            //		if (p == 0)
+            //				throw new System.Exception(", "\"The _matrix is singular!\"", @");
+            //		pom1 = permutation[k];
+            //		permutation[k] = permutation[k0];
+            //		permutation[k0] = pom1;
+            //		for (int i = 0; i < k; i++)
+            //		{
+            //				pom2 = _Lower[k, i];
+            //				_Lower[k, i] = _Lower[k0, i];
+            //				_Lower[k0, i] = pom2;
+            //		}
+            //		if (k != k0)
+            //				detOfP *= -1;
+            //		for (int i = 0; i < _matrix.Columns; i++)
+            //		{
+            //				pom2 = _Upper[k, i];
+            //				_Upper[k, i] = _Upper[k0, i];
+            //				_Upper[k0, i] = pom2;
+            //		}
+            //		for (int i = k + 1; i < _matrix.Rows; i++)
+            //		{
+            //				_Lower[i, k] = _Upper[i, k] / _Upper[k, k];
+            //				for (int j = k; j < _matrix.Columns; j++)
+            //					_Upper[i, j] = _Upper[i, j] - _Lower[i, k] * _Upper[k, j];
+            //		}
+            //	}
+            //}"));
+
+            //			Matrix<T>.Matrix_DecomposeLU(matrix, out lower, out upper);
+
+            #region Alternate Version
+            //lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
+            //upper = matrix.Clone();
+            //int[] permutation = new int[matrix.Rows];
+            //for (int i = 0; i < matrix.Rows; i++) permutation[i] = i;
+            //T p = 0, pom2, detOfP = 1;
+            //int k0 = 0, pom1 = 0;
+            //for (int k = 0; k < matrix.Columns - 1; k++)
+            //{
+            //	p = 0;
+            //	for (int i = k; i < matrix.Rows; i++)
+            //		if ((upper[i, k] > 0 ? upper[i, k] : -upper[i, k]) > p)
+            //		{
+            //			p = upper[i, k] > 0 ? upper[i, k] : -upper[i, k];
+            //			k0 = i;
+            //		}
+            //	if (p == 0)
+            //		throw new System.Exception("The matrix is singular!");
+            //	pom1 = permutation[k];
+            //	permutation[k] = permutation[k0];
+            //	permutation[k0] = pom1;
+            //	for (int i = 0; i < k; i++)
+            //	{
+            //		pom2 = lower[k, i];
+            //		lower[k, i] = lower[k0, i];
+            //		lower[k0, i] = pom2;
+            //	}
+            //	if (k != k0)
+            //		detOfP *= -1;
+            //	for (int i = 0; i < matrix.Columns; i++)
+            //	{
+            //		pom2 = upper[k, i];
+            //		upper[k, i] = upper[k0, i];
+            //		upper[k0, i] = pom2;
+            //	}
+            //	for (int i = k + 1; i < matrix.Rows; i++)
+            //	{
+            //		lower[i, k] = upper[i, k] / upper[k, k];
+            //		for (int j = k; j < matrix.Columns; j++)
+            //			upper[i, j] = upper[i, j] - lower[i, k] * upper[k, j];
+            //	}
+            //}
+            #endregion
+        }
+
+        /// <summary>Decomposes a matrix into lower-upper reptresentation.</summary>
+		/// <param name="lower">The computed lower triangular matrix.</param>
+		/// <param name="upper">The computed upper triangular matrix.</param>
+		public void DecomposeLowerUpper(ref Matrix<T> lower, ref Matrix<T> upper)
+        {
+            DecomposeLowerUpper(this, ref lower, ref upper);
+        }
 
         #endregion
 
         #region Rotate
 
         /// <summary>Rotates a 4x4 matrix around an 3D axis by a specified angle.</summary>
+        /// /// <param name="matrix">The 4x4 matrix to rotate.</param>
         /// <param name="angle">The angle of rotation around the axis.</param>
         /// <param name="axis">The 3D axis to rotate the matrix around.</param>
-        /// <param name="matrix">The 4x4 matrix to rotate.</param>
         /// <returns>The rotated matrix.</returns>
-        public static Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis, Matrix<T> matrix)
+        public static Matrix<T> Rotate4x4(Matrix<T> matrix, Angle<T> angle, Vector<T> axis)
         {
             if (axis is null)
             {
@@ -1558,423 +1933,39 @@ namespace Towel.Mathematics
             });
         }
 
-        #endregion
-
-        #region Echelon
-
-        private delegate void EchelonSignature(Matrix<T> a, ref Matrix<T> b);
-        private static EchelonSignature Matrix_Echelon = (Matrix<T> a, ref Matrix<T> b) =>
-		{
-            if (a is null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (object.ReferenceEquals(a, b))
-            {
-                a = a.Clone();
-            }
-            int Rows = a.Rows;
-            if (b != null && b._matrix.Length == a._matrix.Length)
-            {
-                b._rows = Rows;
-                b._columns = a._columns;
-                CloneContents(a, b);
-            }
-            else
-            {
-                b = a.Clone();
-            }
-            for (int i = 0; i < Rows; i++)
-            {
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-                {
-                    for (int j = i + 1; j < Rows; j++)
-                    {
-                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
-                        {
-                            SwapRows(b, i, j);
-                        }
-                    }
-                }
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-                {
-                    continue;
-                }
-                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
-                {
-                    for (int j = i + 1; j < Rows; j++)
-                    {
-                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
-                        {
-                            SwapRows(b, i, j);
-                        }
-                    }
-                }
-                T rowMultipier = Compute.Divide(Constant<T>.One, b.Get(i, i));
-                RowMultiplication(b, i, rowMultipier);
-                for (int j = i + 1; j < Rows; j++)
-                {
-                    T rowAddend = Compute.Negate(b.Get(j, i));
-                    RowAddition(b, j, i, rowAddend);
-                }
-            }
-		};
-
-        #endregion
-
-        #region ReducedEchelon
-
-        private delegate void ReducedEchelonSignature(Matrix<T> a, ref Matrix<T> b);
-        private static ReducedEchelonSignature Matrix_ReducedEchelon = (Matrix<T> a, ref Matrix<T> b) =>
+        public Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis)
         {
-            if (a is null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (object.ReferenceEquals(a, b))
-            {
-                a = a.Clone();
-            }
-            int Rows = a.Rows;
-            if (b != null && b._matrix.Length == a._matrix.Length)
-            {
-                b._rows = Rows;
-                b._columns = a._columns;
-                CloneContents(a, b);
-            }
-            else
-            {
-                b = a.Clone();
-            }
-            for (int i = 0; i < Rows; i++)
-            {
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-                {
-                    for (int j = i + 1; j < Rows; j++)
-                    {
-                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
-                        {
-                            SwapRows(b, i, j);
-                        }
-                    }
-                }
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-                {
-                    continue;
-                }
-                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
-                {
-                    for (int j = i + 1; j < Rows; j++)
-                    {
-                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
-                        {
-                            SwapRows(b, i, j);
-                        }
-                    }
-                }
-                T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
-                RowMultiplication(b, i, rowMiltiplier);
-                for (int j = i + 1; j < Rows; j++)
-                {
-                    T rowAddend = Compute.Negate(b.Get(j, i));
-                    RowAddition(b, j, i, rowAddend);
-                }
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    T rowAddend = Compute.Negate(b.Get(j, i));
-                    RowAddition(b, j, i, rowAddend);
-                }
-            }
-        };
+            return Rotate4x4(this, angle, axis);
+        }
 
         #endregion
 
-        #region Inverse
+        #region Equal
 
-        internal delegate void InverseSignature(Matrix<T> a, ref Matrix<T> b);
-        private static InverseSignature Matrix_Inverse = (Matrix<T> a, ref Matrix<T> b) =>
-		{
-            throw new NotImplementedException();
-
-//			Matrix<T>.Matrix_Inverse =
-//				Meta.Compile<Matrix<T>.Delegates.Matrix_Inverse>(
-//					string.Concat(
-//@"(Matrix<", T_Source, @">.Delegates.Matrix_Inverse)(
-//(Matrix<", T_Source, @"> _matrix) =>
-//{
-//	if (object.ReferenceEquals(_matrix, null))
-//		throw new System.ArgumentNullException(", "\"matrix\"", @");
-//	if (Matrix<", T_Source, @">.Determinent(_matrix) == 0)
-//		throw new System.ArithmeticException(", "\"inverse calculation failed.\"", @");
-//	Matrix<", T_Source, @"> identity = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
-//	Matrix<", T_Source, @"> rref = _matrix.Clone();
-//	for (int i = 0; i < _matrix.Rows; i++)
-//	{
-//		if (rref[i, i] == 0)
-//			for (int j = i + 1; j < rref.Rows; j++)
-//				if (rref[j, i] != 0)
-//				{
-//					", SwapRows("temp", "k", "rref", "i", "j"), @"
-//					", SwapRows("temp", "k", "identity", "i", "j"), @"
-//				}
-//		", T_Source, @" temp_rowMultiplication1 = 1 / rref[i, i];
-//		", RowMultiplication("j", "identity", "i", "temp_rowMultiplication1"), @"
-//		", T_Source, @" temp_rowMultiplication2 = 1 / rref[i, i];
-//		", RowMultiplication("j", "rref", "i", "temp_rowMultiplication2"), @"
-//		for (int j = i + 1; j < rref.Rows; j++)
-//		{
-//			", T_Source, @" scalar1 = -rref[j, i];
-//			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
-//			", T_Source, @" scalar2 = -rref[j, i];
-//			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
-//		}
-//		for (int j = i - 1; j >= 0; j--)
-//		{
-//			", T_Source, @" scalar1 = -rref[j, i];
-//			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
-//			", T_Source, @" scalar2 = -rref[j, i];
-//			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
-//		}
-//	}
-//	return identity;
-//})"));
-
-//			return Matrix<T>.Matrix_Inverse(matrix);
-
-			#region Alternate Version
-			//Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
-			//Matrix<T> rref = matrix.Clone();
-			//for (int i = 0; i < matrix.Rows; i++)
-			//{
-			//	if (Compute.Equate(rref[i, i], Compute.FromInt32(0)))
-			//		for (int j = i + 1; j < rref.Rows; j++)
-			//			if (!Compute.Equate(rref[j, i], Compute.FromInt32(0)))
-			//			{
-			//				Matrix<T>.SwapRows(rref, i, j);
-			//				Matrix<T>.SwapRows(identity, i, j);
-			//			}
-			//	Matrix<T>.RowMultiplication(identity, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
-			//	Matrix<T>.RowMultiplication(rref, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
-			//	for (int j = i + 1; j < rref.Rows; j++)
-			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
-			//	}
-			//	for (int j = i - 1; j >= 0; j--)
-			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
-			//	}
-			//}
-			//return identity;
-			#endregion
-		};
-        #endregion
-
-        #region Adjoint
-
-        private delegate void AdjointSignature(Matrix<T> a, ref Matrix<T> c);
-        private static AdjointSignature Matrix_Adjoint = (Matrix<T> a, ref Matrix<T> b) =>
-		{
-            if (a is null)
+        /// <summary>Does a value equality check.</summary>
+		/// <param name="a">The first matrix to check for equality.</param>
+		/// <param name="b">The second matrix to check for equality.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+        private static bool Equal(Matrix<T> a, Matrix<T> b)
+        {
+            if (a is null && b is null)
             {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (!a.IsSquare)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-            }
-            if (object.ReferenceEquals(a, b))
-            {
-                a = a.Clone();
-            }
-            int Length = a.Length;
-            int Rows = a.Rows;
-            int Columns = a.Columns;
-            if (b != null && b.Length == Length)
-            {
-                b._rows = Rows;
-                b._columns = Columns;
-            }
-            else
-            {
-                b = new Matrix<T>(Rows, Columns, Length);
-            }
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = 0; j < Columns; j++)
-                {
-                    if (Compute.IsEven(a.Get(i, j)))
-                    {
-                        b[i, j] = Determinent(Minor(a, i, j));
-                    }
-                    else
-                    {
-                        b[i, j] = Compute.Negate(Determinent(Minor(a, i, j)));
-                    }
-                }
-            }
-		};
-
-		#endregion
-
-		#region Transpose
-
-		private static void Matrix_Transpose(Matrix<T> a, ref Matrix<T> b)
-		{
-            if (a is null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (object.ReferenceEquals(a, b))
-            {
-                TransposeContents(b);
-                return;
-            }
-            int Length = a.Length;
-            int Rows = a.Rows;
-            int Columns = a.Columns;
-            if (b != null && b.Length == a.Length)
-            {
-                b._rows = Rows;
-                b._columns = Columns;
-            }
-            else
-            {
-                b = new Matrix<T>(Rows, Columns, Length);
-            }
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = 0; j < Columns; j++)
-                {
-                    b.Set(i, j, a.Get(j, i));
-                }
-            }
-		}
-
-        #endregion
-
-        #region DecomposeLU
-
-        internal delegate void DecomposeLUSignature(Matrix<T> matrix, out Matrix<T> lower, out Matrix<T> upper);
-        private static DecomposeLUSignature Matrix_DecomposeLU = (Matrix<T> matrix, out Matrix<T> lower, out Matrix<T> upper) =>
-		{
-            throw new NotImplementedException();
-
-//			Matrix<T>.Matrix_DecomposeLU =
-//				Meta.Compile<Matrix<T>.Delegates.Matrix_DecomposeLU>(
-//					string.Concat(
-//"(Matrix<", T_Source, "> _matrix, out Matrix<", T_Source, "> _Lower, out Matrix<", T_Source, @"> _Upper) =>
-//{
-//	if (object.ReferenceEquals(_matrix, null))
-//		throw new System.Exception(", "\"null reference: _matrix\"", @");
-//	if (_matrix.Rows != _matrix.Columns)
-//		throw new System.Exception(", "\"non-square _matrix during DecomposeLU function\"", @");
-//	_Lower = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
-//	_Upper = _matrix.Clone();
-//	int[] permutation = new int[_matrix.Rows];
-//	for (int i = 0; i < _matrix.Rows; i++) permutation[i] = i;
-//	", T_Source, @" p = 0, pom2, detOfP = 1;
-//	int k0 = 0, pom1 = 0;
-//	for (int k = 0; k < _matrix.Columns - 1; k++)
-//	{
-//		p = 0;
-//		for (int i = k; i < _matrix.Rows; i++)
-//				if ((_Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k]) > p)
-//				{
-//						p = _Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k];
-//						k0 = i;
-//				}
-//		if (p == 0)
-//				throw new System.Exception(", "\"The _matrix is singular!\"", @");
-//		pom1 = permutation[k];
-//		permutation[k] = permutation[k0];
-//		permutation[k0] = pom1;
-//		for (int i = 0; i < k; i++)
-//		{
-//				pom2 = _Lower[k, i];
-//				_Lower[k, i] = _Lower[k0, i];
-//				_Lower[k0, i] = pom2;
-//		}
-//		if (k != k0)
-//				detOfP *= -1;
-//		for (int i = 0; i < _matrix.Columns; i++)
-//		{
-//				pom2 = _Upper[k, i];
-//				_Upper[k, i] = _Upper[k0, i];
-//				_Upper[k0, i] = pom2;
-//		}
-//		for (int i = k + 1; i < _matrix.Rows; i++)
-//		{
-//				_Lower[i, k] = _Upper[i, k] / _Upper[k, k];
-//				for (int j = k; j < _matrix.Columns; j++)
-//					_Upper[i, j] = _Upper[i, j] - _Lower[i, k] * _Upper[k, j];
-//		}
-//	}
-//}"));
-
-//			Matrix<T>.Matrix_DecomposeLU(matrix, out lower, out upper);
-
-			#region Alternate Version
-			//lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
-			//upper = matrix.Clone();
-			//int[] permutation = new int[matrix.Rows];
-			//for (int i = 0; i < matrix.Rows; i++) permutation[i] = i;
-			//T p = 0, pom2, detOfP = 1;
-			//int k0 = 0, pom1 = 0;
-			//for (int k = 0; k < matrix.Columns - 1; k++)
-			//{
-			//	p = 0;
-			//	for (int i = k; i < matrix.Rows; i++)
-			//		if ((upper[i, k] > 0 ? upper[i, k] : -upper[i, k]) > p)
-			//		{
-			//			p = upper[i, k] > 0 ? upper[i, k] : -upper[i, k];
-			//			k0 = i;
-			//		}
-			//	if (p == 0)
-			//		throw new System.Exception("The matrix is singular!");
-			//	pom1 = permutation[k];
-			//	permutation[k] = permutation[k0];
-			//	permutation[k0] = pom1;
-			//	for (int i = 0; i < k; i++)
-			//	{
-			//		pom2 = lower[k, i];
-			//		lower[k, i] = lower[k0, i];
-			//		lower[k0, i] = pom2;
-			//	}
-			//	if (k != k0)
-			//		detOfP *= -1;
-			//	for (int i = 0; i < matrix.Columns; i++)
-			//	{
-			//		pom2 = upper[k, i];
-			//		upper[k, i] = upper[k0, i];
-			//		upper[k0, i] = pom2;
-			//	}
-			//	for (int i = k + 1; i < matrix.Rows; i++)
-			//	{
-			//		lower[i, k] = upper[i, k] / upper[k, k];
-			//		for (int j = k; j < matrix.Columns; j++)
-			//			upper[i, j] = upper[i, j] - lower[i, k] * upper[k, j];
-			//	}
-			//}
-			#endregion
-		};
-		#endregion
-
-		#region EqualsByValue
-		
-		private static Func<Matrix<T>, Matrix<T>, bool> Matrix_EqualsByValue = (Matrix<T> a, Matrix<T> b) =>
-		{
-            if (object.ReferenceEquals(a, null) && object.ReferenceEquals(b, null))
                 return true;
-            if (object.ReferenceEquals(a, null))
+            }
+            if (a is null)
+            {
                 return false;
-            if (object.ReferenceEquals(b, null))
+            }
+            if (b is null)
+            {
                 return false;
+            }
             int Rows = a.Rows;
             int Columns = a.Columns;
             if (Rows != b.Rows || Columns != b.Columns)
+            {
                 return false;
+            }
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
@@ -1986,24 +1977,63 @@ namespace Towel.Mathematics
                 }
             }
             return true;
-		};
+        }
 
-		#endregion
+        /// <summary>Does a value equality check.</summary>
+		/// <param name="a">The first matrix to check for equality.</param>
+		/// <param name="b">The second matrix to check for equality.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+        public static bool operator ==(Matrix<T> a, Matrix<T> b)
+        {
+            return Equal(a, b);
+        }
 
-		#region EqualsByValue_leniency
-		
-		private static Func<Matrix<T>, Matrix<T>, T, bool> Matrix_EqualsByValue_leniency = (Matrix<T> a, Matrix<T> b, T leniency) =>
-		{
-            if (object.ReferenceEquals(a, null) && object.ReferenceEquals(b, null))
+        /// <summary>Does a value non-equality check.</summary>
+		/// <param name="a">The first matrix to check for non-equality.</param>
+		/// <param name="b">The second matrix to check for non-equality.</param>
+		/// <returns>True if values are not equal, false if not.</returns>
+		public static bool operator !=(Matrix<T> a, Matrix<T> b)
+        {
+            return !Equal(a, b);
+        }
+
+        /// <summary>Does a value equality check.</summary>
+		/// <param name="b">The second matrix to check for equality.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+		public bool Equal(Matrix<T> b)
+        {
+            return this == b;
+        }
+
+        #endregion
+
+        #region Equal (+leniency)
+
+        /// <summary>Does a value equality check with leniency.</summary>
+		/// <param name="a">The first matrix to check for equality.</param>
+		/// <param name="b">The second matrix to check for equality.</param>
+		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+        private static bool Equal(Matrix<T> a, Matrix<T> b, T leniency)
+        {
+            if (a is null && b is null)
+            {
                 return true;
-            if (object.ReferenceEquals(a, null))
+            }
+            if (a is null)
+            {
                 return false;
-            if (object.ReferenceEquals(b, null))
+            }
+            if (b is null)
+            {
                 return false;
+            }
             int Rows = a.Rows;
             int Columns = a.Columns;
             if (Rows != b.Rows || Columns != b.Columns)
+            {
                 return false;
+            }
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
@@ -2015,49 +2045,197 @@ namespace Towel.Mathematics
                 }
             }
             return true;
-        };
+        }
 
-		#endregion
+        /// <summary>Does a value equality check with leniency.</summary>
+		/// <param name="b">The second matrix to check for equality.</param>
+		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+		public bool Equal(Matrix<T> b, T leniency)
+        {
+            return Equal(this, b, leniency);
+        }
 
-		#endregion
+        #endregion
 
-		#region Steppers
+        #endregion
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step_function)
+        #region Other Methods
+
+        #region Get/Set
+
+        internal T Get(int row, int column)
+        {
+            return this._matrix[row * this.Columns + column];
+        }
+
+        internal void Set(int row, int column, T value)
+        {
+            this._matrix[row * this.Columns + column] = value;
+        }
+
+        #endregion
+
+        #region Fill
+
+        public static void Fill(Matrix<T> matrix, Func<int, int, T> function)
+        {
+            int Rows = matrix.Rows;
+            int Columns = matrix.Columns;
+            T[] MATRIX = matrix._matrix;
+            int i = 0;
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int column = 0; column < Columns; column++)
+                {
+                    MATRIX[i++] = function(row, column);
+                }
+            }
+        }
+
+        #endregion
+
+        #region CloneContents
+
+        internal static void CloneContents(Matrix<T> a, Matrix<T> b)
+        {
+            T[] a_flat = a._matrix;
+            T[] b_flat = b._matrix;
+            int length = a_flat.Length;
+            for (int i = 0; i < length; i++)
+            {
+                b_flat[i] = a_flat[i];
+            }
+        }
+
+        #endregion
+
+        #region TransposeContents
+
+        internal static void TransposeContents(Matrix<T> a)
+        {
+            int Rows = a.Rows;
+            int Columns = a.Columns;
+            for (int i = 0; i < Rows; i++)
+            {
+                int Rows_Minus_i = Rows - i;
+                for (int j = 0; j < Rows_Minus_i; j++)
+                {
+                    T temp = a.Get(i, j);
+                    a.Set(i, j, a.Get(j, i));
+                    a.Set(j, i, temp);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Clone
+
+        /// <summary>Creates a copy of a matrix.</summary>
+        /// <param name="a">The matrix to copy.</param>
+        /// <returns>The copy of this matrix.</returns>
+        public static Matrix<T> Clone(Matrix<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return new Matrix<T>(a);
+        }
+
+        /// <summary>Copies this matrix.</summary>
+        /// <returns>The copy of this matrix.</returns>
+        public Matrix<T> Clone()
+        {
+            return Clone(this);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Casting Operators
+
+        /// <summary>Converts a T[,] into a matrix.</summary>
+        /// <param name="a">The T[,] to convert to a matrix.</param>
+        /// <returns>The resulting matrix after conversion.</returns>
+        public static explicit operator Matrix<T>(T[,] array)
+        {
+            return new Matrix<T>(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
+        }
+
+        /// <summary>Converts a matrix into a T[,].</summary>
+        /// <param name="a">The matrix toconvert to a T[,].</param>
+        /// <returns>The resulting T[,] after conversion.</returns>
+        public static explicit operator T[,](Matrix<T> matrix)
+        {
+            int rows = matrix._rows;
+            int columns = matrix._columns;
+            T[,] array = new T[rows, columns];
+            T[] MATRIX = matrix._matrix;
+            int k = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    array[i, j] = MATRIX[k++];
+                }
+            }
+            return array;
+        }
+
+        #endregion
+
+        #region Steppers
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
 		{
-			for (int i = 0; i < this._matrix.Length; i++)
-				step_function(this._matrix[i]);
+            for (int i = 0; i < this._matrix.Length; i++)
+            {
+                step(this._matrix[i]);
+            }
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step_function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
 		{
-			for (int i = 0; i < this._matrix.Length; i++)
-				step_function(ref this._matrix[i]);
+            for (int i = 0; i < this._matrix.Length; i++)
+            {
+                step(ref this._matrix[i]);
+            }
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step_function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (int i = 0; i < this._matrix.Length; i++)
-				if (step_function(this._matrix[i]) == StepStatus.Break)
-					return StepStatus.Break;
+            for (int i = 0; i < this._matrix.Length; i++)
+            {
+                if (step(this._matrix[i]) == StepStatus.Break)
+                {
+                    return StepStatus.Break;
+                }
+            }
 			return StepStatus.Continue;
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step_function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (int i = 0; i < this._matrix.Length; i++)
-				if (step_function(ref this._matrix[i]) == StepStatus.Break)
-					return StepStatus.Break;
+            for (int i = 0; i < this._matrix.Length; i++)
+            {
+                if (step(ref this._matrix[i]) == StepStatus.Break)
+                {
+                    return StepStatus.Break;
+                }
+            }
 			return StepStatus.Continue;
 		}
 
@@ -2076,16 +2254,18 @@ namespace Towel.Mathematics
 		/// <returns>A hash code for the matrix.</returns>
 		public override int GetHashCode()
 		{
-            return this._matrix.GetHashCode();
+            return this._matrix.GetHashCode() ^ this._rows ^ this._columns;
         }
 
 		/// <summary>Does an equality check by value.</summary>
-		/// <param name="right">The object to compare to.</param>
+		/// <param name="b">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object right)
+		public override bool Equals(object b)
 		{
-			if (!(right is Matrix<T>))
-				return Matrix<T>.EqualsByValue(this, (Matrix<T>)right);
+            if (!(b is Matrix<T>))
+            {
+                return Equal(this, (Matrix<T>)b);
+            }
 			return false;
 		}
 

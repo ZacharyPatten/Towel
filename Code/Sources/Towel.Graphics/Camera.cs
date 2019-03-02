@@ -52,9 +52,9 @@ namespace Towel.Graphics
             Vector<float> Haxis = Y_AXIS.CrossProduct(_forward.Normalize());
 
             _forward = (Matrix<float>.Rotate4x4(
+                Matrix<float>.FactoryIdentity(4, 4),
                 Angle<float>.Factory_Degrees(angle),
-                new Vector<float>(0, 1, 0),
-                Matrix<float>.FactoryIdentity(4, 4)).Minor(3, 3) * _forward).Normalize();
+                new Vector<float>(0, 1, 0)).Minor(3, 3) * _forward).Normalize();
             //_forward = _forward.RotateBy(angle, 0, 1, 0).Normalize();
 
             _up = _forward.CrossProduct(Haxis.Normalize());
@@ -65,9 +65,9 @@ namespace Towel.Graphics
             Vector<float> Haxis = Y_AXIS.CrossProduct(_forward.Normalize());
 
             _forward = (Matrix<float>.Rotate4x4(
+                Matrix<float>.FactoryIdentity(4, 4),
                 Angle<float>.Factory_Degrees(angle),
-                new Vector<float>(1, 0, 0),
-                Matrix<float>.FactoryIdentity(4, 4)).Minor(3, 3) * _forward).Normalize();
+                new Vector<float>(1, 0, 0)).Minor(3, 3) * _forward).Normalize();
             //_forward = _forward.RotateBy(angle, Haxis.X, Haxis.Y, Haxis.Z).Normalize();
 
             _up = _forward.CrossProduct(Haxis.Normalize());

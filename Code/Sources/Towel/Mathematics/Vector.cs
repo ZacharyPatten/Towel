@@ -129,12 +129,20 @@ namespace Towel.Mathematics
 			this._vector = vector;
 		}
 
+        /// <summary>Creates a new vector and initializes it via function.</summary>
+        /// <param name="dimensions">The number of dimensions of the vector to construct.</param>
+        /// <param name="function">The function to initialize the values of the vector.</param>
         public Vector(int dimensions, Func<int, T> function) : this(dimensions)
         {
             for (int i = 0; i < dimensions; i++)
             {
                 this._vector[i] = function(i);
             }
+        }
+
+        private Vector(Vector<T> vector)
+        {
+            this._vector = vector._vector.Clone() as T[];
         }
 
 		#endregion
@@ -199,6 +207,8 @@ namespace Towel.Mathematics
 
         #region Magnitude
 
+        /// <summary>Computes the length of this vector.</summary>
+        /// <returns>The length of this vector.</returns>
         public static T GetMagnitude(Vector<T> a)
         {
             if (a == null)
@@ -209,7 +219,6 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Computes the length of this vector.</summary>
-        /// <returns>The length of this vector.</returns>
         public T Magnitude
         {
             get
@@ -222,6 +231,9 @@ namespace Towel.Mathematics
 
         #region MagnitudeSquared
 
+        /// <summary>Computes the length of this vector, but doesn't square root it for 
+        /// possible optimization purposes.</summary>
+        /// <returns>The squared length of the vector.</returns>
         public static T GetMagnitudeSquared(Vector<T> a)
         {
             if (a._vector == null)
@@ -240,7 +252,6 @@ namespace Towel.Mathematics
 
         /// <summary>Computes the length of this vector, but doesn't square root it for 
         /// possible optimization purposes.</summary>
-        /// <returns>The squared length of the vector.</returns>
         public T MagnitudeSquared
         {
             get
@@ -253,6 +264,9 @@ namespace Towel.Mathematics
 
         #region Negate
 
+        /// <summary>Negates all the values in a vector.</summary>
+        /// <param name="a">The vector to have its values negated.</param>
+        /// <param name="b">The result of the negations.</param>
         public static void Negate(Vector<T> a, ref Vector<T> b)
         {
             if (a is null)
@@ -300,6 +314,13 @@ namespace Towel.Mathematics
             return Negate(vector);
         }
 
+        /// <summary>Negates all the values in a vector.</summary>
+        /// <param name="b">The result of the negations.</param>
+        public void Negate(ref Vector<T> b)
+        {
+            Negate(this, ref b);
+        }
+
         /// <summary>Negates this vector.</summary>
 		/// <returns>The result of the negation.</returns>
 		public Vector<T> Negate()
@@ -311,6 +332,10 @@ namespace Towel.Mathematics
 
         #region Add
 
+        /// <summary>Adds two vectors together.</summary>
+        /// <param name="a">The first vector of the addition.</param>
+        /// <param name="b">The second vector of the addiiton.</param>
+        /// <param name="c">The result of the addiion.</param>
         public static void Add(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
             if (a is null)
@@ -370,6 +395,14 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Adds two vectors together.</summary>
+        /// <param name="b">The second vector of the addiiton.</param>
+        /// <param name="c">The result of the addiion.</param>
+        public void Add(Vector<T> b, ref Vector<T> c)
+        {
+            Add(this, b, ref c);
+        }
+
+        /// <summary>Adds two vectors together.</summary>
 		/// <param name="b">The vector to add to this one.</param>
 		/// <returns>The result of the vector.</returns>
 		public Vector<T> Add(Vector<T> b)
@@ -381,6 +414,10 @@ namespace Towel.Mathematics
 
         #region Subtract
 
+        /// <summary>Subtracts two vectors.</summary>
+        /// <param name="a">The left vector of the subtraction.</param>
+        /// <param name="b">The right vector of the subtraction.</param>
+        /// <param name="c">The result of the vector subtracton.</param>
         public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
             if (a is null)
@@ -439,6 +476,14 @@ namespace Towel.Mathematics
             return Subtract(a, b);
         }
 
+        /// <summary>Subtracts two vectors.</summary>
+        /// <param name="b">The right vector of the subtraction.</param>
+        /// <param name="c">The result of the vector subtracton.</param>
+		public void Subtract(Vector<T> b, ref Vector<T> c)
+        {
+            Subtract(this, b, ref c);
+        }
+
         /// <summary>Subtracts another vector from this one.</summary>
 		/// <param name="b">The vector to subtract from this one.</param>
 		/// <returns>The result of the subtraction.</returns>
@@ -451,6 +496,10 @@ namespace Towel.Mathematics
 
         #region Multiply
 
+        /// <summary>Multiplies all the values in a vector by a scalar.</summary>
+		/// <param name="a">The vector to have all its values multiplied.</param>
+		/// <param name="b">The scalar to multiply all the vector values by.</param>
+        /// <param name="c">The result of the multiplication.</param>
         public static void Multiply(Vector<T> a, T b, ref Vector<T> c)
         {
             if (a is null)
@@ -480,10 +529,10 @@ namespace Towel.Mathematics
             }
         }
 
-        /// <summary>Subtracts two vectors.</summary>
-        /// <param name="a">The left vector of the subtraction.</param>
-        /// <param name="b">The right vector of the subtraction.</param>
-        /// <returns>The result of the vector subtracton.</returns>
+        /// <summary>Multiplies all the values in a vector by a scalar.</summary>
+		/// <param name="a">The vector to have all its values multiplied.</param>
+		/// <param name="b">The scalar to multiply all the vector values by.</param>
+		/// <returns>The result of the multiplication.</returns>
         public static Vector<T> Multiply(Vector<T> a, T b)
         {
             Vector<T> c = null;
@@ -509,6 +558,14 @@ namespace Towel.Mathematics
             return Multiply(b, a);
         }
 
+        /// <summary>Multiplies all the values in a vector by a scalar.</summary>
+		/// <param name="b">The scalar to multiply all the vector values by.</param>
+        /// <param name="c">The result of the multiplication.</param>
+        public void Multiply(T b, ref Vector<T> c)
+        {
+            Multiply(this, b, ref c);
+        }
+
         /// <summary>Multiplies the values in this vector by a scalar.</summary>
 		/// <param name="b">The scalar to multiply these values by.</param>
 		/// <returns>The result of the multiplications</returns>
@@ -521,6 +578,10 @@ namespace Towel.Mathematics
 
         #region Divide
 
+        /// <summary>Divides all the components of a vector by a scalar.</summary>
+        /// <param name="a">The vector to have the components divided by.</param>
+        /// <param name="b">The scalar to divide the vector components by.</param>
+        /// <param name="c">The resulting vector after teh divisions.</param>
         public static void Divide(Vector<T> a, T b, ref Vector<T> c)
         {
             if (a is null)
@@ -569,6 +630,14 @@ namespace Towel.Mathematics
 		public static Vector<T> operator /(Vector<T> a, T b)
         {
             return Divide(a, b);
+        }
+
+        /// <summary>Divides all the components of a vector by a scalar.</summary>
+        /// <param name="b">The scalar to divide the vector components by.</param>
+        /// <param name="c">The resulting vector after teh divisions.</param>
+		public void Divide(T b, ref Vector<T> c)
+        {
+            Divide(this, b, ref c);
         }
 
         /// <summary>Divides all the values in this vector by a scalar.</summary>
@@ -624,6 +693,10 @@ namespace Towel.Mathematics
 
         #region CrossProduct
 
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="a">The first vector of the cross product operation.</param>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <param name="c">The result of the cross product operation.</param>
         public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
             if (a == null)
@@ -665,18 +738,29 @@ namespace Towel.Mathematics
             return c;
         }
 
-        /// <summary>Computes the cross product between this vector and another.</summary>
-		/// <param name="right">The second vector of the dot product operation.</param>
-		/// <returns>The result of the dot product operation.</returns>
-		public Vector<T> CrossProduct(Vector<T> right)
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <param name="c">The result of the cross product operation.</param>
+		public void CrossProduct(Vector<T> b, ref Vector<T> c)
         {
-            return CrossProduct(this, right);
+            CrossProduct(this, b, ref c);
+        }
+
+        /// <summary>Computes teh cross product of two vectors.</summary>
+		/// <param name="b">The second vector of the dot product operation.</param>
+		/// <returns>The result of the dot product operation.</returns>
+		public Vector<T> CrossProduct(Vector<T> b)
+        {
+            return CrossProduct(this, b);
         }
 
         #endregion
 
         #region Normalize
 
+        /// <summary>Normalizes a vector.</summary>
+        /// <param name="a">The vector to normalize.</param>
+        /// <param name="b">The result of the normalization.</param>
         public static void Normalize(Vector<T> a, ref Vector<T> b)
         {
             if (a == null)
@@ -713,6 +797,13 @@ namespace Towel.Mathematics
             Vector<T> b = null;
             Normalize(a, ref b);
             return b;
+        }
+
+        /// <summary>Normalizes a vector.</summary>
+        /// <param name="b">The result of the normalization.</param>
+		public void Normalize(ref Vector<T> b)
+        {
+            Normalize(this, ref b);
         }
 
         /// <summary>Normalizes this vector.</summary>
@@ -805,7 +896,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The starting vector of the interpolation.</param>
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
-		/// <returns>The result of the interpolation.</returns>
+        /// <param name="c">The result of the interpolation.</param>
 		public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
         {
             if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
@@ -840,6 +931,15 @@ namespace Towel.Mathematics
             Vector<T> c = null;
             LinearInterpolation(a, b, blend, ref c);
             return c;
+        }
+
+        /// <summary>Computes the linear interpolation between two vectors.</summary>
+		/// <param name="b">The ending vector of the interpolation.</param>
+		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
+        /// <param name="c">The result of the interpolation.</param>
+        public void LinearInterpolation(Vector<T> b, T blend, ref Vector<T> c)
+        {
+            LinearInterpolation(this, b, blend, ref c);
         }
 
         /// <summary>Computes the linear interpolation between two vectors.</summary>
@@ -1009,6 +1109,10 @@ namespace Towel.Mathematics
             return this == b;
         }
 
+        #endregion
+
+        #region Equal (+leniency)
+
         /// <summary>Does a value equality check with leniency.</summary>
         /// <param name="a">The first vector to check for equality.</param>
         /// <param name="b">The second vector to check for equality.</param>
@@ -1040,6 +1144,33 @@ namespace Towel.Mathematics
 		public bool EqualsValue(Vector<T> right, T leniency)
         {
             return Equal(this, right, leniency);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Other Methods
+        
+        #region Clone
+
+        /// <summary>Creates a copy of a vector.</summary>
+        /// <param name="a">The vector to copy.</param>
+        /// <returns>The copy of this vector.</returns>
+        public static Vector<T> Clone(Vector<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return new Vector<T>(a);
+        }
+
+        /// <summary>Copies this vector.</summary>
+        /// <returns>The copy of this vector.</returns>
+        public Vector<T> Clone()
+        {
+            return Clone(this);
         }
 
         #endregion
