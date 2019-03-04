@@ -1,6 +1,9 @@
-﻿using Towel;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Towel;
 using Towel.Algorithms;
 using Towel.DataStructures;
+using System.Linq;
 
 namespace System
 {
@@ -559,8 +562,8 @@ namespace System
 		/// <param name="b">One of the delegates to compare.</param>
 		/// <returns>True if deemed equal, False if not.</returns>
 		/// <remarks>FOR ADVANCED DEVELOPERS ONLY.</remarks>
-		[System.Obsolete("For advanced developers only. Use at your own risk.", true)]
-		public static bool Equate(this System.Delegate a, System.Delegate b)
+		[Obsolete("For advanced developers only. Use at your own risk.", true)]
+		public static bool Equate(this Delegate a, Delegate b)
 		{
             // remove delegate assignment overhead
             a = a.Truncate();
@@ -573,11 +576,11 @@ namespace System
             // null
             if (a == null || b == null)
                 return false;
-
+            
             // (2) if the target and member match
             if (a.Target == b.Target && a.Method == b.Method)
                 return true;
-
+            
             // (3) compiled method bodies match
             if (a.Target != b.Target)
                 return false;
@@ -596,10 +599,10 @@ namespace System
 		/// <summary>Removes the overhead caused by delegate assignment.</summary>
 		/// <param name="del">The delegate to truncate.</param>
 		/// <returns>The truncated delegate.</returns>
-		public static System.Delegate Truncate(this System.Delegate del)
+		public static Delegate Truncate(this Delegate del)
 		{
-			while (del.Target is System.Delegate)
-				del = del.Target as System.Delegate;
+			while (del.Target is Delegate)
+				del = del.Target as Delegate;
 			return del;
 		}
 
@@ -773,7 +776,67 @@ namespace System
                 array[i] = value;
             }
         }
-        
+
+        #endregion
+
+        #region Enum
+
+        /// <summary>Gets a custom attribute on an enum value by generic type.</summary>
+        /// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+        /// <param name="enumValue">The enum value to get the attribute of.</param>
+        /// <returns>The attribute on the enum value of the provided type.</returns>
+        public static AttributeType GetEnumAttribute<AttributeType>(this Enum @enum)
+            where AttributeType : Attribute
+        {
+            Type type = @enum.GetType();
+            MemberInfo memberInfo = type.GetMember(@enum.ToString())[0];
+            return memberInfo.GetCustomAttribute<AttributeType>();
+        }
+
+        /// <summary>Gets custom attribus on an enum value by generic type.</summary>
+        /// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+        /// <param name="enumValue">The enum value to get the attribute of.</param>
+        /// <returns>The attributes on the enum value of the provided type.</returns>
+        public static IEnumerable<AttributeType> GetEnumAttributes<AttributeType>(this Enum @enum)
+            where AttributeType : Attribute
+        {
+            Type type = @enum.GetType();
+            MemberInfo memberInfo = type.GetMember(@enum.ToString())[0];
+            return memberInfo.GetCustomAttributes<AttributeType>();
+        }
+
+        #endregion
+
+        #region Assembly
+
+        /// <summary>Enumerates through all the classes with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the types of.</param>
+        /// <returns>The IEnumerable of the types with the provided attribute type.</returns>
+        public static IEnumerable<Type> GetTypesWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                {
+                    yield return type;
+                }
+            }
+        }
+
+        /// <summary>Gets all the types in an assembly that derive from a base.</summary>
+        /// <typeparam name="Base">The base type to get the deriving types of.</typeparam>
+        /// <param name="assembly">The assmebly to perform the search on.</param>
+        /// <returns>The IEnumerable of the types that derive from the provided base.</returns>
+        public static IEnumerable<Type> GetDerivedTypes<Base>(this Assembly assembly)
+        {
+            Type @base = typeof(Base);
+            return assembly.GetTypes().Where(type =>
+                type != @base &&
+                @base.IsAssignableFrom(type));
+        }
+
         #endregion
     }
 }

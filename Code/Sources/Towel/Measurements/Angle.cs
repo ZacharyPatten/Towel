@@ -14,14 +14,25 @@ namespace Towel.Measurements
             // Note: It is critical that these enum values are in increasing order of size.
             // Their value is used as a priority when doing operations on measurements in
             // different units.
+            
+            /// <summary>Units of an angle measurement.</summary>
+            [ConversionFactor(Gradians, Degrees, "9 / 10")]
+            [ConversionFactor(Gradians, Radians, "π / 200")]
+            [ConversionFactor(Gradians, Turns, "1 / 400")]
+            Gradians = 1,
             [ConversionFactor(Degrees, Gradians, "10 / 9")]
+            [ConversionFactor(Degrees, Radians, "π / 180")]
             [ConversionFactor(Degrees, Turns, "1 / 360")]
             /// <summary>Units of an angle measurement.</summary>
             Degrees = 2,
+            [ConversionFactor(Radians, Gradians, "180 / π")]
+            [ConversionFactor(Radians, Degrees, "200 / π")]
+            [ConversionFactor(Radians, Turns, "π / 2")]
             /// <summary>Units of an angle measurement.</summary>
 			Radians = 3,
             [ConversionFactor(Turns, Gradians, "360")]
             [ConversionFactor(Turns, Degrees, "400")]
+            [ConversionFactor(Turns, Radians, "2 / π")]
             /// <summary>Units of an angle measurement.</summary>
 			Turns = 4,
         }
