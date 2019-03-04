@@ -3,6 +3,10 @@ If you wanna survive out here you've got to know where your towel is.
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in .Net Standard as well as redesign some aspects to bring things up to modern standards.
 
+## Build Status
+
+[![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
+
 ## Mathematics
 
 The Towel framework has fast generic mathematics functions.
