@@ -2041,24 +2041,24 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
                     Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableUnaryOperations.Add(operationName, newFunction);
+                    ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
                     foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
                     {
-                        ParsableUnaryOperations.Add(representation, newFunction);
+                        ParsableUnaryOperations.Add(representation.ToLower(), newFunction);
                     }
 
                     // Left Unary Operators
                     ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
                     foreach (string representation in type.GetCustomAttribute<LeftUnaryOperatorAttribute>().Representations)
                     {
-                        ParsableLeftUnaryOperators.Add(representation, newFunction);
+                        ParsableLeftUnaryOperators.Add(representation.ToLower(), newFunction);
                     }
 
                     // Right Unary Operators
                     ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
                     foreach (string representation in type.GetCustomAttribute<RightUnaryOperatorAttribute>().Representations)
                     {
-                        ParsableRightUnaryOperators.Add(representation, newFunction);
+                        ParsableRightUnaryOperators.Add(representation.ToLower(), newFunction);
                     }
                 }
 
@@ -2072,17 +2072,17 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
                     Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableBinaryOperations.Add(operationName, newFunction);
+                    ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
                     foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
                     {
-                        ParsableBinaryOperations.Add(representation, newFunction);
+                        ParsableBinaryOperations.Add(representation.ToLower(), newFunction);
                     }
 
                     // Binary Operators
                     ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>();
                     foreach (string representation in type.GetCustomAttribute<BinaryOperatorAttribute>().Representations)
                     {
-                        ParsableBinaryOperators.Add(representation, newFunction);
+                        ParsableBinaryOperators.Add(representation.ToLower(), newFunction);
                     }
                 }
 
@@ -2097,10 +2097,10 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B, C);
                     Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableTernaryOperations.Add(operationName, newFunction);
+                    ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
                     foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
                     {
-                        ParsableTernaryOperations.Add(representation, newFunction);
+                        ParsableTernaryOperations.Add(representation.ToLower(), newFunction);
                     }
                 }
 
@@ -2113,10 +2113,10 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
                     Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableMultinaryOperations.Add(operationName, newFunction);
+                    ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
                     foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
                     {
-                        ParsableMultinaryOperations.Add(representation, newFunction);
+                        ParsableMultinaryOperations.Add(representation.ToLower(), newFunction);
                     }
                 }
 
@@ -2128,10 +2128,10 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
                     Func<Constant> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Constant>>(newExpression).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    PARSABLEKNOWNCONSTANTS.Add(operationName, newFunction);
+                    PARSABLEKNOWNCONSTANTS.Add(operationName.ToLower(), newFunction);
                     foreach (string representation in type.GetCustomAttribute<KnownConstantAttribute>().Representations)
                     {
-                        PARSABLEKNOWNCONSTANTS.Add(representation, newFunction);
+                        PARSABLEKNOWNCONSTANTS.Add(representation.ToLower(), newFunction);
                     }
                 }
 
@@ -2226,7 +2226,7 @@ namespace Towel.Mathematics
 
         #region string
 
-        public static Expression Parse<T>(string expression)
+        public static Expression Parse<T>(string expression, Func<string, T> parsingFunction = null)
         {
             // build the parsing library if not already built
             if (!PARSABLELIBRARYBUILT)
@@ -2239,17 +2239,18 @@ namespace Towel.Mathematics
                 throw new ArgumentException("The expression could not be parsed.", nameof(expression));
             }
             expression = expression.Trim();
-            // operations
             if (expression[expression.Length - 1] == ')')
             {
+                // just parenthesis
                 if (expression[0] == '(')
                 {
                     return Parse<T>(expression.Substring(1, expression.Length - 2));
                 }
+                // operations
                 int parenthasisIndex = expression.IndexOf('(');
                 if (parenthasisIndex > -1)
                 {
-                    string operation = expression.Substring(0, parenthasisIndex);
+                    string operation = expression.Substring(0, parenthasisIndex).Trim();
                     operation.ToLower();
                     ListArray<string> operandSplits = SplitOperands(expression.Substring(parenthasisIndex + 1, expression.Length - parenthasisIndex - 1));
                     switch (operandSplits.Count)
@@ -2276,8 +2277,11 @@ namespace Towel.Mathematics
                             }
                             break;
                     }
-
-
+                    Func<Expression[], Multinary> newMultinaryFunction;
+                    if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
+                    {
+                        return newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
+                    }
                 }
                 throw new ArgumentException("The expression could not be parsed.", nameof(expression));
             }
@@ -2297,17 +2301,33 @@ namespace Towel.Mathematics
                 return operatorParsedNode;
             }
             // known constants
-            Expression knownConstantsParsedNode;
-            if (TryParseKnownConstants(expression, out knownConstantsParsedNode))
+            Func<Constant> newKnownConstantFunction;
+            if (PARSABLEKNOWNCONSTANTS.TryGetValue(expression, out newKnownConstantFunction))
             {
-                return knownConstantsParsedNode;
+                return newKnownConstantFunction();
             }
-
-            int operatorIndex = expression;
-
-            if (expression.Equals("PI", StringComparison.InvariantCultureIgnoreCase) || expression == "π")
+            // unknown constants
+            bool isUnkownConstant = true;
+            bool hasDecimal = false;
+            for (int i = 0; i < expression.Length; i++)
             {
-                return new Constant<T>(Towel.Mathematics.Constant<T>.Pi);
+                char character = expression[i];
+                if (character == '.')
+                {
+                    if (hasDecimal || i == 0 || i == expression.Length - 1)
+                    {
+                        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                    }
+                    hasDecimal = true;
+                }
+                if (character == '0' && i == 0)
+                {
+                    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                }
+                if ('0' > character || character > '9')
+                {
+                    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                }
             }
         }
 
@@ -2360,19 +2380,6 @@ namespace Towel.Mathematics
                     
                 }
             }
-        }
-
-        public static bool TryParseKnownConstants(string expression, out Expression node)
-        {
-            foreach ((string, Symbolics.String.ParsableKnownConstants) knownConstant in Symbolics.String.ParsableKnownConstantsStrings)
-            {
-                if (expression.Equals(knownConstant.Item1, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    
-                }
-            }
-            node = null;
-            return false;
         }
 
         #endregion

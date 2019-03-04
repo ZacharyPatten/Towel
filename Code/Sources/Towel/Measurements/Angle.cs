@@ -11,93 +11,30 @@ namespace Towel.Measurements
         /// <summary>Units for angle measurements.</summary>
         public enum Units
         {
-            // Note: It is critical that these enum values are in increasing order of size.
-            // Their value is used as a priority when doing operations on measurements in
-            // different units.
+            // Note: These enum values are critical. They are used to determine
+            // unit priorities and storage of location conversion factors. They 
+            // need to be small and in non-increasing order of unit size.
             
             /// <summary>Units of an angle measurement.</summary>
-            [ConversionFactor(Gradians, Degrees, "9 / 10")]
-            [ConversionFactor(Gradians, Radians, "π / 200")]
-            [ConversionFactor(Gradians, Turns, "1 / 400")]
+            [ConversionFactor(Degrees, "9 / 10")]
+            [ConversionFactor(Radians, "π / 200")]
+            [ConversionFactor(Turns, "1 / 400")]
             Gradians = 1,
-            [ConversionFactor(Degrees, Gradians, "10 / 9")]
-            [ConversionFactor(Degrees, Radians, "π / 180")]
-            [ConversionFactor(Degrees, Turns, "1 / 360")]
+            [ConversionFactor(Gradians, "10 / 9")]
+            [ConversionFactor(Radians, "π / 180")]
+            [ConversionFactor(Turns, "1 / 360")]
             /// <summary>Units of an angle measurement.</summary>
             Degrees = 2,
-            [ConversionFactor(Radians, Gradians, "180 / π")]
-            [ConversionFactor(Radians, Degrees, "200 / π")]
-            [ConversionFactor(Radians, Turns, "π / 2")]
+            [ConversionFactor(Gradians, "180 / π")]
+            [ConversionFactor(Degrees, "200 / π")]
+            [ConversionFactor(Turns, "π / 2")]
             /// <summary>Units of an angle measurement.</summary>
 			Radians = 3,
-            [ConversionFactor(Turns, Gradians, "360")]
-            [ConversionFactor(Turns, Degrees, "400")]
-            [ConversionFactor(Turns, Radians, "2 / π")]
+            [ConversionFactor(Gradians, "360")]
+            [ConversionFactor(Degrees, "400")]
+            [ConversionFactor(Radians, "2 / π")]
             /// <summary>Units of an angle measurement.</summary>
 			Turns = 4,
-        }
-
-        internal struct Conversion
-        {
-            internal Units A;
-            internal Units B;
-
-            internal Conversion(Units a, Units b)
-            {
-                this.A = a;
-                this.B = b;
-            }
-        }
-
-        internal static class ConversionConstant<T>
-        {
-            // Note: we unfortunately need to store these constants in hard coded
-            // static fields for performance purposes. If there is any way to avoid this
-            // but keep the performmance PLEASE let me know!
-
-            internal static T GradiansToDegrees = ConversionFactorAttribute.Get(Units.Gradians, Units.Degrees).Value<T>();
-            internal static T GradiansToRadians = ConversionFactorAttribute.Get(Units.Gradians, Units.Radians).Value<T>();
-            internal static T GradiansToTurns = ConversionFactorAttribute.Get(Units.Gradians, Units.Turns).Value<T>();
-
-            internal static T DegreesToGradians = ConversionFactorAttribute.Get(Units.Degrees, Units.Gradians).Value<T>();
-            internal static T DegreesToRadians = ConversionFactorAttribute.Get(Units.Degrees, Units.Radians).Value<T>();
-            internal static T DegreesToTurns = ConversionFactorAttribute.Get(Units.Degrees, Units.Turns).Value<T>();
-
-            internal static T RadiansToGradians = ConversionFactorAttribute.Get(Units.Radians, Units.Gradians).Value<T>();
-            internal static T RadiansToDegrees = ConversionFactorAttribute.Get(Units.Radians, Units.Degrees).Value<T>();
-            internal static T RadiansToTurns = ConversionFactorAttribute.Get(Units.Radians, Units.Turns).Value<T>();
-
-            internal static T TurnsToGradians = ConversionFactorAttribute.Get(Units.Turns, Units.Gradians).Value<T>();
-            internal static T TurnsToDegrees = ConversionFactorAttribute.Get(Units.Turns, Units.Degrees).Value<T>();
-            internal static T TurnsToRadians = ConversionFactorAttribute.Get(Units.Turns, Units.Radians).Value<T>();
-        }
-
-        internal static T ConversionFactor<T>(Units a, Units b)
-        {
-            Conversion conversion = new Conversion(a, b);
-            switch (conversion)
-            {
-                case var C when C.A == Units.Gradians && C.B == Units.Degrees: return ConversionConstant<T>.GradiansToDegrees;
-                case var C when C.A == Units.Gradians && C.B == Units.Radians: return ConversionConstant<T>.GradiansToRadians;
-                case var C when C.A == Units.Gradians && C.B == Units.Turns: return ConversionConstant<T>.GradiansToTurns;
-
-                case var C when C.A == Units.Degrees && C.B == Units.Gradians: return ConversionConstant<T>.DegreesToGradians;
-                case var C when C.A == Units.Degrees && C.B == Units.Radians: return ConversionConstant<T>.DegreesToRadians;
-                case var C when C.A == Units.Degrees && C.B == Units.Turns: return ConversionConstant<T>.DegreesToTurns;
-
-                case var C when C.A == Units.Radians && C.B == Units.Degrees: return ConversionConstant<T>.RadiansToGradians;
-                case var C when C.A == Units.Radians && C.B == Units.Gradians: return ConversionConstant<T>.RadiansToDegrees;
-                case var C when C.A == Units.Radians && C.B == Units.Turns: return ConversionConstant<T>.RadiansToTurns;
-
-                case var C when C.A == Units.Turns && C.B == Units.Degrees: return ConversionConstant<T>.TurnsToGradians;
-                case var C when C.A == Units.Turns && C.B == Units.Gradians: return ConversionConstant<T>.TurnsToDegrees;
-                case var C when C.A == Units.Turns && C.B == Units.Radians: return ConversionConstant<T>.TurnsToRadians;
-            }
-            if (a == b)
-            {
-                throw new Exception("There is a bug in " + nameof(Towel) + ". (" + nameof(Angle) + "." + nameof(ConversionFactor) + " attempted on like units)");
-            }
-            throw new NotImplementedException(nameof(Towel) + " is missing a conversion factor in " + nameof(Angle) + " for " + a + " -> " + b + ".");
         }
         
 		#endregion
@@ -107,15 +44,16 @@ namespace Towel.Measurements
 	/// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
 	public struct Angle<T>
 	{
-		internal T _measurement;
+        internal static T[][] Table = ConversionTable.Build<Angle.Units, T>();
+        internal T _measurement;
 		internal Angle.Units _units;
 
-		#region Constructors
+        #region Constructors
 
         /// <summary>Constructs an angle with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the angle.</param>
         /// <param name="units">The units of the angle.</param>
-		public Angle(T measurement, Angle.Units units)
+        public Angle(T measurement, Angle.Units units)
 		{
 			this._measurement = measurement;
 			this._units = units;
@@ -152,7 +90,7 @@ namespace Towel.Measurements
                 }
                 else
                 {
-                    T factor = Angle.ConversionFactor<T>(this._units, units);
+                    T factor = Table[(int)this._units][(int)units];
                     return Compute.Multiply(this._measurement, factor);
                 }
 			}

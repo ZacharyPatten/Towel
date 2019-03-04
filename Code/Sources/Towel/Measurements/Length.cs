@@ -26,46 +26,6 @@ namespace Towel.Measurements
 
         }
 
-        internal struct Conversion
-        {
-            internal Units A;
-            internal Units B;
-
-            internal Conversion(Units a, Units b)
-            {
-                this.A = a;
-                this.B = b;
-            }
-        }
-
-        internal static class ConversionConstant<T>
-        {
-            // Note: we unfortunately need to store these constants in hard coded
-            // static fields for performance purposes. If there is any way to avoid this
-            // but keep the performmance PLEASE let me know!
-
-            //internal static T GradiansToDegrees = ConversionFactorAttribute.Get(Units.Gradians, Units.Degrees).Value<T>();
-            //internal static T GradiansToRadians = ConversionFactorAttribute.Get(Units.Gradians, Units.Radians).Value<T>();
-            //internal static T GradiansToTurns = ConversionFactorAttribute.Get(Units.Gradians, Units.Turns).Value<T>();
-        }
-
-        internal static T ConversionFactor<T>(Units a, Units b)
-        {
-            Conversion conversion = new Conversion(a, b);
-            switch (conversion)
-            {
-                //case var C when C.A == Units.Gradians && C.B == Units.Degrees: return ConversionConstant<T>.GradiansToDegrees;
-                //case var C when C.A == Units.Gradians && C.B == Units.Radians: return ConversionConstant<T>.GradiansToRadians;
-                //case var C when C.A == Units.Gradians && C.B == Units.Turns: return ConversionConstant<T>.GradiansToTurns;
-
-            }
-            if (a == b)
-            {
-                throw new Exception("There is a bug in " + nameof(Towel) + ". (" + nameof(Length) + "." + nameof(ConversionFactor) + " attempted on like units)");
-            }
-            throw new NotImplementedException(nameof(Towel) + " is missing a conversion factor in " + nameof(Length) + " for " + a + " -> " + b + ".");
-        }
-
         #endregion
     }
 
@@ -73,6 +33,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the length measurement.</typeparam>
     public struct Length<T>
     {
+        internal static T[][] Table = ConversionTable.Build<Length.Units, T>();
         internal T _measurement;
         internal Length.Units _units;
 
@@ -118,7 +79,7 @@ namespace Towel.Measurements
                 }
                 else
                 {
-                    T factor = Length.ConversionFactor<T>(this._units, units);
+                    T factor = Table[(int)this._units][(int)units];
                     return Compute.Multiply(this._measurement, factor);
                 }
             }

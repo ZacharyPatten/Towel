@@ -4,6 +4,7 @@ using Towel;
 using Towel.Algorithms;
 using Towel.DataStructures;
 using System.Linq;
+using Towel.Mathematics;
 
 namespace System
 {
@@ -777,6 +778,16 @@ namespace System
             }
         }
 
+        public static T[][] ConstructSquareJagged<T>(int sideLength)
+        {
+            T[][] jaggedArray = new T[sideLength][];
+            for (int i = 0; i < sideLength; i++)
+            {
+                jaggedArray[i] = new T[sideLength];
+            }
+            return jaggedArray;
+        }
+
         #endregion
 
         #region Enum
@@ -803,6 +814,20 @@ namespace System
             Type type = @enum.GetType();
             MemberInfo memberInfo = type.GetMember(@enum.ToString())[0];
             return memberInfo.GetCustomAttributes<AttributeType>();
+        }
+
+        /// <summary>Gets the maximum value of an enum.</summary>
+        /// <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
+        /// <returns>The maximum enum value of the provided type.</returns>
+        public static ENUM GetMaxEnumValue<ENUM>()
+        {
+            return Compute.Maximum((Step<ENUM> step) =>
+            {
+                foreach (ENUM @enum in Enum.GetValues(typeof(Enum)))
+                {
+                    step(@enum);
+                }
+            });
         }
 
         #endregion
