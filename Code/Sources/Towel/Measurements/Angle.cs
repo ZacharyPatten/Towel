@@ -44,7 +44,7 @@ namespace Towel.Measurements
 	/// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
 	public struct Angle<T>
 	{
-        internal static T[][] Table = ConversionTable.Build<Angle.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Angle.Units, T>();
         internal T _measurement;
 		internal Angle.Units _units;
 

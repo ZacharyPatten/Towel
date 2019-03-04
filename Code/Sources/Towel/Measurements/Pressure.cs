@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Pressure measurement.</typeparam>
     public struct Pressure<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Pressure.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Pressure.Units, T>();
         internal T _measurement;
         internal Pressure.Units _units;
 

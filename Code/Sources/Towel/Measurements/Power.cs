@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Power measurement.</typeparam>
     public struct Power<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Power.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Power.Units, T>();
         internal T _measurement;
         internal Power.Units _units;
 

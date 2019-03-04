@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Volumne measurement.</typeparam>
     public struct Volumne<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Volumne.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Volumne.Units, T>();
         internal T _measurement;
         internal Volumne.Units _units;
 

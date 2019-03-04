@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Torque measurement.</typeparam>
     public struct Torque<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Torque.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Torque.Units, T>();
         internal T _measurement;
         internal Torque.Units _units;
 

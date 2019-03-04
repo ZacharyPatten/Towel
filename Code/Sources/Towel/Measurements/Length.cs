@@ -33,7 +33,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the length measurement.</typeparam>
     public struct Length<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Length.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Length.Units, T>();
         internal T _measurement;
         internal Length.Units _units;
 

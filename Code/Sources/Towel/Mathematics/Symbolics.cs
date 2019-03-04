@@ -2300,25 +2300,30 @@ namespace Towel.Mathematics
             {
                 return operatorParsedNode;
             }
+            // implied multiplication with variables
+            Expression impliedVariableMultiplication;
+            if (TryParseImpliedVariableMultiplication(out impliedVariableMultiplication))
+            {
+
+            }
             // known constants
             Func<Constant> newKnownConstantFunction;
             if (PARSABLEKNOWNCONSTANTS.TryGetValue(expression, out newKnownConstantFunction))
             {
                 return newKnownConstantFunction();
             }
-            // unknown constants
-            bool isUnkownConstant = true;
-            bool hasDecimal = false;
+            // unkown numeric constant
+            int decimalIndex = -1;
             for (int i = 0; i < expression.Length; i++)
             {
                 char character = expression[i];
                 if (character == '.')
                 {
-                    if (hasDecimal || i == 0 || i == expression.Length - 1)
+                    if (decimalIndex >= 0 || i == 0 || i == expression.Length - 1)
                     {
                         throw new ArgumentException("The expression could not be parsed.", nameof(expression));
                     }
-                    hasDecimal = true;
+                    decimalIndex = i;
                 }
                 if (character == '0' && i == 0)
                 {
@@ -2329,6 +2334,11 @@ namespace Towel.Mathematics
                     throw new ArgumentException("The expression could not be parsed.", nameof(expression));
                 }
             }
+            if (parsingFunction != null)
+            {
+                return new Constant<T>(parsingFunction(expression));
+            }
+            if (hasDecimal)
         }
 
         public static ListArray<string> SplitOperands(string expression)
@@ -2363,7 +2373,6 @@ namespace Towel.Mathematics
         {
             bool foundOperator = false;
             int operatorIndex;
-            Symbolics.String.StringParsableOperators @operator;
             int scope = 0;
             for (int i = 0; i < expression.Length; i++)
             {
@@ -2381,6 +2390,8 @@ namespace Towel.Mathematics
                 }
             }
         }
+
+        public static bool TryParseImpliedVariableMultiplication(out Expression expression)
 
         #endregion
 

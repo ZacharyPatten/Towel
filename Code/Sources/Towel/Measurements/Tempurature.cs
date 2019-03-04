@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Tempurature measurement.</typeparam>
     public struct Tempurature<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Tempurature.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Tempurature.Units, T>();
         internal T _measurement;
         internal Tempurature.Units _units;
 

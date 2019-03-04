@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Mass measurement.</typeparam>
     public struct Mass<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Mass.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Mass.Units, T>();
         internal T _measurement;
         internal Mass.Units _units;
 

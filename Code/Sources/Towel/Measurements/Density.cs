@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Desnity measurement.</typeparam>
     public struct Desnity<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Density.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Density.Units, T>();
         internal T _measurement;
         internal Density.Units _units;
 

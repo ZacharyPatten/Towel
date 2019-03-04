@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Force measurement.</typeparam>
     public struct Force<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Force.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Force.Units, T>();
         internal T _measurement;
         internal Force.Units _units;
 

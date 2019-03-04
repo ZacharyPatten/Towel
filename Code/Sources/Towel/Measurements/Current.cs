@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Current measurement.</typeparam>
     public struct Current<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Current.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Current.Units, T>();
         internal T _measurement;
         internal Current.Units _units;
 

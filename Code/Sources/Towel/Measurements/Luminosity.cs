@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Luminosity measurement.</typeparam>
     public struct Luminosity<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Luminosity.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Luminosity.Units, T>();
         internal T _measurement;
         internal Luminosity.Units _units;
 

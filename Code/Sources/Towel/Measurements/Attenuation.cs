@@ -27,7 +27,7 @@ namespace Towel.Measurements
     /// <typeparam name="T">The generic numeric type used to store the Attenuation measurement.</typeparam>
     public struct Attenuation<T>
     {
-        internal static T[][] Table = ConversionTable.Build<Attenuation.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Attenuation.Units, T>();
         internal T _measurement;
         internal Attenuation.Units _units;
 
