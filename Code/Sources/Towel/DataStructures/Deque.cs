@@ -1,6 +1,6 @@
 ﻿namespace Towel.DataStructures
 {
-	public interface Deque<T> : Structure<T>,
+	public interface Deque<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Clearable<T>
@@ -204,7 +204,7 @@
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Structure<T> Clone()
+		public DataStructure<T> Clone()
 		{
 			throw new System.NotImplementedException();
 		}

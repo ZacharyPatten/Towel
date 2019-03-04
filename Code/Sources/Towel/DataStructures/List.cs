@@ -8,7 +8,7 @@ namespace Towel.DataStructures
 {
 	/// <summary>A primitive dynamic sized data structure.</summary>
 	/// <typeparam name="T">The type of items to store in the list.</typeparam>
-	public interface List<T> : Structure<T>,
+	public interface List<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Addable<T>,
 		Structure.Countable<T>,

@@ -2,7 +2,7 @@
 {
 	/// <summary>Sorted linear data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	public interface Order<T> : Structure<T>,
+	public interface Order<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Clearable<T>,

@@ -83,27 +83,22 @@ namespace Mathematics
 
             #region Angles
 
-            //Console.WriteLine("  Angles--------------------------------------");
-            //Console.WriteLine();
-            //Angle<double> angle1 = Angle<double>.Factory_Degrees(90d);
-            //Console.WriteLine("    angle1 = " + angle1);
-            //Angle<double> angle2 = Angle<double>.Factory_Turns(0.5d);
-            //Console.WriteLine("    angle2 = " + angle2);
-            //Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
-            //Console.WriteLine("    angle2 - angle1 = " + (angle1 + angle2));
-            //Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
-            //Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
-            //Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
-            //Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
-            //Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
-            //Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
-            //Console.WriteLine();
-
-            //// examples of non-doubles
-            //Angle<float> angle10 = Angle<float>.Factory_Degrees(90f);
-            //Angle<Fraction128> angle11 = Angle<Fraction128>.Factory_Degrees(new Fraction128("90/1"));
-            //Angle<decimal> angle12 = Angle<decimal>.Factory_Degrees(90m);
-
+            Console.WriteLine("  Angles--------------------------------------");
+            Console.WriteLine();
+            Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
+            Console.WriteLine("    angle1 = " + angle1);
+            Angle<double> angle2 = new Angle<double>(0.5d, Angle.Units.Turns);
+            Console.WriteLine("    angle2 = " + angle2);
+            Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
+            Console.WriteLine("    angle2 - angle1 = " + (angle1 + angle2));
+            Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
+            Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
+            Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
+            Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
+            Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
+            Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
+            Console.WriteLine();
+            
             #endregion
 
             #region Fraction

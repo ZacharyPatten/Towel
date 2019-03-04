@@ -2,7 +2,7 @@
 {
 	/// <summary>A generic tree data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	public interface Tree<T> : Structure<T>,
+	public interface Tree<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Removable<T>

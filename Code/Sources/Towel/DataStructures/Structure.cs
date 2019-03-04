@@ -2,7 +2,7 @@
 {
 	/// <summary>Polymorphism base for all data structures in the Towel framework.</summary>
 	/// <typeparam name="T">The type of the instances to store in this data structure.</typeparam>
-	public interface Structure<T> : 
+	public interface DataStructure<T> : 
 		// for those who can't live without their IEnumerables... shame on you
 		System.Collections.Generic.IEnumerable<T>
 	{

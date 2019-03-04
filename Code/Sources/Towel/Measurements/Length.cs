@@ -1,204 +1,322 @@
-﻿using Towel.Mathematics;
+﻿using System;
+using Towel.Mathematics;
 
 namespace Towel.Measurements
 {
-	public static class Length<T>
+    /// <summary>Contains unit types and conversion factors for the generic Length struct.</summary>
+	public static class Length
     {
-        #region From Meters
+        #region Units
 
-        /// <summary>The factor for converting meters to yottameters (10E-24).</summary>
-        public static T MetersToYottametersFactor { get { return Metric<T>.BaseToYottaFactor; } }
-        /// <summary>Converts meters to yottameters.</summary>
-        /// <param name="measurement">The measurement in meters to convert to yottameters.</param>
-        /// <returns>The measurement in yottameters.</returns>
-        public static T MetersToYottameters(T measurement) { return Metric<T>.BaseToYotta(measurement); }
-
-        /// <summary>The factor for converting meters to zettameters (10E-21).</summary>
-        public static T MetersToZettametersFactor { get { return Metric<T>.BaseToZettaFactor; } }
-        /// <summary>Converts meters to zettameters.</summary>
-        /// <param name="measurement">The measurement in meters to convert to zettameters.</param>
-        /// <returns>The measurement in zettameters.</returns>
-        public static T MetersToZettameters(T measurement) { return Metric<T>.BaseToZetta(measurement); }
-
-        /// <summary>The factor for converting meters to exameters (10E-21).</summary>
-        public static T MetersToExametersFactor { get { return Metric<T>.BaseToExaFactor; } }
-        /// <summary>Converts meters to exameters.</summary>
-        /// <param name="measurement">The measurement in meters to convert to exameters.</param>
-        /// <returns>The measurement in exaameters.</returns>
-        public static T MetersToExameters(T measurement) { return Metric<T>.BaseToExa(measurement); }
-
-        /// <summary>The factor for converting meters to petameters (10E-21).</summary>
-        public static T MetersToPetametersFactor { get { return Metric<T>.BaseToPetaFactor; } }
-        public static T MetersToPetameters(T measurement) { return Metric<T>.BaseToPeta(measurement); }
-
-        /// <summary>The factor for converting meters to terameters (10E-21).</summary>
-        public static T MetersToTerametersFactor { get { return Metric<T>.BaseToTeraFactor; } }
-        public static T MetersToTerameters(T measurement) { return Metric<T>.BaseToTera(measurement); }
-
-        /// <summary>The factor for converting meters to gigameters (10E-9).</summary>
-        public static T MetersToGigametersFactor { get { return Metric<T>.BaseToGigaFactor; } }
-        public static T MetersToGigameters(T measurement) { return Metric<T>.BaseToGiga(measurement); }
-
-        /// <summary>The factor for converting meters to gigameters (10E-6).</summary>
-        public static T MetersToMegametersFactor { get { return Metric<T>.BaseToMegaFactor; } }
-        public static T MetersToMegameters(T measurement) { return Metric<T>.BaseToMega(measurement); }
-
-        /// <summary>The factor for converting meters to kilometers (10E-3).</summary>
-        public static T MetersToKilometersFactor { get { return Metric<T>.BaseToKiloFactor; } }
-        public static T MetersToKilometers(T measurement) { return Metric<T>.BaseToKilo(measurement); }
-
-        /// <summary>The factor for converting meters to hectometers (10E-2).</summary>
-        public static T MetersToHectometersFactor { get { return Metric<T>.BaseToHectoFactor; } }
-        public static T MetersToHectometers(T measurement) { return Metric<T>.BaseToHecto(measurement); }
-
-        /// <summary>The factor for converting meters to decameters (10E-1).</summary>
-        public static T MetersToDecametersFactor { get { return Metric<T>.BaseToDecaFactor; } }
-        public static T MetersToDecameters(T measurement) { return Metric<T>.BaseToDeca(measurement); }
-        
-        /// <summary>The factor for converting meters to decimeters (10E1).</summary>
-        public static T MetersToDecimetersFactor { get { return Metric<T>.BaseToDeciFactor; } }
-        public static T MetersToDecimeters(T measurement) { return Metric<T>.BaseToDeci(measurement); }
-
-        /// <summary>The factor for converting meters to centimeters (10E2).</summary>
-        public static T MetersToCentimetersFactor { get { return Metric<T>.BaseToCentiFactor; } }
-        public static T MetersToCentimeters(T measurement) { return Metric<T>.BaseToCenti(measurement); }
-
-        /// <summary>The factor for converting meters to millimeters (10E3).</summary>
-        public static T MetersToMillimetersFactor { get { return Metric<T>.BaseToMilliFactor; } }
-        public static T MetersToMillimeters(T measurement) { return Metric<T>.BaseToMilli(measurement); }
-
-        /// <summary>The factor for converting meters to micrometers (10E6).</summary>
-        public static T MetersToMicrometersFactor { get { return Metric<T>.BaseToMicroFactor; } }
-        public static T MetersToMicrometers(T measurement) { return Metric<T>.BaseToMicro(measurement); }
-
-        /// <summary>The factor for converting meters to nanometers (10E9).</summary>
-        public static T MetersToNanometersFactor { get { return Metric<T>.BaseToNanoFactor; } }
-        public static T MetersToNanometers(T measurement) { return Metric<T>.BaseToNano(measurement); }
-
-        /// <summary>The factor for converting meters to picometers (10E12).</summary>
-        public static T MetersToPicometersFactor { get { return Metric<T>.BaseToPicoFactor; } }
-        public static T MetersToPicometers(T measurement) { return Metric<T>.BaseToPico(measurement); }
-
-        /// <summary>The factor for converting meters to femtometers (10E15).</summary>
-        public static T MetersToFemtometersFactor { get { return Metric<T>.BaseToFemtoFactor; } }
-        public static T MetersToFemtometers(T measurement) { return Metric<T>.BaseToFemto(measurement); }
-
-        /// <summary>The factor for converting meters to attometers (10E18).</summary>
-        public static T MetersToAttometersFactor { get { return Metric<T>.BaseToAttoFactor; } }
-        public static T MetersToAttometers(T measurement) { return Metric<T>.BaseToAtto(measurement); }
-
-        /// <summary>The factor for converting meters to zeptometers (10E21).</summary>
-        public static T MetersToZeptometersFactor { get { return Metric<T>.BaseToZeptoFactor; } }
-        public static T MetersToZeptometers(T measurement) { return Metric<T>.BaseToAtto(measurement); }
-
-        /// <summary>The factor for converting meters to yoctometers (10E24).</summary>
-        public static T MetersToYoctometersFactor { get { return Metric<T>.BaseToYoctoFactor; } }
-        public static T MetersToYoctometers(T measurement) { return Metric<T>.BaseToYocto(measurement); }
-
-        private static bool _metersToThousFactorComputed = false;
-        private static T _metersToThousFactor;
-        /// <summary>The factor for converting meters to XXX.</summary>
-        public static T MetersToThousFactor
+        /// <summary>Units for length measurements.</summary>
+        public enum Units
         {
-            get
-            {
-                if (!_metersToThousFactorComputed)
-                {
-                    _metersToThousFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(254000), Compute.FromInt32<T>(10000)));
-                    _metersToThousFactorComputed = true;
-                }
-                return _metersToThousFactor;
-            }
+            // Note: It is critical that these enum values are in increasing order of size.
+            // Their value is used as a priority when doing operations on measurements in
+            // different units.
+
+            /// <summary>Units of an length measurement.</summary>
+			Inch = 1,
+            /// <summary>Units of an length measurement.</summary>
+            Foot = 2,
+            /// <summary>Units of an length measurement.</summary>
+			Yard = 3,
+            /// <summary>Units of an length measurement.</summary>
+            Mile = 4,
+
         }
-        public static T MetersToThous(T measurement) { return Compute.Multiply(measurement, MetersToThousFactor); }
 
-        private static bool _metersToLinesFactorComputed = false;
-        private static T _metersToLinesFactor;
-        /// <summary>The factor for converting meters to XXX.</summary>
-        public static T MetersToLinesFactor
+        internal struct Conversion
         {
-            get
+            internal Units A;
+            internal Units B;
+
+            internal Conversion(Units a, Units b)
             {
-                if (!_metersToLinesFactorComputed)
-                {
-                    _metersToLinesFactor = Compute.Divide(Compute.FromInt32<T>(47244), Compute.FromInt32<T>(100));
-                    _metersToLinesFactorComputed = true;
-                }
-                return _metersToLinesFactor;
+                this.A = a;
+                this.B = b;
             }
         }
 
-        private static bool _metersToInchsFactorComputed = false;
-        private static T _metersToInchsFactor;
-        /// <summary>The factor for converting meters to XXX.</summary>
-        public static T MetersToInchsFactor
+        internal static class ConversionConstant<T>
         {
-            get
+            // Note: we unfortunately need to store these constants in hard coded
+            // static fields for performance purposes. If there is any way to avoid this
+            // but keep the performmance PLEASE let me know!
+
+            //internal static T GradiansToDegrees = ConversionFactorAttribute.Get(Units.Gradians, Units.Degrees).Value<T>();
+            //internal static T GradiansToRadians = ConversionFactorAttribute.Get(Units.Gradians, Units.Radians).Value<T>();
+            //internal static T GradiansToTurns = ConversionFactorAttribute.Get(Units.Gradians, Units.Turns).Value<T>();
+        }
+
+        internal static T ConversionFactor<T>(Units a, Units b)
+        {
+            Conversion conversion = new Conversion(a, b);
+            switch (conversion)
             {
-                if (!_metersToInchsFactorComputed)
+                //case var C when C.A == Units.Gradians && C.B == Units.Degrees: return ConversionConstant<T>.GradiansToDegrees;
+                //case var C when C.A == Units.Gradians && C.B == Units.Radians: return ConversionConstant<T>.GradiansToRadians;
+                //case var C when C.A == Units.Gradians && C.B == Units.Turns: return ConversionConstant<T>.GradiansToTurns;
+
+            }
+            if (a == b)
+            {
+                throw new Exception("There is a bug in " + nameof(Towel) + ". (" + nameof(Length) + "." + nameof(ConversionFactor) + " attempted on like units)");
+            }
+            throw new NotImplementedException(nameof(Towel) + " is missing a conversion factor in " + nameof(Length) + " for " + a + " -> " + b + ".");
+        }
+
+        #endregion
+    }
+
+    /// <summary>An length measurement.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the length measurement.</typeparam>
+    public struct Length<T>
+    {
+        internal T _measurement;
+        internal Length.Units _units;
+
+        #region Constructors
+
+        /// <summary>Constructs an length with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the length.</param>
+        /// <param name="units">The units of the length.</param>
+        public Length(T measurement, Length.Units units)
+        {
+            this._measurement = measurement;
+            this._units = units;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The current units used to represent the length.</summary>
+        public Length.Units Units
+        {
+            get { return this._units; }
+            set
+            {
+                if (value != this._units)
                 {
-                    _metersToInchsFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(254), Compute.FromInt32<T>(10000)));
-                    _metersToInchsFactorComputed = true;
+                    this._measurement = this[value];
+                    this._units = value;
                 }
-                return _metersToInchsFactor;
             }
         }
 
-        private static bool _metersToFeetFactorComputed = false;
-        private static T _metersToFeetFactor;
-        /// <summary>The factor for converting meters to XXX.</summary>
-        public static T MetersToFeetFactor
+        /// <summary>Gets the measurement in the desired units.</summary>
+        /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
+        internal T this[Length.Units units]
         {
             get
             {
-                if (!_metersToFeetFactorComputed)
+                if (this._units == units)
                 {
-                    _metersToFeetFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(3048), Compute.FromInt32<T>(10000)));
-                    _metersToFeetFactorComputed = true;
+                    return this._measurement;
                 }
-                return _metersToFeetFactor;
+                else
+                {
+                    T factor = Length.ConversionFactor<T>(this._units, units);
+                    return Compute.Multiply(this._measurement, factor);
+                }
             }
         }
 
-        private static bool _metersToYardsFactorComputed = false;
-        private static T _metersToYardsFactor;
-        /// <summary>The factor for converting meters to XXX.</summary>
-        public static T MetersToYardsFactor
+        //      /// <summary>Gets the measurement in Gradians.</summary>
+        //public T Gradians
+        //      {
+        //          get
+        //          {
+        //              return this[Length.Units.Gradians];
+        //          }
+        //      }
+
+        #endregion
+
+        #region Mathematics
+
+        #region Add
+
+        public static Length<T> Add(Length<T> a, Length<T> b)
         {
-            get
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Length<T>(Compute.Add(a[units], b[units]), units);
+        }
+
+        public static Length<T> operator +(Length<T> a, Length<T> b)
+        {
+            return Add(a, b);
+        }
+
+        #endregion
+
+        #region Subtract
+
+        public static Length<T> Subtract(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Length<T>(Compute.Subtract(a[units], b[units]), units);
+        }
+
+        public static Length<T> operator -(Length<T> a, Length<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        #endregion
+
+        #region Multiply
+
+        public static Length<T> Multiply(Length<T> a, T b)
+        {
+            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
+
+        public static Length<T> Multiply(T b, Length<T> a)
+        {
+            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
+
+        public static Length<T> operator *(Length<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        public static Length<T> operator *(T b, Length<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        #endregion
+
+        #region Divide
+
+        public static Length<T> Divide(Length<T> a, T b)
+        {
+            return new Length<T>(Compute.Divide(a._measurement, b), a._units);
+        }
+
+        public static Length<T> operator /(Length<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        #endregion
+
+        #region LessThan
+
+        public static bool LessThan(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThan(a[units], b[units]);
+        }
+
+        public static bool operator <(Length<T> a, Length<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        public static bool GreaterThan(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThan(a[units], b[units]);
+        }
+
+        public static bool operator >(Length<T> a, Length<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        public static bool LessThanOrEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator <=(Length<T> a, Length<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        public static bool GreaterThanOrEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator >=(Length<T> left, Length<T> right)
+        {
+            return GreaterThanOrEqual(left, right);
+        }
+
+        #endregion
+
+        #region Equal
+
+        public static bool Equal(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.Equal(a[units], b[units]);
+        }
+
+        public static bool operator ==(Length<T> a, Length<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        public static bool NotEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.NotEqual(a[units], b[units]);
+        }
+
+        public static bool operator !=(Length<T> a, Length<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            switch (this._units)
             {
-                if (!_metersToYardsFactorComputed)
-                {
-                    _metersToYardsFactor = Compute.Invert(Compute.Divide(Compute.FromInt32<T>(9144), Compute.FromInt32<T>(10000)));
-                    _metersToYardsFactorComputed = true;
-                }
-                return _metersToYardsFactor;
+                //case Length.Units.Degrees: return this._measurement.ToString() + "°";
+                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Length<T>) + ".");
             }
         }
 
-        //public static readonly T MetersToMilesFactor = throw new System.NotImplementedException();
-        //public static readonly T MetersToLeaguesFactor = ;
-        //public static readonly T MetersToFathomsFactor = ;
-        //public static readonly T MetersToNauticalMilesFactor = ;
-        //public static readonly T MetersToChainsFactor = ;
-        //public static readonly T MetersToRodsFactor = ;
-        //public static readonly T MetersToEarthRadiusesFactor = ;
-        //public static readonly T MetersToLunarDistancesFactor = ;
-        //public static readonly T MetersToAstronomicalUnitsFactor = ;
-        //public static readonly T MetersToLightYearsFactor = ;
-        //public static readonly T MetersToParsecsFactor = ;
-        //public static readonly T MetersToHubbleLengthsFactor = ;
-        //public static readonly T MetersToElectronRadiusesFactor = ;
-        //public static readonly T MetersToComptonWavelengthOfTheElectronsFactor = ;
-        //public static readonly T MetersToReducedComptonWavelengthOfTheElectronsFactor = ;
-        //public static readonly T MetersToBohrRadiusOfTheHydrogenAtomsFactor = ;
-        //public static readonly T MetersToReducedQavelengthOfHydrogenRadiationsFactor = ;
-        //public static readonly T MetersToPlanckLengthsFactor = ;
-        //public static readonly T MetersToStoneyUnitOfLengthsFactor = ;
-        //public static readonly T MetersToQuantumChromodynamicsUnitOfLengthsFactor = ;
-        //public static readonly T MetersToNaturalUnitsBasedOnTheElectronvoltsFactor = ;
-        //public static readonly T MetersToFurlongsFactor = ;
-        //public static readonly T MetersToHorseLengthsFactor = ;
+        public override bool Equals(object obj)
+        {
+            if (obj is Length<T>)
+            {
+                return this == ((Length<T>)obj);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this._measurement.GetHashCode() ^ this._units.GetHashCode();
+        }
 
         #endregion
     }

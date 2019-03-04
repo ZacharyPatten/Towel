@@ -6,7 +6,7 @@ namespace Towel.DataStructures
 {
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Array<T, Index> : Structure<T>
+	public interface Array<T, Index> : DataStructure<T>
 	{
 		#region Properties
 

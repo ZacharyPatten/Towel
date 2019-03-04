@@ -79,7 +79,11 @@ namespace Towel.Algorithms
 				// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 				Heap<Astar_Node> fringe = new HeapArray<Astar_Node>(
 					// NOTE: Typical A* implementations prioritize smaller values
-					(Astar_Node left, Astar_Node right) => { return Compute.Compare(right.Priority, left.Priority); });
+					(Astar_Node left, Astar_Node right) =>
+                    {
+                        Comparison comparison = Compute.Compare<Math>(right.Priority, left.Priority);
+                        return comparison;
+                    });
 
 				// using a map (aka dictionary) to store costs from start to current nodes
 				Map<Math, Astar_Node> computed_costs = new MapHashArray<Math, Astar_Node>();
@@ -89,8 +93,9 @@ namespace Towel.Algorithms
 				{
                     Math previousCost = computed_costs.Get(previous);
                     Math currentCost = cost(previous.Value, node);
-                    Math costFromStart = Compute.Add(previousCost, currentCost);
-					return Compute.Add(costFromStart, heuristic(node));
+                    Math costFromStart = Compute.Add<Math>(previousCost, currentCost);
+                    Math hueristic = heuristic(node);
+                    return Compute.Add<Math>(costFromStart, hueristic);
 				};
 
 				// push starting node
@@ -112,7 +117,7 @@ namespace Towel.Algorithms
 							(T neighbor) =>
 							{
 								Astar_Node newNode = new Astar_Node(current, neighbor, function(neighbor, current));
-								Math costValue = Compute.Add(computed_costs.Get(current), cost(current.Value, neighbor));
+								Math costValue = Compute.Add<Math>(computed_costs.Get(current), cost(current.Value, neighbor));
 								computed_costs.Add(newNode, costValue);
 								fringe.Enqueue(newNode);
 							});
@@ -121,16 +126,16 @@ namespace Towel.Algorithms
 				return null; // goal node was not reached (no path exists)
 			}
 
-			#region Astar Overloads
+            #region Astar Overloads
 
-			/// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
-			/// <param name="start">The node to start at.</param>
-			/// <param name="graph">The graph to perform the search on.</param>
-			/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-			/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-			/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-			/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-			public static Stepper<T> Astar(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Cost cost, Goal goal)
+            /// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            /// <param name="start">The node to start at.</param>
+            /// <param name="graph">The graph to perform the search on.</param>
+            /// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            /// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            /// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            /// <returns>Stepper of the shortest path or null if no path exists.</returns>
+            public static Stepper<T> Astar(T start, Towel.DataStructures.Graph<T> graph, Heuristic heuristic, Cost cost, Goal goal)
 			{
 				return Astar(start, graph.Neighbors, heuristic, cost, goal);
 			}

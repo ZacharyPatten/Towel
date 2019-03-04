@@ -935,7 +935,7 @@ namespace Towel.DataStructures
 
     #region 1 Dimensional
 
-    public interface OmnitreePoints<T, Axis1> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -2976,7 +2976,7 @@ namespace Towel.DataStructures
 
     #region 2 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -5278,7 +5278,7 @@ namespace Towel.DataStructures
 
     #region 3 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2, Axis3> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -7841,7 +7841,7 @@ namespace Towel.DataStructures
 
     #region 4 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -10665,7 +10665,7 @@ namespace Towel.DataStructures
 
     #region 5 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -13750,7 +13750,7 @@ namespace Towel.DataStructures
 
     #region 6 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -17096,7 +17096,7 @@ namespace Towel.DataStructures
 
     #region 7 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : Structure<T>,
+    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -20709,7 +20709,7 @@ namespace Towel.DataStructures
 
     #region 1 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -22742,7 +22742,7 @@ namespace Towel.DataStructures
 
     #region 2 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -25078,7 +25078,7 @@ namespace Towel.DataStructures
 
     #region 3 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -27717,7 +27717,7 @@ namespace Towel.DataStructures
 
     #region 4 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -30659,7 +30659,7 @@ namespace Towel.DataStructures
 
     #region 5 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -33904,7 +33904,7 @@ namespace Towel.DataStructures
 
     #region 6 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,
@@ -37452,7 +37452,7 @@ namespace Towel.DataStructures
 
     #region 7 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : Structure<T>,
+    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : DataStructure<T>,
             Structure.Countable<T>,
             Structure.Addable<T>,
             Structure.Clearable<T>,

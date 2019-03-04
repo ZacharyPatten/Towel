@@ -2,7 +2,7 @@
 {
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public interface RedBlackTree<T> : Structure<T>,
+	public interface RedBlackTree<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Addable<T>,
 		Structure.Removable<T>,

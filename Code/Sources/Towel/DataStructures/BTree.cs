@@ -2,7 +2,7 @@
 {
 	/// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface BTree<T> : Structure<T>,
+	public interface BTree<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Clearable<T>,
 		Structure.Addable<T>,

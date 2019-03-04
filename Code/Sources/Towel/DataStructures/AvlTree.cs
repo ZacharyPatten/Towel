@@ -2,7 +2,7 @@
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface AvlTree<T> : Structure<T>,
+	public interface AvlTree<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Addable<T>,
 		Structure.Removable<T>,

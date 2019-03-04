@@ -71,7 +71,7 @@ namespace Towel.Mathematics
                 return Function(a);
             };
         }
-
+        
         #endregion
 
         #region ToInt32
@@ -95,6 +95,15 @@ namespace Towel.Mathematics
         #endregion
 
         #region Negate
+        
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T NEGATE<T>(int a)
+        {
+            return Negate(FromInt32<T>(a));
+        }
 
         public static T Negate<T>(T a)
 		{
@@ -115,6 +124,37 @@ namespace Towel.Mathematics
         #endregion
 
         #region Add
+
+        #region Syntax Sugar For Generic Constant Declaration
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T ADD<T>(T a, int b)
+        {
+            return Add(a, FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T ADD<T>(int a, int b)
+        {
+            return Add(FromInt32<T>(a), FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T ADD<T>(int a, T b)
+        {
+            return Add(FromInt32<T>(a), b);
+        }
+
+        #endregion
 
         public static T Add<T>(T a, T b)
         {
@@ -148,6 +188,37 @@ namespace Towel.Mathematics
         #endregion
 
         #region Subtract
+
+        #region Syntax Sugar For Generic Constant Declaration
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T SUBTRACT<T>(T a, int b)
+        {
+            return Subtract(a, FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T SUBTRACT<T>(int a, int b)
+        {
+            return Subtract(FromInt32<T>(a), FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T SUBTRACT<T>(int a, T b)
+        {
+            return Subtract(FromInt32<T>(a), b);
+        }
+
+        #endregion
 
         public static T Subtract<T>(T a, T b)
         {
@@ -187,6 +258,37 @@ namespace Towel.Mathematics
 
         #region Multiply
 
+        #region Syntax Sugar For Generic Constant Declaration
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T MULTIPLY<T>(T a, int b)
+        {
+            return Multiply(a, FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T MULTIPLY<T>(int a, int b)
+        {
+            return Multiply(FromInt32<T>(a), FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T MULTIPLY<T>(int a, T b)
+        {
+            return Multiply(FromInt32<T>(a), b);
+        }
+
+        #endregion
+
         public static T Multiply<T>(T a, T b)
         {
             return MultiplyImplementation<T>.Function(a, b);
@@ -219,6 +321,37 @@ namespace Towel.Mathematics
         #endregion
 
         #region Divide
+
+        #region Syntax Sugar For Generic Constant Declaration
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T DIVIDE<T>(T a, int b)
+        {
+            return Divide(a, FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T DIVIDE<T>(int a, int b)
+        {
+            return Divide(FromInt32<T>(a), FromInt32<T>(b));
+        }
+
+        /// <summary>
+        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
+        /// If made "public," it could be optimized using it's own delegate.
+        /// </summary>
+        internal static T DIVIDE<T>(int a, T b)
+        {
+            return Divide(FromInt32<T>(a), b);
+        }
+
+        #endregion
 
         public static T Divide<T>(T a, T b)
         {
@@ -547,7 +680,21 @@ namespace Towel.Mathematics
 
         public static bool IsPrime<T>(T value)
         {
-            return IsPrimeImplementation<T>.Function(value);
+            if (Equal(Modulo(value, Constant<T>.One), Constant<T>.Zero))
+            {
+                if (Equal(value, Constant<T>.Two))
+                    return true;
+                T squareRoot = SquareRoot(value);
+                int squareRootInt = ToInt32(squareRoot);
+                for (int divisor = 3; divisor <= squareRootInt; divisor += 2)
+                    if (Equal(Modulo<T>(value, FromInt32<T>(divisor)), Constant<T>.Zero))
+                        return false;
+                return true;
+            }
+            else
+                return false;
+            
+            //return IsPrimeImplementation<T>.Function(value);
         }
 
         internal static class IsPrimeImplementation<T>
@@ -762,14 +909,22 @@ namespace Towel.Mathematics
                 ParameterExpression B = Expression.Parameter(typeof(T));
                 LabelTarget RETURN = Expression.Label(typeof(Comparison));
                 Expression BODY = Expression.Block(
-                    Expression.IfThenElse(
-                        Expression.LessThan(A, B),
-                        Expression.Return(RETURN, Expression.Constant(Comparison.Less)),
-                        Expression.IfThenElse(
+                    Expression.IfThen(
+                            Expression.LessThan(A, B),
+                            Expression.Return(RETURN, Expression.Constant(Comparison.Less))),
+                        Expression.IfThen(
                             Expression.GreaterThan(A, B),
-                            Expression.Return(RETURN, Expression.Constant(Comparison.Greater)),
-                            Expression.Return(RETURN, Expression.Constant(Comparison.Equal)))),
-                    Expression.Label(RETURN, Expression.Constant(default(Comparison))));
+                            Expression.Return(RETURN, Expression.Constant(Comparison.Greater))),
+                        Expression.Return(RETURN, Expression.Constant(Comparison.Equal)),
+                        Expression.Label(RETURN, Expression.Constant(default(Comparison), typeof(Comparison))));
+                //Expression.IfThenElse(
+                //    Expression.LessThan(A, B),
+                //    Expression.Return(RETURN, Expression.Constant(Comparison.Less)),
+                //    Expression.IfThenElse(
+                //        Expression.GreaterThan(A, B),
+                //        Expression.Return(RETURN, Expression.Constant(Comparison.Greater)),
+                //        Expression.Return(RETURN, Expression.Constant(Comparison.Equal)))),
+                //Expression.Label(RETURN, Expression.Constant(default(Comparison), typeof(Comparison))));
                 Function = Expression.Lambda<Func<T, T, Comparison>>(BODY, A, B).Compile();
                 return Function(a, b);
             };
@@ -1792,103 +1947,103 @@ namespace Towel.Mathematics
 
         #region InverseSine
 
-        public static Angle<T> InverseSine<T>(T a)
-        {
-            return InverseSineImplementation<T>.Function(a);
-        }
+        //public static Angle<T> InverseSine<T>(T a)
+        //{
+        //    return InverseSineImplementation<T>.Function(a);
+        //}
 
-        internal static class InverseSineImplementation<T>
-        {
-            internal static Func<T, Angle<T>> Function = (T a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Asin)), A));
-                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class InverseSineImplementation<T>
+        //{
+        //    internal static Func<T, Angle<T>> Function = (T a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Asin)), A));
+        //            Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region InverseCosine
 
-        public static Angle<T> InverseCosine<T>(T a)
-        {
-            return InverseCosineImplementation<T>.Function(a);
-        }
+        //public static Angle<T> InverseCosine<T>(T a)
+        //{
+        //    return InverseCosineImplementation<T>.Function(a);
+        //}
 
-        internal static class InverseCosineImplementation<T>
-        {
-            internal static Func<T, Angle<T>> Function = (T a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Acos)), A));
-                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class InverseCosineImplementation<T>
+        //{
+        //    internal static Func<T, Angle<T>> Function = (T a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Acos)), A));
+        //            Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region InverseTangent
 
-        public static Angle<T> InverseTangent<T>(T a)
-        {
-            return InverseTangentImplementation<T>.Function(a);
-        }
+        //public static Angle<T> InverseTangent<T>(T a)
+        //{
+        //    return InverseTangentImplementation<T>.Function(a);
+        //}
 
-        internal static class InverseTangentImplementation<T>
-        {
-            internal static Func<T, Angle<T>> Function = (T a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Atan)), A));
-                    Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class InverseTangentImplementation<T>
+        //{
+        //    internal static Func<T, Angle<T>> Function = (T a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Angle<T>).GetMethod(nameof(Angle<T>.Factory_Radians), BindingFlags.Static), Expression.Call(typeof(Math).GetMethod(nameof(Math.Atan)), A));
+        //            Function = Expression.Lambda<Func<T, Angle<T>>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region InverseCosecant
 
-        public static Angle<T> InverseCosecant<T>(T a)
-        {
-            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseSine(a).Radians));
-        }
+        //public static Angle<T> InverseCosecant<T>(T a)
+        //{
+        //    return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseSine(a).Radians));
+        //}
 
         #endregion
 
         #region InverseSecant
 
-        public static Angle<T> InverseSecant<T>(T a)
-        {
-            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseCosine(a).Radians));
-        }
+        //public static Angle<T> InverseSecant<T>(T a)
+        //{
+        //    return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseCosine(a).Radians));
+        //}
 
         #endregion
 
         #region InverseCotangent
 
-        public static Angle<T> InverseCotangent<T>(T a)
-        {
-            return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseTangent(a).Radians));
-        }
+        //public static Angle<T> InverseCotangent<T>(T a)
+        //{
+        //    return Angle<T>.Factory_Radians(Divide(Constant<T>.One, InverseTangent(a).Radians));
+        //}
 
         #endregion
 

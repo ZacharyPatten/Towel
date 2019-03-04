@@ -2,7 +2,7 @@
 {
 	/// <summary>Implements a First-In-Last-Out stack data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Stack<T> : Structure<T>,
+	public interface Stack<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Clearable<T>

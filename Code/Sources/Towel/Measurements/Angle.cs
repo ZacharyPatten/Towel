@@ -1,139 +1,98 @@
-﻿using Towel.Mathematics;
+﻿using System;
+using Towel.Mathematics;
 
 namespace Towel.Measurements
 {
-	/// <summary>
-	/// Contains the definitions for the various units for measuring angles.
-	/// </summary>
-	public static class Angle
-	{
-		#region Units
+    /// <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
+    public static class Angle
+    {
+        #region Units
 
-		public enum Units
-		{
-            Degrees,
-			Gradians,
-			Radians,
-			Turns,
-		}
+        /// <summary>Units for angle measurements.</summary>
+        public enum Units
+        {
+            // Note: It is critical that these enum values are in increasing order of size.
+            // Their value is used as a priority when doing operations on measurements in
+            // different units.
+            [ConversionFactor(Degrees, Gradians, "10 / 9")]
+            [ConversionFactor(Degrees, Turns, "1 / 360")]
+            /// <summary>Units of an angle measurement.</summary>
+            Degrees = 2,
+            /// <summary>Units of an angle measurement.</summary>
+			Radians = 3,
+            [ConversionFactor(Turns, Gradians, "360")]
+            [ConversionFactor(Turns, Degrees, "400")]
+            /// <summary>Units of an angle measurement.</summary>
+			Turns = 4,
+        }
 
-		/// <summary>
-		/// Determines unit priority. When doing math operations of values of different units, it
-		/// will convert values to the highest priority unit type present in the operation. Priority
-		/// is in NON-INCREASING ORDER.
-		/// </summary>
-		internal static int UnitOrder(Units units)
-		{
-			switch (units)
-			{
-                case Units.Degrees:
-                    return 0;
-				case Units.Gradians:
-					return 1;
-				case Units.Radians:
-					return 2;
-				case Units.Turns:
-					return 3;
-				default:
-					throw new System.NotImplementedException();
-			}
-		}
+        internal struct Conversion
+        {
+            internal Units A;
+            internal Units B;
 
-		#endregion
+            internal Conversion(Units a, Units b)
+            {
+                this.A = a;
+                this.B = b;
+            }
+        }
 
-		#region Unit Conversions
+        internal static class ConversionConstant<T>
+        {
+            // Note: we unfortunately need to store these constants in hard coded
+            // static fields for performance purposes. If there is any way to avoid this
+            // but keep the performmance PLEASE let me know!
 
-		internal static class Constants<T>
-		{
-			internal static readonly T DegreesToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(360));
-			internal static readonly T DegreesToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(180));
-			internal static readonly T DegreesToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(10), Compute.FromInt32<T>(9));
+            internal static T GradiansToDegrees = ConversionFactorAttribute.Get(Units.Gradians, Units.Degrees).Value<T>();
+            internal static T GradiansToRadians = ConversionFactorAttribute.Get(Units.Gradians, Units.Radians).Value<T>();
+            internal static T GradiansToTurns = ConversionFactorAttribute.Get(Units.Gradians, Units.Turns).Value<T>();
 
-			internal static readonly T GradiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(9), Compute.FromInt32<T>(10));
-			internal static readonly T GradiansToTurnsFactor = Compute.Divide(Compute.FromInt32<T>(1), Compute.FromInt32<T>(400));
-			internal static readonly T GradiansToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(200));
+            internal static T DegreesToGradians = ConversionFactorAttribute.Get(Units.Degrees, Units.Gradians).Value<T>();
+            internal static T DegreesToRadians = ConversionFactorAttribute.Get(Units.Degrees, Units.Radians).Value<T>();
+            internal static T DegreesToTurns = ConversionFactorAttribute.Get(Units.Degrees, Units.Turns).Value<T>();
 
-			internal static readonly T RadiansToTurnsFactor = Compute.Invert(Compute.Multiply(Compute.FromInt32<T>(2), Constant<T>.Pi));
-			internal static readonly T RadiansToDegreesFactor = Compute.Divide(Compute.FromInt32<T>(180), Constant<T>.Pi);
-			internal static readonly T RadiansToGradiansFactor = Compute.Divide(Compute.FromInt32<T>(200), Constant<T>.Pi);
+            internal static T RadiansToGradians = ConversionFactorAttribute.Get(Units.Radians, Units.Gradians).Value<T>();
+            internal static T RadiansToDegrees = ConversionFactorAttribute.Get(Units.Radians, Units.Degrees).Value<T>();
+            internal static T RadiansToTurns = ConversionFactorAttribute.Get(Units.Radians, Units.Turns).Value<T>();
 
-			internal static readonly T TurnsToDegreesFactor = Compute.FromInt32<T>(360);
-			internal static readonly T TurnsToRadiansFactor = Compute.Divide(Constant<T>.Pi, Compute.FromInt32<T>(180));
-			internal static readonly T TurnsToGradiansFactor = Compute.FromInt32<T>(400);
-		}
+            internal static T TurnsToGradians = ConversionFactorAttribute.Get(Units.Turns, Units.Gradians).Value<T>();
+            internal static T TurnsToDegrees = ConversionFactorAttribute.Get(Units.Turns, Units.Degrees).Value<T>();
+            internal static T TurnsToRadians = ConversionFactorAttribute.Get(Units.Turns, Units.Radians).Value<T>();
+        }
 
+        internal static T ConversionFactor<T>(Units a, Units b)
+        {
+            Conversion conversion = new Conversion(a, b);
+            switch (conversion)
+            {
+                case var C when C.A == Units.Gradians && C.B == Units.Degrees: return ConversionConstant<T>.GradiansToDegrees;
+                case var C when C.A == Units.Gradians && C.B == Units.Radians: return ConversionConstant<T>.GradiansToRadians;
+                case var C when C.A == Units.Gradians && C.B == Units.Turns: return ConversionConstant<T>.GradiansToTurns;
 
-		/// <summary>Converts a degrees measurement to radians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T DegreesToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToRadiansFactor); }
-		/// <summary>Converts a degrees measurement to turns.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T DegreesToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToTurnsFactor); }
-		/// <summary>Converts a degrees measurement to gradians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T DegreesToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.DegreesToGradiansFactor); }
+                case var C when C.A == Units.Degrees && C.B == Units.Gradians: return ConversionConstant<T>.DegreesToGradians;
+                case var C when C.A == Units.Degrees && C.B == Units.Radians: return ConversionConstant<T>.DegreesToRadians;
+                case var C when C.A == Units.Degrees && C.B == Units.Turns: return ConversionConstant<T>.DegreesToTurns;
 
+                case var C when C.A == Units.Radians && C.B == Units.Degrees: return ConversionConstant<T>.RadiansToGradians;
+                case var C when C.A == Units.Radians && C.B == Units.Gradians: return ConversionConstant<T>.RadiansToDegrees;
+                case var C when C.A == Units.Radians && C.B == Units.Turns: return ConversionConstant<T>.RadiansToTurns;
 
-		/// <summary>Converts a gradians measurement to degrees.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T GradiansToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToDegreesFactor); }
-		/// <summary>Converts a gradians measurement to radians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T GradiansToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToRadiansFactor); }
-		/// <summary>Converts a gradians measurement to turns.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T GradiansToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.GradiansToTurnsFactor); }
-
-
-		/// <summary>Converts a radians measurement to degrees.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T RadiansToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToDegreesFactor); }
-		/// <summary>Converts a radians measurement to turns.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T RadiansToTurns<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToTurnsFactor); }
-		/// <summary>Converts a radians measurement to gradians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T RadiansToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.RadiansToGradiansFactor); }
-
-
-		/// <summary>Converts a turns measurement to degrees.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T TurnsToDegrees<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToDegreesFactor); }
-		/// <summary>Converts a turns measurement to radians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T TurnsToRadians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToRadiansFactor); }
-		/// <summary>Converts a turns measurement to gradians.</summary>
-		/// <typeparam name="T">The numeric type.</typeparam>
-		/// <param name="measurement">The measurement to convert.</param>
-		/// <returns>The converted measurement.</returns>
-        public static T TurnsToGradians<T>(T measurement) { return Compute.Multiply(measurement, Constants<T>.TurnsToGradiansFactor); }
-
+                case var C when C.A == Units.Turns && C.B == Units.Degrees: return ConversionConstant<T>.TurnsToGradians;
+                case var C when C.A == Units.Turns && C.B == Units.Gradians: return ConversionConstant<T>.TurnsToDegrees;
+                case var C when C.A == Units.Turns && C.B == Units.Radians: return ConversionConstant<T>.TurnsToRadians;
+            }
+            if (a == b)
+            {
+                throw new Exception("There is a bug in " + nameof(Towel) + ". (" + nameof(Angle) + "." + nameof(ConversionFactor) + " attempted on like units)");
+            }
+            throw new NotImplementedException(nameof(Towel) + " is missing a conversion factor in " + nameof(Angle) + " for " + a + " -> " + b + ".");
+        }
+        
 		#endregion
 	}
 
-	/// <summary>A measurement of an angle.</summary>
+	/// <summary>An angle measurement.</summary>
 	/// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
 	public struct Angle<T>
 	{
@@ -142,67 +101,28 @@ namespace Towel.Measurements
 
 		#region Constructors
 
+        /// <summary>Constructs an angle with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the angle.</param>
+        /// <param name="units">The units of the angle.</param>
 		public Angle(T measurement, Angle.Units units)
 		{
 			this._measurement = measurement;
 			this._units = units;
 		}
 
-		private Angle(Angle<T> angle)
-		{
-			this._measurement = angle._measurement;
-			this._units = angle._units;
-		}
-
-		#endregion
-
-		#region Factory Methods
-
-		/// <summary>Creates an angle from a degree measurement.</summary>
-		/// <param name="degrees">The degree measurement of the angle.</param>
-		/// <returns>The angle of the specified measurement.</returns>
-		public static Angle<T> Factory_Degrees(T degrees)
-		{
-			return new Angle<T>(degrees, Angle.Units.Degrees);
-		}
-
-		/// <summary>Creates an angle from a radian measurement.</summary>
-		/// <param name="radians">The radian measurement of the angle.</param>
-		/// <returns>The angle of the specified measurement.</returns>
-		public static Angle<T> Factory_Radians(T radians)
-		{
-			return new Angle<T>(radians, Angle.Units.Radians);
-		}
-
-		/// <summary>Creates an angle from a turn measurement.</summary>
-		/// <param name="degrees">The turn measurement of the angle.</param>
-		/// <returns>The angle of the specified measurement.</returns>
-		public static Angle<T> Factory_Turns(T turns)
-		{
-			return new Angle<T>(turns, Angle.Units.Turns);
-		}
-
-		/// <summary>Creates an angle from a gradian measurement.</summary>
-		/// <param name="degrees">The gradian measurement of the angle.</param>
-		/// <returns>The angle of the specified measurement.</returns>
-		public static Angle<T> Factory_Gradians(T gradians)
-		{
-			return new Angle<T>(gradians, Angle.Units.Gradians);
-		}
-
-		#endregion
+        #endregion
 
 		#region Properties
 
 		/// <summary>The current units used to represent the angle.</summary>
-		public Angle.Units Unit
+		public Angle.Units Units
 		{
 			get { return this._units; }
 			set
 			{
 				if (value != this._units)
 				{
-					this._measurement = this[value]._measurement;
+					this._measurement = this[value];
 					this._units = value;
 				}
 			}
@@ -211,219 +131,238 @@ namespace Towel.Measurements
 		/// <summary>Gets the measurement in the desired units.</summary>
 		/// <param name="units">The units you want the measurement to be in.</param>
 		/// <returns>The measurement in the specified units.</returns>
-		private Angle<T> this[Angle.Units units]
+		internal T this[Angle.Units units]
 		{
 			get
 			{
-				switch (units)
-				{
-					case Angle.Units.Degrees:
-						switch (this._units)
-						{
-							case Angle.Units.Degrees:
-								return new Angle<T>(this._measurement, this._units);
-							case Angle.Units.Gradians:
-								return new Angle<T>(Angle.GradiansToDegrees(this._measurement), Angle.Units.Degrees);
-							case Angle.Units.Radians:
-								return new Angle<T>(Angle.RadiansToDegrees(this._measurement), Angle.Units.Degrees);
-							case Angle.Units.Turns:
-								return new Angle<T>(Angle.TurnsToDegrees(this._measurement), Angle.Units.Degrees);
-							default:
-								throw new System.NotImplementedException();
-						}
-					case Angle.Units.Gradians:
-						switch (this._units)
-						{
-							case Angle.Units.Degrees:
-								return new Angle<T>(Angle.DegreesToGradians(this._measurement), Angle.Units.Gradians);
-							case Angle.Units.Gradians:
-								return new Angle<T>(this._measurement, this._units);
-							case Angle.Units.Radians:
-								return new Angle<T>(Angle.RadiansToGradians(this._measurement), Angle.Units.Gradians);
-							case Angle.Units.Turns:
-								return new Angle<T>(Angle.TurnsToGradians(this._measurement), Angle.Units.Gradians);
-							default:
-								throw new System.NotImplementedException();
-						}
-					case Angle.Units.Radians:
-						switch (this._units)
-						{
-							case Angle.Units.Degrees:
-								return new Angle<T>(Angle.DegreesToRadians(this._measurement), Angle.Units.Radians);
-							case Angle.Units.Gradians:
-								return new Angle<T>(Angle.GradiansToRadians(this._measurement), Angle.Units.Radians);
-							case Angle.Units.Radians:
-								return new Angle<T>(this._measurement, this._units);
-							case Angle.Units.Turns:
-								return new Angle<T>(Angle.TurnsToRadians(this._measurement), Angle.Units.Radians);
-							default:
-								throw new System.NotImplementedException();
-						}
-					case Angle.Units.Turns:
-						switch (this._units)
-						{
-							case Angle.Units.Degrees:
-								return new Angle<T>(Angle.DegreesToTurns(this._measurement), Angle.Units.Turns);
-							case Angle.Units.Gradians:
-								return new Angle<T>(Angle.GradiansToTurns(this._measurement), Angle.Units.Turns);
-							case Angle.Units.Radians:
-								return new Angle<T>(Angle.RadiansToTurns(this._measurement), Angle.Units.Turns);
-							case Angle.Units.Turns:
-								return new Angle<T>(this._measurement, this._units);
-							default:
-								throw new System.NotImplementedException();
-						}
-					default:
-						throw new System.NotImplementedException();
-				}
+                if (this._units == units)
+                {
+                    return this._measurement;
+                }
+                else
+                {
+                    T factor = Angle.ConversionFactor<T>(this._units, units);
+                    return Compute.Multiply(this._measurement, factor);
+                }
 			}
 		}
 
-		public T Degrees { get { return this[Angle.Units.Degrees]._measurement; } }
+        /// <summary>Gets the measurement in Gradians.</summary>
+		public T Gradians
+        {
+            get
+            {
+                return this[Angle.Units.Gradians];
+            }
+        }
 
-		public T Radians { get { return this[Angle.Units.Radians]._measurement; } }
+        /// <summary>Gets the measurement in Degrees.</summary>
+		public T Degrees
+        {
+            get
+            {
+                return this[Angle.Units.Degrees];
+            }
+        }
 
-		public T Turns { get { return this[Angle.Units.Turns]._measurement; } }
+        /// <summary>Gets the measurement in Radians.</summary>
+		public T Radians
+        {
+            get
+            {
+                return this[Angle.Units.Radians];
+            }
+        }
 
-		public T Gradians { get { return this[Angle.Units.Gradians]._measurement; } }
+        /// <summary>Gets the measurement in Turns.</summary>
+		public T Turns
+        {
+            get
+            {
+                return this[Angle.Units.Turns];
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Mathematics
 
-		public static Angle<T> operator +(Angle<T> left, Angle<T> right) { return Angle<T>.Add(left, right); }
-		public static Angle<T> operator -(Angle<T> left, Angle<T> right) { return Angle<T>.Subtract(left, right); }
-		public static Angle<T> operator /(Angle<T> angle, T constant) { return Angle<T>.Divide(angle, constant); }
-		public static Angle<T> operator *(Angle<T> angle, T constant) { return Angle<T>.Multiply(angle, constant); }
-		public static Angle<T> operator *(T constant, Angle<T> angle) { return Angle<T>.Multiply(constant, angle); }
-		public static bool operator <(Angle<T> left, Angle<T> right) { return Angle<T>.LessThan(left, right); }
-		public static bool operator >(Angle<T> left, Angle<T> right) { return Angle<T>.GreaterThan(left, right); }
-		public static bool operator <=(Angle<T> left, Angle<T> right) { return Angle<T>.LessThanOrEqual(left, right); }
-		public static bool operator >=(Angle<T> left, Angle<T> right) { return Angle<T>.GreaterThanOrEqual(left, right); }
-		public static bool operator ==(Angle<T> left, Angle<T> right) { return Angle<T>.Equal(left, right); }
-		public static bool operator !=(Angle<T> left, Angle<T> right) { return Angle<T>.EqualNot(left, right); }
+        #region Add
 
-		#endregion
+        public static Angle<T> Add(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Angle<T>(Compute.Add(a[units], b[units]), units);
+        }
 
-		#region Static Math
+        public static Angle<T> operator +(Angle<T> a, Angle<T> b)
+        {
+            return Add(a, b);
+        }
 
-		public static Angle<T> Add(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return new Angle<T>(Compute.Add(left._measurement, right._measurement), left._units);
-		}
+        #endregion
 
-		public static Angle<T> Subtract(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return new Angle<T>(Compute.Subtract(left._measurement, right._measurement), left._units);
-		}
+        #region Subtract
 
-		public static Angle<T> Divide(Angle<T> angle, T constant)
-		{
-			return new Angle<T>(Compute.Divide(angle._measurement, constant), angle._units);
-		}
+        public static Angle<T> Subtract(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Angle<T>(Compute.Subtract(a[units], b[units]), units);
+        }
 
-		public static Angle<T> Multiply(Angle<T> angle, T constant)
-		{
-			return new Angle<T>(Compute.Multiply(angle._measurement, constant), angle._units);
-		}
+        public static Angle<T> operator -(Angle<T> a, Angle<T> b)
+        {
+            return Subtract(a, b);
+        }
 
-		public static Angle<T> Multiply(T constant, Angle<T> angle)
-		{
-			return new Angle<T>(Compute.Multiply(angle._measurement, constant), angle._units);
-		}
+        #endregion
 
-		public static bool LessThan(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.LessThan(left._measurement, right._measurement);
-		}
+        #region Multiply
 
-		public static bool GreaterThan(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.GreaterThan(left._measurement, right._measurement);
-		}
+        public static Angle<T> Multiply(Angle<T> a, T b)
+        {
+            return new Angle<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
 
-		public static bool LessThanOrEqual(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.LessThanOrEqual(left._measurement, right._measurement);
-		}
+        public static Angle<T> Multiply(T b, Angle<T> a)
+        {
+            return new Angle<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
 
-		public static bool GreaterThanOrEqual(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.GreaterThanOrEqual(left._measurement, right._measurement);
-		}
+        public static Angle<T> operator *(Angle<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
 
-		public static bool Equal(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.Equal(left._measurement, right._measurement);
-		}
+        public static Angle<T> operator *(T b, Angle<T> a)
+        {
+            return Multiply(b, a);
+        }
 
-		public static bool EqualNot(Angle<T> left, Angle<T> right)
-		{
-			GetLikeUnits(left, right, out left, out right);
-			return Compute.NotEqual(left._measurement, right._measurement);
-		}
+        #endregion
 
-		#endregion
+        #region Divide
 
-		#region Helpers
+        public static Angle<T> Divide(Angle<T> a, T b)
+        {
+            return new Angle<T>(Compute.Divide(a._measurement, b), a._units);
+        }
 
-		/// <summary>Gets both values to be in the same units.</summary>
-		internal static void GetLikeUnits(Angle<T> left, Angle<T> right, out Angle<T> left_prime, out Angle<T> right_prime)
-		{
-			if (left._units == right._units) // no unit conversion required
-			{
-				left_prime = left;
-				right_prime = right;
-			}
-			else // requires unit conversion
-			{
-				Angle.Units units = GetPriorityUnits(left, right); // convert the units to the smallest in hopes of not losing accuracy
-				left_prime = left[units];
-				right_prime = right[units];
-			}
-		}
+        public static Angle<T> operator /(Angle<T> a, T b)
+        {
+            return Divide(a, b);
+        }
 
-		/// <summary>Gets the smallest unit between two operands.</summary>
-		internal static Angle.Units GetPriorityUnits(Angle<T> left, Angle<T> right)
-		{
-			if (Angle.UnitOrder(left._units) < Angle.UnitOrder(right._units))
-				return left._units;
-			else
-				return right._units;
-		}
+        #endregion
 
-		#endregion
+        #region LessThan
 
-		#region Overrides
+        public static bool LessThan(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThan(a[units], b[units]);
+        }
 
-		public override string ToString()
-		{
-			switch (this._units)
-			{
-				case Angle.Units.Degrees:
-					return this._measurement.ToString() + "°";
-				case Angle.Units.Gradians:
-					return this._measurement.ToString() + "ᵍ";
-				case Angle.Units.Radians:
-					return this._measurement.ToString() + "rad";
-				case Angle.Units.Turns:
-					return this._measurement.ToString() + "turn";
-				default:
-					throw new System.NotImplementedException();
-			}
-		}
+        public static bool operator <(Angle<T> a, Angle<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        public static bool GreaterThan(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThan(a[units], b[units]);
+        }
+
+        public static bool operator >(Angle<T> a, Angle<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        public static bool LessThanOrEqual(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator <=(Angle<T> a, Angle<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        public static bool GreaterThanOrEqual(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator >=(Angle<T> left, Angle<T> right)
+        {
+            return GreaterThanOrEqual(left, right);
+        }
+
+        #endregion
+
+        #region Equal
+
+        public static bool Equal(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.Equal(a[units], b[units]);
+        }
+
+        public static bool operator ==(Angle<T> a, Angle<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        public static bool NotEqual(Angle<T> a, Angle<T> b)
+        {
+            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.NotEqual(a[units], b[units]);
+        }
+
+        public static bool operator !=(Angle<T> a, Angle<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            switch (this._units)
+            {
+                case Angle.Units.Degrees: return this._measurement.ToString() + "°";
+                case Angle.Units.Gradians: return this._measurement.ToString() + "ᵍ";
+                case Angle.Units.Radians: return this._measurement.ToString() + "rad";
+                case Angle.Units.Turns: return this._measurement.ToString() + "turn";
+                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Angle<T>) + ".");
+            }
+        }
 
 		public override bool Equals(object obj)
 		{
-			if (obj is Angle<T>)
-				return this == ((Angle<T>)obj);
+            if (obj is Angle<T>)
+            {
+                return this == ((Angle<T>)obj);
+            }
 			return false;
 		}
 

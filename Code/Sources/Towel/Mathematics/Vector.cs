@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text;
 using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Represents a vector with an arbitrary number of components of a generic type.</summary>
-	/// <typeparam name="T">The numeric type of this Vector.</typeparam>
-	[Serializable]
+    /// <summary>Represents a vector with an arbitrary number of components of a generic type.</summary>
+    /// <typeparam name="T">The numeric type of this Vector.</typeparam>
+    [DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
+    [Serializable]
     public class Vector<T>
 	{
 		internal readonly T[] _vector;
@@ -106,6 +109,27 @@ namespace Towel.Mathematics
                 this._vector[index] = value;
             }
 		}
+
+        #endregion
+
+        #region Debugger Properties
+
+        internal string DebuggerString
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("{ ");
+                stringBuilder.Append(this._vector[0]);
+                for (int i = 1; i < this._vector.Length; i++)
+                {
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(this._vector[i]);
+                }
+                stringBuilder.Append(" }");
+                return stringBuilder.ToString();
+            }
+        }
 
         #endregion
 
@@ -1061,11 +1085,11 @@ namespace Towel.Mathematics
             {
                 return true;
             }
-            else if (object.ReferenceEquals(a, null))
+            else if (a is null)
             {
                 return false;
             }
-            else if (object.ReferenceEquals(b, null))
+            else if (b is null)
             {
                 return false;
             }
@@ -1073,14 +1097,29 @@ namespace Towel.Mathematics
             {
                 int Length = a.Dimensions;
                 if (Length != b.Dimensions)
+                {
                     return false;
+                }
                 T[] A = a._vector;
                 T[] B = b._vector;
                 for (int i = 0; i < Length; i++)
+                {
                     if (Compute.Equal(A[i], B[i]))
+                    {
                         return false;
+                    }
+                }
                 return true;
             }
+        }
+
+        /// <summary>Does a value non-equality check.</summary>
+        /// <param name="a">The first vector to check for non-equality.</param>
+        /// <param name="b">The second vector	to check for non-equality.</param>
+        /// <returns>True if values are not equal, false if not.</returns>
+        public static bool NotEqual(Vector<T> a, Vector<T> b)
+        {
+            return !Equal(a, b);
         }
 
         /// <summary>Does an equality check by value. (warning for float errors)</summary>
@@ -1107,6 +1146,14 @@ namespace Towel.Mathematics
 		public bool Equal(Vector<T> b)
         {
             return this == b;
+        }
+
+        /// <summary>Check for non-equality by value.</summary>
+		/// <param name="b">The other vector of the non-equality check.</param>
+		/// <returns>true if the values were not equal, false if not.</returns>
+		public bool NotEqual(Vector<T> b)
+        {
+            return this != b;
         }
 
         #endregion

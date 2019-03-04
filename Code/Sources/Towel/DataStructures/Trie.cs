@@ -1,6 +1,6 @@
 ﻿namespace Towel.DataStructures
 {
-	public interface Trie<T> : Structure<T>
+	public interface Trie<T> : DataStructure<T>
 	{
 		#region member
 
@@ -31,7 +31,7 @@
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Structure<T> Clone()
+		public DataStructure<T> Clone()
 		{
 			throw new System.NotImplementedException();
 		}

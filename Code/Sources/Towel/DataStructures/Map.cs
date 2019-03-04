@@ -3,7 +3,7 @@
 	/// <summary>A map between instances of two types. The polymorphism base for Map implementations in Towel.</summary>
 	/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
 	/// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
-	public interface Map<T, K> : Structure<T>,
+	public interface Map<T, K> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Clearable<T>,

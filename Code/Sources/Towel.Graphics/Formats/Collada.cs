@@ -87,10 +87,9 @@ namespace Towel.Graphics.Formats
         public static Model Parse(string contents)
         {
             int maxJointEffectors = 3;
-
             Matrix<float> correction = Matrix<float>.Rotate4x4(
                 Matrix<float>.FactoryIdentity(4, 4),
-                Angle<float>.Factory_Degrees(-90f),
+                new Angle<float>(-90f, Angle.Units.Degrees),
                 new Vector<float>(1, 0, 0)).Transpose();
 
             // Load the contents into an xml reader

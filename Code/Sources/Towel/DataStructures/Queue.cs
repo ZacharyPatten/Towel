@@ -2,7 +2,7 @@
 {
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Queue<T> : Structure<T>,
+	public interface Queue<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Countable<T>,
 		Structure.Clearable<T>
@@ -407,7 +407,7 @@
 		#region public Structure<T> Clone()
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Structure<T> Clone()
+		public DataStructure<T> Clone()
 		{
 			QueueArray<T> clone = new QueueArray<T>();
 			clone._queue = new T[this._queue.Length];

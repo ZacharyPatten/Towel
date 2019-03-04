@@ -14,6 +14,13 @@ namespace Algorithms
             Console.WriteLine("======================================================");
             Console.WriteLine();
 
+            Console.WriteLine(Compute.SquareRoot(1.0f));
+            Console.WriteLine(Compute.SquareRoot(2.0f));
+            Console.WriteLine(Compute.SquareRoot(3.0f));
+            Console.WriteLine(Compute.SquareRoot(4.0f));
+            Console.WriteLine(Compute.SquareRoot(5.0f));
+            Console.ReadLine();
+
             #region Sorting
             {
 
@@ -268,7 +275,7 @@ namespace Algorithms
             // in order to attack them. Here are their starting positions:
             Vector<float> enemy_location = new Vector<float>(-100, 0, -50);
             Vector<float> player_location = new Vector<float>(200, 0, -50);
-            float enemy_attack_range = 2; // enemy has a melee attack with 2 range
+            float enemy_attack_range = 3; // enemy has a melee attack with 2 range
 
             // Lets say most of the terrain is open, but there is a big rock in between them that they
             // must go around.
@@ -279,7 +286,8 @@ namespace Algorithms
             // ignores locations inside the rock)
             Func<Vector<float>, bool> validateMovementLocation = location =>
             {
-                if ((location - rock_location).Magnitude <= rock_radius)
+                float mag = (location - rock_location).Magnitude;
+                if (mag <= rock_radius)
                     return false; // inside rock (not valid)
                 return true; // not inside rock (valid)
 
@@ -348,9 +356,11 @@ namespace Algorithms
             Search<Vector<float>>.Graph<float>.Cost costFunction = (location1, location2) =>
             {
                 // If either locations are in the mud, lets increase the cost of moving to that spot.
-                if ((location1 - mud_location).Magnitude <= mud_radius)
+                float mag1 = (location1 - mud_location).Magnitude;
+                if (mag1 <= mud_radius)
                     return 2;
-                if ((location2 - mud_location).Magnitude <= mud_radius)
+                float mag2 = (location2 - mud_location).Magnitude;
+                if (mag2 <= mud_radius)
                     return 2;
 
                 // neither location is in the mud, it is just a standard movement at normal speed.
@@ -360,8 +370,9 @@ namespace Algorithms
             // Now we need a goal function
             Search<Vector<float>>.Graph<float>.Goal goalFunction = currentLocation =>
             {
+                float mag = (currentLocation - player_location).Magnitude;
                 // if the player is within the enemy's attack range WE FOUND A PATH! :)
-                if ((currentLocation - player_location).Magnitude <= enemy_attack_range)
+                if (mag <= enemy_attack_range)
                     return true;
 
                 // the enemy is not yet within attack range

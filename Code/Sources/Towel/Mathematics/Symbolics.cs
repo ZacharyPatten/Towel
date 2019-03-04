@@ -3,88 +3,206 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Towel.DataStructures;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Base implementations for symbolic mathematics.</summary>
-	/// <typeparam name="T">The generic numeric type. (double, int, decimal, etc.)</typeparam>
-	public static class Symbolics<T>
-	{
-        // types of nodes in a symbolic node tree
-		#region Definition
+    /// <summary>Contains definitions necessary for the generic Symbolics class.</summary>
+    internal static class Symbolics
+    {
+        #region Attributes
+        
+        [AttributeUsage(AttributeTargets.Class)]
+        internal abstract class RepresentationAttribute : Attribute
+        {
+            internal string[] _representations;
 
-		public abstract class Node
-		{
-			public static implicit operator Node(T constant) { return new Constant(constant); }
-
-			public Node Simplify() { return Symbolics<T>.Simplify(this); }
-			public Node Assign(string variable, T value) { return Symbolics<T>.Substitute(this, variable, value); }
-			public Node Derive(string variable) { return Symbolics<T>.Derive(this, variable); }
-			public Node Integrate(string variable) { return Symbolics<T>.Integrate(this, variable); }
-
-            public abstract void Stepper(Step<Node> step);
-
-            public static Node operator +(Node a, Node b) { return new Addition(Clone(a), Clone(b)); }
-            public static Node operator -(Node a, Node b) { return new Subtraction(Clone(a), Clone(b)); }
-            public static Node operator *(Node a, Node b) { return new Multiplication(Clone(a), Clone(b)); }
-            public static Node operator /(Node a, Node b) { return new Division(Clone(a), Clone(b)); }
-            /// <summary>
-            /// WARNING: NOT A NODE EQUALITY CHECK. THIS IS A SYMBOLIC MATH WRAPPER. See "Symbolics.AreEqual" for node comparison.
-            /// </summary>
-            //public static Node operator ==(Node a, Node b) { return new Equate(Clone(a), Clone(b)); }
-            //public static Node operator !=(Node a, Node b) { return new EquateNot(Clone(a), Clone(b)); }
-            //public static Node operator <(Node a, Node b) { return new LessThan(Clone(a), Clone(b)); }
-            //public static Node operator >(Node a, Node b) { return new GreaterThan(Clone(a), Clone(b)); }
-		}
-
-		public class Constant : Node
-		{
-			T _constant;
-
-			public T Value { get { return this._constant; } }
-			
-			public Constant(T constant)
-			{
-				this._constant = constant;
-			}
-
-			public static implicit operator T(Constant constant) { return constant._constant; }
-			
-			public override string ToString() { return this._constant.ToString(); }
-
-            public static bool operator ==(Constant a, Constant b)
+            internal RepresentationAttribute(string a, params string[] b)
             {
-                if (a == null)
+                if (string.IsNullOrWhiteSpace(a))
                 {
-                    throw new ArgumentNullException(nameof(a));
+                    throw new ArgumentException(
+                        "There is a BUG in " + nameof(Towel) + ". A " +
+                        nameof(Symbolics) + "." + nameof(RepresentationAttribute) + " representation is invalid.");
                 }
-                if (b == null)
+                foreach (string @string in b)
                 {
-                    throw new ArgumentNullException(nameof(b));
+                    if (string.IsNullOrWhiteSpace(@string))
+                    {
+                        throw new ArgumentException(
+                            "There is a BUG in " + nameof(Towel) + ". A " +
+                            nameof(Symbolics) + "." + nameof(RepresentationAttribute) + " representation is invalid.");
+                    }
                 }
-                return Compute.Equal(a.Value, b.Value);
+                this._representations = new string[b.Length + 1];
+                this._representations[0] = a;
+                for (int i = 1, j = 0; j < b.Length + 1; i++, j++)
+                {
+                    this._representations[i] = b[j];
+                }
             }
 
-            public static bool operator !=(Constant a, Constant b)
+            internal string[] Representations
             {
-                return !(a == b);
+                get
+                {
+                    return this._representations;
+                }
+            }
+        }
+
+        [AttributeUsage(AttributeTargets.Class)]
+        internal class OperationAttribute : RepresentationAttribute
+        {
+            internal OperationAttribute(string a, params string[] b) : base(a, b) { }
+        }
+
+        [AttributeUsage(AttributeTargets.Class)]
+        internal class LeftUnaryOperatorAttribute : RepresentationAttribute
+        {
+            internal LeftUnaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+        }
+
+        [AttributeUsage(AttributeTargets.Class)]
+        internal class RightUnaryOperatorAttribute : RepresentationAttribute
+        {
+            internal RightUnaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+        }
+
+        [AttributeUsage(AttributeTargets.Class)]
+        internal class BinaryOperatorAttribute : RepresentationAttribute
+        {
+            internal BinaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+        }
+
+        [AttributeUsage(AttributeTargets.Class)]
+        internal class KnownConstantAttribute : RepresentationAttribute
+        {
+            internal KnownConstantAttribute(string a, params string[] b) : base(a, b) { }
+        }
+        
+        #endregion
+
+        #region Expression + Inheriters
+
+        #region Expression
+
+        public abstract class Expression
+        {
+            public virtual Expression Simplify()
+            {
+                return this.Clone();
             }
 
-            public override void Stepper(Step<Node> step) { }
-		}
+            public virtual Expression Substitute(string variable, Expression value)
+            {
+                return this.Clone();
+            }
 
-		public class Variable : Node
-		{
-			public string _name;
+            public virtual Expression Derive(string variable)
+            {
+                return this.Clone();
+            }
 
-			public string Name { get { return this._name; } }
-			
-			public Variable(string name)
-			{
-				this._name = name;
-			}
-			
-			public override string ToString() { return this._name; }
+            public virtual Expression Integrate(string variable)
+            {
+                return this.Clone();
+            }
+
+            public abstract Expression Clone();
+
+            public override bool Equals(object obj)
+            {
+                return base.Equals(obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
+
+            public static Expression operator +(Expression a, Expression b)
+            {
+                return new Add(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator -(Expression a, Expression b)
+            {
+                return new Subtract(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator *(Expression a, Expression b)
+            {
+                return new Multiply(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator /(Expression a, Expression b)
+            {
+                return new Divide(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator ==(Expression a, Expression b)
+            {
+                return new Equal(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator !=(Expression a, Expression b)
+            {
+                return new NotEqual(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator <(Expression a, Expression b)
+            {
+                return new LessThan(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator >(Expression a, Expression b)
+            {
+                return new GreaterThan(a.Clone(), b.Clone());
+            }
+
+            public static Expression operator ^(Expression a, Expression b)
+            {
+                return new Power(a.Clone(), b.Clone());
+            }
+        }
+
+        #endregion
+
+        #region Variable
+
+        public class Variable : Expression
+        {
+            public string _name;
+
+            public string Name { get { return this._name; } }
+
+            public Variable(string name)
+            {
+                this._name = name;
+            }
+
+            public override Expression Clone()
+            {
+                return new Variable(this.Name);
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                if (this.Name == variable)
+                {
+                    return value.Clone();
+                }
+                else
+                {
+                    return base.Substitute(variable, value);
+                }
+            }
+
+            public override string ToString()
+            {
+                return "[" + this.Name + "]";
+            }
 
             public static bool operator ==(Variable a, Variable b)
             {
@@ -104,8 +222,6 @@ namespace Towel.Mathematics
                 return !(a == b);
             }
 
-            public static implicit operator string(Variable variable) { return variable._name; }
-
             public override bool Equals(object b)
             {
                 if (b == null)
@@ -123,2329 +239,2144 @@ namespace Towel.Mathematics
             {
                 return this._name.GetHashCode();
             }
+        }
 
-            public override void Stepper(Step<Node> step) { }
-		}
+        #endregion
+        
+        #region Constant + Inheriters
 
-		public abstract class Operation : Node
-		{
-		}
+        #region Constant
 
-		public abstract class Unary : Operation
-		{
-			protected Node _operand;
+        public abstract class Constant : Expression
+        {
+            public virtual bool IsKnownConstant => false;
 
-			public Node Operand
-			{
-				get { return this._operand; }
-				set { this._operand = value; }
-			}
+            public virtual bool IsZero => false;
 
-			public Unary() : base() { }
+            public virtual bool IsOne => false;
 
-			public Unary(Node operand)
-			{
-				this._operand = operand;
-			}
+            public virtual bool IsTwo => false;
 
-            public override void Stepper(Step<Node> step)
+            public virtual bool IsThree => false;
+
+            public virtual bool IsPi => false;
+
+            public virtual Expression Simplify(Operation operation)
             {
-                step(this._operand);
+                return this;
             }
-		}
-
-		public class Negate : Unary
-		{
-			public Negate() : base() { }
-
-			public Negate(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("-", this._operand); }
-		}
-
-        public abstract class Trigonometry : Unary
-        {
-            public Trigonometry() : base() { }
-
-            public Trigonometry(Node operand)
-			{
-				this._operand = operand;
-			}
         }
 
-		public class Sine : Trigonometry
-		{
-			public Sine() : base() { }
+        #endregion
 
-			public Sine(Node operand) : base(operand) { }
+        #region KnownConstantOfUknownType + Inheriters
 
-			public override string ToString() { return string.Concat("Sine(", this._operand, ")"); }
-		}
+        #region KnownConstantOfUknownType
 
-		public class Cosine : Trigonometry
-		{
-			public Cosine() : base() { }
-
-			public Cosine(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("Cosine(", this._operand, ")"); }
-		}
-
-		public class Tangent : Trigonometry
-		{
-			public Tangent() : base() { }
-
-			public Tangent(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("Tangent(", this._operand, ")"); }
-		}
-
-        public class Cosecant : Trigonometry
+        public abstract class KnownConstantOfUknownType : Constant
         {
-            public Cosecant() : base() { }
+            public override bool IsKnownConstant => true;
 
-			public Cosecant(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("Cosecant(", this._operand, ")"); }
+            public abstract Constant<T> ApplyType<T>();
         }
 
-        public class Secant : Trigonometry
+        #endregion
+
+        #region Pi
+
+        [KnownConstant("π")]
+        public class Pi : KnownConstantOfUknownType
         {
-            public Secant() : base() { }
+            public Pi() : base() { }
 
-			public Secant(Node operand) : base(operand) { }
+            public override bool IsPi => true;
 
-			public override string ToString() { return string.Concat("Secant(", this._operand, ")"); }
-        }
-
-        public class Cotangent : Trigonometry
-        {
-            public Cotangent() : base() { }
-
-			public Cotangent(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("Cotangent(", this._operand, ")"); }
-        }
-
-		public class NaturalLog : Unary
-		{
-			public NaturalLog() : base() { }
-
-			public NaturalLog(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("ln(", this._operand, ")"); }
-		}
-
-		public class SquareRoot : Unary
-		{
-			public SquareRoot() : base() { }
-
-			public SquareRoot(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("sqrt(", this._operand, ")"); }
-		}
-
-		public class Exponential : Unary
-		{
-			public Exponential() : base() { }
-
-			public Exponential(Node operand) : base(operand) { }
-
-			public override string ToString() { return string.Concat("e^(", this._operand, ")"); }
-		}
-
-		public class Invert : Unary
-		{
-			public Invert() : base() { }
-
-			public Invert(Node operand) : base(operand) { }
-		}
-
-		public class Determinent : Unary
-		{
-			public Determinent() : base() { }
-
-			public Determinent(Node operand) : base(operand) { }
-		}
-
-		public abstract class Binary : Operation
-		{
-			protected Node _left;
-			protected Node _right;
-
-			public Node Left
-			{
-				get { return this._left; }
-				set { this._left = value; }
-			}
-
-			public Node Right
-			{
-				get { return this._right; }
-				set { this._right = value; }
-			}
-
-			public Binary() { }
-
-			public Binary(Node left, Node right)
-			{
-				this._left = left;
-				this._right = right;
-			}
-
-            public override void Stepper(Step<Node> step)
+            public override Constant<T> ApplyType<T>()
             {
-                step(this._left);
-                step(this._right);
+                return new Constant<T>(Mathematics.Constant<T>.Pi);
             }
-		}
 
-        public abstract class AdditionOrSubtraction : Binary
-        {
-            public AdditionOrSubtraction() : base() { }
-
-            public AdditionOrSubtraction(Node left, Node right)  : base(left, right) { }
-        }
-
-        public class Addition : AdditionOrSubtraction
-		{
-			public Addition() : base() { }
-
-			public Addition(Node left, Node right) : base(left, right) { }
-
-			public override string ToString()
-			{
-				string left = this._left.ToString();
-				if (this._left is Multiplication || this._left is Division && left is Constant && Compute.Compare(left as Constant, Constant<T>.Zero) == Comparison.Less)
-					left = string.Concat("(", left, ")");
-				string right = this._right.ToString();
-				if (this._right is Addition || this._right is Subtraction || this._left is Multiplication || this._left is Division)
-					right = string.Concat("(", right, ")");
-				if (this._right is Constant && Compute.Compare(this._right as Constant, Constant<T>.Zero) == Comparison.Less)
-					return string.Concat(left, " - ", Compute.Multiply(this._right as Constant, Compute.FromInt32<T>(-1)));
-				return string.Concat(left, " + ", right);
-			}
-		}
-
-        public class Subtraction : AdditionOrSubtraction
-		{
-			public Subtraction() : base() { }
-
-			public Subtraction(Node left, Node right) : base(left, right) { }
-
-			public override string ToString()
-			{
-				string left = this._left.ToString();
-				if (this._left is Multiplication || this._left is Division)
-					left = string.Concat("(", left, ")");
-				string right = this._right.ToString();
-				if (this._right is Addition || this._right is Subtraction || this._left is Multiplication || this._left is Division)
-					right = string.Concat("(", right, ")");
-				return string.Concat(left, " - ", right);
-			}
-		}
-
-        public abstract class MultiplicationOrDivision : Binary
-        {
-            public MultiplicationOrDivision() : base() { }
-
-            public MultiplicationOrDivision(Node left, Node right) : base(left, right) { }
-        }
-
-        public class Multiplication : MultiplicationOrDivision
-		{
-			public Multiplication() : base() { }
-
-			public Multiplication(Node left, Node right) : base(left, right) { }
-
-			public override string ToString()
-			{
-				string left = this._left.ToString();
-				//if (this._left is Multiplication || this._left is Division)
-				//	left = string.Concat("(", left, ")");
-				string right = this._right.ToString();
-				if (this._right is Multiplication || this._right is Division)
-					right = string.Concat("(", right, ")");
-				return string.Concat(left, " * ", right);
-			}
-		}
-
-        public class Division : MultiplicationOrDivision
-		{
-			public Division() : base() { }
-
-			public Division(Node left, Node right) : base(left, right) { }
-
-			public override string ToString()
-			{
-				string left = this._left.ToString();
-				//if (this._left is Multiplication || this._left is Division)
-				//	left = string.Concat("(", left, ")");
-				string right = this._right.ToString();
-				if (this._right is Multiplication || this._right is Division)
-					right = string.Concat("(", right, ")");
-				return string.Concat(left, " / ", right);
-			}
-		}
-
-		public class Power : Binary
-		{
-			public Power() : base() { }
-
-			public Power(Node left, Node right) : base(left, right) { }
-
-			public override string ToString() { return string.Concat(this._left, " ^ ", this._right); }
-		}
-
-		public class Root : Binary
-		{
-			public Root() : base() { }
-
-			public Root(Node left, Node right) : base(left, right) { }
-
-			public override string ToString() { return string.Concat(this._left, " ^ (1 / ", this._right, ")"); }
-		}
-
-		public class Equate : Multinary
-		{
-			public Equate() : base() { }
-
-            public Equate(params Node[] nodes) : base(nodes) { }
-
-			public override string ToString()
+            public override Expression Clone()
             {
-                if (this._operands.Length > 0)
+                return new Pi();
+            }
+
+            public override string ToString()
+            {
+                return "π";
+            }
+        }
+
+        #endregion
+
+        #region Zero
+
+        public class Zero : KnownConstantOfUknownType
+        {
+            public Zero() : base() { }
+
+            public override bool IsZero => true;
+
+            public override Constant<T> ApplyType<T>()
+            {
+                return new Constant<T>(Mathematics.Constant<T>.Zero);
+            }
+
+            public override Expression Clone()
+            {
+                return new Zero();
+            }
+
+            public override string ToString()
+            {
+                return "0";
+            }
+        }
+
+        #endregion
+
+        #region One
+
+        public class One : KnownConstantOfUknownType
+        {
+            public One() : base() { }
+
+            public override bool IsOne => true;
+
+            public override Constant<T> ApplyType<T>()
+            {
+                return new Constant<T>(Mathematics.Constant<T>.One);
+            }
+
+            public override Expression Clone()
+            {
+                return new One();
+            }
+
+            public override string ToString()
+            {
+                return "1";
+            }
+        }
+
+        #endregion
+
+        #region Two
+
+        public class Two : KnownConstantOfUknownType
+        {
+            public Two() : base() { }
+
+            public override bool IsTwo => true;
+
+            public override Constant<T> ApplyType<T>()
+            {
+                return new Constant<T>(Mathematics.Constant<T>.Two);
+            }
+
+            public override Expression Clone()
+            {
+                return new Two();
+            }
+
+            public override string ToString()
+            {
+                return "2";
+            }
+        }
+
+        #endregion
+
+        #region Three
+
+        public class Three : KnownConstantOfUknownType
+        {
+            public Three() : base() { }
+
+            public override bool IsThree => true;
+
+            public override Constant<T> ApplyType<T>()
+            {
+                return new Constant<T>(Mathematics.Constant<T>.Three);
+            }
+
+            public override Expression Clone()
+            {
+                return new Three();
+            }
+
+            public override string ToString()
+            {
+                return "3";
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Constant<T> + Inheriters
+
+        #region Constant<T>
+
+        public class Constant<T> : Constant
+        {
+            public readonly T Value;
+
+            public override bool IsZero => Compute.Equal(Value, Mathematics.Constant<T>.Zero);
+
+            public override bool IsOne => Compute.Equal(Value, Mathematics.Constant<T>.One);
+
+            public override bool IsTwo => Compute.Equal(Value, Mathematics.Constant<T>.Two);
+
+            public override bool IsThree => Compute.Equal(Value, Mathematics.Constant<T>.Three);
+
+            public Constant(T constant)
+            {
+                this.Value = constant;
+            }
+
+            public override Expression Simplify(Operation operation)
+            {
+                return operation.SimplifyHack<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Constant<T>(this.Value);
+            }
+            
+            public override string ToString()
+            {
+                return this.Value.ToString();
+            }
+        }
+
+        #endregion
+
+        #region Pi<T>
+
+        public class Pi<T> : Constant<T>
+        {
+            public Pi() : base(Towel.Mathematics.Constant<T>.Pi) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new Pi<T>();
+            }
+
+            public override string ToString()
+            {
+                return "π";
+            }
+        }
+
+        #endregion
+
+        #region Zero<T>
+
+        public class Zero<T> : Constant<T>
+        {
+            public Zero() : base(Towel.Mathematics.Constant<T>.Zero) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new Zero<T>();
+            }
+
+            public override string ToString()
+            {
+                return "0";
+            }
+        }
+
+        #endregion
+
+        #region One<T>
+
+        public class One<T> : Constant<T>
+        {
+            public One() : base(Towel.Mathematics.Constant<T>.One) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new One<T>();
+            }
+
+            public override string ToString()
+            {
+                return "1";
+            }
+        }
+
+        #endregion
+
+        #region Two<T>
+
+        public class Two<T> : Constant<T>
+        {
+            public Two() : base(Towel.Mathematics.Constant<T>.Two) { }
+
+            public override bool IsTwo => true;
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new Two<T>();
+            }
+
+            public override string ToString()
+            {
+                return "2";
+            }
+        }
+
+        #endregion
+
+        #region Three<T>
+
+        public class Three<T> : Constant<T>
+        {
+            public Three() : base(Towel.Mathematics.Constant<T>.Three) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new Three<T>();
+            }
+
+            public override string ToString()
+            {
+                return "3";
+            }
+        }
+
+        #endregion
+
+        #region True
+
+        public class True : Constant<bool>
+        {
+            public True() : base(true) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new True();
+            }
+
+            public override string ToString()
+            {
+                return "TRUE";
+            }
+        }
+
+        #endregion
+
+        #region False
+
+        public class False : Constant<bool>
+        {
+            public False() : base(true) { }
+
+            public override bool IsKnownConstant => true;
+
+            public override Expression Clone()
+            {
+                return new False();
+            }
+
+            public override string ToString()
+            {
+                return "FALSE";
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Operation + Inheriters
+
+        #region Operation
+
+        public abstract class Operation : Expression
+        {
+            public interface Mathematical { }
+
+            public interface Logical { }
+
+            protected virtual Expression Simplify<T>()
+            {
+                return this;
+            }
+
+            internal Expression SimplifyHack<T>()
+            {
+                return this.Simplify<T>();
+            }
+        }
+
+        #endregion
+
+        #region Unary + Inheriters
+
+        #region Unary
+
+        public abstract class Unary : Operation
+        {
+            protected Expression _a;
+            
+            public Expression A
+            {
+                get { return this._a; }
+                set { this._a = value; }
+            }
+
+            public Unary(Expression a) : base() { }
+        }
+
+        #endregion
+
+        #region Negate
+
+        [LeftUnaryOperator("-")]
+        public class Negate : Unary, Operation.Mathematical
+        {
+            public Negate(Expression a) : base(a) { }
+
+            public override Expression Simplify()
+            {
+                #region Computation
+                // Rule: [-A] => [B] where A is constant and B is -A
+                if (this.A is Constant constant)
                 {
-                    System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
-                    stringBuilder.Append(this._operands[0].ToString());
-                    foreach (Node node in this._operands)
+                    return constant.Simplify(this);
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Negate(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Negate(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return "-" + this.A;
+            }
+        }
+
+        #endregion
+
+        #region NaturalLog
+
+        public class NaturalLog : Unary, Operation.Mathematical
+        {
+            public NaturalLog(Expression operand) : base(operand) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.NaturalLogarithm(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new NaturalLog(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return "ln(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region SquareRoot
+
+        public class SquareRoot : Unary, Operation.Mathematical
+        {
+            public SquareRoot(Expression operand) : base(operand) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.SquareRoot(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new SquareRoot(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return "√(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Exponential
+
+        public class Exponential : Unary, Operation.Mathematical
+        {
+            public Exponential(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Exponential(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Exponential(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return "e^(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Invert
+
+        public class Invert : Unary, Operation.Mathematical
+        {
+            public Invert(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Invert(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Invert(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return "(1 / " + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Trigonometry _ Inheriters
+
+        #region Trigonometry
+
+        public abstract class Trigonometry : Unary, Operation.Mathematical
+        {
+            public Trigonometry(Expression a) : base(a) { }
+        }
+
+        #endregion
+
+        #region Sine
+
+        public class Sine : Trigonometry, Operation.Mathematical
+        {
+            public Sine(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Sine(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Sine(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Sine) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Cosine
+
+        public class Cosine : Trigonometry, Operation.Mathematical
+        {
+            public Cosine(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Cosine(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Cosine(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Cosine) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Tangent
+
+        public class Tangent : Trigonometry, Operation.Mathematical
+        {
+            public Tangent(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Tanget(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Tangent(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Tangent) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Cosecant
+
+        public class Cosecant : Trigonometry, Operation.Mathematical
+        {
+            public Cosecant(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Cosecant(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Cosecant(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Cosecant) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Secant
+
+        public class Secant : Trigonometry, Operation.Mathematical
+        {
+            public Secant(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Secant(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Secant(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Secant) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #region Cotangent
+
+        public class Cotangent : Trigonometry, Operation.Mathematical
+        {
+            public Cotangent(Expression a) : base(a) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a)
+                {
+                    //return new Constant<T>(Compute.Cotangent(a.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Cotangent(this.A.Clone());
+            }
+
+            public override string ToString()
+            {
+                return nameof(Cotangent) + "(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Binary + Inheriters
+
+        #region Binary
+
+        public abstract class Binary : Operation
+        {
+            protected Expression _a;
+            protected Expression _b;
+
+            public Expression A
+            {
+                get { return this._a; }
+                set { this._a = value; }
+            }
+
+            public Expression B
+            {
+                get { return this._b; }
+                set { this._b = value; }
+            }
+
+            public Binary(Expression a, Expression b)
+            {
+                this._a = a;
+                this._b = b;
+            }
+        }
+
+        #endregion
+
+        #region AddOrSubtract + Inheriters
+
+        #region AddOrSubtract
+
+        public abstract class AddOrSubtract : Binary, Operation.Mathematical
+        {
+            public AddOrSubtract(Expression a, Expression b) : base(a, b) { }
+        }
+
+        #endregion
+
+        #region Add
+
+        [BinaryOperator("+")]
+        public class Add : AddOrSubtract
+        {
+            public Add(Expression a, Expression b) : base(a, b) { }
+
+            public override Expression Simplify()
+            {
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A + B] => [C] where A is constant, B is constant, and C is A + B
+                    if (LEFT is Constant A && RIGHT is Constant B)
                     {
-                        stringBuilder.Append(" = ");
-                        stringBuilder.Append(node);
+                        return A.Simplify(this);
                     }
-                    return stringBuilder.ToString();
                 }
-                else
+                #endregion
+                #region Additive Identity Property
+                {   // Rule: [X + 0] => [X]
+                    if (RIGHT is Constant right && right.IsZero)
+                    {
+                        return LEFT;
+                    }
+                }
+                {   // Rule: [0 + X] => [X]
+                    if (LEFT is Constant left && left.IsZero)
+                    {
+                        return RIGHT;
+                    }
+                }
+                #endregion
+                #region Commutative/Associative Property
+                {   // Rule: ['X + A' + B] => [X + C] where A is constant, B is constant, and C is A + B
+                    if (LEFT is Add ADD && ADD.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = ADD.A;
+                        return X + C;
+                    }
+                }
+                {   // Rule: ['A + X' + B] => [X + C] where A is constant, B is constant, and C is A + B
+                    if (LEFT is Add ADD && ADD.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = ADD.B;
+                        return X + C;
+                    }
+                }
+                {   // Rule: [B + 'X + A'] => [X + C] where A is constant, B is constant, and C is A + B
+                    if (RIGHT is Add ADD && ADD.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = ADD.A;
+                        return X + C;
+                    }
+                }
+                {   // Rule: [B + 'A + X'] => [X + C] where A is constant, B is constant, and C is A + B
+                    if (RIGHT is Add ADD && ADD.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = ADD.B;
+                        return X + C;
+                    }
+                }
+                {   // Rule: ['X - A' + B] => [X + C] where A is constant, B is constant, and C is B - A
+                    if (LEFT is Subtract SUBTRACT && SUBTRACT.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (B - A).Simplify();
+                        var X = SUBTRACT.A;
+                        return X + C;
+                    }
+                }
+                {   // Rule: ['A - X' + B] => [C - X] where A is constant, B is constant, and C is A + B
+                    if (LEFT is Subtract SUBTRACT && SUBTRACT.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = SUBTRACT.B;
+                        return C - X;
+                    }
+                }
+                {   // Rule: [B + 'X - A'] => [X + C] where A is constant, B is constant, and C is B - A
+                    if (RIGHT is Subtract SUBTRACT && SUBTRACT.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B - A).Simplify();
+                        var X = SUBTRACT.A;
+                        return C + X;
+                    }
+                }
+                {   // Rule: [B + 'A - X'] => [C - X] where A is constant, B is constant, and C is A + B
+                    if (RIGHT is Subtract SUBTRACT && SUBTRACT.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = SUBTRACT.B;
+                        return C - X;
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
                 {
-                    return string.Empty;
+                    return new Constant<T>(Compute.Add(a.Value, b.Value));
                 }
+                return base.Simplify<T>();
             }
-		}
 
-        public class LessThan : Binary
-        {
-            public LessThan() : base() { }
+            public override Expression Clone()
+            {
+                return new Add(this.A.Clone(), this.B.Clone());
+            }
 
-            public LessThan(Node left, Node right) : base(left, right) { }
-
-			public override string ToString() { return string.Concat(this._left, " < ", this._right); }
+            public override string ToString()
+            {
+                string a = this.A.ToString();
+                string b = this.B.ToString();
+                if (this.A is Multiply || this.A is Divide && this.A is Constant && Compute.IsNegative(this.A as Constant))
+                {
+                    a = "(" + a + ")";
+                }
+                if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
+                {
+                    b = "(" + b + ")";
+                }
+                if (this.B is Constant && Compute.IsNegative(this.B as Constant))
+                {
+                    return a + " - " + Compute.Negate(this.B as Constant);
+                }
+                return a + " + " + b;
+            }
         }
 
-        public class GreaterThan : Binary
+        #endregion
+
+        #region Subtract
+
+        [BinaryOperator("-")]
+        public class Subtract : AddOrSubtract
         {
-            public GreaterThan() : base() { }
+            public Subtract(Expression a, Expression b) : base(a, b) { }
 
-            public GreaterThan(Node left, Node right) : base(left, right) { }
+            public override Expression Simplify()
+            {
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A - B] => [C] where A is constant, B is constant, and C is A - B
+                    if (LEFT is Constant left && RIGHT is Constant right)
+                    {
+                        return left.Simplify(this);
+                    }
+                }
+                #endregion
+                #region Identity Property
+                {   // Rule: [X - 0] => [X]
+                    if (RIGHT is Constant right && right.IsZero)
+                    {
+                        return LEFT;
+                    }
+                }
+                {   // Rule: [0 - X] => [-X]
+                    if (LEFT is Constant left && left.IsZero)
+                    {
+                        return new Negate(RIGHT);
+                    }
+                }
+                #endregion
+                #region Commutative/Associative Property
+                {   // Rule: ['X - A' - B] => [X - C] where A is constant, B is constant, and C is A + B
+                    if (LEFT is Subtract SUBTRACT && SUBTRACT.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = SUBTRACT.A;
+                        return X - C;
+                    }
+                }
+                {    // Rule: ['A - X' - B] => [C - X] where A is constant, B is constant, and C is A - B
+                    if (LEFT is Subtract SUBTRACT && SUBTRACT.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A - B).Simplify();
+                        var X = SUBTRACT.B;
+                        return C - X;
+                    }
+                }
+                {   // Rule: [B - 'X - A'] => [C - X] where A is constant, B is constant, and C is B - A
+                    if (RIGHT is Subtract SUBTRACT && SUBTRACT.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B - A).Simplify();
+                        var X = SUBTRACT.A;
+                        return C - X;
+                    }
+                }
+                {   // Rule: [B - 'A - X'] => [C - X] where A is constant, B is constant, and C is B - A
+                    if (RIGHT is Subtract SUBTRACT && SUBTRACT.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B - A).Simplify();
+                        var X = SUBTRACT.A;
+                        return C - X;
+                    }
+                }
+                {   // Rule: ['X + A' - B] => [X + C] where A is constant, B is constant, and C is A - B
+                    if (LEFT is Add ADD && ADD.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A - B).Simplify();
+                        var X = ADD.A;
+                        return X + C;
+                    }
+                }
+                {   // Rule: ['A + X' - B] => [C + X] where A is constant, B is constant, and C is A - B
+                    if (LEFT is Add ADD && ADD.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A - B).Simplify();
+                        var X = ADD.B;
+                        return C + X;
+                    }
+                }
+                {   // Rule: [B - 'X + A'] => [C - X] where A is constant, B is constant, and C is A + B
+                    if (RIGHT is Add ADD && ADD.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        var X = ADD.A;
+                        return C - X;
+                    }
+                }
+                {   // Rule: [B - 'A + X'] => [C + X] where A is constant, B is constant, and C is B - A
+                    if (RIGHT is Add ADD && ADD.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B - A).Simplify();
+                        var X = ADD.B;
+                        return C + X;
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
 
-            public override string ToString() { return string.Concat(this._left, " > ", this._right); }
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<T>(Compute.Subtract(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Subtract(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                string a = this.A.ToString();
+                if (this.A is Multiply || this.A is Divide)
+                {
+                    a = "(" + a + ")";
+                }
+                string b = this.B.ToString();
+                if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
+                {
+                    b = "(" + b + ")";
+                }
+                return a + " - " + b;
+            }
         }
 
-		public abstract class Ternary : Operation
-		{
-			protected Node _one;
-			protected Node _two;
-			protected Node _three;
+        #endregion
 
-			public Node One
-			{
-				get { return this._one; }
-				set { this._one = value; }
-			}
+        #endregion
 
-			public Node Two
-			{
-				get { return this._two; }
-				set { this._two = value; }
-			}
+        #region MultiplyOrDivide + Inheriters
 
-			public Node Three
-			{
-				get { return this._three; }
-				set { this._three = value; }
-			}
+        #region MultiplyOrDivide
 
-			public Ternary() { }
+        public abstract class MultiplyOrDivide : Binary, Operation.Mathematical
+        {
+            public MultiplyOrDivide(Expression a, Expression b) : base(a, b) { }
+        }
 
-			public Ternary(Node one, Node two, Node three)
-			{
-				this._one = one;
-				this._two = two;
-				this._three = three;
-			}
+        #endregion
 
-            public override void Stepper(Step<Node> step)
+        #region Multiply
+
+        [BinaryOperator("*")]
+        public class Multiply : MultiplyOrDivide
+        {
+            public Multiply(Expression a, Expression b) : base(a, b) { }
+
+            public override Expression Clone()
             {
-                step(this._one);
-                step(this._two);
-                step(this._three);
+                return new Multiply(this.A.Clone(), this.B.Clone());
             }
-		}
 
-		public abstract class Multinary : Operation
-		{
-			protected Node[] _operands;
-
-			public Node[] Operands
-			{
-				get { return this._operands; }
-				set { this._operands = value; }
-			}
-
-			public Multinary() { }
-
-			public Multinary(Node[] operands)
-			{
-				this._operands = operands;
-			}
-
-            public override void Stepper(Step<Node> step)
+            public override Expression Simplify()
             {
-                foreach (Node node in this._operands)
-                    step(node);
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A * B] => [C] where A is constant, B is constant, and C is A * B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this);
+                    }
+                }
+                #endregion
+                #region Zero Property
+                {   // Rule: [X * 0] => [0]
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        return CONSTANT;
+                    }
+                }
+                {   // Rule: [0 * X] => [0]
+                    if (LEFT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        return CONSTANT;
+                    }
+                }
+                #endregion
+                #region Identity Property
+                {   // Rule: [X * 1] => [X]
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsOne)
+                    {
+                        return LEFT;
+                    }
+                }
+                {   // Rule: [1 * X] => [X]
+                    if (LEFT is Constant CONSTANT && CONSTANT.IsOne)
+                    {
+                        return RIGHT;
+                    }
+                }
+                #endregion
+                #region Commutative/Associative Property
+                {   // Rule: [(X * A) * B] => [X * C] where A is constant, B is constant, and C is A * B
+                    if (LEFT is Multiply MULTIPLY && MULTIPLY.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = MULTIPLY.A;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [(A * X) * B] => [X * C] where A is constant, B is constant, and C is A * B
+                    if (LEFT is Multiply MULTIPLY && MULTIPLY.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = MULTIPLY.B;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [B * (X * A)] => [X * C] where A is constant, B is constant, and C is A * B
+                    if (RIGHT is Multiply MULTIPLY && MULTIPLY.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = MULTIPLY.A;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [B * (A * X)] => [X * C] where A is constant, B is constant, and C is A * B
+                    if (RIGHT is Multiply MULTIPLY && MULTIPLY.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = MULTIPLY.B;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [(X / A) * B] => [X * C] where A is constant, B is constant, and C is B / A
+                    if (LEFT is Divide DIVIDE && DIVIDE.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (B / A).Simplify();
+                        var X = DIVIDE.A;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [(A / X) * B] => [C / X] where A is constant, B is constant, and C is A * B
+                    if (LEFT is Divide DIVIDE && DIVIDE.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = DIVIDE.B;
+                        return C / X;
+                    }
+                }
+                {   // Rule: [B * (X / A)] => [X * C] where A is constant, B is constant, and C is B / A
+                    if (RIGHT is Divide DIVIDE && DIVIDE.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B / A).Simplify();
+                        var X = DIVIDE.A;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [B * (A / X)] => [C / X] where A is constant, B is constant, and C is A * B
+                    if (RIGHT is Divide DIVIDE && DIVIDE.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = DIVIDE.B;
+                        return C / X;
+                    }
+                }
+                #endregion
+                #region Distributive Property
+                {   // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
+                    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+                    {
+                        // This might not be necessary
+                    }
+                }
+                {   // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
+                    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+                    {
+                        // This might not be necessary
+                    }
+                }
+                #endregion
+                #region Duplicate Variable Multiplications
+                {   // Rule: [X * X] => [X ^ 2] where X is Variable
+                    if (LEFT is Variable X1 && RIGHT is Variable X2 && X1.Name == X2.Name)
+                    {
+                        return X1 ^ new Two();
+                    }
+                }
+                #endregion
+                #region Multiplication With Powered Variables
+                {   // Rule: [(V ^ A) * (V ^ B)] => [V ^ C] where A is constant, B is constant, V is a variable, and C is A + B
+                    if (LEFT is Power POWER1 && RIGHT is Power POWER2 &&
+                        POWER1.A is Variable V1 && POWER2.A is Variable V2 && V1.Name == V2.Name &&
+                        POWER1.B is Constant A && POWER2.B is Constant B)
+                    {
+                        var C = (A + B).Simplify();
+                        return V1 ^ C;
+                    }
+                }
+                #endregion
+                return base.Simplify();
             }
-		}
 
-		public class Summation : Multinary
-		{
-			public Summation() : base() { }
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<T>(Compute.Multiply(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
 
-			public Summation(Node[] array) : base(array) { }
-		}
+            public override string ToString()
+            {
+                string a = this.A.ToString();
+                string b = this.B.ToString();
+                if (this.B is Multiply || this.B is Divide)
+                {
+                    b = "(" + b + ")";
+                }
+                else if (this.A is Constant a_const && a_const.IsKnownConstant && this.B is Constant)
+                {
+                    return b + a;
+                }
+                else if (this.A is Constant && this.B is Constant b_const && b_const.IsKnownConstant)
+                {
+                    return a + b;
+                }
+                return a + " * " + b;
+            }
+        }
 
-		#endregion
+        #endregion
 
-        // parsing input into a symbolic definition node tree
-		#region Interpretation
+        #region Divide
 
-		public static Node Parse(Expression e)
-		{
-			try
-			{
-				System.Func<Expression, Node> recursive = null;
-                System.Func<MethodCallExpression, Node> methodCallExpression_to_node = null;
+        [BinaryOperator("/")]
+        public class Divide : MultiplyOrDivide
+        {
+            public Divide(Expression a, Expression b) : base(a, b) { }
 
-				recursive =
-					(Expression expression) =>
-					{
-						UnaryExpression unary_expression = expression as UnaryExpression;
-						BinaryExpression binary_expression = expression as BinaryExpression;
+            public override Expression Simplify()
+            {
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Error Handling
+                {   // Rule: [X / 0] => Error
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        throw new DivideByZeroException();
+                    }
+                }
+                #endregion
+                #region Computation
+                {   // Rule: [A / B] => [C] where A is constant, B is constant, and C is A / B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this);
+                    }
+                }
+                #endregion
+                #region Zero Property
+                {   // Rule: [0 / X] => [0]
+                    if (LEFT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        return CONSTANT;
+                    }
+                }
+                #endregion
+                #region Identity Property
+                {   // Rule: [X / 1] => [X]
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsOne)
+                    {
+                        return LEFT;
+                    }
+                }
+                #endregion
+                #region Commutative/Associative Property
+                {   // Rule: [(X / A) / B] => [X / C] where A is constant, B is constant, and C is A * B
+                    if (LEFT is Divide DIVIDE && DIVIDE.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = DIVIDE.A;
+                        return X / C;
+                    }
+                }
+                {   // Rule: [(A / X) / B] => [C / X] where A is constant, B is constant, and C is A / B
+                    if (LEFT is Divide DIVIDE && DIVIDE.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A / B).Simplify();
+                        var X = DIVIDE.B;
+                        return C / X;
+                    }
+                }
+                {   // Rule: [B / (X / A)] => [C / X] where A is constant, B is constant, and C is B / A
+                    if (RIGHT is Divide DIVIDE && DIVIDE.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B / A).Simplify();
+                        var X = DIVIDE.A;
+                        return C / X;
+                    }
+                }
+                {   // Rule: [B / (A / X)] => [C / X] where A is constant, B is constant, and C is B / A
+                    if (RIGHT is Divide DIVIDE && DIVIDE.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B / A).Simplify();
+                        var X = DIVIDE.B;
+                        return C / X;
+                    }
+                }
+                {   // Rule: [(X * A) / B] => [X * C] where A is constant, B is constant, and C is A / B
+                    if (LEFT is Multiply MULTIPLY && MULTIPLY.B is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A / B).Simplify();
+                        var X = MULTIPLY.A;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [(A * X) / B] => [X * C] where A is constant, B is constant, and C is A / B
+                    if (LEFT is Multiply MULTIPLY && MULTIPLY.A is Constant A && RIGHT is Constant B)
+                    {
+                        var C = (A / B).Simplify();
+                        var X = MULTIPLY.B;
+                        return X * C;
+                    }
+                }
+                {   // Rule: [B / (X * A)] => [C / X] where A is constant, B is constant, and C is A * B
+                    if (RIGHT is Multiply MULTIPLY && MULTIPLY.B is Constant A && LEFT is Constant B)
+                    {
+                        var C = (A * B).Simplify();
+                        var X = MULTIPLY.A;
+                        return C / X;
+                    }
+                }
+                {   // Rule: [B / (A * X)] => [X * C] where A is constant, B is constant, and C is B / A
+                    if (RIGHT is Multiply MULTIPLY && MULTIPLY.A is Constant A && LEFT is Constant B)
+                    {
+                        var C = (B / A).Simplify();
+                        var X = MULTIPLY.B;
+                        return X * C;
+                    }
+                }
+                #endregion
+                #region Distributive Property
+                {   // Rule: [X / (A +/- B)] => [X / A + X / B] where where A is constant, B is constant, and X is Variable
+                    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+                    {
+                        // This might not be necessary
+                    }
+                }
+                {   // Rule: [(A +/- B) / X] => [(A / X) + (B / X)] where where A is constant, B is constant, and X is Variable
+                    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+                    {
+                        // This might not be necessary
+                    }
+                }
+                #endregion
+                #region Division With Powered Variables
+                {   // Rule: [(V ^ A) / (V ^ B)] => [V ^ C] where A is constant, B is constant, V is a variable, and C is A - B
+                    if (LEFT is Power POWER1 && RIGHT is Power POWER2 &&
+                        POWER1.A is Variable V1 && POWER2.A is Variable V2 && V1.Name == V2.Name &&
+                        POWER1.B is Constant A && POWER2.B is Constant B)
+                    {
+                        var C = (A - B).Simplify();
+                        return V1 ^ C;
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
 
-						switch (expression.NodeType)
-						{
-							// Lambda
-							case ExpressionType.Lambda:
-								//labmda_expression.Parameters
-								return recursive((expression as LambdaExpression).Body);
-							// constant
-							case ExpressionType.Constant:
-								return new Constant((T)(expression as ConstantExpression).Value);
-							// variable
-							case ExpressionType.Parameter:
-								return new Variable((expression as ParameterExpression).Name);
-							// unary
-							case ExpressionType.Negate:
-								return new Negate(recursive(unary_expression.Operand));
-							case ExpressionType.UnaryPlus:
-								return recursive(unary_expression.Operand);
-							// binary
-							case ExpressionType.Add:
-								return new Addition(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Subtract:
-								return new Subtraction(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Multiply:
-								return new Multiplication(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Divide:
-								return new Division(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Power:
-								return new Power(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							// call
-							case ExpressionType.Call:
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<T>(Compute.Divide(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Divide(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                string a = this.A.ToString();
+                string b = this.B.ToString();
+                if (this.B is Multiply || this.B is Divide)
+                {
+                    b = "(" + b + ")";
+                }
+                return a + " / " + b;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Power
+
+        [BinaryOperator("^")]
+        public class Power : Binary, Operation.Mathematical
+        {
+            public Power(Expression a, Expression b) : base(a, b) { }
+
+            public override Expression Simplify()
+            {
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A ^ B] => [C] where A is constant, B is constant, and C is A ^ B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this);
+                    }
+                }
+                #endregion
+                #region Zero Base
+                {   // Rule: [0 ^ X] => [0]
+                    if (LEFT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        return CONSTANT;
+                    }
+                }
+                #endregion
+                #region One Power
+                {   // Rule: [X ^ 1] => [X]
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsOne)
+                    {
+                        return LEFT;
+                    }
+                }
+                #endregion
+                #region Zero Power
+                {   // Rule: [X ^ 0] => [1]
+                    if (RIGHT is Constant CONSTANT && CONSTANT.IsZero)
+                    {
+                        return new One();
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<T>(Compute.Power(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Power(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                return this.A + " ^ " + this.B;
+            }
+        }
+
+        #endregion
+
+        #region Root
+
+        public class Root : Binary, Operation.Mathematical
+        {
+            public Root(Expression a, Expression b) : base(a, b) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<T>(Compute.Root(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Root(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                return this.A + " ^ (1 / " + this.B + ")";
+            }
+        }
+
+        #endregion
+
+        #region Equal
+
+        [BinaryOperator("=")]
+        public class Equal : Binary, Operation.Logical
+        {
+            public Equal(Expression a, Expression b) : base(a, b) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.Equal(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Equal(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                return this.A + " = " + this.B;
+            }
+        }
+
+        #endregion
+
+        #region NotEqual
+
+        [BinaryOperator("≠")]
+        public class NotEqual : Binary, Operation.Logical
+        {
+            public NotEqual(Expression a, Expression b) : base(a, b) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.NotEqual(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new NotEqual(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString()
+            {
+                return this.A + " ≠ " + this.B;
+            }
+        }
+
+        #endregion
+
+        #region LessThan
+
+        [BinaryOperator("<")]
+        public class LessThan : Binary, Operation.Logical
+        {
+            public LessThan(Expression a, Expression b) : base(a, b) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.LessThan(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new LessThan(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString() { return this.A + " < " + this.B; }
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        [BinaryOperator(">")]
+        public class GreaterThan : Binary, Operation.Logical
+        {
+            public GreaterThan(Expression left, Expression right) : base(left, right) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.GreaterThan(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new GreaterThan(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString() { return this.A + " < " + this.B; }
+        }
+
+        #endregion
+        
+        #region LessThanOrEqual
+
+        [BinaryOperator("<=")]
+        public class LessThanOrEqual : Binary, Operation.Logical
+        {
+            public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.LessThanOrEqual(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new LessThanOrEqual(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString() { return this.A + " < " + this.B; }
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        [BinaryOperator(">=")]
+        public class GreaterThanOrEqual : Binary, Operation.Logical
+        {
+            public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }
+
+            protected override Expression Simplify<T>()
+            {
+                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                {
+                    return new Constant<bool>(Compute.GreaterThanOrEqual(a.Value, b.Value));
+                }
+                return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new GreaterThanOrEqual(this.A.Clone(), this.B.Clone());
+            }
+
+            public override string ToString() { return this.A + " < " + this.B; }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Ternary + Inheriters
+
+        #region Ternary
+
+        public abstract class Ternary : Operation
+        {
+            protected Expression _a;
+            protected Expression _b;
+            protected Expression _c;
+
+            public Expression A
+            {
+                get { return this._a; }
+                set { this._a = value; }
+            }
+
+            public Expression B
+            {
+                get { return this._b; }
+                set { this._b = value; }
+            }
+
+            public Expression C
+            {
+                get { return this._c; }
+                set { this._c = value; }
+            }
+
+            public Ternary() { }
+
+            public Ternary(Expression a, Expression b, Expression c)
+            {
+                this._a = a;
+                this._b = b;
+                this._c = c;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Multinary + Inheriters
+
+        #region Multinary
+
+        public abstract class Multinary : Operation
+        {
+            protected Expression[] _operands;
+
+            public Expression[] Operands
+            {
+                get { return this._operands; }
+                set { this._operands = value; }
+            }
+
+            public Multinary() { }
+
+            public Multinary(Expression[] operands)
+            {
+                this._operands = operands;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Parsers
+
+        // Parsing is easy :) we just use reflection to convert the Expression class hierarchy (with attributes)
+        // into a parsing library of strings to match against.
+
+        #region Runtime Built Parsing Libary
+
+        private static bool PARSABLELIBRARYBUILT = false; // we only ever need to build the library with reflection once
+
+        private static object PARSABLELIBRARYLOCK = new object();
+
+        // operations
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>> ParsableTernaryOperations;
+        private static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>> ParsableMultinaryOperations;
+
+        // operators
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableLeftUnaryOperators;
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableRightUnaryOperators;
+        private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperators;
+        private static string[] ParsableOperators;
+
+        // known constants
+        private static System.Collections.Generic.Dictionary<string, Func<Constant>> PARSABLEKNOWNCONSTANTS;
+
+        #region Reflection Code (Actually Building the Parsing Library)
+
+        internal static void BuildParsableOperationLibrary()
+        {
+            lock (PARSABLELIBRARYLOCK)
+            {
+                if (PARSABLELIBRARYBUILT)
+                {
+                    return;
+                }
+
+                // Unary Operations
+                ParsableUnaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Unary>().Where(x => !x.IsAbstract))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression) });
+                    ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
+                    Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
+                    string operationName = type.ConvertToCsharpSource();
+                    ParsableUnaryOperations.Add(operationName, newFunction);
+                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    {
+                        ParsableUnaryOperations.Add(representation, newFunction);
+                    }
+
+                    // Left Unary Operators
+                    ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
+                    foreach (string representation in type.GetCustomAttribute<LeftUnaryOperatorAttribute>().Representations)
+                    {
+                        ParsableLeftUnaryOperators.Add(representation, newFunction);
+                    }
+
+                    // Right Unary Operators
+                    ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
+                    foreach (string representation in type.GetCustomAttribute<RightUnaryOperatorAttribute>().Representations)
+                    {
+                        ParsableRightUnaryOperators.Add(representation, newFunction);
+                    }
+                }
+
+                // Binary Operations
+                ParsableBinaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Binary>().Where(x => !x.IsAbstract))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression), typeof(Expression) });
+                    ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
+                    Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A).Compile();
+                    string operationName = type.ConvertToCsharpSource();
+                    ParsableBinaryOperations.Add(operationName, newFunction);
+                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    {
+                        ParsableBinaryOperations.Add(representation, newFunction);
+                    }
+
+                    // Binary Operators
+                    ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>();
+                    foreach (string representation in type.GetCustomAttribute<BinaryOperatorAttribute>().Representations)
+                    {
+                        ParsableBinaryOperators.Add(representation, newFunction);
+                    }
+                }
+
+                // Ternary Operations
+                ParsableTernaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Ternary>().Where(x => !x.IsAbstract))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression), typeof(Expression), typeof(Expression) });
+                    ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B, C);
+                    Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A).Compile();
+                    string operationName = type.ConvertToCsharpSource();
+                    ParsableTernaryOperations.Add(operationName, newFunction);
+                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    {
+                        ParsableTernaryOperations.Add(representation, newFunction);
+                    }
+                }
+
+                // Multinary Operations
+                ParsableMultinaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Multinary>().Where(x => !x.IsAbstract))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression[]) });
+                    ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression[]));
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
+                    Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
+                    string operationName = type.ConvertToCsharpSource();
+                    ParsableMultinaryOperations.Add(operationName, newFunction);
+                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    {
+                        ParsableMultinaryOperations.Add(representation, newFunction);
+                    }
+                }
+
+                // Known Constants
+                PARSABLEKNOWNCONSTANTS = new System.Collections.Generic.Dictionary<string, Func<Constant>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantAttribute>().Where(x => !x.IsAbstract))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
+                    Func<Constant> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Constant>>(newExpression).Compile();
+                    string operationName = type.ConvertToCsharpSource();
+                    PARSABLEKNOWNCONSTANTS.Add(operationName, newFunction);
+                    foreach (string representation in type.GetCustomAttribute<KnownConstantAttribute>().Representations)
+                    {
+                        PARSABLEKNOWNCONSTANTS.Add(representation, newFunction);
+                    }
+                }
+
+                PARSABLELIBRARYBUILT = true;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region System.Linq.Expression
+
+        public static Expression Parse(System.Linq.Expressions.Expression e)
+        {
+            try
+            {
+                System.Func<System.Linq.Expressions.Expression, Expression> recursive = null;
+                System.Func<MethodCallExpression, Expression> methodCallExpression_to_node = null;
+
+                recursive =
+                    (System.Linq.Expressions.Expression expression) =>
+                    {
+                        UnaryExpression unary_expression = expression as UnaryExpression;
+                        BinaryExpression binary_expression = expression as BinaryExpression;
+
+                        switch (expression.NodeType)
+                        {
+                            // Lambda
+                            case ExpressionType.Lambda:
+                                //labmda_expression.Parameters
+                                return recursive((expression as LambdaExpression).Body);
+                            // constant
+                            case ExpressionType.Constant:
+                                return new Constant<T>((T)(expression as ConstantExpression).Value);
+                            // variable
+                            case ExpressionType.Parameter:
+                                return new Variable((expression as ParameterExpression).Name);
+                            // unary
+                            case ExpressionType.Negate:
+                                return new Negate(recursive(unary_expression.Operand));
+                            case ExpressionType.UnaryPlus:
+                                return recursive(unary_expression.Operand);
+                            // binary
+                            case ExpressionType.Add:
+                                return new Add(recursive(binary_expression.Left), recursive(binary_expression.Right));
+                            case ExpressionType.Subtract:
+                                return new Subtract(recursive(binary_expression.Left), recursive(binary_expression.Right));
+                            case ExpressionType.Multiply:
+                                return new Multiply(recursive(binary_expression.Left), recursive(binary_expression.Right));
+                            case ExpressionType.Divide:
+                                return new Divide(recursive(binary_expression.Left), recursive(binary_expression.Right));
+                            case ExpressionType.Power:
+                                return new Power(recursive(binary_expression.Left), recursive(binary_expression.Right));
+                            // call
+                            case ExpressionType.Call:
                                 return methodCallExpression_to_node(expression as MethodCallExpression);
-							// Invocation
-							//case ExpressionType.Invoke:
-							//	return invocationExpression_to_node(expression as InvocationExpression);
-						}
-						throw new System.ArithmeticException("Invalid syntax parse (unexpected expression node type): " + expression);
-					};
+                                // Invocation
+                                //case ExpressionType.Invoke:
+                                //	return invocationExpression_to_node(expression as InvocationExpression);
+                        }
+                        throw new System.ArithmeticException("Invalid syntax parse (unexpected expression node type): " + expression);
+                    };
 
-				methodCallExpression_to_node =
+                methodCallExpression_to_node =
                     (MethodCallExpression methodCallExpression) =>
-					{
+                    {
                         MethodInfo method = methodCallExpression.Method;
                         if (method == null || method.DeclaringType != typeof(Compute))
                             throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
 
-						Node[] nodes = null;
+                        Expression[] nodes = null;
                         if (methodCallExpression.Arguments != null)
-						{
-                            nodes = new Node[methodCallExpression.Arguments.Count];
-							for (int i = 0; i < nodes.Length; i++)
+                        {
+                            nodes = new Expression[methodCallExpression.Arguments.Count];
+                            for (int i = 0; i < nodes.Length; i++)
                                 nodes[i] = recursive(methodCallExpression.Arguments[i]);
-						}
+                        }
 
-                        switch (method.Name)
-						{
-							// constants
-							case "Pi": break;
-							// arithmetic
-							case "Negate": return new Negate(nodes[0]);
-							case "Add": return new Addition(nodes[0], nodes[1]);
-							case "Summation": return new Summation(nodes);
-							case "Subtract": return new Subtraction(nodes[0], nodes[1]);
-							case "Multiply": return new Multiplication(nodes[0], nodes[1]);
-							case "Divide": return new Division(nodes[0], nodes[1]);
-							case "Power": return new Power(nodes[0], nodes[1]);
-							case "SquareRoot": return new SquareRoot(nodes[0]);
-							case "Root": return new Root(nodes[0], nodes[1]);
-							// logic
-							case "AbsoluteValue": break;
-							case "max": break;
-							case "min": break;
-							case "clamp": break;
-							case "equ_len": break;
-							case "Compare": break;
-							case "Equate": return new Equate(nodes[0], nodes[1]);
-							// factoring
-							case "GreatestCommonFactor": break;
-							case "LeastCommonMultiple": break;
-							case "factorPrimes": break;
-							// eponentials
-							case "exp": break;
-							case "ln": break;
-							case "log": break;
-							// angle
-							case "DegreesToRadians": break;
-							case "TurnsToRadians": break;
-							case "GradiansToRadians": break;
-							case "RadiansToDegrees": break;
-							case "RadiansToTurns": break;
-							case "RadiansToGradians": break;
-							// miscelaneous
-							case "IsPrime": break;
-							case "invert": break;
-							// interpolation
-							case "LinearInterpolation": break;
-							// Vector
-							case "Vector_Add": break;
-							case "Vector_Negate": break;
-							case "Vector_Subtract": break;
-							case "Vector_Multiply": break;
-							case "Vector_Divide": break;
-							case "Vector_DotProduct": break;
-							case "Vector_CrossProduct": break;
-							case "Vector_Normalize": break;
-							case "Vector_Magnitude": break;
-							case "Vector_MagnitudeSquared": break;
-							case "Vector_Angle": break;
-							case "Vector_RotateBy": break;
-							case "Vector_Lerp": break;
-							case "Vector_Slerp": break;
-							case "Vector_Blerp": break;
-							case "Vector_EqualsValue": break;
-							case "Vector_EqualsValue_leniency": break;
-							case "Vector_RotateBy_quaternion": break;
-							// Matrix
-							case "Matrix_FactoryZero": break;
-							case "Matrix_FactoryOne": break;
-							case "Matrix_FactoryIdentity": break;
-							case "Matrix_IsSymetric": break;
-							case "Matrix_Negate": break;
-							case "Matrix_Add": break;
-							case "Matrix_Subtract": break;
-							case "Matrix_Multiply": break;
-							case "Matrix_Multiply_vector": break;
-							case "Matrix_Multiply_scalar": break;
-							case "Matrix_Divide": break;
-							case "Matrix_Power": break;
-							case "Matrix_Minor": break;
-							case "Matrix_ConcatenateRowWise": break;
-							case "Matrix_Determinent": break;
-							case "Matrix_Echelon": break;
-							case "Matrix_ReducedEchelon": break;
-							case "Matrix_Inverse": break;
-							case "Matrix_Adjoint": break;
-							case "Matrix_Transpose": break;
-							case "Matrix_DecomposeLU": break;
-							case "Matrix_EqualsByValue": break;
-							case "Matrix_EqualsByValue_leniency": break;
-							case "Matrix_RowMultiplication": break;
-							case "Matrix_RowAddition": break;
-							case "Matrix_SwapRows": break;
-							// Quaternion
-							case "Quaternion_Magnitude": break;
-							case "Quaternion_MagnitudeSquared": break;
-							case "Quaternion_Conjugate": break;
-							case "Quaternion_Add": break;
-							case "Quaternion_Subtract": break;
-							case "Quaternion_Multiply": break;
-							case "Quaternion_Multiply_scalar": break;
-							case "Quaternion_Multiply_Vector": break;
-							case "Quaternion_Normalize": break;
-							case "Quaternion_Invert": break;
-							case "Quaternion_Lerp": break;
-							case "Quaternion_Slerp": break;
-							case "Quaternion_Rotate": break;
-							case "Quaternion_EqualsValue": break;
-							case "Quaternion_EqualsValue_leniency": break;
-							// combinatorics
-							case "Factorial": break;
-							case "Combinations": break;
-							case "Choose": break;
-							// statistics
-							case "Mode": break;
-							case "Mean": break;
-							case "Median": break;
-							case "GeometricMean": break;
-							case "Variance": break;
-							case "StandardDeviation": break;
-							case "MeanDeviation": break;
-							case "Range": break;
-							case "Quantiles": break;
-							case "Correlation": break;
-							// trigonometry
-							case "Sine": return new Sine(nodes[0]);
-							case "Cosine": return new Cosine(nodes[0]);
-							case "Tangent": return new Tangent(nodes[0]);
-							case "Cosecant": break;
-							case "Secant": break;
-							case "Cotangent": break;
-							case "InverseSine": break;
-							case "InverseCosine": break;
-							case "InverseTangent": break;
-							case "InverseCosecant": break;
-							case "InverseSecant": break;
-							case "InverseCotangent": break;
-							case "HyperbolicSine": break;
-							case "HyperbolicCosine": break;
-							case "HyperbolicTangent": break;
-							case "HyperbolicSecant": break;
-							case "HyperbolicCosecant": break;
-							case "HyperbolicCotangent": break;
-							case "InverseHyperbolicSine": break;
-							case "InverseHyperbolicCosine": break;
-							case "InverseHyperbolicTangent": break;
-							case "InverseHyperbolicCosecant": break;
-							case "InverseHyperbolicSecant": break;
-							case "InverseHyperbolicCotangent": break;
-						}
                         throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
-					};
+                    };
 
-				return recursive(e);
-			}
-			catch (System.ArithmeticException exception_specific)
-			{
-				throw new System.ArithmeticException("failed to parse expression into Towel Framework mathematical syntax: " + e, exception_specific);
-			}
-		}
-
-		public static Node Parse(string tree)
-		{
-            // constant node: "7"
-            if (tree.All(x => char.IsDigit(x)))
-            {
-                return new Constant(Compute.FromInt32<T>(int.Parse(tree)));
+                return recursive(e);
             }
-            // constant node (rational): "7.7"
-            if (tree.All(x => char.IsDigit(x) || x == '.'))
+            catch (System.ArithmeticException exception_specific)
             {
-                string whole = tree.Substring(0, tree.IndexOf('.') - 1);
-                string partial = tree.Substring(tree.IndexOf('.') + 1, (tree.Length - 1) - (tree.IndexOf('.') + 1));
-
-                int dividend = (int)System.Math.Pow(10, partial.Length);
-                T wholeValue = Compute.FromInt32<T>(int.Parse(whole));
-                T partialValue = Compute.Divide(Compute.FromInt32<T>(int.Parse(partial)), Compute.FromInt32<T>(dividend));
-
-                return new Constant(Compute.Add(wholeValue, partialValue));
+                throw new System.ArithmeticException("failed to parse expression into Towel Framework mathematical syntax: " + e, exception_specific);
             }
-            // variable node: "[variable]"
-            else if (tree[0] == '[')
+        }
+
+        #endregion
+
+        #region string
+
+        public static Expression Parse<T>(string expression)
+        {
+            // build the parsing library if not already built
+            if (!PARSABLELIBRARYBUILT)
             {
-                string variable = tree.Substring(1, tree.Length - 2);
-                return new Variable(variable);
+                BuildParsableOperationLibrary();
             }
-            // operation node: "token(argument[0], argument[1], ...)"
-            else
+            // error handling
+            if (string.IsNullOrWhiteSpace(expression))
             {
-                // get the token
-                string token = tree.Substring(0, tree.IndexOf('('));
-
-                // get the substring of arguments
-                int arguments_start = token.Length + 1;
-                int arguments_length = (tree.Length - 1) - arguments_start;
-                string list = tree.Substring(arguments_start, arguments_length);
-
-                // count the number of arguments
-                int scope = 0;
-                int argument = 0;
-                if (list.Length > 0 && list[0] != '(')
+                throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+            }
+            expression = expression.Trim();
+            // operations
+            if (expression[expression.Length - 1] == ')')
+            {
+                if (expression[0] == '(')
                 {
-                    argument++;
+                    return Parse<T>(expression.Substring(1, expression.Length - 2));
                 }
-                for (int b = 0; b < list.Length; b++)
-                    switch (list[b])
+                int parenthasisIndex = expression.IndexOf('(');
+                if (parenthasisIndex > -1)
+                {
+                    string operation = expression.Substring(0, parenthasisIndex);
+                    operation.ToLower();
+                    ListArray<string> operandSplits = SplitOperands(expression.Substring(parenthasisIndex + 1, expression.Length - parenthasisIndex - 1));
+                    switch (operandSplits.Count)
                     {
-                        case '(':
-                            scope++;
-                            break;
-                        case ')':
-                            scope--;
-                            break;
-                        case ',':
-                            if (scope == 0)
-                                argument++;
-                            break;
-                    }
-
-                // get the arguments
-                string[] arguments = new string[argument];
-                argument = 0;
-                scope = 0;
-                int a = 0;
-                for (int b = 0; b < list.Length; b++)
-                    switch (list[b])
-                    {
-                        case '(':
-                            scope++;
-                            break;
-                        case ')':
-                            scope--;
-                            break;
-                        case ',':
-                            if (scope == 0)
+                        case 1:
+                            Func<Expression, Unary> newUnaryFunction;
+                            if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
                             {
-                                arguments[argument] = list.Substring(a, b - a).Trim();
-                                a = b + 1;
-                                argument++;
+                                return newUnaryFunction(Parse<T>(operandSplits[0]));
+                            }
+                            break;
+                        case 2:
+                            Func<Expression, Expression, Binary> newBinaryFunction;
+                            if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
+                            {
+                                return newBinaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[1]));
+                            }
+                            break;
+                        case 3:
+                            Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
+                            if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
+                            {
+                                return newTernaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[2]), Parse<T>(operandSplits[2]));
                             }
                             break;
                     }
 
-                arguments[argument] = list.Substring(a).Trim();
-
-                // recursive calls
-                Node[] nodes = new Node[arguments.Length];
-                for (int i = 0; i < nodes.Length; i++)
-                    nodes[i] = Parse(arguments[i]);
-
-                // node creation
-                switch (token)
-                {
-                    case "add":
-                        return new Addition(nodes[0], nodes[1]);
-
-                    case "subtract":
-                        return new Subtraction(nodes[0], nodes[1]);
-
-                    case "multiply":
-                        return new Multiplication(nodes[0], nodes[1]);
-
-                    case "divide":
-                        return new Division(nodes[0], nodes[1]);
-
-                    case "power":
-                        return new Power(nodes[0], nodes[1]);
-
-                    case "negate":
-                        return new Negate(nodes[0]);
-
-                    case "sin":
-                        return new Sine(nodes[0]);
-
-                    case "cos":
-                        return new Cosine(nodes[0]);
-
-                    case "tan":
-                        return new Tangent(nodes[0]);
-
-                    case "csc":
-                        return new Cosecant(nodes[0]);
-
-                    case "sec":
-                        return new Secant(nodes[0]);
-
-                    case "cot":
-                        return new Cotangent(nodes[0]);
-
-                    //case "arcsin":
-                    //    return new Arcsin(nodes[0]);
-
-                    //case "arccos":
-                    //    return new Arccos(nodes[0]);
-
-                    //case "arctan":
-                    //    return new Arctan(nodes[0]);
-
-                    //case "arccsc":
-                    //    return new Arccsc(nodes[0]);
-
-                    //case "arcsec":
-                    //    return new ArcSec(nodes[0]);
-
-                    //case "arccot":
-                    //    return new Arccot(nodes[0]);
-
-                    case "equate":
-                        return new Equate(nodes);
-
-                    case "less":
-                        return new LessThan(nodes[0], nodes[1]);
-
-                    case "greater":
-                        return new GreaterThan(nodes[0], nodes[1]);
-
-                    //case "derive":
-                    //	return;
-                    //case "integrate":
-                    //	return;
-                    //case "integrate":
-                    //	return;
-
-                    default:
-                        throw new System.Exception("mathematics parsing error");
 
                 }
+                throw new ArgumentException("The expression could not be parsed.", nameof(expression));
             }
-		}
+            // variables
+            if (expression[expression.Length - 1] == ']')
+            {
+                if (expression[0] != '[')
+                {
+                    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                }
+                return new Variable(expression.Substring(1, expression.Length - 2));
+            }
+            // operators
+            Expression operatorParsedNode;
+            if (TryParseOperators(expression, out operatorParsedNode))
+            {
+                return operatorParsedNode;
+            }
+            // known constants
+            Expression knownConstantsParsedNode;
+            if (TryParseKnownConstants(expression, out knownConstantsParsedNode))
+            {
+                return knownConstantsParsedNode;
+            }
 
-		#endregion
+            int operatorIndex = expression;
 
-        // properties and pattern matching for node trees
-        #region Evaluation
-
-        // pattern matching for specific formats (such as polynomials, terms, quadratics, lines, etc.)
-        #region Pattern Matching
-
-        /// <summary>
-        /// Algebraic Expression: a mathematical expression (non logic, set theory, etc.) that could appear
-        /// on either side of an equals sign.
-        /// </summary>
-        public static bool IsValidAlgebraicExpression(Node node)
-        {
-            throw new System.NotImplementedException();
-            //if ()
+            if (expression.Equals("PI", StringComparison.InvariantCultureIgnoreCase) || expression == "π")
+            {
+                return new Constant<T>(Towel.Mathematics.Constant<T>.Pi);
+            }
         }
 
-        public static bool IsSimplifiableToPolynomial(Node node)
+        public static ListArray<string> SplitOperands(string expression)
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Simplified Polynomial: a simplified expression consisting of variables and coefficients,
-        /// that involves only the operations of addition, subtraction, multiplication,
-        /// and non-negative integer exponents. NOTE: simplify nodes before calling
-        /// this function; nodes like "x ^ (2 / 1)" and "(2 ^ 1)x" will return false.
-        /// </summary>
-        /// <param name="node">The node to determine if it is a polynomial or not.</param>
-        /// <returns>True if the node is a polynmial. False if not.</returns>
-        public static bool IsSimplifiedPolynomial(Node node)
+            ListArray<string> operands = new ListArray<string>();
+            int scope = 0;
+            int operandStart = 0;
+            for (int i = 0; i < expression.Length; i++)
             {
-                bool containsTerm = false;
-                return IsSimplifiedPolynomial(node, ref containsTerm, false, new SetHashArray<string>(), new MapHashLinked<SetHashArray<T>, string>()) && containsTerm;
-            }
-        private static bool IsSimplifiedPolynomial(Node node,
-            // is there at least one term
-            ref bool containsTerm,
-            // validate simplification. Examples: "2 * x * x" and "2 * (x + y)" not simplified
-            bool withinMultiplication,
-            SetHashArray<string> existingVariables,
-            // validate simplification. Examples: "x ^ 2 + x ^ 2" not simplified
-            MapHashLinked<SetHashArray<T>, string> existingExponents)
-            {
-                if (node is Multiplication)
+                switch (expression[i])
                 {
-                    Binary binary = node as Binary;
-                    if (!IsSimplifiedPolynomial(binary.Left, ref containsTerm, true, existingVariables.Clone(), existingExponents))
-                        return false;
-                    if (!IsSimplifiedPolynomial(binary.Right, ref containsTerm, true, existingVariables.Clone(), existingExponents))
-                        return false;
-                }
-                else if (node is Addition || node is Subtraction)
-                {
-                    if (withinMultiplication)
-                        return false;
-                    Binary binary = node as Binary;
-                    if (!IsSimplifiedPolynomial(binary.Left, ref containsTerm, withinMultiplication, existingVariables, existingExponents))
-                        return false;
-                    if (!IsSimplifiedPolynomial(binary.Right, ref containsTerm, withinMultiplication, existingVariables, existingExponents))
-                        return false;
-                }
-                else if (node is Power) // Only valid if: Power(Variable, Constant)
-                {
-                    Binary binary = node as Binary;
-                    if (!(binary.Left is Variable))
-                        return false;
-                    if (!(binary.Right is Constant))
-                        return false;
-                    Variable variable = binary.Left as Variable;
-                    Constant exponent = binary.Right as Constant;
-                    if (withinMultiplication)
-                    {
-                        if (existingVariables.Contains((binary.Left as Variable).Name))
+                    case '(': scope++; break;
+                    case ')': scope--; break;
+                    case ',':
+                        if (scope == 0)
                         {
-                            return false;
+                            operands.Add(expression.Substring(operandStart, i - operandStart));
                         }
-                        else
-                        {
-                            existingVariables.Add((node as Variable).Name);
-                        }
-                    }
-                    containsTerm = true; // we know there is at least one term now
-                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
-                        return false;
-                    if (existingExponents.Contains(variable))
-                    {
-                        if (existingExponents[variable].Contains(exponent))
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            existingExponents[variable].Add(exponent);
-                        }
-                    }
-                    else
-                    {
-                        existingExponents.Add(variable, new SetHashArray<T>());
-                        existingExponents[variable].Add(exponent);
-                    }
-
+                        break;
                 }
-                else if (node is Variable) // Only enters if there is no exponent (would have been caught by Power)
-                {
-                    if (withinMultiplication)
-                    {
-                        if (existingVariables.Contains((node as Variable).Name))
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            existingVariables.Add((node as Variable).Name);
-                        }
-                    }
-                    containsTerm = true; // we know there is at least one term now
-                }
-                else if (node is Constant)
-                {
-                    containsTerm = true; // we know there is at least one term now
-                }
-                else if (node is Negate)
-                {
-                    // pass through
-                }
-                else
-                {
-                    return false;
-                }
-                return true;
             }
-
-        /// <summary>
-        /// Simplified Term: either a single number or variable, or the product of several numbers or variables that is simplified.
-        /// </summary>
-        /// <param name="node">The node to determine if it is a simplified term.</param>
-        /// <returns>Whether or not the node is a simplified term.</returns>
-        public static bool IsSimplifiedTerm(Node node)
+            if (scope != 0)
             {
-                bool containsTerm = false;
-                bool coefficientExists = false;
-                SetHashArray<Variable> existingVariables = new SetHashArray<Variable>();
-                return IsSimplifiedTerm(node, ref containsTerm, ref coefficientExists, existingVariables);
+                throw new ArgumentException("The expression could not be parsed.", nameof(expression));
             }
-        private static bool IsSimplifiedTerm(Node node, ref bool containsTerm, ref bool coefficientExists, SetHashArray<Variable> existingVariables)
+            operands.Add(expression.Substring(operandStart, expression.Length - operandStart));
+            return operands;
+        }
+
+
+        public static bool TryParseOperators(string expression, out Expression node)
+        {
+            bool foundOperator = false;
+            int operatorIndex;
+            Symbolics.String.StringParsableOperators @operator;
+            int scope = 0;
+            for (int i = 0; i < expression.Length; i++)
             {
-                if (node is Multiplication)
+                if (expression[i] == '(')
                 {
-                    Multiplication multiplication = node as Multiplication;
-                    IsSimplifiedTerm(multiplication.Left, ref containsTerm, ref coefficientExists, existingVariables);
-                    IsSimplifiedTerm(multiplication.Right, ref containsTerm, ref coefficientExists, existingVariables);
+                    scope++;
                 }
-                else if (node is Power)
+                else if (expression[i] == ')')
                 {
-                    Power power = node as Power;
-                    if (!(power.Left is Variable))
-                        return false;
-                    if (!(power.Right is Constant))
-                        return false;
-                    Variable variable = power.Left as Variable;
-                    Constant exponent = power.Right as Constant;
-                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
-                        return false;
-                    if (existingVariables.Contains(variable))
-                        return false;
-                    existingVariables.Add(variable);
+                    scope--;
                 }
-                else if (node is Variable)
+                else if (scope == 0)
                 {
-                    Variable variable = node as Variable;
-                    if (existingVariables.Contains(variable))
-                        return false;
-                    existingVariables.Add(variable);
-                    containsTerm = true;
+                    
                 }
-                else if (node is Constant)
-                {
-                    if (coefficientExists)
-                    {
-                        return false;
-                    }
-                    coefficientExists = true;
-                    containsTerm = true;
-                }
-                else if (node is Negate)
-                {
-                    if (coefficientExists)
-                    {
-                        return false;
-                    }
-                    IsSimplifiedTerm((node as Negate).Operand);
-                }
-                else
-                {
-                    return false;
-                }
-                return true;
             }
-
-        /// <summary>
-        /// Simplified Linear Function: a simplified function of a line often in y = "mx + b" format (where m is the slope and b is the intercept).
-        /// </summary>
-        /// <param name="node">The node to check for a simplified linear equation.</param>
-        /// <returns>True if the node is a simplified linear equation.</returns>
-        public static bool IsSimplifiedLinearFunction(Node node)
-        {
-            return 
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Constant<T>.One) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
         }
 
-        /// <summary>
-        /// Simplified Quadratic Function: a simplified polynomial with a degree of 2 and only one variable. Example: y = "ax ^ 2 + bx + c".
-        /// </summary>
-        /// <param name="node">The node to check if it is a simplified quadratic function.</param>
-        /// <returns>True if the node is a simplified quadratic equation.</returns>
-        public static bool IsSimplifiedQuadraticFunction(Node node)
+        public static bool TryParseKnownConstants(string expression, out Expression node)
         {
-            return
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Compute.FromInt32<T>(2)) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
-        }
-
-        /// <summary>
-        /// Simplified Cubic Function: a simplified polynomial with a degree of 3 and only one variable.
-        /// </summary>
-        /// <param name="node">The node to check if it is a simplified cubic function.</param>
-        /// <returns>True if the node is a simplified cubic equation.</returns>
-        public static bool IsSimplifiedCubicFunction(Node node)
-        {
-            return
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Compute.FromInt32<T>(3)) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
-        }
-
-        /// <summary>
-        /// Simplified Quartic Function: a simplified polynomial with a degree of 4 and only one variable.
-        /// </summary>
-        /// <param name="node">The node to check if it is a simplified quartic function.</param>
-        /// <returns>True if the node is a simplified quartic equation.</returns>
-        public static bool IsSimplifiedQuarticFunction(Node node)
-        {
-            return
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Compute.FromInt32<T>(4)) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
-        }
-        
-        /// <summary>
-        /// Simplified Quintic Function: a simplified polynomial with a degree of 5 and only one variable.
-        /// </summary>
-        /// <param name="node">The node to check if it is a simplified quintic function.</param>
-        /// <returns>True if the node is a simplified quintic equation.</returns>
-        public static bool IsSimplifiedQuinticFunction(Node node)
-        {
-            return
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Compute.FromInt32<T>(5)) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
-        }
-
-        /// <summary>
-        /// Simplified Sextic Function: a simplified polynomial with a degree of 6 and only one variable.
-        /// </summary>
-        /// <param name="node">The node to check if it is a simplified sextic function.</param>
-        /// <returns>True if the node is a simplified sextic equation.</returns>
-        public static bool IsSimplifiedSexticFunction(Node node)
-        {
-            return
-                IsSimplifiedPolynomial(node) && // must be a simplified polynomial
-                Compute.Equal(Degree(node), Compute.FromInt32<T>(6)) && // must have a degree of one
-                Variables(node).Count == 1; // must only include one variable
-        }
-        
-        /// <summary>
-        /// Simplified Power Function: a simplified single term function in the form y = "ax ^ b" where a and b are constants.
-        /// </summary>
-        /// <param name="node">The node to determine if it is a simplified power function or not.</param>
-        /// <returns>True if the node is a simplified power function. False if not.</returns>
-        public static bool IsSimplifiedPowerFunction(Node node)
-        {
-            return
-                IsSimplifiedPolynomial(node) && // must be a polynomial (have integer exponents)
-                IsSimplifiedTerm(node) && // must be a single term
-                Variables(node).Count == 1; // must contain a single variable
-        }
-
-        /// <summary>
-        /// Simplified Rational Function: ratio of two polynomials. Example: y = "(x ^ 2) / x" and y = "(5x ^ 2 + 2x + 7) / (x ^ 2 - 5x - 14)".
-        /// </summary>
-        /// <param name="node">The node to determine if it is a simplified rational function.</param>
-        /// <returns>True if node is a simplified rational function. False if not.</returns>
-        public static bool IsSimplifiedRationalFunction(Node node)
-        {
-            return
-                (node is Division) &&
-                IsSimplifiedPolynomial((node as Division).Left) &&
-                IsSimplifiedPolynomial((node as Division).Right);
-        }
-
-        /// <summary>
-        /// Simplified Exponential Function: simplified, single-term equation where the variable is an exponent of a constant. Example: y = "ab ^ x"
-        /// where a and b are constants.
-        /// </summary>
-        /// <param name="node">The node to determine if it is a simplified exponential function.</param>
-        /// <returns>True if the node is a simplified exponential function; False if not.</returns>
-        public static bool IsSimplifiedExponentialFunction(Node node)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public static bool IsSimplifiedLogarithmicFunction(Node node)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public static bool IsSimplifiedSinusoidalFunction(Node node)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion
-
-        // general logic functions for any node type
-        #region General Logic
-
-        /// <summary>
-        /// Checks for equality between two nodes. NOTE: does not simplify or check for mathematical equality.
-        /// For example, "Negate(Constant(1))" and "Constant(-1)" are not equal.
-        /// </summary>
-        /// <param name="a">The first node of the comparison.</param>
-        /// <param name="b">The second node of the comparison.</param>
-        /// <returns>True if equal. False if not.</returns>
-        public static bool AreEqual(Node a, Node b)
-        {
-            if (a is Variable && b is Variable)
+            foreach ((string, Symbolics.String.ParsableKnownConstants) knownConstant in Symbolics.String.ParsableKnownConstantsStrings)
             {
-                return a as Variable == b as Variable;
-            }
-            else if (a is Constant && b is Constant)
-            {
-                return a as Constant == b as Constant;
-            }
-            if (a.GetType() == b.GetType())
-            {
-                if (a is Unary && b is Unary)
+                if (expression.Equals(knownConstant.Item1, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return AreEqual((a as Unary).Operand, (b as Unary).Operand);
-                }
-                else if (a is Binary && b is Binary)
-                {
-                    if (!AreEqual((a as Binary).Left, (b as Binary).Right))
-                    {
-                        return false;
-                    }
-                    return AreEqual((a as Binary).Left, (b as Binary).Right);
-                }
-                else if (a is Ternary && b is Ternary)
-                {
-                    if (!AreEqual((a as Ternary).One, (b as Ternary).One))
-                    {
-                        return false;
-                    }
-                    else if (!AreEqual((a as Ternary).Two, (b as Ternary).Two))
-                    {
-                        return false;
-                    }
-                    return AreEqual((a as Ternary).Three, (b as Ternary).Three);
-                }
-                else if (a is Multinary && b is Multinary)
-                {
-                    Multinary _a = a as Multinary;
-                    Multinary _b = b as Multinary;
-                    if (_a.Operands.Length != _b.Operands.Length)
-                    {
-                        return false;
-                    }
-                    int operands = (a as Multinary).Operands.Length;
-                    for (int i = 0; i < operands; i++)
-                    {
-                        if (!AreEqual((a as Multinary).Operands[i], (b as Multinary).Operands[i]))
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
+                    
                 }
             }
-            return false;
-        }
-
-        /// <summary>
-        /// Checks for node types within a given node.
-        /// </summary>
-        /// <returns>True if the node contains a given node type.</returns>
-        public static bool Contains<NodeType>(Node node)
-            where NodeType : Node
-        {
-            if (node is NodeType)
-            {
-                return true;
-            }
-            else
-            {
-                bool containsTrigFunction = false;
-                node.Stepper((Node child) =>
-                {
-                    if (Contains<NodeType>(child))
-                    {
-                        containsTrigFunction = true;
-                    }
-                });
-                if (containsTrigFunction)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Checks for node types within a given node.
-        /// </summary>
-        /// <returns>True if the node contains a given node type.</returns>
-        public static bool Contains<NodeType>(Node node, Predicate<NodeType> where)
-            where NodeType : Node
-        {
-            if (node is NodeType && where(node as NodeType))
-            {
-                return true;
-            }
-            else
-            {
-                bool containsTrigFunction = false;
-                node.Stepper((Node child) =>
-                {
-                    if (Contains<NodeType>(child))
-                    {
-                        containsTrigFunction = true;
-                    }
-                });
-                if (containsTrigFunction)
-                {
-                    return true;
-                }
-            }
+            node = null;
             return false;
         }
 
         #endregion
 
-        // pulls out properties and components such as degree, variables, and coefficients
-        #region Extraction
-
-        /// <summary>
-        /// Degree: the highest exponent on any variable of a polynomial. NOTE: must meet the criteria
-        /// of "IsPolynomial".
-        /// </summary>
-        /// <param name="node">The polynomial node to get the degree of.</param>
-        /// <returns>The degree of the polynomial.</returns>
-        public static T Degree(Node node)
-            {
-                if (!IsSimplifiedPolynomial(node))
-                    throw new System.ArithmeticException("Attempting to compute the degree of a non-polynomial node.");
-                bool assigned = false;
-                T degree = Degree(node, ref assigned);
-                if (!assigned)
-                {
-                    degree = Constant<T>.Zero;
-                }
-                return degree;
-            }
-        private static T Degree(Node node, ref bool assigned)
-            {
-                T degree = default(T);
-                if (node is Power)
-                {
-                    Constant exponent = (node as Power).Right as Constant;
-                    if (!assigned || Compute.GreaterThan(exponent, degree))
-                    {
-                        degree = exponent;
-                    }
-                }
-                else if (node is Binary)
-                {
-                    Binary binary = node as Binary;
-                    T degree_left = Degree(binary.Left, ref assigned);
-                    if (!assigned || Compute.GreaterThan(degree_left, degree))
-                    {
-                        degree = degree_left;
-                    }
-                    T degree_right = Degree(binary.Right, ref assigned);
-                    if (!assigned || Compute.GreaterThan(degree_right, degree))
-                    {
-                        degree = degree_right;
-                    }
-                }
-                else if (node is Negate)
-                {
-                    T operand_degree = Degree((node as Negate).Operand, ref assigned);
-                    if (!assigned || Compute.GreaterThan(operand_degree, degree))
-                    {
-                        degree = operand_degree;
-                    }
-                }
-                return degree;
-            }
-
-        /// <summary>
-            /// Term: either a single number or variable, or the product of several numbers or variables.
-            /// Note: will not simplify; "x ^ 2 + x ^ 2" will return "x ^ 2" and "x ^ 2".
-            /// </summary>
-            /// <param name="node">The expression node to get the terms of.</param>
-            /// <returns>The terms in the provided expression node.</returns>
-        public static List<Node> Terms(Node node)
-            {
-                ListLinked<Node> terms = new ListLinked<Node>();
-                Terms(node, false, false, terms);
-                if (terms.Count == 0)
-                    return null;
-                else
-                    return terms;
-            }
-        private static void Terms(Node node, bool withinTerm, bool negate, ListLinked<Node> terms)
-            {
-                if (node is Multiplication)
-                {
-                    Multiplication binary = node as Multiplication;
-                    Terms(binary.Left, true, false, terms);
-                    Terms(binary.Right, true, false, terms);
-                    goto AddTerm;
-                }
-                else if (node is Addition)
-                {
-                    if (withinTerm)
-                        throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (distributive simplification not applied).");
-                    Addition addition = node as Addition;
-                    Terms(addition.Left, withinTerm, false, terms);
-                    Terms(addition.Right, withinTerm, false, terms);
-                }
-                else if (node is Subtraction)
-                {
-                    if (withinTerm)
-                        throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (distributive simplification not applied).");
-                    Subtraction subtraction = node as Subtraction;
-                    Terms(subtraction.Left, withinTerm, false, terms);
-                    Terms(subtraction.Right, withinTerm, true, terms);
-                }
-                else if (node is Power) // Only valid if: Power(Variable, Constant)
-                {
-                    Power power = node as Power;
-                    if (!(power.Left is Variable) && !(power.Left is Constant))
-                        throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (power operations not simplified).");
-                    if (!(power.Right is Constant))
-                        throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (cannot have variable exponents).");
-                    Constant exponent = power.Right as Constant;
-                    if (!Compute.IsInteger(exponent) || !Compute.IsNonNegative(exponent))
-                        throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (conatains an invalid exponent constant).");
-                    goto AddTerm;
-                }
-                else if (node is Variable) // Only enters if there is no exponent (would have been caught by Power)
-                {
-                    goto AddTerm;
-                }
-                else if (node is Constant)
-                {
-                    goto AddTerm;
-                }
-                else if (node is Negate)
-                {
-                    Terms((node as Negate).Operand, withinTerm, true, terms);
-                }
-                else
-                {
-                    throw new System.ArithmeticException("Attempting to get the Terms of an invalid expression (unexpected node type).");
-                }
-                return;
-            AddTerm:
-                if (!withinTerm)
-                {
-                    if (negate)
-                    {
-                        terms.Add(new Negate(node));
-                    }
-                    else
-                    {
-                        terms.Add(node);
-                    }
-                }
-            }
-
-        /// <summary>
-            /// Gets all the unique variables in the node.
-            /// </summary>
-            /// <param name="node">The node to get the variables in.</param>
-            /// <returns>The variables in the node.</returns>
-        public static Set<Variable> Variables(Node node)
-            {
-                SetHashArray<Variable> variables = new SetHashArray<Variable>();
-                Variables(node, variables);
-                return variables;
-            }
-        private static void Variables(Node node, Set<Variable> variables)
-            {
-                if (node is Variable)
-                {
-                    Variable variable = node as Variable;
-                    if (!variables.Contains(variable))
-                    {
-                        variables.Add(variable);
-                    }
-                }
-                else
-                {
-                    node.Stepper((Node child) => { Variables(child, variables); });
-                }
-            }
-
-        /// <summary>
-            /// Coefficient: the multiplicative constant factor in a term. Note: node must be a simplyfied term (IsSimplifiedTerm).
-            /// </summary>
-            /// <param name="node">The term to get the coefficient of.</param>
-            /// <returns>The coefficient of the term.</returns>
-        public static T Coefficient(Node node)
-            {
-                if (!IsSimplifiedTerm(node))
-                {
-                    throw new System.ArithmeticException("Attempting to get the coefficient of a node that is not a simplified term.");
-                }
-                T coefficient;
-                if (Coefficient(node, out coefficient))
-                {
-                    return coefficient;
-                }
-                else
-                {
-                    return Constant<T>.One;
-                }
-            }
-        private static bool Coefficient(Node node, out T coefficient)
-            {
-                if (node is Negate)
-                {
-                    if (Coefficient((node as Negate).Operand, out coefficient))
-                    {
-                        coefficient = Compute.Negate(coefficient);
-                        return true;
-                    }
-                    else
-                    {
-                        coefficient = Compute.Negate(Constant<T>.One);
-                        return true;
-                    }
-                }
-                if (node is Multiplication)
-                {
-                    Multiplication multiplication = node as Multiplication;
-                    if (Coefficient(multiplication.Left, out coefficient))
-                    {
-                        return true;
-                    }
-                    else if (Coefficient(multiplication.Right, out coefficient))
-                    {
-                        return true;
-                    }
-                }
-                else if (node is Constant)
-                {
-                    coefficient = node as Constant;
-                }
-                coefficient = default(T);
-                return false;
-            }
-
-        /// <summary>
-        /// Gets all the nodes that are multilied
-        /// </summary>
-        /// <returns></returns>
-        public static void MultiplicationAndDivisionChain(MultiplicationOrDivision multiplicationOrDivision)
-        {
-            throw new System.NotImplementedException();
-            //Stepper<Link<Node, System.Type>> stepper = 
-        }
-        public static void MultipliedAndDividedNodes(Node node, bool dividing, List<Node> multipliedAndDividedNodes)
-        {
-
-        }
-        
         #endregion
-
-        #endregion
-
-        // substituting, rearanging, wrapping, etc. node tree operations
-        #region Modification
-
-        internal static OperationType ShallowOperationClone<OperationType>(OperationType operation) where OperationType : Operation
-        {
-            try
-            {
-                return System.Activator.CreateInstance(operation.GetType()) as OperationType;
-            }
-            catch (System.Exception exception)
-            {
-                throw new System.ArithmeticException("There was a bug in the Towel framework when cloning a node.", exception);
-            }
-        }
-
-        public static Node Clone(Node node)
-        {
-            try
-            {
-                if (node is Constant)
-                {
-                    return new Constant((node as Constant).Value);
-                }
-                else if (node is Variable)
-                {
-                    return new Variable((node as Variable).Name);
-                }
-                else if (node is Unary)
-                {
-                    return System.Activator.CreateInstance(
-                        node.GetType(),
-                        new object[]
-                        { 
-                            Clone((node as Unary).Operand),
-                        }) as Node;
-                }
-                else if (node is Binary)
-                {
-                    return System.Activator.CreateInstance(
-                        node.GetType(),
-                        new object[]
-                        { 
-                            Clone((node as Binary).Left),
-                            Clone((node as Binary).Right),
-                        }) as Node;
-                }
-                else if (node is Ternary)
-                {
-                    return System.Activator.CreateInstance(
-                        node.GetType(),
-                        new object[]
-                        { 
-                            Clone((node as Ternary).One),
-                            Clone((node as Ternary).Two),
-                            Clone((node as Ternary).Three),
-                        }) as Node;
-                }
-                else if (node is Multinary)
-                {
-                    Node[] operands = (node as Multinary).Operands;
-                    object[] args = new object[operands.Length];
-                    for (int i = 0; i < operands.Length; i++)
-                    {
-                        args[i] = Clone(operands[i]);
-                    }
-                    return System.Activator.CreateInstance(node.GetType(), args) as Node;
-                }
-                else
-                {
-                    throw new System.ArithmeticException("An unexpected node type was found while cloning a node.");
-                }
-            }
-            catch (System.Exception exception)
-            {
-                throw new System.ArithmeticException("There was a bug in the Towel framework when cloning a node.", exception);
-            }
-        }
-
-        /// <summary>
-        /// Substitutes a constant in for  variable.
-        /// </summary>
-        /// <param name="node">The tree to substitute node in.</param>
-        /// <param name="variable">The variable to substitute.</param>
-        /// <param name="value">The value to substitute in for the variables.</param>
-        /// <returns>The node tree after substitution.</returns>
-        public static Node Substitute(Node node, string variable, T value)
-        {
-            try
-            {
-                return Replace<Variable>(node, (Variable _variable) => { return variable == _variable; }, () => { return new Constant(value); });
-            }
-            catch (System.Exception ex)
-            {
-                throw new System.ArithmeticException("A substitution failed.", ex);
-            }
-        }
-
-        /// <summary>
-        /// Substitutes an expression in for  variable.
-        /// </summary>
-        /// <param name="node">The tree to substitute node in.</param>
-        /// <param name="variable">The variable to substitute.</param>
-        /// <param name="value">The value to substitute in for the variables.</param>
-        /// <returns>The node tree after substitution.</returns>
-        public static Node Substitute(Node node, string variable, Node value)
-        {
-            try
-            {
-                throw new System.NotImplementedException(); // need a way to clone "value" below so each assignment is not the same reference
-                return Replace<Variable>(node, (Variable _variable) => { return variable == _variable; }, () => { return value; });
-            }
-            catch (System.Exception ex)
-            {
-                throw new System.ArithmeticException("A substitution failed.", ex);
-            }
-        }
-
-        public delegate NodeType NodeConstructor<NodeType>();
-
-        public static Node Replace<NodeType>(Node node, Predicate<NodeType> where, NodeConstructor<Node> replacementFactory)
-            where NodeType : Node
-        {
-            if (node is NodeType && where(node as NodeType))
-            {
-                return replacementFactory();
-            }
-            if (node is Constant)
-            {
-                return new Constant((node as Constant).Value);
-            }
-            else if (node is Variable)
-            {
-                return new Variable((node as Variable)._name);
-            }
-            if (node is Unary)
-            {
-                return System.Activator.CreateInstance(
-                    node.GetType(),
-                    new object[]
-					{ 
-						Replace((node as Unary).Operand, where, replacementFactory)
-					}) as Node;
-            }
-            else if (node is Binary)
-            {
-                return System.Activator.CreateInstance(
-                    node.GetType(),
-                    new object[]
-					{ 
-						Replace((node as Binary).Left, where, replacementFactory),
-						Replace((node as Binary).Right, where, replacementFactory),
-					}) as Node;
-            }
-            else if (node is Ternary)
-            {
-                return System.Activator.CreateInstance(
-                    node.GetType(),
-                    new object[]
-					{ 
-						Replace((node as Ternary).One, where, replacementFactory),
-						Replace((node as Ternary).Two, where, replacementFactory),
-						Replace((node as Ternary).Three, where, replacementFactory),
-					}) as Node;
-            }
-            else if (node is Multinary)
-            {
-                throw new System.NotImplementedException();
-            }
-            throw new System.NotImplementedException();
-        }
-
-        public static void OrderTerms(Node node)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion
-
-        // base mathematical simplification
-		#region Simplification
-
-		public static Node Simplify(Node node)
-		{
-			#region Constant
-			if (node is Constant)
-			{
-				return new Constant((node as Constant).Value);
-			}
-			#endregion
-			#region Variable
-			else if (node is Variable)
-			{
-				return new Variable((node as Variable)._name);
-			}
-			#endregion
-			#region Operation
-			else if (node is Operation)
-			{
-				#region Unary
-				if (node is Unary)
-				{
-					Unary unary = node as Unary;
-					Node operand = Simplify(unary.Operand);
-
-					#region Negate
-					if (node is Negate)
-					{
-						// Rule: [-A] => [B] where A is constant and B is -A
-						if (unary.Operand is Constant)
-						{
-							var A = unary.Operand as Constant;
-							var B = Compute.Negate(A);
-							return B;
-						}
-					}
-					#endregion
-                    #region Trigonometry
-                    if (node is Trigonometry)
-                    {
-
-                    }
-                    #endregion
-
-
-					return System.Activator.CreateInstance(
-						node.GetType(),
-						new object[]
-						{ 
-							operand,
-						}) as Node;
-				}
-				#endregion
-				#region Binary
-				else if (node is Binary)
-				{
-					Binary binary = node as Binary;
-					Node left = Simplify(binary.Left);
-					Node right = Simplify(binary.Right);
-
-					#region Addition
-					if (node is Addition)
-					{
-						#region Computation
-						// Rule: [A + B] => [C] where A is constant, B is constant, and C is A + B
-						if (left is Constant && right is Constant)
-						{
-							var A = left as Constant;
-							var B = right as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							return C;
-						}
-						#endregion
-						#region Additive Identity Property
-						// Rule: [X + 0] => [X]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.Zero))
-						{
-							var X = left;
-							return X;
-						}
-						// Rule: [0 + X] => [X]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.Zero))
-						{
-							var X = right;
-							return X;
-						}
-						#endregion
-						#region Commutative/Associative Property
-						// Rule: ['X + A' + B] => [X + C] where A is constant, B is constant, and C is A + B
-						if (left is Addition && (left as Addition).Right is Constant && right is Constant)
-						{
-							var A = (left as Addition).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (left as Addition).Left;
-							return new Addition(X, C);
-						}
-						// Rule: ['A + X' + B] => [X + C] where A is constant, B is constant, and C is A + B
-						if (left is Addition && (left as Addition).Left is Constant && right is Constant)
-						{
-							var A = (left as Addition).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (left as Addition).Right;
-							return new Addition(X, C);
-						}
-						// Rule: [B + 'X + A'] => [X + C] where A is constant, B is constant, and C is A + B
-						if (right is Addition && (right as Addition).Right is Constant && left is Constant)
-						{
-							var A = (right as Addition).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (right as Addition).Left;
-							return new Addition(X, C);
-						}
-						// Rule: [B + 'A + X'] => [X + C] where A is constant, B is constant, and C is A + B
-						if (right is Addition && (right as Addition).Left is Constant && left is Constant)
-						{
-							var A = (right as Addition).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (right as Addition).Right;
-							return new Addition(X, C);
-						}
-						// Rule: ['X - A' + B] => [X + C] where A is constant, B is constant, and C is B - A
-						if (left is Subtraction && (left as Subtraction).Right is Constant && right is Constant)
-						{
-							var A = (left as Subtraction).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (left as Subtraction).Left;
-							return new Addition(X, C);
-						}
-						// Rule: ['A - X' + B] => [C - X] where A is constant, B is constant, and C is A + B
-						if (left is Subtraction && (left as Subtraction).Left is Constant && right is Constant)
-						{
-							var A = (left as Subtraction).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (left as Subtraction).Right;
-							return new Subtraction(C, X);
-						}
-						// Rule: [B + 'X - A'] => [X + C] where A is constant, B is constant, and C is B - A
-						if (right is Subtraction && (right as Subtraction).Right is Constant && left is Constant)
-						{
-							var A = (right as Subtraction).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (right as Subtraction).Left;
-							return new Addition(X, C);
-						}
-						// Rule: [B + 'A - X'] => [C - X] where A is constant, B is constant, and C is A + B
-						if (right is Subtraction && (right as Subtraction).Left is Constant && left is Constant)
-						{
-							var A = (right as Subtraction).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (right as Subtraction).Right;
-							return new Addition(X, C);
-						}
-						#endregion
-					}
-					#endregion
-					#region Subtraction
-					if (node is Subtraction)
-					{
-						#region Computation
-						// Rule: [A - B] => [C] where A is constant, B is constant, and C is A - B
-						if (left is Constant && right is Constant)
-						{
-							var A = left as Constant;
-							var B = right as Constant;
-							var C = Compute.Subtract(A.Value, B.Value);
-							return C;
-						}
-						#endregion
-						#region Identity Property
-						// Rule: [X - 0] => [X]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.Zero))
-						{
-							var X = left;
-							return X;
-						}
-						// Rule: [0 - X] => [-X]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.Zero))
-						{
-							var X = right;
-							return new Negate(X);
-						}
-						#endregion
-						#region Commutative/Associative Property
-						// Rule: ['X - A' - B] => [X - C] where A is constant, B is constant, and C is A + B
-						if (left is Subtraction && (left as Subtraction).Right is Constant && right is Constant)
-						{
-							var A = (left as Subtraction).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (left as Subtraction).Left;
-							return new Subtraction(X, C);
-						}
-						// Rule: ['A - X' - B] => [C - X] where A is constant, B is constant, and C is A - B
-						if (left is Subtraction && (left as Subtraction).Left is Constant && right is Constant)
-						{
-							var A = (left as Subtraction).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Subtract(A.Value, B.Value);
-							var X = (left as Subtraction).Right;
-							return new Subtraction(C, X);
-						}
-						// Rule: [B - 'X - A'] => [C - X] where A is constant, B is constant, and C is B - A
-						if (right is Subtraction && (right as Subtraction).Right is Constant && left is Constant)
-						{
-							var A = (right as Subtraction).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (right as Subtraction).Left;
-							return new Subtraction(C, X);
-						}
-						// Rule: [B - 'A - X'] => [C - X] where A is constant, B is constant, and C is B - A
-						if (right is Subtraction && (right as Subtraction).Left is Constant && left is Constant)
-						{
-							var A = (right as Subtraction).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (right as Subtraction).Left;
-							return new Subtraction(C, X);
-						}
-						// Rule: ['X + A' - B] => [X + C] where A is constant, B is constant, and C is A - B
-						if (left is Addition && (left as Addition).Right is Constant && right is Constant)
-						{
-							var A = (left as Addition).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Subtract(A.Value, B.Value);
-							var X = (left as Addition).Left;
-							return new Addition(X, C);
-						}
-						// Rule: ['A + X' - B] => [C + X] where A is constant, B is constant, and C is A - B
-						if (left is Addition && (left as Addition).Right is Constant && right is Constant)
-						{
-							var A = (left as Addition).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Subtract(A.Value, B.Value);
-							var X = (left as Addition).Right;
-							return new Addition(X, C);
-						}
-						// Rule: [B - 'X + A'] => [C - X] where A is constant, B is constant, and C is A + B
-						if (right is Addition && (right as Addition).Right is Constant && left is Constant)
-						{
-							var A = (right as Addition).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Add(A.Value, B.Value);
-							var X = (right as Addition).Left;
-							return new Subtraction(C, X);
-						}
-						// Rule: [B - 'A + X'] => [C + X] where A is constant, B is constant, and C is B - A
-						if (right is Addition && (right as Addition).Left is Constant && left is Constant)
-						{
-							var A = (right as Addition).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Subtract(B.Value, A.Value);
-							var X = (right as Addition).Right;
-							return new Addition(C, X);
-						}
-						#endregion
-					}
-					#endregion
-					#region Multiplication
-					if (node is Multiplication)
-					{
-						#region Computation
-						// Rule: [A * B] => [C] where A is constant, B is constant, and C is A * B
-						if (left is Constant && right is Constant)
-						{
-							var A = left as Constant;
-							var B = right as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							return C;
-						}
-						#endregion
-						#region Zero Property
-						// Rule: [X * 0] => [0]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.Zero))
-						{
-							return Constant<T>.Zero;
-						}
-						// Rule: [0 * X] => [0]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.Zero))
-						{
-							return Constant<T>.Zero;
-						}
-						#endregion
-						#region Identity Property
-						// Rule: [X * 1] => [X]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.One))
-						{
-							var A = left;
-							return A;
-						}
-						// Rule: [1 * X] => [X]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.One))
-						{
-							var A = right;
-							return A;
-						}
-						#endregion
-						#region Commutative/Associative Property
-						// Rule: [(X * A) * B] => [X * C] where A is constant, B is constant, and C is A * B
-						if (left is Multiplication && (left as Multiplication).Right is Constant && right is Constant)
-						{
-							var A = (left as Multiplication).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (left as Multiplication).Left;
-							return new Multiplication(X, C);
-						}
-						// Rule: [(A * X) * B] => [X * C] where A is constant, B is constant, and C is A * B
-						if (left is Multiplication && (left as Multiplication).Left is Constant && right is Constant)
-						{
-							var A = (left as Multiplication).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (left as Multiplication).Right;
-							return new Multiplication(X, C);
-						}
-						// Rule: [B * (X * A)] => [X * C] where A is constant, B is constant, and C is A * B
-						if (right is Multiplication && (right as Multiplication).Right is Constant && left is Constant)
-						{
-							var A = (right as Multiplication).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (left as Multiplication).Left;
-							return new Multiplication(X, C);
-						}
-						// Rule: [B * (A * X)] => [X * C] where A is constant, B is constant, and C is A * B
-						if (right is Multiplication && (right as Multiplication).Left is Constant && left is Constant)
-						{
-							var A = (right as Multiplication).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (right as Multiplication).Right;
-							return new Multiplication(X, C);
-						}
-						// Rule: [(X / A) * B] => [X * C] where A is constant, B is constant, and C is B / A
-						if (left is Division && (left as Division).Right is Constant && right is Constant)
-						{
-							var A = (left as Division).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Divide(B.Value, A.Value);
-							var X = (right as Division).Left;
-							return new Multiplication(X, C);
-						}
-						// Rule: [(A / X) * B] => [C / X] where A is constant, B is constant, and C is A * B
-						if (left is Division && (left as Division).Left is Constant && right is Constant)
-						{
-							var A = (left as Division).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (left as Division).Right;
-							return new Division(C, X);
-						}
-						// Rule: [B * (X / A)] => [X * C] where A is constant, B is constant, and C is B / A
-						if (right is Division && (right as Division).Right is Constant && left is Constant)
-						{
-							var A = (right as Division).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Divide(B.Value, A.Value);
-							var X = (right as Division).Left;
-							return new Multiplication(X, C);
-						}
-						// Rule: [B * (A / X)] => [C / X] where A is constant, B is constant, and C is A * B
-						if (right is Division && (right as Division).Left is Constant && left is Constant)
-						{
-							var A = (right as Division).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (right as Division).Right;
-							return new Division(C, X);
-						}
-						#endregion
-                        #region Distributive Property
-                        // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
-                        // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
-                        if ((left is Variable && right is AdditionOrSubtraction) || (left is AdditionOrSubtraction && right is Variable))
-                        {
-                            Variable variable = left as Variable ?? right as Variable;
-                            AdditionOrSubtraction addOrSub = left as AdditionOrSubtraction ?? right as AdditionOrSubtraction;
-                            AdditionOrSubtraction operationClone = ShallowOperationClone<AdditionOrSubtraction>(addOrSub);
-                            operationClone.Left = new Multiplication(Clone(variable), Clone(addOrSub.Left)).Simplify();
-                            operationClone.Right = new Multiplication(Clone(variable), Clone(addOrSub.Right)).Simplify();
-                            return operationClone;
-                        }
-                        #endregion
-                        #region Duplicate Variable Multiplications
-                        // Rule: [X * X * X] => [X ^ 3] where X is Variable
-                        //Node[] operands = MultiplicationAndDivisionChain(node);
-                        //if ()
-                        //{
-                        //    Map<int, Variable> variableCounts = new MapHashLinked<int, Variable>();
-                        //    foreach (Node operandNode in operands)
-                        //    {
-
-                        //    }
-                        //}
-                        #endregion
-                    }
-					#endregion
-					#region Division
-					if (node is Division)
-					{
-						#region Error Handling
-						// Rule: [X / 0] => Error
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.Zero))
-						{
-							throw new System.DivideByZeroException();
-						}
-						#endregion
-						#region Computation
-						// Rule: [A / B] => [C] where A is constant, B is constant, and C is A / B
-						if (left is Constant && right is Constant)
-						{
-							var A = left as Constant;
-							var B = right as Constant;
-							var C = Compute.Divide(A.Value, B.Value);
-							return C;
-						}
-						#endregion
-						#region Zero Property
-						// Rule: [0 / X] => [0]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.Zero))
-						{
-							return left;
-						}
-						#endregion
-						#region Identity Property
-						// Rule: [X / 1] => [X]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.One))
-						{
-							return left;
-						}
-						#endregion
-						#region Commutative/Associative Property
-						// Rule: [(X / A) / B] => [X / C] where A is constant, B is constant, and C is A * B
-						if (left is Division && (left as Division).Right is Constant && right is Constant)
-						{
-							var A = (left as Division).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (left as Division).Left;
-							return new Division(X, C);
-						}
-						// Rule: [(A / X) / B] => [C / X] where A is constant, B is constant, and C is A / B
-						if (left is Division && (left as Division).Left is Constant && right is Constant)
-						{
-							var A = (left as Division).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Divide(A.Value, B.Value);
-							var X = (left as Division).Right;
-							return new Division(C, X);
-						}
-						// Rule: [B / (X / A)] => [C / X] where A is constant, B is constant, and C is B / A
-						if (right is Division && (right as Division).Right is Constant && left is Constant)
-						{
-							var A = (right as Division).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Divide(B.Value, A.Value);
-							var X = (left as Division).Left;
-							return new Division(X, C);
-						}
-						// Rule: [B / (A / X)] => [C / X] where A is constant, B is constant, and C is B / A
-						if (right is Division && (right as Division).Left is Constant && left is Constant)
-						{
-							var A = (right as Division).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Divide(B.Value, A.Value);
-							var X = (right as Division).Right;
-							return new Division(C, X);
-						}
-						// Rule: [(X * A) / B] => [X * C] where A is constant, B is constant, and C is A / B
-						if (left is Multiplication && (left as Multiplication).Right is Constant && right is Constant)
-						{
-							var A = (left as Multiplication).Right as Constant;
-							var B = right as Constant;
-							var C = Compute.Divide(A.Value, B.Value);
-							var X = (right as Multiplication).Left;
-							return new Multiplication(X, C);
-						}
-						// Rule: [(A * X) / B] => [X * C] where A is constant, B is constant, and C is A / B
-						if (left is Multiplication && (left as Multiplication).Left is Constant && right is Constant)
-						{
-							var A = (left as Multiplication).Left as Constant;
-							var B = right as Constant;
-							var C = Compute.Divide(A.Value, B.Value);
-							var X = (left as Multiplication).Right;
-							return new Multiplication(X, C);
-						}
-						// Rule: [B / (X * A)] => [C / X] where A is constant, B is constant, and C is A * B
-						if (right is Multiplication && (right as Multiplication).Right is Constant && left is Constant)
-						{
-							var A = (right as Multiplication).Right as Constant;
-							var B = left as Constant;
-							var C = Compute.Multiply(A.Value, B.Value);
-							var X = (right as Multiplication).Left;
-							return new Division(C, X);
-						}
-						// Rule: [B / (A * X)] => [X * C] where A is constant, B is constant, and C is B / A
-						if (right is Multiplication && (right as Multiplication).Left is Constant && left is Constant)
-						{
-							var A = (right as Multiplication).Left as Constant;
-							var B = left as Constant;
-							var C = Compute.Divide(B.Value, A.Value);
-							var X = (right as Multiplication).Right;
-							return new Multiplication(X, C);
-						}
-						#endregion
-					}
-					#endregion
-					#region Power
-					if (node is Power)
-					{
-						#region Computation
-						// Rule: [A ^ B] => [C] where A is constant, B is constant, and C is A ^ B
-						if (left is Constant && right is Constant)
-						{
-							var A = left as Constant;
-							var B = right as Constant;
-							var C = Compute.Power(A.Value, B.Value);
-							return C;
-						}
-						#endregion
-						#region Zero Base
-						// Rule: [0 ^ X] => [0]
-						if (left is Constant && Compute.Equal((left as Constant).Value, Constant<T>.Zero))
-						{
-							return Constant<T>.Zero;
-						}
-						#endregion
-						#region One Power
-						// Rule: [X ^ 1] => [X]
-						if (right is Constant && Compute.Equal((right as Constant).Value, Constant<T>.One))
-						{
-							var A = left;
-							return A;
-						}
-						#endregion
-						#region Zero Power
-						// Rule: [X ^ 0] => [1]
-						if (right is Constant && Compute.Equal(right as Constant, Constant<T>.Zero))
-						{
-							return new Constant(Constant<T>.One);
-						}
-						#endregion
-					}
-					#endregion
-
-					return System.Activator.CreateInstance(
-						node.GetType(),
-						new object[]
-						{ 
-							left,
-							right,
-						}) as Node;
-				}
-				#endregion
-				#region Ternary
-				else if (node is Ternary)
-				{
-					Ternary ternary = node as Ternary;
-					Node one = Simplify(ternary.One);
-					Node two = Simplify(ternary.Two);
-					Node three = Simplify(ternary.Three);
-
-					return System.Activator.CreateInstance(
-						node.GetType(),
-						new object[]
-						{ 
-							one,
-							two,
-							three
-						}) as Node;
-				}
-				#endregion
-				#region Multinary
-				else if (node is Multinary)
-				{
-					Multinary multinary = node as Multinary;
-					Node[] operands = new Node[multinary.Operands.Length];
-					for (int i = 0; i < operands.Length; i++)
-						operands[i] = Simplify(multinary.Operands[i]);
-
-				}
-				#endregion
-			}
-			#endregion
-			throw new System.NotImplementedException();
-		}
-
-		#endregion
-
-        // derivation implementations
-		#region Derivation
-
-		public static Node Derive(Node node, string variable)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		#endregion
-
-        // integration implementations
-		#region Integration
-
-		public static Node Integrate(Node node, string variable)
-		{
-            if (!Contains<Variable>(node, x => x.Name.Equals(variable)))
-            {
-                // the expression doesn't contain the variable; as long as it is a 
-                // valid algebraic expression, it is a very easy integral
-
-                if (!IsValidAlgebraicExpression(node))
-                {
-                    throw new System.ArithmeticException("attempting to integrate an invalid algebraic epression");
-                }
-
-                // The node is a valid algebraic expression
-                // Examples:
-                // ∫ 2 dx = 2x + c
-                // ∫ 2y dx = 2yx + c
-
-                return new Multiplication(Clone(node), new Variable(variable));
-            }
-
-            if (IsSimplifiedPolynomial(node))
-            {
-                // The node is a polynomial
-                // Examples:
-                // y = 3x^3
-                // y = 3x^3 + 2x^2 + 1
-                // z = 3yx^3 + 2yx^2 + 1y
-
-                if (IsSimplifiedTerm(node))
-                {
-                    // The node is a single term
-                    // Examples:
-                    // y = 3x^3
-                    // z = 3yx^3
-
-
-                }
-            }
-            throw new System.NotImplementedException();
-		}
-
-		#endregion
     }
 }

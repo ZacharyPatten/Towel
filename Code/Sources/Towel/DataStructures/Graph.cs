@@ -1,6 +1,6 @@
 ﻿namespace Towel.DataStructures
 {
-	public interface Graph<T> : Structure<T>,
+	public interface Graph<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Addable<T>,
 		Structure.Removable<T>,
@@ -98,7 +98,7 @@
 
 		#region Methods
 
-		public Structure<T> Clone()
+		public DataStructure<T> Clone()
 		{
 			return new GraphSetOmnitree<T>(this);
 		}
@@ -359,7 +359,7 @@
 			throw new System.NotImplementedException();
 		}
 
-		public Structure<T> Clone()
+		public DataStructure<T> Clone()
 		{
 			throw new System.NotImplementedException();
 		}

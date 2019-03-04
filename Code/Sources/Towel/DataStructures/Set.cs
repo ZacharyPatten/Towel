@@ -2,7 +2,7 @@
 {
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public interface Set<T> : Structure<T>,
+	public interface Set<T> : DataStructure<T>,
 		// Structure Properties
 		Structure.Auditable<T>,
 		Structure.Addable<T>,
@@ -20,342 +20,342 @@
 		// Structure Properties
 		Structure.Hashing<T>
 	{
-		// Fields
-		internal const float _maxLoadFactor = .7f;
-		internal const float _minLoadFactor = .3f;
-		internal Equate<T> _equate;
-		internal Hash<T> _hash;
-		internal Node[] _table;
-		internal int _count;
+        // Fields
+        internal const float _maxLoadFactor = .7f;
+        internal const float _minLoadFactor = .3f;
+        internal Equate<T> _equate;
+        internal Hash<T> _hash;
+        internal Node[] _table;
+        internal int _count;
 
-		#region Nested Types
+        #region Nested Types
 
-		internal class Node
-		{
-			internal T _value;
-			internal Node _next;
+        internal class Node
+        {
+            internal T _value;
+            internal Node _next;
 
-			internal T Value { get { return _value; } set { _value = value; } }
-			internal Node Next { get { return _next; } set { _next = value; } }
+            internal T Value { get { return _value; } set { _value = value; } }
+            internal Node Next { get { return _next; } set { _next = value; } }
 
-			internal Node(T value, Node next)
-			{
-				_value = value;
-				_next = next;
-			}
-		}
+            internal Node(T value, Node next)
+            {
+                _value = value;
+                _next = next;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+        /// <summary>Constructs a new hash table instance.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
         public SetHashList() : this(Towel.Equate.Default, Towel.Hash.Default) { }
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+        /// <summary>Constructs a new hash table instance.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
         public SetHashList(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default, expectedCount) { }
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+        /// <summary>Constructs a new hash table instance.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
         public SetHashList(Equate<T> equate, Hash<T> hash) : this(Towel.Equate.Default, Towel.Hash.Default, 0) { }
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(stepper).</remarks>
-		public SetHashList(Equate<T> equate, Hash<T> hash, int expectedCount)
-		{
-			if (expectedCount > 0)
-			{
-				int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-                while (Towel.Mathematics.Compute.IsPrime(prime))
-					prime++;
-				this._table = new Node[prime];
-			}
-			else
-			{
+        /// <summary>Constructs a new hash table instance.</summary>
+        /// <remarks>Runtime: O(stepper).</remarks>
+        public SetHashList(Equate<T> equate, Hash<T> hash, int expectedCount)
+        {
+            if (expectedCount > 0)
+            {
+                int prime = (int)(expectedCount * (1 / _maxLoadFactor));
+                while (Towel.Mathematics.Compute.IsPrime<int>(prime))
+                    prime++;
+                this._table = new Node[prime];
+            }
+            else
+            {
                 this._table = new Node[Towel.Hash.TableSizes[0]];
-			}
-			this._equate = equate;
-			this._hash = hash;
-			this._count = 0;
-		}
-		private SetHashList(SetHashList<T> setHashList)
-		{
-			this._equate = setHashList._equate;
-			this._hash = setHashList._hash;
-			this._table = setHashList._table.Clone() as Node[];
-			this._count = setHashList._count;
-		}
-		
-		#endregion
+            }
+            this._equate = equate;
+            this._hash = hash;
+            this._count = 0;
+        }
+        private SetHashList(SetHashList<T> setHashList)
+        {
+            this._equate = setHashList._equate;
+            this._hash = setHashList._hash;
+            this._table = setHashList._table.Clone() as Node[];
+            this._count = setHashList._count;
+        }
 
-		#region Properties
+        #endregion
 
-		/// <summary>Returns the current size of the actual table. You will want this if you 
-		/// wish to multithread structure traversals.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int TableSize { get { return _table.Length; } }
+        #region Properties
 
-		/// <summary>Returns the current number of items in the structure.</summary>
-		/// <remarks>Runetime: O(1).</remarks>
-		public int Count { get { return _count; } }
+        /// <summary>Returns the current size of the actual table. You will want this if you 
+        /// wish to multithread structure traversals.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
+        public int TableSize { get { return _table.Length; } }
 
-		/// <summary>The function for calculating hash codes for this table.</summary>
-		public Hash<T> Hash { get { return _hash; } }
+        /// <summary>Returns the current number of items in the structure.</summary>
+        /// <remarks>Runetime: O(1).</remarks>
+        public int Count { get { return _count; } }
 
-		/// <summary>The function for equating keys in this table.</summary>
-		public Equate<T> Equate { get { return _equate; } }
+        /// <summary>The function for calculating hash codes for this table.</summary>
+        public Hash<T> Hash { get { return _hash; } }
 
-		#endregion
+        /// <summary>The function for equating keys in this table.</summary>
+        public Equate<T> Equate { get { return _equate; } }
 
-		#region Methods
+        #endregion
 
-		// methods (public)
-		#region public Set_Hash<T> Clone()
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public SetHashList<T> Clone()
-		{
-			return new SetHashList<T>(this);
-		}
-		#endregion
-		#region public bool Contains(T item)
-		/// <summary>Determines if this structure contains a given item.</summary>
-		/// <param name="item">The item to see if theis structure contains.</param>
-		/// <returns>True if the item is in the structure; False if not.</returns>
-		public bool Contains(T item)
-		{
-			if (Find(item, ComputeHash(item)) == null)
-				return false;
-			else
-				return true;
-		}
-		#endregion
-		#region System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						yield return node.Value;
-					} while ((node = node.Next) != null);
-		}
-		#endregion
-		#region System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						yield return node.Value;
-					} while ((node = node.Next) != null);
-		}
-		#endregion
-		#region public void Remove(T key)
-		/// <summary>Removes a value from the hash table.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		/// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-		public void Remove(T key)
-		{
-			Remove_private(key);
-			if (this._count > Towel.Hash.TableSizes[0] && _count < this._table.Length * _minLoadFactor)
-				Resize(GetSmallerSize());
-		}
-		#endregion
-		#region public void RemoveWithoutTrim(T key)
-		/// <summary>Removes a value from the hash table.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		/// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-		public void RemoveWithoutTrim(T key)
-		{
-			Remove_private(key);
-		}
-		#endregion
-		#region public void Add(T addition)
-		/// <summary>Adds a value to the hash table.</summary>
-		/// <param name="key">The key value to use as the look-up reference in the hash table.</param>
-		/// <remarks>Runtime: O(n), Omega(1).</remarks>
-		public void Add(T addition)
-		{
-			if (addition == null)
-				throw new System.ArgumentNullException("addition");
-			int location = ComputeHash(addition);
-			if (Find(addition, location) == null)
-			{
-				if (++_count > _table.Length * _maxLoadFactor)
-				{
-					if (Count == int.MaxValue)
-						throw new System.InvalidOperationException("maximum size of hash table reached.");
+        #region Methods
 
-					Resize(GetLargerSize());
-					location = ComputeHash(addition);
-				}
-				Node p = new Node(addition, null);
-				Add(p, location);
-			}
-			else
-				throw new System.InvalidOperationException("\nMember: \"Add(TKey key, TValue value)\"\nThe key is already in the table.");
-		}
-		#endregion
-		#region public void Clear()
-		public void Clear()
-		{
-			_table = new Node[Towel.Hash.TableSizes[0]];
-			_count = 0;
-		}
-		#endregion
-		#region public void Stepper(Step<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						function(node.Value);
-					} while ((node = node.Next) != null);
-		}
-		#endregion
-		#region public StepStatus Stepper(StepBreak<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						if (function(node.Value) == StepStatus.Break)
-							return StepStatus.Break;
-					} while ((node = node.Next) != null);
-			return StepStatus.Continue;
-		}
-		#endregion
-		#region public T[] ToArray()
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			int index = 0;
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						array[index++] = node.Value;
-					} while ((node = node.Next) != null);
-			return array;
-		}
-		#endregion
-		#region public void Trim()
-		public void Trim()
-		{
-			int prime = this._count;
-			while (Towel.Mathematics.Compute.IsPrime(prime))
-				prime++;
-			if (prime != this._table.Length)
-				Resize(prime);
-		}
-		#endregion
-		// methods internal
-		#region internal void Add(Node cell, int location)
-		internal void Add(Node cell, int location)
-		{
-			cell.Next = _table[location];
-			_table[location] = cell;
-		}
-		#endregion
-		#region internal int ComputeHash(T key)
-		internal int ComputeHash(T key)
-		{
-			return (_hash(key) & 0x7fffffff) % _table.Length;
-		}
-		#endregion
-		#region internal Node Find(T key, int loc)
-		internal Node Find(T key, int loc)
-		{
-			for (Node bucket = _table[loc]; bucket != null; bucket = bucket.Next)
-				if (_equate(bucket.Value, key))
-					return bucket;
-			return null;
-		}
-		#endregion
-		#region internal int GetLargerSize()
-		internal int GetLargerSize()
-		{
-			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
-				if (this._table.Length < Towel.Hash.TableSizes[i])
-					return Towel.Hash.TableSizes[i];
-			return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
-		}
-		#endregion
-		#region internal int GetSmallerSize()
-		internal int GetSmallerSize()
-		{
-			for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-				if (this._table.Length > Towel.Hash.TableSizes[i])
-					return Towel.Hash.TableSizes[i];
-			return Towel.Hash.TableSizes[0];
-		}
-		#endregion
-		#region internal void Remove_private(T key)
-		/// <summary>Removes a value from the hash table.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		/// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-		internal void Remove_private(T key)
-		{
-			if (key == null)
-				throw new System.ArgumentNullException("key", "attempting to remove \"null\" from the structure.");
-			int location = ComputeHash(key);
-			if (this._equate(this._table[location].Value, key))
-				_table[location] = _table[location].Next;
-			for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
-			{
-				if (bucket.Next == null)
-					throw new System.InvalidOperationException("attempting to remove a non-existing value.");
-				else if (this._equate(bucket.Next.Value, key))
-					bucket.Next = bucket.Next.Next;
-			}
-			_count--;
-		}
-		#endregion
-		#region internal Node RemoveFirst(Node[] t, int i)
-		internal Node RemoveFirst(Node[] t, int i)
-		{
-			Node first = t[i];
-			t[i] = first.Next;
-			return first;
-		}
-		#endregion
-		#region internal void Resize(int size)
-		internal void Resize(int size)
-		{
-			Node[] temp = _table;
-			_table = new Node[size];
-			for (int i = 0; i < temp.Length; i++)
-			{
-				while (temp[i] != null)
-				{
-					Node cell = RemoveFirst(temp, i);
-					Add(cell, ComputeHash(cell.Value));
-				}
-			}
-		}
-		#endregion
+        // methods (public)
+        #region public Set_Hash<T> Clone()
+        /// <summary>Creates a shallow clone of this data structure.</summary>
+        /// <returns>A shallow clone of this data structure.</returns>
+        public SetHashList<T> Clone()
+        {
+            return new SetHashList<T>(this);
+        }
+        #endregion
+        #region public bool Contains(T item)
+        /// <summary>Determines if this structure contains a given item.</summary>
+        /// <param name="item">The item to see if theis structure contains.</param>
+        /// <returns>True if the item is in the structure; False if not.</returns>
+        public bool Contains(T item)
+        {
+            if (Find(item, ComputeHash(item)) == null)
+                return false;
+            else
+                return true;
+        }
+        #endregion
+        #region System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        System.Collections.IEnumerator
+            System.Collections.IEnumerable.GetEnumerator()
+        {
+            Node node;
+            for (int i = 0; i < _table.Length; i++)
+                if ((node = _table[i]) != null)
+                    do
+                    {
+                        yield return node.Value;
+                    } while ((node = node.Next) != null);
+        }
+        #endregion
+        #region System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+        System.Collections.Generic.IEnumerator<T>
+            System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+        {
+            Node node;
+            for (int i = 0; i < _table.Length; i++)
+                if ((node = _table[i]) != null)
+                    do
+                    {
+                        yield return node.Value;
+                    } while ((node = node.Next) != null);
+        }
+        #endregion
+        #region public void Remove(T key)
+        /// <summary>Removes a value from the hash table.</summary>
+        /// <param name="key">The key of the value to remove.</param>
+        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+        public void Remove(T key)
+        {
+            Remove_private(key);
+            if (this._count > Towel.Hash.TableSizes[0] && _count < this._table.Length * _minLoadFactor)
+                Resize(GetSmallerSize());
+        }
+        #endregion
+        #region public void RemoveWithoutTrim(T key)
+        /// <summary>Removes a value from the hash table.</summary>
+        /// <param name="key">The key of the value to remove.</param>
+        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+        public void RemoveWithoutTrim(T key)
+        {
+            Remove_private(key);
+        }
+        #endregion
+        #region public void Add(T addition)
+        /// <summary>Adds a value to the hash table.</summary>
+        /// <param name="key">The key value to use as the look-up reference in the hash table.</param>
+        /// <remarks>Runtime: O(n), Omega(1).</remarks>
+        public void Add(T addition)
+        {
+            if (addition == null)
+                throw new System.ArgumentNullException("addition");
+            int location = ComputeHash(addition);
+            if (Find(addition, location) == null)
+            {
+                if (++_count > _table.Length * _maxLoadFactor)
+                {
+                    if (Count == int.MaxValue)
+                        throw new System.InvalidOperationException("maximum size of hash table reached.");
 
-		#endregion
-	}
+                    Resize(GetLargerSize());
+                    location = ComputeHash(addition);
+                }
+                Node p = new Node(addition, null);
+                Add(p, location);
+            }
+            else
+                throw new System.InvalidOperationException("\nMember: \"Add(TKey key, TValue value)\"\nThe key is already in the table.");
+        }
+        #endregion
+        #region public void Clear()
+        public void Clear()
+        {
+            _table = new Node[Towel.Hash.TableSizes[0]];
+            _count = 0;
+        }
+        #endregion
+        #region public void Stepper(Step<T> function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> function)
+        {
+            Node node;
+            for (int i = 0; i < _table.Length; i++)
+                if ((node = _table[i]) != null)
+                    do
+                    {
+                        function(node.Value);
+                    } while ((node = node.Next) != null);
+        }
+        #endregion
+        #region public StepStatus Stepper(StepBreak<T> function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> function)
+        {
+            Node node;
+            for (int i = 0; i < _table.Length; i++)
+                if ((node = _table[i]) != null)
+                    do
+                    {
+                        if (function(node.Value) == StepStatus.Break)
+                            return StepStatus.Break;
+                    } while ((node = node.Next) != null);
+            return StepStatus.Continue;
+        }
+        #endregion
+        #region public T[] ToArray()
+        public T[] ToArray()
+        {
+            T[] array = new T[_count];
+            int index = 0;
+            Node node;
+            for (int i = 0; i < _table.Length; i++)
+                if ((node = _table[i]) != null)
+                    do
+                    {
+                        array[index++] = node.Value;
+                    } while ((node = node.Next) != null);
+            return array;
+        }
+        #endregion
+        #region public void Trim()
+        public void Trim()
+        {
+            int prime = this._count;
+            while (Towel.Mathematics.Compute.IsPrime<int>(prime))
+                prime++;
+            if (prime != this._table.Length)
+                Resize(prime);
+        }
+        #endregion
+        // methods internal
+        #region internal void Add(Node cell, int location)
+        internal void Add(Node cell, int location)
+        {
+            cell.Next = _table[location];
+            _table[location] = cell;
+        }
+        #endregion
+        #region internal int ComputeHash(T key)
+        internal int ComputeHash(T key)
+        {
+            return (_hash(key) & 0x7fffffff) % _table.Length;
+        }
+        #endregion
+        #region internal Node Find(T key, int loc)
+        internal Node Find(T key, int loc)
+        {
+            for (Node bucket = _table[loc]; bucket != null; bucket = bucket.Next)
+                if (_equate(bucket.Value, key))
+                    return bucket;
+            return null;
+        }
+        #endregion
+        #region internal int GetLargerSize()
+        internal int GetLargerSize()
+        {
+            for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
+                if (this._table.Length < Towel.Hash.TableSizes[i])
+                    return Towel.Hash.TableSizes[i];
+            return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
+        }
+        #endregion
+        #region internal int GetSmallerSize()
+        internal int GetSmallerSize()
+        {
+            for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
+                if (this._table.Length > Towel.Hash.TableSizes[i])
+                    return Towel.Hash.TableSizes[i];
+            return Towel.Hash.TableSizes[0];
+        }
+        #endregion
+        #region internal void Remove_private(T key)
+        /// <summary>Removes a value from the hash table.</summary>
+        /// <param name="key">The key of the value to remove.</param>
+        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+        internal void Remove_private(T key)
+        {
+            if (key == null)
+                throw new System.ArgumentNullException("key", "attempting to remove \"null\" from the structure.");
+            int location = ComputeHash(key);
+            if (this._equate(this._table[location].Value, key))
+                _table[location] = _table[location].Next;
+            for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
+            {
+                if (bucket.Next == null)
+                    throw new System.InvalidOperationException("attempting to remove a non-existing value.");
+                else if (this._equate(bucket.Next.Value, key))
+                    bucket.Next = bucket.Next.Next;
+            }
+            _count--;
+        }
+        #endregion
+        #region internal Node RemoveFirst(Node[] t, int i)
+        internal Node RemoveFirst(Node[] t, int i)
+        {
+            Node first = t[i];
+            t[i] = first.Next;
+            return first;
+        }
+        #endregion
+        #region internal void Resize(int size)
+        internal void Resize(int size)
+        {
+            Node[] temp = _table;
+            _table = new Node[size];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                while (temp[i] != null)
+                {
+                    Node cell = RemoveFirst(temp, i);
+                    Add(cell, ComputeHash(cell.Value));
+                }
+            }
+        }
+        #endregion
 
-	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	[System.Serializable]
+        #endregion
+    }
+
+    /// <summary>An unsorted structure of unique items.</summary>
+    /// <typeparam name="T">The generic type of the structure.</typeparam>
+    [System.Serializable]
 	public class SetHashArray<T> : Set<T>,
 		// Structure Properties
 		Structure.Hashing<T>
@@ -733,7 +733,7 @@
 	public class Set<STRUCTURE, T> : Set<T>,
 		// Structure Properties
 		Structure.Hashing<T>
-		where STRUCTURE : class, Structure<T>, Structure.Addable<T>, Structure.Removable<T>, Structure.Auditable<T>
+		where STRUCTURE : class, DataStructure<T>, Structure.Addable<T>, Structure.Removable<T>, Structure.Auditable<T>
 	{
 		private const float _maxLoadFactor = .7f;
 		private const float _minLoadFactor = .3f;
