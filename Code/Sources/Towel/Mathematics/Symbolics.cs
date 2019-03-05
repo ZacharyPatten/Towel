@@ -2052,9 +2052,9 @@ namespace Towel.Mathematics
         private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>> ParsableTernaryOperations;
         private static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>> ParsableMultinaryOperations;
         // Operator References
-        private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableLeftUnaryOperators;
-        private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableRightUnaryOperators;
-        private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperators;
+        private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableLeftUnaryOperators;
+        private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
+        private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
         // Known Constant References
         private static System.Collections.Generic.Dictionary<string, Func<Constant>> ParsableKnownConstants;
 
@@ -2085,17 +2085,17 @@ namespace Towel.Mathematics
                     }
 
                     // Left Unary Operators
-                    ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
-                    foreach (string representation in type.GetCustomAttribute<LeftUnaryOperatorAttribute>().Representations)
+                    ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
+                    foreach (LeftUnaryOperatorAttribute @operator in type.GetCustomAttributes<LeftUnaryOperatorAttribute>())
                     {
-                        ParsableLeftUnaryOperators.Add(representation.ToLower(), newFunction);
+                        ParsableLeftUnaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
                     }
 
                     // Right Unary Operators
-                    ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
-                    foreach (string representation in type.GetCustomAttribute<RightUnaryOperatorAttribute>().Representations)
+                    ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
+                    foreach (RightUnaryOperatorAttribute @operator in type.GetCustomAttributes<RightUnaryOperatorAttribute>())
                     {
-                        ParsableRightUnaryOperators.Add(representation.ToLower(), newFunction);
+                        ParsableRightUnaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
                     }
                 }
 
@@ -2116,10 +2116,10 @@ namespace Towel.Mathematics
                     }
 
                     // Binary Operators
-                    ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>();
-                    foreach (string representation in type.GetCustomAttribute<BinaryOperatorAttribute>().Representations)
+                    ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>();
+                    foreach (BinaryOperatorAttribute @operator in type.GetCustomAttributes<BinaryOperatorAttribute>())
                     {
-                        ParsableBinaryOperators.Add(representation.ToLower(), newFunction);
+                        ParsableBinaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
                     }
                 }
 
