@@ -10,8 +10,21 @@ namespace Towel.Mathematics
     /// <summary>Contains definitions necessary for the generic Symbolics class.</summary>
     internal static class Symbolics
     {
+        #region Enums
+
+        internal enum OperatorPriority
+        {
+            AdditionAndSubtraction = 1,
+            MultiplicationAndDivision = 2,
+            ExponentsAndRoots = 3,
+            Factorial = 4,
+            Logical = 5,
+        }
+
+        #endregion
+
         #region Attributes
-        
+
         [AttributeUsage(AttributeTargets.Class)]
         internal abstract class RepresentationAttribute : Attribute
         {
@@ -58,21 +71,42 @@ namespace Towel.Mathematics
         }
 
         [AttributeUsage(AttributeTargets.Class)]
-        internal class LeftUnaryOperatorAttribute : RepresentationAttribute
+        internal class LeftUnaryOperatorAttribute : Attribute
         {
-            internal LeftUnaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+            internal readonly string Representation;
+            internal readonly OperatorPriority Priority;
+
+            internal LeftUnaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
+            {
+                this.Representation = representation;
+                this.Priority = operatorPriority;
+            }
         }
 
         [AttributeUsage(AttributeTargets.Class)]
-        internal class RightUnaryOperatorAttribute : RepresentationAttribute
+        internal class RightUnaryOperatorAttribute : Attribute
         {
-            internal RightUnaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+            internal readonly string Representation;
+            internal readonly OperatorPriority Priority;
+
+            internal RightUnaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
+            {
+                this.Representation = representation;
+                this.Priority = operatorPriority;
+            }
         }
 
-        [AttributeUsage(AttributeTargets.Class)]
-        internal class BinaryOperatorAttribute : RepresentationAttribute
+        [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+        internal class BinaryOperatorAttribute : Attribute
         {
-            internal BinaryOperatorAttribute(string a, params string[] b) : base(a, b) { }
+            internal readonly string Representation;
+            internal readonly OperatorPriority Priority;
+
+            internal BinaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
+            {
+                this.Representation = representation;
+                this.Priority = operatorPriority;
+            }
         }
 
         [AttributeUsage(AttributeTargets.Class)]
@@ -1028,7 +1062,7 @@ namespace Towel.Mathematics
 
         #region Add
 
-        [BinaryOperator("+")]
+        [BinaryOperator("+", OperatorPriority.AdditionAndSubtraction)]
         public class Add : AddOrSubtract
         {
             public Add(Expression a, Expression b) : base(a, b) { }
@@ -1166,7 +1200,7 @@ namespace Towel.Mathematics
 
         #region Subtract
 
-        [BinaryOperator("-")]
+        [BinaryOperator("-", OperatorPriority.AdditionAndSubtraction)]
         public class Subtract : AddOrSubtract
         {
             public Subtract(Expression a, Expression b) : base(a, b) { }
@@ -1313,7 +1347,7 @@ namespace Towel.Mathematics
 
         #region Multiply
 
-        [BinaryOperator("*")]
+        [BinaryOperator("*", OperatorPriority.MultiplicationAndDivision)]
         public class Multiply : MultiplyOrDivide
         {
             public Multiply(Expression a, Expression b) : base(a, b) { }
@@ -1498,7 +1532,7 @@ namespace Towel.Mathematics
 
         #region Divide
 
-        [BinaryOperator("/")]
+        [BinaryOperator("/", OperatorPriority.MultiplicationAndDivision)]
         public class Divide : MultiplyOrDivide
         {
             public Divide(Expression a, Expression b) : base(a, b) { }
@@ -1665,7 +1699,7 @@ namespace Towel.Mathematics
 
         #region Power
 
-        [BinaryOperator("^")]
+        [BinaryOperator("^", OperatorPriority.ExponentsAndRoots)]
         public class Power : Binary, Operation.Mathematical
         {
             public Power(Expression a, Expression b) : base(a, b) { }
@@ -1761,7 +1795,7 @@ namespace Towel.Mathematics
 
         #region Equal
 
-        [BinaryOperator("=")]
+        [BinaryOperator("=", OperatorPriority.Logical)]
         public class Equal : Binary, Operation.Logical
         {
             public Equal(Expression a, Expression b) : base(a, b) { }
@@ -1790,7 +1824,7 @@ namespace Towel.Mathematics
 
         #region NotEqual
 
-        [BinaryOperator("≠")]
+        [BinaryOperator("≠", OperatorPriority.Logical)]
         public class NotEqual : Binary, Operation.Logical
         {
             public NotEqual(Expression a, Expression b) : base(a, b) { }
@@ -1819,7 +1853,7 @@ namespace Towel.Mathematics
 
         #region LessThan
 
-        [BinaryOperator("<")]
+        [BinaryOperator("<", OperatorPriority.Logical)]
         public class LessThan : Binary, Operation.Logical
         {
             public LessThan(Expression a, Expression b) : base(a, b) { }
@@ -1845,7 +1879,7 @@ namespace Towel.Mathematics
 
         #region GreaterThan
 
-        [BinaryOperator(">")]
+        [BinaryOperator(">", OperatorPriority.Logical)]
         public class GreaterThan : Binary, Operation.Logical
         {
             public GreaterThan(Expression left, Expression right) : base(left, right) { }
@@ -1871,7 +1905,7 @@ namespace Towel.Mathematics
         
         #region LessThanOrEqual
 
-        [BinaryOperator("<=")]
+        [BinaryOperator("<=", OperatorPriority.Logical)]
         public class LessThanOrEqual : Binary, Operation.Logical
         {
             public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
@@ -1897,7 +1931,7 @@ namespace Towel.Mathematics
 
         #region GreaterThanOrEqual
 
-        [BinaryOperator(">=")]
+        [BinaryOperator(">=", OperatorPriority.Logical)]
         public class GreaterThanOrEqual : Binary, Operation.Logical
         {
             public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }
@@ -2397,8 +2431,8 @@ namespace Towel.Mathematics
             MatchCollection operatorMatches = Regex.Matches(expression, ParsableOperatorsRegexPattern);
             if (operatorMatches.Count > 0)
             {
-                // Find the first operator that is not in a nested scope if one exists
-                Match firstOperatorMatch = null;
+                // Find the first operator with the highest available priority
+                Match @operator = null;
                 int currentOperatorMatch = 0;
                 int scope = 0;
                 for (int i = 0; i < expression.Length; i++)
@@ -2419,7 +2453,7 @@ namespace Towel.Mathematics
                     {
                         if (scope == 0)
                         {
-                            firstOperatorMatch = operatorMatches[currentOperatorMatch];
+                            @operator = operatorMatches[currentOperatorMatch];
                             break;
                         }
                         currentOperatorMatch++;
@@ -2433,7 +2467,10 @@ namespace Towel.Mathematics
                     // determine if this is a (1) unary left, (2) unary right, or 
                     // (3) binary operator.
 
+                    string left = null;
+                    string right = null;
                     
+                    if ()
                 }
             }
 
