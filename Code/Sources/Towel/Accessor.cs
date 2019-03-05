@@ -5,16 +5,13 @@ namespace Towel
 	/// <summary>Delegate for getting a value at a specified index.</summary>
 	/// <param name="index">The index to get the value of.</param>
 	/// <returns>The value at the given index.</returns>
-	[System.Serializable]
 	public delegate T Get<T>(int index);
 
 	/// <summary>Delegate for setting a value at a specified index.</summary>
 	/// <param name="index">The index to set the value of.</param>
 	/// <param name="value">The value to set at the given index.</param>
-	[System.Serializable]
 	public delegate void Assign<T>(int index, T value);
 
-	[System.Serializable]
 	public static class Accessor
 	{
 		public static Get<T> Get<T>(IList<T> ilist)
@@ -25,7 +22,6 @@ namespace Towel
 
 		#region GetIList_Wrapper<T>
 
-		[System.Serializable]
 		internal struct GetIList_Wrapper<T>
 		{
 			IList<T> _ilist;

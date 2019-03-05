@@ -6,17 +6,17 @@ namespace Towel.Measurements
     /// <summary>Contains unit types and conversion factors for the generic Length struct.</summary>
 	public static class Length
     {
-        #region Units
-
         /// <summary>Units for length measurements.</summary>
         public enum Units
         {
+            #region Units
+
             // Note: It is critical that these enum values are in increasing order of size.
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
             /// <summary>Units of an length measurement.</summary>
-			Inch = 1,
+            Inch = 1,
             /// <summary>Units of an length measurement.</summary>
             Foot = 2,
             /// <summary>Units of an length measurement.</summary>
@@ -24,9 +24,8 @@ namespace Towel.Measurements
             /// <summary>Units of an length measurement.</summary>
             Mile = 4,
 
+            #endregion
         }
-
-        #endregion
     }
 
     /// <summary>An length measurement.</summary>

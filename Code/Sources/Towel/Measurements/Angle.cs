@@ -6,15 +6,15 @@ namespace Towel.Measurements
     /// <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
     public static class Angle
     {
-        #region Units
-
         /// <summary>Units for angle measurements.</summary>
         public enum Units
         {
+            #region Units
+
             // Note: These enum values are critical. They are used to determine
             // unit priorities and storage of location conversion factors. They 
             // need to be small and in non-increasing order of unit size.
-            
+
             /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Degrees, "9 / 10")]
             [ConversionFactor(Radians, "π / 200")]
@@ -35,9 +35,9 @@ namespace Towel.Measurements
             [ConversionFactor(Radians, "2 / π")]
             /// <summary>Units of an angle measurement.</summary>
 			Turns = 4,
+
+            #endregion
         }
-        
-		#endregion
 	}
 
 	/// <summary>An angle measurement.</summary>

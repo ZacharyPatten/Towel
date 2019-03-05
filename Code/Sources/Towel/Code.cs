@@ -1,10 +1,5 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Towel
+﻿namespace Towel
 {
-
 	/// <summary>Just syntax sugar. Not recommended for use outside the Towel Framework.</summary>
 	internal class Code
 	{

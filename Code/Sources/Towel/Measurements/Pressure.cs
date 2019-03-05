@@ -6,21 +6,21 @@ namespace Towel.Measurements
     /// <summary>Contains unit types and conversion factors for the generic Pressure struct.</summary>
     public static class Pressure
     {
-        #region Units
-
         /// <summary>Units for Pressure measurements.</summary>
         public enum Units
         {
+            #region Units
+
             // Note: It is critical that these enum values are in increasing order of size.
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
             //[ConversionFactor(XXXXX, XXXXX, "XXX")]
             /// <summary>Units of an Pressure measurement.</summary>
-			//UNITS = X,
-        }
+            //UNITS = X,
 
-        #endregion
+            #endregion
+        }
     }
 
     /// <summary>An Pressure measurement.</summary>

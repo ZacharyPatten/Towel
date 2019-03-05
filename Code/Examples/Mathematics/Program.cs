@@ -21,6 +21,13 @@ namespace Mathematics
             Console.WriteLine("==========================================");
             Console.WriteLine();
 
+            double result = 90d + .5d;
+            Console.WriteLine(result);
+
+            Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
+            Angle<double> angle2 = new Angle<double>(0.5d, Angle.Units.Turns);
+            Console.WriteLine(angle1 + angle2);
+
             Console.WriteLine("  The Towel.Mathemeatics.Compute class allows generic mathematics (you can use any type). :)");
             Console.WriteLine();
 
@@ -82,7 +89,7 @@ namespace Mathematics
             #endregion
 
             #region Angles
-
+            
             Console.WriteLine("  Angles--------------------------------------");
             Console.WriteLine();
             Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
