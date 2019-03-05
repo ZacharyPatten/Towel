@@ -2270,11 +2270,11 @@ namespace Towel.Mathematics
             }
             // Trim
             expression = expression.Trim();
-            // Parse The Next Set Of Non-Nested Operators If Any Exist
-            Expression ParsedNonNestedOperatorsExpression;
-            if (TryParseNonNestedOperatorExpressions<T>(expression, parsingFunction, out ParsedNonNestedOperatorsExpression))
+            // Parse The Next Set Of Non-Nested Operator If Any Exist
+            Expression ParsedNonNestedOperatorExpression;
+            if (TryParseNonNestedOperatorExpressions<T>(expression, parsingFunction, out ParsedNonNestedOperatorExpression))
             {
-                return ParsedNonNestedOperatorsExpression;
+                return ParsedNonNestedOperatorExpression;
             }
             // Parse The Next Parenthesis If One Exists
             Expression ParsedParenthesisExpression;
@@ -2393,13 +2393,13 @@ namespace Towel.Mathematics
 
         internal static bool TryParseNonNestedOperatorExpressions<T>(string expression, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
         {
+            // Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
             MatchCollection operatorMatches = Regex.Matches(expression, ParsableOperatorsRegexPattern);
-
             if (operatorMatches.Count > 0)
             {
-                // Filter out operators in nested scopes
-                ListArray<Match> filteredOperatorMatches = new ListArray<Match>();
-                int currentMatch = 0;
+                // Find the first operator that is not in a nested scope if one exists
+                Match firstOperatorMatch = null;
+                int currentOperatorMatch = 0;
                 int scope = 0;
                 for (int i = 0; i < expression.Length; i++)
                 {
@@ -2408,23 +2408,36 @@ namespace Towel.Mathematics
                         case '(': scope++; break;
                         case ')': scope--; break;
                     }
-                    if (operatorMatches[currentMatch].Index == i)
+
+                    // Handle Input Errors
+                    if (scope < 0)
+                    {
+                        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                    }
+
+                    if (operatorMatches[currentOperatorMatch].Index == i)
                     {
                         if (scope == 0)
                         {
-                            filteredOperatorMatches.Add(operatorMatches[currentMatch]);
+                            firstOperatorMatch = operatorMatches[currentOperatorMatch];
+                            break;
                         }
-                        currentMatch++;
+                        currentOperatorMatch++;
                     }
                 }
 
-                // If there are any operators after filtering, then parse the expressions
-                if (filteredOperatorMatches.Count > 0)
+                // if an operator was found, parse the expression
+                if (firstOperatorMatch != null)
                 {
+                    // Check for things to the right and left of the operator to 
+                    // determine if this is a (1) unary left, (2) unary right, or 
+                    // (3) binary operator.
+
                     
                 }
             }
 
+            // No non-nested operator patterns found. Fall back.
             parsedExpression = null;
             return false;
         }
