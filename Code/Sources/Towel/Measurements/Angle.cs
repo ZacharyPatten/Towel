@@ -19,22 +19,22 @@ namespace Towel.Measurements
             [ConversionFactor(Degrees, "9 / 10")]
             [ConversionFactor(Radians, "π / 200")]
             [ConversionFactor(Turns, "1 / 400")]
-            Gradians = 1,
+            Gradians = 0,
             [ConversionFactor(Gradians, "10 / 9")]
             [ConversionFactor(Radians, "π / 180")]
             [ConversionFactor(Turns, "1 / 360")]
             /// <summary>Units of an angle measurement.</summary>
-            Degrees = 2,
+            Degrees = 1,
             [ConversionFactor(Gradians, "180 / π")]
             [ConversionFactor(Degrees, "200 / π")]
             [ConversionFactor(Turns, "π / 2")]
             /// <summary>Units of an angle measurement.</summary>
-			Radians = 3,
+			Radians = 2,
             [ConversionFactor(Gradians, "360")]
             [ConversionFactor(Degrees, "400")]
             [ConversionFactor(Radians, "2 / π")]
             /// <summary>Units of an angle measurement.</summary>
-			Turns = 4,
+			Turns = 3,
 
             #endregion
         }

@@ -8,16 +8,20 @@ using System.Text.RegularExpressions;
 namespace Towel.Mathematics
 {
     /// <summary>Contains definitions necessary for the generic Symbolics class.</summary>
-    internal static class Symbolics
+    public static class Symbolics
     {
-        #region Enums
+        #region OperatorPriority Enum
 
         internal enum OperatorPriority
         {
-            AdditionAndSubtraction = 1,
-            MultiplicationAndDivision = 2,
-            ExponentsAndRoots = 3,
-            Factorial = 4,
+            Negation = 1,
+            Factorial = 1,
+            Addition = 2,
+            Subtraction = 2,
+            Multiplication = 3,
+            Division = 3,
+            Exponents = 4,
+            Roots = 4,
             Logical = 5,
         }
 
@@ -685,7 +689,7 @@ namespace Towel.Mathematics
 
         #region Negate
 
-        [LeftUnaryOperator("-")]
+        [LeftUnaryOperator("-", OperatorPriority.Negation)]
         public class Negate : Unary, Operation.Mathematical
         {
             public Negate(Expression a) : base(a) { }
@@ -1062,7 +1066,7 @@ namespace Towel.Mathematics
 
         #region Add
 
-        [BinaryOperator("+", OperatorPriority.AdditionAndSubtraction)]
+        [BinaryOperator("+", OperatorPriority.Addition)]
         public class Add : AddOrSubtract
         {
             public Add(Expression a, Expression b) : base(a, b) { }
@@ -1200,7 +1204,7 @@ namespace Towel.Mathematics
 
         #region Subtract
 
-        [BinaryOperator("-", OperatorPriority.AdditionAndSubtraction)]
+        [BinaryOperator("-", OperatorPriority.Subtraction)]
         public class Subtract : AddOrSubtract
         {
             public Subtract(Expression a, Expression b) : base(a, b) { }
@@ -1347,7 +1351,7 @@ namespace Towel.Mathematics
 
         #region Multiply
 
-        [BinaryOperator("*", OperatorPriority.MultiplicationAndDivision)]
+        [BinaryOperator("*", OperatorPriority.Multiplication)]
         public class Multiply : MultiplyOrDivide
         {
             public Multiply(Expression a, Expression b) : base(a, b) { }
@@ -1532,7 +1536,7 @@ namespace Towel.Mathematics
 
         #region Divide
 
-        [BinaryOperator("/", OperatorPriority.MultiplicationAndDivision)]
+        [BinaryOperator("/", OperatorPriority.Division)]
         public class Divide : MultiplyOrDivide
         {
             public Divide(Expression a, Expression b) : base(a, b) { }
@@ -2287,10 +2291,10 @@ namespace Towel.Mathematics
 
         /// <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
         /// <typeparam name="T">The type to convert any constants into (ex: float, double, etc).</typeparam>
-        /// <param name="expression">The expression string to parse.</param>
+        /// <param name="string">The expression string to parse.</param>
         /// <param name="parsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
         /// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
-        public static Expression Parse<T>(string expression, TryParseNumeric<T> parsingFunction = null)
+        public static Expression Parse<T>(string @string, TryParseNumeric<T> parsingFunction = null)
         {
             // Build The Parsing Library
             if (!ParseableLibraryBuilt)
@@ -2298,50 +2302,50 @@ namespace Towel.Mathematics
                 BuildParsableOperationLibrary();
             }
             // Error Handling
-            if (string.IsNullOrWhiteSpace(expression))
+            if (string.IsNullOrWhiteSpace(@string))
             {
-                throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                throw new ArgumentException("The expression could not be parsed.", nameof(@string));
             }
             // Trim
-            expression = expression.Trim();
-            // Parse The Next Set Of Non-Nested Operator If Any Exist
+            @string = @string.Trim();
+            // Parse The Next Non-Nested Operator If One Exist
             Expression ParsedNonNestedOperatorExpression;
-            if (TryParseNonNestedOperatorExpressions<T>(expression, parsingFunction, out ParsedNonNestedOperatorExpression))
+            if (TryParseNonNestedOperatorExpression<T>(@string, parsingFunction, out ParsedNonNestedOperatorExpression))
             {
                 return ParsedNonNestedOperatorExpression;
             }
             // Parse The Next Parenthesis If One Exists
             Expression ParsedParenthesisExpression;
-            if (TryParseParenthesisExpression<T>(expression, parsingFunction, out ParsedParenthesisExpression))
+            if (TryParseParenthesisExpression<T>(@string, parsingFunction, out ParsedParenthesisExpression))
             {
                 return ParsedParenthesisExpression;
             }
             // Parse The Next Operation If One Exists
-            Expression ParsedOperationsExpression;
-            if (TryParseOperationExpresion<T>(expression, parsingFunction, out ParsedOperationsExpression))
+            Expression ParsedOperationExpression;
+            if (TryParseOperationExpression<T>(@string, parsingFunction, out ParsedOperationExpression))
             {
-                return ParsedOperationsExpression;
+                return ParsedOperationExpression;
             }
             // Parse The Next Set Of Variables If Any Exist
             Expression ParsedVeriablesExpression;
-            if (TryParseVariablesExpression<T>(expression, parsingFunction, out ParsedVeriablesExpression))
+            if (TryParseVariablesExpression<T>(@string, parsingFunction, out ParsedVeriablesExpression))
             {
                 return ParsedVeriablesExpression;
             }
             // Parse The Next Known Constant Expression If Any Exist
             Expression ParsedKnownConstantExpression;
-            if (TryParseKnownConstantExpression<T>(expression, parsingFunction, out ParsedKnownConstantExpression))
+            if (TryParseKnownConstantExpression<T>(@string, parsingFunction, out ParsedKnownConstantExpression))
             {
                 return ParsedKnownConstantExpression;
             }
             // Parse The Next Constant Expression If Any Exist
             Expression ParsedConstantExpression;
-            if (TryParseConstantExpression<T>(expression, parsingFunction, out ParsedConstantExpression))
+            if (TryParseConstantExpression<T>(@string, parsingFunction, out ParsedConstantExpression))
             {
                 return ParsedConstantExpression;
             }
             // Invalid Or Non-Supported Expression
-            throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+            throw new ArgumentException("The expression could not be parsed.", nameof(@string));
 
             #region Stupid First Attempt
 
@@ -2425,19 +2429,23 @@ namespace Towel.Mathematics
             #endregion
         }
 
-        internal static bool TryParseNonNestedOperatorExpressions<T>(string expression, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
+        internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
         {
             // Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
-            MatchCollection operatorMatches = Regex.Matches(expression, ParsableOperatorsRegexPattern);
+            MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern);
             if (operatorMatches.Count > 0)
             {
                 // Find the first operator with the highest available priority
                 Match @operator = null;
+                OperatorPriority priority = default(OperatorPriority);
                 int currentOperatorMatch = 0;
                 int scope = 0;
-                for (int i = 0; i < expression.Length; i++)
+                bool isUnaryLeftOperator = false;
+                bool isUnaryRightOperator = false;
+                bool isBinaryOperator = false;
+                for (int i = 0; i < @string.Length; i++)
                 {
-                    switch (expression[i])
+                    switch (@string[i])
                     {
                         case '(': scope++; break;
                         case ')': scope--; break;
@@ -2446,13 +2454,70 @@ namespace Towel.Mathematics
                     // Handle Input Errors
                     if (scope < 0)
                     {
-                        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                        throw new ArgumentException("The expression could not be parsed.", nameof(@string));
                     }
-
-                    if (operatorMatches[currentOperatorMatch].Index == i)
+                    
+                    Match currentMatch = operatorMatches[currentOperatorMatch];
+                    if (currentMatch.Index == i)
                     {
                         if (scope == 0)
                         {
+                            Match previousMatch = currentOperatorMatch != 0 ? operatorMatches[currentOperatorMatch - 1] : null;
+                            Match nextMatch = currentOperatorMatch != operatorMatches.Count - 1 ? operatorMatches[currentOperatorMatch + 1] : null;
+
+                            // We found an operator in the current scope
+                            // Now we need to determine if it is a unary-left, unary-right, or binary operator
+
+                            if (// first character in the expression
+                                currentMatch.Index == 0 ||
+                                // nothing but white space since the previous operator
+                                (previousMatch != null &&
+                                string.IsNullOrWhiteSpace(
+                                    @string.Substring(
+                                        previousMatch.Index + previousMatch.Length,
+                                        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1))))
+
+                            {
+                                // Unary-Left Operator
+                                if (@operator == null || priority < ParsableLeftUnaryOperators[currentMatch.Value].Item1)
+                                {
+                                    @operator = currentMatch;
+                                    isUnaryLeftOperator = true;
+                                    isUnaryRightOperator = false;
+                                    isBinaryOperator = false;
+                                }
+                            }
+                            else if (
+                                // last character(s) in the expression
+                                (currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
+                                // nothing but white space until the next operator
+                                (nextMatch != null &&
+                                string.IsNullOrWhiteSpace(
+                                    @string.Substring(
+                                        currentMatch.Index + currentMatch.Length,
+                                        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1))))
+                            {
+                                // Unary Right Operator
+                                if (@operator == null || priority < ParsableRightUnaryOperators[currentMatch.Value].Item1)
+                                {
+                                    @operator = currentMatch;
+                                    isUnaryLeftOperator = false;
+                                    isUnaryRightOperator = true;
+                                    isBinaryOperator = false;
+                                }
+                            }
+                            else
+                            {
+                                // Binary Operator
+                                if (@operator == null || priority < ParsableRightUnaryOperators[currentMatch.Value].Item1)
+                                {
+                                    @operator = currentMatch;
+                                    isUnaryLeftOperator = false;
+                                    isUnaryRightOperator = false;
+                                    isBinaryOperator = true;
+                                }
+                            }
+
                             @operator = operatorMatches[currentOperatorMatch];
                             break;
                         }
@@ -2461,56 +2526,67 @@ namespace Towel.Mathematics
                 }
 
                 // if an operator was found, parse the expression
-                if (firstOperatorMatch != null)
+                if (@operator != null)
                 {
-                    // Check for things to the right and left of the operator to 
-                    // determine if this is a (1) unary left, (2) unary right, or 
-                    // (3) binary operator.
-
-                    string left = null;
-                    string right = null;
-                    
-                    if ()
+                    if (isUnaryLeftOperator)
+                    {
+                        Expression A = Parse(@string.Substring(@operator.Index + @operator.Length - 1), parsingFunction);
+                        expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
+                        return true;
+                    }
+                    else if (isUnaryRightOperator)
+                    {
+                        Expression A = Parse(@string.Substring(0, @operator.Index), parsingFunction);
+                        expression = ParsableRightUnaryOperators[@operator.Value].Item2(A);
+                        return true;
+                    }
+                    else if (isBinaryOperator)
+                    {
+                        Expression A = Parse(@string.Substring(0, @operator.Index), parsingFunction);
+                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length - 1), parsingFunction);
+                        expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
+                        return true;
+                    }
                 }
             }
 
             // No non-nested operator patterns found. Fall back.
-            parsedExpression = null;
+            expression = null;
             return false;
         }
 
-        internal static bool TryParseParenthesisExpression<T>(string expression, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
+        internal static bool TryParseParenthesisExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
         {
             // Try to match a parenthesis pattern.
-            Match parenthesisMatch = Regex.Match(expression, ParenthesisPattern);
-            Match operationMatch = Regex.Match(expression, ParsableOperationsRegexPattern);
+            Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
+            Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
             if (parenthesisMatch.Success)
             {
                 if (operationMatch.Success && parenthesisMatch.Index > operationMatch.Index)
                 {
                     // The next set of parenthesis are part of an operation. Fall back and
                     // let the TryParseOperationExpression handle it.
-                    parsedExpression = null;
+                    expression = null;
                     return false;
                 }
 
                 // Parse the nested expression
                 string nestedExpression = parenthesisMatch.Value.Substring(1, parenthesisMatch.Length - 2);
-                parsedExpression = Parse(nestedExpression, parsingFunction);
+                expression = Parse(nestedExpression, parsingFunction);
 
                 // Check for implicit multiplications to the left of the parenthesis pattern
                 if (parenthesisMatch.Index > 0)
                 {
-                    string leftExpression = expression.Substring(0, parenthesisMatch.Index);
-                    parsedExpression *= Parse(leftExpression, parsingFunction);
+                    string leftExpression = @string.Substring(0, parenthesisMatch.Index);
+                    expression *= Parse(leftExpression, parsingFunction);
                 }
 
                 // Check for implicit multiplications to the right of the parenthesis pattern
                 int right_start = parenthesisMatch.Index + parenthesisMatch.Length;
-                if (right_start != expression.Length)
+                if (right_start != @string.Length)
                 {
-                    string rightExpression = expression.Substring(right_start, expression.Length - right_start);
-                    parsedExpression *= Parse(rightExpression, parsingFunction);
+                    string rightExpression = @string.Substring(right_start, @string.Length - right_start);
+                    expression *= Parse(rightExpression, parsingFunction);
                 }
 
                 // Parsing was successful
@@ -2518,81 +2594,113 @@ namespace Towel.Mathematics
             }
 
             // No parenthesis pattern found. Fall back.
-            parsedExpression = null;
+            expression = null;
             return false;
         }
 
-        internal static Expression ParseOperation(string @string)
+        internal static bool TryParseOperationExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
         {
-            // get the operation
-            string untilFirstParenthasisPattern = @"^[^\(]+";
-            string operation = Regex.Match(@string, untilFirstParenthasisPattern).Value.Trim();
+            expression = null;
+            Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
 
-            // get the operands
-            string operands = 
+            if (operationMatch.Success)
+            {
+                string operationMatch_Value = operationMatch.Value;
+                string operation = operationMatch_Value.Substring(0, operationMatch_Value.IndexOf('(') - 1);
+                Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
+                string parenthesisMatch_Value = parenthesisMatch.Value;
+                ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
 
+                switch (operandSplits.Count)
+                {
+                    case 1:
+                        Func<Expression, Unary> newUnaryFunction;
+                        if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
+                        {
+                            expression = newUnaryFunction(Parse<T>(operandSplits[0]));
+                        }
+                        break;
+                    case 2:
+                        Func<Expression, Expression, Binary> newBinaryFunction;
+                        if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
+                        {
+                            expression = newBinaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[1]));
+                        }
+                        break;
+                    case 3:
+                        Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
+                        if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
+                        {
+                            expression = newTernaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[2]), Parse<T>(operandSplits[2]));
+                        }
+                        break;
+                }
+                Func<Expression[], Multinary> newMultinaryFunction;
+                if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
+                {
+                    expression = newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
+                }
+
+                // handle implicit multiplications if any exist
+                if (operationMatch.Index != 0) // Left
+                {
+                    Expression A = Parse(@string.Substring(0, operationMatch.Index), parsingFunction);
+                    expression *= A;
+                }
+                if (operationMatch.Length + operationMatch.Index < @string.Length) // Right
+                {
+                    Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), parsingFunction);
+                    expression *= A;
+                }
+
+                if (!(expression is null))
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+                }
+            }
+
+            // No operation pattern found. Fall back.
+            return false;
         }
 
-        internal static ListArray<string> SplitOperands(string expression)
+        internal static ListArray<string> SplitOperands(string @string)
         {
             ListArray<string> operands = new ListArray<string>();
             int scope = 0;
             int operandStart = 0;
-            for (int i = 0; i < expression.Length; i++)
+            for (int i = 0; i < @string.Length; i++)
             {
-                switch (expression[i])
+                switch (@string[i])
                 {
                     case '(': scope++; break;
                     case ')': scope--; break;
                     case ',':
                         if (scope == 0)
                         {
-                            operands.Add(expression.Substring(operandStart, i - operandStart));
+                            operands.Add(@string.Substring(operandStart, i - operandStart));
                         }
                         break;
                 }
             }
             if (scope != 0)
             {
-                throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+                throw new ArgumentException("The expression could not be parsed.", nameof(@string));
             }
-            operands.Add(expression.Substring(operandStart, expression.Length - operandStart));
+            operands.Add(@string.Substring(operandStart, @string.Length - operandStart));
             return operands;
         }
 
-        internal static bool TryParseOperators(string expression, out Expression parsedExpression)
-        {
-            string parenthasisPattern = @"\(.*\)";
-
-            Regex.Matches(expression, @"\(.*\)")
-
-            bool foundOperator = false;
-            int operatorIndex;
-            int scope = 0;
-            for (int i = 0; i < expression.Length; i++)
-            {
-                if (expression[i] == '(')
-                {
-                    scope++;
-                }
-                else if (expression[i] == ')')
-                {
-                    scope--;
-                }
-                else if (scope == 0)
-                {
-                    
-                }
-            }
-        }
-
-        internal static bool TryParseImpliedVariableMultiplication(string expression, out Expression parsedExpression)
+        internal static bool TryParseVariablesExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
         {
             string variablePattern = @"\[.*\]";
 
             // extract and parse variables
             System.Collections.Generic.IEnumerable<Expression> variables =
-                Regex.Matches(expression, variablePattern)
+                Regex.Matches(@string, variablePattern)
                 .Cast<Match>()
                 .Select(x => new Variable(x.Value.Substring(1, x.Value.Length - 2)));
 
@@ -2605,7 +2713,7 @@ namespace Towel.Mathematics
 
             // assume the remaining string splits are constants and try to parse them
             System.Collections.Generic.IEnumerable<Expression> constants =
-                Regex.Split(expression, variablePattern)
+                Regex.Split(@string, variablePattern)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => ParseConstant(x));
 
