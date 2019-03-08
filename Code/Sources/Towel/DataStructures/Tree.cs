@@ -4,8 +4,8 @@
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
 	public interface Tree<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Removable<T>
+		DataStructure.Countable<T>,
+		DataStructure.Removable<T>
 	{
 		#region T Head
 		/// <summary>The head of the tree.</summary>
@@ -37,8 +37,8 @@
 	[System.Serializable]
 	public class TreeMap<T> : Tree<T>,
 		// Structure Properties
-		Structure.Hashing<T>,
-		Structure.Equating<T>
+		DataStructure.Hashing<T>,
+		DataStructure.Equating<T>
 	{
 		// fields
 		private Equate<T> _equate;

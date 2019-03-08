@@ -4,12 +4,12 @@
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	public interface RedBlackTree<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Addable<T>,
-		Structure.Removable<T>,
-		Structure.Countable<T>,
-		Structure.Clearable<T>,
-		Structure.Comparing<T>,
-		Structure.Auditable<T>
+		DataStructure.Addable<T>,
+		DataStructure.Removable<T>,
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>,
+		DataStructure.Comparing<T>,
+		DataStructure.Auditable<T>
 	{
 		#region Properties
 
@@ -434,7 +434,7 @@
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			Stack<RedBlackTreeLinked<T>.Node> forks = new StackLinked<RedBlackTreeLinked<T>.Node>();
+			FirstInLastOut<RedBlackTreeLinked<T>.Node> forks = new FirstInLastOutLinked<RedBlackTreeLinked<T>.Node>();
 			RedBlackTreeLinked<T>.Node current = _root;
 			while (current != null && current.LeftChild != null && current.RightChild != null || forks.Count > 0)
 			{

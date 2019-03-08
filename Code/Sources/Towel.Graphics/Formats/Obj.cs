@@ -17,10 +17,10 @@ namespace Towel.Graphics.Formats
             // These are temporarily needed lists for storing the parsed data as you read it.
             // Its better to use "ListArrays" vs "Lists" because they will be accessed by indeces
             // by the faces of the obj file.
-            ListArray<float> filePositions = new ListArray<float>();
-            ListArray<float> fileNormals = new ListArray<float>();
-            ListArray<float> fileTextureCoordinates = new ListArray<float>();
-            ListArray<int> fileIndeces = new ListArray<int>();
+            AddableArray<float> filePositions = new AddableArray<float>();
+            AddableArray<float> fileNormals = new AddableArray<float>();
+            AddableArray<float> fileTextureCoordinates = new AddableArray<float>();
+            AddableArray<int> fileIndeces = new AddableArray<int>();
 
             // Obj files are not required to include texture coordinates or normals
             bool hasTextureCoordinates = true;

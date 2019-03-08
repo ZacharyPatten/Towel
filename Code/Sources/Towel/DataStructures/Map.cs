@@ -5,11 +5,11 @@
 	/// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
 	public interface Map<T, K> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Clearable<T>,
-		Structure.Auditable<K>,
-		Structure.Removable<K>,
-		Structure.Equating<K>
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>,
+		DataStructure.Auditable<K>,
+		DataStructure.Removable<K>,
+		DataStructure.Equating<K>
 	{
 		#region Properties
 
@@ -77,7 +77,7 @@
 	[System.Serializable]
 	public class MapHashLinked<T, K> : Map<T, K>,
 		// Structure Properties
-		Structure.Hashing<K>
+		DataStructure.Hashing<K>
 	{
 		// Fields
 		internal const float _maxLoadFactor = .7f;
@@ -564,7 +564,7 @@
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
 	public class MapHashArray<T, K> : Map<T, K>,
 		// Structure Properties
-		Structure.Hashing<K>
+		DataStructure.Hashing<K>
 	{
 		// Fields
 		private Equate<K> _equate;

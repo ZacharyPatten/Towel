@@ -15,14 +15,31 @@ namespace Towel.Measurements
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
-            /// <summary>Units of an length measurement.</summary>
-            Inch = 1,
-            /// <summary>Units of an length measurement.</summary>
-            Foot = 2,
-            /// <summary>Units of an length measurement.</summary>
-			Yard = 3,
-            /// <summary>Units of an length measurement.</summary>
-            Mile = 4,
+            Yoctometers = 0,
+            Zeptometers = 1,
+            Attometers = 2,
+            Femtometers = 3,
+            PicoMeters = 4,
+            Nanometers = 5,
+            Micrometers = 6,
+            Millimeters = 7,
+            Centimeters = 8,
+            Inches = 9,
+            Decimeter = 10,
+            Foots = 11,
+			Yards = 12,
+            Meter = 13,
+            Dekameter = 14,
+            Hectometer = 15,
+            Kilometer = 16,
+            Miles = 17,
+            Megameter = 18,
+            Gigameter = 19,
+            Terameter = 20,
+            Petameter = 21,
+            Exameter = 22,
+            Zettameter = 23,
+            Yottameter = 24,
 
             #endregion
         }

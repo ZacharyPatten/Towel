@@ -14,11 +14,11 @@ namespace Towel.Measurements
             // Note: These enum values are critical. They are used to determine
             // unit priorities and storage of location conversion factors. They 
             // need to be small and in non-increasing order of unit size.
-
-            /// <summary>Units of an angle measurement.</summary>
+            
             [ConversionFactor(Degrees, "9 / 10")]
             [ConversionFactor(Radians, "π / 200")]
             [ConversionFactor(Turns, "1 / 400")]
+            /// <summary>Units of an angle measurement.</summary>
             Gradians = 0,
             [ConversionFactor(Gradians, "10 / 9")]
             [ConversionFactor(Radians, "π / 180")]

@@ -3,10 +3,10 @@ using Towel.Mathematics;
 
 namespace Towel.Measurements
 {
-    /// <summary>Contains unit types and conversion factors for the generic Power struct.</summary>
-    public static class Power
+    /// <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
+    public static class Speed
     {
-        /// <summary>Units for Power measurements.</summary>
+        /// <summary>Units for Speed measurements.</summary>
         public enum Units
         {
             #region Units
@@ -16,27 +16,27 @@ namespace Towel.Measurements
             // different units.
 
             //[ConversionFactor(XXXXX, XXXXX, "XXX")]
-            /// <summary>Units of an Power measurement.</summary>
+            /// <summary>Units of an Speed measurement.</summary>
             //UNITS = X,
 
             #endregion
         }
     }
 
-    /// <summary>An Power measurement.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the Power measurement.</typeparam>
-    public struct Power<T>
+    /// <summary>An Speed measurement.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the Speed measurement.</typeparam>
+    public struct Speed<T>
     {
-        internal static T[][] Table = UnitConversionTable.Build<Power.Units, T>();
+        internal static T[][] Table = UnitConversionTable.Build<Speed.Units, T>();
         internal T _measurement;
-        internal Power.Units _units;
+        internal Speed.Units _units;
 
         #region Constructors
 
-        /// <summary>Constructs an Power with the specified measurement and units.</summary>
-        /// <param name="measurement">The measurement of the Power.</param>
-        /// <param name="units">The units of the Power.</param>
-        public Power(T measurement, Power.Units units)
+        /// <summary>Constructs an Speed with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the Speed.</param>
+        /// <param name="units">The units of the Speed.</param>
+        public Speed(T measurement, Speed.Units units)
         {
             this._measurement = measurement;
             this._units = units;
@@ -46,8 +46,8 @@ namespace Towel.Measurements
 
         #region Properties
 
-        /// <summary>The current units used to represent the Power.</summary>
-        public Power.Units Units
+        /// <summary>The current units used to represent the Speed.</summary>
+        public Speed.Units Units
         {
             get { return this._units; }
             set
@@ -63,7 +63,7 @@ namespace Towel.Measurements
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
         /// <returns>The measurement in the specified units.</returns>
-        internal T this[Power.Units units]
+        internal T this[Speed.Units units]
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Towel.Measurements
         //{
         //    get
         //    {
-        //        return this[Power.Units.XXXXX];
+        //        return this[Speed.Units.XXXXX];
         //    }
         //}
 
@@ -94,13 +94,13 @@ namespace Towel.Measurements
 
         #region Add
 
-        public static Power<T> Add(Power<T> a, Power<T> b)
+        public static Speed<T> Add(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Power<T>(Compute.Add(a[units], b[units]), units);
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Speed<T>(Compute.Add(a[units], b[units]), units);
         }
 
-        public static Power<T> operator +(Power<T> a, Power<T> b)
+        public static Speed<T> operator +(Speed<T> a, Speed<T> b)
         {
             return Add(a, b);
         }
@@ -109,13 +109,13 @@ namespace Towel.Measurements
 
         #region Subtract
 
-        public static Power<T> Subtract(Power<T> a, Power<T> b)
+        public static Speed<T> Subtract(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Power<T>(Compute.Subtract(a[units], b[units]), units);
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Speed<T>(Compute.Subtract(a[units], b[units]), units);
         }
 
-        public static Power<T> operator -(Power<T> a, Power<T> b)
+        public static Speed<T> operator -(Speed<T> a, Speed<T> b)
         {
             return Subtract(a, b);
         }
@@ -124,22 +124,22 @@ namespace Towel.Measurements
 
         #region Multiply
 
-        public static Power<T> Multiply(Power<T> a, T b)
+        public static Speed<T> Multiply(Speed<T> a, T b)
         {
-            return new Power<T>(Compute.Multiply(a._measurement, b), a._units);
+            return new Speed<T>(Compute.Multiply(a._measurement, b), a._units);
         }
 
-        public static Power<T> Multiply(T b, Power<T> a)
+        public static Speed<T> Multiply(T b, Speed<T> a)
         {
-            return new Power<T>(Compute.Multiply(a._measurement, b), a._units);
+            return new Speed<T>(Compute.Multiply(a._measurement, b), a._units);
         }
 
-        public static Power<T> operator *(Power<T> a, T b)
+        public static Speed<T> operator *(Speed<T> a, T b)
         {
             return Multiply(a, b);
         }
 
-        public static Power<T> operator *(T b, Power<T> a)
+        public static Speed<T> operator *(T b, Speed<T> a)
         {
             return Multiply(b, a);
         }
@@ -148,12 +148,12 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static Power<T> Divide(Power<T> a, T b)
+        public static Speed<T> Divide(Speed<T> a, T b)
         {
-            return new Power<T>(Compute.Divide(a._measurement, b), a._units);
+            return new Speed<T>(Compute.Divide(a._measurement, b), a._units);
         }
 
-        public static Power<T> operator /(Power<T> a, T b)
+        public static Speed<T> operator /(Speed<T> a, T b)
         {
             return Divide(a, b);
         }
@@ -162,13 +162,13 @@ namespace Towel.Measurements
 
         #region LessThan
 
-        public static bool LessThan(Power<T> a, Power<T> b)
+        public static bool LessThan(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.LessThan(a[units], b[units]);
         }
 
-        public static bool operator <(Power<T> a, Power<T> b)
+        public static bool operator <(Speed<T> a, Speed<T> b)
         {
             return LessThan(a, b);
         }
@@ -177,13 +177,13 @@ namespace Towel.Measurements
 
         #region GreaterThan
 
-        public static bool GreaterThan(Power<T> a, Power<T> b)
+        public static bool GreaterThan(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.GreaterThan(a[units], b[units]);
         }
 
-        public static bool operator >(Power<T> a, Power<T> b)
+        public static bool operator >(Speed<T> a, Speed<T> b)
         {
             return GreaterThan(a, b);
         }
@@ -192,13 +192,13 @@ namespace Towel.Measurements
 
         #region LessThanOrEqual
 
-        public static bool LessThanOrEqual(Power<T> a, Power<T> b)
+        public static bool LessThanOrEqual(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.LessThanOrEqual(a[units], b[units]);
         }
 
-        public static bool operator <=(Power<T> a, Power<T> b)
+        public static bool operator <=(Speed<T> a, Speed<T> b)
         {
             return LessThanOrEqual(a, b);
         }
@@ -207,13 +207,13 @@ namespace Towel.Measurements
 
         #region GreaterThanOrEqual
 
-        public static bool GreaterThanOrEqual(Power<T> a, Power<T> b)
+        public static bool GreaterThanOrEqual(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.GreaterThanOrEqual(a[units], b[units]);
         }
 
-        public static bool operator >=(Power<T> left, Power<T> right)
+        public static bool operator >=(Speed<T> left, Speed<T> right)
         {
             return GreaterThanOrEqual(left, right);
         }
@@ -222,24 +222,24 @@ namespace Towel.Measurements
 
         #region Equal
 
-        public static bool Equal(Power<T> a, Power<T> b)
+        public static bool Equal(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.Equal(a[units], b[units]);
         }
 
-        public static bool operator ==(Power<T> a, Power<T> b)
+        public static bool operator ==(Speed<T> a, Speed<T> b)
         {
             return Equal(a, b);
         }
 
-        public static bool NotEqual(Power<T> a, Power<T> b)
+        public static bool NotEqual(Speed<T> a, Speed<T> b)
         {
-            Power.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            Speed.Units units = a.Units <= b.Units ? a.Units : b.Units;
             return Compute.NotEqual(a[units], b[units]);
         }
 
-        public static bool operator !=(Power<T> a, Power<T> b)
+        public static bool operator !=(Speed<T> a, Speed<T> b)
         {
             return NotEqual(a, b);
         }
@@ -254,16 +254,16 @@ namespace Towel.Measurements
         {
             switch (this._units)
             {
-                //case Power.Units.Degrees: return this._measurement.ToString() + "°";
-                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Power<T>) + ".");
+                //case Speed.Units.Degrees: return this._measurement.ToString() + "°";
+                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Speed<T>) + ".");
             }
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Power<T>)
+            if (obj is Speed<T>)
             {
-                return this == ((Power<T>)obj);
+                return this == ((Speed<T>)obj);
             }
             return false;
         }

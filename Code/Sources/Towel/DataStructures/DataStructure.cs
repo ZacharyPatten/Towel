@@ -20,7 +20,7 @@
 	}
 
 	/// <summary>Contains extension methods for the Structure interface.</summary>
-	public static class Structure
+	public static class DataStructure
 	{
 		// Structure Properties (as interfaces)
 		#region public interface Auditable<T>

@@ -2,8 +2,8 @@
 {
 	public interface Deque<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Clearable<T>
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>
 	{
 		#region Methods
 

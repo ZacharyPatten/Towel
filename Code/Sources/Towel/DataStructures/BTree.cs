@@ -4,11 +4,11 @@
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
 	public interface BTree<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Clearable<T>,
-		Structure.Addable<T>,
-		Structure.Countable<T>,
-		Structure.Removable<T>,
-		Structure.Auditable<T>
+		DataStructure.Clearable<T>,
+		DataStructure.Addable<T>,
+		DataStructure.Countable<T>,
+		DataStructure.Removable<T>,
+		DataStructure.Auditable<T>
 	{
 		#region Methods
 
@@ -430,7 +430,7 @@
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			Stack<Link<Node, int, bool>> forks = new StackLinked<Link<Node, int, bool>>();
+			FirstInLastOut<Link<Node, int, bool>> forks = new FirstInLastOutLinked<Link<Node, int, bool>>();
 			forks.Push(new Link<Node, int, bool>(this._root, 0, false));
 			while (forks.Count > 0)
 			{

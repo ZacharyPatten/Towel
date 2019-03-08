@@ -21,13 +21,6 @@ namespace Mathematics
             Console.WriteLine("==========================================");
             Console.WriteLine();
 
-            double result = 90d + .5d;
-            Console.WriteLine(result);
-
-            Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
-            Angle<double> angle2 = new Angle<double>(0.5d, Angle.Units.Turns);
-            Console.WriteLine(angle1 + angle2);
-
             Console.WriteLine("  The Towel.Mathemeatics.Compute class allows generic mathematics (you can use any type). :)");
             Console.WriteLine();
 
@@ -39,7 +32,7 @@ namespace Mathematics
             // Negation
             Console.WriteLine("    Negate(7): " + Negate(7));
             // Addition
-            Console.WriteLine("    Add(7, 7): " + Add((decimal)7, (decimal)7));
+            Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
             // Subtraction
             Console.WriteLine("    Subtract(14, 7): " + Subtract((float)14, (float)7));
             // Multiplication
@@ -446,42 +439,42 @@ namespace Mathematics
             var syntax1 = Symbolics.Parse(expression1);
             Console.WriteLine("    Expression 1: " + syntax1);
             Console.WriteLine("      Simplified: " + syntax1.Simplify());
-            Console.WriteLine("      Plugin(5): " + syntax1.Assign("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + syntax1.Substitute("x", 5).Simplify());
 
             Expression<Func<double, double>> expression2 = (x) => 2 * x / 7;
             var syntax2 = Symbolics.Parse(expression2);
             Console.WriteLine("    Expression 2: " + syntax2);
             Console.WriteLine("      Simplified: " + syntax2.Simplify());
-            Console.WriteLine("      Plugin(5): " + syntax2.Assign("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + syntax2.Substitute("x", 5).Simplify());
 
             Expression<Func<double, double>> expression3 = (x) => 2 - x + 7;
             var syntax3 = Symbolics.Parse(expression3);
             Console.WriteLine("    Expression 3: " + syntax3);
             Console.WriteLine("      Simplified: " + syntax3.Simplify());
-            Console.WriteLine("      Plugin(5): " + syntax3.Assign("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + syntax3.Substitute("x", 5).Simplify());
 
             Expression<Func<double, double>> expression4 = (x) => 2 + (x - 7);
             var syntax4 = Symbolics.Parse(expression4);
             Console.WriteLine("    Expression 4: " + syntax4);
             Console.WriteLine("      Simplified: " + syntax4.Simplify());
-            Console.WriteLine("      Plugin(5): " + syntax4.Assign("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + syntax4.Substitute("x", 5).Simplify());
 
             Expression<Func<double, double, double, double>> expression5 = (x, y, z) => Compute.Power(x, 3) + 2 * x * y * Compute.Power(z, 2) - y * z + 1;
             var syntax5 = Symbolics.Parse(expression5);
             Console.WriteLine("    Expression 5: " + syntax5);
             Console.WriteLine("      Simplified: " + syntax5.Simplify());
-            Console.WriteLine("      Plugin(x = 5): " + syntax5.Assign("x", 5).Simplify());
+            Console.WriteLine("      Plugin(x = 5): " + syntax5.Substitute("x", 5).Simplify());
 
             #endregion
 
-            var test = Symbolics<double>.Parse("less(5, 10)");
-            Console.WriteLine();
-            Console.WriteLine("    Parse (string) Test: " + test);
+            //var test = Symbolics.Parse("less(5, 10)");
+            //Console.WriteLine();
+            //Console.WriteLine("    Parse (string) Test: " + test);
 
-            var test2 = Symbolics<double>.Parse("less(add(5, 10), 10)");
-            Console.WriteLine();
-            Console.WriteLine("    Parse (string) Test: " + test2);
-            Console.WriteLine("    Parse (string) Test Simplify: " + test2.Simplify());
+            //var test2 = Symbolics.Parse("less(add(5, 10), 10)");
+            //Console.WriteLine();
+            //Console.WriteLine("    Parse (string) Test: " + test2);
+            //Console.WriteLine("    Parse (string) Test Simplify: " + test2.Simplify());
 
             Console.WriteLine();
             Console.WriteLine("=================================================");

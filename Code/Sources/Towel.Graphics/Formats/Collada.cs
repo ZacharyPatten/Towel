@@ -485,9 +485,9 @@ namespace Towel.Graphics.Formats
             #region Indexing
 
             // Index Data
-            ListArray<int> indeces = new ListArray<int>();
+            AddableArray<int> indeces = new AddableArray<int>();
             Map<Vertex, int> verteces = new MapHashLinked<Vertex, int>();
-            Map<List<Vertex>, int> vertecesByOriginalPositionIndex = new MapHashLinked<List<Vertex>, int>();
+            Map<Addable<Vertex>, int> vertecesByOriginalPositionIndex = new MapHashLinked<Addable<Vertex>, int>();
             int vertexCount = positions.Length / 3;
             XmlNode xml_polylist = xml_mesh.First(x => x.Name == "polylist");
             int indexFormat = xml_polylist.Count(x => x.Name == "input");
@@ -509,7 +509,7 @@ namespace Towel.Graphics.Formats
                     };
                     indeces.Add(positionIndex);
                     verteces.Add(positionIndex, vertex);
-                    vertecesByOriginalPositionIndex.Add(positionIndex, new ListLinked<Vertex>() { vertex });
+                    vertecesByOriginalPositionIndex.Add(positionIndex, new AddableLinked<Vertex>() { vertex });
                 }
                 // A vertex with the same positional values has already been added
                 else

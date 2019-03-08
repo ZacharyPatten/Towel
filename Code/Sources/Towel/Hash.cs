@@ -6,7 +6,6 @@ namespace Towel
 	/// <typeparam name="T">The type of this hash function.</typeparam>
 	/// <param name="item">The instance to compute the hash of.</param>
 	/// <returns>The computed hash of the given item.</returns>
-	[System.Serializable]
 	public delegate int Hash<T>(T item);
 
 	/// <summary>Static wrapper for the based "object.GetHashCode" fuction.</summary>
@@ -29,7 +28,7 @@ namespace Towel
 			110921632, 133106028, 159727317, 191672881, 230007578, 276009239, 331211261, 397453722, 476944718,
 			572333963, 686801118, 824161776, 988994653, 1186794210, 1424153803, 1708985465, 2050783640, int.MaxValue };
 
-		#region IN DEVELPMENT (attempting to makea base to reduce redundant code in Map and Set data structures)
+		#region IN DEVELPMENT (attempting to make a base to reduce redundant code in Map and Set data structures)
 
 		/// <summary>A base for all hash tables of linked lists.</summary>
 		/// <typeparam name="NODE">The generic type of the structure.</typeparam>

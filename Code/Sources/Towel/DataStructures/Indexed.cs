@@ -6,7 +6,7 @@ namespace Towel.DataStructures
 {
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Array<T, Index> : DataStructure<T>
+	public interface Indexed<T, Index> : DataStructure<T>
 	{
 		#region Properties
 
@@ -22,14 +22,14 @@ namespace Towel.DataStructures
 
     /// <summary>Contiguous fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface Array<T> : Array<T, int>
+    public interface Indexed<T> : Indexed<T, int>
     {
     }
 
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[System.Serializable]
-	public class ArrayArray<T> : Array<T>
+	public class IndexedArray<T> : Indexed<T>
 	{
 		// Fields
 		internal T[] _array;
@@ -39,7 +39,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs an array that implements a traversal delegate function 
 		/// which is an optimized "foreach" implementation.</summary>
 		/// <param name="size">The length of the array in memory.</param>
-		public ArrayArray(int size)
+		public IndexedArray(int size)
 		{
 			if (size < 1)
 				throw new System.ArgumentOutOfRangeException("size of the array must be at least 1.");
@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs by wrapping an existing array.</summary>
 		/// <param name="array">The array to be wrapped.</param>
-		public ArrayArray(params T[] array)
+		public IndexedArray(params T[] array)
 		{
 			this._array = new T[array.Length];
 			for (int i = 0; i < array.Length; i++)
@@ -86,13 +86,13 @@ namespace Towel.DataStructures
 		/// <summary>Implicitly converts a C# System array into a Towel array.</summary>
 		/// <param name="array">The array to be represented as a Towel array.</param>
 		/// <returns>The array wrapped in a Towel array.</returns>
-		public static implicit operator ArrayArray<T>(T[] array)
+		public static implicit operator IndexedArray<T>(T[] array)
 		{
-			return new ArrayArray<T>(array);
+			return new IndexedArray<T>(array);
 		}
 
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		public static implicit operator T[](ArrayArray<T> array)
+		public static implicit operator T[](IndexedArray<T> array)
 		{
 			return array.ToArray();
 		}
@@ -105,9 +105,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public ArrayArray<T> Clone()
+		public IndexedArray<T> Clone()
 		{
-			ArrayArray<T> clone = new ArrayArray<T>(_array.Length);
+			IndexedArray<T> clone = new IndexedArray<T>(_array.Length);
 			for (int i = 0; i < this._array.Length; i++)
 				clone._array[i] = this._array[i];
 			return clone;
@@ -190,7 +190,7 @@ namespace Towel.DataStructures
 	}
 
 	// Goal: create an array that allows for a number of elements > Int.MaxValue
-    public class BigArray<T> :
+    public class IndexedBigArray<T> :
         //Array<T, System.Numerics.BigInteger>,
         System.Collections.Generic.IEnumerable<T>
 	{
@@ -210,7 +210,7 @@ namespace Towel.DataStructures
 		T[][] _elements;
 		ulong _length;
 
-		private BigArray(BigArray<T> bigArray)
+		private IndexedBigArray(IndexedBigArray<T> bigArray)
 		{
 			int numBlocks = (int)(bigArray.Length / BLOCK_SIZE);
 			if ((ulong)(numBlocks * BLOCK_SIZE) < bigArray.Length)
@@ -225,13 +225,13 @@ namespace Towel.DataStructures
 			}
 		}
 
-		public BigArray(int size)
+		public IndexedBigArray(int size)
 			: this((ulong)size)
 		{ }
 
 
 		// maximum BigArray size = BLOCK_SIZE * Int.MaxValue
-		public BigArray(ulong size)
+		public IndexedBigArray(ulong size)
 		{
 			if (size == 0)
 				return;
@@ -327,9 +327,9 @@ namespace Towel.DataStructures
             }
         }
 
-		public BigArray<T> Clone()
+		public IndexedBigArray<T> Clone()
 		{
-			return new BigArray<T>(this);
+			return new IndexedBigArray<T>(this);
 		}
 	}
 }

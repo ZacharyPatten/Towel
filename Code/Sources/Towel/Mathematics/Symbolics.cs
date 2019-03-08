@@ -2182,7 +2182,7 @@ namespace Towel.Mathematics
                         ParsableBinaryOperations.Keys.Concat(
                             ParsableTernaryOperations.Keys.Concat(
                                 ParsableMultinaryOperations.Keys))).Select(x => Regex.Escape(x));
-                ParsableOperationsRegexPattern = "(" + string.Join(@"\s*\(.*\))(", operations) + ")";
+                ParsableOperationsRegexPattern = "(" + string.Join(@"\s*\(.*\))(", operations) + @"\s *\(.*\))";
 
                 // Build a regex to match any operator
                 System.Collections.Generic.IEnumerable<string> operators = 
@@ -2609,7 +2609,7 @@ namespace Towel.Mathematics
                 string operation = operationMatch_Value.Substring(0, operationMatch_Value.IndexOf('(') - 1);
                 Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
                 string parenthesisMatch_Value = parenthesisMatch.Value;
-                ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
+                AddableArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
 
                 switch (operandSplits.Count)
                 {
@@ -2667,9 +2667,9 @@ namespace Towel.Mathematics
             return false;
         }
 
-        internal static ListArray<string> SplitOperands(string @string)
+        internal static AddableArray<string> SplitOperands(string @string)
         {
-            ListArray<string> operands = new ListArray<string>();
+            AddableArray<string> operands = new AddableArray<string>();
             int scope = 0;
             int operandStart = 0;
             for (int i = 0; i < @string.Length; i++)

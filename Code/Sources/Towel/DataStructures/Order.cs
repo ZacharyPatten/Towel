@@ -4,10 +4,10 @@
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
 	public interface Order<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Clearable<T>,
-		Structure.Addable<T>,
-		Structure.Comparing<T>
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>,
+		DataStructure.Addable<T>,
+		DataStructure.Comparing<T>
 	{
 		#region Methods
 
@@ -31,7 +31,7 @@
 	{
 		#region Fields
 
-		private ListArray<T> _list;
+		private AddableArray<T> _list;
 		private Compare<T> _compare;
 
 		#endregion
@@ -42,7 +42,7 @@
         public OrderListArray()
         {
             this._compare = Towel.Compare.Default;
-            this._list = new ListArray<T>();
+            this._list = new AddableArray<T>();
         }
 
 		/// <summary>Constructs a Order_ListArray.</summary>
@@ -50,7 +50,7 @@
 		public OrderListArray(Compare<T> compare)
 		{
 			this._compare = compare;
-			this._list = new ListArray<T>();
+			this._list = new AddableArray<T>();
 		}
 
 		#endregion
@@ -172,7 +172,7 @@
 	{
 		#region Fields
 
-		internal ListLinked<T> _list;
+		internal AddableLinked<T> _list;
 		internal Compare<T> _compare;
 
 		#endregion
@@ -184,7 +184,7 @@
 		public OrderListLinked(Compare<T> compare)
 		{
 			this._compare = compare;
-			this._list = new ListLinked<T>();
+			this._list = new AddableLinked<T>();
 		}
 
 		#endregion

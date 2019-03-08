@@ -2,10 +2,10 @@
 {
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Queue<T> : DataStructure<T>,
+	public interface FirstInFirstOut<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Clearable<T>
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>
 	{
 		#region T Newest
 		/// <summary>The newest item currently in the queue.</summary>
@@ -35,7 +35,7 @@
 	/// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[System.Serializable]
-	public class QueueLinked<T> : Queue<T>
+	public class FirstInFirstOutLinked<T> : FirstInFirstOut<T>
 	{
 		// fields
 		private Node _head;
@@ -60,7 +60,7 @@
 		#region public Queue_Linked()
 		/// <summary>Creates an instance of a queue.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public QueueLinked()
+		public FirstInFirstOutLinked()
 		{
 			_head = _tail = null;
 			_count = 0;
@@ -120,7 +120,7 @@
 		#region public Queue_Linked<T> Clone()
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public QueueLinked<T> Clone()
+		public FirstInFirstOutLinked<T> Clone()
 		{
 			Node head = new Node(this._head.Value);
 			Node current = this._head.Next;
@@ -131,7 +131,7 @@
 				current_clone = current_clone.Next;
 				current = current.Next;
 			}
-			QueueLinked<T> clone = new QueueLinked<T>();
+			FirstInFirstOutLinked<T> clone = new FirstInFirstOutLinked<T>();
 			clone._head = head;
 			clone._tail = current_clone;
 			clone._count = this._count;
@@ -300,7 +300,7 @@
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[System.Serializable]
-	public class QueueArray<T> : Queue<T>
+	public class QueueArray<T> : FirstInFirstOut<T>
 	{
 		// fields
 		private T[] _queue;

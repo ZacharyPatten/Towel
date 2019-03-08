@@ -38,7 +38,7 @@ namespace DataStructures
             #region Array
 
             Console.WriteLine("  Testing Array_Array<int>-------------------");
-            Array<int> array = new ArrayArray<int>(test);
+            Indexed<int> array = new IndexedArray<int>(test);
             for (int i = 0; i < test; i++)
                 array[i] = i;
             Console.Write("    Traversal: ");
@@ -57,7 +57,7 @@ namespace DataStructures
             #region List
 
             Console.WriteLine("  Testing List_Array<int>--------------------");
-            List<int> list_array = new ListArray<int>(test);
+            Addable<int> list_array = new AddableArray<int>(test);
             for (int i = 0; i < test; i++)
                 list_array.Add(i);
             Console.Write("    Traversal: ");
@@ -100,7 +100,7 @@ namespace DataStructures
             //}
 
             Console.WriteLine("  Testing List_Linked<int>-------------------");
-            List<int> list_linked = new ListLinked<int>();
+            Addable<int> list_linked = new AddableLinked<int>();
             for (int i = 0; i < test; i++)
                 list_linked.Add(i);
             Console.Write("    Traversal: ");
@@ -124,7 +124,7 @@ namespace DataStructures
             #region Stack
 
             Console.WriteLine("  Testing Stack_Linked<int>------------------");
-            Stack<int> stack_linked = new StackLinked<int>();
+            FirstInLastOut<int> stack_linked = new FirstInLastOutLinked<int>();
             for (int i = 0; i < test; i++)
                 stack_linked.Push(i);
             Console.Write("    Traversal: ");
@@ -143,7 +143,7 @@ namespace DataStructures
             #region Queue
 
             Console.WriteLine("  Testing Queue_Linked<int>------------------");
-            Queue<int> queue_linked = new QueueLinked<int>();
+            FirstInFirstOut<int> queue_linked = new FirstInFirstOutLinked<int>();
             for (int i = 0; i < test; i++)
                 queue_linked.Enqueue(i);
             Console.Write("    Traversal: ");

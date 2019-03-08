@@ -2,9 +2,9 @@
 {
 	public interface Graph<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Addable<T>,
-		Structure.Removable<T>,
-		Structure.Clearable<T>
+		DataStructure.Addable<T>,
+		DataStructure.Removable<T>,
+		DataStructure.Clearable<T>
 	{
 		#region Properties
 

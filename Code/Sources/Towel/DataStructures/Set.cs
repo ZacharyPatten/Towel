@@ -4,12 +4,12 @@
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	public interface Set<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Auditable<T>,
-		Structure.Addable<T>,
-		Structure.Removable<T>,
-		Structure.Countable<T>,
-		Structure.Clearable<T>,
-		Structure.Equating<T>
+		DataStructure.Auditable<T>,
+		DataStructure.Addable<T>,
+		DataStructure.Removable<T>,
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>,
+		DataStructure.Equating<T>
 	{
 	}
 
@@ -18,7 +18,7 @@
 	[System.Serializable]
 	public class SetHashList<T> : Set<T>,
 		// Structure Properties
-		Structure.Hashing<T>
+		DataStructure.Hashing<T>
 	{
         // Fields
         internal const float _maxLoadFactor = .7f;
@@ -358,7 +358,7 @@
     [System.Serializable]
 	public class SetHashArray<T> : Set<T>,
 		// Structure Properties
-		Structure.Hashing<T>
+		DataStructure.Hashing<T>
 	{
 		// fields
 		private Equate<T> _equate;
@@ -732,8 +732,8 @@
 	[System.Serializable]
 	public class Set<STRUCTURE, T> : Set<T>,
 		// Structure Properties
-		Structure.Hashing<T>
-		where STRUCTURE : class, DataStructure<T>, Structure.Addable<T>, Structure.Removable<T>, Structure.Auditable<T>
+		DataStructure.Hashing<T>
+		where STRUCTURE : class, DataStructure<T>, DataStructure.Addable<T>, DataStructure.Removable<T>, DataStructure.Auditable<T>
 	{
 		private const float _maxLoadFactor = .7f;
 		private const float _minLoadFactor = .3f;

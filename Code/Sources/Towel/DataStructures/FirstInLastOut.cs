@@ -2,10 +2,10 @@
 {
 	/// <summary>Implements a First-In-Last-Out stack data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public interface Stack<T> : DataStructure<T>,
+	public interface FirstInLastOut<T> : DataStructure<T>,
 		// Structure Properties
-		Structure.Countable<T>,
-		Structure.Clearable<T>
+		DataStructure.Countable<T>,
+		DataStructure.Clearable<T>
 	{
 		#region void Push(T push);
 		/// <summary>Adds an item to the top of the stack.</summary>
@@ -27,7 +27,7 @@
 	/// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[System.Serializable]
-	public class StackLinked<T> : Stack<T>
+	public class FirstInLastOutLinked<T> : FirstInLastOut<T>
 	{
 		// fields
 		private Node _top;
@@ -56,7 +56,7 @@
 		#region Stack_Linked()
 		/// <summary>Creates an instance of a stack.</summary>
 		/// <runtime>O(1)</runtime>
-		public StackLinked()
+		public FirstInLastOutLinked()
 		{
 			_top = null;
 			_count = 0;
@@ -72,9 +72,9 @@
 		#region public StackLinked<T> Clone()
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackLinked<T> Clone()
+		public FirstInLastOutLinked<T> Clone()
 		{
-			StackLinked<T> clone = new StackLinked<T>();
+			FirstInLastOutLinked<T> clone = new FirstInLastOutLinked<T>();
 			if (this._count == 0)
 				return clone;
 			Node copying = this._top;
@@ -227,7 +227,7 @@
 	/// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[System.Serializable]
-	public class StackArray<T> : Stack<T>
+	public class FirstInLastOutArray<T> : FirstInLastOut<T>
 	{
 		// fields
 		private T[] _stack;
@@ -238,7 +238,7 @@
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public StackArray()
+		public FirstInLastOutArray()
 		{
 			_stack = new T[1];
 			_count = 0;
@@ -249,7 +249,7 @@
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public StackArray(int minimumCapacity)
+		public FirstInLastOutArray(int minimumCapacity)
 		{
 			_stack = new T[minimumCapacity];
 			_count = 0;
@@ -296,9 +296,9 @@
 		#region public StackArray<T> Clone()
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackArray<T> Clone()
+		public FirstInLastOutArray<T> Clone()
 		{
-			StackArray<T> clone = new StackArray<T>();
+			FirstInLastOutArray<T> clone = new FirstInLastOutArray<T>();
 			clone._stack = new T[this._stack.Length];
 			for (int i = 0; i < this._count; i++)
 				clone._stack[i] = this._stack[i];

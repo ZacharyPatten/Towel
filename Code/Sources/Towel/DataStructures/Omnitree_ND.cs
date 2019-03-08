@@ -172,7 +172,7 @@ namespace Towel.DataStructures
             throw new System.Exception("There is a bug in the Towel Framwork [SubDivide]");
         }
         
-        internal static T SubDivide<T>(BigArray<Bound<T>> bounds, Compare<T> compare)
+        internal static T SubDivide<T>(IndexedBigArray<Bound<T>> bounds, Compare<T> compare)
         {
             // make sure a bound exists (not all objects are infinitely bound)
             bool exists = false;
