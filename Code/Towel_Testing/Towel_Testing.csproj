@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mathematics\" />
     <Folder Include="Algorithms\" />
     <Folder Include="DataStructures\" />
     <Folder Include="Measurements\" />

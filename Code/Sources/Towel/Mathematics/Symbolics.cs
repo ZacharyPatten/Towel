@@ -2310,6 +2310,16 @@ namespace Towel.Mathematics
 
         #region string
 
+        /// <summary>Parses a symbolic methematics expression with the assumption that it will simplify to a constant.</summary>
+        /// <typeparam name="T">The generic numerical type to recieve as the outputted type.</typeparam>
+        /// <param name="string">The string to be parse.</param>
+        /// <param name="tryParsingFunction">A function for parsing numerical values into the provided generic type.</param>
+        /// <returns>The parsed expression simplified down to a constant value.</returns>
+        public static T ParseAndSimplifyToConstant<T>(string @string, TryParseNumeric<T> tryParsingFunction = null)
+        {
+            return (Parse(@string, tryParsingFunction).Simplify() as Constant<T>).Value;
+        }
+
         /// <summary>A try-parsing function to parse a string that represents a numerical value.</summary>
         /// <typeparam name="T">The type that the numeric value will be parsed into.</typeparam>
         /// <param name="string">The string to parse.</param>

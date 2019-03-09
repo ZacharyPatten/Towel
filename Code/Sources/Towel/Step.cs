@@ -1,4 +1,6 @@
-﻿namespace Towel
+﻿using System;
+
+namespace Towel
 {
 	/// <summary>Status of data structure iteration.</summary>
 	[System.Serializable]
@@ -145,7 +147,7 @@
 				return StepStatus.Continue;
 			});
 			if (contains == false)
-				throw new System.InvalidOperationException("item not found in structure");
+				throw new InvalidOperationException("item not found in structure");
 			return item;
 		}
 
@@ -207,9 +209,13 @@
         public static Stepper<T> EveryNth<T>(this Stepper<T> stepper, int nth)
         {
             if (stepper == null)
-                throw new System.ArgumentNullException("stepper");
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             if (nth <= 0)
-                throw new System.InvalidOperationException("Attempting to EveryNth a stepper to an invalid reduction.");
+            {
+                throw new ArgumentOutOfRangeException(nameof(nth), nth, "!(" + nameof(nth) + " > 0)");
+            }
 
             int i = 1;
             return (Step<T> step) =>

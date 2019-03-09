@@ -1,9 +1,9 @@
 ﻿using System.Xml;
-
 using Towel.DataStructures;
 using Towel.Mathematics;
 using Towel.Measurements;
 using Towel.Algorithms;
+using System;
 
 namespace Towel.Graphics.Formats
 {

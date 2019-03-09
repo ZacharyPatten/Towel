@@ -2,33 +2,31 @@
 {
     public static class Constant<T>
     {
-        /// <summary>Zero (0)</summary>
+        /// <summary>Zero [0]</summary>
         public static readonly T Zero = Compute.FromInt32<T>(0);
-        /// <summary>One (1)</summary>
+        /// <summary>One [1]</summary>
         public static readonly T One = Compute.FromInt32<T>(1);
-        /// <summary>Two (2)</summary>
+        /// <summary>Two [2]</summary>
         public static readonly T Two = Compute.FromInt32<T>(2);
-        /// <summary>Two (2)</summary>
+        /// <summary>Three [3]</summary>
         public static readonly T Three = Compute.FromInt32<T>(3);
-        /// <summary>Negative One (-1)</summary>
+        /// <summary>Negative One [-1]</summary>
         public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
-        /// <summary>Pi (3.14...)</summary>
+        /// <summary>Pi [3.14...]</summary>
         public static readonly T Pi = Compute.Pi<T>();
+        /// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
+        public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
+
         /// <summary>Epsilon (1.192092896...e-012f)</summary>
         //public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
     }
-    
+
     #region Old Reference Code
 
-    //internal class Constants
-    //{
     #region Mathematical Constants
 
     ///// <summary>The number e</summary>
     //public const double E = 2.7182818284590452353602874713526624977572470937000d;
-
-    ///// <summary>The number pi</summary>
-    //public const double Pi = 3.1415926535897932384626433832795028841971693993751d;
 
     ///// <summary>The number ln(10)/20 - factor to convert from Power Decibel (dB) to Neper (Np). Use this version when the Decibel represent a power gain but the compared values are not powers (e.g. amplitude, current, voltage).</summary>
     //public const double PowerDecibel = 0.11512925464970228420089957273421821038005507443144d;
@@ -43,9 +41,6 @@
     ///// <summary>The Euler-Mascheroni constant</summary>
     ///// <remarks>lim(n -> inf){ Sum(k=1 -> n) { 1/k - log(n) } }</remarks>
     //public const double EulerMascheroni = 0.5772156649015328606065120900824024310421593359399235988057672348849d;
-
-    ///// <summary>The number (1+sqrt(5))/2, also known as the golden ratio</summary>
-    //public const double GoldenRatio = 1.6180339887498948482045868343656381177203091798057628621354486227052604628189024497072d;
 
     ///// <summary>The Glaisher constant</summary>
     ///// <remarks>e^(1/12 - Zeta(-1))</remarks>
@@ -270,69 +265,5 @@
 
     #endregion
 
-    #region Scientific Prefixes
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000 000 000 000 000 000</summary>
-    //public const double Yotta = 1e24;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000 000 000 000 000</summary>
-    //public const double Zetta = 1e21;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000 000 000 000</summary>
-    //public const double Exa = 1e18;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000 000 000</summary>
-    //public const double Peta = 1e15;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000 000</summary>
-    //public const double Tera = 1e12;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000 000</summary>
-    //public const double Giga = 1e9;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000 000</summary>
-    //public const double Mega = 1e6;
-
-    ///// <summary>The SI prefix factor corresponding to 1 000</summary>
-    //public const double Kilo = 1e3;
-
-    ///// <summary>The SI prefix factor corresponding to 100</summary>
-    //public const double Hecto = 1e2;
-
-    ///// <summary>The SI prefix factor corresponding to 10</summary>
-    //public const double Deca = 1e1;
-
-    ///// <summary>The SI prefix factor corresponding to 0.1</summary>
-    //public const double Deci = 1e-1;
-
-    ///// <summary>The SI prefix factor corresponding to 0.01</summary>
-    //public const double Centi = 1e-2;
-
-    ///// <summary>The SI prefix factor corresponding to 0.001</summary>
-    //public const double Milli = 1e-3;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 001</summary>
-    //public const double Micro = 1e-6;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 001</summary>
-    //public const double Nano = 1e-9;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 000 001</summary>
-    //public const double Pico = 1e-12;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 000 000 001</summary>
-    //public const double Femto = 1e-15;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 000 000 000 001</summary>
-    //public const double Atto = 1e-18;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 000 000 000 000 001</summary>
-    //public const double Zepto = 1e-21;
-
-    ///// <summary>The SI prefix factor corresponding to 0.000 000 000 000 000 000 000 001</summary>
-    //public const double Yocto = 1e-24;
     #endregion
-    //}
-
-    #endregion
-
 }
