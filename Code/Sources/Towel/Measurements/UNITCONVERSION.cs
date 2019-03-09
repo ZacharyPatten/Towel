@@ -102,27 +102,27 @@ namespace Towel.Measurements
     {
         internal static class Multiplication
         {
-            internal static C[][] Build<A, B, C>()
-            {
-                // Notes:
-                // A = left hand unit type
-                // B = right hand unit type
-                // C = resulting unit type (for multiplication)
+            //internal static C[][] Build<A, B, C>()
+            //{
+            //    // Notes:
+            //    // A = left hand unit type
+            //    // B = right hand unit type
+            //    // C = resulting unit type (for multiplication)
 
 
-            }
+            //}
         }
         internal static class Division
         {
-            internal static C[][] Build<A, B, C>()
-            {
-                // Notes:
-                // A = left hand unit type
-                // B = right hand unit type
-                // C = resulting unit type (for division)
+            //internal static C[][] Build<A, B, C>()
+            //{
+            //    // Notes:
+            //    // A = left hand unit type
+            //    // B = right hand unit type
+            //    // C = resulting unit type (for division)
 
 
-            }
+            //}
         }
     }
 }

@@ -137,6 +137,11 @@ namespace Towel.Mathematics
                 return this.Clone();
             }
 
+            public virtual Expression Substitute<T>(string variable, T value)
+            {
+                return this.Substitute(variable, new Constant<T>(value));
+            }
+
             public virtual Expression Derive(string variable)
             {
                 return this.Clone();
@@ -304,12 +309,28 @@ namespace Towel.Mathematics
                 return this;
             }
 
-            internal static System.Collections.Generic.Dictionary<Type, Func<object, Expression>> 
+            internal static System.Collections.Generic.Dictionary<Type, Func<object, Expression>> preCompiledConstructors =
+                new System.Collections.Generic.Dictionary<Type, Func<object, Expression>>();
+
             internal static Expression BuildGeneric(object value)
             {
-
+                Type valueType = value.GetType();
+                Func<object, Expression> preCompiledConstructor;
+                if (preCompiledConstructors.TryGetValue(valueType, out preCompiledConstructor))
+                {
+                    return preCompiledConstructor(value);
+                }
+                else
+                {
+                    Type constantType = typeof(Constant<>).MakeGenericType(valueType);
+                    ConstructorInfo constructorInfo = constantType.GetConstructor(new Type[] { valueType });
+                    ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(object));
+                    NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, System.Linq.Expressions.Expression.Convert(A, valueType));
+                    Func<object, Expression> newFunction = System.Linq.Expressions.Expression.Lambda<Func<object, Expression>>(newExpression, A).Compile();
+                    preCompiledConstructors.Add(valueType, newFunction);
+                    return newFunction(value);
+                }
             }
-
         }
 
         #endregion
@@ -1710,7 +1731,7 @@ namespace Towel.Mathematics
 
         #region Power
 
-        [BinaryOperator("^", OperatorPriority.ExponentsAndRoots)]
+        [BinaryOperator("^", OperatorPriority.Exponents)]
         public class Power : Binary, Operation.Mathematical
         {
             public Power(Expression a, Expression b) : base(a, b) { }
@@ -2229,7 +2250,7 @@ namespace Towel.Mathematics
                                 return recursive((expression as LambdaExpression).Body);
                             // constant
                             case ExpressionType.Constant:
-                                return new Constant<T>((T)(expression as ConstantExpression).Value);
+                                return Constant.BuildGeneric((expression as ConstantExpression).Value);
                             // variable
                             case ExpressionType.Parameter:
                                 return new Variable((expression as ParameterExpression).Name);
@@ -2301,7 +2322,7 @@ namespace Towel.Mathematics
         /// <param name="string">The expression string to parse.</param>
         /// <param name="parsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
         /// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
-        public static Expression Parse<T>(string @string, TryParseNumeric<T> parsingFunction = null)
+        public static Expression Parse<T>(string @string, TryParseNumeric<T> tryParsingFunction = null)
         {
             // Build The Parsing Library
             if (!ParseableLibraryBuilt)
@@ -2317,37 +2338,37 @@ namespace Towel.Mathematics
             @string = @string.Trim();
             // Parse The Next Non-Nested Operator If One Exist
             Expression ParsedNonNestedOperatorExpression;
-            if (TryParseNonNestedOperatorExpression<T>(@string, parsingFunction, out ParsedNonNestedOperatorExpression))
+            if (TryParseNonNestedOperatorExpression<T>(@string, tryParsingFunction, out ParsedNonNestedOperatorExpression))
             {
                 return ParsedNonNestedOperatorExpression;
             }
             // Parse The Next Parenthesis If One Exists
             Expression ParsedParenthesisExpression;
-            if (TryParseParenthesisExpression<T>(@string, parsingFunction, out ParsedParenthesisExpression))
+            if (TryParseParenthesisExpression<T>(@string, tryParsingFunction, out ParsedParenthesisExpression))
             {
                 return ParsedParenthesisExpression;
             }
             // Parse The Next Operation If One Exists
             Expression ParsedOperationExpression;
-            if (TryParseOperationExpression<T>(@string, parsingFunction, out ParsedOperationExpression))
+            if (TryParseOperationExpression<T>(@string, tryParsingFunction, out ParsedOperationExpression))
             {
                 return ParsedOperationExpression;
             }
             // Parse The Next Set Of Variables If Any Exist
             Expression ParsedVeriablesExpression;
-            if (TryParseVariablesExpression<T>(@string, parsingFunction, out ParsedVeriablesExpression))
+            if (TryParseVariablesExpression<T>(@string, tryParsingFunction, out ParsedVeriablesExpression))
             {
                 return ParsedVeriablesExpression;
             }
             // Parse The Next Known Constant Expression If Any Exist
             Expression ParsedKnownConstantExpression;
-            if (TryParseKnownConstantExpression<T>(@string, parsingFunction, out ParsedKnownConstantExpression))
+            if (TryParseKnownConstantExpression<T>(@string, tryParsingFunction, out ParsedKnownConstantExpression))
             {
                 return ParsedKnownConstantExpression;
             }
             // Parse The Next Constant Expression If Any Exist
             Expression ParsedConstantExpression;
-            if (TryParseConstantExpression<T>(@string, parsingFunction, out ParsedConstantExpression))
+            if (TryParseConstantExpression<T>(@string, tryParsingFunction, out ParsedConstantExpression))
             {
                 return ParsedConstantExpression;
             }
@@ -2436,7 +2457,7 @@ namespace Towel.Mathematics
             #endregion
         }
 
-        internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
+        internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
         {
             // Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
             MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern);
@@ -2537,20 +2558,20 @@ namespace Towel.Mathematics
                 {
                     if (isUnaryLeftOperator)
                     {
-                        Expression A = Parse(@string.Substring(@operator.Index + @operator.Length - 1), parsingFunction);
+                        Expression A = Parse(@string.Substring(@operator.Index + @operator.Length - 1), tryParsingFunction);
                         expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
                         return true;
                     }
                     else if (isUnaryRightOperator)
                     {
-                        Expression A = Parse(@string.Substring(0, @operator.Index), parsingFunction);
+                        Expression A = Parse(@string.Substring(0, @operator.Index), tryParsingFunction);
                         expression = ParsableRightUnaryOperators[@operator.Value].Item2(A);
                         return true;
                     }
                     else if (isBinaryOperator)
                     {
-                        Expression A = Parse(@string.Substring(0, @operator.Index), parsingFunction);
-                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length - 1), parsingFunction);
+                        Expression A = Parse(@string.Substring(0, @operator.Index), tryParsingFunction);
+                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length - 1), tryParsingFunction);
                         expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
                         return true;
                     }
@@ -2562,7 +2583,7 @@ namespace Towel.Mathematics
             return false;
         }
 
-        internal static bool TryParseParenthesisExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
+        internal static bool TryParseParenthesisExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
         {
             // Try to match a parenthesis pattern.
             Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
@@ -2579,13 +2600,13 @@ namespace Towel.Mathematics
 
                 // Parse the nested expression
                 string nestedExpression = parenthesisMatch.Value.Substring(1, parenthesisMatch.Length - 2);
-                expression = Parse(nestedExpression, parsingFunction);
+                expression = Parse(nestedExpression, tryParsingFunction);
 
                 // Check for implicit multiplications to the left of the parenthesis pattern
                 if (parenthesisMatch.Index > 0)
                 {
                     string leftExpression = @string.Substring(0, parenthesisMatch.Index);
-                    expression *= Parse(leftExpression, parsingFunction);
+                    expression *= Parse(leftExpression, tryParsingFunction);
                 }
 
                 // Check for implicit multiplications to the right of the parenthesis pattern
@@ -2593,7 +2614,7 @@ namespace Towel.Mathematics
                 if (right_start != @string.Length)
                 {
                     string rightExpression = @string.Substring(right_start, @string.Length - right_start);
-                    expression *= Parse(rightExpression, parsingFunction);
+                    expression *= Parse(rightExpression, tryParsingFunction);
                 }
 
                 // Parsing was successful
@@ -2605,7 +2626,7 @@ namespace Towel.Mathematics
             return false;
         }
 
-        internal static bool TryParseOperationExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression expression)
+        internal static bool TryParseOperationExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
         {
             expression = null;
             Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
@@ -2651,12 +2672,12 @@ namespace Towel.Mathematics
                 // handle implicit multiplications if any exist
                 if (operationMatch.Index != 0) // Left
                 {
-                    Expression A = Parse(@string.Substring(0, operationMatch.Index), parsingFunction);
+                    Expression A = Parse(@string.Substring(0, operationMatch.Index), tryParsingFunction);
                     expression *= A;
                 }
                 if (operationMatch.Length + operationMatch.Index < @string.Length) // Right
                 {
-                    Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), parsingFunction);
+                    Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), tryParsingFunction);
                     expression *= A;
                 }
 
@@ -2701,7 +2722,7 @@ namespace Towel.Mathematics
             return operands;
         }
 
-        internal static bool TryParseVariablesExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
+        internal static bool TryParseVariablesExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
         {
             string variablePattern = @"\[.*\]";
 
@@ -2722,7 +2743,12 @@ namespace Towel.Mathematics
             System.Collections.Generic.IEnumerable<Expression> constants =
                 Regex.Split(@string, variablePattern)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Select(x => ParseConstant(x));
+                .Select(x =>
+                {
+                    Expression exp;
+                    TryParseConstantExpression(x, tryParsingFunction, out exp);
+                    return exp;
+                });
 
             // multiply all the expressions together, starting with the constants because 
             // it will look better if converted to a string
@@ -2743,7 +2769,7 @@ namespace Towel.Mathematics
             return true;
         }
 
-        internal static bool TryParseKnownConstantExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
+        internal static bool TryParseKnownConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
         {
             parsedExpression = null;
             return false;
