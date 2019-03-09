@@ -303,6 +303,13 @@ namespace Towel.Mathematics
             {
                 return this;
             }
+
+            internal static System.Collections.Generic.Dictionary<Type, Func<object, Expression>> 
+            internal static Expression BuildGeneric(object value)
+            {
+
+            }
+
         }
 
         #endregion
@@ -2736,34 +2743,50 @@ namespace Towel.Mathematics
             return true;
         }
 
-        internal static Expression ParseConstant(string expression)
+        internal static bool TryParseKnownConstantExpression<T>(string @string, TryParseNumeric<T> parsingFunction, out Expression parsedExpression)
         {
-            int decimalIndex = -1;
-            for (int i = 0; i < expression.Length; i++)
+            parsedExpression = null;
+            return false;
+        }
+
+        internal static bool TryParseConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
+        {
+            T parsedValue;
+            if (tryParsingFunction != null && tryParsingFunction(@string, out parsedValue))
             {
-                char character = expression[i];
-                if (character == '.')
-                {
-                    if (decimalIndex >= 0 || i == 0 || i == expression.Length - 1)
-                    {
-                        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-                    }
-                    decimalIndex = i;
-                }
-                if (character == '0' && i == 0)
-                {
-                    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-                }
-                if ('0' > character || character > '9')
-                {
-                    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-                }
+                parsedExpression = new Constant<T>(parsedValue);
+                return true;
             }
-            if (parsingFunction != null)
-            {
-                return new Constant<T>(parsingFunction(expression));
-            }
-            if (hasDecimal)
+
+            //int decimalIndex = -1;
+            //for (int i = 0; i < expression.Length; i++)
+            //{
+            //    char character = expression[i];
+            //    if (character == '.')
+            //    {
+            //        if (decimalIndex >= 0 || i == 0 || i == expression.Length - 1)
+            //        {
+            //            throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+            //        }
+            //        decimalIndex = i;
+            //    }
+            //    if (character == '0' && i == 0)
+            //    {
+            //        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+            //    }
+            //    if ('0' > character || character > '9')
+            //    {
+            //        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
+            //    }
+            //}
+            //if (parsingFunction != null)
+            //{
+            //    return new Constant<T>(parsingFunction(expression));
+            //}
+            //if (hasDecimal)
+
+            parsedExpression = null;
+            return false;
         }
 
         #endregion

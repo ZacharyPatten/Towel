@@ -905,5 +905,209 @@ namespace System
         }
 
         #endregion
+
+        #region Decimal
+
+        internal static string ConvertDigit(decimal @decimal)
+        {
+            switch (@decimal)
+            {
+                case 1: return "One";
+                case 2: return "Two";
+                case 3: return "Three";
+                case 4: return "Four";
+                case 5: return "Five";
+                case 6: return "Six";
+                case 7: return "Seven";
+                case 8: return "Eight";
+                case 9: return "Nine";
+                default: throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!( 0 <= " + nameof(@decimal) + " <= 9)");
+            }
+        }
+
+        internal static string ConvertTensDigits(decimal @decimal)
+        {
+            switch (@decimal)
+            {
+                case 10: return "Ten";
+                case 11: return "Eleven";
+                case 12: return "Twelve";
+                case 13: return "Thirteen";
+                case 14: return "Fourteen";
+                case 15: return "Fifteen";
+                case 16: return "Sixteen";
+                case 17: return "Seventeen";
+                case 18: return "Eighteen";
+                case 19: return "Nineteen";
+                case 20: return "Twenty";
+                case 30: return "Thirty";
+                case 40: return "Forty";
+                case 50: return "Fifty";
+                case 60: return "Sixty";
+                case 70: return "Seventy";
+                case 80: return "Eighty";
+                case 90: return "Ninety";
+                default:
+                    if (@decimal < 99 || @decimal < 1)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(1 <= " + nameof(@decimal) + " <= 99)");
+                    }
+                    else if (@decimal <= 10)
+                    {
+                        return ConvertDigit(@decimal);
+                    }
+                    else
+                    {
+                        decimal onesDigit = @decimal % 10;
+                        decimal tensDigit = decimal.Parse(@decimal.ToString()[0].ToString()) * 10m;
+                        return ConvertTensDigits(tensDigit) + "-" + ConvertDigit(onesDigit);
+                    }
+            }
+        }
+
+        internal static string ConvertDigitGroup(decimal @decimal, int group)
+        {
+            string result;
+            if (@decimal < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 999)");
+            }
+            else if (@decimal < 100)
+            {
+                return ConvertTensDigits(@decimal);
+            }
+            else if (@decimal < 1000)
+            {
+                decimal tensDigits = @decimal % 100;
+                decimal hundredsDigit = decimal.Parse(@decimal.ToString()[0].ToString());
+                if (hundredsDigit > 0)
+                {
+                    result = ConvertDigit(hundredsDigit) + " Hundred " + ConvertTensDigits(tensDigits);
+                }
+                else
+                {
+                    result = ConvertTensDigits(tensDigits);
+                }
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 999)");
+            }
+
+            switch (group)
+            {
+                case 0: return result;
+                case 1: return result + " Thousand";
+                case 2: return result + " Million";
+                case 3: return result + " Billion";
+                case 4: return result + " Trillion";
+                case 5: return result + " Quadrillion";
+                case 6: return result + " Quintillion";
+                case 7: return result + " Sextillion";
+                case 8: return result + " Septillion";
+                case 9: return result + " Octillion";
+                default: throw new ArgumentOutOfRangeException(nameof(group), group, "!(0 <= " + nameof(group) + " <= 9) Decimal To Words Only Supports Up To (Octillion)");
+            }
+        }
+
+        private static string ConvertWholeNumber(decimal @decimal)
+        {
+            if (@decimal % 1 != 0 || @decimal < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " & " + nameof(@decimal) + " % 1 = 0)");
+            }
+            string result = null;
+            string decimalToString = @decimal.ToString();
+            int digitGroup = 0;
+            char[] digits = new char[3];
+            int index = 2;
+            foreach (char digit in decimalToString.Reverse())
+            {
+                digits[index--] = digit;
+                if (index < 0)
+                {
+                    result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result == null ? string.Empty : " " + result);
+                    index = 2;
+                }
+            }
+            if (index != 2)
+            {
+                result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result == null ? string.Empty : " " + result);
+            }
+            return result;
+        }
+
+        internal static string ConvertDecimalPlaces(decimal @decimal)
+        {
+            if (!(0 < @decimal && @decimal < 1))
+            {
+                throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 1)");
+            }
+            string decimal_ToString = @decimal.ToString();
+            decimal_ToString = decimal_ToString.Substring(decimal_ToString.IndexOf(".") + 1);
+            decimal decimalAsWholeNumber = decimal.Parse(decimal_ToString);
+            string result = ConvertWholeNumber(decimalAsWholeNumber);
+            int digitCount = decimal_ToString.Length;
+            switch (digitCount)
+            {
+                case 1: result += " Tenths"; break;
+                case 2: result += " Hundredths"; break;
+                case 3: result += " Thousandths"; break;
+                case 4: result += " Ten-Thousandths"; break;
+                case 5: result += " Hundred-Thousandths"; break;
+                case 6: result += " Millionths"; break;
+                case 7: result += " Ten-Millionths"; break;
+                case 8: result += " Hundred-Millionths"; break;
+                case 9: result += " Billionths"; break;
+                case 10: result += " Ten-Billionths"; break;
+                case 11: result += " Hundred-Billionths"; break;
+                case 12: result += " Trilionths"; break;
+                case 13: result += " Ten-Trilionths"; break;
+                case 14: result += " Hundred-Trilionths"; break;
+                case 15: result += " Quadrillionths"; break;
+                case 16: result += " Ten-Quadrillionths"; break;
+                case 17: result += " Hundred-Quadrillionths"; break;
+                case 18: result += " Quintrillionths"; break;
+                case 19: result += " Ten-Quintrillionths"; break;
+                case 20: result += " Hundred-Quintrillionths"; break;
+                case 21: result += " Sextillionths"; break;
+                case 22: result += " Ten-Sextillionths"; break;
+                case 23: result += " Hundred-Sextillionths"; break;
+                case 24: result += " Septillionths"; break;
+                case 25: result += " Ten-Septillionths"; break;
+                case 26: result += " Hundred-Septillionths"; break;
+                case 27: result += " Octillionths"; break;
+                case 28: result += " Ten-Octillionths"; break;
+                case 29: result += " Hundred-Octillionths"; break;
+                default: throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "Towel's decimal to words function only supports up to Hundred-Octillionths decimal places.");
+            }
+            return result;
+        }
+
+        public static string ToWords(this decimal @decimal)
+        {
+            if (@decimal == 0m)
+            {
+                return "Zero";
+            }
+            else
+            {
+                string result = string.Empty;
+                if (@decimal < 0m)
+                {
+                    result += "Negative";
+                    @decimal = @decimal *= -1m;
+                }
+                result += ConvertWholeNumber(decimal.Truncate(@decimal));
+                decimal decimalPlacesOnly = @decimal % 1m;
+                if (decimalPlacesOnly > 0m)
+                {
+                    result += " And " + ConvertDecimalPlaces(decimalPlacesOnly);
+                }
+                return result;
+            }
+        }
+
+        #endregion
     }
 }

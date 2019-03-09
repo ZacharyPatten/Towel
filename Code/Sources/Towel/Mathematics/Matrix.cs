@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Text;
 using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
     /// <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
     /// <typeparam name="T">The numeric type of this Matrix.</typeparam>
+    [DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
     [Serializable]
     public class Matrix<T>
     {
@@ -66,6 +69,40 @@ namespace Towel.Mathematics
                     throw new ArgumentOutOfRangeException(nameof(column), row, "!(" + nameof(column) + " >= 0) || !(" + nameof(column) + " < " + nameof(Columns) + ")");
                 }
                 this.Set(row, column, value);
+            }
+        }
+
+        #endregion
+
+        #region Debugger Properties
+
+        internal string DebuggerString
+        {
+            get
+            {
+                int Rows = this.Rows;
+                int Columns = this.Columns;
+                if (Rows < 5 && Columns < 5)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.AppendLine("[ ");
+                    for (int i = 0; i < Rows; i++)
+                    {
+                        stringBuilder.Append("[ ");
+                        for (int j = 0; j < Columns; j++)
+                        {
+                            stringBuilder.Append(this[i, j]);
+                            if (j < Columns - 1)
+                            {
+                                stringBuilder.Append(", ");
+                            }
+                        }
+                        stringBuilder.AppendLine("[ ");
+                    }
+                    stringBuilder.Append(" ]");
+                    return stringBuilder.ToString();
+                }
+                return this.ToString();
             }
         }
 

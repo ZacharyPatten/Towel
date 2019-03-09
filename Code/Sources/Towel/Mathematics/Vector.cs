@@ -119,14 +119,14 @@ namespace Towel.Mathematics
             get
             {
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append("{ ");
+                stringBuilder.Append("[ ");
                 stringBuilder.Append(this._vector[0]);
                 for (int i = 1; i < this._vector.Length; i++)
                 {
                     stringBuilder.Append(", ");
                     stringBuilder.Append(this._vector[i]);
                 }
-                stringBuilder.Append(" }");
+                stringBuilder.Append(" ]");
                 return stringBuilder.ToString();
             }
         }

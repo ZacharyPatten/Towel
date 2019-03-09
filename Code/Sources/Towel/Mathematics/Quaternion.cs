@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
-	/// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
-	[Serializable]
+    /// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
+    /// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
+    [DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
+    [Serializable]
 	public class Quaternion<T>
 	{
         internal T _x;
@@ -29,6 +32,28 @@ namespace Towel.Mathematics
         /// <summary>Computes the length of a quaternion, but doesn't square root it for optimization possibilities.</summary>
         /// <returns>The squared length of the given quaternion.</returns>
         public T MagnitudeSquared { get { return Quaternion<T>.Quaternion_MagnitudeSquared(this); } }
+
+        #endregion
+
+        #region Debugger Properties
+
+        internal string DebuggerString
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("[ ");
+                stringBuilder.Append(this._x);
+                stringBuilder.Append(", ");
+                stringBuilder.Append(this._y);
+                stringBuilder.Append(", ");
+                stringBuilder.Append(this._z);
+                stringBuilder.Append(", ");
+                stringBuilder.Append(this._x);
+                stringBuilder.Append(" ]");
+                return stringBuilder.ToString();
+            }
+        }
 
         #endregion
 
