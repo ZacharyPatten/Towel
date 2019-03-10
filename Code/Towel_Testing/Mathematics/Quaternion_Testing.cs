@@ -6,7 +6,7 @@ using System.Text;
 namespace Towel_Testing.Mathematics
 {
     [TestClass]
-    public class Vector
+    public class Quaternion_Testing
     {
         [TestMethod]
         public void Magnitude()
@@ -21,7 +21,7 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
-        public void Negate()
+        public void Conjugate()
         {
             Assert.Fail();
         }
@@ -39,25 +39,19 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
-        public void Multiply()
-        {
-            Assert.Fail();
-        }
-        
-        [TestMethod]
-        public void Divide()
+        public void Multiply_Quaternion()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void CrossProduct()
+        public void Multiply_Vector()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void DotProduct()
+        public void Multiply_Scalar()
         {
             Assert.Fail();
         }
@@ -69,31 +63,25 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
-        public void Angle()
+        public void Invert()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void RotateBy()
+        public void Lerp()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void LinearInterpolation()
+        public void Slerp()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void SphereicalInterpolation()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void BarycentricInterpolation()
+        public void Rotate()
         {
             Assert.Fail();
         }

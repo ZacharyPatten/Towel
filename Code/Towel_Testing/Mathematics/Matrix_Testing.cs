@@ -6,7 +6,7 @@ using System.Text;
 namespace Towel_Testing.Mathematics
 {
     [TestClass]
-    public class Matrix
+    public class Matrix_Testing
     {
         [TestMethod]
         public void Negate()
