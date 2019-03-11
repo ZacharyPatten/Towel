@@ -42,7 +42,7 @@ namespace Mathematics
             // Absolute Value
             Console.WriteLine("    AbsoluteValue(-7): " + AbsoluteValue((double)-7));
             // Clamp
-            Console.WriteLine("    Clamp(-123, 7, 14): " + Clamp((Fraction32)(-123), (Fraction32)7, (Fraction32)14));
+            Console.WriteLine("    Clamp(-123, 7, 14): " + Clamp((Fraction32)(-123d/9d), (Fraction32)(7d/12d), (Fraction32)(14d/15d)));
             // Maximum
             Console.WriteLine("    Maximum(1, 2, 3): " + Maximum((Step<int> step) => { step(1); step(2); step(3); }));
             // Minimum
@@ -459,7 +459,7 @@ namespace Mathematics
             Console.WriteLine("      Simplified: " + syntax4.Simplify());
             Console.WriteLine("      Plugin(5): " + syntax4.Substitute("x", 5).Simplify());
 
-            Expression<Func<double, double, double, double>> expression5 = (x, y, z) => Compute.Power(x, 3) + 2 * x * y * Compute.Power(z, 2) - y * z + 1;
+            Expression<Func<double, double, double, double>> expression5 = (x, y, z) => Power(x, 3d) + 2d * x * y * Power(z, 2d) - y * z + 1d;
             var syntax5 = Symbolics.Parse(expression5);
             Console.WriteLine("    Expression 5: " + syntax5);
             Console.WriteLine("      Simplified: " + syntax5.Simplify());

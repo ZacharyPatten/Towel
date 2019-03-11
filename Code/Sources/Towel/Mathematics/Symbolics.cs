@@ -53,7 +53,7 @@ namespace Towel.Mathematics
                 }
                 this._representations = new string[b.Length + 1];
                 this._representations[0] = a;
-                for (int i = 1, j = 0; j < b.Length + 1; i++, j++)
+                for (int i = 1, j = 0; j < b.Length; i++, j++)
                 {
                     this._representations[i] = b[j];
                 }
@@ -118,7 +118,7 @@ namespace Towel.Mathematics
         {
             internal KnownConstantAttribute(string a, params string[] b) : base(a, b) { }
         }
-        
+
         #endregion
 
         #region Expression + Inheriters
@@ -137,9 +137,14 @@ namespace Towel.Mathematics
                 return this.Clone();
             }
 
-            public virtual Expression Substitute<T>(string variable, T value)
+            public Expression Substitute<T>(string variable, T value)
             {
-                return this.Substitute(variable, new Constant<T>(value));
+                return SubstitutionHack(variable, new Constant<T>(value));
+            }
+
+            internal Expression SubstitutionHack(string variable, Expression value)
+            {
+                return Substitute(variable, value);
             }
 
             public virtual Expression Derive(string variable)
@@ -304,6 +309,8 @@ namespace Towel.Mathematics
 
             public virtual bool IsPi => false;
 
+            public abstract bool IsNegative { get; }
+
             public virtual Expression Simplify(Operation operation)
             {
                 return this;
@@ -357,6 +364,14 @@ namespace Towel.Mathematics
 
             public override bool IsPi => true;
 
+            public override bool IsNegative
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override Constant<T> ApplyType<T>()
             {
                 return new Constant<T>(Mathematics.Constant<T>.Pi);
@@ -382,6 +397,14 @@ namespace Towel.Mathematics
             public Zero() : base() { }
 
             public override bool IsZero => true;
+
+            public override bool IsNegative
+            {
+                get
+                {
+                    return false;
+                }
+            }
 
             public override Constant<T> ApplyType<T>()
             {
@@ -409,6 +432,14 @@ namespace Towel.Mathematics
 
             public override bool IsOne => true;
 
+            public override bool IsNegative
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override Constant<T> ApplyType<T>()
             {
                 return new Constant<T>(Mathematics.Constant<T>.One);
@@ -435,6 +466,14 @@ namespace Towel.Mathematics
 
             public override bool IsTwo => true;
 
+            public override bool IsNegative
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override Constant<T> ApplyType<T>()
             {
                 return new Constant<T>(Mathematics.Constant<T>.Two);
@@ -460,6 +499,14 @@ namespace Towel.Mathematics
             public Three() : base() { }
 
             public override bool IsThree => true;
+
+            public override bool IsNegative
+            {
+                get
+                {
+                    return false;
+                }
+            }
 
             public override Constant<T> ApplyType<T>()
             {
@@ -496,6 +543,14 @@ namespace Towel.Mathematics
             public override bool IsTwo => Compute.Equal(Value, Mathematics.Constant<T>.Two);
 
             public override bool IsThree => Compute.Equal(Value, Mathematics.Constant<T>.Three);
+
+            public override bool IsNegative
+            {
+                get
+                {
+                    return Compute.IsNegative(this.Value);
+                }
+            }
 
             public Constant(T constant)
             {
@@ -715,6 +770,36 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region Simplification
+
+        [Operation("Simplify")]
+        public class Simplification : Unary
+        {
+            public Simplification(Expression a) : base(a) { }
+
+            public override Expression Simplify()
+            {
+                return this.A.Simplify();
+            }
+
+            public override Expression Clone()
+            {
+                return new Simplification(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Simplification(this.A.Substitute(variable, value));
+            }
+
+            public override string ToString()
+            {
+                return "Simplify(" + this.A + ")";
+            }
+        }
+
+        #endregion
+
         #region Negate
 
         [LeftUnaryOperator("-", OperatorPriority.Negation)]
@@ -748,6 +833,11 @@ namespace Towel.Mathematics
                 return new Negate(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Negate(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return "-" + this.A;
@@ -774,6 +864,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new NaturalLog(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new NaturalLog(this.A.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -804,6 +899,11 @@ namespace Towel.Mathematics
                 return new SquareRoot(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new SquareRoot(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return "√(" + this.A + ")";
@@ -832,6 +932,11 @@ namespace Towel.Mathematics
                 return new Exponential(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Exponential(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return "e^(" + this.A + ")";
@@ -858,6 +963,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new Invert(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Invert(this.A.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -899,6 +1009,11 @@ namespace Towel.Mathematics
                 return new Sine(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Sine(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return nameof(Sine) + "(" + this.A + ")";
@@ -925,6 +1040,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new Cosine(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Cosine(this.A.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -955,6 +1075,11 @@ namespace Towel.Mathematics
                 return new Tangent(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Tangent(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return nameof(Tangent) + "(" + this.A + ")";
@@ -981,6 +1106,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new Cosecant(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Cosecant(this.A.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -1011,6 +1141,11 @@ namespace Towel.Mathematics
                 return new Secant(this.A.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Secant(this.A.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return nameof(Secant) + "(" + this.A + ")";
@@ -1037,6 +1172,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new Cotangent(this.A.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Cotangent(this.A.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -1208,21 +1348,32 @@ namespace Towel.Mathematics
                 return new Add(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Add(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 string a = this.A.ToString();
                 string b = this.B.ToString();
-                if (this.A is Multiply || this.A is Divide && this.A is Constant && Compute.IsNegative(this.A as Constant))
                 {
-                    a = "(" + a + ")";
+                    if ((this.A is Multiply MULTIPLY || this.A is Divide DIVIDE) && this.A is Constant CONSTANT && CONSTANT.IsNegative)
+                    {
+                        a = "(" + a + ")";
+                    }
                 }
-                if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
                 {
-                    b = "(" + b + ")";
+                    if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
+                    {
+                        b = "(" + b + ")";
+                    }
                 }
-                if (this.B is Constant && Compute.IsNegative(this.B as Constant))
                 {
-                    return a + " - " + Compute.Negate(this.B as Constant);
+                    if (this.B is Constant CONSTANT && CONSTANT.IsNegative)
+                    {
+                        return a + " - " + Compute.Negate(this.B as Constant);
+                    }
                 }
                 return a + " + " + b;
             }
@@ -1346,6 +1497,11 @@ namespace Towel.Mathematics
                 return new Subtract(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Subtract(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 string a = this.A.ToString();
@@ -1383,11 +1539,6 @@ namespace Towel.Mathematics
         public class Multiply : MultiplyOrDivide
         {
             public Multiply(Expression a, Expression b) : base(a, b) { }
-
-            public override Expression Clone()
-            {
-                return new Multiply(this.A.Clone(), this.B.Clone());
-            }
 
             public override Expression Simplify()
             {
@@ -1538,6 +1689,16 @@ namespace Towel.Mathematics
                     return new Constant<T>(Compute.Multiply(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
+            }
+
+            public override Expression Clone()
+            {
+                return new Multiply(this.A.Clone(), this.B.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Multiply(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -1713,6 +1874,11 @@ namespace Towel.Mathematics
                 return new Divide(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Divide(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 string a = this.A.ToString();
@@ -1789,6 +1955,11 @@ namespace Towel.Mathematics
                 return new Power(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Power(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return this.A + " ^ " + this.B;
@@ -1815,6 +1986,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new Root(this.A.Clone(), this.B.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Root(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -1846,6 +2022,11 @@ namespace Towel.Mathematics
                 return new Equal(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new Equal(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString()
             {
                 return this.A + " = " + this.B;
@@ -1873,6 +2054,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new NotEqual(this.A.Clone(), this.B.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new NotEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
             }
 
             public override string ToString()
@@ -1904,6 +2090,11 @@ namespace Towel.Mathematics
                 return new LessThan(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new LessThan(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString() { return this.A + " < " + this.B; }
         }
 
@@ -1928,6 +2119,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new GreaterThan(this.A.Clone(), this.B.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new GreaterThan(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
             }
 
             public override string ToString() { return this.A + " < " + this.B; }
@@ -1956,6 +2152,11 @@ namespace Towel.Mathematics
                 return new LessThanOrEqual(this.A.Clone(), this.B.Clone());
             }
 
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new LessThanOrEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
+            }
+
             public override string ToString() { return this.A + " < " + this.B; }
         }
 
@@ -1980,6 +2181,11 @@ namespace Towel.Mathematics
             public override Expression Clone()
             {
                 return new GreaterThanOrEqual(this.A.Clone(), this.B.Clone());
+            }
+
+            public override Expression Substitute(string variable, Expression value)
+            {
+                return new GreaterThanOrEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
             }
 
             public override string ToString() { return this.A + " < " + this.B; }
@@ -2110,10 +2316,19 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
                     Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
-                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    if (operationName.Contains("+"))
                     {
-                        ParsableUnaryOperations.Add(representation.ToLower(), newFunction);
+                        int index = operationName.LastIndexOf("+");
+                        operationName = operationName.Substring(index + 1);
+                    }
+                    ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
+                    OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+                    if (!(operationAttribute is null))
+                    {
+                        foreach (string representation in operationAttribute.Representations)
+                        {
+                            ParsableUnaryOperations.Add(representation.ToLower(), newFunction);
+                        }
                     }
 
                     // Left Unary Operators
@@ -2139,12 +2354,21 @@ namespace Towel.Mathematics
                     ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
                     ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
-                    Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A).Compile();
+                    Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A, B).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
-                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    if (operationName.Contains("+"))
                     {
-                        ParsableBinaryOperations.Add(representation.ToLower(), newFunction);
+                        int index = operationName.LastIndexOf("+");
+                        operationName = operationName.Substring(index + 1);
+                    }
+                    ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
+                    OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+                    if (!(operationAttribute is null))
+                    {
+                        foreach (string representation in operationAttribute.Representations)
+                        {
+                            ParsableBinaryOperations.Add(representation.ToLower(), newFunction);
+                        }
                     }
 
                     // Binary Operators
@@ -2164,12 +2388,21 @@ namespace Towel.Mathematics
                     ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
                     ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B, C);
-                    Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A).Compile();
+                    Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A, B, C).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
-                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    if (operationName.Contains("+"))
                     {
-                        ParsableTernaryOperations.Add(representation.ToLower(), newFunction);
+                        int index = operationName.LastIndexOf("+");
+                        operationName = operationName.Substring(index + 1);
+                    }
+                    ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
+                    OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+                    if (!(operationAttribute is null))
+                    {
+                        foreach (string representation in operationAttribute.Representations)
+                        {
+                            ParsableTernaryOperations.Add(representation.ToLower(), newFunction);
+                        }
                     }
                 }
 
@@ -2182,10 +2415,19 @@ namespace Towel.Mathematics
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
                     Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
                     string operationName = type.ConvertToCsharpSource();
-                    ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
-                    foreach (string representation in type.GetCustomAttribute<OperationAttribute>().Representations)
+                    if (operationName.Contains("+"))
                     {
-                        ParsableMultinaryOperations.Add(representation.ToLower(), newFunction);
+                        int index = operationName.LastIndexOf("+");
+                        operationName = operationName.Substring(index + 1);
+                    }
+                    ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
+                    OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+                    if (!(operationAttribute is null))
+                    {
+                        foreach (string representation in operationAttribute.Representations)
+                        {
+                            ParsableMultinaryOperations.Add(representation.ToLower(), newFunction);
+                        }
                     }
                 }
 
@@ -2198,9 +2440,13 @@ namespace Towel.Mathematics
                     Func<Constant> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Constant>>(newExpression).Compile();
                     string operationName = type.ConvertToCsharpSource();
                     ParsableKnownConstants.Add(operationName.ToLower(), newFunction);
-                    foreach (string representation in type.GetCustomAttribute<KnownConstantAttribute>().Representations)
+                    KnownConstantAttribute knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
+                    if (!(knownConstantAttribute is null))
                     {
-                        ParsableKnownConstants.Add(representation.ToLower(), newFunction);
+                        foreach (string representation in knownConstantAttribute.Representations)
+                        {
+                            ParsableKnownConstants.Add(representation.ToLower(), newFunction);
+                        }
                     }
                 }
 
@@ -2233,8 +2479,8 @@ namespace Towel.Mathematics
         {
             try
             {
-                System.Func<System.Linq.Expressions.Expression, Expression> recursive = null;
-                System.Func<MethodCallExpression, Expression> methodCallExpression_to_node = null;
+                Func<System.Linq.Expressions.Expression, Expression> recursive = null;
+                Func<MethodCallExpression, Expression> methodCallExpression_to_node = null;
 
                 recursive =
                     (System.Linq.Expressions.Expression expression) =>
@@ -2244,22 +2490,16 @@ namespace Towel.Mathematics
 
                         switch (expression.NodeType)
                         {
-                            // Lambda
                             case ExpressionType.Lambda:
-                                //labmda_expression.Parameters
                                 return recursive((expression as LambdaExpression).Body);
-                            // constant
                             case ExpressionType.Constant:
                                 return Constant.BuildGeneric((expression as ConstantExpression).Value);
-                            // variable
                             case ExpressionType.Parameter:
                                 return new Variable((expression as ParameterExpression).Name);
-                            // unary
                             case ExpressionType.Negate:
                                 return new Negate(recursive(unary_expression.Operand));
                             case ExpressionType.UnaryPlus:
                                 return recursive(unary_expression.Operand);
-                            // binary
                             case ExpressionType.Add:
                                 return new Add(recursive(binary_expression.Left), recursive(binary_expression.Right));
                             case ExpressionType.Subtract:
@@ -2270,39 +2510,75 @@ namespace Towel.Mathematics
                                 return new Divide(recursive(binary_expression.Left), recursive(binary_expression.Right));
                             case ExpressionType.Power:
                                 return new Power(recursive(binary_expression.Left), recursive(binary_expression.Right));
-                            // call
                             case ExpressionType.Call:
                                 return methodCallExpression_to_node(expression as MethodCallExpression);
-                                // Invocation
-                                //case ExpressionType.Invoke:
-                                //	return invocationExpression_to_node(expression as InvocationExpression);
                         }
-                        throw new System.ArithmeticException("Invalid syntax parse (unexpected expression node type): " + expression);
+                        throw new ArgumentException("The expression could not be parsed.", nameof(e));
                     };
 
                 methodCallExpression_to_node =
                     (MethodCallExpression methodCallExpression) =>
                     {
-                        MethodInfo method = methodCallExpression.Method;
-                        if (method == null || method.DeclaringType != typeof(Compute))
-                            throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
-
-                        Expression[] nodes = null;
-                        if (methodCallExpression.Arguments != null)
+                        MethodInfo methodInfo = methodCallExpression.Method;
+                        if (methodInfo == null)
                         {
-                            nodes = new Expression[methodCallExpression.Arguments.Count];
-                            for (int i = 0; i < nodes.Length; i++)
-                                nodes[i] = recursive(methodCallExpression.Arguments[i]);
+                            throw new ArgumentException("The expression could not be parsed.", nameof(e));
                         }
 
-                        throw new System.ArithmeticException("Invalid syntax parse (only members of Towel.MathematicsCompute allowed): " + methodCallExpression);
+                        Expression[] arguments = null;
+                        if (methodCallExpression.Arguments != null)
+                        {
+                            arguments = new Expression[methodCallExpression.Arguments.Count];
+                            for (int i = 0; i < arguments.Length; i++)
+                                arguments[i] = recursive(methodCallExpression.Arguments[i]);
+                        }
+
+                        if (!ParseableLibraryBuilt)
+                        {
+                            BuildParsableOperationLibrary();
+                        }
+
+                        string operation = methodInfo.Name.ToLower();
+
+                        switch (arguments.Length)
+                        {
+                            case 1:
+                                Func<Expression, Unary> newUnaryFunction;
+                                if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
+                                {
+                                    return newUnaryFunction(arguments[0]);
+                                }
+                                break;
+                            case 2:
+                                Func<Expression, Expression, Binary> newBinaryFunction;
+                                if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
+                                {
+                                    return newBinaryFunction(arguments[0], arguments[1]);
+                                }
+                                break;
+                            case 3:
+                                Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
+                                if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
+                                {
+                                    return newTernaryFunction(arguments[0], arguments[1], arguments[2]);
+                                }
+                                break;
+                        }
+
+                        Func<Expression[], Multinary> newMultinaryFunction;
+                        if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
+                        {
+                            return newMultinaryFunction(arguments);
+                        }
+
+                        throw new ArgumentException("The expression could not be parsed.", nameof(e));
                     };
 
                 return recursive(e);
             }
             catch (System.ArithmeticException exception_specific)
             {
-                throw new System.ArithmeticException("failed to parse expression into Towel Framework mathematical syntax: " + e, exception_specific);
+                throw new ArgumentException("The expression could not be parsed.", nameof(e));
             }
         }
 

@@ -608,6 +608,7 @@ namespace Towel.Mathematics
             internal static Func<T, bool> Function = (T a) =>
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
+                LabelTarget RETURN = Expression.Label(typeof(bool));
                 Expression BODY = Expression.LessThan(A, Expression.Constant(Constant<T>.Zero));
                 Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
                 return Function(a);
@@ -1271,7 +1272,11 @@ namespace Towel.Mathematics
                 {
                     throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " contains null value(s).");
                 }
-                if (!IsInteger(n))
+                else if (Equal(n, Constant<T>.Zero))
+                {
+                    throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
+                }
+                else if (!IsInteger(n))
                 {
 			        throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }

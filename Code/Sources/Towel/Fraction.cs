@@ -1,4 +1,7 @@
-﻿namespace Towel
+﻿using System;
+using Towel.Mathematics;
+
+namespace Towel
 {
 	/// <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
 	/// <citation>
@@ -20,45 +23,52 @@
         private short _numerator;
         private short _denominator;
 
-        #region Constants
-
         /// <summary>The maximum Fraction32 value.</summary>
         public static readonly Fraction32 MaxValue = new Fraction32(short.MaxValue, 1);
-
         /// <summary>The minimum Fraction32 value.</summary>
         public static readonly Fraction32 MinValue = new Fraction32(short.MinValue, 1);
 
-        #endregion
-            
-		#region Properties
-
-		/// <summary>The denominator of the fraction.</summary>
-		public short Denominator
-		{
-			get { return _denominator; }
-			set
-			{
-				if (value == 0) { throw new System.ArgumentException("Denominator cannot be 0", "value"); }
-				_denominator = value;
-			}
-		}
-
+        #region Properties
+        
 		/// <summary>The numerator of the fraction.</summary>
 		public short Numerator
 		{
-			get { return _numerator; }
-			set { _numerator = value; }
+			get
+            {
+                return this._numerator;
+            }
+			set
+            {
+                this._numerator = value;
+            }
 		}
 
-		#endregion
+        /// <summary>The denominator of the fraction.</summary>
+        public short Denominator
+        {
+            get
+            {
+                return this._denominator;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
+                }
+                this._denominator = value;
+            }
+        }
 
-		#region Constructors
+        #endregion
 
-		/// <summary>Constructs a fraction from an short.</summary>
-		/// <param name="shorteger">The short to represent as a fraction.</param>
-		public Fraction32(short shorteger)
+        #region Constructors
+
+        /// <summary>Constructs a fraction from an short.</summary>
+        /// <param name="@short">The short to represent as a fraction.</param>
+        public Fraction32(short @short)
 		{
-			this._numerator = shorteger;
+			this._numerator = @short;
 			this._denominator = 1;
 		}
 
@@ -67,10 +77,11 @@
 		public Fraction32(double rational)
 		{
 		Rounded:
-
-			if (rational > short.MaxValue) { throw new System.ArgumentException("rational > short.MaxValue"); }
-
-			if (rational % 1 == 0)
+            if (short.MinValue > rational || rational > short.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rational), rational, "!(short." + nameof(short.MinValue) + " <= " + nameof(rational) + " <= short." + nameof(short.MaxValue) + ")");
+            }
+            if (rational % 1 == 0)
 			{
 				this._numerator = (short)rational;
 				this._denominator = 1;
@@ -101,14 +112,14 @@
 							multiple *= 10;
 							digitsAfterDecimal--;
 						}
-						_numerator = (short)System.Math.Round(temp_rational);
-						_denominator = multiple;
+						this._numerator = (short)Math.Round(temp_rational);
+						this._denominator = multiple;
 						Reduce(this);
 					}
 				}
 				catch
 				{
-					rational = System.Math.Round(rational, 5);
+					rational = Math.Round(rational, 2);
 					goto Rounded;
 				}
 			}
@@ -119,8 +130,8 @@
 		/// <param name="deniminator">The denominator fo the fraction.</param>
 		public Fraction32(short numerator, short deniminator)
 		{
-			_numerator = numerator;
-			_denominator = deniminator;
+			this._numerator = numerator;
+			this._denominator = deniminator;
 			Reduce(this);
 		}
 
@@ -135,16 +146,16 @@
 
 			if (i == literal.Length)
 			{
-				double rational = System.Convert.ToDouble(literal);
+				double rational = double.Parse(literal);
 				try
 				{
 					checked
 					{
-						if (rational % 1 == 0)	// if whole number
+						if (rational % 1 == 0)
 						{
 							this._numerator = (short)rational;
 							this._denominator = 1;
-							Fraction32.Reduce(this);
+							Reduce(this);
 						}
 						else
 						{
@@ -181,30 +192,26 @@
 								multiple *= 10;
 								iDigitsAfterDecimal--;
 							}
-							_numerator = (short)System.Math.Round(temp_rational);
-							_denominator = multiple;
+							this._numerator = (short)Math.Round(temp_rational);
+							this._denominator = multiple;
 							Reduce(this);
 						}
 					}
 				}
-				catch (System.OverflowException ex)
+				catch (OverflowException overflowException)
 				{
-					throw new System.OverflowException("Conversion not possible due to overflow", ex);
+					throw new OverflowException("Conversion not possible due to overflow", overflowException);
 				}
-				catch (System.Exception ex)
+				catch (Exception exception)
 				{
-					throw new System.Exception("Conversion not possible", ex);
+					throw new Exception("Conversion not possible", exception);
 				}
 			}
 			else
 			{
-				// else string is in the form of Numerator/Denominator
-				short iNumerator = System.Convert.ToInt16(literal.Substring(0, i));
-				short iDenominator = System.Convert.ToInt16(literal.Substring(i + 1));
-
-				this._numerator = iNumerator;
-				this._denominator = iDenominator;
-				Fraction32.Reduce(this);
+				this._numerator = short.Parse(literal.Substring(0, i));
+                this._denominator = short.Parse(literal.Substring(i + 1));
+                Reduce(this);
 			}
 		}
 
@@ -399,24 +406,6 @@
 			}
 		}
 
-		private static short GreatestCommonDenominator(short first, short second)
-		{
-			// take absolute values
-			if (first < 0) first = (short)(-first);
-			if (second < 0) second = (short)(-second);
-			do
-			{
-				if (first < second)
-				{
-					short tmp = first;	// swap the two operands
-					first = second;
-					second = tmp;
-				}
-				first = (short)(first % second);
-			} while (first != 0);
-			return second;
-		}
-
 		private double ToDouble()
 		{
 			return this.Numerator / (double)this.Denominator;
@@ -478,7 +467,7 @@
 					return;
 				}
 
-				short iGCD = GreatestCommonDenominator(frac.Numerator, frac.Denominator);
+				short iGCD = Compute.GreatestCommonFactor(frac.Numerator, frac.Denominator);
 				frac.Numerator /= iGCD;
 				frac.Denominator /= iGCD;
 
@@ -488,10 +477,10 @@
 					frac.Numerator *= -1;
 					frac.Denominator *= -1;
 				}
-			} // end try
-			catch (System.Exception exp)
+			}
+			catch (Exception exception)
 			{
-				throw new System.Exception("Cannot reduce Fraction: " + exp.Message);
+				throw new MathematicsException("Cannot Reduce Fraction" + exception.Message, exception);
 			}
 		}
 
@@ -517,50 +506,51 @@
 	{
         private int _numerator;
         private int _denominator;
-
-        #region Constants
-
+        
         /// <summary>The maximum Fraction64 value.</summary>
         public static readonly Fraction64 MaxValue = new Fraction64(int.MaxValue, 1);
-
         /// <summary>The minimum Fraction64 value.</summary>
         public static readonly Fraction64 MinValue = new Fraction64(int.MinValue, 1);
 
-        #endregion
-            
         #region Properties
+
+        /// <summary>The numerator of the fraction.</summary>
+        public int Numerator
+        {
+            get
+            {
+                return this._numerator;
+            }
+            set
+            {
+                this._numerator = value;
+            }
+        }
 
         /// <summary>The denominator of the fraction.</summary>
         public int Denominator
-		{
-			get { return _denominator; }
-			set
-			{
-                if (value != 0)
+        {
+            get
+            {
+                return this._denominator;
+            }
+            set
+            {
+                if (value == 0)
                 {
-                    _denominator = value;
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
                 }
-                else
-                {
-                    throw new System.ArgumentOutOfRangeException("Denominator cannot be assigned a ZERO Value");
-                }
-			}
-		}
+                this._denominator = value;
+            }
+        }
 
-		/// <summary>The numerator of the fraction.</summary>
-		public int Numerator
-		{
-			get { return _numerator; }
-			set { _numerator = value; }
-		}
+        #endregion
 
-		#endregion
+        #region Constructors
 
-		#region Constructors
-
-		/// <summary>Constructs a fraction from an int.</summary>
-		/// <param name="integer">The int to represent as a fraction.</param>
-		public Fraction64(int integer)
+        /// <summary>Constructs a fraction from an int.</summary>
+        /// <param name="integer">The int to represent as a fraction.</param>
+        public Fraction64(int integer)
 		{
 			this._numerator = integer;
 			this._denominator = 1;
@@ -571,7 +561,11 @@
 		public Fraction64(double rational)
 		{
 		Rounded:
-			if (rational > int.MaxValue)
+            if (int.MinValue > rational || rational > int.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rational), rational, "!(int." + nameof(int.MinValue) + " <= " + nameof(rational) + " <= int." + nameof(int.MaxValue) + ")");
+            }
+            if (rational > int.MaxValue)
 				throw new System.ArgumentOutOfRangeException("Fraction64 construction invalid (rational > int.MaxValue)");
 			else if (rational % 1 == 0)
 			{
@@ -638,7 +632,7 @@
 
 			if (i == literal.Length)
 			{
-				double rational = System.Convert.ToDouble(literal);
+				double rational = double.Parse(literal);
 				try
 				{
 					checked
@@ -684,30 +678,26 @@
 								multiple *= 10;
 								iDigitsAfterDecimal--;
 							}
-							_numerator = (int)System.Math.Round(temp_rational);
+							_numerator = (int)Math.Round(temp_rational);
 							_denominator = multiple;
 							Reduce(this);
 						}
 					}
 				}
-				catch (System.OverflowException ex)
-				{
-					throw new System.OverflowException("Conversion not possible due to overflow", ex);
-				}
-				catch (System.Exception ex)
-				{
-					throw new System.Exception("Conversion not possible", ex);
-				}
-			}
+                catch (OverflowException overflowException)
+                {
+                    throw new OverflowException("Conversion not possible due to overflow", overflowException);
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception("Conversion not possible", exception);
+                }
+            }
 			else
 			{
-				// else string is in the form of Numerator/Denominator
-				int iNumerator = System.Convert.ToInt32(literal.Substring(0, i));
-				int iDenominator = System.Convert.ToInt32(literal.Substring(i + 1));
-
-				this._numerator = iNumerator;
-				this._denominator = iDenominator;
-				Fraction64.Reduce(this);
+				this._numerator = int.Parse(literal.Substring(0, i));
+                this._denominator = int.Parse(literal.Substring(i + 1));
+                Reduce(this);
 			}
 		}
 
@@ -898,24 +888,6 @@
 			}
 		}
 
-		private static int GreatestCommonDenominator(int first, int second)
-		{
-			// take absolute values
-			if (first < 0) first = -first;
-			if (second < 0) second = -second;
-			do
-			{
-				if (first < second)
-				{
-					int tmp = first;	// swap the two operands
-					first = second;
-					second = tmp;
-				}
-				first = first % second;
-			} while (first != 0);
-			return second;
-		}
-
 		private double ToDouble()
 		{
 			return this.Numerator / (double)this.Denominator;
@@ -976,23 +948,20 @@
 					frac.Denominator = 1;
 					return;
 				}
-
-				int iGCD = GreatestCommonDenominator(frac.Numerator, frac.Denominator);
-				frac.Numerator /= iGCD;
-				frac.Denominator /= iGCD;
-
-				if (frac.Denominator < 0)	// if -ve sign in denominator
+				int gcf = Compute.GreatestCommonFactor(frac.Numerator, frac.Denominator);
+				frac.Numerator /= gcf;
+				frac.Denominator /= gcf;
+				if (frac.Denominator < 0)
 				{
-					//pass -ve sign to numerator
 					frac.Numerator *= -1;
 					frac.Denominator *= -1;
 				}
-			} // end try
-			catch (System.Exception exp)
-			{
-				throw new System.Exception("Cannot reduce Fraction", exp);
 			}
-		}
+            catch (Exception exception)
+            {
+                throw new MathematicsException("Cannot Reduce Fraction" + exception.Message, exception);
+            }
+        }
 
 		#endregion
 	}
@@ -1017,96 +986,103 @@
         private long _numerator;
         private long _denominator;
         
-        #region Constants
-
         /// <summary>The maximum Fraction128 value.</summary>
         public readonly static Fraction128 MaxValue = new Fraction128(long.MaxValue, 1);
-
         /// <summary>The minimum Fraction128 value.</summary>
         public readonly static Fraction128 MinValue = new Fraction128(long.MinValue, 1);
+        
+        #region Properties
+
+        /// <summary>The numerator of the fraction.</summary>
+        public long Numerator
+        {
+            get
+            {
+                return this._numerator;
+            }
+            set
+            {
+                this._numerator = value;
+            }
+        }
+
+        /// <summary>The denominator of the fraction.</summary>
+        public long Denominator
+        {
+            get
+            {
+                return this._denominator;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
+                }
+                this._denominator = value;
+            }
+        }
 
         #endregion
-            
-		#region Properties
 
-		public long Denominator
+        #region Constructors
+
+        public Fraction128(long @long)
 		{
-			get { return _denominator; }
-			set
-			{
-				if (value != 0)
-					_denominator = value;
-				else
-					throw new System.ArgumentOutOfRangeException("Denominator cannot be assigned a ZERO Value");
-			}
-		}
-
-		public long Numerator
-		{
-			get { return _numerator; }
-			set { _numerator = value; }
-		}
-
-		#endregion
-
-		#region Constructors
-
-		public Fraction128(long longeger)
-		{
-			this._numerator = longeger;
+			this._numerator = @long;
 			this._denominator = 1;
 		}
 
 		public Fraction128(double rational)
 		{
-		Rounded:
+            Rounded:
 
-			if (rational > long.MaxValue)
-				throw new System.ArgumentOutOfRangeException("Fraction128 construction invalid (rational > long.MaxValue)");
-			else if (rational < long.MinValue)
-				throw new System.ArgumentOutOfRangeException("Fraction128 construction invalid (rational < long.MinValue)");
-			else if (rational % 1 == 0)	// if whole number
-			{
-				this._numerator = (long)rational;
-				this._denominator = 1;
-				Fraction128.Reduce(this);
-			}
-			else
-			{
-				try
-				{
-					checked
-					{
-						double temp_rational = rational;
-						long multiple = 1;
-						string temp_string = rational.ToString();
-						while (temp_string.IndexOf("E") > 0)	// if in the form like 12E-9
-						{
-							temp_rational *= 10;
-							multiple *= 10;
-							temp_string = temp_rational.ToString();
-						}
-						int i = 0;
-						while (temp_string[i] != '.')
-							i++;
-						long digitsAfterDecimal = temp_string.Length - i - 1;
-						while (digitsAfterDecimal > 0)
-						{
-							temp_rational *= 10;
-							multiple *= 10;
-							digitsAfterDecimal--;
-						}
-						_numerator = (long)System.Math.Round(temp_rational);
-						_denominator = multiple;
-						Reduce(this);
-					}
-				}
-				catch (System.OverflowException)
-				{
-					rational = System.Math.Round(rational, 10);
-					goto Rounded;
-				}
-			}
+            if (long.MinValue > rational || rational > long.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rational), rational, "!(long." + nameof(long.MinValue) + " <= " + nameof(rational) + " <= long." + nameof(long.MaxValue) + ")");
+            }
+            else if (rational % 1 == 0) // if whole number
+            {
+                this._numerator = (long)rational;
+                this._denominator = 1;
+                Fraction128.Reduce(this);
+            }
+            else
+            {
+                try
+                {
+                    checked
+                    {
+                        double temp_rational = rational;
+                        long multiple = 1;
+                        string temp_string = rational.ToString();
+                        while (temp_string.IndexOf("E") > 0)    // if in the form like 12E-9
+                        {
+                            temp_rational *= 10;
+                            multiple *= 10;
+                            temp_string = temp_rational.ToString();
+                        }
+                        int i = 0;
+                        while (temp_string[i] != '.')
+                            i++;
+                        long digitsAfterDecimal = temp_string.Length - i - 1;
+                        while (digitsAfterDecimal > 0)
+                        {
+                            temp_rational *= 10;
+                            multiple *= 10;
+                            digitsAfterDecimal--;
+                        }
+                        _numerator = (long)System.Math.Round(temp_rational);
+                        _denominator = multiple;
+                        Reduce(this);
+                    }
+                }
+                catch (OverflowException)
+                {
+                    rational = System.Math.Round(rational, 10);
+                    goto Rounded;
+                }
+            }
 		}
 
 		public Fraction128(long numerator, long deniminator)
@@ -1125,7 +1101,7 @@
 
 			if (i == literal.Length)
 			{
-				double rational = System.Convert.ToDouble(literal);
+				double rational = double.Parse(literal);
 				try
 				{
 					checked
@@ -1134,7 +1110,7 @@
 						{
 							this._numerator = (long)rational;
 							this._denominator = 1;
-							Fraction128.Reduce(this);
+							Reduce(this);
 						}
 						else
 						{
@@ -1163,20 +1139,20 @@
 						}
 					}
 				}
-				catch (System.OverflowException ex)
-				{
-					throw new System.OverflowException("Conversion not possible due to overflow", ex);
-				}
-				catch (System.Exception ex)
-				{
-					throw new System.Exception("Conversion not possible", ex);
-				}
-			}
+                catch (OverflowException overflowException)
+                {
+                    throw new OverflowException("Conversion not possible due to overflow", overflowException);
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception("Conversion not possible", exception);
+                }
+            }
 			else
 			{
 				// else string is in the form of Numerator/Denominator
-				long iNumerator = System.Convert.ToInt64(literal.Substring(0, i));
-				long iDenominator = System.Convert.ToInt64(literal.Substring(i + 1));
+				long iNumerator = long.Parse(literal.Substring(0, i));
+				long iDenominator = long.Parse(literal.Substring(i + 1));
 
 				this._numerator = iNumerator;
 				this._denominator = iDenominator;
@@ -1359,23 +1335,23 @@
 			}
 		}
 
-		private static long GreatestCommonDenominator(long first, long second)
-		{
-			// take absolute values
-			if (first < 0) first = -first;
-			if (second < 0) second = -second;
-			do
-			{
-				if (first < second)
-				{
-					long tmp = first;	// swap the two operands
-					first = second;
-					second = tmp;
-				}
-				first = first % second;
-			} while (first != 0);
-			return second;
-		}
+		//private static long GreatestCommonDenominator(long first, long second)
+		//{
+		//	// take absolute values
+		//	if (first < 0) first = -first;
+		//	if (second < 0) second = -second;
+		//	do
+		//	{
+		//		if (first < second)
+		//		{
+		//			long tmp = first;	// swap the two operands
+		//			first = second;
+		//			second = tmp;
+		//		}
+		//		first = first % second;
+		//	} while (first != 0);
+		//	return second;
+		//}
 
 		private double ToDouble()
 		{
@@ -1426,32 +1402,29 @@
 		/// The function reduces(simplifies) a Fraction object by dividing both its numerator 
 		/// and denominator by their GCD
 		/// </summary>
-		public static void Reduce(Fraction128 frac)
+		public static void Reduce(Fraction128 fraction)
 		{
 			try
 			{
-				if (frac.Numerator == 0)
+				if (fraction.Numerator == 0)
 				{
-					frac.Denominator = 1;
+                    fraction.Denominator = 1;
 					return;
 				}
-
-				long iGCD = GreatestCommonDenominator(frac.Numerator, frac.Denominator);
-				frac.Numerator /= iGCD;
-				frac.Denominator /= iGCD;
-
-				if (frac.Denominator < 0)	// if -ve sign in denominator
+				long gcf = Compute.GreatestCommonFactor(fraction.Numerator, fraction.Denominator);
+                fraction.Numerator /= gcf;
+                fraction.Denominator /= gcf;
+				if (fraction.Denominator < 0)
 				{
-					//pass -ve sign to numerator
-					frac.Numerator *= -1;
-					frac.Denominator *= -1;
+                    fraction.Numerator *= -1;
+                    fraction.Denominator *= -1;
 				}
-			} // end try
-			catch (System.Exception ex)
-			{
-				throw new System.Exception("Cannot reduce Fraction: ", ex);
 			}
-		}
+            catch (Exception exception)
+            {
+                throw new MathematicsException("Cannot Reduce Fraction" + exception.Message, exception);
+            }
+        }
 
 		#endregion
 	}

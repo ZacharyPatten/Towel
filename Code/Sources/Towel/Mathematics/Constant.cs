@@ -15,7 +15,7 @@
         /// <summary>Pi [3.14...]</summary>
         public static readonly T Pi = Compute.Pi<T>();
         /// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
-        public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
+        //public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
 
         /// <summary>Epsilon (1.192092896...e-012f)</summary>
         //public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
