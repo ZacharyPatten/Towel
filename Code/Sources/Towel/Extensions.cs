@@ -863,13 +863,7 @@ namespace System
         /// <returns>The maximum enum value of the provided type.</returns>
         public static ENUM GetMaxEnumValue<ENUM>()
         {
-            return Compute.Maximum((Step<ENUM> step) =>
-            {
-                foreach (ENUM @enum in Enum.GetValues(typeof(Enum)))
-                {
-                    step(@enum);
-                }
-            });
+            return Enum.GetValues(typeof(ENUM)).Cast<ENUM>().Last();
         }
 
         #endregion

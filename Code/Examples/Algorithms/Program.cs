@@ -14,13 +14,6 @@ namespace Algorithms
             Console.WriteLine("======================================================");
             Console.WriteLine();
 
-            Console.WriteLine(Compute.SquareRoot(1.0f));
-            Console.WriteLine(Compute.SquareRoot(2.0f));
-            Console.WriteLine(Compute.SquareRoot(3.0f));
-            Console.WriteLine(Compute.SquareRoot(4.0f));
-            Console.WriteLine(Compute.SquareRoot(5.0f));
-            Console.ReadLine();
-
             #region Sorting
             {
 

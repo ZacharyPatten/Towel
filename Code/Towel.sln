@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel.Physics", "Sources\To
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{D7881A58-FA47-4F77-B8ED-C1922261375A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Testing", "Towel_Testing\Towel_Testing.csproj", "{7AE7800F-5132-4D82-A9CC-BF7CD1AC850D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Testing", "Testing\Towel_Testing\Towel_Testing.csproj", "{7AE7800F-5132-4D82-A9CC-BF7CD1AC850D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

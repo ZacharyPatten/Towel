@@ -34,7 +34,7 @@ namespace Mathematics
             // Addition
             Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
             // Subtraction
-            Console.WriteLine("    Subtract(14, 7): " + Subtract((float)14, (float)7));
+            Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
             // Multiplication
             Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
             // Division
@@ -44,9 +44,9 @@ namespace Mathematics
             // Clamp
             Console.WriteLine("    Clamp(-123, 7, 14): " + Clamp((Fraction32)(-123d/9d), (Fraction32)(7d/12d), (Fraction32)(14d/15d)));
             // Maximum
-            Console.WriteLine("    Maximum(1, 2, 3): " + Maximum((Step<int> step) => { step(1); step(2); step(3); }));
+            Console.WriteLine("    Maximum(1, 2, 3): " + Maximum(1, 2, 3));
             // Minimum
-            Console.WriteLine("    Minimum(1, 2, 3): " + Minimum((Step<int> step) => { step(1); step(2); step(3); }));
+            Console.WriteLine("    Minimum(1, 2, 3): " + Minimum(1, 2, 3));
             // Less Than
             Console.WriteLine("    LessThan(1, 2): " + LessThan((Fraction128)1, (Fraction128)2));
             // Greater Than
@@ -82,7 +82,7 @@ namespace Mathematics
             #endregion
 
             #region Angles
-            
+
             //Console.WriteLine("  Angles--------------------------------------");
             //Console.WriteLine();
             //Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
@@ -98,7 +98,7 @@ namespace Mathematics
             //Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
             //Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
             //Console.WriteLine();
-            
+
             #endregion
 
             #region Fraction
