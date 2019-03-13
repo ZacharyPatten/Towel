@@ -26,17 +26,45 @@ namespace Towel.Mathematics
                 pi = Constant<T>.One;
                 for (int j = i; j >= 1; j--)
                 {
-                    T J = FromInt32<T>(j);
-                    T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
-                    T b = Divide(J, a);
-                    T c = Multiply(b, pi);
-                    T d = Add(Constant<T>.One, c);
-                    pi = d;
+                    #region Without Custom Runtime Compilation
+
+                    //T J = FromInt32<T>(j);
+                    //T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
+                    //T b = Divide(J, a);
+                    //T c = Multiply(b, pi);
+                    //T d = Add(Constant<T>.One, c);
+                    //pi = d;
+
+                    #endregion
+
+                    pi = AddMultiplyDivideAddImplementation<T>.Function(FromInt32<T>(j), pi);
                 }
                 pi = Multiply(Constant<T>.Two, pi);
             }
             pi = Maximum(pi, Constant<T>.Three);
             return pi;
+        }
+
+        internal static class AddMultiplyDivideAddImplementation<T>
+        {
+            internal static Func<T, T, T> Function = (T j, T pi) =>
+            {
+                ParameterExpression J = Expression.Parameter(typeof(T));
+                ParameterExpression PI = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.Add(
+                    Expression.Constant(Constant<T>.One),
+                    Expression.Multiply(
+                        PI,
+                        Expression.Divide(
+                            J,
+                            Expression.Add(
+                                Expression.Multiply(
+                                    Expression.Constant(Constant<T>.Two),
+                                    J),
+                                Expression.Constant(Constant<T>.One)))));
+                Function = Expression.Lambda<Func<T, T, T>>(BODY, J, PI).Compile();
+                return Function(j, pi);
+            };
         }
 
         #endregion
