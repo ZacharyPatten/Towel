@@ -18,19 +18,4 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     #command: 'build' 
-    #projects: 'Towel/Code/Sources/Towel/Towel.csproj'
-	
-- task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'Towel/Code/Examples/Algorithms/Algorithms.csproj'
-	
-- task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'Towel/Code/Examples/DataStructures/DataStructures.csproj'
-	
-- task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'Towel/Code/Examples/Mathematics/Mathematics.csproj'
+    #projects: 'Towel/Code/Sources/Towel/Towel.csproj,Towel/Code/Examples/Algorithms/Algorithms.csproj,Towel/Code/Examples/DataStructures/DataStructures.csproj,Towel/Code/Examples/Mathematics/Mathematics.csproj'
