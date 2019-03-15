@@ -1,7 +1,7 @@
 # ASP.NET Core
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# https:\\docs.microsoft.com\azure\devops\pipelines\languages\dotnet-core
 
 trigger:
 - master
@@ -14,14 +14,14 @@ variables:
 
 steps:
 
-- script: dotnet build Towel/Code/Sources/Towel/Towel.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build Towel/Code/Sources/Towel/Towel.csproj $(buildConfiguration)'
+- script: dotnet build Towel\Code\Sources\Towel\Towel.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel\Code\Sources\Towel\Towel.csproj $(buildConfiguration)'
   
-- script: dotnet build Towel/Code/Examples/Algorithms/Algorithms.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build Towel/Code/Examples/Algorithms/Algorithms.csproj $(buildConfiguration)'
+- script: dotnet build Towel\Code\Examples\Algorithms\Algorithms.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel\Code\Examples\Algorithms\Algorithms.csproj $(buildConfiguration)'
 
-- script: dotnet build Towel/Code/Examples/DataStructures/DataStructures.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build Towel/Code/Examples/DataStructures/DataStructures.csproj $(buildConfiguration)'
+- script: dotnet build Towel\Code\Examples\DataStructures\DataStructures.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel\Code\Examples\DataStructures\DataStructures.csproj $(buildConfiguration)'
   
-- script: dotnet build Towel/Code/Examples/Mathematics/Mathematics.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build Towel/Code/Examples/Mathematics/Mathematics.csproj $(buildConfiguration)'
+- script: dotnet build Towel\Code\Examples\Mathematics\Mathematics.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel\Code\Examples\Mathematics\Mathematics.csproj $(buildConfiguration)'
