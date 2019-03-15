@@ -10,12 +10,18 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-
   buildConfiguration: 'Release'
 
 steps:
 
-- task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'Towel/Code/Sources/Towel/Towel.csproj,Towel/Code/Examples/Algorithms/Algorithms.csproj,Towel/Code/Examples/DataStructures/DataStructures.csproj,Towel/Code/Examples/Mathematics/Mathematics.csproj'
+- script: dotnet build Towel/Code/Sources/Towel/Towel.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel/Code/Sources/Towel/Towel.csproj $(buildConfiguration)'
+  
+- script: dotnet build Towel/Code/Examples/Algorithms/Algorithms.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel/Code/Examples/Algorithms/Algorithms.csproj $(buildConfiguration)'
+
+- script: dotnet build Towel/Code/Examples/DataStructures/DataStructures.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel/Code/Examples/DataStructures/DataStructures.csproj $(buildConfiguration)'
+  
+- script: dotnet build Towel/Code/Examples/Mathematics/Mathematics.csproj --configuration $(buildConfiguration)
+  displayName: 'dotnet build Towel/Code/Examples/Mathematics/Mathematics.csproj $(buildConfiguration)'
