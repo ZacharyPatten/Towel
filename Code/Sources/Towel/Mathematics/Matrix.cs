@@ -1881,8 +1881,8 @@ namespace Towel.Mathematics
                 return matrix.Clone();
             }
 
-            T cosine = Compute.Cosine(angle);
-            T sine = Compute.Sine(angle);
+            T cosine = Compute.CosineSystem(angle);
+            T sine = Compute.SineSystem(angle);
             T oneMinusCosine = Compute.Subtract(Constant<T>.One, cosine);
             T xy = Compute.Multiply(axis.X, axis.Y);
             T yz = Compute.Multiply(axis.Y, axis.Z);

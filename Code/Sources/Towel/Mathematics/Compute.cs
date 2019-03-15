@@ -122,8 +122,48 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region FromDouble
+
+        public static T FromDouble<T>(double a)
+        {
+            return FromDoubleImplementation<T>.Function(a);
+        }
+
+        internal static class FromDoubleImplementation<T>
+        {
+            internal static Func<double, T> Function = (double a) =>
+            {
+                ParameterExpression A = Expression.Parameter(typeof(double));
+                Expression BODY = Expression.Convert(A, typeof(T));
+                Function = Expression.Lambda<Func<double, T>>(BODY, A).Compile();
+                return Function(a);
+            };
+        }
+
+        #endregion
+
+        #region ToDouble
+
+        internal static double ToDouble<T>(T a)
+        {
+            return ToDoubleImplementation<T>.Function(a);
+        }
+
+        internal static class ToDoubleImplementation<T>
+        {
+            internal static Func<T, double> Function = (T a) =>
+            {
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.Convert(A, typeof(double));
+                Function = Expression.Lambda<Func<T, double>>(BODY, A).Compile();
+                return Function(a);
+            };
+        }
+
+        #endregion
+
         #region Negate
-        
+
         /// <summary>
         /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
         /// If made "public," it could be optimized using it's own delegate.
@@ -768,8 +808,8 @@ namespace Towel.Mathematics
                 Expression BODY = Expression.Block(
                     Expression.IfThenElse(
                         Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
-                        Expression.Return(RETURN, A),
-                        Expression.Return(RETURN, Expression.Negate(A))),
+                        Expression.Return(RETURN, Expression.Negate(A)),
+                        Expression.Return(RETURN, A)),
                     Expression.Label(RETURN, Expression.Constant(default(T))));
                 Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
                 return Function(a);
@@ -1796,184 +1836,72 @@ namespace Towel.Mathematics
         }
 
         #endregion
-        
+
         #region Sine
 
-        public static T Sine<T>(Angle<T> a)
+        /// <summary>Computes the sine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the sine ratio of.</param>
+        /// <returns>The sine ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
+        public static T SineSystem<T>(Angle<T> a)
         {
-            return SineImplementation<T>.Function(a);
-        }
-
-        internal static class SineImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sin)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-
-                //// get the angle into the positive unit circle
-                //_angle = _angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2);
-                //if (_angle < 0)
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2) + _angle;
-                //if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2)
-                //    goto QuandrantSkip;
-                //else if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi)
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
-                //else if (_angle <= (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 3) / 2)
-                //    _angle = _angle % Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi;
-                //else
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
-                //QuandrantSkip:
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" three_factorial = 6;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" five_factorial = 120;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" seven_factorial = 5040;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleCubed = _angle * _angle * _angle;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFifth = angleCubed * _angle * _angle;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSeventh = angleToTheFifth * _angle * _angle;
-                //return -(_angle
-                //    - (angleCubed / three_factorial)
-                //    + (angleToTheFifth / five_factorial)
-                //    - (angleToTheSeventh / seven_factorial));
-
-            };
+            return FromDouble<T>(Math.Sin(ToDouble(a)));
         }
 
         #endregion
 
         #region Cosine
 
-        public static T Cosine<T>(Angle<T> a)
+        /// <summary>Computes the cosine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the cosine ratio of.</param>
+        /// <returns>The cosine ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
+        public static T CosineSystem<T>(Angle<T> a)
         {
-            return CosineImplementation<T>.Function(a);
-        }
-
-        internal static class CosineImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cos)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-
-                //// get the angle into the positive unit circle
-                //_angle = _angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2);
-                //if (_angle < 0)
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 2) + _angle;
-                //if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2)
-                //    goto QuandrantSkip;
-                //else if (_angle <= Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi)
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
-                //else if (_angle <= (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi * 3) / 2)
-                //    _angle = _angle % Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi;
-                //else
-                //    _angle = (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), " >.Pi / 2) - (_angle % (Compute < ", Meta.ConvertTypeToCsharpSource(typeof(T)), @" >.Pi / 2));
-                //QuandrantSkip:
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" one = 1;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" two_factorial = 2;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" four_factorial = 24;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" six_factorial = 720;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleSquared = _angle * _angle;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheFourth = angleSquared * _angle * _angle;
-                //", Meta.ConvertTypeToCsharpSource(typeof(T)), @" angleToTheSixth = angleToTheFourth * _angle * _angle;
-                //return one
-                //    - (angleSquared / two_factorial)
-                //    + (angleToTheFourth / four_factorial)
-                //    - (angleToTheSixth / six_factorial);
-
-            };
+            return FromDouble<T>(Math.Cos(ToDouble(a)));
         }
 
         #endregion
 
         #region Tangent
 
-        public static T Tangent<T>(Angle<T> a)
+        /// <summary>Computes the tangent ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the tangent ratio of.</param>
+        /// <returns>The tangent ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
+        public static T TangentSystem<T>(Angle<T> a)
         {
-            return TangentImplementation<T>.Function(a);
+            return FromDouble<T>(Math.Tan(ToDouble(a)));
         }
-
-        internal static class TangentImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tan)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-
-        //        "	// get the angle into the positive unit circle" +
-        //"	_angle = _angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2);" +
-        //"	if (_angle < 0)" +
-        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 2) + _angle;" +
-        //"	if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) // quadrant 1" +
-        //"		goto QuandrantSkip;" +
-        //"	else if (_angle <= Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi) // quadrant 2" +
-        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
-        //"	else if (_angle <= (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi * 3) / 2) // quadrant 3" +
-        //"		_angle = _angle % Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi;" +
-        //"	else // quadrant 4" +
-        //"		_angle = (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2) - (_angle % (Compute<" + Meta.ConvertTypeToCsharpSource(typeof(T)) + ">.Pi / 2));" +
-        //"QuandrantSkip:" +
-        //"	// do the computation" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " two = 2;" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " three = 3;" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " fifteen = 15;" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " seventeen = 17;" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " threehundredfifteen = 315;" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleCubed = _angle * _angle * _angle; // angle ^ 3" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheFifth = angleCubed * _angle * _angle; // angle ^ 5" +
-        //"	" + Meta.ConvertTypeToCsharpSource(typeof(T)) + " angleToTheSeventh = angleToTheFifth * _angle * _angle;  // angle ^ 7" +
-        //"	return angle" +
-        //"		+ (angleCubed / three)" +
-        //"		+ (two * angleToTheFifth / fifteen)" +
-        //"		+ (seventeen * angleToTheSeventh / threehundredfifteen);" +
-
-            };
-        }
-
+        
         #endregion
 
         #region Cosecant
 
-        public static T Cosecant<T>(Angle<T> a)
+        public static T CosecantSystem<T>(Angle<T> a)
         {
-            return Divide(Constant<T>.One, Sine(a));
+            return Divide(Constant<T>.One, SineSystem(a));
         }
 
         #endregion
 
         #region Secant
 
-        public static T Secant<T>(Angle<T> a)
+        public static T SecantSystem<T>(Angle<T> a)
         {
-            return Divide(Constant<T>.One, Cosine(a));
+            return Divide(Constant<T>.One, CosineSystem(a));
         }
 
         #endregion
 
         #region Cotangent
 
-        public static T Cotangent<T>(Angle<T> a)
+        public static T CotangentSystem<T>(Angle<T> a)
         {
-            return Divide(Constant<T>.One, Tangent(a));
+            return Divide(Constant<T>.One, TangentSystem(a));
         }
 
         #endregion
