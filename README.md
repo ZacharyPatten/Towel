@@ -83,6 +83,10 @@ The Towel framework has fast generic mathematics functions.
     T LeastCommonMultiple<T>(T a, T b, params T[] c)
     T GreatestCommonFactor<T>(T a, T b, params T[] c)
     
+## Type Safe Measurement Mathematics (TSMM)
+
+Towel has measurement classes to provide type safe mathematics with automatic unit conversion. :)
+
 ## Data Structures
 
 Towel has many useful data structure. Especially the Omnitree, which is an SPT that work on any number of dimensions. It can be used to make a quadtree, octree, or SPT's with higher dimensions.
