@@ -90,30 +90,32 @@ Towel has measurement classes to provide type safe mathematics with automatic un
 ## Data Structures
 
 Towel has many useful data structure. Especially the Omnitree, which is an SPT that work on any number of dimensions. It can be used to make a quadtree, octree, or SPT's with higher dimensions.
-
-* Heap
-* AVL Tree
-* Red Black Tree
-* Omnitree (Quadtree, Octree, ...)
-* Graph
-
+```csharp
+Heap<T>;
+AvlTree<T>;
+RedBlackTree<T>;
+Omnitree<T, A1, A2... AX> // (Quadtree, Octree, ...);
+Tree<T>;
+Graph<T>;
+```
 ## Algorithms
 
 Towel has many algorithms, such as generic A* and Greedy Path finding.
+```csharp
+// Sorting
+Sort<T>.Shuffle(...);
+Sort<T>.Bubble(...);
+Sort<T>.Selection(...);
+Sort<T>.Insertion(...);
+Sort<T>.Quick(...);
+Sort<T>.Merge(...);
+Sort<T>.Heap(...);
+Sort<T>.Odd Even(...);
 
-* Sorting
-   * Shuffle
-   * Bubble
-   * Selection
-   * Insertion
-   * Quick
-   * Merge
-   * Heap
-   * Odd Even
-* Path Finding (Graph Search)
-   * A*
-   * Greedy
-
+// Path Finding (Graph Search)
+Search<T>.Graph<Math>.Astar(...);
+Search<T>.Graph<Math>.Greedy(...);
+```
 ## Extensions
 
 Towel has many useful extensions for base types in .Net Standard.
