@@ -112,11 +112,11 @@ Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
 Angle<double> angle2 = new Angle<double>(.5d, Angle.Units.Turns);
 Angle<double> result1 = angle1 + angle2; // 270° 
 // When you perform mathematical operations on measurements, any necessary unit conversions will
-// be automatically performed by the relative measurement class (in this case "Angle<T>").
+// be automatically performed by the relative measurement type (in this case "Angle<T>").
 
 // Type Safeness Example:
 Length<double> length1 = new Length<double>(2d, Length.Units.Yards);
-object result2 = angle1 + length1; // WILL NOT COMPILE
+object result2 = angle1 + length1; // WILL NOT COMPILE!!!
 // The type safe-ness of the measurement types prevents the miss-use of the measurements. You cannot
 // add "Length<T>" to "Angle<T>" because that is mathematically invalid (no operator exists).
 ```

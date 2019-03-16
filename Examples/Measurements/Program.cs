@@ -31,6 +31,16 @@ namespace Measurements
 
             #endregion
 
+            #region Length
+
+            Console.WriteLine("  Lengths--------------------------------------");
+            Console.WriteLine();
+            Length<double> length1 = new Length<double>(1d, Length.Units.Meter);
+            Length<double> length2 = new Length<double>(2d, Length.Units.Yards);
+            Console.WriteLine();
+
+            #endregion
+
             Console.WriteLine();
             Console.WriteLine("=================================================");
             Console.WriteLine("Example Complete...");
