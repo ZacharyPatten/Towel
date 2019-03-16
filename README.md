@@ -120,9 +120,9 @@ Towel has many useful extensions for base types in .Net Standard.
 
 Here are extensions on "System.Random" to generate more random types:
 ```csharp
-string NextString(this Random random, int length)
-char NextChar(this Random random)
-decimal NextDecimal(this Random random)
-DateTime DateTime(this Random random)
-TimeSpan TimeSpan(this Random random)
+string NextString(this Random random, int length);
+char NextChar(this Random random);
+decimal NextDecimal(this Random random);
+DateTime DateTime(this Random random);
+TimeSpan TimeSpan(this Random random);
 ```
