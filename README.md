@@ -106,7 +106,20 @@ symExp2.Substitute("x", 5);                           // Variable Subsitition
 ## Type Safe Measurement Mathematics (TSMM)
 
 Towel has measurement classes to provide type safe mathematics with automatic unit conversion. :)
+```csharp
+// Automatic Unit Conversion Example:
+Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
+Angle<double> angle2 = new Angle<double>(.5d, Angle.Units.Turns);
+Angle<double> result1 = angle1 + angle2; // 270° 
+// When you perform mathematical operations on measurements, any necessary unit conversions will
+// be automatically performed by the "Angle<T>" class.
 
+// Type Safeness Example:
+Length<double> length1 = new Length<double>(2d, Length.Units.Yards);
+object result2 = angle1 + length1; // WILL NOT COMPILE
+// The type safe-ness of the measurement types prevents the miss-use of the measurements. You cannot
+// add "Length<T>" to "Angle<T>" because that is mathematically invalid.
+```
 ## Data Structures
 
 Towel has many useful data structure. Especially the Omnitree, which is an SPT that work on any number of dimensions. It can be used to make a quadtree, octree, or SPT's with higher dimensions.
