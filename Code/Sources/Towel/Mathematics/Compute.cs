@@ -1849,6 +1849,35 @@ namespace Towel.Mathematics
             return FromDouble<T>(Math.Sin(ToDouble(a)));
         }
 
+        /// <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated sine ratio of.</param>
+        /// <returns>The quadratic estimation of the sine ratio of the provided angle.</returns>
+        public static T SineQuadratic<T>(Angle<T> a)
+        {
+            // Piecewise Functions:
+            // y = (-4/π^2)(x - (π/2))^2 + 1
+            // y = (4/π^2)(x - (3π/2))^2 - 1
+
+            T adjusted = Modulo(a.Radians, Constant<T>.Pi2);
+            if (IsNegative(adjusted))
+            {
+                adjusted = Add(adjusted, Constant<T>.Pi2);
+            }
+            if (LessThan(adjusted, Constant<T>.Pi))
+            {
+                T xMinusPiOver2 = Subtract(adjusted, Constant<T>.PiOver2);
+                T xMinusPiOver2Squared = Multiply(xMinusPiOver2, xMinusPiOver2);
+                return Add(Multiply(Constant<T>.Negative4OverPiSquared, xMinusPiOver2Squared), Constant<T>.One);
+            }
+            else
+            {
+                T xMinus3PiOver2 = Subtract(adjusted, Constant<T>.Pi3Over2);
+                T xMinus3PiOver2Squared = Multiply(xMinus3PiOver2, xMinus3PiOver2);
+                return Subtract(Multiply(Constant<T>.FourOverPiSquared, xMinus3PiOver2Squared), Constant<T>.One);
+            }
+        }
+
         #endregion
 
         #region Cosine

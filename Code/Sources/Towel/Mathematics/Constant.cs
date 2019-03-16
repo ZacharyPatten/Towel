@@ -10,10 +10,36 @@
         public static readonly T Two = Compute.FromInt32<T>(2);
         /// <summary>Three [3]</summary>
         public static readonly T Three = Compute.FromInt32<T>(3);
+        /// <summary>Four [4]</summary>
+        public static readonly T Four = Compute.FromInt32<T>(4);
         /// <summary>Negative One [-1]</summary>
         public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
-        /// <summary>Pi [3.14...]</summary>
+
+        /// <summary>π [3.14...]</summary>
         public static readonly T Pi = Compute.Pi<T>();
+        /// <summary>π [3.14...]</summary>
+        public static readonly T π = Pi;
+        /// <summary>2π [6.28...]</summary>
+        public static readonly T Pi2 = Compute.Multiply(Two, Pi);
+        /// <summary>2π [6.28...]</summary>
+        public static readonly T π2 = Pi2;
+        /// <summary>π / 2</summary>
+        public static readonly T PiOver2 = Compute.Divide(Pi, Two);
+        /// <summary>π / 2</summary>
+        public static readonly T πOver2 = PiOver2;
+        /// <summary>3π/2</summary>
+        public static readonly T Pi3Over2 = Compute.Divide(Compute.Multiply(Three, Pi), Two);
+        /// <summary>3π/2</summary>
+        public static readonly T π3Over2 = Pi3Over2;
+        /// <summary>4/(π^2)</summary>
+        public static readonly T FourOverPiSquared = Compute.Divide(Compute.Multiply(Three, Pi), Two);
+        /// <summary>4/(π^2)</summary>
+        public static readonly T FourOverπSquared = FourOverPiSquared;
+        /// <summary>-4/(π^2)</summary>
+        public static readonly T Negative4OverPiSquared = Compute.Negate(FourOverPiSquared);
+        /// <summary>-4/(π^2)</summary>
+        public static readonly T Negative4OverπSquared = Negative4OverPiSquared;
+
         /// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
         //public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
 
