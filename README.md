@@ -27,7 +27,16 @@ Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
 
+V3 = -V1;                   // Negate
+V3 = V1 + V2;               // Add
+V3 = V1 - V2;               // Subtract
+V3 = V1 * scalar;           // Multiply
+V3 = V1 / scalar;           // Divide
 scalar = V1.DotProduct(V2); // Dot Product
+V3 = V1.CrossProduct(V2);   // Cross Product
+V1.Magnitude;               // Magnitude
+V3 = V1.Normalize();        // Normalize
+bool equal = V1 == V2;      // Equal
 ```
 ### Matrices
 ```csharp
@@ -38,7 +47,21 @@ Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
 
+M3 = -M1;                               // Negate
+M1 + M2;                                // Add
+M3 = M1 - M2;                           // Subtract
+M3 = M1 * M2;                           // Multiply
+V3 = M1 * V2;                           // Multiply (vector)
+M3 = M1 * scalar;                       // Multiply (scalar)
+M3 = M1 / scalar;                       // Divide
+M3 = M1 ^ 3;                            // Power
+scalar = M1.Determinent();              // Determinent
+M3 = M1.Minor(int row, int column);     // Minor
+M3 = M1.Echelon();                      // Echelon Form (REF)
+M3 = M1.ReducedEchelon();               // Reduced Echelon Form (RREF)
+M3 = M1.Inverse();                      // Inverse
 M1.DecomposeLowerUpper(ref M2, ref M3); // Lower Upper Decomposition
+bool equal = M1 == M2;                  // Equal
 ```
 ### Statistics
 ```csharp
