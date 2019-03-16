@@ -1846,7 +1846,7 @@ namespace Towel.Mathematics
         /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T SineSystem<T>(Angle<T> a)
         {
-            return FromDouble<T>(Math.Sin(ToDouble(a)));
+            return FromDouble<T>(Math.Sin(ToDouble(a.Radians)));
         }
 
         /// <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>

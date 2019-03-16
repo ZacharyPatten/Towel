@@ -2309,6 +2309,8 @@ namespace Towel.Mathematics
 
                 // Unary Operations
                 ParsableUnaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>();
+                ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
+                ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
                 foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Unary>().Where(x => !x.IsAbstract))
                 {
                     ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression) });
@@ -2332,14 +2334,12 @@ namespace Towel.Mathematics
                     }
 
                     // Left Unary Operators
-                    ParsableLeftUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
                     foreach (LeftUnaryOperatorAttribute @operator in type.GetCustomAttributes<LeftUnaryOperatorAttribute>())
                     {
                         ParsableLeftUnaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
                     }
 
                     // Right Unary Operators
-                    ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
                     foreach (RightUnaryOperatorAttribute @operator in type.GetCustomAttributes<RightUnaryOperatorAttribute>())
                     {
                         ParsableRightUnaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
@@ -2348,6 +2348,7 @@ namespace Towel.Mathematics
 
                 // Binary Operations
                 ParsableBinaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>();
+                ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>();
                 foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Binary>().Where(x => !x.IsAbstract))
                 {
                     ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression), typeof(Expression) });
@@ -2372,7 +2373,6 @@ namespace Towel.Mathematics
                     }
 
                     // Binary Operators
-                    ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>();
                     foreach (BinaryOperatorAttribute @operator in type.GetCustomAttributes<BinaryOperatorAttribute>())
                     {
                         ParsableBinaryOperators.Add(@operator.Representation.ToLower(), (@operator.Priority, newFunction));
@@ -2456,14 +2456,14 @@ namespace Towel.Mathematics
                         ParsableBinaryOperations.Keys.Concat(
                             ParsableTernaryOperations.Keys.Concat(
                                 ParsableMultinaryOperations.Keys))).Select(x => Regex.Escape(x));
-                ParsableOperationsRegexPattern = "(" + string.Join(@"\s*\(.*\))(", operations) + @"\s *\(.*\))";
+                ParsableOperationsRegexPattern = string.Join(@"\s*\(.*\)|", operations) + @"\s *\(.*\)";
 
                 // Build a regex to match any operator
                 System.Collections.Generic.IEnumerable<string> operators = 
                     ParsableLeftUnaryOperators.Keys.Concat(
                         ParsableRightUnaryOperators.Keys.Concat(
                             ParsableBinaryOperators.Keys)).Select(x => Regex.Escape(x));
-                ParsableOperatorsRegexPattern = "(" + string.Join(")(", operators) + ")";
+                ParsableOperatorsRegexPattern = string.Join("|", operators);
 
                 ParseableLibraryBuilt = true;
             }
@@ -2823,7 +2823,7 @@ namespace Towel.Mathematics
                             else
                             {
                                 // Binary Operator
-                                if (@operator == null || priority < ParsableRightUnaryOperators[currentMatch.Value].Item1)
+                                if (@operator == null || priority < ParsableBinaryOperators[currentMatch.Value].Item1)
                                 {
                                     @operator = currentMatch;
                                     isUnaryLeftOperator = false;
