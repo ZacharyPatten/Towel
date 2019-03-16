@@ -27,16 +27,7 @@ Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
 
-Negate: V3 = -V1;
-Add: V3 = V1 + V2;
-Subtract: V3 = V1 - V2;
-Multiply: V3 = V1 * scalar;
-Divide: V3 = V1 / scalar;
-Dot Product: scalar = V1.DotProduct(V2);
-Cross Product: V3 = V1.CrossProduct(V2);
-Magnitude: V1.Magnitude;
-Normalize: V3 = V1.Normalize();
-Equality: bool equal = V1 == V2;
+scalar = V1.DotProduct(V2); // Dot Product
 ```
 ### Matrices
 ```csharp
@@ -47,21 +38,7 @@ Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
 
-Negate: M3 = -M1;
-Add: M3 = M1 + M2;
-Subtract: M3 = M1 - M2;
-Multiply: M3 = M1 * M2;
-Multiply (with vector): V3 = M1 * V2;
-Multiply (with scalar): M3 = M1 * scalar;
-Divide: M3 = M1 / scalar;
-Power: M3 = M1 ^ 3;
-Determinent: scalar = M1.Determinent();
-Minor: M3 = M1.Minor(int row, int column);
-Echelon (REF): M3 = M1.Echelon();
-Reduced Echelon (RREF): M3 = M1.ReducedEchelon();
-Inverse: M3 = M1.Inverse();
-Lower/Upper Decomposition: M1.DecomposeLowerUpper(ref M2, ref M3);
-Equality: bool equal = M1 == M2;
+M1.DecomposeLowerUpper(ref M2, ref M3); // Lower Upper Decomposition
 ```
 ### Statistics
 ```csharp
