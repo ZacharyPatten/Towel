@@ -82,13 +82,26 @@ T Variance<T>(Stepper<T> stepper);
 T StandardDeviation<T>(Stepper<T> stepper);
 T MeanDeviation<T>(Stepper<T> stepper);
 ```
-### Other Mathematics
+### Other Numeric Mathematics
 ```csharp
 void FactorPrimes<T>(T a, Step<T> step);
 T Factorial<T>(T a);
 T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
 T LeastCommonMultiple<T>(T a, T b, params T[] c);
 T GreatestCommonFactor<T>(T a, T b, params T[] c);
+```
+## Symbolic Mathematics
+```csharp
+// From Linq Expression
+Expression<Func<double, double>> exp1 = (x) => 2 * (x / 7);
+Symbolics.Expression symExp1 = Symbolics.Parse(e1);
+Symbolics.Expression simplified = symExp1.Simplify(); // Simplification
+symExp1.Substitute("x", 5); // Variable Subsitition
+
+// From String
+Symbolics.Expression symExp2 = Symbolics.Parse("2 * (x / 7)");
+Symbolics.Expression simplified = symExp2.Simplify(); // Simplification
+symExp2.Substitute("x", 5); // Variable Subsitition
 ```
 ## Type Safe Measurement Mathematics (TSMM)
 
