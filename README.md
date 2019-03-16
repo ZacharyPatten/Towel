@@ -94,13 +94,11 @@ Towel has many useful data structure. Especially the Omnitree, which is an SPT t
 Heap<T> heap;
 AvlTree<T> avlTree;
 RedBlackTree<T> redBlackTree;
-Omnitree<T, A1, A2... AX> omnitree; // (Quadtree, Octree, ...)
+Omnitree<T, A1, A2, ... AX> omnitree; // (Quadtree, Octree, ...)
 Tree<T> tree;
 Graph<T> graph;
 ```
 ## Algorithms
-
-Towel has many algorithms, such as generic A* and Greedy Path finding.
 ```csharp
 // Sorting
 Sort<T>.Shuffle(...);
@@ -112,16 +110,13 @@ Sort<T>.Merge(...);
 Sort<T>.Heap(...);
 Sort<T>.OddEven(...);
 
-// Path Finding (Graph Search)
+// Path Finding
 Search<T>.Graph<Math>.Astar(...);
 Search<T>.Graph<Math>.Greedy(...);
 ```
 ## Extensions
-
-Towel has many useful extensions for base types in .Net Standard.
-
-Here are extensions on "System.Random" to generate more random types:
 ```csharp
+// System.Random extensions to generate more random types
 string NextString(this Random random, int length);
 char NextChar(this Random random);
 decimal NextDecimal(this Random random);
