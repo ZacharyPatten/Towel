@@ -91,12 +91,12 @@ Towel has measurement classes to provide type safe mathematics with automatic un
 
 Towel has many useful data structure. Especially the Omnitree, which is an SPT that work on any number of dimensions. It can be used to make a quadtree, octree, or SPT's with higher dimensions.
 ```csharp
-Heap<T>;
-AvlTree<T>;
-RedBlackTree<T>;
-Omnitree<T, A1, A2... AX> // (Quadtree, Octree, ...);
-Tree<T>;
-Graph<T>;
+Heap<T> heap;
+AvlTree<T> avlTree;
+RedBlackTree<T> redBlackTree;
+Omnitree<T, A1, A2... AX> omnitree; // (Quadtree, Octree, ...)
+Tree<T> tree;
+Graph<T> graph;
 ```
 ## Algorithms
 
@@ -110,7 +110,7 @@ Sort<T>.Insertion(...);
 Sort<T>.Quick(...);
 Sort<T>.Merge(...);
 Sort<T>.Heap(...);
-Sort<T>.Odd Even(...);
+Sort<T>.OddEven(...);
 
 // Path Finding (Graph Search)
 Search<T>.Graph<Math>.Astar(...);
