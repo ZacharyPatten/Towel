@@ -1882,7 +1882,7 @@ namespace Towel.Mathematics
 
         #region Cosine
 
-        /// <summary>Computes the cosine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <summary>Computes the cosine ratio of an angle using the system's cosine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The angle to compute the cosine ratio of.</param>
         /// <returns>The cosine ratio of the provided angle.</returns>
@@ -1892,11 +1892,21 @@ namespace Towel.Mathematics
             return FromDouble<T>(Math.Cos(ToDouble(a)));
         }
 
+        /// <summary>Estimates the cosine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated cosine ratio of.</param>
+        /// <returns>The quadratic estimation of the cosine ratio of the provided angle.</returns>
+        public static T CosineQuadratic<T>(Angle<T> a)
+        {
+            Angle<T> piOver2Radians = new Angle<T>(Constant<T>.PiOver2, Angle.Units.Radians);
+            return SineQuadratic(a - piOver2Radians);
+        }
+
         #endregion
 
         #region Tangent
 
-        /// <summary>Computes the tangent ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <summary>Computes the tangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The angle to compute the tangent ratio of.</param>
         /// <returns>The tangent ratio of the provided angle.</returns>
@@ -1905,32 +1915,83 @@ namespace Towel.Mathematics
         {
             return FromDouble<T>(Math.Tan(ToDouble(a)));
         }
-        
+
+        /// <summary>Estimates the tangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated tangent ratio of.</param>
+        /// <returns>The quadratic estimation of the tangent ratio of the provided angle.</returns>
+        public static T TangentQuadratic<T>(Angle<T> a)
+        {
+            return Divide(SineQuadratic(a), CosineQuadratic(a));
+        }
+
         #endregion
 
         #region Cosecant
 
+        /// <summary>Computes the cosecant ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the cosecant ratio of.</param>
+        /// <returns>The cosecant ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T CosecantSystem<T>(Angle<T> a)
         {
             return Divide(Constant<T>.One, SineSystem(a));
+        }
+
+        /// <summary>Estimates the cosecant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated cosecant ratio of.</param>
+        /// <returns>The quadratic estimation of the cosecant ratio of the provided angle.</returns>
+        public static T CosecantQuadratic<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, SineQuadratic(a));
         }
 
         #endregion
 
         #region Secant
 
+        /// <summary>Computes the secant ratio of an angle using the system's cosine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the secant ratio of.</param>
+        /// <returns>The secant ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T SecantSystem<T>(Angle<T> a)
         {
             return Divide(Constant<T>.One, CosineSystem(a));
+        }
+
+        /// <summary>Estimates the secant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated secant ratio of.</param>
+        /// <returns>The quadratic estimation of the secant ratio of the provided angle.</returns>
+        public static T SecantQuadratic<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, CosineQuadratic(a));
         }
 
         #endregion
 
         #region Cotangent
 
+        /// <summary>Computes the cotangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the cotangent ratio of.</param>
+        /// <returns>The cotangent ratio of the provided angle.</returns>
+        /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T CotangentSystem<T>(Angle<T> a)
         {
             return Divide(Constant<T>.One, TangentSystem(a));
+        }
+
+        /// <summary>Estimates the cotangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The angle to compute the quadratic estimated cotangent ratio of.</param>
+        /// <returns>The quadratic estimation of the cotangent ratio of the provided angle.</returns>
+        public static T CotangentQuadratic<T>(Angle<T> a)
+        {
+            return Divide(Constant<T>.One, TangentQuadratic(a));
         }
 
         #endregion
