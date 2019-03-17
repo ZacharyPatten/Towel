@@ -2836,6 +2836,11 @@ namespace Towel.Mathematics
                             break;
                         }
                         currentOperatorMatch++;
+
+                        if (currentOperatorMatch >= operatorMatches.Count)
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -2857,7 +2862,7 @@ namespace Towel.Mathematics
                     else if (isBinaryOperator)
                     {
                         Expression A = Parse(@string.Substring(0, @operator.Index), tryParsingFunction);
-                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length - 1), tryParsingFunction);
+                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length), tryParsingFunction);
                         expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
                         return true;
                     }

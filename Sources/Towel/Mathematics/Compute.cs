@@ -1355,7 +1355,7 @@ namespace Towel.Mathematics
                 }
                 else
                 {
-                    if (LessThan(answer, Constant<T>.One))
+                    if (GreaterThan(answer, Constant<T>.One))
                     {
                         T a = answer;
                         T b = n;
