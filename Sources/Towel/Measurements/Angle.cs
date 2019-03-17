@@ -30,8 +30,8 @@ namespace Towel.Measurements
             [ConversionFactor(Turns, "π / 2")]
             /// <summary>Units of an angle measurement.</summary>
 			Radians = 2,
-            [ConversionFactor(Gradians, "360")]
-            [ConversionFactor(Degrees, "400")]
+            [ConversionFactor(Gradians, "400")]
+            [ConversionFactor(Degrees, "360")]
             [ConversionFactor(Radians, "2 / π")]
             /// <summary>Units of an angle measurement.</summary>
 			Turns = 3,

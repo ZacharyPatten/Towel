@@ -84,7 +84,7 @@ namespace Towel.Measurements
         internal static T[][] Build<UNITS, T>()
         {
             int size = Convert.ToInt32(Extensions.GetMaxEnumValue<UNITS>());
-            T[][] conversionFactorTable = Extensions.ConstructSquareJagged<T>(size);
+            T[][] conversionFactorTable = Extensions.ConstructSquareJagged<T>(size + 1);
             foreach (Enum unit in Enum.GetValues(typeof(UNITS)))
             {
                 int A = Convert.ToInt32(unit);

@@ -2284,6 +2284,7 @@ namespace Towel.Mathematics
         internal const string ParenthesisPattern = @"\(.*\)";
         private static string ParsableOperationsRegexPattern;
         private static string ParsableOperatorsRegexPattern;
+        private static string ParsableKnownConstantsRegexPattern;
         // Operation Refrences
         private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
         private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
@@ -2294,7 +2295,7 @@ namespace Towel.Mathematics
         private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
         private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
         // Known Constant References
-        private static System.Collections.Generic.Dictionary<string, Func<Constant>> ParsableKnownConstants;
+        private static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUknownType>> ParsableKnownConstants;
 
         #region Reflection Code (Actually Building the Parsing Library)
 
@@ -2432,14 +2433,19 @@ namespace Towel.Mathematics
                 }
 
                 // Known Constants
-                ParsableKnownConstants = new System.Collections.Generic.Dictionary<string, Func<Constant>>();
-                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantAttribute>().Where(x => !x.IsAbstract))
+                ParsableKnownConstants = new System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUknownType>>();
+                foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantOfUknownType>().Where(x => !x.IsAbstract))
                 {
                     ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
                     NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
-                    Func<Constant> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Constant>>(newExpression).Compile();
-                    string operationName = type.ConvertToCsharpSource();
-                    ParsableKnownConstants.Add(operationName.ToLower(), newFunction);
+                    Func<KnownConstantOfUknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUknownType>>(newExpression).Compile();
+                    //string knownConstant = type.ConvertToCsharpSource();
+                    //if (knownConstant.Contains("+"))
+                    //{
+                    //    int index = knownConstant.LastIndexOf("+");
+                    //    knownConstant = knownConstant.Substring(index + 1);
+                    //}
+                    //ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
                     KnownConstantAttribute knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
                     if (!(knownConstantAttribute is null))
                     {
@@ -2464,6 +2470,10 @@ namespace Towel.Mathematics
                         ParsableRightUnaryOperators.Keys.Concat(
                             ParsableBinaryOperators.Keys)).Select(x => Regex.Escape(x));
                 ParsableOperatorsRegexPattern = string.Join("|", operators);
+
+                System.Collections.Generic.IEnumerable<string> knownConstants =
+                    ParsableKnownConstants.Keys.Select(x => Regex.Escape(x));
+                ParsableKnownConstantsRegexPattern = string.Join("|", knownConstants);
 
                 ParseableLibraryBuilt = true;
             }
@@ -3062,6 +3072,26 @@ namespace Towel.Mathematics
 
         internal static bool TryParseKnownConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
         {
+            Match knownConstantMatch = Regex.Match(@string, ParsableKnownConstantsRegexPattern);
+
+            if (knownConstantMatch.Success)
+            {
+                parsedExpression = ParsableKnownConstants[knownConstantMatch.Value]().ApplyType<T>();
+
+                // implied multiplications to the left and right
+                if (knownConstantMatch.Index != 0)
+                {
+                    Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index));
+                    parsedExpression *= A;
+                }
+                if (knownConstantMatch.Index < @string.Length - 1)
+                {
+                    Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1));
+                    parsedExpression *= B;
+                }
+                return true;
+            }
+
             parsedExpression = null;
             return false;
         }
