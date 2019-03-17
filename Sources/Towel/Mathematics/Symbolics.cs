@@ -2618,7 +2618,7 @@ namespace Towel.Mathematics
             // Error Handling
             if (string.IsNullOrWhiteSpace(@string))
             {
-                throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+                throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
             }
             // Trim
             @string = @string.Trim();
@@ -2659,7 +2659,7 @@ namespace Towel.Mathematics
                 return ParsedConstantExpression;
             }
             // Invalid Or Non-Supported Expression
-            throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+            throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
 
             #region Stupid First Attempt
 
@@ -2768,7 +2768,7 @@ namespace Towel.Mathematics
                     // Handle Input Errors
                     if (scope < 0)
                     {
-                        throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+                        throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
                     }
                     
                     Match currentMatch = operatorMatches[currentOperatorMatch];
@@ -2978,7 +2978,7 @@ namespace Towel.Mathematics
                 }
                 else
                 {
-                    throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+                    throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
                 }
             }
 
@@ -3007,7 +3007,7 @@ namespace Towel.Mathematics
             }
             if (scope != 0)
             {
-                throw new ArgumentException("The expression could not be parsed.", nameof(@string));
+                throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
             }
             operands.Add(@string.Substring(operandStart, @string.Length - operandStart));
             return operands;
@@ -3068,39 +3068,63 @@ namespace Towel.Mathematics
 
         internal static bool TryParseConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
         {
-            T parsedValue;
-            if (tryParsingFunction != null && tryParsingFunction(@string, out parsedValue))
+            if (tryParsingFunction != null && tryParsingFunction(@string, out T parsedValue))
             {
                 parsedExpression = new Constant<T>(parsedValue);
                 return true;
             }
 
-            //int decimalIndex = -1;
-            //for (int i = 0; i < expression.Length; i++)
-            //{
-            //    char character = expression[i];
-            //    if (character == '.')
-            //    {
-            //        if (decimalIndex >= 0 || i == 0 || i == expression.Length - 1)
-            //        {
-            //            throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-            //        }
-            //        decimalIndex = i;
-            //    }
-            //    if (character == '0' && i == 0)
-            //    {
-            //        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-            //    }
-            //    if ('0' > character || character > '9')
-            //    {
-            //        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-            //    }
-            //}
-            //if (parsingFunction != null)
-            //{
-            //    return new Constant<T>(parsingFunction(expression));
-            //}
-            //if (hasDecimal)
+            int decimalIndex = -1;
+            for (int i = 0; i < @string.Length; i++)
+            {
+                char character = @string[i];
+                if (character == '.')
+                {
+                    if (decimalIndex >= 0 || i == 0 || i == @string.Length - 1)
+                    {
+                        parsedExpression = null;
+                        return false;
+                    }
+                    decimalIndex = i;
+                }
+                if (character == '0' && i == 0)
+                {
+                    parsedExpression = null;
+                    return false;
+                }
+                if ('0' > character || character > '9')
+                {
+                    parsedExpression = null;
+                    return false;
+                }
+            }
+
+            if (decimalIndex >= 0)
+            {
+                string wholeNumberString = @string.Substring(0, decimalIndex);
+                string decimalPlacesString = @string.Substring(decimalIndex);
+
+                if (int.TryParse(wholeNumberString, out int wholeNumberInt) &&
+                    int.TryParse(decimalPlacesString, out int decimalPlacesInt))
+                {
+                    T wholeNumber = Compute.FromInt32<T>(wholeNumberInt);
+                    T decimalPlaces = Compute.FromInt32<T>(decimalPlacesInt);
+                    while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.Zero))
+                    {
+                        decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
+                    }
+                    parsedExpression = new Constant<T>(Compute.Add(wholeNumber, decimalPlaces));
+                    return true;
+                }
+            }
+            else
+            {
+                if (int.TryParse(@string, out int parsedInt))
+                {
+                    parsedExpression = new Constant<T>(Compute.FromInt32<T>(parsedInt));
+                    return true;
+                }
+            }
 
             parsedExpression = null;
             return false;

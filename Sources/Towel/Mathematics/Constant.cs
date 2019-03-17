@@ -12,6 +12,8 @@
         public static readonly T Three = Compute.FromInt32<T>(3);
         /// <summary>Four [4]</summary>
         public static readonly T Four = Compute.FromInt32<T>(4);
+        /// <summary>Ten [10]</summary>
+        public static readonly T Ten = Compute.FromInt32<T>(10);
         /// <summary>Negative One [-1]</summary>
         public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
 
