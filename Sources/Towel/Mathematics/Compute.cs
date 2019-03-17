@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Static Generic Mathematics Computation :).</summary>
+	/// <summary>Static Generic Mathematics Computation.</summary>
 	public static class Compute
 	{
         #region Pi
@@ -2253,115 +2253,47 @@ namespace Towel.Mathematics
         }
 
         #endregion
-        
-        #region Regression
 
-        ///// <summary>A stepper through individual points in a 2D data set.</summary>
-        ///// <param name="stepPoint">A step function for an individual point in the 2D data set.</param>
-        //public delegate void PointCollection2D(StepPoint2D stepPoint);
-        ///// <summary>A step function for a point in 2D space.</summary>
-        ///// <param name="x">The x coordinate of the point.</param>
-        ///// <param name="y">The y coordinate of the point.</param>
-        //public delegate void StepPoint2D(T x, T y);
+        #region LinearRegression2D
 
-        ///// <summary>Performs simple 2D linear regression to find a best fit line in the form: "y = m * x + b".</summary>
-        ///// <typeparam name="T">The numeric type.</typeparam>
-        ///// <param name="points">The points to estimate a line out of.</param>
-        ///// <param name="slope">The resulting slope of the best fit line.</param>
-        ///// <param name="y_intercept">The resulting y axis intercept of the best fit line.</param>
-        ///// <exception cref="System.InvalidOperationException">Vertical lines are not supported. There must be >2 unique X valued points.</exception>
-        //public static void LinearRegression2D(PointCollection2D points, out T slope, out T y_intercept)
-        //{
-        //    Code.AssertArgNonNull(points, "points");
-        //    int count = 0;
-        //    // first find the mean X value (so we can divide the data into two halfs)
-        //    T mean_x = Towel.Mathematics.Compute.Mean((Step<T> step) =>
-        //    {
-        //        points((T x, T y) =>
-        //        {
-        //            step(x);
-        //            count++;
-        //        });
-        //    });
-        //    if (count < 2)
-        //        throw new System.InvalidOperationException("Attempting to perform 2D linear regression on an insufficient data set (<2 points provided).");
-        //    // add up all the x & y values while keeping the data segregated 
-        //    // based on the mean X value and keeping a running totals
-        //    int count_1 = 0;
-        //    int count_2 = 0;
-        //    T x_sum_1 = Constant<T>.Zero; T y_sum_1 = Constant<T>.Zero; // represents point 1 of best fit line
-        //    T x_sum_2 = Constant<T>.Zero; T y_sum_2 = Constant<T>.Zero; // represents point 2 of best fit line
-        //    points((T x, T y) =>
-        //    {
-        //        if (Compute.Compare(x, mean_x) == Comparison.Less)
-        //        {
-        //            count_1++;
-        //            x_sum_1 = Compute.Add(x_sum_1, x);
-        //            y_sum_1 = Compute.Add(y_sum_1, y);
-        //        }
-        //        else
-        //        {
-        //            count_2++;
-        //            x_sum_2 = Compute.Add(x_sum_2, x);
-        //            y_sum_2 = Compute.Add(y_sum_2, y);
-        //        }
-        //    });
-        //    if (count_1 == 0 || count_2 == 0)
-        //        throw new System.InvalidOperationException("Not enough unique X values for 2D linear regression (vertical lines are not supported).");
-        //    // divide all summations by the count to calculate means
-        //    T count_1_T = Compute.FromInt32(count_1); // convert int to T
-        //    T x_1 = Compute.Divide(x_sum_1, count_1_T);
-        //    T y_1 = Compute.Divide(y_sum_1, count_1_T);
-        //    T count_2_T = Compute.FromInt32(count_2); // convert int to T
-        //    T x_2 = Compute.Divide(x_sum_2, count_2_T);
-        //    T y_2 = Compute.Divide(y_sum_2, count_2_T);
-        //    // At this point we have two points on the best fit line: (x_1, y_1) & (x_2, y_2)
-        //    // calculate the slope and the y-intercept
-        //    slope = Compute.Divide(Compute.Subtract(y_2, y_1), Compute.Subtract(x_2, x_1)); // m = (y2- y1) / (x2- x1)
-        //    y_intercept = Compute.Subtract(y_1, Compute.Multiply(x_1, slope)); // b = y' - m * x' where (x', y') is a point on the line
-        //}
-
-        ///// <summary>Performs simple 2D linear regression to find a best fit line in the form: "y = m * x + b".</summary>
-        ///// <typeparam name="T">The numeric type.</typeparam>
-        ///// <param name="stepper">The vectors to make a line out of.</param>
-        ///// <param name="slope">The resulting slope of the best fit line.</param>
-        ///// <param name="y_intercept">The resulting y axis intercept of the best fit line.</param>
-        ///// <exception cref="System.InvalidOperationException">Vertical lines are not supported. There must be >2 unique X valued points.</exception>
-        //public static void LinearRegression2D(Stepper<Vector<T>> stepper, out T slope, out T y_intercept)
-        //{
-        //    Code.AssertArgNonNull(stepper, "stepper");
-        //    LinearRegression2D((StepPoint2D stepPoint) =>
-        //    {
-        //        stepper((Vector<T> vector) =>
-        //        {
-        //            if (vector.Dimensions != 2)
-        //                throw new System.InvalidOperationException("Attempting to perform 2D linear regression on vectors that are not 2D.");
-        //            stepPoint(vector[0], vector[1]);
-        //        });
-        //    }, out slope, out y_intercept);
-        //}
-
-        ///// <summary>Performs simple 2D linear regression to find a best fit line in the form: "y = m * x + b".</summary>
-        ///// <typeparam name="T">The numeric type.</typeparam>
-        ///// <param name="x_values">The set of x values for the 2D data set.</param>
-        ///// <param name="y_values">The set of y values for the 2D data set.</param>
-        ///// <param name="slope">The resulting slope of the best fit line.</param>
-        ///// <param name="y_intercept">The resulting y axis intercept of the best fit line.</param>
-        ///// <exception cref="System.InvalidOperationException">Vertical lines are not supported. There must be >2 unique X valued points.</exception>
-        //public static void LinearRegression2D(T[] x_values, T[] y_values, out T slope, out T y_intercept)
-        //{
-        //    Code.AssertArgNonNull(x_values, "x_values");
-        //    Code.AssertArgNonNull(y_values, "y_values");
-        //    if (x_values.Length != y_values.Length)
-        //        throw new System.InvalidOperationException("Invalid 2D data set. (the number of x and y values are not equal)");
-        //    LinearRegression2D((StepPoint2D stepPoint) =>
-        //    {
-        //        for (int i = 0; i < x_values.Length; i++)
-        //        {
-        //            stepPoint(x_values[0], y_values[1]);
-        //        }
-        //    }, out slope, out y_intercept);
-        //}
+        /// <summary>Computes the best fit line from a set of points in 2D space [y = slope * x + y_intercept].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="points">The points to compute the best fit line of.</param>
+        /// <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
+        /// <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
+        public static void LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept)
+        {
+            if (points is null)
+            {
+                throw new ArgumentNullException(nameof(points));
+            }
+            int count = 0;
+            T SUMX = Constant<T>.Zero;
+            T SUMY = Constant<T>.Zero;
+            points((x, y) =>
+            {
+                SUMX = Add(SUMX, x);
+                SUMY = Add(SUMY, y);
+                count++;
+            });
+            if (count < 2)
+            {
+                throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count >= 2)");
+            }
+            T COUNT = FromInt32<T>(count);
+            T MEANX = Divide(SUMX, COUNT);
+            T MEANY = Divide(SUMY, COUNT);
+            T VARIANCEX = Constant<T>.Zero;
+            T VARIANCEY = Constant<T>.Zero;
+            points((x, y) =>
+            {
+                T offset = Subtract(x, MEANX);
+                VARIANCEY = Add(VARIANCEY, Multiply(offset, Subtract(y, MEANY)));
+                VARIANCEX = Add(VARIANCEX, Multiply(offset, offset));
+            });
+            slope = Divide(VARIANCEY, VARIANCEX);
+            y_intercept = Subtract(MEANY, Multiply(slope, MEANX));
+        }
 
         #endregion
 

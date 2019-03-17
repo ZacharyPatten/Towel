@@ -13,7 +13,7 @@ namespace Towel.Parallels
 
 		/// <summary>A delegate to be run in parallel on a seperate thread with callback capabilities.</summary>
 		/// <param name="report">The delegate to report back to the thread that created the current thread.</param>
-		public delegate void Operation_Report(Callback report);
+		public delegate void OperationReport(Callback report);
 
 		/// <summary>A delegate for sending a message back to the thread that created the current thread.</summary>
 		public delegate void Callback();
@@ -22,7 +22,7 @@ namespace Towel.Parallels
 		/// <param name="current">The current index out of the max number of delegates to create.</param>
 		/// <param name="max">The number of delegates that will be created.</param>
 		/// <returns>The "current" delegate to be run in parallel out of "max" delegates.</returns>
-		public delegate Operation Operation_Factory(int current, int max);
+		public delegate Operation OperationFactory(int current, int max);
 
 		/// <summary>A delegate for resolving a multi-threaded event.</summary>
 		public delegate void Resolve(IAsyncResult result);
@@ -67,7 +67,7 @@ namespace Towel.Parallels
 		/// <param name="run">The delegate to run in the background with reporting.</param>
 		/// <param name="report">The delegate for reporting</param>
 		public static IAsyncResult Thread(
-			Operation_Report run,
+			OperationReport run,
 			Callback report)
 		{
 			if (run == null)
@@ -91,7 +91,7 @@ namespace Towel.Parallels
 		/// <param name="report">The delegate for reporting</param>
 		/// <param name="resolve">The delegate for handling the completion of the background thread.</param>
 		public static IAsyncResult Thread(
-			Operation_Report run,
+			OperationReport run,
 			Callback report,
 			Resolve resolve)
 		{

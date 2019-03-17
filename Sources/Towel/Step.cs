@@ -14,58 +14,100 @@ namespace Towel
 		Restart = 2
 	};
 
-	/// <summary>Delegate for data structure iteration.</summary>
-	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-	/// <param name="current">The current instance of iteration through the data structure.</param>
-	[System.Serializable]
-	public delegate void Step<T>(T current);
+    #region <T>
+
+    /// <summary>Delegate for data structure iteration.</summary>
+    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
+    /// <param name="current">The current instance of iteration through the data structure.</param>
+    public delegate void Step<T>(T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
-	[System.Serializable]
 	public delegate void StepRef<T>(ref T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[System.Serializable]
 	public delegate StepStatus StepBreak<T>(T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[System.Serializable]
 	public delegate StepStatus StepRefBreak<T>(ref T current);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step_function">The foreach function to perform on each iteration.</param>
-	[System.Serializable]
-	public delegate void Stepper<T>(Step<T> step_function);
+	/// <param name="step">The foreach function to perform on each iteration.</param>
+	public delegate void Stepper<T>(Step<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step_function">The foreach function to perform on each iteration.</param>
-	[System.Serializable]
-	public delegate void StepperRef<T>(StepRef<T> step_function);
+	/// <param name="step">The foreach function to perform on each iteration.</param>
+	public delegate void StepperRef<T>(StepRef<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step_function">The foreach function to perform on each iteration.</param>
-	[System.Serializable]
-	public delegate void StepperBreak<T>(StepBreak<T> step_function);
+	/// <param name="step">The foreach function to perform on each iteration.</param>
+	public delegate void StepperBreak<T>(StepBreak<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step_function">The foreach function to perform on each iteration.</param>
-	[System.Serializable]
-	public delegate void StepperRefBreak<T>(StepRefBreak<T> step_function);
+	/// <param name="step">The foreach function to perform on each iteration.</param>
+	public delegate void StepperRefBreak<T>(StepRefBreak<T> step);
 
-	/// <summary>Extension methods.</summary>
-	public static class Step
+    #endregion
+
+    #region <T1, T2>
+
+    /// <summary>Delegate for data structure iteration.</summary>
+    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
+    /// <param name="current">The current instance of iteration through the data structure.</param>
+    public delegate void Step<T1, T2>(T1 a, T2 b);
+
+    /// <summary>Delegate for data structure iteration.</summary>
+    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
+    /// <param name="current">The current instance of iteration through the data structure.</param>
+    public delegate void StepRef<T1, T2>(ref T1 a, ref T2 b);
+
+    /// <summary>Delegate for data structure iteration.</summary>
+    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
+    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <returns>The status of the iteration. Allows breaking functionality.</returns>
+    public delegate StepStatus StepBreak<T1, T2>(T1 a, T2 b);
+
+    /// <summary>Delegate for data structure iteration.</summary>
+    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
+    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <returns>The status of the iteration. Allows breaking functionality.</returns>
+    public delegate StepStatus StepRefBreak<T1, T2>(ref T1 a, ref T2 b);
+
+    /// <summary>Delegate for a traversal function on a data structure.</summary>
+    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
+    /// <param name="step">The foreach function to perform on each iteration.</param>
+    public delegate void Stepper<T1, T2>(Step<T1, T2> step);
+
+    /// <summary>Delegate for a traversal function on a data structure.</summary>
+    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
+    /// <param name="step">The foreach function to perform on each iteration.</param>
+    public delegate void StepperRef<T1, T2>(StepRef<T1, T2> step);
+
+    /// <summary>Delegate for a traversal function on a data structure.</summary>
+    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
+    /// <param name="step">The foreach function to perform on each iteration.</param>
+    public delegate void StepperBreak<T1, T2>(StepBreak<T1, T2> step);
+
+    /// <summary>Delegate for a traversal function on a data structure.</summary>
+    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
+    /// <param name="step">The foreach function to perform on each iteration.</param>
+    public delegate void StepperRefBreak<T1, T2>(StepRefBreak<T1, T2> stepn);
+
+    #endregion
+
+    /// <summary>Extension methods.</summary>
+    public static class Step
 	{
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
