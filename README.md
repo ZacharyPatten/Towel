@@ -3,7 +3,7 @@ If you wanna survive out here you've got to know where your towel is.
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
-## Build Status
+## Continuous Integration
 
 [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
 
@@ -12,11 +12,11 @@ Towel is a C# .Net Standard libary intended to add much needed functionality tha
  - Zachary Patten
    - sevenix.zp@gmail.com
 
-Howdy! I'm Zachary Patten and Towel has been a 5+ year long project of mine to make the most advanced (and easy-to-use) coding library around. Data structures, mathematics, mearsurements, algorithms, extensions... Towel has something for every project out there. Currently, I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
+Howdy! I'm Zachary Patten, and Towel has been a 5+ year long project of mine to make the most advanced, easy-to-use coding library around. Data structures, mathematics, mearsurements, algorithms, extensions... Towel has something for every project out there. Currently, I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
 
 ## Mathematics
 
-The Towel framework has fast generic mathematics functions.
+Towel has fast generic mathematics functions.
 
 ### Fundamental Operations
 ```csharp
@@ -26,6 +26,26 @@ T Subtract<T>(T a, T b);
 T Multiply<T>(T a, T b);
 T Divide<T>(T a, T b);
 T Modulo<T>(T a, T b);
+```
+### More Numeric Mathematics
+```csharp
+void FactorPrimes<T>(T a, Step<T> step);
+T Factorial<T>(T a);
+T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
+T LeastCommonMultiple<T>(T a, T b, params T[] c);
+T GreatestCommonFactor<T>(T a, T b, params T[] c);
+```
+### Statistics
+```csharp
+T Mean<T>(T a, params T[] b);
+T Median<T>(params T[] values);
+Heap<Link<T, int>> Mode<T>(T a, params T[] b);
+void Range<T>(out T minimum, out T maximum, Stepper<T> stepper);
+T[] Quantiles<T>(int quantiles, Stepper<T> stepper);
+T GeometricMean<T>(Stepper<T> stepper);
+T Variance<T>(Stepper<T> stepper);
+T StandardDeviation<T>(Stepper<T> stepper);
+T MeanDeviation<T>(Stepper<T> stepper);
 ```
 ### Vectors
 ```csharp
@@ -69,26 +89,6 @@ M3 = M1.ReducedEchelon();               // Reduced Echelon Form (RREF)
 M3 = M1.Inverse();                      // Inverse
 M1.DecomposeLowerUpper(ref M2, ref M3); // Lower Upper Decomposition
 bool equal = M1 == M2;                  // Equal
-```
-### Statistics
-```csharp
-T Mean<T>(T a, params T[] b);
-T Median<T>(params T[] values);
-Heap<Link<T, int>> Mode<T>(T a, params T[] b);
-void Range<T>(out T minimum, out T maximum, Stepper<T> stepper);
-T[] Quantiles<T>(int quantiles, Stepper<T> stepper);
-T GeometricMean<T>(Stepper<T> stepper);
-T Variance<T>(Stepper<T> stepper);
-T StandardDeviation<T>(Stepper<T> stepper);
-T MeanDeviation<T>(Stepper<T> stepper);
-```
-### Other Numeric Mathematics
-```csharp
-void FactorPrimes<T>(T a, Step<T> step);
-T Factorial<T>(T a);
-T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
-T LeastCommonMultiple<T>(T a, T b, params T[] c);
-T GreatestCommonFactor<T>(T a, T b, params T[] c);
 ```
 ### Symbolic Mathematics
 ```csharp
