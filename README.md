@@ -1,7 +1,7 @@
 # Towel
 If you wanna survive out here you've got to know where your towel is.
 
-Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in .Net Standard as well as redesign some aspects to bring things up to modern standards.
+Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring things up to modern standards.
 
 ## Build Status
 
@@ -103,9 +103,9 @@ Symbolics.Expression symExp2 = Symbolics.Parse("2 * (x / 7)");
 Symbolics.Expression simplified = symExp2.Simplify(); // Simplification
 symExp2.Substitute("x", 5);                           // Variable Subsitition
 ```
-## Type Safe Measurement Mathematics (TSMM)
+## Measurement Mathematics
 
-Towel has measurement classes to provide type safe mathematics with automatic unit conversion. :)
+Towel has measurement types to provide type-safe measurement mathematics with automatic unit conversion. Never make a unit conversion mistake again, and add a layer of mathematical validation to your code.
 ```csharp
 // Automatic Unit Conversion Example:
 Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
