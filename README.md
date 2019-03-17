@@ -12,6 +12,7 @@ Towel is a C# .Net Standard libary intended to add much needed functionality tha
  - Zachary Patten
    - sevenix.zp@gmail.com
 
+Howdy! I'm Zachary Patten and Towel has been a 5+ year long project of mine to make the most advanced (and easy-to-use) coding library around. Data structures, mathematics, mearsurements, algorithms, extensions... Towel has something for every project out there. Currently, I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
 
 ## Mathematics
 
