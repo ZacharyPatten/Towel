@@ -1,7 +1,7 @@
 # Towel
 If you wanna survive out here you've got to know where your towel is.
 
-Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring things up to modern standards.
+Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
 ## Build Status
 
