@@ -28,10 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Repository Files", "_Repos
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
 		LICENSE = LICENSE
+		Logo.svg = Logo.svg
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurements", "Examples\Measurements\Measurements.csproj", "{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurements", "Examples\Measurements\Measurements.csproj", "{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
