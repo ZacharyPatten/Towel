@@ -2,7 +2,7 @@
 
 <img src="./Logo.svg" height="150">
 
-If you wanna survive out here you've got to know where your towel is.
+"It's a tough galaxy. If you wat to survive, you've gotta know... where your towel is." - Ford Prefect
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
