@@ -92,7 +92,7 @@ bool equal = M1 == M2;                  // Equal
 ```csharp
 // From Linq Expression
 Expression<Func<double, double>> exp1 = (x) => 2 * (x / 7);
-Symbolics.Expression symExp1 = Symbolics.Parse(e1);
+Symbolics.Expression symExp1 = Symbolics.Parse(exp1);
 Symbolics.Expression simplified = symExp1.Simplify(); // Simplification
 symExp1.Substitute("x", 5);                           // Variable Subsitition
 
