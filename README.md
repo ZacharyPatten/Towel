@@ -6,6 +6,8 @@
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
+*Note: Many features are coded and working, but Towel is still in heavy development. It should be ready for its first release later this year.*
+
 ## Continuous Integration
 
 Build Status [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
