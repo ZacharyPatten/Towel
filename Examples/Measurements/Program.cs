@@ -35,7 +35,7 @@ namespace Measurements
 
             Console.WriteLine("  Lengths--------------------------------------");
             Console.WriteLine();
-            Length<double> length1 = new Length<double>(1d, Length.Units.Meter);
+            Length<double> length1 = new Length<double>(1d, Length.Units.Meters);
             Length<double> length2 = new Length<double>(2d, Length.Units.Yards);
             Console.WriteLine();
 

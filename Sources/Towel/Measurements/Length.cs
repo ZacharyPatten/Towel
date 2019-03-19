@@ -15,31 +15,161 @@ namespace Towel.Measurements
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
+            [MetricUnit(MetricUnits.Yocto)]
+            [ConversionFactor(Inches, "2.54 * 10 ^ -22")]
+            [ConversionFactor(Feet, "3.048 * 10 ^ -23")]
+            [ConversionFactor(Yards, "9.144 * 10 ^ -23")]
+            [ConversionFactor(Miles, "1.609 * 10 ^ -27")]
+            /// <summary>Units of an length measurement.</summary>
             Yoctometers = 0,
+            [MetricUnit(MetricUnits.Zepto)]
+            [ConversionFactor(Inches, "2.54 * 10 ^ -19")]
+            [ConversionFactor(Feet, "3.048 * 10 ^ -20")]
+            [ConversionFactor(Yards, "9.144 * 10 ^ -20")]
+            [ConversionFactor(Miles, "1.609 * 10 ^ -24")]
+            /// <summary>Units of an length measurement.</summary>
             Zeptometers = 1,
+            [MetricUnit(MetricUnits.Atto)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Attometers = 2,
+            [MetricUnit(MetricUnits.Femto)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Femtometers = 3,
-            PicoMeters = 4,
+            [MetricUnit(MetricUnits.Pico)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Picometers = 4,
+            [MetricUnit(MetricUnits.Nano)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Nanometers = 5,
+            [MetricUnit(MetricUnits.Micro)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Micrometers = 6,
+            [MetricUnit(MetricUnits.Milli)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Millimeters = 7,
+            [MetricUnit(MetricUnits.Centi)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
             Centimeters = 8,
+            /// <summary>Units of an length measurement.</summary>
             Inches = 9,
-            Decimeter = 10,
-            Foots = 11,
+            [MetricUnit(MetricUnits.Deci)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Decimeters = 10,
+            /// <summary>Units of an length measurement.</summary>
+            Feet = 11,
+            /// <summary>Units of an length measurement.</summary>
 			Yards = 12,
-            Meter = 13,
-            Dekameter = 14,
-            Hectometer = 15,
-            Kilometer = 16,
+            [MetricUnit(MetricUnits.BASE)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Meters = 13,
+            [MetricUnit(MetricUnits.Deka)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Dekameters = 14,
+            [MetricUnit(MetricUnits.Hecto)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Hectometers = 15,
+            [MetricUnit(MetricUnits.Kilo)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Kilometers = 16,
+            /// <summary>Units of an length measurement.</summary>
             Miles = 17,
-            Megameter = 18,
-            Gigameter = 19,
-            Terameter = 20,
-            Petameter = 21,
-            Exameter = 22,
-            Zettameter = 23,
-            Yottameter = 24,
+            [MetricUnit(MetricUnits.Mega)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Megameters = 18,
+            [MetricUnit(MetricUnits.Giga)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Gigameters = 19,
+            [MetricUnit(MetricUnits.Tera)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Terameters = 20,
+            [MetricUnit(MetricUnits.Peta)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Petameters = 21,
+            [MetricUnit(MetricUnits.Exa)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Exameters = 22,
+            [MetricUnit(MetricUnits.Zetta)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Zettameters = 23,
+            [MetricUnit(MetricUnits.Yotta)]
+            [ConversionFactor(Inches, "")]
+            [ConversionFactor(Feet, "")]
+            [ConversionFactor(Yards, "")]
+            [ConversionFactor(Miles, "")]
+            /// <summary>Units of an length measurement.</summary>
+            Yottameters = 24,
 
             #endregion
         }
