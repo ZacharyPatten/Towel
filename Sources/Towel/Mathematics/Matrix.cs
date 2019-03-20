@@ -2075,7 +2075,7 @@ namespace Towel.Mathematics
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    if (Compute.EqualLeniency(a.Get(i, j), b.Get(i, j), leniency))
+                    if (!Compute.EqualLeniency(a.Get(i, j), b.Get(i, j), leniency))
                     {
                         return false;
                     }
