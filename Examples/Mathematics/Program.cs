@@ -461,7 +461,7 @@ namespace Mathematics
 
             #endregion
 
-            #region Decimal To String
+            #region Decimal To Words
 
             Console.WriteLine("  Converting Decimal To Words---------------------------");
             Console.WriteLine();
