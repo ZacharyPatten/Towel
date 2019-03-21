@@ -119,5 +119,55 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Subtract(1M, 2M, 3M) == -4M);
             Assert.IsTrue(Subtract(-1M, -2M, -3M) == 4M);
         }
+
+        [TestMethod]
+        public void Multiply_Testing()
+        {
+            // Binary
+
+            // int
+            Assert.IsTrue(Multiply(0, 0) == 0);
+            Assert.IsTrue(Multiply(1, 1) == 1);
+            Assert.IsTrue(Multiply(1, 2) == 2);
+            Assert.IsTrue(Multiply(-1, 1) == -1);
+            Assert.IsTrue(Multiply(1, -1) == -1);
+            Assert.IsTrue(Multiply(-1, -1) == 1);
+            // float
+            Assert.IsTrue(Multiply(0f, 0f) == 0f);
+            Assert.IsTrue(Multiply(1f, 1f) == 1f);
+            Assert.IsTrue(Multiply(1f, 2f) == 2f);
+            Assert.IsTrue(Multiply(-1f, 1f) == -1f);
+            Assert.IsTrue(Multiply(1f, -1f) == -1f);
+            Assert.IsTrue(Multiply(-1f, -1f) == 1f);
+            // double
+            Assert.IsTrue(Multiply(0d, 0d) == 0d);
+            Assert.IsTrue(Multiply(1d, 1d) == 1d);
+            Assert.IsTrue(Multiply(1d, 2d) == 2d);
+            Assert.IsTrue(Multiply(-1d, 1d) == -1d);
+            Assert.IsTrue(Multiply(1d, -1d) == -1d);
+            Assert.IsTrue(Multiply(-1d, -1d) == 1d);
+            // decimal
+            Assert.IsTrue(Multiply(0M, 0M) == 0M);
+            Assert.IsTrue(Multiply(1M, 1M) == 1M);
+            Assert.IsTrue(Multiply(1M, 2M) == 2M);
+            Assert.IsTrue(Multiply(-1M, 1M) == -1M);
+            Assert.IsTrue(Multiply(1M, -1M) == -1M);
+            Assert.IsTrue(Multiply(-1M, -1M) == 1M);
+
+            // Stepper
+
+            // int
+            Assert.IsTrue(Multiply(1, 2, 3) == 6);
+            Assert.IsTrue(Multiply(-1, -2, -3) == -6);
+            // float
+            Assert.IsTrue(Multiply(1f, 2f, 3f) == 6f);
+            Assert.IsTrue(Multiply(-1f, -2f, -3f) == -6f);
+            // double
+            Assert.IsTrue(Multiply(1d, 2d, 3d) == 6d);
+            Assert.IsTrue(Multiply(-1d, -2d, -3d) == -6d);
+            // decimal
+            Assert.IsTrue(Multiply(1M, 2M, 3M) == 6M);
+            Assert.IsTrue(Multiply(-1M, -2M, -3M) == -6M);
+        }
     }
 }

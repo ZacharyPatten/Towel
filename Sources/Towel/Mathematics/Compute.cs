@@ -377,7 +377,7 @@ namespace Towel.Mathematics
 
         public static T Multiply<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
+            T result = Constant<T>.One;
             stepper(a => result = Multiply(result, a));
             return result;
         }
