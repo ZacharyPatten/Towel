@@ -169,5 +169,59 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Multiply(1M, 2M, 3M) == 6M);
             Assert.IsTrue(Multiply(-1M, -2M, -3M) == -6M);
         }
+
+        [TestMethod]
+        public void Divide_Testing()
+        {
+            // Binary
+
+            // int
+            Assert.ThrowsException<DivideByZeroException>(() => Divide(0, 0));
+            Assert.IsTrue(Divide(1, 1) == 1);
+            Assert.IsTrue(Divide(2, 1) == 2);
+            Assert.IsTrue(Divide(4, 2) == 2);
+            Assert.IsTrue(Divide(-4, 2) == -2);
+            Assert.IsTrue(Divide(4, -2) == -2);
+            Assert.IsTrue(Divide(-4, -2) == 2);
+            // float
+            Assert.ThrowsException<DivideByZeroException>(() => Divide(0, 0));
+            Assert.IsTrue(Divide(1f, 1f) == 1f);
+            Assert.IsTrue(Divide(2f, 1f) == 2f);
+            Assert.IsTrue(Divide(4f, 2f) == 2f);
+            Assert.IsTrue(Divide(-4f, 2f) == -2f);
+            Assert.IsTrue(Divide(4f, -2f) == -2f);
+            Assert.IsTrue(Divide(-4f, -2f) == 2f);
+            // double
+            Assert.ThrowsException<DivideByZeroException>(() => Divide(0, 0));
+            Assert.IsTrue(Divide(1d, 1d) == 1d);
+            Assert.IsTrue(Divide(2d, 1d) == 2d);
+            Assert.IsTrue(Divide(4d, 2d) == 2d);
+            Assert.IsTrue(Divide(-4d, 2d) == -2d);
+            Assert.IsTrue(Divide(4d, -2d) == -2d);
+            Assert.IsTrue(Divide(-4d, -2d) == 2d);
+            // decimal
+            Assert.ThrowsException<DivideByZeroException>(() => Divide(0, 0));
+            Assert.IsTrue(Divide(1M, 1M) == 1M);
+            Assert.IsTrue(Divide(2M, 1M) == 2M);
+            Assert.IsTrue(Divide(4M, 2M) == 2M);
+            Assert.IsTrue(Divide(-4M, 2M) == -2M);
+            Assert.IsTrue(Divide(4M, -2M) == -2M);
+            Assert.IsTrue(Divide(-4M, -2M) == 2M);
+
+            // Stepper
+
+            // int
+            Assert.IsTrue(Divide(100, 10, 10) == 1);
+            Assert.IsTrue(Divide(-100, -10, -10) == -1);
+            // float
+            Assert.IsTrue(Divide(100f, 10f, 10f) == 1f);
+            Assert.IsTrue(Divide(-100f, -10f, -10f) == -1f);
+            // double
+            Assert.IsTrue(Divide(100d, 10d, 10d) == 1d);
+            Assert.IsTrue(Divide(-100d, -10d, -10d) == -1d);
+            // decimal
+            Assert.IsTrue(Divide(100M, 10M, 10M) == 1M);
+            Assert.IsTrue(Divide(-100M, -10M, -10M) == -1M);
+        }
     }
 }

@@ -442,10 +442,18 @@ namespace Towel.Mathematics
         public static T Divide<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.Zero;
+            bool assigned = false;
             Step<T> step = (a) =>
             {
-                result = a;
-                step = b => Divide(result, b);
+                if (assigned)
+                {
+                    result = Divide(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
             };
             stepper(step);
             return result;
