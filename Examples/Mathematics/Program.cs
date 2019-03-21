@@ -350,20 +350,20 @@ namespace Mathematics
             Console.WriteLine("    M * V: ");
             ConsoleWrite(M * V);
 
-            // Matrix Lower-Upper Decomposition
-            Matrix<double> l = null, u = null;
-            Matrix<double>.DecomposeLowerUpper(M, ref l, ref u); // this method is probably bugged... workign on it
-            Console.WriteLine("    Lower-Upper Decomposition:");
-            Console.WriteLine();
-            Console.WriteLine("    	lower(M):");
-            ConsoleWrite(l);
-            Console.WriteLine("    	upper(M):");
-            ConsoleWrite(u);
+            //// Matrix Lower-Upper Decomposition
+            //Matrix<double> l = null, u = null;
+            //Matrix<double>.DecomposeLowerUpper(M, ref l, ref u); // this method is probably bugged... working on it
+            //Console.WriteLine("    Lower-Upper Decomposition:");
+            //Console.WriteLine();
+            //Console.WriteLine("    	lower(M):");
+            //ConsoleWrite(l);
+            //Console.WriteLine("    	upper(M):");
+            //ConsoleWrite(u);
 
-            // Matrix Inverse
-            Matrix<double> inverse = M.Inverse(); // this method is probably bugged... workign on it
-            Console.WriteLine("    Inverse(M):");
-            ConsoleWrite(inverse);
+            //// Matrix Inverse
+            //Matrix<double> inverse = M.Inverse(); // this method is probably bugged... working on it
+            //Console.WriteLine("    Inverse(M):");
+            //ConsoleWrite(inverse);
 
             // Quaternion Construction
             Quaternion<double> Q = new Quaternion<double>(
