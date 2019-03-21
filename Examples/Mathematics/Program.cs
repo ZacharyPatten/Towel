@@ -457,6 +457,29 @@ namespace Mathematics
             Console.WriteLine("    Expression 7: " + symbolicExpression7);
             Console.WriteLine("      Simplified: " + symbolicExpression7.Simplify());
             Console.WriteLine("      Plugin(x = 5): " + symbolicExpression7.Substitute("x", 11).Simplify());
+            Console.WriteLine();
+
+            #endregion
+
+            #region Decimal To String
+
+            Console.WriteLine("  Converting Decimal To Words---------------------------");
+            Console.WriteLine();
+
+            decimal value1 = 12345.6789m;
+            Console.WriteLine("    Value1 = " + value1);
+            Console.WriteLine("    Value1 To Words = " + value1.ToWords());
+            Console.WriteLine();
+
+            decimal value2 = 999.888m;
+            Console.WriteLine("    Value2 = " + value2);
+            Console.WriteLine("    Value2 To Words = " + value2.ToWords());
+            Console.WriteLine();
+
+            decimal value3 = 1111111.2m;
+            Console.WriteLine("    Value3 = " + value3);
+            Console.WriteLine("    Value3 To Words = " + value3.ToWords());
+            Console.WriteLine();
 
             #endregion
 

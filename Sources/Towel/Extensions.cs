@@ -942,7 +942,7 @@ namespace System
                 case 80: return "Eighty";
                 case 90: return "Ninety";
                 default:
-                    if (@decimal < 99 || @decimal < 1)
+                    if (@decimal > 99 || @decimal < 1)
                     {
                         throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(1 <= " + nameof(@decimal) + " <= 99)");
                     }
@@ -968,7 +968,7 @@ namespace System
             }
             else if (@decimal < 100)
             {
-                return ConvertTensDigits(@decimal);
+                result = ConvertTensDigits(@decimal);
             }
             else if (@decimal < 1000)
             {
@@ -1026,7 +1026,7 @@ namespace System
             }
             if (index != 2)
             {
-                result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result == null ? string.Empty : " " + result);
+                result = ConvertDigitGroup(decimal.Parse(new string(digits).Substring(index + 1)), digitGroup++) + (result == null ? string.Empty : " " + result);
             }
             return result;
         }
