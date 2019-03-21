@@ -330,11 +330,6 @@ namespace Mathematics
             Console.WriteLine("    M * M (aka M ^ 2): ");
             ConsoleWrite(M * M);
 
-            // If you have a large matrix that you want to multi-thread the multiplication,
-            // use the function: "LinearAlgebra.Multiply_parallel". This function will
-            // automatically parrallel the multiplication to the number of cores on your
-            // personal computer.
-
             // Matrix Power
             Console.WriteLine("    M ^ 3: ");
             ConsoleWrite(M ^ 3);
@@ -356,14 +351,19 @@ namespace Mathematics
             ConsoleWrite(M * V);
 
             // Matrix Lower-Upper Decomposition
-            //Matrix<double> l, u;
-            //Matrix<double>.DecomposeLU(M, out l, out u);
-            //Console.WriteLine("    Lower-Upper Decomposition:");
-            //Console.WriteLine();
-            //Console.WriteLine("    	lower(M):");
-            //ConsoleWrite(l);
-            //Console.WriteLine("    	upper(M):");
-            //ConsoleWrite(u);
+            Matrix<double> l = null, u = null;
+            Matrix<double>.DecomposeLowerUpper(M, ref l, ref u); // this method is probably bugged... workign on it
+            Console.WriteLine("    Lower-Upper Decomposition:");
+            Console.WriteLine();
+            Console.WriteLine("    	lower(M):");
+            ConsoleWrite(l);
+            Console.WriteLine("    	upper(M):");
+            ConsoleWrite(u);
+
+            // Matrix Inverse
+            Matrix<double> inverse = M.Inverse(); // this method is probably bugged... workign on it
+            Console.WriteLine("    Inverse(M):");
+            ConsoleWrite(inverse);
 
             // Quaternion Construction
             Quaternion<double> Q = new Quaternion<double>(

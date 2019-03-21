@@ -1499,52 +1499,48 @@ namespace Towel.Mathematics
         /// <param name="b">The inverse of the matrix.</param>
         private static void Inverse(Matrix<T> a, ref Matrix<T> b)
         {
-            throw new NotImplementedException();
+            // Note: this method can be optimized...
 
-            //			Matrix<T>.Matrix_Inverse =
-            //				Meta.Compile<Matrix<T>.Delegates.Matrix_Inverse>(
-            //					string.Concat(
-            //@"(Matrix<", T_Source, @">.Delegates.Matrix_Inverse)(
-            //(Matrix<", T_Source, @"> _matrix) =>
-            //{
-            //	if (object.ReferenceEquals(_matrix, null))
-            //		throw new System.ArgumentNullException(", "\"matrix\"", @");
-            //	if (Matrix<", T_Source, @">.Determinent(_matrix) == 0)
-            //		throw new System.ArithmeticException(", "\"inverse calculation failed.\"", @");
-            //	Matrix<", T_Source, @"> identity = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
-            //	Matrix<", T_Source, @"> rref = _matrix.Clone();
-            //	for (int i = 0; i < _matrix.Rows; i++)
-            //	{
-            //		if (rref[i, i] == 0)
-            //			for (int j = i + 1; j < rref.Rows; j++)
-            //				if (rref[j, i] != 0)
-            //				{
-            //					", SwapRows("temp", "k", "rref", "i", "j"), @"
-            //					", SwapRows("temp", "k", "identity", "i", "j"), @"
-            //				}
-            //		", T_Source, @" temp_rowMultiplication1 = 1 / rref[i, i];
-            //		", RowMultiplication("j", "identity", "i", "temp_rowMultiplication1"), @"
-            //		", T_Source, @" temp_rowMultiplication2 = 1 / rref[i, i];
-            //		", RowMultiplication("j", "rref", "i", "temp_rowMultiplication2"), @"
-            //		for (int j = i + 1; j < rref.Rows; j++)
-            //		{
-            //			", T_Source, @" scalar1 = -rref[j, i];
-            //			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
-            //			", T_Source, @" scalar2 = -rref[j, i];
-            //			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
-            //		}
-            //		for (int j = i - 1; j >= 0; j--)
-            //		{
-            //			", T_Source, @" scalar1 = -rref[j, i];
-            //			", RowAddition("k", "identity", "j", "i", "scalar1"), @"
-            //			", T_Source, @" scalar2 = -rref[j, i];
-            //			", RowAddition("k", "rref", "j", "i", "scalar2"), @"
-            //		}
-            //	}
-            //	return identity;
-            //})"));
-
-            //			return Matrix<T>.Matrix_Inverse(matrix);
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (Compute.Equal(Determinent(a), Constant<T>.Zero))
+            {
+                throw new MathematicsException("inverse calculation failed.");
+            }
+            Matrix<T> identity = FactoryIdentity(a.Rows, a.Columns);
+            Matrix<T> rref = a.Clone();
+            for (int i = 0; i < a.Rows; i++)
+            {
+                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+                {
+                    for (int j = i + 1; j < rref.Rows; j++)
+                    {
+                        if (Compute.NotEqual(rref[j, i], Constant<T>.Zero))
+                        {
+                            SwapRows(rref, i, j);
+                            SwapRows(identity, i, j);
+                        }
+                    }
+                }
+                T identityRowMultiplier = Compute.Divide(Constant<T>.One, rref[i, i]);
+                RowMultiplication(identity, i, identityRowMultiplier);
+                RowMultiplication(rref, i, identityRowMultiplier);
+                for (int j = i + 1; j < rref.Rows; j++)
+                {
+                    T rowAdder = Compute.Negate(rref[j, i]);
+                    RowAddition(identity, j, i, rowAdder);
+                    RowAddition(rref, j, i, rowAdder);
+                }
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    T rowAdder = Compute.Negate(rref[j, i]);
+                    RowAddition(identity, j, i, rowAdder);
+                    RowAddition(rref, j, i, rowAdder);
+                }
+            }
+            b = identity;
 
             #region Alternate Version
             //Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
@@ -1736,63 +1732,62 @@ namespace Towel.Mathematics
 		/// <param name="matrix">The matrix to decompose.</param>
 		/// <param name="lower">The computed lower triangular matrix.</param>
 		/// <param name="upper">The computed upper triangular matrix.</param>
-        private static void DecomposeLowerUpper(Matrix<T> matrix, ref Matrix<T> lower, ref Matrix<T> upper)
+        public static void DecomposeLowerUpper(Matrix<T> matrix, ref Matrix<T> lower, ref Matrix<T> upper)
         {
-            throw new NotImplementedException();
+            // Note: this method can be optimized...
 
-            //			Matrix<T>.Matrix_DecomposeLU =
-            //				Meta.Compile<Matrix<T>.Delegates.Matrix_DecomposeLU>(
-            //					string.Concat(
-            //"(Matrix<", T_Source, "> _matrix, out Matrix<", T_Source, "> _Lower, out Matrix<", T_Source, @"> _Upper) =>
-            //{
-            //	if (object.ReferenceEquals(_matrix, null))
-            //		throw new System.Exception(", "\"null reference: _matrix\"", @");
-            //	if (_matrix.Rows != _matrix.Columns)
-            //		throw new System.Exception(", "\"non-square _matrix during DecomposeLU function\"", @");
-            //	_Lower = Matrix<", T_Source, @">.FactoryIdentity(_matrix.Rows, _matrix.Columns);
-            //	_Upper = _matrix.Clone();
-            //	int[] permutation = new int[_matrix.Rows];
-            //	for (int i = 0; i < _matrix.Rows; i++) permutation[i] = i;
-            //	", T_Source, @" p = 0, pom2, detOfP = 1;
-            //	int k0 = 0, pom1 = 0;
-            //	for (int k = 0; k < _matrix.Columns - 1; k++)
-            //	{
-            //		p = 0;
-            //		for (int i = k; i < _matrix.Rows; i++)
-            //				if ((_Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k]) > p)
-            //				{
-            //						p = _Upper[i, k] > 0 ? _Upper[i, k] : -_Upper[i, k];
-            //						k0 = i;
-            //				}
-            //		if (p == 0)
-            //				throw new System.Exception(", "\"The _matrix is singular!\"", @");
-            //		pom1 = permutation[k];
-            //		permutation[k] = permutation[k0];
-            //		permutation[k0] = pom1;
-            //		for (int i = 0; i < k; i++)
-            //		{
-            //				pom2 = _Lower[k, i];
-            //				_Lower[k, i] = _Lower[k0, i];
-            //				_Lower[k0, i] = pom2;
-            //		}
-            //		if (k != k0)
-            //				detOfP *= -1;
-            //		for (int i = 0; i < _matrix.Columns; i++)
-            //		{
-            //				pom2 = _Upper[k, i];
-            //				_Upper[k, i] = _Upper[k0, i];
-            //				_Upper[k0, i] = pom2;
-            //		}
-            //		for (int i = k + 1; i < _matrix.Rows; i++)
-            //		{
-            //				_Lower[i, k] = _Upper[i, k] / _Upper[k, k];
-            //				for (int j = k; j < _matrix.Columns; j++)
-            //					_Upper[i, j] = _Upper[i, j] - _Lower[i, k] * _Upper[k, j];
-            //		}
-            //	}
-            //}"));
-
-            //			Matrix<T>.Matrix_DecomposeLU(matrix, out lower, out upper);
+            lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
+            upper = matrix.Clone();
+            int[] permutation = new int[matrix.Rows];
+            for (int i = 0; i < matrix.Rows; i++)
+            {
+                permutation[i] = i;
+            }
+            T p = Constant<T>.Zero, pom2, detOfP = Constant<T>.One;
+            int k0 = 0, pom1 = 0;
+            for (int k = 0; k < matrix.Columns - 1; k++)
+            {
+                p = Constant<T>.Zero;
+                for (int i = k; i < matrix.Rows; i++)
+                {
+                    if (Compute.GreaterThan(Compute.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Compute.Negate(upper[i, k]), p))
+                    {
+                        p = Compute.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Compute.Negate(upper[i, k]);
+                        k0 = i;
+                    }
+                }
+                if (Compute.Equal(p, Constant<T>.Zero))
+                {
+                    throw new MathematicsException("The matrix is singular!");
+                }
+                pom1 = permutation[k];
+                permutation[k] = permutation[k0];
+                permutation[k0] = pom1;
+                for (int i = 0; i < k; i++)
+                {
+                    pom2 = lower[k, i];
+                    lower[k, i] = lower[k0, i];
+                    lower[k0, i] = pom2;
+                }
+                if (k != k0)
+                {
+                    detOfP = Compute.Multiply(detOfP, Constant<T>.NegativeOne);
+                }
+                for (int i = 0; i < matrix.Columns; i++)
+                {
+                    pom2 = upper[k, i];
+                    upper[k, i] = upper[k0, i];
+                    upper[k0, i] = pom2;
+                }
+                for (int i = k + 1; i < matrix.Rows; i++)
+                {
+                    lower[i, k] = Compute.Divide(upper[i, k], upper[k, k]);
+                    for (int j = k; j < matrix.Columns; j++)
+                    {
+                        upper[i, j] = Compute.Subtract(upper[i, j], Compute.Multiply(lower[i, k], upper[k, j]));
+                    }
+                }
+            }
 
             #region Alternate Version
             //lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
