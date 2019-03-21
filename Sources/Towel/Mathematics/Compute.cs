@@ -301,10 +301,18 @@ namespace Towel.Mathematics
         public static T Subtract<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.Zero;
+            bool assigned = false;
             Step<T> step = (a) =>
             {
-                result = a;
-                step = b => Subtract(result, b);
+                if (assigned)
+                {
+                    result = Subtract(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
             };
             stepper(step);
             return result;
