@@ -165,7 +165,7 @@ namespace Mathematics
             //Console.WriteLine();
 
             // Geometric Mean
-            //Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
+            Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
 
             // Range
             double min;
@@ -184,12 +184,12 @@ namespace Mathematics
             Console.WriteLine();
 
             // Quantiles
-            //double[] quatiles = Statistics<double>.Quantiles(4, statistics_data.Stepper());
-            //Console.Write("    Quartiles(data):");
-            //foreach (double i in quatiles)
-            //	Console.Write(string.Format(" {0:0.00}", i));
-            //Console.WriteLine();
-            //Console.WriteLine();
+            double[] quatiles = Quantiles(4, statistics_data.Stepper());
+            Console.Write("    Quartiles(data):");
+            foreach (double i in quatiles)
+                Console.Write(string.Format(" {0:0.00}", i));
+            Console.WriteLine();
+            Console.WriteLine();
 
             #endregion
 
