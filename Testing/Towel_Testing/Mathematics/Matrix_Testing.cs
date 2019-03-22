@@ -398,7 +398,89 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Equal()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // int
+            {
+                int[,] a = new int[,]
+                {
+                    { 1, 2, 3, },
+                    { 4, 5, 6, },
+                    { 7, 8, 9, },
+                };
+                Matrix<int> A = new Matrix<int>(3, 3, (row, column) => a[row, column]);
+
+                int[,] b = new int[,]
+                {
+                    { 1, 2, 3, },
+                    { 4, 5, 6, },
+                    { 7, 8, 9, },
+                };
+                Matrix<int> B = new Matrix<int>(3, 3, (row, column) => b[row, column]);
+
+                Assert.IsTrue(A == B);
+            }
+
+            // float
+            {
+                float[,] a = new float[,]
+                {
+                    { 1f, 2f, 3f, },
+                    { 4f, 5f, 6f, },
+                    { 7f, 8f, 9f, },
+                };
+                Matrix<float> A = new Matrix<float>(3, 3, (row, column) => a[row, column]);
+
+                float[,] b = new float[,]
+                {
+                    { 1f, 2f, 3f, },
+                    { 4f, 5f, 6f, },
+                    { 7f, 8f, 9f, },
+                };
+                Matrix<float> B = new Matrix<float>(3, 3, (row, column) => b[row, column]);
+
+                Assert.IsTrue(A == B);
+            }
+
+            // double
+            {
+                double[,] a = new double[,]
+                {
+                    { 1d, 2d, 3d, },
+                    { 4d, 5d, 6d, },
+                    { 7d, 8d, 9d, },
+                };
+                Matrix<double> A = new Matrix<double>(3, 3, (row, column) => a[row, column]);
+
+                double[,] b = new double[,]
+                {
+                    { 1d, 2d, 3d, },
+                    { 4d, 5d, 6d, },
+                    { 7d, 8d, 9d, },
+                };
+                Matrix<double> B = new Matrix<double>(3, 3, (row, column) => b[row, column]);
+
+                Assert.IsTrue(A == B);
+            }
+
+            // decimal
+            {
+                decimal[,] a = new decimal[,]
+                {
+                    { 1m, 2m, 3m, },
+                    { 4m, 5m, 6m, },
+                    { 7m, 8m, 9m, },
+                };
+                Matrix<decimal> A = new Matrix<decimal>(3, 3, (row, column) => a[row, column]);
+
+                decimal[,] b = new decimal[,]
+                {
+                    { 1m, 2m, 3m, },
+                    { 4m, 5m, 6m, },
+                    { 7m, 8m, 9m, },
+                };
+                Matrix<decimal> B = new Matrix<decimal>(3, 3, (row, column) => b[row, column]);
+
+                Assert.IsTrue(A == B);
+            }
         }
 
         [TestMethod]
