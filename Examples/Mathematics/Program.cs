@@ -86,21 +86,23 @@ namespace Mathematics
 
             #region Fraction
 
-            Console.WriteLine("  Fractions-----------------------------------");
-            Console.WriteLine();
-            Fraction128 fraction1 = new Fraction128(2.5);
-            Console.WriteLine("    fraction1 = " + fraction1);
-            Fraction128 fraction2 = new Fraction128(3.75);
-            Console.WriteLine("    fraction2 = " + fraction2);
-            Console.WriteLine("    fraction1 + fraction2 = " + fraction1 + fraction2);
-            Console.WriteLine("    fraction2 - fraction1 = " + fraction1 + fraction2);
-            Console.WriteLine("    fraction1 * 2 = " + fraction1 * 2);
-            Console.WriteLine("    fraction1 / 2 = " + fraction1 / 2);
-            Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
-            Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
-            Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
-            Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
-            Console.WriteLine();
+            // Fractions need some work... commenting out for now
+
+            //Console.WriteLine("  Fractions-----------------------------------");
+            //Console.WriteLine();
+            //Fraction128 fraction1 = new Fraction128(2.5);
+            //Console.WriteLine("    fraction1 = " + fraction1);
+            //Fraction128 fraction2 = new Fraction128(3.75);
+            //Console.WriteLine("    fraction2 = " + fraction2);
+            //Console.WriteLine("    fraction1 + fraction2 = " + (fraction1 + fraction2));
+            //Console.WriteLine("    fraction2 - fraction1 = " + (fraction1 - fraction2));
+            //Console.WriteLine("    fraction1 * 2 = " + (fraction1 * 2));
+            //Console.WriteLine("    fraction1 / 2 = " + (fraction1 / 2));
+            //Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
+            //Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
+            //Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
+            //Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
+            //Console.WriteLine();
 
             #endregion
 
