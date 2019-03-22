@@ -1766,7 +1766,7 @@ namespace Towel.Mathematics
         {
             if (quantiles < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(quantiles), quantiles, "!(" + nameof(quantiles) + " < 1)");
+                throw new ArgumentOutOfRangeException(nameof(quantiles), quantiles, "!(" + nameof(quantiles) + " >= 1)");
             }
             int count = stepper.Count();
             T[] ordered = new T[count];
