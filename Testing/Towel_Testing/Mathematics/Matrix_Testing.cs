@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
@@ -9,7 +10,7 @@ namespace Towel_Testing.Mathematics
     public class Matrix_Testing
     {
         [TestMethod]
-        public void Negate()
+        public void Negate_Testing()
         {
             Assert.Fail();
         }

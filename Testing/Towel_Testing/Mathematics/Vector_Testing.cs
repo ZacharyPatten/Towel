@@ -2,12 +2,34 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
     [TestClass]
     public class Vector_Testing
     {
+        [TestMethod]
+        public void Negate()
+        {
+            {
+                Vector<int> a = new Vector<int>(1, 2, 3);
+                Assert.IsTrue(-a == new Vector<int>(-1, -2, -3));
+            }
+            {
+                Vector<float> a = new Vector<float>(1f, 2f, 3f);
+                Assert.IsTrue(-a == new Vector<float>(-1f, -2f, -3f));
+            }
+            {
+                Vector<double> a = new Vector<double>(1d, 2d, 3d);
+                Assert.IsTrue(-a == new Vector<double>(-1d, -2d, -3d));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(1m, 2m, 3m);
+                Assert.IsTrue(-a == new Vector<decimal>(-1m, -2m, -3m));
+            }
+        }
+
         [TestMethod]
         public void Magnitude()
         {
@@ -19,13 +41,7 @@ namespace Towel_Testing.Mathematics
         {
             Assert.Fail();
         }
-
-        [TestMethod]
-        public void Negate()
-        {
-            Assert.Fail();
-        }
-
+        
         [TestMethod]
         public void Add()
         {
