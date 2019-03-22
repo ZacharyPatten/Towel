@@ -607,24 +607,24 @@ namespace Towel.Mathematics
 
         public static T SquareRoot<T>(T a)
         {
-            return SquareRootImplementation<T>.Function(a);
+            return Root(a, Constant<T>.Two);
         }
         
-        internal static class SquareRootImplementation<T>
-        {
-            internal static Func<T, T> Function = (T a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), Expression.Convert(A, typeof(double))), typeof(T));
-                    Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class SquareRootImplementation<T>
+        //{
+        //    internal static Func<T, T> Function = (T a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), Expression.Convert(A, typeof(double))), typeof(T));
+        //            Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
