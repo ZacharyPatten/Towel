@@ -33,10 +33,26 @@ namespace Mathematics
             Fraction32 clamp_a = (Fraction32)(-123d / 9d);
             Fraction32 clamp_b = (Fraction32)(7d / 12d);
             Fraction32 clamp_c = (Fraction32)(14d / 15d);
-            
+            double[] summation_values = new double[]
+            {
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+            };
+
             // Examples
             Console.WriteLine("    Negate(7): " + Negate(7));
             Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
+
+            Console.Write("    Σ (" + string.Format("{0:0.00}", summation_values[0]));
+            for (int i = 1; i < summation_values.Length; i++)
+            {
+                Console.Write(", " + string.Format("{0:0.00}", summation_values[i]));
+            }
+            // multiple parameter add overload example (most math functions have this overload)
+            Console.WriteLine(") = " + string.Format("{0:0.00}", Add(summation_values.Stepper())));
+
             Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
             Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
             Console.WriteLine("    Divide(14, 7): " + Divide((short)14, (short)7));
@@ -49,6 +65,7 @@ namespace Mathematics
             Console.WriteLine("    Compare(7, 7): " + Compare((Fraction32)7, (Fraction32)7));
             Console.WriteLine("    Equate(7, 6): " + Equal(7, 6));
             Console.WriteLine("    EqualsLeniency(2, 1, 1): " + EqualLeniency(2, 1, 1));
+            
 
             Console.WriteLine();
 
@@ -138,7 +155,7 @@ namespace Mathematics
             Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.Stepper())));
             Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
 
-            // Mode
+            // I need to fix the "Mode" function
             //Console.WriteLine("    Mode(data): ");
             //Heap<Link<double, int>> modes = Mode(statistics_data.Stepper());
             //while (modes.Count > 0)
@@ -148,30 +165,19 @@ namespace Mathematics
             //}
             //Console.WriteLine();
 
-            
             Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
-
-            // Range
-            double min;
-            double max;
-            Range(out min, out max, statistics_data.Stepper());
+            Range(out double min, out double max, statistics_data.Stepper());
             Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", min) + "-" + string.Format("{0:0.00}", max));
-
-            // Variance
             Console.WriteLine("    Variance(data): " + string.Format("{0:0.00}", Variance(statistics_data.Stepper())));
-
-            // Standard Deviation
             Console.WriteLine("    Standard Deviation(data): " + string.Format("{0:0.00}", StandardDeviation(statistics_data.Stepper())));
-
-            // Mean Deviation
             Console.WriteLine("    Mean Deviation(data): " + string.Format("{0:0.00}", MeanDeviation(statistics_data.Stepper())));
-            Console.WriteLine();
-
-            // Quantiles
             double[] quatiles = Quantiles(4, statistics_data.Stepper());
             Console.Write("    Quartiles(data):");
             foreach (double i in quatiles)
+            {
                 Console.Write(string.Format(" {0:0.00}", i));
+            }
+
             Console.WriteLine();
             Console.WriteLine();
 
@@ -182,8 +188,10 @@ namespace Mathematics
             Console.WriteLine("  Algebra---------------------------------------------");
             Console.WriteLine();
 
-            // Prime Factorization
+            // Variables
             int prime_factors = random.Next(0, 100000);
+
+            // Examples
             Console.Write("    Prime Factors(" + prime_factors + "): ");
             FactorPrimes(prime_factors, (int i) => { Console.Write(i + " "); });
             Console.WriteLine();
@@ -194,21 +202,6 @@ namespace Mathematics
             //Console.WriteLine("    log_" + log_1 + "(" + log_2 + "): " + string.Format("{0:0.00}", Logarithm((double)log_1, (double)log_2)));
             //Console.WriteLine();
 
-            // Summation
-            double[] summation_values = new double[]
-            {
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-            };
-            double summation = Add(summation_values.Stepper());
-            Console.Write("    Σ (" + string.Format("{0:0.00}", summation_values[0]));
-            for (int i = 1; i < summation_values.Length; i++)
-                Console.Write(", " + string.Format("{0:0.00}", summation_values[i]));
-            Console.WriteLine(") = " + string.Format("{0:0.00}", summation));
-            Console.WriteLine();
-
             #endregion
 
             #region Combinatorics
@@ -216,15 +209,9 @@ namespace Mathematics
             Console.WriteLine("  Combinatorics--------------------------------------");
             Console.WriteLine();
 
-            // Factorials
+            // Examples
             Console.WriteLine("    7!: " + Factorial(7));
-            Console.WriteLine();
-
-            // Combinations
             Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
-            Console.WriteLine();
-
-            // Choose
             Console.WriteLine("    7 choose 2: " + Choose(7, 2));
             Console.WriteLine();
 
