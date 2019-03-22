@@ -424,31 +424,31 @@ namespace Mathematics
             var symbolicExpression1 = Symbolics.Parse(expression1);
             Console.WriteLine("    Expression 1: " + symbolicExpression1);
             Console.WriteLine("      Simplified: " + symbolicExpression1.Simplify());
-            Console.WriteLine("      Plugin(5): " + symbolicExpression1.Substitute("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + symbolicExpression1.Substitute("x", 5d).Simplify());
 
             Expression<Func<double, double>> expression2 = (x) => 2 * x / 7;
             var symbolicExpression2 = Symbolics.Parse(expression2);
             Console.WriteLine("    Expression 2: " + symbolicExpression2);
             Console.WriteLine("      Simplified: " + symbolicExpression2.Simplify());
-            Console.WriteLine("      Plugin(5): " + symbolicExpression2.Substitute("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + symbolicExpression2.Substitute("x", 5d).Simplify());
 
             Expression<Func<double, double>> expression3 = (x) => 2 - x + 7;
             var symbolicExpression3 = Symbolics.Parse(expression3);
             Console.WriteLine("    Expression 3: " + symbolicExpression3);
             Console.WriteLine("      Simplified: " + symbolicExpression3.Simplify());
-            Console.WriteLine("      Plugin(5): " + symbolicExpression3.Substitute("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + symbolicExpression3.Substitute("x", 5d).Simplify());
 
             Expression<Func<double, double>> expression4 = (x) => 2 + (x - 7);
             var symbolicExpression4 = Symbolics.Parse(expression4);
             Console.WriteLine("    Expression 4: " + symbolicExpression4);
             Console.WriteLine("      Simplified: " + symbolicExpression4.Simplify());
-            Console.WriteLine("      Plugin(5): " + symbolicExpression4.Substitute("x", 5).Simplify());
+            Console.WriteLine("      Plugin(5): " + symbolicExpression4.Substitute("x", 5d).Simplify());
 
             Expression<Func<double, double, double, double>> expression5 = (x, y, z) => Power(x, 3d) + 2d * x * y * Power(z, 2d) - y * z + 1d;
             var symbolicExpression5 = Symbolics.Parse(expression5);
             Console.WriteLine("    Expression 5: " + symbolicExpression5);
             Console.WriteLine("      Simplified: " + symbolicExpression5.Simplify());
-            Console.WriteLine("      Plugin(x = 5): " + symbolicExpression5.Substitute("x", 5).Simplify());
+            Console.WriteLine("      Plugin(x = 5): " + symbolicExpression5.Substitute("x", 5d).Simplify());
 
             var symbolicExpression6 = Symbolics.Parse<double>("2 * (7 / [x])", double.TryParse);
             Console.WriteLine("    Expression 6: " + symbolicExpression6);
