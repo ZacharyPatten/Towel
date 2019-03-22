@@ -11,91 +11,91 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Magnitude()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void MagnitudeSquared()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Conjugate()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Add()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Subtract()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Quaternion()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Vector()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Scalar()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Normalize()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Invert()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Lerp()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Slerp()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Rotate()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal_leniency()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
     }
 }

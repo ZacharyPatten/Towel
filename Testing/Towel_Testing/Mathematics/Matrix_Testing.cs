@@ -12,121 +12,121 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Negate_Testing()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Add()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Subtract()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Matrix()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Vector()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply_Scalar()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Divide()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Power()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Determinent()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Minor()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void ConcatenateRowWise()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Echelon()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void ReducedEchelon()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Inverse()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Ajoint()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Transpose()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void DecomposeLowerUpper()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Rotate()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal_Leniency()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
     }
 }

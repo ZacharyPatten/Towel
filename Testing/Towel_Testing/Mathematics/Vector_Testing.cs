@@ -33,97 +33,97 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Magnitude()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void MagnitudeSquared()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
         
         [TestMethod]
         public void Add()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Subtract()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Multiply()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
         
         [TestMethod]
         public void Divide()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void CrossProduct()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void DotProduct()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Normalize()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Angle()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void RotateBy()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void LinearInterpolation()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void SphereicalInterpolation()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void BarycentricInterpolation()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
 
         [TestMethod]
         public void Equal_leniency()
         {
-            Assert.Fail();
+            Assert.Inconclusive("Test Not Implemented");
         }
     }
 }
