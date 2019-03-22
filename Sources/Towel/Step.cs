@@ -3,7 +3,6 @@
 namespace Towel
 {
 	/// <summary>Status of data structure iteration.</summary>
-	[System.Serializable]
 	public enum StepStatus
 	{
 		/// <summary>Continue normal iteration.</summary>

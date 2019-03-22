@@ -453,12 +453,13 @@ namespace Mathematics
             var symbolicExpression6 = Symbolics.Parse<double>("2 * (7 / [x])", double.TryParse);
             Console.WriteLine("    Expression 6: " + symbolicExpression6);
             Console.WriteLine("      Simplified: " + symbolicExpression6.Simplify());
-            Console.WriteLine("      Plugin(x = 5): " + symbolicExpression6.Substitute("x", 9).Simplify());
+            Symbolics.Expression symbolicExpression6Simplified = symbolicExpression6.Substitute("x", 9d).Simplify();
+            Console.WriteLine("      Plugin(x = 9): " + symbolicExpression6Simplified);
 
             var symbolicExpression7 = Symbolics.Parse<double>("10 + 8 * (7 / [x]) + 7 ^ 2", double.TryParse);
             Console.WriteLine("    Expression 7: " + symbolicExpression7);
             Console.WriteLine("      Simplified: " + symbolicExpression7.Simplify());
-            Console.WriteLine("      Plugin(x = 5): " + symbolicExpression7.Substitute("x", 11).Simplify());
+            Console.WriteLine("      Plugin(x = 11): " + symbolicExpression7.Substitute("x", 11d).Simplify());
             Console.WriteLine();
 
             #endregion

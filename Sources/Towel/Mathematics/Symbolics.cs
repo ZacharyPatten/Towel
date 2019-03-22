@@ -311,7 +311,7 @@ namespace Towel.Mathematics
 
             public abstract bool IsNegative { get; }
 
-            public virtual Expression Simplify(Operation operation)
+            public virtual Expression Simplify(Operation operation, params Expression[] operands)
             {
                 return this;
             }
@@ -557,9 +557,9 @@ namespace Towel.Mathematics
                 this.Value = constant;
             }
 
-            public override Expression Simplify(Operation operation)
+            public override Expression Simplify(Operation operation, params Expression[] operands)
             {
-                return operation.SimplifyHack<T>();
+                return operation.SimplifyHack<T>(operands);
             }
 
             public override Expression Clone()
@@ -738,14 +738,14 @@ namespace Towel.Mathematics
 
             public interface Logical { }
 
-            protected virtual Expression Simplify<T>()
+            protected virtual Expression Simplify<T>(params Expression[] operands)
             {
                 return this;
             }
 
-            internal Expression SimplifyHack<T>()
+            internal Expression SimplifyHack<T>(params Expression[] operands)
             {
-                return this.Simplify<T>();
+                return this.Simplify<T>(operands);
             }
         }
 
@@ -813,17 +813,17 @@ namespace Towel.Mathematics
                 // Rule: [-A] => [B] where A is constant and B is -A
                 if (this.A is Constant constant)
                 {
-                    return constant.Simplify(this);
+                    return constant.Simplify(this, this.A);
                 }
                 #endregion
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.Negate(a.Value));
+                    return new Constant<T>(Compute.Negate(((Constant<T>)operands[0]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -852,11 +852,23 @@ namespace Towel.Mathematics
         {
             public NaturalLog(Expression operand) : base(operand) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a)
+                #region Computation
+                // Rule: [A] => [B] where A is constant and B is ln(A)
+                if (this.A is Constant constant)
                 {
-                    return new Constant<T>(Compute.NaturalLogarithm(a.Value));
+                    return constant.Simplify(this, this.A);
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.NaturalLogarithm(((Constant<T>)operands[0]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -885,11 +897,23 @@ namespace Towel.Mathematics
         {
             public SquareRoot(Expression operand) : base(operand) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a)
+                #region Computation
+                // Rule: [A] => [B] where A is constant and B is sqrt(A)
+                if (this.A is Constant constant)
                 {
-                    return new Constant<T>(Compute.SquareRoot(a.Value));
+                    return constant.Simplify(this, this.A);
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.SquareRoot(((Constant<T>)operands[0]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -918,11 +942,23 @@ namespace Towel.Mathematics
         {
             public Exponential(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a)
+                #region Computation
+                // Rule: [A] => [B] where A is constant and B is e ^ A
+                if (this.A is Constant constant)
                 {
-                    return new Constant<T>(Compute.Exponential(a.Value));
+                    return constant.Simplify(this, this.A);
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Exponential(((Constant<T>)operands[0]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -951,11 +987,23 @@ namespace Towel.Mathematics
         {
             public Invert(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a)
+                #region Computation
+                // Rule: [A] => [B] where A is constant and B is 1 / A
+                if (this.A is Constant constant)
                 {
-                    return new Constant<T>(Compute.Invert(a.Value));
+                    return constant.Simplify(this, this.A);
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Invert(((Constant<T>)operands[0]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -995,7 +1043,7 @@ namespace Towel.Mathematics
         {
             public Sine(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1028,7 +1076,7 @@ namespace Towel.Mathematics
         {
             public Cosine(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1061,7 +1109,7 @@ namespace Towel.Mathematics
         {
             public Tangent(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1094,7 +1142,7 @@ namespace Towel.Mathematics
         {
             public Cosecant(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1127,7 +1175,7 @@ namespace Towel.Mathematics
         {
             public Secant(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1160,7 +1208,7 @@ namespace Towel.Mathematics
         {
             public Cotangent(Expression a) : base(a) { }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
                 {
@@ -1247,7 +1295,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A + B] => [C] where A is constant, B is constant, and C is A + B
                     if (LEFT is Constant A && RIGHT is Constant B)
                     {
-                        return A.Simplify(this);
+                        return A.Simplify(this, A, B);
                     }
                 }
                 #endregion
@@ -1334,11 +1382,13 @@ namespace Towel.Mathematics
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Add(a.Value, b.Value));
+                    return new Constant<T>(Compute.Add(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1396,7 +1446,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A - B] => [C] where A is constant, B is constant, and C is A - B
                     if (LEFT is Constant left && RIGHT is Constant right)
                     {
-                        return left.Simplify(this);
+                        return left.Simplify(this, A, B);
                     }
                 }
                 #endregion
@@ -1483,11 +1533,13 @@ namespace Towel.Mathematics
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Subtract(a.Value, b.Value));
+                    return new Constant<T>(Compute.Subtract(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1548,7 +1600,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A * B] => [C] where A is constant, B is constant, and C is A * B
                     if (LEFT is Constant A && RIGHT is Constant B)
                     {
-                        return A.Simplify(this);
+                        return A.Simplify(this, A, B);
                     }
                 }
                 #endregion
@@ -1682,11 +1734,13 @@ namespace Towel.Mathematics
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Multiply(a.Value, b.Value));
+                    return new Constant<T>(Compute.Multiply(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1746,7 +1800,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A / B] => [C] where A is constant, B is constant, and C is A / B
                     if (LEFT is Constant A && RIGHT is Constant B)
                     {
-                        return A.Simplify(this);
+                        return A.Simplify(this, A, B);
                     }
                 }
                 #endregion
@@ -1860,11 +1914,13 @@ namespace Towel.Mathematics
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Divide(a.Value, b.Value));
+                    return new Constant<T>(Compute.Divide(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1910,7 +1966,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A ^ B] => [C] where A is constant, B is constant, and C is A ^ B
                     if (LEFT is Constant A && RIGHT is Constant B)
                     {
-                        return A.Simplify(this);
+                        return A.Simplify(this, A, B);
                     }
                 }
                 #endregion
@@ -1941,11 +1997,13 @@ namespace Towel.Mathematics
                 return base.Simplify();
             }
 
-            protected override Expression Simplify<T>()
+            protected override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Power(a.Value, b.Value));
+                    return new Constant<T>(Compute.Power(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1974,11 +2032,28 @@ namespace Towel.Mathematics
         {
             public Root(Expression a, Expression b) : base(a, b) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A ^ (1 / B)] => [C] where A is constant, B is constant, and C is A ^ (1 / B)
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Root(a.Value, b.Value));
+                    return new Constant<T>(Compute.Root(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2008,11 +2083,28 @@ namespace Towel.Mathematics
         {
             public Equal(Expression a, Expression b) : base(a, b) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A == B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.Equal(a.Value, b.Value));
+                    return new Constant<bool>(Compute.Equal(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2042,11 +2134,28 @@ namespace Towel.Mathematics
         {
             public NotEqual(Expression a, Expression b) : base(a, b) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A != B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.NotEqual(a.Value, b.Value));
+                    return new Constant<bool>(Compute.NotEqual(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2076,11 +2185,28 @@ namespace Towel.Mathematics
         {
             public LessThan(Expression a, Expression b) : base(a, b) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A < B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.LessThan(a.Value, b.Value));
+                    return new Constant<bool>(Compute.LessThan(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2107,11 +2233,28 @@ namespace Towel.Mathematics
         {
             public GreaterThan(Expression left, Expression right) : base(left, right) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A > B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.GreaterThan(a.Value, b.Value));
+                    return new Constant<bool>(Compute.GreaterThan(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2138,11 +2281,28 @@ namespace Towel.Mathematics
         {
             public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A <= B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.LessThanOrEqual(a.Value, b.Value));
+                    return new Constant<bool>(Compute.LessThanOrEqual(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2169,11 +2329,28 @@ namespace Towel.Mathematics
         {
             public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }
 
-            protected override Expression Simplify<T>()
+            public override Expression Simplify()
             {
-                if (this.A is Constant<T> a && this.B is Constant<T> b)
+                Expression LEFT = this.A.Simplify();
+                Expression RIGHT = this.B.Simplify();
+                #region Computation
+                {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A >= B
+                    if (LEFT is Constant A && RIGHT is Constant B)
+                    {
+                        return A.Simplify(this, A, B);
+                    }
+                }
+                #endregion
+                return base.Simplify();
+            }
+
+            protected override Expression Simplify<T>(params Expression[] operands)
+            {
+                if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.GreaterThanOrEqual(a.Value, b.Value));
+                    return new Constant<bool>(Compute.GreaterThanOrEqual(
+                        ((Constant<T>)operands[0]).Value,
+                        ((Constant<T>)operands[1]).Value));
                 }
                 return base.Simplify<T>();
             }
