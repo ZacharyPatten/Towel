@@ -1744,16 +1744,22 @@ namespace Towel.Mathematics
         {
             T MINIMUM = default(T);
             T MAXIMUM = default(T);
+            bool assigned = false;
             Step<T> step = i =>
             {
-                MINIMUM = i;
-                MAXIMUM = i;
-                step = j =>
+                if (assigned)
                 {
                     MINIMUM = LessThan(i, MINIMUM) ? i : MINIMUM;
                     MAXIMUM = LessThan(MAXIMUM, i) ? i : MAXIMUM;
-                };
+                }
+                else
+                {
+                    MINIMUM = i;
+                    MAXIMUM = i;
+                    assigned = true;
+                }
             };
+            stepper(step);
             minimum = MINIMUM;
             maximum = MAXIMUM;
         }

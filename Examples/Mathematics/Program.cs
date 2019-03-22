@@ -29,37 +29,27 @@ namespace Mathematics
             Console.WriteLine("  Basics----------------------------------------------");
             Console.WriteLine();
 
-            // Negation
-            Console.WriteLine("    Negate(7): " + Negate(7));
-            // Addition
-            Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
-            // Subtraction
-            Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
-            // Multiplication
-            Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
-            // Division
-            Console.WriteLine("    Divide(14, 7): " + Divide((short)14, (short)7));
-            // Absolute Value
-            Console.WriteLine("    AbsoluteValue(-7): " + AbsoluteValue((double)-7));
-            // Clamp
+            // Variables
             Fraction32 clamp_a = (Fraction32)(-123d / 9d);
             Fraction32 clamp_b = (Fraction32)(7d / 12d);
             Fraction32 clamp_c = (Fraction32)(14d / 15d);
+            
+            // Examples
+            Console.WriteLine("    Negate(7): " + Negate(7));
+            Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
+            Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
+            Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
+            Console.WriteLine("    Divide(14, 7): " + Divide((short)14, (short)7));
+            Console.WriteLine("    AbsoluteValue(-7): " + AbsoluteValue((double)-7));
             Console.WriteLine("    Clamp(" + clamp_a + ", " + clamp_b + ", " + clamp_c + "): " + Clamp(clamp_a, clamp_b, clamp_c));
-            // Maximum
             Console.WriteLine("    Maximum(1, 2, 3): " + Maximum(1, 2, 3));
-            // Minimum
             Console.WriteLine("    Minimum(1, 2, 3): " + Minimum(1, 2, 3));
-            // Less Than
             Console.WriteLine("    LessThan(1, 2): " + LessThan((Fraction128)1, (Fraction128)2));
-            // Greater Than
             Console.WriteLine("    GreaterThan(1, 2): " + GreaterThan((Fraction64)1, (Fraction64)2));
-            // Compare
             Console.WriteLine("    Compare(7, 7): " + Compare((Fraction32)7, (Fraction32)7));
-            // Equate
             Console.WriteLine("    Equate(7, 6): " + Equal(7, 6));
-            // EqualsLeniency
             Console.WriteLine("    EqualsLeniency(2, 1, 1): " + EqualLeniency(2, 1, 1));
+
             Console.WriteLine();
 
             #endregion
@@ -69,17 +59,16 @@ namespace Mathematics
             Console.WriteLine("  Number Theory--------------------------------------");
             Console.WriteLine();
 
-            // Prime Checking
+            // Variables
             int prime_check = random.Next(0, 100000);
-            Console.WriteLine("    IsPrime(" + prime_check + "): " + IsPrime(prime_check));
-
-            // GCF Checking
             int[] gcf = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
-            Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.Stepper()));
-
-            // LCM Checking
             int[] lcm = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
+
+            // Examples
+            Console.WriteLine("    IsPrime(" + prime_check + "): " + IsPrime(prime_check));
+            Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.Stepper()));
             Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.Stepper()));
+
             Console.WriteLine();
 
             #endregion
@@ -122,9 +111,8 @@ namespace Mathematics
             Console.WriteLine("  Statistics-----------------------------------------");
             Console.WriteLine();
 
-            // Makin some random data...
+            // Variables/Data
             double mode_temp = random.NextDouble() * 100;
-
             double[] statistics_data = new double[random.Next(5, 7)];
             for (int i = 0; i < statistics_data.Length; i++)
             {
@@ -137,8 +125,6 @@ namespace Mathematics
                     statistics_data[i] = random.NextDouble() * 100;
                 }
             }
-
-            // Print the data to the console...
             string stat_data_string = "    data: [" + string.Format("{0:0.00}", statistics_data[0]);
             for (int i = 1; i < statistics_data.Length; i++)
             {
@@ -148,10 +134,8 @@ namespace Mathematics
             Console.WriteLine(stat_data_string);
             Console.WriteLine();
 
-            // Mean
+            // Examples
             Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.Stepper())));
-
-            // Median
             Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
 
             // Mode
@@ -164,7 +148,7 @@ namespace Mathematics
             //}
             //Console.WriteLine();
 
-            // Geometric Mean
+            
             Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
 
             // Range
