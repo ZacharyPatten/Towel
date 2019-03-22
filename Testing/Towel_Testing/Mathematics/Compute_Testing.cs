@@ -223,5 +223,41 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Divide(100M, 10M, 10M) == 1M);
             Assert.IsTrue(Divide(-100M, -10M, -10M) == -1M);
         }
+
+        [TestMethod]
+        public void Invert_Testing()
+        {
+            // Note: not entirely sure about the invert method... :/ may remove it
+
+            try
+            {
+                int result = Invert(0);
+                Assert.Fail();
+            }
+            catch (DivideByZeroException) { }
+            Assert.IsTrue(Invert(1) == 1);
+            Assert.IsTrue(Invert(-1) == -1);
+            Assert.IsTrue(Invert(2) == 0);
+            
+            Assert.IsTrue(float.IsPositiveInfinity(Invert(0f)));
+            Assert.IsTrue(Invert(1f) == 1f);
+            Assert.IsTrue(Invert(-1f) == -1f);
+            Assert.IsTrue(Invert(2f) == .5f);
+
+            Assert.IsTrue(double.IsPositiveInfinity(Invert(0d)));
+            Assert.IsTrue(Invert(1d) == 1d);
+            Assert.IsTrue(Invert(-1d) == -1d);
+            Assert.IsTrue(Invert(2d) == .5d);
+
+            try
+            {
+                decimal result = Invert(0M);
+                Assert.Fail();
+            }
+            catch (DivideByZeroException) { }
+            Assert.IsTrue(Invert(1M) == 1M);
+            Assert.IsTrue(Invert(-1M) == -1M);
+            Assert.IsTrue(Invert(2M) == .5M);
+        }
     }
 }
