@@ -188,7 +188,121 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Subtract()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // int
+            {
+                int[,] a = new int[,]
+                {
+                    { 3, 5, 7, },
+                    { 9, 11, 13, },
+                    { 15, 17, 19, },
+                };
+                Matrix<int> A = new Matrix<int>(3, 3, (row, column) => a[row, column]);
+
+                int[,] b = new int[,]
+                {
+                    { 2, 3, 4, },
+                    { 5, 6, 7, },
+                    { 8, 9, 10, },
+                };
+                Matrix<int> B = new Matrix<int>(3, 3, (row, column) => b[row, column]);
+
+                int[,] c = new int[,]
+                {
+                    { 1, 2, 3, },
+                    { 4, 5, 6, },
+                    { 7, 8, 9, },
+                };
+                Matrix<int> C = new Matrix<int>(3, 3, (row, column) => c[row, column]);
+
+                Assert.IsTrue(A - B == C);
+            }
+
+            // float
+            {
+                float[,] a = new float[,]
+                {
+                    { 3f, 5f, 7f, },
+                    { 9f, 11f, 13f, },
+                    { 15f, 17f, 19f, },
+                };
+                Matrix<float> A = new Matrix<float>(3, 3, (row, column) => a[row, column]);
+
+                float[,] b = new float[,]
+                {
+                    { 2f, 3f, 4f, },
+                    { 5f, 6f, 7f, },
+                    { 8f, 9f, 10f, },
+                };
+                Matrix<float> B = new Matrix<float>(3, 3, (row, column) => b[row, column]);
+
+                float[,] c = new float[,]
+                {
+                    { 1f, 2f, 3f, },
+                    { 4f, 5f, 6f, },
+                    { 7f, 8f, 9f, },
+                };
+                Matrix<float> C = new Matrix<float>(3, 3, (row, column) => c[row, column]);
+
+                Assert.IsTrue(A - B == C);
+            }
+
+            // double
+            {
+                double[,] a = new double[,]
+                {
+                    { 3d, 5d, 7d, },
+                    { 9d, 11d, 13d, },
+                    { 15d, 17d, 19d, },
+                };
+                Matrix<double> A = new Matrix<double>(3, 3, (row, column) => a[row, column]);
+
+                double[,] b = new double[,]
+                {
+                    { 2d, 3d, 4d, },
+                    { 5d, 6d, 7d, },
+                    { 8d, 9d, 10d, },
+                };
+                Matrix<double> B = new Matrix<double>(3, 3, (row, column) => b[row, column]);
+
+                double[,] c = new double[,]
+                {
+                    { 1d, 2d, 3d, },
+                    { 4d, 5d, 6d, },
+                    { 7d, 8d, 9d, },
+                };
+                Matrix<double> C = new Matrix<double>(3, 3, (row, column) => c[row, column]);
+
+                Assert.IsTrue(A - B == C);
+            }
+
+            // decimal
+            {
+                decimal[,] a = new decimal[,]
+                {
+                    { 3m, 5m, 7m, },
+                    { 9m, 11m, 13m, },
+                    { 15m, 17m, 19m, },
+                };
+                Matrix<decimal> A = new Matrix<decimal>(3, 3, (row, column) => a[row, column]);
+
+                decimal[,] b = new decimal[,]
+                {
+                    { 2m, 3m, 4m, },
+                    { 5m, 6m, 7m, },
+                    { 8m, 9m, 10m, },
+                };
+                Matrix<decimal> B = new Matrix<decimal>(3, 3, (row, column) => b[row, column]);
+
+                decimal[,] c = new decimal[,]
+                {
+                    { 1m, 2m, 3m, },
+                    { 4m, 5m, 6m, },
+                    { 7m, 8m, 9m, },
+                };
+                Matrix<decimal> C = new Matrix<decimal>(3, 3, (row, column) => c[row, column]);
+
+                Assert.IsTrue(A - B == C);
+            }
         }
 
         [TestMethod]
