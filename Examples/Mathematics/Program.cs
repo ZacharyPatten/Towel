@@ -152,7 +152,7 @@ namespace Mathematics
             Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.Stepper())));
 
             // Median
-            //Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
+            Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
 
             // Mode
             //Console.WriteLine("    Mode(data): ");

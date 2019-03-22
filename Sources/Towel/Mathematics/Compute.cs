@@ -1595,13 +1595,13 @@ namespace Towel.Mathematics
 
         public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, params T[] values)
         {
-            // this is an optimized median algorithm, but it only works on odd sets without duplicates
-            if (hash != null && equate != null && values.Length % 2 == 1 && !values.Stepper().ContainsDuplicates(equate, hash))
-            {
-                int medianIndex = 0;
-                OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
-                return values[medianIndex];
-            }
+            //// this is an optimized median algorithm, but it only works on odd sets without duplicates
+            //if (hash != null && equate != null && values.Length % 2 == 1 && !values.Stepper().ContainsDuplicates(equate, hash))
+            //{
+            //    int medianIndex = 0;
+            //    OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
+            //    return values[medianIndex];
+            //}
 
             // standard algorithm (sort and grab middle value)
             Algorithms.Sort<T>.Merge(compare, values);
