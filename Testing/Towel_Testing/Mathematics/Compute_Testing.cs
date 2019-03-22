@@ -336,5 +336,43 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Modulo(15m, 8m, 3m) == 15m % 8m % 3m);
             Assert.IsTrue(Modulo(-15m, -8m, -3m) == -15m % -8m % -3m);
         }
+
+        [TestMethod]
+        public void Power_Testing()
+        {
+            // Binary
+
+            // int
+            Assert.IsTrue(Power(0, 0) == 1);
+            Assert.IsTrue(Power(1, 1) == 1);
+            Assert.IsTrue(Power(2, 1) == 2);
+            Assert.IsTrue(Power(2, 2) == 4);
+            Assert.IsTrue(Power(-2, 2) == 4);
+            Assert.IsTrue(Power(-2, 3) == -8);
+
+            // float
+            Assert.IsTrue(Power(0f, 0f) == 1f);
+            Assert.IsTrue(Power(1f, 1f) == 1f);
+            Assert.IsTrue(Power(2f, 1f) == 2f);
+            Assert.IsTrue(Power(2f, 2f) == 4f);
+            Assert.IsTrue(Power(-2f, 2f) == 4f);
+            Assert.IsTrue(Power(-2f, 3f) == -8f);
+
+            // double
+            Assert.IsTrue(Power(0d, 0d) == 1d);
+            Assert.IsTrue(Power(1d, 1d) == 1d);
+            Assert.IsTrue(Power(2d, 1d) == 2d);
+            Assert.IsTrue(Power(2d, 2d) == 4d);
+            Assert.IsTrue(Power(-2d, 2d) == 4d);
+            Assert.IsTrue(Power(-2d, 3d) == -8d);
+
+            // decimal
+            Assert.IsTrue(Power(0m, 0m) == 1m);
+            Assert.IsTrue(Power(1m, 1m) == 1m);
+            Assert.IsTrue(Power(2m, 1m) == 2m);
+            Assert.IsTrue(Power(2m, 2m) == 4m);
+            Assert.IsTrue(Power(-2m, 2m) == 4m);
+            Assert.IsTrue(Power(-2m, 3m) == -8m);
+        }
     }
 }

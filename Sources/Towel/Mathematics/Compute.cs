@@ -567,23 +567,37 @@ namespace Towel.Mathematics
         {
             internal static Func<T, T, T> Function = (T a, T b) =>
             {
+                // Note: this code needs to die.. but this works until it gets a better version
+
                 // optimization for specific known types
                 if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
                 {
                     ParameterExpression A = Expression.Parameter(typeof(T));
                     ParameterExpression B = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Pow)), A, B);
+                    Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Pow)), Expression.Convert(A, typeof(double)), Expression.Convert(B, typeof(double))), typeof(T));
                     Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-                    return Function(a, b);
                 }
                 else
                 {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    ParameterExpression B = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Power(A, B);
-                    Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-                    return Function(a, b);
+                    Function = (T A, T B) =>
+                    {
+                        if (IsInteger(B) && IsPositive(B))
+                        {
+                            T result = A;
+                            int power = ToInt32(B);
+                            for (int i = 0; i < power; i++)
+                            {
+                                result = Multiply(result, A);
+                            }
+                            return result;
+                        }
+                        else
+                        {
+                            throw new NotImplementedException("This feature is still in development.");
+                        }
+                    };
                 }
+                return Function(a, b);
             };
         }
 
