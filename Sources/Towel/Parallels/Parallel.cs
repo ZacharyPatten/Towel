@@ -36,8 +36,10 @@ namespace Towel.Parallels
 		public static IAsyncResult Thread(
 			Operation run)
 		{
-			if (run == null)
-				throw new System.ArgumentNullException("run");
+            if (run is null)
+            {
+                throw new ArgumentNullException(nameof(run));
+            }
 
 			return run.BeginInvoke(
 				(IAsyncResult ar) => { },
@@ -51,10 +53,14 @@ namespace Towel.Parallels
 			Operation run,
 			Resolve resolve)
 		{
-			if (run == null)
-				throw new System.ArgumentNullException("run");
-			if (resolve == null)
-				throw new System.ArgumentNullException("resolve");
+            if (run is null)
+            {
+                throw new ArgumentNullException(nameof(run));
+            }
+            if (resolve is null)
+            {
+                throw new ArgumentNullException(nameof(resolve));
+            }
 
 			SynchronizationContext context = SynchronizationContext.Current;
 
@@ -70,10 +76,14 @@ namespace Towel.Parallels
 			OperationReport run,
 			Callback report)
 		{
-			if (run == null)
-				throw new System.ArgumentNullException("run");
-			if (report == null)
-				throw new System.ArgumentNullException("report");
+            if (run is null)
+            {
+                throw new ArgumentNullException(nameof(run));
+            }
+            if (report is null)
+            {
+                throw new ArgumentNullException(nameof(report));
+            }
 
 			SynchronizationContext context = SynchronizationContext.Current;
 
@@ -95,12 +105,18 @@ namespace Towel.Parallels
 			Callback report,
 			Resolve resolve)
 		{
-			if (run == null)
-				throw new System.ArgumentNullException("run");
-			if (report == null)
-				throw new System.ArgumentNullException("report");
-			if (resolve == null)
-				throw new System.ArgumentNullException("resolve");
+            if (run is null)
+            {
+                throw new ArgumentNullException(nameof(run));
+            }
+            if (report is null)
+            {
+                throw new ArgumentNullException(nameof(report));
+            }
+            if (resolve is null)
+            {
+                throw new ArgumentNullException(nameof(resolve));
+            }
 
 			SynchronizationContext context = SynchronizationContext.Current;
 
