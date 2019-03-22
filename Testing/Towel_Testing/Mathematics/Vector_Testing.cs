@@ -257,7 +257,26 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Equal()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {
+                Vector<int> a = new Vector<int>(1, 2, 3);
+                Vector<int> b = new Vector<int>(1, 2, 3);
+                Assert.IsTrue(a == b);
+            }
+            {
+                Vector<float> a = new Vector<float>(1f, 2f, 3f);
+                Vector<float> b = new Vector<float>(1f, 2f, 3f);
+                Assert.IsTrue(a == b);
+            }
+            {
+                Vector<double> a = new Vector<double>(1d, 2d, 3d);
+                Vector<double> b = new Vector<double>(1d, 2d, 3d);
+                Assert.IsTrue(a == b);
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(1m, 2m, 3m);
+                Vector<decimal> b = new Vector<decimal>(1m, 2m, 3m);
+                Assert.IsTrue(a == b);
+            }
         }
 
         [TestMethod]
