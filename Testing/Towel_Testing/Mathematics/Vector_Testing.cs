@@ -160,7 +160,38 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Divide()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {
+                Vector<int> a = new Vector<int>(2, 4, 6);
+                Assert.IsTrue(a / 2 == new Vector<int>(1, 2, 3));
+            }
+            {
+                Vector<int> a = new Vector<int>(2, 4, 6);
+                Assert.IsTrue(a / -2 == new Vector<int>(-1, -2, -3));
+            }
+            {
+                Vector<float> a = new Vector<float>(2f, 4f, 6f);
+                Assert.IsTrue(a / 2f == new Vector<float>(1f, 2f, 3f));
+            }
+            {
+                Vector<float> a = new Vector<float>(2f, 4f, 6f);
+                Assert.IsTrue(a / -2f == new Vector<float>(-1f, -2f, -3f));
+            }
+            {
+                Vector<double> a = new Vector<double>(2d, 4d, 6d);
+                Assert.IsTrue(a / 2d == new Vector<double>(1d, 2d, 3d));
+            }
+            {
+                Vector<double> a = new Vector<double>(2d, 4d, 6d);
+                Assert.IsTrue(a / -2d == new Vector<double>(-1d, -2d, -3d));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(2m, 4m, 6m);
+                Assert.IsTrue(a / 2m == new Vector<decimal>(1m, 2m, 3m));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(2m, 4m, 6m);
+                Assert.IsTrue(a / -2m == new Vector<decimal>(-1m, -2m, -3m));
+            }
         }
 
         [TestMethod]
