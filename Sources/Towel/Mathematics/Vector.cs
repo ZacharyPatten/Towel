@@ -1188,7 +1188,7 @@ namespace Towel.Mathematics
 		/// <param name="right">The other vector of the equality check.</param>
 		/// <param name="leniency">The ammount the values can differ but still be considered equal.</param>
 		/// <returns>true if the values were cinsidered equal, false if not.</returns>
-		public bool EqualsValue(Vector<T> right, T leniency)
+		public bool Equal(Vector<T> right, T leniency)
         {
             return Equal(this, right, leniency);
         }

@@ -315,7 +315,46 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Equal_leniency()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {
+                Vector<int> a = new Vector<int>(1, 2, 3);
+                Vector<int> b = new Vector<int>(3, 4, 5);
+                Assert.IsFalse(a.Equal(b, 1));
+            }
+            {
+                Vector<int> a = new Vector<int>(1, 2, 3);
+                Vector<int> b = new Vector<int>(2, 3, 4);
+                Assert.IsTrue(a.Equal(b, 1));
+            }
+            {
+                Vector<float> a = new Vector<float>(1f, 2f, 3f);
+                Vector<float> b = new Vector<float>(3f, 4f, 5f);
+                Assert.IsFalse(a.Equal(b, 1f));
+            }
+            {
+                Vector<float> a = new Vector<float>(1f, 2f, 3f);
+                Vector<float> b = new Vector<float>(2f, 3f, 4f);
+                Assert.IsTrue(a.Equal(b, 1f));
+            }
+            {
+                Vector<double> a = new Vector<double>(1d, 2d, 3d);
+                Vector<double> b = new Vector<double>(3d, 4d, 5d);
+                Assert.IsFalse(a.Equal(b, 1d));
+            }
+            {
+                Vector<double> a = new Vector<double>(1d, 2d, 3d);
+                Vector<double> b = new Vector<double>(2d, 3d, 4d);
+                Assert.IsTrue(a.Equal(b, 1d));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(1m, 2m, 3m);
+                Vector<decimal> b = new Vector<decimal>(3m, 4m, 5m);
+                Assert.IsFalse(a.Equal(b, 1m));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(1m, 2m, 3m);
+                Vector<decimal> b = new Vector<decimal>(2m, 3m, 4m);
+                Assert.IsTrue(a.Equal(b, 1m));
+            }
         }
     }
 }

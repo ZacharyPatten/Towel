@@ -374,5 +374,77 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Power(-2m, 2m) == 4m);
             Assert.IsTrue(Power(-2m, 3m) == -8m);
         }
+
+        [TestMethod]
+        public void Equal_Testing()
+        {
+            Assert.IsTrue(Equal(0, 0));
+            Assert.IsTrue(Equal(1, 1));
+            Assert.IsTrue(Equal(2, 2));
+
+            Assert.IsTrue(Equal(0f, 0f));
+            Assert.IsTrue(Equal(1f, 1f));
+            Assert.IsTrue(Equal(2f, 2f));
+
+            Assert.IsTrue(Equal(0d, 0d));
+            Assert.IsTrue(Equal(1d, 1d));
+            Assert.IsTrue(Equal(2d, 2d));
+
+            Assert.IsTrue(Equal(0m, 0m));
+            Assert.IsTrue(Equal(1m, 1m));
+            Assert.IsTrue(Equal(2m, 2m));
+        }
+
+        [TestMethod]
+        public void Equal_leniency_Testing()
+        {
+            Assert.IsTrue(EqualLeniency(0, 0, 0));
+            Assert.IsTrue(EqualLeniency(1, 1, 0));
+            Assert.IsTrue(EqualLeniency(2, 2, 0));
+
+            Assert.IsTrue(EqualLeniency(0f, 0f, 0f));
+            Assert.IsTrue(EqualLeniency(1f, 1f, 0f));
+            Assert.IsTrue(EqualLeniency(2f, 2f, 0f));
+
+            Assert.IsTrue(EqualLeniency(0d, 0d, 0d));
+            Assert.IsTrue(EqualLeniency(1d, 1d, 0d));
+            Assert.IsTrue(EqualLeniency(2d, 2d, 0d));
+
+            Assert.IsTrue(EqualLeniency(0m, 0m, 0m));
+            Assert.IsTrue(EqualLeniency(1m, 1m, 0m));
+            Assert.IsTrue(EqualLeniency(2m, 2m, 0m));
+
+            Assert.IsTrue(EqualLeniency(0, 1, 1));
+            Assert.IsTrue(EqualLeniency(1, 2, 1));
+            Assert.IsTrue(EqualLeniency(2, 3, 1));
+
+            Assert.IsTrue(EqualLeniency(0f, 1f, 1f));
+            Assert.IsTrue(EqualLeniency(1f, 2f, 1f));
+            Assert.IsTrue(EqualLeniency(2f, 3f, 1f));
+
+            Assert.IsTrue(EqualLeniency(0d, 1d, 1d));
+            Assert.IsTrue(EqualLeniency(1d, 2d, 1d));
+            Assert.IsTrue(EqualLeniency(2d, 3d, 1d));
+
+            Assert.IsTrue(EqualLeniency(0m, 1m, 1m));
+            Assert.IsTrue(EqualLeniency(1m, 2m, 1m));
+            Assert.IsTrue(EqualLeniency(2m, 3m, 1m));
+
+            Assert.IsFalse(EqualLeniency(0, 2, 1));
+            Assert.IsFalse(EqualLeniency(1, 3, 1));
+            Assert.IsFalse(EqualLeniency(2, 4, 1));
+
+            Assert.IsFalse(EqualLeniency(0f, 2f, 1f));
+            Assert.IsFalse(EqualLeniency(1f, 3f, 1f));
+            Assert.IsFalse(EqualLeniency(2f, 4f, 1f));
+
+            Assert.IsFalse(EqualLeniency(0d, 2d, 1d));
+            Assert.IsFalse(EqualLeniency(1d, 3d, 1d));
+            Assert.IsFalse(EqualLeniency(2d, 4d, 1d));
+
+            Assert.IsFalse(EqualLeniency(0m, 2m, 1m));
+            Assert.IsFalse(EqualLeniency(1m, 3m, 1m));
+            Assert.IsFalse(EqualLeniency(2m, 4m, 1m));
+        }
     }
 }

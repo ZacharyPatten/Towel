@@ -986,14 +986,19 @@ namespace Towel.Mathematics
         {
             internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
             {
-                // Note: might be more efficient to perform [Abs(a - b) < leniency] instead
-
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
                 ParameterExpression C = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.And(
-                    Expression.GreaterThan(A, Expression.Subtract(B, C)),
-                    Expression.LessThan(A, Expression.Add(B, C)));
+                ParameterExpression D = Expression.Variable(typeof(T));
+                LabelTarget RETURN = Expression.Label(typeof(bool));
+                Expression BODY = Expression.Block(new ParameterExpression[] { D },
+                    Expression.Assign(D, Expression.Subtract(A, B)),
+                    Expression.IfThenElse(
+                        Expression.LessThan(D, Expression.Constant(Constant<T>.Zero)),
+                        Expression.Assign(D, Expression.Negate(D)),
+                        Expression.Assign(D, D)),
+                    Expression.Return(RETURN, Expression.LessThanOrEqual(D, C), typeof(bool)),
+                    Expression.Label(RETURN, Expression.Constant(default(bool))));
                 Function = Expression.Lambda<Func<T, T, T, bool>>(BODY, A, B, C).Compile();
                 return Function(a, b, c);
             };
