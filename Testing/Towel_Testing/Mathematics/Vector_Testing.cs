@@ -221,7 +221,18 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Normalize()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {
+                Vector<float> a = new Vector<float>(2f, 2f, 2f, 2f);
+                Assert.IsTrue(a.Normalize() == new Vector<float>(2f / 4f, 2f / 4f, 2f / 4f, 2f / 4f));
+            }
+            {
+                Vector<double> a = new Vector<double>(2d, 2d, 2d, 2d);
+                Assert.IsTrue(a.Normalize() == new Vector<double>(2d / 4d, 2d / 4d, 2d / 4d, 2d / 4d));
+            }
+            {
+                Vector<decimal> a = new Vector<decimal>(2m, 2m, 2m, 2m);
+                Assert.IsTrue(a.Normalize() == new Vector<decimal>(2m / 4m, 2m / 4m, 2m / 4m, 2m / 4m));
+            }
         }
 
         [TestMethod]
