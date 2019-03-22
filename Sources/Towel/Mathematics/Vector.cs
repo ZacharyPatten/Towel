@@ -260,7 +260,7 @@ namespace Towel.Mathematics
         /// <returns>The squared length of the vector.</returns>
         public static T GetMagnitudeSquared(Vector<T> a)
         {
-            if (a._vector == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -682,11 +682,11 @@ namespace Towel.Mathematics
         /// <returns>The result of the dot product operation.</returns>
         public static T DotProduct(Vector<T> a, Vector<T> b)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
+            if (b is null)
             {
                 throw new ArgumentNullException(nameof(b));
             }
@@ -723,11 +723,11 @@ namespace Towel.Mathematics
         /// <param name="c">The result of the cross product operation.</param>
         public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
+            if (b is null)
             {
                 throw new ArgumentNullException(nameof(b));
             }
@@ -741,7 +741,7 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Arguments invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
             }
-            if (c == null || c.Dimensions != 3)
+            if (c is null || c.Dimensions != 3)
             {
                 c = new Vector<T>(3);
             }
@@ -787,7 +787,7 @@ namespace Towel.Mathematics
         /// <param name="b">The result of the normalization.</param>
         public static void Normalize(Vector<T> a, ref Vector<T> b)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -801,7 +801,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
             }
-            if (b == null ||
+            if (b is null ||
                 b.Dimensions != Dimensions)
             {
                 b = new Vector<T>(Dimensions);
@@ -1081,15 +1081,18 @@ namespace Towel.Mathematics
         /// <returns>True if values are equal, false if not.</returns>
         public static bool Equal(Vector<T> a, Vector<T> b)
         {
-            if (object.ReferenceEquals(a, b))
+            if (a is null)
             {
-                return true;
+                if (b is null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else if (a is null)
-            {
-                return false;
-            }
-            else if (b is null)
+            if (b is null)
             {
                 return false;
             }
@@ -1167,12 +1170,21 @@ namespace Towel.Mathematics
         /// <returns>True if values are equal, false if not.</returns>
         public static bool Equal(Vector<T> a, Vector<T> b, T leniency)
         {
-            if (a == null && b == null)
-                return true;
-            if (a == null)
+            if (a is null)
+            {
+                if (b is null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (b is null)
+            {
                 return false;
-            if (b == null)
-                return false;
+            }
             int Length = a.Dimensions;
             if (Length != b.Dimensions)
                 return false;
