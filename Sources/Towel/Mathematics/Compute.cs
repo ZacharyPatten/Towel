@@ -508,10 +508,18 @@ namespace Towel.Mathematics
         public static T Modulo<T>(Stepper<T> operands)
         {
             T result = Constant<T>.Zero;
+            bool assigned = false;
             Step<T> step = (a) =>
             {
-                result = a;
-                step = b => Modulo(result, b);
+                if (assigned)
+                {
+                    result = Modulo(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
             };
             operands(step);
             return result;
