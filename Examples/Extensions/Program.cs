@@ -57,7 +57,7 @@ namespace Extensions
 
             Random random = new Random();
 
-            Console.WriteLine("    Random.Long(): " + random.NextLong());
+            Console.WriteLine("    Random.NextLong(): " + random.NextLong());
             Console.WriteLine("    Random.NextDateTime(): " + random.NextDateTime());
             Console.WriteLine("    Random.NextAlphaNumericString(15): " + random.NextAlphaNumericString(15));
             Console.WriteLine("    Random.NextChar('a', 'z'): " + random.NextChar('a', 'z'));
