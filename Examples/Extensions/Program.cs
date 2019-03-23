@@ -48,6 +48,25 @@ namespace Extensions
 
             #endregion
 
+            #region Random Extensions
+
+            Console.WriteLine("  Random Extensions---------------------------");
+            Console.WriteLine();
+            Console.WriteLine("    Note: there are overloads of these methods");
+            Console.WriteLine();
+
+            Random random = new Random();
+
+            Console.WriteLine("    Random.Long(): " + random.NextLong());
+            Console.WriteLine("    Random.NextDateTime(): " + random.NextDateTime());
+            Console.WriteLine("    Random.NextAlphaNumericString(15): " + random.NextAlphaNumericString(15));
+            Console.WriteLine("    Random.NextChar('a', 'z'): " + random.NextChar('a', 'z'));
+            Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
+            Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());
+            Console.WriteLine();
+
+            #endregion
+
             Console.WriteLine();
             Console.WriteLine("=================================================");
             Console.WriteLine("Example Complete...");

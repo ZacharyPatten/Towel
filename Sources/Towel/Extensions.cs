@@ -356,7 +356,7 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized string to generate.</param>
 		/// <returns>The generated randomized string.</returns>
-		public static string NextString(this System.Random random, int length)
+		public static string NextString(this Random random, int length)
 		{
 			char[] randomstring = new char[length];
 			for (int i = 0; i < randomstring.Length; i++)
@@ -369,7 +369,7 @@ namespace System
 		/// <param name="length">The length of the randomized string to generate.</param>
 		/// <param name="allowableChars">The set of allowable characters.</param>
 		/// <returns>The generated randomized string.</returns>
-		public static string NextString(this System.Random random, int length, char[] allowableChars)
+		public static string NextString(this Random random, int length, char[] allowableChars)
 		{
 			char[] randomstring = new char[length];
 			for (int i = 0; i < randomstring.Length; i++)
@@ -381,7 +381,7 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized alphanumeric string to generate.</param>
 		/// <returns>The generated randomized alphanumeric string.</returns>
-		public static string NextAlphaNumericString(this System.Random random, int length)
+		public static string NextAlphaNumericString(this Random random, int length)
 		{
 			return NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray());
 		}
@@ -390,7 +390,7 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized numeric string to generate.</param>
 		/// <returns>The generated randomized numeric string.</returns>
-		public static string NumericString(this System.Random random, int length)
+		public static string NumericString(this Random random, int length)
 		{
 			return NextString(random, length, "0123456789".ToCharArray());
 		}
@@ -399,7 +399,7 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized alphabetical string to generate.</param>
 		/// <returns>The generated randomized alphabetical string.</returns>
-		public static string NextAlphabeticString(this System.Random random, int length)
+		public static string NextAlphabeticString(this Random random, int length)
 		{
 			return NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
 		}
@@ -407,7 +407,7 @@ namespace System
 		/// <summary>Generates a random char value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated char value.</returns>
-		public static char NextChar(this System.Random random)
+		public static char NextChar(this Random random)
 		{
 			return NextChar(random, char.MinValue, char.MaxValue);
 		}
@@ -417,26 +417,64 @@ namespace System
 		/// <param name="min">Minimum allowed value of the random generation.</param>
 		/// <param name="max">Maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated char value.</returns>
-		public static char NextChar(this System.Random random, char min, char max)
+		public static char NextChar(this Random random, char min, char max)
 		{
 			return (char)random.Next(min, max);
 		}
 
-		/// <summary>Generates a random decimal value.</summary>
-		/// <param name="random">The random generation algorithm.</param>
-		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this System.Random random)
+        /// <summary>Generates a random long value.</summary>
+        /// <param name="random">The random generation algorithm.</param>
+        /// <returns>A randomly generated long value.</returns>
+        public static long NextLong(this Random random)
+        {
+            return NextLong(random, long.MaxValue);
+        }
+
+        /// <summary>Generates a random long value.</summary>
+        /// <param name="random">The random generation algorithm.</param>
+        /// <param name="max">Maximum allowed value of the random generation.</param>
+        /// <returns>A randomly generated long value.</returns>
+        public static long NextLong(this Random random, long max)
+        {
+            return NextLong(random, 0, max);
+        }
+
+        /// <summary>Generates a random long value.</summary>
+        /// <param name="random">The random generation algorithm.</param>
+        /// <param name="min">Minimum allowed value of the random generation.</param>
+        /// <param name="max">Maximum allowed value of the random generation.</param>
+        /// <returns>A randomly generated long value.</returns>
+        public static long NextLong(this Random random, long min, long max)
+        {
+            if (random == null)
+            {
+                throw new ArgumentNullException(nameof(random));
+            }
+            if (min > max)
+            {
+                throw new ArgumentException("!(min <= max)");
+            }
+            byte[] buf = new byte[8];
+            random.NextBytes(buf);
+            long longRand = BitConverter.ToInt64(buf, 0);
+            return (Math.Abs(longRand % (max - min)) + min);
+        }
+
+        /// <summary>Generates a random decimal value.</summary>
+        /// <param name="random">The random generation algorithm.</param>
+        /// <returns>A randomly generated decimal value.</returns>
+        public static decimal NextDecimal(this Random random)
 		{
-			System.Func<int> NextInt = () =>
-				{
-					unchecked
-					{
-						int firstBits = random.Next(0, 1 << 4) << 28;
-						int lastBits = random.Next(0, 1 << 28);
-						return firstBits | lastBits;
-					}
-				};
-			byte scale = (byte)random.Next(29);
+            int NextInt()
+            {
+                unchecked
+                {
+                    int firstBits = random.Next(0, 1 << 4) << 28;
+                    int lastBits = random.Next(0, 1 << 28);
+                    return firstBits | lastBits;
+                }
+            }
+            byte scale = (byte)random.Next(29);
 			bool sign = random.Next(2) == 1;
 			return new decimal(NextInt(), NextInt(), NextInt(), sign, scale);
 		}
@@ -445,9 +483,9 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this System.Random random, decimal max)
+		public static decimal NextDecimal(this Random random, decimal max)
 		{
-			return NextDecimal(random, decimal.MinValue, max);
+			return NextDecimal(random, 0, max);
 		}
 
 		/// <summary>Generates a random decimal value.</summary>
@@ -455,7 +493,7 @@ namespace System
 		/// <param name="min">The minimum allowed value of the random generation.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this System.Random random, decimal min, decimal max)
+		public static decimal NextDecimal(this Random random, decimal min, decimal max)
 		{
 			return (NextDecimal(random) % (max - min)) + min;
 		}
@@ -463,18 +501,18 @@ namespace System
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
-		public static System.DateTime DateTime(this System.Random random)
+		public static DateTime NextDateTime(this Random random)
 		{
-			return DateTime(random, System.DateTime.MaxValue);
+			return NextDateTime(random, DateTime.MaxValue);
 		}
 
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
-		public static System.DateTime DateTime(this System.Random random, System.DateTime max)
+		public static DateTime NextDateTime(this Random random, DateTime max)
 		{
-			return DateTime(random, System.DateTime.MinValue, max);
+			return NextDateTime(random, DateTime.MinValue, max);
 		}
 
 		/// <summary>Generates a random DateTime value.</summary>
@@ -482,49 +520,35 @@ namespace System
 		/// <param name="min">The minimum allowed value of the random generation.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
-		public static System.DateTime DateTime(this System.Random random, System.DateTime min, System.DateTime max)
+		public static DateTime NextDateTime(this Random random, DateTime min, DateTime max)
 		{
-			if (random == null)
-				throw new System.ArgumentNullException("random");
-			if (min > max)
-				throw new System.ArgumentException("!(min <= max)");
-			System.TimeSpan span = max - min;
-			int day_range = span.Days;
-			span -= System.TimeSpan.FromDays(day_range);
-			int hour_range = span.Hours;
-			span -= System.TimeSpan.FromHours(hour_range);
-			int minute_range = span.Minutes;
-			span -= System.TimeSpan.FromMinutes(minute_range);
-			int second_range = span.Seconds;
-			span -= System.TimeSpan.FromSeconds(second_range);
-			int millisecond_range = span.Milliseconds;
-			span -= System.TimeSpan.FromMilliseconds(millisecond_range);
-			int tick_range = (int)span.Ticks;
-			System.DateTime result = min;
-			result.AddDays(random.Next(day_range));
-			result.AddHours(random.Next(hour_range));
-			result.AddMinutes(random.Next(minute_range));
-			result.AddSeconds(random.Next(second_range));
-			result.AddMilliseconds(random.Next(millisecond_range));
-			result.AddTicks(random.Next(tick_range));
-			return result;
+            if (random == null)
+            {
+                throw new ArgumentNullException(nameof(random));
+            }
+            if (min > max)
+            {
+                throw new ArgumentException("!(min <= max)");
+            }
+            TimeSpan randomTimeSpan = NextTimeSpan(random, TimeSpan.Zero, max - min);
+            return min.Add(randomTimeSpan);
 		}
 
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated TimeSpan value.</returns>
-		public static System.TimeSpan TimeSpan(this System.Random random)
+		public static TimeSpan NextTimeSpan(this Random random)
 		{
-			return TimeSpan(random, System.TimeSpan.MaxValue);
+			return NextTimeSpan(random, TimeSpan.MaxValue);
 		}
 
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated TimeSpan value.</returns>
-		public static System.TimeSpan TimeSpan(this System.Random random, System.TimeSpan max)
+		public static TimeSpan NextTimeSpan(this Random random, TimeSpan max)
 		{
-			return TimeSpan(random, System.TimeSpan.MinValue, max);
+			return NextTimeSpan(random, TimeSpan.Zero, max);
 		}
 
 		/// <summary>Generates a random TimeSpan value.</summary>
@@ -532,19 +556,26 @@ namespace System
 		/// <param name="min">The minimum allowed value of the random generation.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated TimeSpan value.</returns>
-		public static System.TimeSpan TimeSpan(this System.Random random, System.TimeSpan min, System.TimeSpan max)
+		public static TimeSpan NextTimeSpan(this Random random, TimeSpan min, TimeSpan max)
 		{
-			System.DateTime min_dateTime = System.DateTime.MinValue + min;
-			System.DateTime max_dateTime = System.DateTime.MinValue + max;
-			System.DateTime random_dateTime = DateTime(random, min_dateTime, max_dateTime);
-			return random_dateTime - System.DateTime.MinValue;
+            if (random == null)
+            {
+                throw new ArgumentNullException(nameof(random));
+            }
+            if (min > max)
+            {
+                throw new ArgumentException("!(min <= max)");
+            }
+            long tickRange = max.Ticks - min.Ticks;
+            long randomLong = random.NextLong(0, tickRange);
+            return TimeSpan.FromTicks(min.Ticks + randomLong);
 		}
 
         /// <summary>Shuffles the elements of an IList into random order.</summary>
         /// <typeparam name="T">The generic type of the IList.</typeparam>
         /// <param name="random">The random algorithm for index generation.</param>
         /// <param name="iList">The structure to be shuffled.</param>
-        public static void Shuffle<T>(this System.Random random, System.Collections.Generic.IList<T> iList)
+        public static void Shuffle<T>(this Random random, IList<T> iList)
         {
             Sort<T>.Shuffle(random, Accessor.Get(iList), Accessor.Assign(iList), 0, iList.Count);
         }
@@ -556,7 +587,7 @@ namespace System
         /// <param name="assign">The set accessor for the structure to shuffle.</param>
         /// <param name="start">The starting index of the shuffle.</param>
         /// <param name="end">The </param>
-        public static void Shuffle<T>(this System.Random random, Get<T> get, Assign<T> assign, int start, int end)
+        public static void Shuffle<T>(this Random random, Get<T> get, Assign<T> assign, int start, int end)
         {
             Sort<T>.Shuffle(random, get, assign, start, end);
         }
