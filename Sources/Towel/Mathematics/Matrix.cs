@@ -1980,13 +1980,16 @@ namespace Towel.Mathematics
 		/// <returns>True if values are equal, false if not.</returns>
         private static bool Equal(Matrix<T> a, Matrix<T> b)
         {
-            if (a is null && b is null)
-            {
-                return true;
-            }
             if (a is null)
             {
-                return false;
+                if (b is null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             if (b is null)
             {
@@ -2048,13 +2051,16 @@ namespace Towel.Mathematics
 		/// <returns>True if values are equal, false if not.</returns>
         private static bool Equal(Matrix<T> a, Matrix<T> b, T leniency)
         {
-            if (a is null && b is null)
-            {
-                return true;
-            }
             if (a is null)
             {
-                return false;
+                if (b is null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             if (b is null)
             {
