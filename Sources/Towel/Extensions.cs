@@ -881,6 +881,8 @@ namespace System
 
         #region Decimal
 
+        #region To Words
+
         internal static string ConvertDigit(decimal @decimal)
         {
             switch (@decimal)
@@ -1080,6 +1082,8 @@ namespace System
                 return result;
             }
         }
+
+        #endregion
 
         #endregion
     }

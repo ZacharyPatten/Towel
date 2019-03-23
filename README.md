@@ -153,6 +153,13 @@ char NextChar(this Random random);
 decimal NextDecimal(this Random random);
 DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
+long NextLong(this Random random);
+
+// Type conversion to string as appears in C# source code
+string ConvertToCsharpSource(this Type type);
+
+// decimal conversion to English words
+string ToWords(this decimal @decimal);
 ```
 ## Developer(s)
 
