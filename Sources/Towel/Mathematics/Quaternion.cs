@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Towel.Mathematics
@@ -15,23 +16,29 @@ namespace Towel.Mathematics
         internal T _z;
         internal T _w;
 
-		#region Properties
+        #region Static Properties
 
-		/// <summary>The X component of the quaternion. (axis, NOT rotation ammount)</summary>
-		public T X { get { return _x; } set { _x = value; } }
+        /// <summary>Returns an identity quaternion (no rotation).</summary>
+        public static Quaternion<T> Identity
+        {
+            get
+            {
+                return new Quaternion<T>(Constant<T>.Zero, Constant<T>.Zero, Constant<T>.Zero, Constant<T>.One);
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The X component of the quaternion. (axis, NOT rotation ammount)</summary>
+        public T X { get { return this._x; } set { this._x = value; } }
 		/// <summary>The Y component of the quaternion. (axis, NOT rotation ammount)</summary>
-		public T Y { get { return _y; } set { _y = value; } }
+		public T Y { get { return this._y; } set { this._y = value; } }
 		/// <summary>The Z component of the quaternion. (axis, NOT rotation ammount)</summary>
-		public T Z { get { return _z; } set { _z = value; } }
+		public T Z { get { return this._z; } set { this._z = value; } }
 		/// <summary>The W component of the quaternion. (rotation ammount, NOT axis)</summary>
-		public T W { get { return _w; } set { _w = value; } }
-
-        /// <summary>Computes the length of quaternion.</summary>
-        /// <returns>The length of the given quaternion.</returns>
-        public T Magnitude { get { return Quaternion<T>.Quaternion_Magnitude(this); } }
-        /// <summary>Computes the length of a quaternion, but doesn't square root it for optimization possibilities.</summary>
-        /// <returns>The squared length of the given quaternion.</returns>
-        public T MagnitudeSquared { get { return Quaternion<T>.Quaternion_MagnitudeSquared(this); } }
+		public T W { get { return this._w; } set { this._w = value; } }
 
         #endregion
 
@@ -59,7 +66,7 @@ namespace Towel.Mathematics
 
         #region Constructors
 
-        /// <summary>Constructs a quaternion with the desired values.</summary>
+        /// <summary>Constructs a quaternion.</summary>
         /// <param name="x">The x component of the quaternion.</param>
         /// <param name="y">The y component of the quaternion.</param>
         /// <param name="z">The z component of the quaternion.</param>
@@ -89,6 +96,8 @@ namespace Towel.Mathematics
 
         public static Quaternion<T> Factory_Matrix3x3(Matrix<T> matrix)
         {
+            // Note: this method needs optimization
+
             if (matrix.Rows != 3 || matrix.Columns != 3)
                 throw new System.ArithmeticException("error converting matrix to quaternion. matrix is not 3x3.");
 
@@ -102,6 +111,8 @@ namespace Towel.Mathematics
 
         public static Quaternion<T> Factory_Matrix4x4(Matrix<T> matrix)
         {
+            // Note: this method needs optimization
+
             matrix = matrix.Transpose();
             T w, x, y, z;
             T diagonal = Compute.Add(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
@@ -142,229 +153,1016 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region Operators
+        #region Mathematics
 
-        /// <summary>Adds two quaternions together.</summary>
-        /// <param name="left">The first quaternion of the addition.</param>
-        /// <param name="right">The second quaternion of the addition.</param>
-        /// <returns>The result of the addition.</returns>
-        public static Quaternion<T> operator +(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Add(left, right); }
-		/// <summary>Subtracts two quaternions.</summary>
-		/// <param name="left">The left quaternion of the subtraction.</param>
-		/// <param name="right">The right quaternion of the subtraction.</param>
-		/// <returns>The resulting quaternion after the subtraction.</returns>
-		public static Quaternion<T> operator -(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Subtract(left, right); }
-		/// <summary>Multiplies two quaternions together.</summary>
-		/// <param name="left">The first quaternion of the multiplication.</param>
-		/// <param name="right">The second quaternion of the multiplication.</param>
-		/// <returns>The resulting quaternion after the multiplication.</returns>
-		public static Quaternion<T> operator *(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Multiply(left, right); }
-		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
-		/// <param name="left">The quaternion to pre-multiply the vector by.</param>
-		/// <param name="vector">The vector to be multiplied.</param>
-		/// <returns>The resulting quaternion of the multiplication.</returns>
-		//public static Quaternion<T> operator *(Quaternion<T> left, Vector right)
-		//{ return Quaternion<T>.Multiply(left, right); }
-		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-		/// <param name="left">The quaternion of the multiplication.</param>
-		/// <param name="right">The scalar of the multiplication.</param>
-		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
-		public static Quaternion<T> operator *(Quaternion<T> left, T right)
-		{ return Quaternion<T>.Quaternion_MultiplyScalar(left, right); }
-		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-		/// <param name="left">The scalar of the multiplication.</param>
-		/// <param name="right">The quaternion of the multiplication.</param>
-		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
-		public static Quaternion<T> operator *(T left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_MultiplyScalar(right, left); }
-		/// <summary>Checks for equality by value. (beware float errors)</summary>
-		/// <param name="left">The first quaternion of the equality check.</param>
-		/// <param name="right">The second quaternion of the equality check.</param>
-		/// <returns>true if the values were deemed equal, false if not.</returns>
-		public static bool operator ==(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_EqualsValue(left, right); }
-		/// <summary>Checks for anti-equality by value. (beware float errors)</summary>
-		/// <param name="left">The first quaternion of the anti-equality check.</param>
-		/// <param name="right">The second quaternion of the anti-equality check.</param>
-		/// <returns>false if the values were deemed equal, true if not.</returns>
-		public static bool operator !=(Quaternion<T> left, Quaternion<T> right)
-		{ return !Quaternion<T>.Quaternion_EqualsValue(left, right); }
+        #region HasZeroMagnitude
 
-		#endregion
-
-		#region Instance
-
-		/// <summary>Gets the conjugate of the quaternion.</summary>
-		/// <returns>The conjugate of teh given quaternion.</returns>
-		public Quaternion<T> Conjugate()
-		{ return Quaternion<T>.Quaternion_Conjugate(this); }
-		/// <summary>Adds two quaternions together.</summary>
-		/// <param name="right">The second quaternion of the addition.</param>
-		/// <returns>The result of the addition.</returns>
-		public Quaternion<T> Add(Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Add(this, right); }
-		/// <summary>Subtracts two quaternions.</summary>
-		/// <param name="right">The right quaternion of the subtraction.</param>
-		/// <returns>The resulting quaternion after the subtraction.</returns>
-		public Quaternion<T> Subtract(Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Subtract(this, right); }
-		/// <summary>Multiplies two quaternions together.</summary>
-		/// <param name="right">The second quaternion of the multiplication.</param>
-		/// <returns>The resulting quaternion after the multiplication.</returns>
-		public Quaternion<T> Multiply(Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Multiply(this, right); }
-		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-		/// <param name="right">The scalar of the multiplication.</param>
-		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
-		public Quaternion<T> Multiply(T right)
-		{ return Quaternion<T>.Quaternion_MultiplyScalar(this, right); }
-		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
-		/// <param name="right">The vector to be multiplied.</param>
-		/// <returns>The resulting quaternion of the multiplication.</returns>
-		//public Quaternion<T> Multiply(Vector vector) { return Quaternion<T>.Multiply(this, vector); }
-		/// <summary>Normalizes the quaternion.</summary>
-		/// <returns>The normalization of the given quaternion.</returns>
-		public Quaternion<T> Normalize()
-		{ return Quaternion<T>.Quaternion_Normalize(this); }
-		/// <summary>Inverts a quaternion.</summary>
-		/// <returns>The inverse of the given quaternion.</returns>
-		public Quaternion<T> Invert()
-		{ return Quaternion<T>.Quaternion_Invert(this); }
-		/// <summary>Lenearly interpolates between two quaternions.</summary>
-		/// <param name="right">The ending point of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0-1.0 of how far to interpolate between the left and right quaternions.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public Quaternion<T> Lerp(Quaternion<T> right, T blend)
-		{ return Quaternion<T>.Lerp(this, right, blend); }
-		/// <summary>Sphereically interpolates between two quaternions.</summary>
-		/// <param name="right">The ending point of the interpolation.</param>
-		/// <param name="blend">The ratio of how far to interpolate between the left and right quaternions.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public Quaternion<T> Slerp(Quaternion<T> right, T blend)
-		{ return Quaternion<T>.Slerp(this, right, blend); }
-		/// <summary>Rotates a vector by a quaternion.</summary>
-		/// <param name="vector">The vector to be rotated by.</param>
-		/// <returns>The result of the rotation.</returns>
-		//public Vector Rotate(Vector vector) { return Quaternion<T>.Rotate(this, vector); }
-		/// <summary>Does a value equality check.</summary>
-		/// <param name="right">The second quaternion	to check for equality.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public bool EqualsValue(Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_EqualsValue(this, right); }
-		/// <summary>Does a value equality check with leniency.</summary>
-		/// <param name="right">The second quaternion to check for equality.</param>
-		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public bool EqualsValue(Quaternion<T> right, T leniency)
-		{ return Quaternion<T>.Quaternion_EqualsValue_leniency(this, right, leniency); }
-		/// <summary>Checks if two matrices are equal by reverences.</summary>
-		/// <param name="right">The right quaternion of the equality check.</param>
-		/// <returns>True if the references are equal, false if not.</returns>
-		public bool EqualsReference(Quaternion<T> right)
-		{ return Quaternion<T>.EqualsReference(this, right); }
-
-        public Quaternion<T> Clone()
+        /// <summary>Checks quaternion for zero magnitude.</summary>
+        /// <param name="a">The quaternion to check for zero magnitude.</param>
+        /// <returns>True if the quaternion has zero magnitude. False if not.</returns>
+        public static bool GetHasZeroMagnitude(Quaternion<T> a)
         {
-            return new Quaternion<T>(this._x, this._y, this._z, this._w);
+            return
+                Compute.Equal(a._x, Constant<T>.Zero) &&
+                Compute.Equal(a._y, Constant<T>.Zero) &&
+                Compute.Equal(a._z, Constant<T>.Zero) &&
+                Compute.Equal(a._w, Constant<T>.Zero);
         }
 
-		#endregion
+        /// <summary>Checks quaternion for zero magnitude.</summary>
+        public bool HasZeroMagnitude
+        {
+            get
+            {
+                return GetHasZeroMagnitude(this);
+            }
+        }
 
-		#region Statics
+        #endregion
 
-		/// <summary>Gets the conjugate of the quaternion.</summary>
-		/// <param name="quaternion">The quaternion to conjugate.</param>
-		/// <returns>The conjugate of teh given quaternion.</returns>
-		public static Quaternion<T> Conjugate(Quaternion<T> quaternion)
-		{ return Quaternion<T>.Quaternion_Conjugate(quaternion); }
-		/// <summary>Adds two quaternions together.</summary>
-		/// <param name="left">The first quaternion of the addition.</param>
-		/// <param name="right">The second quaternion of the addition.</param>
+        #region Magnitude
+
+        /// <summary>Computes the magnitude of this quaternion.</summary>
+        /// <returns>The magnitude of this quaternion.</returns>
+        public static T GetMagnitude(Quaternion<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return Compute.SquareRoot(GetMagnitudeSquared(a));
+        }
+
+        /// <summary>Computes the magnitude of this quaternion.</summary>
+        public T Magnitude
+        {
+            get
+            {
+                return GetMagnitude(this);
+            }
+        }
+
+        #endregion
+
+        #region MagnitudeSquared
+
+        /// <summary>Computes the magnitude of this quaternion, but doesn't square root it for 
+        /// possible optimization purposes.</summary>
+        /// <returns>The squared length of the quaternion.</returns>
+        public static T GetMagnitudeSquared(Quaternion<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            return GetMagnitudeSquaredImplementation.Function(a._x, a._y, a._z, a._w);
+        }
+
+        internal static class GetMagnitudeSquaredImplementation
+        {
+            internal static Func<T, T, T, T, T> Function = (T x, T y, T z, T w) =>
+            {
+                ParameterExpression X = Expression.Parameter(typeof(T));
+                ParameterExpression Y = Expression.Parameter(typeof(T));
+                ParameterExpression Z = Expression.Parameter(typeof(T));
+                ParameterExpression W = Expression.Parameter(typeof(T));
+                Expression BODY =
+                    Expression.Add(Expression.Multiply(X, X),
+                        Expression.Add(Expression.Multiply(Y, Y),
+                            Expression.Add(Expression.Multiply(Z, Z),
+                                Expression.Multiply(W, W))));
+                Function = Expression.Lambda<Func<T, T, T, T, T>>(BODY, X, Y, Z, W).Compile();
+                return Function(x, y, z, w);
+            };
+        }
+
+        /// <summary>Computes the magnitude of this quaternion, but doesn't square root it for 
+        /// possible optimization purposes.</summary>
+        public T MagnitudeSquared
+        {
+            get
+            {
+                return GetMagnitudeSquared(this);
+            }
+        }
+
+        #endregion
+
+        #region Add
+
+        /// <summary>Adds two quaternions together.</summary>
+        /// <param name="a">The first quaternion of the addition.</param>
+        /// <param name="b">The second quaternion of the addiiton.</param>
+        /// <param name="c">The result of the addition.</param>
+        public static void Add(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            T x = Compute.Add(a._x, b._x);
+            T y = Compute.Add(a._y, b._y);
+            T z = Compute.Add(a._z, b._z);
+            T w = Compute.Add(a._w, b._w);
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+        }
+
+        /// <summary>Adds two quaternions together.</summary>
+        /// <param name="a">The first vector of the addition.</param>
+        /// <param name="b">The second vector of the addiiton.</param>
+        /// <returns>The result of the addition.</returns>
+        public static Quaternion<T> Add(Quaternion<T> a, Quaternion<T> b)
+        {
+            Quaternion<T> c = null;
+            Add(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Adds two quaternions together.</summary>
+        /// <param name="a">The first quaternion of the addition.</param>
+        /// <param name="b">The second quaternion of the addition.</param>
+        /// <returns>The result of the addition.</returns>
+        public static Quaternion<T> operator +(Quaternion<T> a, Quaternion<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Adds two quaternions together.</summary>
+        /// <param name="b">The second quaternion of the addititon.</param>
+        /// <param name="c">The result of the addition.</param>
+        public void Add(Quaternion<T> b, ref Quaternion<T> c)
+        {
+            Add(this, b, ref c);
+        }
+
+        /// <summary>Adds two quaternions together.</summary>
+		/// <param name="b">The quaternion to add to this one.</param>
 		/// <returns>The result of the addition.</returns>
-		public static Quaternion<T> Add(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Add(left, right); }
-		/// <summary>Subtracts two quaternions.</summary>
-		/// <param name="left">The left quaternion of the subtraction.</param>
-		/// <param name="right">The right quaternion of the subtraction.</param>
-		/// <returns>The resulting quaternion after the subtraction.</returns>
-		public static Quaternion<T> Subtract(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Subtract(left, right); }
-		/// <summary>Multiplies two quaternions together.</summary>
-		/// <param name="left">The first quaternion of the multiplication.</param>
-		/// <param name="right">The second quaternion of the multiplication.</param>
-		/// <returns>The resulting quaternion after the multiplication.</returns>
-		public static Quaternion<T> Multiply(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_Multiply(left, right); }
-		/// <summary>Multiplies all the values of the quaternion by a scalar value.</summary>
-		/// <param name="left">The quaternion of the multiplication.</param>
-		/// <param name="right">The scalar of the multiplication.</param>
-		/// <returns>The result of multiplying all the values in the quaternion by the scalar.</returns>
-		public static Quaternion<T> Multiply(Quaternion<T> left, T right)
-		{ return Quaternion<T>.Quaternion_MultiplyScalar(left, right); }
-		/// <summary>Pre-multiplies a 3-component vector by a quaternion.</summary>
-		/// <param name="left">The quaternion to pre-multiply the vector by.</param>
-		/// <param name="right">The vector to be multiplied.</param>
-		/// <returns>The resulting quaternion of the multiplication.</returns>
-		public static Quaternion<T> Multiply(Quaternion<T> left, Vector<T> right)
-		{ return Quaternion<T>.Quaternion_MultiplyVector(left, right); }
-		/// <summary>Normalizes the quaternion.</summary>
-		/// <param name="quaternion">The quaternion to normalize.</param>
-		/// <returns>The normalization of the given quaternion.</returns>
-		public static Quaternion<T> Normalize(Quaternion<T> quaternion)
-		{ return Quaternion<T>.Quaternion_Normalize(quaternion); }
-		/// <summary>Inverts a quaternion.</summary>
-		/// <param name="quaternion">The quaternion to find the inverse of.</param>
-		/// <returns>The inverse of the given quaternion.</returns>
-		public static Quaternion<T> Invert(Quaternion<T> quaternion)
-		{ return Quaternion<T>.Quaternion_Invert(quaternion); }
-		/// <summary>Lenearly interpolates between two quaternions.</summary>
-		/// <param name="left">The starting point of the interpolation.</param>
-		/// <param name="right">The ending point of the interpolation.</param>
-		/// <param name="blend">The ratio 0.0-1.0 of how far to interpolate between the left and right quaternions.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public static Quaternion<T> Lerp(Quaternion<T> left, Quaternion<T> right, T blend)
-		{ return Quaternion<T>.Quaternion_Lerp(left, right, blend); }
-		/// <summary>Sphereically interpolates between two quaternions.</summary>
-		/// <param name="left">The starting point of the interpolation.</param>
-		/// <param name="right">The ending point of the interpolation.</param>
-		/// <param name="blend">The ratio of how far to interpolate between the left and right quaternions.</param>
-		/// <returns>The result of the interpolation.</returns>
-		public static Quaternion<T> Slerp(Quaternion<T> left, Quaternion<T> right, T blend)
-		{ return Quaternion<T>.Quaternion_Slerp(left, right, blend); }
-		/// <summary>Rotates a vector by a quaternion [v' = qvq'].</summary>
-		/// <param name="rotation">The quaternion to rotate the vector by.</param>
-		/// <param name="vector">The vector to be rotated by.</param>
-		/// <returns>The result of the rotation.</returns>
-		public static Vector<T> Rotate(Quaternion<T> rotation, Vector<T> vector)
-		{ return Quaternion<T>.Rotate(rotation, vector); }
-		/// <summary>Does a value equality check.</summary>
-		/// <param name="left">The first quaternion to check for equality.</param>
-		/// <param name="right">The second quaternion	to check for equality.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsValue(Quaternion<T> left, Quaternion<T> right)
-		{ return Quaternion<T>.Quaternion_EqualsValue(left, right); }
-		/// <summary>Does a value equality check with leniency.</summary>
-		/// <param name="left">The first quaternion to check for equality.</param>
-		/// <param name="right">The second quaternion to check for equality.</param>
-		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
-		/// <returns>True if values are equal, false if not.</returns>
-		public static bool EqualsValue(Quaternion<T> left, Quaternion<T> right, T leniency)
-		{ return Quaternion<T>.Quaternion_EqualsValue_leniency(left, right, leniency); }
-		/// <summary>Checks if two matrices are equal by reverences.</summary>
-		/// <param name="left">The left quaternion of the equality check.</param>
-		/// <param name="right">The right quaternion of the equality check.</param>
-		/// <returns>True if the references are equal, false if not.</returns>
-		public static bool EqualsReference(Quaternion<T> left, Quaternion<T> right)
-		{ return object.ReferenceEquals(left, right); }
+		public Quaternion<T> Add(Quaternion<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Subtracts two quaternions.</summary>
+        /// <param name="a">The first quaternion of the subtraction.</param>
+        /// <param name="b">The second quaternion of the subtraction.</param>
+        /// <param name="c">The result of the subtraction.</param>
+        public static void Subtract(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            T x = Compute.Subtract(a._x, b._x);
+            T y = Compute.Subtract(a._y, b._y);
+            T z = Compute.Subtract(a._z, b._z);
+            T w = Compute.Subtract(a._w, b._w);
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+        }
+
+        /// <summary>Subtracts two quaternions.</summary>
+        /// <param name="a">The first vector of the subtraction.</param>
+        /// <param name="b">The second vector of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Quaternion<T> Subtract(Quaternion<T> a, Quaternion<T> b)
+        {
+            Quaternion<T> c = null;
+            Add(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Subtracts two quaternions.</summary>
+        /// <param name="a">The first quaternion of the subtraction.</param>
+        /// <param name="b">The second quaternion of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Quaternion<T> operator -(Quaternion<T> a, Quaternion<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Subtracts two quaternions.</summary>
+        /// <param name="b">The second quaternion of the subtraction.</param>
+        /// <param name="c">The result of the subtraction.</param>
+        public void Subtract(Quaternion<T> b, ref Quaternion<T> c)
+        {
+            Add(this, b, ref c);
+        }
+
+        /// <summary>Subtracts two quaternions together.</summary>
+		/// <param name="b">The second quaternion of the subtraction.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public Quaternion<T> Subtract(Quaternion<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply (Quaternion * Quaternion)
+
+        /// <summary>Multiplies two quaternions.</summary>
+        /// <param name="a">The first quaternion of the multiplication.</param>
+        /// <param name="b">The second quaternion of the multiplication.</param>
+        /// <param name="c">The resulting quaternion after the multiplication.</param>
+        private static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            T x = QuaternionMiltiplyXYZComponentImplementation.Function(a.X, b.W, a.W, b.X, a.Y, b.Z, a.Z, b.Y);
+            T y = QuaternionMiltiplyXYZComponentImplementation.Function(a.Y, b.W, a.W, b.Y, a.Z, b.X, a.X, b.Z);
+            T z = QuaternionMiltiplyXYZComponentImplementation.Function(a.Z, b.W, a.W, b.Z, a.X, b.Y, a.Y, b.X);
+            T w = QuaternionMiltiplyWComponentImplementation.Function(a.W, b.W, a.X, b.X, a.Y, b.Y, a.Z, b.Z);
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+        }
+
+        internal static class QuaternionMiltiplyXYZComponentImplementation
+        {
+            internal static Func<T, T, T, T, T, T, T, T, T> Function = (T a, T b, T c, T d, T e, T f, T g, T h) =>
+            {
+                // parameters
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                ParameterExpression D = Expression.Parameter(typeof(T));
+                ParameterExpression E = Expression.Parameter(typeof(T));
+                ParameterExpression F = Expression.Parameter(typeof(T));
+                ParameterExpression G = Expression.Parameter(typeof(T));
+                ParameterExpression H = Expression.Parameter(typeof(T));
+                // multiply
+                Expression AB = Expression.Multiply(A, B);
+                Expression CD = Expression.Multiply(C, D);
+                Expression EF = Expression.Multiply(E, F);
+                Expression GH = Expression.Multiply(G, H);
+                // add
+                Expression AB_add_CD = Expression.Add(AB, CD);
+                Expression AB_add_CD_add_EF = Expression.Add(AB_add_CD, EF);
+                // subtract
+                Expression AB_add_CD_add_EF_subtract_GH = Expression.Subtract(AB_add_CD_add_EF, GH);
+                // compile
+                Expression BODY = AB_add_CD_add_EF_subtract_GH;
+                Function = Expression.Lambda<Func<T, T, T, T, T, T, T, T, T>>(BODY, A, B, C, D, E, F, G, H).Compile();
+                return Function(a, b, c, d, e, f, g, h);
+            };
+        }
+
+        internal static class QuaternionMiltiplyWComponentImplementation
+        {
+            internal static Func<T, T, T, T, T, T, T, T, T> Function = (T a, T b, T c, T d, T e, T f, T g, T h) =>
+            {
+                // parameters
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                ParameterExpression D = Expression.Parameter(typeof(T));
+                ParameterExpression E = Expression.Parameter(typeof(T));
+                ParameterExpression F = Expression.Parameter(typeof(T));
+                ParameterExpression G = Expression.Parameter(typeof(T));
+                ParameterExpression H = Expression.Parameter(typeof(T));
+                // multiply
+                Expression AB = Expression.Multiply(A, B);
+                Expression CD = Expression.Multiply(C, D);
+                Expression EF = Expression.Multiply(E, F);
+                Expression GH = Expression.Multiply(G, H);
+                // subtract
+                Expression AB_subtract_CD = Expression.Subtract(AB, CD);
+                Expression AB_subtract_CD_subtract_EF = Expression.Subtract(AB_subtract_CD, EF);
+                Expression AB_subtract_CD_subtract_EF_subtract_GH = Expression.Subtract(AB_subtract_CD_subtract_EF, GH);
+                // compile
+                Expression BODY = AB_subtract_CD_subtract_EF_subtract_GH;
+                Function = Expression.Lambda<Func<T, T, T, T, T, T, T, T, T>>(BODY, A, B, C, D, E, F, G, H).Compile();
+                return Function(a, b, c, d, e, f, g, h);
+            };
+        }
+
+        /// <summary>Multiplies two quaternions.</summary>
+        /// <param name="a">The first quaternion of the multiplication.</param>
+        /// <param name="b">The second quaternion of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+		public static Quaternion<T> Multiply(Quaternion<T> a, Quaternion<T> b)
+        {
+            Quaternion<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Multiplies two quaternions.</summary>
+        /// <param name="a">The first quaternion of the multiplication.</param>
+        /// <param name="b">The second quaternion of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+        public static Quaternion<T> operator *(Quaternion<T> a, Quaternion<T> b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies two quaternions.</summary>
+        /// <param name="b">The second quaternion of the multiplication.</param>
+        /// <param name="c">The resulting quaternion after the multiplication.</param>
+		public void Multiply(Quaternion<T> b, ref Quaternion<T> c)
+        {
+            Multiply(this, b, ref c);
+        }
+
+        /// <summary>Multiplies two quaternions.</summary>
+        /// <param name="b">The second quaternion of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+		public Quaternion<T> Multiply(Quaternion<T> b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Multiply (Quaternion * Vector)
+
+        /// <summary>Multiplies a quaternion and a vector.</summary>
+        /// <param name="a">The quaternion of the multiplication.</param>
+        /// <param name="b">The vector of the multiplication.</param>
+        /// <param name="c">The resulting quaternion after the multiplication.</param>
+        public static void Multiply(Quaternion<T> a, Vector<T> b, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (b.Dimensions != 3)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
+            }
+            T x = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.X, a.Y, b.Z, a.Z, b.Y);
+            T y = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.Y, a.Z, b.X, a.X, b.Z);
+            T z = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.Z, a.X, b.Y, a.Y, b.X);
+            T w = QuaternionMiltiplyVectorWComponentImplementation.Function(a.X, b.X, a.Y, b.Y, a.Z, b.Z);
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+        }
+
+        internal static class QuaternionMiltiplyVectorXYZComponentImplementation
+        {
+            internal static Func<T, T, T, T, T, T, T> Function = (T a, T b, T c, T d, T e, T f) =>
+            {
+                // parameters
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                ParameterExpression D = Expression.Parameter(typeof(T));
+                ParameterExpression E = Expression.Parameter(typeof(T));
+                ParameterExpression F = Expression.Parameter(typeof(T));
+                // multiply
+                Expression AB = Expression.Multiply(A, B);
+                Expression CD = Expression.Multiply(C, D);
+                Expression EF = Expression.Multiply(E, F);
+                // add
+                Expression AB_add_CD = Expression.Add(AB, CD);
+                // subtract
+                Expression AB_add_CD_subtract_EF = Expression.Subtract(AB_add_CD, EF);
+                // compile
+                Expression BODY = AB_add_CD_subtract_EF;
+                Function = Expression.Lambda<Func<T, T, T, T, T, T, T>>(BODY, A, B, C, D, E, F).Compile();
+                return Function(a, b, c, d, e, f);
+            };
+        }
+
+        internal static class QuaternionMiltiplyVectorWComponentImplementation
+        {
+            internal static Func<T, T, T, T, T, T, T> Function = (T a, T b, T c, T d, T e, T f) =>
+            {
+                // parameters
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                ParameterExpression D = Expression.Parameter(typeof(T));
+                ParameterExpression E = Expression.Parameter(typeof(T));
+                ParameterExpression F = Expression.Parameter(typeof(T));
+                // multiply
+                Expression nAB = Expression.Multiply(Expression.Negate(A), B);
+                Expression CD = Expression.Multiply(C, D);
+                Expression EF = Expression.Multiply(E, F);
+                // subtract
+                Expression nAB_subtract_CD = Expression.Subtract(nAB, CD);
+                Expression nAB_subtract_CD_subtract_EF = Expression.Subtract(nAB_subtract_CD, EF);
+                // compile
+                Expression BODY = nAB_subtract_CD_subtract_EF;
+                Function = Expression.Lambda<Func<T, T, T, T, T, T, T>>(BODY, A, B, C, D, E, F).Compile();
+                return Function(a, b, c, d, e, f);
+            };
+        }
+
+        /// <summary>Multiplies a quaternion and a vector.</summary>
+        /// <param name="a">The quaternion of the multiplication.</param>
+        /// <param name="b">The vector of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+		public static Quaternion<T> Multiply(Quaternion<T> a, Vector<T> b)
+        {
+            Quaternion<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Multiplies a quaternion and a vector.</summary>
+        /// <param name="a">The quaternion of the multiplication.</param>
+        /// <param name="b">The vector of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+        public static Quaternion<T> operator *(Quaternion<T> a, Vector<T> b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies a quaternion and a vector.</summary>
+        /// <param name="b">The vector of the multiplication.</param>
+        /// <param name="c">The resulting quaternion after the multiplication.</param>
+		public void Multiply(Vector<T> b, ref Quaternion<T> c)
+        {
+            Multiply(this, b, ref c);
+        }
+
+        /// <summary>Multiplies a quaternion and a vector.</summary>
+        /// <param name="b">The vector of the multiplication.</param>
+        /// <returns>The resulting quaternion after the multiplication.</returns>
+		public Quaternion<T> Multiply(Vector<T> b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Multiply (Quaternion * Scalar)
+
+        /// <summary>Multiplies all the values in a quaternion by a scalar.</summary>
+        /// <param name="a">The quaternion to have the values multiplied.</param>
+        /// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="c">The resulting quaternion after the multiplications.</param>
+        private static void Multiply(Quaternion<T> a, T b, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T x = Compute.Multiply(a._x, b);
+            T y = Compute.Multiply(a._y, b);
+            T z = Compute.Multiply(a._z, b);
+            T w = Compute.Multiply(a._w, b);
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="a">The matrix to have the values multiplied.</param>
+		/// <param name="b">The scalar to multiply the values by.</param>
+		/// <returns>The resulting quaternion after the multiplications.</returns>
+		public static Quaternion<T> Multiply(Quaternion<T> a, T b)
+        {
+            Quaternion<T> c = null;
+            Multiply(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+        /// <param name="b">The scalar to multiply the values by.</param>
+		/// <param name="a">The quaternion to have the values multiplied.</param>
+		/// <returns>The resulting quaternion after the multiplications.</returns>
+		public static Quaternion<T> Multiply(T b, Quaternion<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="a">The quaternion to have the values multiplied.</param>
+		/// <param name="b">The scalar to multiply the values by.</param>
+		/// <returns>The resulting quaternion after the multiplications.</returns>
+        public static Quaternion<T> operator *(Quaternion<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+        /// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="a">The quaternion to have the values multiplied.</param>
+        /// <returns>The resulting quaternion after the multiplications.</returns>
+        public static Quaternion<T> operator *(T b, Quaternion<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="b">The scalar to multiply the values by.</param>
+        /// <param name="c">The resulting quaternion after the multiplications.</param>
+		public void Multiply(T b, ref Quaternion<T> c)
+        {
+            Multiply(this, b, ref c);
+        }
+
+        /// <summary>Multiplies all the values in a matrix by a scalar.</summary>
+		/// <param name="b">The scalar to multiply the values by.</param>
+		/// <returns>The resulting matrix after the multiplications.</returns>
+		public Quaternion<T> Multiply(T b)
+        {
+            return this * b;
+        }
+
+        #endregion
+
+        #region Rotate
+
+        /// <summary>Rotates a vector by a quaternion rotation [v' = qvq'].</summary>
+        /// <param name="a">The quaternion rotation to rotate the vector by.</param>
+        /// <param name="b">The vector to rotate.</param>
+        /// <param name="c">The result of the rotation.</param>
+        public static void Rotate(Quaternion<T> a, Vector<T> b, ref Vector<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (b.Dimensions != 3)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " != 3 || " + nameof(b) + "." + nameof(b.Dimensions) + " != 4)");
+            }
+            if (c is null || c.Dimensions != 3)
+            {
+                c = new Vector<T>(3);
+            }
+            Quaternion<T> d = null;
+            Multiply(a, b, ref d);
+            Multiply(a.Conjugate(), d, ref d); // need to prevent this heep allocation on "a.Conjugate()" in future update
+            c.X = d.X;
+            c.Y = d.Y;
+            c.X = d.W;
+        }
+
+        /// <summary>Rotates a vector by a quaternion rotation [v' = qvq'].</summary>
+        /// <param name="a">The quaternion rotation to rotate the vector by.</param>
+        /// <param name="b">The vector to rotate.</param>
+        /// <returns>The result of the rotation.</returns>
+        public static Vector<T> Rotate(Quaternion<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            Rotate(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Rotates a vector by a quaternion rotation [v' = qvq'].</summary>
+        /// <param name="b">The vector to rotate.</param>
+        /// <param name="c">The result of the rotation.</param>
+        public void Rotate(Vector<T> b, ref Vector<T> c)
+        {
+            Rotate(this, b, ref c);
+        }
+
+        /// <summary>Rotates a vector by a quaternion rotation [v' = qvq'].</summary>
+        /// <param name="b">The vector to rotate.</param>
+        /// <returns>The result of the rotation.</returns>
+        public Vector<T> Rotate(Vector<T> b)
+        {
+            Vector<T> c = null;
+            Rotate(this, b, ref c);
+            return c;
+        }
+
+        #endregion
+
+        #region Conjugate
+
+        /// <summary>Conjugates a quaternion.</summary>
+        /// <param name="a">The quaternion to conjugate.</param>
+        /// <param name="b">The result of the conjugation.</param>
+        public static void Conjugate(Quaternion<T> a, ref Quaternion<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T x = Compute.Negate(a._x);
+            T y = Compute.Negate(a._y);
+            T z = Compute.Negate(a._z);
+            T w = a._w;
+            if (b is null)
+            {
+                b = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                b._x = x;
+                b._y = y;
+                b._z = z;
+                b._w = w;
+            }
+        }
+
+        /// <summary>Conjugates a quaternion.</summary>
+        /// <param name="a">The quaternion to conjugate.</param>
+        /// <returns>The result of the conjugation.</returns>
+        public static Quaternion<T> Conjugate(Quaternion<T> a)
+        {
+            Quaternion<T> b = null;
+            Conjugate(a, ref b);
+            return b;
+        }
+
+        /// <summary>Conjugates a quaternion.</summary>
+        /// <param name="b">The result of the conjugation.</param>
+        public void Conjugate(ref Quaternion<T> b)
+        {
+            Conjugate(this, ref b);
+        }
+
+        /// <summary>Conjugates a quaternion.</summary>
+        /// <returns>The result of the conjugation.</returns>
+        public Quaternion<T> Conjugate()
+        {
+            Quaternion<T> b = null;
+            Conjugate(this, ref b);
+            return b;
+        }
+
+        #endregion
+
+        #region Normalize
+
+        /// <summary>Normalizes a quaternion.</summary>
+        /// <param name="a">The quaternion to normalize.</param>
+        /// <param name="b">The result of the normalization.</param>
+        public static void Normalize(Quaternion<T> a, ref Quaternion<T> b)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T magnitude = a.Magnitude;
+            T x = Compute.Divide(a._x, magnitude);
+            T y = Compute.Divide(a._y, magnitude);
+            T z = Compute.Divide(a._z, magnitude);
+            T w = Compute.Divide(a._w, magnitude);
+            if (b is null)
+            {
+                b = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                b._x = x;
+                b._y = y;
+                b._z = z;
+                b._w = w;
+            }
+        }
+
+        /// <summary>Normalizes a quaternion.</summary>
+        /// <param name="a">The quaternion to normalize.</param>
+        /// <returns>The result of the normalization.</returns>
+        public static Quaternion<T> Normalize(Quaternion<T> a)
+        {
+            Quaternion<T> b = null;
+            Normalize(a, ref b);
+            return b;
+        }
+
+        /// <summary>Normalizes a quaternion.</summary>
+        /// <param name="a">The quaternion to normalize.</param>
+        /// <param name="b">The result of the normalization.</param>
+        public void Normalize(ref Quaternion<T> b)
+        {
+            Normalize(this, ref b);
+        }
+
+        /// <summary>Normalizes a quaternion.</summary>
+        /// <param name="a">The quaternion to normalize.</param>
+        /// <returns>The result of the normalization.</returns>
+        public Quaternion<T> Normalize()
+        {
+            Quaternion<T> b = null;
+            Normalize(this, ref b);
+            return b;
+        }
+
+        #endregion
+
+        #region Invert
+        
+        /// <summary>Inverts a quaternion.</summary>
+        /// <param name="a">The quaternion to invert.</param>
+        /// <param name="b">The result of the inversion.</param>
+        public static void Invert(Quaternion<T> a, ref Quaternion<T> b)
+        {
+            // Note: I think this function is incorrect. Need to research.
+
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            T magnitudeSquared = a.MagnitudeSquared;
+            T x;
+            T y;
+            T z;
+            T w;
+            if (Compute.Equal(magnitudeSquared, Constant<T>.Zero))
+            {
+                x = a._x;
+                y = a._y;
+                z = a._z;
+                w = a._w;
+            }
+            else
+            {
+                x = Compute.Multiply(Compute.Negate(a.X), magnitudeSquared);
+                y = Compute.Multiply(Compute.Negate(a.Y), magnitudeSquared);
+                z = Compute.Multiply(Compute.Negate(a.Z), magnitudeSquared);
+                w = Compute.Multiply(a.W, magnitudeSquared);
+            }
+            if (b is null)
+            {
+                b = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                b._x = x;
+                b._y = y;
+                b._z = z;
+                b._w = w;
+            }
+        }
+
+        /// <summary>Inverts a quaternion.</summary>
+        /// <param name="a">The quaternion to invert.</param>
+        /// <returns>The result of the inversion.</returns>
+        public static Quaternion<T> Invert(Quaternion<T> a)
+        {
+            Quaternion<T> b = null;
+            Invert(a, ref b);
+            return b;
+        }
+
+        /// <summary>Inverts a quaternion.</summary>
+        /// <param name="b">The result of the inversion.</param>
+        public void Invert(ref Quaternion<T> b)
+        {
+            Invert(this, ref b);
+        }
+
+        /// <summary>Inverts a quaternion.</summary>
+        /// <returns>The result of the inversion.</returns>
+        public Quaternion<T> Invert()
+        {
+            Quaternion<T> b = null;
+            Invert(this, ref b);
+            return b;
+        }
+
+        #endregion
+
+        #region LinearInterpolation
+
+        /// <summary>Linear interpolation for quaternions.</summary>
+        /// <param name="a">The min of the interpolation.</param>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <param name="c">The result of the linear interpolation.</param>
+        public static void LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
+            {
+                throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
+            }
+            T x;
+            T y;
+            T z;
+            T w;
+            if (GetHasZeroMagnitude(a))
+            {
+                if (GetHasZeroMagnitude(b))
+                {
+                    x = Constant<T>.Zero;
+                    y = Constant<T>.Zero;
+                    z = Constant<T>.Zero;
+                    w = Constant<T>.One;
+                }
+                else
+                {
+                    x = b._x;
+                    y = b._y;
+                    z = b._z;
+                    w = b._w;
+                }
+            }
+            else if (GetHasZeroMagnitude(b))
+            {
+                x = a._x;
+                y = a._y;
+                z = a._z;
+                w = a._w;
+            }
+            else
+            {
+                x = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X));
+                y = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y));
+                z = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z));
+                w = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W));
+            }
+            if (c is null)
+            {
+                c = new Quaternion<T>(x, y, z, w);
+            }
+            else
+            {
+                c._x = x;
+                c._y = y;
+                c._z = z;
+                c._w = w;
+            }
+            if (!GetHasZeroMagnitude(c))
+            {
+                Normalize(c, ref c);
+            }
+            else
+            {
+                c._x = Constant<T>.Zero;
+                c._y = Constant<T>.Zero;
+                c._z = Constant<T>.Zero;
+                c._w = Constant<T>.One;
+            }
+        }
+
+        /// <summary>Linear interpolation for quaternions.</summary>
+        /// <param name="a">The min of the interpolation.</param>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <returns>The result of the linear interpolation.</returns>
+        public static Quaternion<T> LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend)
+        {
+            Quaternion<T> c = null;
+            LinearInterpolation(a, b, blend, ref c);
+            return c;
+        }
+
+        /// <summary>Linear interpolation for quaternions.</summary>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <param name="c">The result of the linear interpolation.</param>
+        public void LinearInterpolation(Quaternion<T> b, T blend, ref Quaternion<T> c)
+        {
+            LinearInterpolation(this, b, blend, ref c);
+        }
+
+        /// <summary>Linear interpolation for quaternions.</summary>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <returns>The result of the linear interpolation.</returns>
+        public Quaternion<T> LinearInterpolation(Quaternion<T> b, T blend)
+        {
+            Quaternion<T> c = null;
+            LinearInterpolation(this, b, blend, ref c);
+            return c;
+        }
+
+        #endregion
+
+        #region SphericalInterpolation
+
+        /// <summary>Spherical interpolation for quaternions.</summary>
+        /// <param name="a">The min of the interpolation.</param>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <param name="c">The result of the spherical interpolation.</param>
+        public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(b));
+            }
+            if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
+            {
+                throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
+            }
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Spherical interpolation for quaternions.</summary>
+        /// <param name="a">The min of the interpolation.</param>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <returns>The result of the spherical interpolation.</returns>
+        public static Quaternion<T> SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend)
+        {
+            Quaternion<T> c = null;
+            LinearInterpolation(a, b, blend, ref c);
+            return c;
+        }
+
+        /// <summary>Spherical interpolation for quaternions.</summary>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <param name="c">The result of the spherical interpolation.</param>
+        public void SphericalInterpolation(Quaternion<T> b, T blend, ref Quaternion<T> c)
+        {
+            LinearInterpolation(this, b, blend, ref c);
+        }
+
+        /// <summary>Spherical interpolation for quaternions.</summary>
+        /// <param name="b">The max of the interpolation.</param>
+        /// <param name="blend">The blending point of the interpolation.</param>
+        /// <returns>The result of the spherical interpolation.</returns>
+        public Quaternion<T> SphericalInterpolation(Quaternion<T> b, T blend)
+        {
+            Quaternion<T> c = null;
+            LinearInterpolation(this, b, blend, ref c);
+            return c;
+        }
+
+        #endregion
+
+        #region ToMatrix3x3
 
         /// <summary>Converts a quaternion into a 3x3 matrix.</summary>
         /// <param name="quaternion">The quaternion of the conversion.</param>
         /// <returns>The resulting 3x3 matrix.</returns>
         public static Matrix<T> ToMatrix3x3(Quaternion<T> quaternion)
         {
+            // Note: this Method needs optimization...
+
             return new Matrix<T>(3, 3, (int x, int y) =>
             {
                 switch (x)
@@ -399,350 +1197,168 @@ namespace Towel.Mathematics
             });
         }
 
-        /// <summary>Returns an identity quaternion (no rotation).</summary>
-        public static Quaternion<T> Identity
+        #endregion
+
+        #region Equal
+
+        /// <summary>Does a value equality check.</summary>
+        /// <param name="a">The first quaternion to check for equality.</param>
+        /// <param name="b">The second quaternion to check for equality.</param>
+        /// <returns>True if values are equal, false if not.</returns>
+        private static bool Equal(Quaternion<T> a, Quaternion<T> b)
         {
-            get
+            if (a is null)
             {
-                return new Quaternion<T>(Constant<T>.Zero, Constant<T>.Zero, Constant<T>.Zero, Constant<T>.One);
+                if (b is null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            if (b is null)
+            {
+                return false;
+            }
+            if (Compute.NotEqual(a._x, b._x))
+            {
+                return false;
+            }
+            if (Compute.NotEqual(a._y, b._y))
+            {
+                return false;
+            }
+            if (Compute.NotEqual(a._z, b._z))
+            {
+                return false;
+            }
+            if (Compute.NotEqual(a._w, b._w))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>Does a value equality check.</summary>
+		/// <param name="a">The first quaternion to check for equality.</param>
+		/// <param name="b">The second quaternion to check for equality.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+        public static bool operator ==(Quaternion<T> a, Quaternion<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        /// <summary>Does a value non-equality check.</summary>
+		/// <param name="a">The first quaternion to check for non-equality.</param>
+		/// <param name="b">The second quaternion to check for non-equality.</param>
+		/// <returns>True if values are not equal, false if not.</returns>
+		public static bool operator !=(Quaternion<T> a, Quaternion<T> b)
+        {
+            return !Equal(a, b);
+        }
+
+        /// <summary>Does a value equality check.</summary>
+		/// <param name="b">The second quaternion to check for equality.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+		public bool Equal(Quaternion<T> b)
+        {
+            return this == b;
         }
 
         #endregion
 
-        #region Implementations
+        #region Equal (+leniency)
 
-        #region Magnitude
-
-        internal static Func<Quaternion<T>, T> Quaternion_Magnitude = (Quaternion<T> a) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            return Compute.SquareRoot(Quaternion_MagnitudeSquared(a));
-		};
-
-        #endregion
-
-        #region MagnitudeSquared
-
-        internal static Func<Quaternion<T>, T> Quaternion_MagnitudeSquared = (Quaternion<T> a) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            return Compute.Add(
-                Compute.Multiply(a.X, a.X),
-                Compute.Multiply(a.Y, a.Y),
-                Compute.Multiply(a.Z, a.Z),
-                Compute.Multiply(a.W, a.W));
-		};
-
-		#endregion
-
-		#region Conjugate
-
-		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Conjugate = (Quaternion<T> a) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            return new Quaternion<T>(
-                Compute.Negate(a.X),
-                Compute.Negate(a.Y),
-                Compute.Negate(a.Z),
-                a.W);
-		};
-
-		#endregion
-
-		#region Add
-		
-		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Add = (Quaternion<T> a, Quaternion<T> b) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            return new Quaternion<T>(
-                Compute.Add(a.X, b.X),
-                Compute.Add(a.Y, b.Y),
-                Compute.Add(a.Z, b.Z),
-                Compute.Add(a.W, b.W));
-		};
-		#endregion
-
-		#region Subtract
-		
-		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Subtract = (Quaternion<T> a, Quaternion<T> b) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            return new Quaternion<T>(
-                Compute.Subtract(a.X, b.X),
-                Compute.Subtract(a.Y, b.Y),
-                Compute.Subtract(a.Z, b.Z),
-                Compute.Subtract(a.W, b.W));
-		};
-
-		#endregion
-
-		#region Multiply
-		
-		internal static Func<Quaternion<T>, Quaternion<T>, Quaternion<T>> Quaternion_Multiply = (Quaternion<T> a, Quaternion<T> b) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            return new Quaternion<T>(
-                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.X, b.W), Compute.Multiply(a.W, b.X)), Compute.Multiply(a.Y, b.Z)), Compute.Multiply(a.Z, b.Y)),
-                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.Y, b.W), Compute.Multiply(a.W, b.Y)), Compute.Multiply(a.Z, b.X)), Compute.Multiply(a.X, b.Z)),
-                Compute.Subtract(Compute.Add(Compute.Add(Compute.Multiply(a.Z, b.W), Compute.Multiply(a.W, b.Z)), Compute.Multiply(a.X, b.Y)), Compute.Multiply(a.Y, b.X)),
-                Compute.Subtract(Compute.Subtract(Compute.Subtract(Compute.Multiply(a.W, b.W), Compute.Multiply(a.X, b.X)), Compute.Multiply(a.Y, b.Y)), Compute.Multiply(a.Z, b.Z)));
-		};
-		#endregion
-
-		#region MultiplyScalar
-		
-		internal static Func<Quaternion<T>, T, Quaternion<T>> Quaternion_MultiplyScalar = (Quaternion<T> a, T b) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            return new Quaternion<T>(
-                Compute.Multiply(a.X, b),
-                Compute.Multiply(a.Y, b),
-                Compute.Multiply(a.Z, b),
-                Compute.Multiply(a.W, b));
-		};
-		#endregion
-
-		#region MultiplyVector
-		
-		internal static Func<Quaternion<T>, Vector<T>, Quaternion<T>>  Quaternion_MultiplyVector = (Quaternion<T> a, Vector<T> b) =>
-		{
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (b.Dimensions != 3)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
-            }
-            return new Quaternion<T>(
-            	Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.X), Compute.Multiply(a.Y, b.Z)), Compute.Multiply(a.Z, b.Y)),
-                Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.Y), Compute.Multiply(a.Z, b.X)), Compute.Multiply(a.X, b.Z)),
-                Compute.Subtract(Compute.Add(Compute.Multiply(a.W, b.Z), Compute.Multiply(a.X, b.Y)), Compute.Multiply(a.Y, b.X)),
-            	Compute.Subtract(Compute.Subtract(Compute.Multiply(Compute.Negate(a.X), b.X), Compute.Multiply(a.Y, b.Y)), Compute.Multiply(a.Z, b.Z)));
-		};
-
-		#endregion
-
-		#region Normalize
-		
-		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Normalize = (Quaternion<T> a) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            T normalizer = a.Magnitude;
-            if (Compute.NotEqual(normalizer, Constant<T>.Zero))
-            {
-                return a * Compute.Divide(Constant<T>.One, normalizer);
-            }
-            else
-            {
-                return Quaternion<T>.Identity;
-            }
-		};
-		#endregion
-
-		#region Invert
-		
-		internal static Func<Quaternion<T>, Quaternion<T>> Quaternion_Invert = (Quaternion<T> a) =>
+        /// <summary>Does a value equality check with leniency.</summary>
+		/// <param name="a">The first quaternion to check for equality.</param>
+		/// <param name="b">The second quaternion to check for equality.</param>
+		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+        private static bool Equal(Quaternion<T> a, Quaternion<T> b, T leniency)
         {
-            if (a == null)
+            if (a is null)
             {
-                throw new ArgumentNullException(nameof(a));
-            }
-            T normalizer = a.MagnitudeSquared;
-            if (Compute.Equal(normalizer, Constant<T>.Zero))
-            {
-                return new Quaternion<T>(a.X, a.Y, a.Z, a.W);
-            }
-            normalizer = Compute.Divide(Constant<T>.One, normalizer);
-            return new Quaternion<T>(
-                Compute.Multiply(Compute.Negate(a.X), normalizer),
-                Compute.Multiply(Compute.Negate(a.Y), normalizer),
-                Compute.Multiply(Compute.Negate(a.Z), normalizer),
-                Compute.Multiply(a.W, normalizer));
-        };
-
-		#endregion
-
-		#region Lerp
-		
-		internal static Func<Quaternion<T>, Quaternion<T>, T, Quaternion<T>> Quaternion_Lerp = (Quaternion<T> a, Quaternion<T> b, T blend) =>
-		{
-            if (a == null)
-            {
-                throw new ArgumentNullException(nameof(a));
-            }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
-            {
-                throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
-            }
-            if (Compute.Equal(a.MagnitudeSquared, Constant<T>.Zero))
-            {
-                if (Compute.Equal(b.MagnitudeSquared, Constant<T>.Zero))
+                if (b is null)
                 {
-                    return Quaternion<T>.Identity;
+                    return true;
                 }
                 else
                 {
-                    return b.Clone();
+                    return false;
                 }
             }
-            else if (Compute.Equal(b.MagnitudeSquared, Constant<T>.Zero))
+            if (b is null)
             {
-                return a.Clone();
+                return false;
             }
-            Quaternion<T> result = new Quaternion<T>(
-                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X)),
-                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y)),
-                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z)),
-                Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W)));
-            if (Compute.GreaterThan(result.MagnitudeSquared, Constant<T>.Zero))
+            if (!Compute.EqualLeniency(a._x, b._x, leniency))
             {
-                return result.Normalize();
+                return false;
             }
-            else
+            if (!Compute.EqualLeniency(a._y, b._y, leniency))
             {
-                return Quaternion<T>.Identity;
+                return false;
             }
-		};
+            if (!Compute.EqualLeniency(a._z, b._z, leniency))
+            {
+                return false;
+            }
+            if (!Compute.EqualLeniency(a._w, b._w, leniency))
+            {
+                return false;
+            }
+            return true;
+        }
 
-		#endregion
-
-		#region Slerp
-		
-		internal static Func<Quaternion<T>, Quaternion<T>, T, Quaternion<T>> Quaternion_Slerp = (Quaternion<T> left, Quaternion<T> right, T blend) =>
-		{
-			throw new System.NotImplementedException();
-		};
+        /// <summary>Does a value equality check with leniency.</summary>
+		/// <param name="b">The second quaternion to check for equality.</param>
+		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
+		/// <returns>True if values are equal, false if not.</returns>
+		public bool Equal(Quaternion<T> b, T leniency)
+        {
+            return Equal(this, b, leniency);
+        }
 
         #endregion
 
-        #region Rotate
+        #endregion
 
-        internal delegate void RotateByQuaternionSignature(Quaternion<T> a, Vector<T> b, ref Vector<T> c);
-        internal static RotateByQuaternionSignature Quaternion_Rotate = (Quaternion<T> a, Vector<T> b, ref Vector<T> c) =>
-		{
-            if (a == null)
+        #region Other Methods
+
+        #region Clone
+
+        /// <summary>Creates a copy of a quaternion.</summary>
+        /// <param name="a">The quaternion to copy.</param>
+        /// <returns>The copy of this quaternion.</returns>
+        public static Quaternion<T> Clone(Quaternion<T> a)
+        {
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (b == null)
-            {
-                throw new ArgumentNullException(nameof(b));
-            }
-            if (b.Dimensions != 3 && b.Dimensions != 4)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " != 3 || " + nameof(b) + "." + nameof(b.Dimensions) + " != 4)");
-            }
-            Quaternion<T> result = Quaternion<T>.Multiply(a, b) * a.Conjugate();
-            c = new Vector<T>(result.X, result.Y, result.Z);
-		};
+            return new Quaternion<T>(a._x, a._y, a._z, a._w);
+        }
+
+        /// <summary>Copies this matrix.</summary>
+        /// <returns>The copy of this matrix.</returns>
+        public Quaternion<T> Clone()
+        {
+            return Clone(this);
+        }
 
         #endregion
 
-        #region EqualsValue
-
-        internal static Func<Quaternion<T>, Quaternion<T>, bool> Quaternion_EqualsValue = (Quaternion<T> a, Quaternion<T> b) =>
-		{
-            if (object.ReferenceEquals(a, b))
-            {
-                return true;
-            }
-            else if (object.ReferenceEquals(a, null))
-            {
-                return false;
-            }
-            else if (object.ReferenceEquals(b, null))
-            {
-                return false;
-            }
-            else
-            {
-                return
-                    Compute.Equal(a.X, b.X) &&
-                    Compute.Equal(a.Y, b.Y) &&
-                    Compute.Equal(a.Z, b.Z) &&
-                    Compute.Equal(a.W, b.W);
-            }
-		};
-
         #endregion
 
-        #region EqualsValue_leniency
+        #region Overrides
 
-        internal static Func<Quaternion<T>, Quaternion<T>, T, bool> Quaternion_EqualsValue_leniency = (Quaternion<T> a, Quaternion<T> b, T leniency) =>
+        /// <summary>Converts the quaternion into a string.</summary>
+        /// <returns>The resulting string after the conversion.</returns>
+        public override string ToString()
 		{
-            if (a == null && b == null)
-            {
-                return true;
-            }
-            if (a == null)
-            {
-                return false;
-            }
-            if (b == null)
-            {
-                return false;
-            }
-            return
-                Compute.EqualLeniency(a.X, b.X, leniency) &&
-                Compute.EqualLeniency(a.Y, b.Y, leniency) &&
-                Compute.EqualLeniency(a.Z, b.Z, leniency) &&
-                Compute.EqualLeniency(a.W, b.W, leniency);
-        };
-		#endregion
-
-		#endregion
-
-		#region Overrides
-
-		/// <summary>Converts the quaternion into a string.</summary>
-		/// <returns>The resulting string after the conversion.</returns>
-		public override string ToString()
-		{
-			// Chane this method to format it how you want...
 			return base.ToString();
-			//return "{ " + _x + ", " + _y + ", " + _z + ", " + _w + " }";
 		}
 
 		/// <summary>Computes a hash code from the values in this quaternion.</summary>
@@ -761,8 +1377,10 @@ namespace Towel.Mathematics
 		/// <returns></returns>
 		public override bool Equals(object other)
 		{
-			if (other is Quaternion<T>)
-				return Quaternion<T>.EqualsReference(this, (Quaternion<T>)other);
+            if (other is Quaternion<T>)
+            {
+                return Quaternion<T>.Equal(this, (Quaternion<T>)other);
+            }
 			return false;
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Text;
 using Towel.Measurements;
 
@@ -235,7 +236,7 @@ namespace Towel.Mathematics
         /// <returns>The length of this vector.</returns>
         public static T GetMagnitude(Vector<T> a)
         {
-            if (a == null)
+            if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
@@ -269,7 +270,7 @@ namespace Towel.Mathematics
             T[] A = a._vector;
             for (int i = 0; i < Length; i++)
             {
-                result = Compute.Add(result, Compute.Multiply(A[i], A[i]));
+                result = Compute.MultiplyAddImplementation<T>.Function(A[i], A[i], result);
             }
             return result;
         }
@@ -359,7 +360,7 @@ namespace Towel.Mathematics
         /// <summary>Adds two vectors together.</summary>
         /// <param name="a">The first vector of the addition.</param>
         /// <param name="b">The second vector of the addiiton.</param>
-        /// <param name="c">The result of the addiion.</param>
+        /// <param name="c">The result of the addition.</param>
         public static void Add(Vector<T> a, Vector<T> b, ref Vector<T> c)
         {
             if (a is null)
@@ -401,7 +402,7 @@ namespace Towel.Mathematics
         /// <summary>Adds two vectors together.</summary>
         /// <param name="a">The first vector of the addition.</param>
         /// <param name="b">The second vector of the addiiton.</param>
-        /// <returns>The result of the addiion.</returns>
+        /// <returns>The result of the addition.</returns>
         public static Vector<T> Add(Vector<T> a, Vector<T> b)
         {
             Vector<T> c = null;
@@ -410,17 +411,17 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Adds two vectors together.</summary>
-        /// <param name="left">The first vector of the addition.</param>
-        /// <param name="right">The second vector of the addition.</param>
+        /// <param name="a">The first vector of the addition.</param>
+        /// <param name="b">The second vector of the addition.</param>
         /// <returns>The result of the addition.</returns>
-        public static Vector<T> operator +(Vector<T> left, Vector<T> right)
+        public static Vector<T> operator +(Vector<T> a, Vector<T> b)
         {
-            return Add(left, right);
+            return Add(a, b);
         }
 
         /// <summary>Adds two vectors together.</summary>
-        /// <param name="b">The second vector of the addiiton.</param>
-        /// <param name="c">The result of the addiion.</param>
+        /// <param name="b">The second vector of the addition.</param>
+        /// <param name="c">The result of the addition.</param>
         public void Add(Vector<T> b, ref Vector<T> c)
         {
             Add(this, b, ref c);
@@ -428,7 +429,7 @@ namespace Towel.Mathematics
 
         /// <summary>Adds two vectors together.</summary>
 		/// <param name="b">The vector to add to this one.</param>
-		/// <returns>The result of the vector.</returns>
+		/// <returns>The result of the addition.</returns>
 		public Vector<T> Add(Vector<T> b)
         {
             return this + b;
@@ -890,7 +891,7 @@ namespace Towel.Mathematics
         /// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
         public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T> c)
         {
-            Quaternion<T>.Quaternion_Rotate(b, a, ref c);
+            Quaternion<T>.Rotate(b, a, ref c);
         }
 
         /// <summary>Rotates a vector by a quaternion.</summary>
@@ -900,7 +901,7 @@ namespace Towel.Mathematics
         public static Vector<T> RotateBy(Vector<T> a, Quaternion<T> b)
         {
             Vector<T> c = null;
-            Quaternion<T>.Quaternion_Rotate(b, a, ref c);
+            Quaternion<T>.Rotate(b, a, ref c);
             return c;
         }
 

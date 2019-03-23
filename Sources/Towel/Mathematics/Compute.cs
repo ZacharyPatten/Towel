@@ -11,6 +11,27 @@ namespace Towel.Mathematics
 	/// <summary>Static Generic Mathematics Computation.</summary>
 	public static class Compute
 	{
+        #region Internal Optimizations
+
+        // These are some shared internal optimizations that I don't want to expose because it might confuse people.
+        // If you need to use it, just copy this code into your own project.
+
+        /// <summary>a * b + c</summary>
+        internal static class MultiplyAddImplementation<T>
+        {
+            internal static Func<T, T, T, T> Function = (T a, T b, T c) =>
+            {
+                ParameterExpression A = Expression.Parameter(typeof(T));
+                ParameterExpression B = Expression.Parameter(typeof(T));
+                ParameterExpression C = Expression.Parameter(typeof(T));
+                Expression BODY = Expression.Add(Expression.Multiply(A, B), C);
+                Function = Expression.Lambda<Func<T, T, T, T>>(BODY, A, B, C).Compile();
+                return Function(a, b, c);
+            };
+        }
+
+        #endregion
+
         #region Pi
 
         public static T Pi<T>(int maxIterations = 100)
@@ -1886,6 +1907,8 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region Trigonometry Functions
+
         #region Sine
 
         /// <summary>Computes the sine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
@@ -2300,6 +2323,8 @@ namespace Towel.Mathematics
         {
             throw new NotImplementedException();
         }
+
+        #endregion
 
         #endregion
 

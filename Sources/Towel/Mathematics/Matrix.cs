@@ -660,24 +660,11 @@ namespace Towel.Mathematics
                     T sum = Constant<T>.Zero;
                     for (int k = 0; k < a_Columns; k++)
                     {
-                        sum = MultiplyThenAddImplementation.Function(A[i_times_a_Columns + k], B[k * c_Columns + j], sum);
+                        sum = Compute.MultiplyAddImplementation<T>.Function(A[i_times_a_Columns + k], B[k * c_Columns + j], sum);
                     }
                     C[i_times_c_Columns + j] = sum;
                 }
             }
-        }
-
-        internal static class MultiplyThenAddImplementation
-        {
-            internal static Func<T, T, T, T> Function = (T a, T b, T c) =>
-            {
-                ParameterExpression A = Expression.Parameter(typeof(T));
-                ParameterExpression B = Expression.Parameter(typeof(T));
-                ParameterExpression C = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.Add(Expression.Multiply(A, B), C);
-                Function = Expression.Lambda<Func<T, T, T, T>>(BODY, A, B, C).Compile();
-                return Function(a, b, c);
-            };
         }
 
         /// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
