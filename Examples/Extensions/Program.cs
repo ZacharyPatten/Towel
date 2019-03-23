@@ -38,7 +38,7 @@ namespace Extensions
 
             Console.WriteLine("  Type To C# Source Code---------------------------");
             Console.WriteLine();
-            Console.WriteLine("  Note: useful for runtime compilation from strings");
+            Console.WriteLine("    Note: this can be useful for runtime compilation from strings");
             Console.WriteLine();
 
             Console.WriteLine("    " + typeof(OmnitreePoints<Vector<double>, double, double, double>).ConvertToCsharpSource());
