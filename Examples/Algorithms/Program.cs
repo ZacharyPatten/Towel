@@ -268,7 +268,7 @@ namespace Algorithms
             // in order to attack them. Here are their starting positions:
             Vector<float> enemy_location = new Vector<float>(-100, 0, -50);
             Vector<float> player_location = new Vector<float>(200, 0, -50);
-            float enemy_attack_range = 3; // enemy has a melee attack with 2 range
+            float enemy_attack_range = 3; // enemy has a melee attack with 3 range
 
             // Lets say most of the terrain is open, but there is a big rock in between them that they
             // must go around.
