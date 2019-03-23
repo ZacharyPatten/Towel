@@ -658,17 +658,26 @@ namespace System
 		/// <returns>The string as the "System.Type" would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type)
 		{
-            if (type == null)
+            if (type is null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
-            // no generics
+            // work up the declaration type tree
+            string result = string.Empty;
+            if (type.IsNested)
+            {
+                result = ConvertToCsharpSource(type.DeclaringType) + ".";
+            }
             if (!type.IsGenericType)
             {
-                return type.ToString();
+                string typeToSring = type.ToString();
+                if (typeToSring.Contains('+'))
+                {
+                    typeToSring = typeToSring.Substring(typeToSring.IndexOf('+') + 1);
+                }
+                result += typeToSring;
             }
-            // non-nested generics
-            else if (!(type.IsNested && type.DeclaringType.IsGenericType))
+            else
             {
                 // non-generic initial parents
                 string text = type.ToString();
@@ -684,70 +693,9 @@ namespace System
                     }
                     text += ConvertToCsharpSource(generics[i]);
                 }
-                return text + ">";
+                result += text + ">";
             }
-            // nested generics
-            else
-            {
-                string text = string.Empty;
-                // non-generic initial parents
-                for (Type temp = type; temp != null; temp = temp.DeclaringType)
-                {
-                    if (!temp.IsGenericType)
-                    {
-                        text += temp.ToString() + '.';
-                        break;
-                    }
-                }
-                // count generic parents
-                int parent_count = 0;
-                for (Type temp = type; temp != null && temp.IsGenericType; temp = temp.DeclaringType)
-                {
-                    parent_count++;
-                }
-                // generic parents types
-                Type[] parents = new Type[parent_count];
-                Type _temp = type;
-                for (int i = 0; _temp != null && _temp.IsGenericType; _temp = _temp.DeclaringType, i++)
-                    parents[i] = _temp;
-                // count generic arguments per parent
-                int[] generics_per_parent = new int[parent_count];
-                for (int i = 0; i < parents.Length; i++)
-                    generics_per_parent[i] = parents[i].GetGenericArguments().Length;
-                for (int i = parents.Length - 1, sum = 0; i > -1; i--)
-                {
-                    generics_per_parent[i] -= sum;
-                    sum += generics_per_parent[i];
-                }
-                // generic string arguments
-                Type[] generic_types = type.GetGenericArguments();
-                string[] types_strings = new string[generic_types.Length];
-                for (int i = 0; i < generic_types.Length; i++)
-                    types_strings[i] = ConvertToCsharpSource(generic_types[i]);
-                // combine types and generic arguments into result
-                for (int i = parents.Length - 1, k = 0; i > -1; i--)
-                {
-                    if (generics_per_parent[i] == 0)
-                    {
-                        text += parents[i].Name;
-                    }
-                    else
-                    {
-                        string current_type = parents[i].Name.Substring(0, parents[i].Name.IndexOf('`')) + '<';
-                        for (int j = 0; j < generics_per_parent[i]; j++)
-                        {
-                            current_type += types_strings[k++];
-                            if (j + 1 != generics_per_parent[i])
-                                current_type += ',';
-                        }
-                        current_type += ">";
-                        text += current_type;
-                    }
-                    if (i > 0)
-                        text += '.';
-                }
-                return text;
-            }
+            return result;
         }
 
         #endregion
