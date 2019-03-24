@@ -13,6 +13,7 @@ namespace Towel.Mathematics
     {
         #region OperatorPriority Enum
 
+        [Serializable]
         internal enum OperatorPriority
         {
             Negation = 1,
@@ -220,6 +221,7 @@ namespace Towel.Mathematics
 
         #region Variable
 
+        [Serializable]
         public class Variable : Expression
         {
             public string _name;
@@ -291,11 +293,12 @@ namespace Towel.Mathematics
         }
 
         #endregion
-        
+
         #region Constant + Inheriters
 
         #region Constant
 
+        [Serializable]
         public abstract class Constant : Expression
         {
             public virtual bool IsKnownConstant => false;
@@ -347,6 +350,7 @@ namespace Towel.Mathematics
 
         #region KnownConstantOfUknownType
 
+        [Serializable]
         public abstract class KnownConstantOfUknownType : Constant
         {
             public override bool IsKnownConstant => true;
@@ -358,6 +362,7 @@ namespace Towel.Mathematics
 
         #region Pi
 
+        [Serializable]
         [KnownConstant("π")]
         public class Pi : KnownConstantOfUknownType
         {
@@ -393,6 +398,7 @@ namespace Towel.Mathematics
 
         #region Zero
 
+        [Serializable]
         public class Zero : KnownConstantOfUknownType
         {
             public Zero() : base() { }
@@ -427,6 +433,7 @@ namespace Towel.Mathematics
 
         #region One
 
+        [Serializable]
         public class One : KnownConstantOfUknownType
         {
             public One() : base() { }
@@ -461,6 +468,7 @@ namespace Towel.Mathematics
 
         #region Two
 
+        [Serializable]
         public class Two : KnownConstantOfUknownType
         {
             public Two() : base() { }
@@ -495,6 +503,7 @@ namespace Towel.Mathematics
 
         #region Three
 
+        [Serializable]
         public class Three : KnownConstantOfUknownType
         {
             public Three() : base() { }
@@ -533,6 +542,7 @@ namespace Towel.Mathematics
 
         #region Constant<T>
 
+        [Serializable]
         public class Constant<T> : Constant
         {
             public readonly T Value;
@@ -578,6 +588,7 @@ namespace Towel.Mathematics
 
         #region Pi<T>
 
+        [Serializable]
         public class Pi<T> : Constant<T>
         {
             public Pi() : base(Towel.Mathematics.Constant<T>.Pi) { }
@@ -599,6 +610,7 @@ namespace Towel.Mathematics
 
         #region Zero<T>
 
+        [Serializable]
         public class Zero<T> : Constant<T>
         {
             public Zero() : base(Towel.Mathematics.Constant<T>.Zero) { }
@@ -620,6 +632,7 @@ namespace Towel.Mathematics
 
         #region One<T>
 
+        [Serializable]
         public class One<T> : Constant<T>
         {
             public One() : base(Towel.Mathematics.Constant<T>.One) { }
@@ -641,6 +654,7 @@ namespace Towel.Mathematics
 
         #region Two<T>
 
+        [Serializable]
         public class Two<T> : Constant<T>
         {
             public Two() : base(Towel.Mathematics.Constant<T>.Two) { }
@@ -664,6 +678,7 @@ namespace Towel.Mathematics
 
         #region Three<T>
 
+        [Serializable]
         public class Three<T> : Constant<T>
         {
             public Three() : base(Towel.Mathematics.Constant<T>.Three) { }
@@ -685,6 +700,7 @@ namespace Towel.Mathematics
 
         #region True
 
+        [Serializable]
         public class True : Constant<bool>
         {
             public True() : base(true) { }
@@ -706,6 +722,7 @@ namespace Towel.Mathematics
 
         #region False
 
+        [Serializable]
         public class False : Constant<bool>
         {
             public False() : base(true) { }
@@ -777,6 +794,7 @@ namespace Towel.Mathematics
         #region Simplification
 
         [Operation("Simplify")]
+        [Serializable]
         public class Simplification : Unary
         {
             public Simplification(Expression a) : base(a) { }
@@ -807,6 +825,7 @@ namespace Towel.Mathematics
         #region Negate
 
         [LeftUnaryOperator("-", OperatorPriority.Negation)]
+        [Serializable]
         public class Negate : Unary, Operation.Mathematical
         {
             public Negate(Expression a) : base(a) { }
@@ -852,6 +871,7 @@ namespace Towel.Mathematics
 
         #region NaturalLog
 
+        [Serializable]
         public class NaturalLog : Unary, Operation.Mathematical
         {
             public NaturalLog(Expression operand) : base(operand) { }
@@ -897,6 +917,7 @@ namespace Towel.Mathematics
 
         #region SquareRoot
 
+        [Serializable]
         public class SquareRoot : Unary, Operation.Mathematical
         {
             public SquareRoot(Expression operand) : base(operand) { }
@@ -942,6 +963,7 @@ namespace Towel.Mathematics
 
         #region Exponential
 
+        [Serializable]
         public class Exponential : Unary, Operation.Mathematical
         {
             public Exponential(Expression a) : base(a) { }
@@ -987,6 +1009,7 @@ namespace Towel.Mathematics
 
         #region Invert
 
+        [Serializable]
         public class Invert : Unary, Operation.Mathematical
         {
             public Invert(Expression a) : base(a) { }
@@ -1043,6 +1066,7 @@ namespace Towel.Mathematics
 
         #region Sine
 
+        [Serializable]
         public class Sine : Trigonometry, Operation.Mathematical
         {
             public Sine(Expression a) : base(a) { }
@@ -1076,6 +1100,7 @@ namespace Towel.Mathematics
 
         #region Cosine
 
+        [Serializable]
         public class Cosine : Trigonometry, Operation.Mathematical
         {
             public Cosine(Expression a) : base(a) { }
@@ -1109,6 +1134,7 @@ namespace Towel.Mathematics
 
         #region Tangent
 
+        [Serializable]
         public class Tangent : Trigonometry, Operation.Mathematical
         {
             public Tangent(Expression a) : base(a) { }
@@ -1142,6 +1168,7 @@ namespace Towel.Mathematics
 
         #region Cosecant
 
+        [Serializable]
         public class Cosecant : Trigonometry, Operation.Mathematical
         {
             public Cosecant(Expression a) : base(a) { }
@@ -1175,6 +1202,7 @@ namespace Towel.Mathematics
 
         #region Secant
 
+        [Serializable]
         public class Secant : Trigonometry, Operation.Mathematical
         {
             public Secant(Expression a) : base(a) { }
@@ -1208,6 +1236,7 @@ namespace Towel.Mathematics
 
         #region Cotangent
 
+        [Serializable]
         public class Cotangent : Trigonometry, Operation.Mathematical
         {
             public Cotangent(Expression a) : base(a) { }
@@ -1287,6 +1316,7 @@ namespace Towel.Mathematics
         #region Add
 
         [BinaryOperator("+", OperatorPriority.Addition)]
+        [Serializable]
         public class Add : AddOrSubtract
         {
             public Add(Expression a, Expression b) : base(a, b) { }
@@ -1438,6 +1468,7 @@ namespace Towel.Mathematics
         #region Subtract
 
         [BinaryOperator("-", OperatorPriority.Subtraction)]
+        [Serializable]
         public class Subtract : AddOrSubtract
         {
             public Subtract(Expression a, Expression b) : base(a, b) { }
@@ -1592,6 +1623,7 @@ namespace Towel.Mathematics
         #region Multiply
 
         [BinaryOperator("*", OperatorPriority.Multiplication)]
+        [Serializable]
         public class Multiply : MultiplyOrDivide
         {
             public Multiply(Expression a, Expression b) : base(a, b) { }
@@ -1784,6 +1816,7 @@ namespace Towel.Mathematics
         #region Divide
 
         [BinaryOperator("/", OperatorPriority.Division)]
+        [Serializable]
         public class Divide : MultiplyOrDivide
         {
             public Divide(Expression a, Expression b) : base(a, b) { }
@@ -1958,6 +1991,7 @@ namespace Towel.Mathematics
         #region Power
 
         [BinaryOperator("^", OperatorPriority.Exponents)]
+        [Serializable]
         public class Power : Binary, Operation.Mathematical
         {
             public Power(Expression a, Expression b) : base(a, b) { }
@@ -2032,6 +2066,7 @@ namespace Towel.Mathematics
 
         #region Root
 
+        [Serializable]
         public class Root : Binary, Operation.Mathematical
         {
             public Root(Expression a, Expression b) : base(a, b) { }
@@ -2083,6 +2118,7 @@ namespace Towel.Mathematics
         #region Equal
 
         [BinaryOperator("=", OperatorPriority.Logical)]
+        [Serializable]
         public class Equal : Binary, Operation.Logical
         {
             public Equal(Expression a, Expression b) : base(a, b) { }
@@ -2134,6 +2170,7 @@ namespace Towel.Mathematics
         #region NotEqual
 
         [BinaryOperator("≠", OperatorPriority.Logical)]
+        [Serializable]
         public class NotEqual : Binary, Operation.Logical
         {
             public NotEqual(Expression a, Expression b) : base(a, b) { }
@@ -2185,6 +2222,7 @@ namespace Towel.Mathematics
         #region LessThan
 
         [BinaryOperator("<", OperatorPriority.Logical)]
+        [Serializable]
         public class LessThan : Binary, Operation.Logical
         {
             public LessThan(Expression a, Expression b) : base(a, b) { }
@@ -2233,6 +2271,7 @@ namespace Towel.Mathematics
         #region GreaterThan
 
         [BinaryOperator(">", OperatorPriority.Logical)]
+        [Serializable]
         public class GreaterThan : Binary, Operation.Logical
         {
             public GreaterThan(Expression left, Expression right) : base(left, right) { }
@@ -2281,6 +2320,7 @@ namespace Towel.Mathematics
         #region LessThanOrEqual
 
         [BinaryOperator("<=", OperatorPriority.Logical)]
+        [Serializable]
         public class LessThanOrEqual : Binary, Operation.Logical
         {
             public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
@@ -2329,6 +2369,7 @@ namespace Towel.Mathematics
         #region GreaterThanOrEqual
 
         [BinaryOperator(">=", OperatorPriority.Logical)]
+        [Serializable]
         public class GreaterThanOrEqual : Binary, Operation.Logical
         {
             public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }

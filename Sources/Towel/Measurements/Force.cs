@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Force
     {
         /// <summary>Units for Force measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units

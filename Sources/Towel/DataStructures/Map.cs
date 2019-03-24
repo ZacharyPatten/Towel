@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>A map between instances of two types. The polymorphism base for Map implementations in Towel.</summary>
 	/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
@@ -74,7 +76,7 @@
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class MapHashLinked<T, K> : Map<T, K>,
 		// Structure Properties
 		DataStructure.Hashing<K>
@@ -87,9 +89,10 @@
 		internal Node[] _table;
 		internal int _count;
 
-		#region Nested Types
-		
-		internal class Node
+        #region Nested Types
+
+        [Serializable]
+        internal class Node
 		{
 			internal K _key;
 			internal T _value;
@@ -559,10 +562,11 @@
 		#endregion
 	}
 
-	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashArray<T, K> : Map<T, K>,
+    /// <summary>An unsorted structure of unique items.</summary>
+    /// <typeparam name="T">The generic type of the structure.</typeparam>
+    /// <typeparam name="K">The generic key type of this map.</typeparam>
+    [Serializable]
+    public class MapHashArray<T, K> : Map<T, K>,
 		// Structure Properties
 		DataStructure.Hashing<K>
 	{
@@ -575,9 +579,10 @@
 		private int _lastIndex;
 		private int _freeList;
 
-		#region Nested Types
+        #region Nested Types
 
-		private struct Node
+        [Serializable]
+        private struct Node
 		{
 			private int _hash;
 			private K _key;

@@ -61,17 +61,25 @@ namespace Towel
 					System.Collections.Generic.Comparer<T> comparer = null;
 					try { comparer = System.Collections.Generic.Comparer<T>.Default; }
 					catch { }
-					if (object.ReferenceEquals(null, comparer))
-						throw new System.InvalidOperationException("no default comparer exists for " + typeof(T).ConvertToCsharpSource());
+                    if (comparer is null)
+                    {
+                        throw new InvalidOperationException("no default comparer exists for " + typeof(T).ConvertToCsharpSource());
+                    }
 					DefaultWrapper<T>.Compare = (T _a, T _b) =>
 						{
 							int comparison = comparer.Compare(_a, _b);
-							if (comparison < 0)
-								return Comparison.Less;
-							else if (comparison > 0)
-								return Comparison.Greater;
-							else
-								return Comparison.Equal;
+                            if (comparison < 0)
+                            {
+                                return Comparison.Less;
+                            }
+                            else if (comparison > 0)
+                            {
+                                return Comparison.Greater;
+                            }
+                            else
+                            {
+                                return Comparison.Equal;
+                            }
 						};
 					return DefaultWrapper<T>.Compare(a, b);
 				};
@@ -114,14 +122,10 @@ namespace Towel
 		{
 			switch (comparison)
 			{
-				case Comparison.Greater:
-					return Comparison.Less;
-				case Comparison.Less:
-					return Comparison.Greater;
-				case Comparison.Equal:
-					return Comparison.Equal;
-				default:
-					throw new System.NotImplementedException();
+				case Comparison.Greater: return Comparison.Less;
+				case Comparison.Less: return Comparison.Greater;
+				case Comparison.Equal: return Comparison.Equal;
+				default: throw new NotImplementedException();
 			}
 		}
 
@@ -130,18 +134,26 @@ namespace Towel
 			return (T a, T b) =>
 			{
 				int result = comparer.Compare(a, b);
-				if (result == 0)
-					return Comparison.Equal;
-				else if (result < 0)
-					return Comparison.Less;
-				else if (result > 0)
-					return Comparison.Greater;
-				else
-					throw new System.NotImplementedException();
+                if (result == 0)
+                {
+                    return Comparison.Equal;
+                }
+                else if (result < 0)
+                {
+                    return Comparison.Less;
+                }
+                else if (result > 0)
+                {
+                    return Comparison.Greater;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
 			};
 		}
 
-        public static System.Comparison<T> ToSystemComparison<T>(Compare<T> compare)
+        public static Comparison<T> ToSystemComparison<T>(Compare<T> compare)
         {
             return (T a, T b) => { return (int)compare(a, b); };
         }

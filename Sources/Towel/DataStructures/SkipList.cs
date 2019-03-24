@@ -1,22 +1,25 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	public interface SkipList<T> : DataStructure<T>
 	{
 
 	}
 
-	/// <summary>Represents a collection of key-and-value pairs.</summary>
-	/// <citation>
-	/// This SkipList imlpementation was originally developed by 
-	/// Leslie Sanford and hosted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition into the Towel framework.
-	/// http://www.codeproject.com/Articles/4897/A-Skip-List-in-C
-	/// Original Author:
-	///	 Created by: Leslie Sanford (08/27/2003)
-	///	 Contact: jabberdabber@hotmail.com
-	/// </citation>
-	public class SkipListLinked<T> : System.Collections.IEnumerable
+    /// <summary>Represents a collection of key-and-value pairs.</summary>
+    /// <citation>
+    /// This SkipList imlpementation was originally developed by 
+    /// Leslie Sanford and hosted as an open source project on 
+    /// CodeProject.com. However, it has been modified since its
+    /// addition into the Towel framework.
+    /// http://www.codeproject.com/Articles/4897/A-Skip-List-in-C
+    /// Original Author:
+    ///	 Created by: Leslie Sanford (08/27/2003)
+    ///	 Contact: jabberdabber@hotmail.com
+    /// </citation>
+    [Serializable]
+    public class SkipListLinked<T> : System.Collections.IEnumerable
 	{
 		// fields
 		private const int MaxLevel = 32; // Maximum level any node in a skip list can have
@@ -26,9 +29,10 @@
 		private System.Random _random = new System.Random(); // Random number generator for generating random node levels.
 		private int _listLevel; // Current maximum list level.
 		private int _count; // Current number of elements in the skip list.
-		// nested types
-		#region private class Node
-		private class Node
+                            // nested types
+        #region private class Node
+        [Serializable]
+        private class Node
 		{
 			// References to nodes further along in the skip list.
 			public Node[] forward;

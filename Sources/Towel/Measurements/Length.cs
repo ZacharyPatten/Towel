@@ -7,6 +7,7 @@ namespace Towel.Measurements
 	public static class Length
     {
         /// <summary>Units for length measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -187,6 +188,7 @@ namespace Towel.Measurements
 
     /// <summary>An length measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the length measurement.</typeparam>
+    [Serializable]
     public struct Length<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Length.Units, T>();

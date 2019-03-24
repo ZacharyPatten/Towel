@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Speed
     {
         /// <summary>Units for Speed measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Speed measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Speed measurement.</typeparam>
+    [Serializable]
     public struct Speed<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Speed.Units, T>();

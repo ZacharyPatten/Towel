@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Torque
     {
         /// <summary>Units for Torque measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Torque measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Torque measurement.</typeparam>
+    [Serializable]
     public struct Torque<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Torque.Units, T>();

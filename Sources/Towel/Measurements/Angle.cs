@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Angle
     {
         /// <summary>Units for angle measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -40,9 +41,10 @@ namespace Towel.Measurements
         }
 	}
 
-	/// <summary>An angle measurement.</summary>
-	/// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
-	public struct Angle<T>
+    /// <summary>An angle measurement.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
+    [Serializable]
+    public struct Angle<T>
 	{
         internal static T[][] Table = UnitConversionTable.Build<Angle.Units, T>();
         internal T _measurement;

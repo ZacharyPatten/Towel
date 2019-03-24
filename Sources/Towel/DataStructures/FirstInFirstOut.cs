@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
@@ -34,7 +36,7 @@
 
 	/// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class FirstInFirstOutLinked<T> : FirstInFirstOut<T>
 	{
 		// fields
@@ -44,7 +46,7 @@
 		// nested types
 		#region private class Node
 		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		[System.Serializable]
+		[Serializable]
 		private class Node
 		{
 			private T _value;
@@ -299,7 +301,7 @@
 
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class QueueArray<T> : FirstInFirstOut<T>
 	{
 		// fields

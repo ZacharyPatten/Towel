@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Attenuation
     {
         /// <summary>Units for Attenuation measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Attenuation measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Attenuation measurement.</typeparam>
+    [Serializable]
     public struct Attenuation<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Attenuation.Units, T>();

@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	public interface Graph<T> : DataStructure<T>,
 		// Structure Properties
@@ -40,17 +42,18 @@
 
 	/// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class GraphSetOmnitree<T> : Graph<T>
 	{
 		// Fields
 		public SetHashList<T> _nodes;
         public OmnitreePointsLinked<Edge, T, T> _edges;
 
-		#region Nested Types
+        #region Nested Types
 
-		/// <summary>Represents an edge in a graph.</summary>
-		public class Edge
+        /// <summary>Represents an edge in a graph.</summary>
+        [Serializable]
+        public class Edge
 		{
 			private T _start;
 			private T _end;
@@ -215,17 +218,18 @@
 
 	/// <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
 	/// <typeparam name="T">The generic node type of this graph.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class GraphMap<T> : Graph<T>
 	{
 		// Fields
 		public MapHashLinked<MapHashLinked<bool, T>, T> _map;
 		int _edges;
 
-		#region Nested Types
+        #region Nested Types
 
-		/// <summary>Represents an edge in a graph.</summary>
-		public class Edge
+        /// <summary>Represents an edge in a graph.</summary>
+        [Serializable]
+        public class Edge
 		{
 			public T _start;
 			public T _end;

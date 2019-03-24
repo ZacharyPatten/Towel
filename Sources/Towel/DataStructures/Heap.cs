@@ -1,4 +1,5 @@
-﻿using Towel;
+﻿using System;
+using Towel;
 
 namespace Towel.DataStructures
 {
@@ -33,7 +34,7 @@ namespace Towel.DataStructures
 	/// Rodney Howell of Kansas State University. However, it has 
 	/// been modified since its addition into the Towel framework.
 	/// </citation>
-	[System.Serializable]
+	[Serializable]
 	public class HeapArray<T> : Heap<T>
 	{
         // Fields

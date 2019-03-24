@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Luminosity
     {
         /// <summary>Units for Luminosity measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Luminosity measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Luminosity measurement.</typeparam>
+    [Serializable]
     public struct Luminosity<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Luminosity.Units, T>();

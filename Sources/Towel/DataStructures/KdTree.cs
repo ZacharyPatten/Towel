@@ -35,10 +35,11 @@ namespace Towel.DataStructures
 		public delegate Get<M> Locate<T, M>(T item);
 	}
 
-	/// <summary>A binary tree data structure for sorting items along multiple dimensions.</summary>
-	/// <typeparam name="T">The generic items to be stored in this data structure.</typeparam>
-	/// <typeparam name="K">The type of the axis dimensions to sort the "T" values upon.</typeparam>
-	public class KdTree_Linked<T, K> : KdTree<K, T>
+    /// <summary>A binary tree data structure for sorting items along multiple dimensions.</summary>
+    /// <typeparam name="T">The generic items to be stored in this data structure.</typeparam>
+    /// <typeparam name="K">The type of the axis dimensions to sort the "T" values upon.</typeparam>
+    [Serializable]
+    public class KdTree_Linked<T, K> : KdTree<K, T>
 	{
 		private Compare<K> _compareKey;
 		private K _minValue;

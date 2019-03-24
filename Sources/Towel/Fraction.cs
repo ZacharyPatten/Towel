@@ -3,22 +3,23 @@ using Towel.Mathematics;
 
 namespace Towel
 {
-	/// <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
-	/// <citation>
-	/// This fraction imlpementation was originally developed by 
-	/// Syed Mehroz Alam and posted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition shorto the Towel framework.
-	/// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-	/// 
-	/// Original Author:
-	/// Author: Syed Mehroz Alam
-	/// Email: smehrozalam@yahoo.com
-	/// URL: Programming Home http://www.geocities.com/smehrozalam/
-	/// Date: 6/15/2004
-	/// Time: 10:54 AM
-	/// </citation>
-	public struct Fraction32
+    /// <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
+    /// <citation>
+    /// This fraction imlpementation was originally developed by 
+    /// Syed Mehroz Alam and posted as an open source project on 
+    /// CodeProject.com. However, it has been modified since its
+    /// addition shorto the Towel framework.
+    /// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
+    /// 
+    /// Original Author:
+    /// Author: Syed Mehroz Alam
+    /// Email: smehrozalam@yahoo.com
+    /// URL: Programming Home http://www.geocities.com/smehrozalam/
+    /// Date: 6/15/2004
+    /// Time: 10:54 AM
+    /// </citation>
+    [Serializable]
+    public struct Fraction32
 	{
         private short _numerator;
         private short _denominator;
@@ -487,22 +488,23 @@ namespace Towel
 		#endregion
 	}
 
-	/// <summary>A fraction represented as two integers (numerator / denomnator).</summary>
-	/// <citation>
-	/// This fraction imlpementation was originally developed by 
-	/// Syed Mehroz Alam and posted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition into the Towel framework.
-	/// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-	/// 
-	/// Original Author:
-	/// Author: Syed Mehroz Alam
-	/// Email: smehrozalam@yahoo.com
-	/// URL: Programming Home http://www.geocities.com/smehrozalam/
-	/// Date: 6/15/2004
-	/// Time: 10:54 AM
-	/// </citation>
-	public struct Fraction64
+    /// <summary>A fraction represented as two integers (numerator / denomnator).</summary>
+    /// <citation>
+    /// This fraction imlpementation was originally developed by 
+    /// Syed Mehroz Alam and posted as an open source project on 
+    /// CodeProject.com. However, it has been modified since its
+    /// addition into the Towel framework.
+    /// http://www.codeproject.com/Articles/9078/Fraction-class-in-C
+    /// 
+    /// Original Author:
+    /// Author: Syed Mehroz Alam
+    /// Email: smehrozalam@yahoo.com
+    /// URL: Programming Home http://www.geocities.com/smehrozalam/
+    /// Date: 6/15/2004
+    /// Time: 10:54 AM
+    /// </citation>
+    [Serializable]
+    public struct Fraction64
 	{
         private int _numerator;
         private int _denominator;
@@ -981,6 +983,7 @@ namespace Towel
     /// Date: 6/15/2004
     /// Time: 10:54 AM
     /// </citation>
+    [Serializable]
     public struct Fraction128
 	{
         private long _numerator;

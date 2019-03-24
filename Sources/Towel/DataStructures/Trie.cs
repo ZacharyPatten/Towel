@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	public interface Trie<T> : DataStructure<T>
 	{
@@ -25,7 +27,8 @@
 		#endregion
 	}
 
-	public class Trie_Linked<T> : Trie<T>
+    [Serializable]
+    public class Trie_Linked<T> : Trie<T>
 	{
 		#region Trie_Linked<T>
 

@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Power
     {
         /// <summary>Units for Power measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Power measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Power measurement.</typeparam>
+    [Serializable]
     public struct Power<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Power.Units, T>();

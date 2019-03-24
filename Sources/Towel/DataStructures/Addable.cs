@@ -35,10 +35,11 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
-	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-	public class AddableLinked<T> : Addable<T>
+    /// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
+    /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
+    /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
+    [Serializable]
+    public class AddableLinked<T> : Addable<T>
 	{
 		// Fields
 		internal int _count;
@@ -46,10 +47,11 @@ namespace Towel.DataStructures
 		internal Node _tail;
 		internal Equate<T> _equate;
 
-		#region Nested Types
+        #region Nested Types
 
-		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		internal class Node
+        /// <summary>This class just holds the data for each individual node of the list.</summary>
+        [Serializable]
+        internal class Node
 		{
 			internal Node _next;
 			internal T _value;
@@ -413,11 +415,12 @@ namespace Towel.DataStructures
         #endregion
     }
 
-	/// <summary>Implements a growing list as an array (with expansions/contractions)
-	/// data structure that inherits InterfaceTraversable.</summary>
-	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-	public class AddableArray<T> : Addable<T>
+    /// <summary>Implements a growing list as an array (with expansions/contractions)
+    /// data structure that inherits InterfaceTraversable.</summary>
+    /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
+    /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
+    [Serializable]
+    public class AddableArray<T> : Addable<T>
 	{
 		// Fields
 		internal T[] _list;
@@ -831,152 +834,6 @@ namespace Towel.DataStructures
 
         #endregion
         
-        #region Serialization
-
-        public string Serialize(Serialize<T> serialize)
-        {
-            if (serialize == null)
-                throw new ArgumentNullException("serialize");
-            if (this._equate.Target != null)
-                throw new InvalidOperationException("Serializtion of structures requires a static equality functions (equate delegate of ListArray must target a static method).");
-
-            string type = (typeof(T).ConvertToCsharpSource()).Replace("<", "-").Replace(">", "-");
-
-            StringWriter stringWriter;
-            using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter = new StringWriter(), new XmlWriterSettings()
-            {
-                Indent = true,
-                NewLineOnAttributes = false,
-                OmitXmlDeclaration = true,
-            }))
-            {
-                xmlWriter.WriteStartElement("ListArray");
-                xmlWriter.WriteAttributeString("Type", type);
-                xmlWriter.WriteAttributeString("Count", this._count.ToString());
-                xmlWriter.WriteAttributeString("Equate", string.Concat(this._equate.Method.Name, ",", this._equate.Method.DeclaringType, ",", this._equate.Method.DeclaringType.Assembly.FullName.Split(',')[0]));
-
-                for (int i = 0; i < this._count; i++)
-                {
-                    xmlWriter.WriteStartElement("Item");
-                    xmlWriter.WriteAttributeString("Index", i.ToString());
-
-                    string serializedItem = serialize(this._list[i]);
-                    string indentedSerializedItem = serializedItem.IndentLines(2);
-                    //string xmlItem = string.Concat(Environment.NewLine, indentedSerializedItem, Environment.NewLine, "\t");
-                    xmlWriter.WriteRaw(serializedItem);
-
-                    xmlWriter.WriteEndElement();
-                }
-
-                xmlWriter.WriteEndElement();
-            }
-            return stringWriter.ToString();
-        }
-
-        public static AddableArray<T> Deserialize(string str, Deserialize<T> deserialize)
-        {
-            string type_string = typeof(T).ConvertToCsharpSource();
-            string type_string_xml = type_string.Replace("<", "-").Replace(">", "-");
-
-            T[] list;
-            Equate<T> equate = null;
-            int count = 0;
-
-            using (XmlReader xmlReader = XmlReader.Create(new StringReader(str)))
-            {
-                if (!xmlReader.Read() ||
-                    !xmlReader.IsStartElement() ||
-                    xmlReader.IsEmptyElement ||
-                    !xmlReader.Name.Equals("ListArray"))
-                    throw new FormatException("Invalid input during ListArray deserialization.");
-
-                bool typeExists = false;
-                bool equateExists = false;
-                bool countExists = false;
-
-                while (xmlReader.MoveToNextAttribute())
-                {
-                    switch (xmlReader.Name)
-                    {
-                        case "Type":
-                            string typeFromXml = xmlReader.Value;
-                            if (!type_string_xml.Equals(typeFromXml))
-                                throw new FormatException("Type mismatch during a ListArray deserialization (ListArray<T>: T does not match the type in the string to deserialize).");
-                            typeExists = true;
-                            break;
-                        case "Equate":
-                            if (string.IsNullOrWhiteSpace(xmlReader.Value))
-                                throw new FormatException("Invalid input during ListArray deserialization (Equate attribute is invalid or missing a value).");
-                            string[] splits = xmlReader.Value.Split(',');
-                            if (splits.Length != 3)
-                                throw new FormatException("Invalid input during ListArray deserialization (Equate attribute has an invalid value).");
-                            string methodName = splits[0];
-                            string declaringTypeFullName = splits[1];
-                            string assembly = splits[2];
-                            throw new NotImplementedException();
-                            //equate = Meta.Compile<Equate<T>>(string.Concat(declaringTypeFullName, ".", methodName));
-                            equateExists = true;
-                            break;
-                        case "Count":
-                            if (string.IsNullOrWhiteSpace(xmlReader.Value))
-                                throw new FormatException("Invalid input during ListArray deserialization (Count attribute is invalid or missing a value).");
-                            if (!int.TryParse(xmlReader.Value, out count) || count < 0)
-                                throw new FormatException("Invalid input during ListArray deserialization (Count attribute is invalid).");
-                            countExists = true;
-                            break;
-                        default:
-                            continue;
-                    }
-                }
-
-                if (!equateExists)
-                    throw new FormatException("Invalid input during ListArray deserialization (required attribute Equate does not exist).");
-                if (!countExists)
-                    throw new FormatException("Invalid input during ListArray deserialization (required attribute Count does not exist).");
-                if (!typeExists)
-                    throw new FormatException("Invalid input during ListArray deserialization (required attribute Type does not exist).");
-
-                xmlReader.MoveToElement();
-                list = new T[count];
-
-                for (int i = 0; i < count; i++)
-                {
-                    while (xmlReader.Name == null || !xmlReader.Name.Equals("Item"))
-                        xmlReader.Read();
-                    if (!xmlReader.IsStartElement() ||
-                        xmlReader.IsEmptyElement)
-                        throw new FormatException("Invalid input during ListArray deserialization.");
-                    if (xmlReader.Value == null)
-                        throw new FormatException("Invalid input during ListArray deserialization (missing or invalid contents of Item #" + i + ").");
-                    int index;
-                    bool indexExists = false;
-                    while (xmlReader.MoveToNextAttribute())
-                    {
-                        if (string.IsNullOrWhiteSpace(xmlReader.Name))
-                            throw new FormatException("Invalid input during ListArray deserialization (invalid attribute of Item #" + i + ").");
-                        if (!xmlReader.Name.Equals("Index"))
-                            continue;
-                        if (string.IsNullOrWhiteSpace(xmlReader.Value) ||
-                            !int.TryParse(xmlReader.Value, out index) ||
-                            index != i)
-                            throw new FormatException("Invalid input during ListArray deserialization (invalid index attribute of Item #" + i + ").");
-                        indexExists = true;
-                    }
-                    if (!indexExists)
-                        throw new FormatException("Invalid input during ListArray deserialization (missing required Index attribute for Item #" + i + ").");
-                    xmlReader.MoveToElement();
-                    string item_string = xmlReader.ReadString().Trim();
-                    list[i] = deserialize(item_string);
-                    if (i < count - 1 && !xmlReader.ReadToNextSibling("Item"))
-                        throw new FormatException("Invalid input during ListArray deserialization (count attribute and amount of data provided do not match).");
-                }
-            }
-
-            return new AddableArray<T>(list, count, equate);
-        }
-
-        #endregion
-
 		#endregion
 	}
 }

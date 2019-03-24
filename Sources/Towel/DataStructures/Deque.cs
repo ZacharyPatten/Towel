@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	public interface Deque<T> : DataStructure<T>,
 		// Structure Properties
@@ -17,7 +19,7 @@
 
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-	[System.Serializable]
+	[Serializable]
 	public class DequeLinked<T> : Deque<T>
 	{
 		// Fields
@@ -25,10 +27,11 @@
 		private Node _tail;
 		private int _count;
 
-		#region Nested Types
+        #region Nested Types
 
-		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		private class Node
+        /// <summary>This class just holds the data for each individual node of the list.</summary>
+        [Serializable]
+        private class Node
 		{
 			private T _value;
 			private Node _next;

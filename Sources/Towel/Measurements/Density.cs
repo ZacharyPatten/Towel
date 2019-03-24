@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Density
     {
         /// <summary>Units for Desnity measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Desnity measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Desnity measurement.</typeparam>
+    [Serializable]
     public struct Desnity<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Density.Units, T>();

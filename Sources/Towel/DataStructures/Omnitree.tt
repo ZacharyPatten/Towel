@@ -190,12 +190,12 @@ namespace Towel.DataStructures
  // ------------------------------------------------------------------------------------------------------------------------------ #>
     #region <#= i #> Dimensional
 
-    public interface OmnitreePoints<T, <#= chain_AxisX #>> : Structure<T>,
-            Structure.Countable<T>,
-            Structure.Addable<T>,
-            Structure.Clearable<T>,
-            Structure.Removable<T>,
-            Structure.Equating<T>
+    public interface OmnitreePoints<T, <#= chain_AxisX #>> : DataStructure<T>,
+            DataStructure.Countable<T>,
+            DataStructure.Addable<T>,
+            DataStructure.Clearable<T>,
+            DataStructure.Removable<T>,
+            DataStructure.Equating<T>
     {
         #region Properties
 
@@ -907,7 +907,7 @@ namespace Towel.DataStructures
 
         #region Bulk
 
-        public void Add(BigArray<T> additions, bool allowMultithreading)
+        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
         {
             if (additions.Length > int.MaxValue)
                 throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -927,7 +927,7 @@ namespace Towel.DataStructures
 
 <# for (int j = 1; j <= i; j++) { #>
                 // prepare data for median computations
-                BigArray<Axis<#= j #>> values<#= j #>;
+                IndexedBigArray<Axis<#= j #>> values<#= j #>;
                 IAsyncResult result<#= j #> = null;
                 if (this._subdivisionOverride<#= j #> != null)
                     values<#= j #> = null;
@@ -936,7 +936,7 @@ namespace Towel.DataStructures
                     values<#= j #> = null;
                     Towel.Parallels.Parallel.Operation operation = () =>
                     {
-                        values<#= j #> = new BigArray<Axis<#= j #>>(additions.Length);
+                        values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
                         for (ulong i = 0; i < additions.Length; i++)
                             values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
                         Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -981,7 +981,7 @@ namespace Towel.DataStructures
 
 <# for (int j = 1; j <= i; j++) { #>
                 // prepare data for median computations
-                BigArray<Axis<#= j #>> values<#= j #>;
+                IndexedBigArray<Axis<#= j #>> values<#= j #>;
                 IAsyncResult result<#= j #> = null;
                 if (this._subdivisionOverride<#= j #> != null)
                     values<#= j #> = null;
@@ -990,7 +990,7 @@ namespace Towel.DataStructures
                     values<#= j #> = null;
                     Towel.Parallels.Parallel.Operation operation = () =>
                     {
-                        values<#= j #> = new BigArray<Axis<#= j #>>(additions.Length);
+                        values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
                         for (int i = 0; i < additions.Length; i++)
                             values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
                         Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -1032,11 +1032,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #><# } #>);
 
             // divide the values along the medians
-            Map<List<T>, <#= child_index_type #>> collection_map = new MapHashLinked<List<T>, <#= child_index_type #>>();
+            Map<Addable<T>, <#= child_index_type #>> collection_map = new MapHashLinked<Addable<T>, <#= child_index_type #>>();
             additions((T value) => 
             {
                 <#= child_index_type #> index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                List<T> list = null;
+                Addable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -1044,9 +1044,9 @@ namespace Towel.DataStructures
                 else
                 {
                     if (parent_count < 100000)
-                        list = new ListArray<T>();
+                        list = new AddableArray<T>();
                     else
-                        list = new ListLinked<T>();
+                        list = new AddableLinked<T>();
                     collection_map.Add(index, list);
                     list.Add(value);
                 }
@@ -1062,8 +1062,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<List<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<List<T>, <#= child_index_type #>> link) =>
+                        Step.EveryNth<Link<Addable<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<Addable<T>, <#= child_index_type #>> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
                             });
@@ -1077,7 +1077,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<List<T>, <#= child_index_type #>> link) =>
+                collection_map.Pairs((Link<Addable<T>, <#= child_index_type #>> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
                 });
@@ -1248,7 +1248,7 @@ namespace Towel.DataStructures
             catch
             {
                 // extract the values<# for (int j = 1; j <= i; j++) { #>
-                BigArray<Axis<#= j #>> values<#= j #> = new BigArray<Axis<#= j #>>(leaf.Count);<# } #>
+                IndexedBigArray<Axis<#= j #>> values<#= j #> = new IndexedBigArray<Axis<#= j #>>(leaf.Count);<# } #>
                 Leaf.Node for_current = leaf.Head; // used in for loop
                 for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
                 {<# for (int j = 1; j <= i; j++) { #>
@@ -2253,12 +2253,12 @@ namespace Towel.DataStructures
  // ------------------------------------------------------------------------------------------------------------------------------ #>
     #region <#= i #> Dimensional
 
-    public interface OmnitreeBounds<T, <#= chain_AxisX #>> : Structure<T>,
-            Structure.Countable<T>,
-            Structure.Addable<T>,
-            Structure.Clearable<T>,
-            Structure.Removable<T>,
-            Structure.Equating<T>
+    public interface OmnitreeBounds<T, <#= chain_AxisX #>> : DataStructure<T>,
+            DataStructure.Countable<T>,
+            DataStructure.Addable<T>,
+            DataStructure.Clearable<T>,
+            DataStructure.Removable<T>,
+            DataStructure.Equating<T>
     {
         #region Properties
 
@@ -2916,7 +2916,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -2936,7 +2936,7 @@ namespace Towel.DataStructures
 //
 //<# for (int j = 1; j <= i; j++) { #>
 //                // prepare data for median computations
-//                BigArray<Axis<#= j #>> values<#= j #>;
+//                IndexedBigArray<Axis<#= j #>> values<#= j #>;
 //                IAsyncResult result<#= j #> = null;
 //                if (this._subdivisionOverride<#= j #> != null)
 //                    values<#= j #> = null;
@@ -2945,7 +2945,7 @@ namespace Towel.DataStructures
 //                    values<#= j #> = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values<#= j #> = new BigArray<Axis<#= j #>>(additions.Length * 2);
+//                        values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<<#= chain_AxisX #>> bounds = GetBoundings(additions[i]);
@@ -2994,7 +2994,7 @@ namespace Towel.DataStructures
 //
 //<# for (int j = 1; j <= i; j++) { #>
 //                // prepare data for median computations
-//                BigArray<Axis<#= j #>> values<#= j #>;
+//                IndexedBigArray<Axis<#= j #>> values<#= j #>;
 //                IAsyncResult result<#= j #> = null;
 //                if (this._subdivisionOverride<#= j #> != null)
 //                    values<#= j #> = null;
@@ -3003,7 +3003,7 @@ namespace Towel.DataStructures
 //                    values<#= j #> = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values<#= j #> = new BigArray<Axis<#= j #>>(additions.Length);
+//                        values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
 //                        Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -3045,11 +3045,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #><# } #>);
 //
 //            // divide the values along the medians
-//            Map<List<T>, <#= child_index_type #>> collection_map = new MapHashLinked<List<T>, <#= child_index_type #>>();
+//            Map<Addable<T>, <#= child_index_type #>> collection_map = new MapHashLinked<Addable<T>, <#= child_index_type #>>();
 //            additions((T value) => 
 //            {
 //                <#= child_index_type #> index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -3057,9 +3057,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -3075,8 +3075,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, <#= child_index_type #>> link) =>
+//                        Step.EveryNth<Link<Addable<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, <#= child_index_type #>> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
 //                            });
@@ -3090,7 +3090,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, <#= child_index_type #>> link) =>
+//                collection_map.Pairs((Link<Addable<T>, <#= child_index_type #>> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
 //                });
@@ -3274,7 +3274,7 @@ namespace Towel.DataStructures
             catch
             {
                 // extract the values<# for (int j = 1; j <= i; j++) { #>
-                BigArray<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new BigArray<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);<# } #>
+                IndexedBigArray<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new IndexedBigArray<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);<# } #>
                 Node.ValueNode for_current = node.Head; // used in for loop
                 for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
                 {<# for (int j = 1; j <= i; j++) { #>

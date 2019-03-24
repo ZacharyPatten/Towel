@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Tempurature
     {
         /// <summary>Units for Tempurature measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Tempurature measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Tempurature measurement.</typeparam>
+    [Serializable]
     public struct Tempurature<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Tempurature.Units, T>();

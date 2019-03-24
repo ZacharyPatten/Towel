@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>Implements a First-In-Last-Out stack data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
@@ -26,7 +28,7 @@
 
 	/// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class FirstInLastOutLinked<T> : FirstInLastOut<T>
 	{
 		// fields
@@ -36,7 +38,7 @@
 		#region private class Node
 
 		/// <summary>This class just holds the data for each individual node of the stack.</summary>
-		[System.Serializable]
+		[Serializable]
 		internal class Node
 		{
 			internal T _value;

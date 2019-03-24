@@ -28,7 +28,7 @@ namespace Towel.DataStructures
 
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class IndexedArray<T> : Indexed<T>
 	{
 		// Fields

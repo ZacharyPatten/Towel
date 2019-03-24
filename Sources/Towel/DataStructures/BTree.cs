@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
@@ -114,7 +116,7 @@
 
 	/// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class BTreeLinkedArray<T> : BTree<T>
 	{
 		// Fields
@@ -124,10 +126,11 @@
 		int _node_size;
 		Compare<T, T> _compare;
 
-		#region Nested Types
+        #region Nested Types
 
-		/// <summary>A BTree node can contain multiple items and children.</summary>
-		public class Node
+        /// <summary>A BTree node can contain multiple items and children.</summary>
+        [Serializable]
+        public class Node
 		{
 			private T[] _items;
 			private Node[] _children;

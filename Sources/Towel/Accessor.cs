@@ -2,15 +2,15 @@
 
 namespace Towel
 {
-	/// <summary>Delegate for getting a value at a specified index.</summary>
-	/// <param name="index">The index to get the value of.</param>
-	/// <returns>The value at the given index.</returns>
-	public delegate T Get<T>(int index);
+    /// <summary>Delegate for getting a value at a specified index.</summary>
+    /// <param name="index">The index to get the value of.</param>
+    /// <returns>The value at the given index.</returns>
+    public delegate T Get<T>(int index);
 
-	/// <summary>Delegate for setting a value at a specified index.</summary>
-	/// <param name="index">The index to set the value of.</param>
-	/// <param name="value">The value to set at the given index.</param>
-	public delegate void Assign<T>(int index, T value);
+    /// <summary>Delegate for setting a value at a specified index.</summary>
+    /// <param name="index">The index to set the value of.</param>
+    /// <param name="value">The value to set at the given index.</param>
+    public delegate void Assign<T>(int index, T value);
 
 	public static class Accessor
 	{

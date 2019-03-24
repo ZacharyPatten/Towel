@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>A generic tree data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
@@ -34,7 +36,7 @@
 
 	/// <summary>A generic tree data structure using a dictionary to store node data.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	[System.Serializable]
+	[Serializable]
 	public class TreeMap<T> : Tree<T>,
 		// Structure Properties
 		DataStructure.Hashing<T>,

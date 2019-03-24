@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
@@ -151,14 +153,15 @@
 		#endregion
 	}
 
-	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-	/// <citation>
-	/// This AVL tree imlpementation was originally developed by 
-	/// Rodney Howell of Kansas State University. However, it has 
-	/// been modified since its addition into the Towel framework.
-	/// </citation>
-	public class AvlTreeLinked<T> : AvlTree<T>
+    /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+    /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
+    /// <citation>
+    /// This AVL tree imlpementation was originally developed by 
+    /// Rodney Howell of Kansas State University. However, it has 
+    /// been modified since its addition into the Towel framework.
+    /// </citation>
+    [Serializable]
+    public class AvlTreeLinked<T> : AvlTree<T>
 	{
 		// Fields
 		private Node _root;
@@ -168,7 +171,7 @@
 		#region Nested Types
 
 		/// <summary>This class just holds the data for each individual node of the tree.</summary>
-		[System.Serializable]
+		[Serializable]
 		private class Node
 		{
 			private T _value;

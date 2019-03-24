@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Current
     {
         /// <summary>Units for Current measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Current measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Current measurement.</typeparam>
+    [Serializable]
     public struct Current<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Current.Units, T>();

@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>Sorted linear data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
@@ -25,9 +27,10 @@
 		#endregion
 	}
 
-	/// <summary>Sorted linear data structure implemented using a list array.</summary>
-	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	public class OrderListArray<T> : Order<T>
+    /// <summary>Sorted linear data structure implemented using a list array.</summary>
+    /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
+    [Serializable]
+    public class OrderListArray<T> : Order<T>
 	{
 		#region Fields
 
@@ -166,9 +169,10 @@
 		#endregion
 	}
 
-	/// <summary>Sorted linear data structure implemented using a list array.</summary>
-	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	public class OrderListLinked<T> : Order<T>
+    /// <summary>Sorted linear data structure implemented using a list array.</summary>
+    /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
+    [Serializable]
+    public class OrderListLinked<T> : Order<T>
 	{
 		#region Fields
 

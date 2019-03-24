@@ -21363,7 +21363,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -21383,7 +21383,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -21392,7 +21392,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1> bounds = GetBoundings(additions[i]);
@@ -21441,7 +21441,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -21450,7 +21450,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -21492,11 +21492,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1>(pointOfDivision1);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -21504,9 +21504,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -21522,8 +21522,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
 //                            });
@@ -21537,7 +21537,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
 //                });
@@ -23524,7 +23524,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -23544,7 +23544,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -23553,7 +23553,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2> bounds = GetBoundings(additions[i]);
@@ -23571,7 +23571,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -23580,7 +23580,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2> bounds = GetBoundings(additions[i]);
@@ -23631,7 +23631,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -23640,7 +23640,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -23653,7 +23653,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -23662,7 +23662,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -23714,11 +23714,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2>(pointOfDivision1, pointOfDivision2);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -23726,9 +23726,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -23744,8 +23744,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 //                            });
@@ -23759,7 +23759,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 //                });
@@ -25988,7 +25988,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -26008,7 +26008,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -26017,7 +26017,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3> bounds = GetBoundings(additions[i]);
@@ -26035,7 +26035,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -26044,7 +26044,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3> bounds = GetBoundings(additions[i]);
@@ -26062,7 +26062,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -26071,7 +26071,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length * 2);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3> bounds = GetBoundings(additions[i]);
@@ -26124,7 +26124,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -26133,7 +26133,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -26146,7 +26146,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -26155,7 +26155,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -26168,7 +26168,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -26177,7 +26177,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values3[i] = LocateVector(additions[i]).Axis3;
 //                        Towel.Algorithms.Sort<Axis3>.Merge(this._compare3, (int i) => { return values3[(ulong)i]; }, (int i, Axis3 value) => { values3[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -26239,11 +26239,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3>(pointOfDivision1, pointOfDivision2, pointOfDivision3);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -26251,9 +26251,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -26269,8 +26269,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 //                            });
@@ -26284,7 +26284,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 //                });
@@ -28755,7 +28755,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -28775,7 +28775,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -28784,7 +28784,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds = GetBoundings(additions[i]);
@@ -28802,7 +28802,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -28811,7 +28811,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds = GetBoundings(additions[i]);
@@ -28829,7 +28829,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -28838,7 +28838,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length * 2);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds = GetBoundings(additions[i]);
@@ -28856,7 +28856,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -28865,7 +28865,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length * 2);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds = GetBoundings(additions[i]);
@@ -28920,7 +28920,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -28929,7 +28929,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -28942,7 +28942,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -28951,7 +28951,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -28964,7 +28964,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -28973,7 +28973,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values3[i] = LocateVector(additions[i]).Axis3;
 //                        Towel.Algorithms.Sort<Axis3>.Merge(this._compare3, (int i) => { return values3[(ulong)i]; }, (int i, Axis3 value) => { values3[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -28986,7 +28986,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -28995,7 +28995,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values4[i] = LocateVector(additions[i]).Axis4;
 //                        Towel.Algorithms.Sort<Axis4>.Merge(this._compare4, (int i) => { return values4[(ulong)i]; }, (int i, Axis4 value) => { values4[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -29067,11 +29067,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -29079,9 +29079,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -29097,8 +29097,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 //                            });
@@ -29112,7 +29112,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 //                });
@@ -31825,7 +31825,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -31845,7 +31845,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -31854,7 +31854,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(additions[i]);
@@ -31872,7 +31872,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -31881,7 +31881,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(additions[i]);
@@ -31899,7 +31899,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -31908,7 +31908,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length * 2);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(additions[i]);
@@ -31926,7 +31926,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -31935,7 +31935,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length * 2);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(additions[i]);
@@ -31953,7 +31953,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -31962,7 +31962,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length * 2);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(additions[i]);
@@ -32019,7 +32019,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -32028,7 +32028,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -32041,7 +32041,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -32050,7 +32050,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -32063,7 +32063,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -32072,7 +32072,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values3[i] = LocateVector(additions[i]).Axis3;
 //                        Towel.Algorithms.Sort<Axis3>.Merge(this._compare3, (int i) => { return values3[(ulong)i]; }, (int i, Axis3 value) => { values3[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -32085,7 +32085,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -32094,7 +32094,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values4[i] = LocateVector(additions[i]).Axis4;
 //                        Towel.Algorithms.Sort<Axis4>.Merge(this._compare4, (int i) => { return values4[(ulong)i]; }, (int i, Axis4 value) => { values4[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -32107,7 +32107,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -32116,7 +32116,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values5[i] = LocateVector(additions[i]).Axis5;
 //                        Towel.Algorithms.Sort<Axis5>.Merge(this._compare5, (int i) => { return values5[(ulong)i]; }, (int i, Axis5 value) => { values5[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -32198,11 +32198,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -32210,9 +32210,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -32228,8 +32228,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 //                            });
@@ -32243,7 +32243,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 //                });
@@ -35198,7 +35198,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -35218,7 +35218,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -35227,7 +35227,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35245,7 +35245,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -35254,7 +35254,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35272,7 +35272,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -35281,7 +35281,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length * 2);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35299,7 +35299,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -35308,7 +35308,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length * 2);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35326,7 +35326,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -35335,7 +35335,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length * 2);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35353,7 +35353,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis6> values6;
+//                IndexedBigArray<Axis6> values6;
 //                IAsyncResult result6 = null;
 //                if (this._subdivisionOverride6 != null)
 //                    values6 = null;
@@ -35362,7 +35362,7 @@ namespace Towel.DataStructures
 //                    values6 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values6 = new BigArray<Axis6>(additions.Length * 2);
+//                        values6 = new IndexedBigArray<Axis6>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(additions[i]);
@@ -35421,7 +35421,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -35430,7 +35430,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35443,7 +35443,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -35452,7 +35452,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35465,7 +35465,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -35474,7 +35474,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values3[i] = LocateVector(additions[i]).Axis3;
 //                        Towel.Algorithms.Sort<Axis3>.Merge(this._compare3, (int i) => { return values3[(ulong)i]; }, (int i, Axis3 value) => { values3[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35487,7 +35487,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -35496,7 +35496,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values4[i] = LocateVector(additions[i]).Axis4;
 //                        Towel.Algorithms.Sort<Axis4>.Merge(this._compare4, (int i) => { return values4[(ulong)i]; }, (int i, Axis4 value) => { values4[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35509,7 +35509,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -35518,7 +35518,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values5[i] = LocateVector(additions[i]).Axis5;
 //                        Towel.Algorithms.Sort<Axis5>.Merge(this._compare5, (int i) => { return values5[(ulong)i]; }, (int i, Axis5 value) => { values5[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35531,7 +35531,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis6> values6;
+//                IndexedBigArray<Axis6> values6;
 //                IAsyncResult result6 = null;
 //                if (this._subdivisionOverride6 != null)
 //                    values6 = null;
@@ -35540,7 +35540,7 @@ namespace Towel.DataStructures
 //                    values6 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values6 = new BigArray<Axis6>(additions.Length);
+//                        values6 = new IndexedBigArray<Axis6>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values6[i] = LocateVector(additions[i]).Axis6;
 //                        Towel.Algorithms.Sort<Axis6>.Merge(this._compare6, (int i) => { return values6[(ulong)i]; }, (int i, Axis6 value) => { values6[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -35632,11 +35632,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -35644,9 +35644,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -35662,8 +35662,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 //                            });
@@ -35677,7 +35677,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 //                });
@@ -38874,7 +38874,7 @@ namespace Towel.DataStructures
 
 		// not yet implemented
 
-//        public void Add(BigArray<T> additions, bool allowMultithreading)
+//        public void Add(IndexedBigArray<T> additions, bool allowMultithreading)
 //        {
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
@@ -38894,7 +38894,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -38903,7 +38903,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length * 2);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -38921,7 +38921,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -38930,7 +38930,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length * 2);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -38948,7 +38948,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -38957,7 +38957,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length * 2);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -38975,7 +38975,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -38984,7 +38984,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length * 2);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -39002,7 +39002,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -39011,7 +39011,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length * 2);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -39029,7 +39029,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis6> values6;
+//                IndexedBigArray<Axis6> values6;
 //                IAsyncResult result6 = null;
 //                if (this._subdivisionOverride6 != null)
 //                    values6 = null;
@@ -39038,7 +39038,7 @@ namespace Towel.DataStructures
 //                    values6 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values6 = new BigArray<Axis6>(additions.Length * 2);
+//                        values6 = new IndexedBigArray<Axis6>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -39056,7 +39056,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis7> values7;
+//                IndexedBigArray<Axis7> values7;
 //                IAsyncResult result7 = null;
 //                if (this._subdivisionOverride7 != null)
 //                    values7 = null;
@@ -39065,7 +39065,7 @@ namespace Towel.DataStructures
 //                    values7 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values7 = new BigArray<Axis7>(additions.Length * 2);
+//                        values7 = new IndexedBigArray<Axis7>(additions.Length * 2);
 //                        for (ulong i = 0; i < additions.Length; i++)
 //						{
 //							Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(additions[i]);
@@ -39126,7 +39126,7 @@ namespace Towel.DataStructures
 //
 //
 //                // prepare data for median computations
-//                BigArray<Axis1> values1;
+//                IndexedBigArray<Axis1> values1;
 //                IAsyncResult result1 = null;
 //                if (this._subdivisionOverride1 != null)
 //                    values1 = null;
@@ -39135,7 +39135,7 @@ namespace Towel.DataStructures
 //                    values1 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values1 = new BigArray<Axis1>(additions.Length);
+//                        values1 = new IndexedBigArray<Axis1>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values1[i] = LocateVector(additions[i]).Axis1;
 //                        Towel.Algorithms.Sort<Axis1>.Merge(this._compare1, (int i) => { return values1[(ulong)i]; }, (int i, Axis1 value) => { values1[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39148,7 +39148,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis2> values2;
+//                IndexedBigArray<Axis2> values2;
 //                IAsyncResult result2 = null;
 //                if (this._subdivisionOverride2 != null)
 //                    values2 = null;
@@ -39157,7 +39157,7 @@ namespace Towel.DataStructures
 //                    values2 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values2 = new BigArray<Axis2>(additions.Length);
+//                        values2 = new IndexedBigArray<Axis2>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values2[i] = LocateVector(additions[i]).Axis2;
 //                        Towel.Algorithms.Sort<Axis2>.Merge(this._compare2, (int i) => { return values2[(ulong)i]; }, (int i, Axis2 value) => { values2[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39170,7 +39170,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis3> values3;
+//                IndexedBigArray<Axis3> values3;
 //                IAsyncResult result3 = null;
 //                if (this._subdivisionOverride3 != null)
 //                    values3 = null;
@@ -39179,7 +39179,7 @@ namespace Towel.DataStructures
 //                    values3 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values3 = new BigArray<Axis3>(additions.Length);
+//                        values3 = new IndexedBigArray<Axis3>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values3[i] = LocateVector(additions[i]).Axis3;
 //                        Towel.Algorithms.Sort<Axis3>.Merge(this._compare3, (int i) => { return values3[(ulong)i]; }, (int i, Axis3 value) => { values3[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39192,7 +39192,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis4> values4;
+//                IndexedBigArray<Axis4> values4;
 //                IAsyncResult result4 = null;
 //                if (this._subdivisionOverride4 != null)
 //                    values4 = null;
@@ -39201,7 +39201,7 @@ namespace Towel.DataStructures
 //                    values4 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values4 = new BigArray<Axis4>(additions.Length);
+//                        values4 = new IndexedBigArray<Axis4>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values4[i] = LocateVector(additions[i]).Axis4;
 //                        Towel.Algorithms.Sort<Axis4>.Merge(this._compare4, (int i) => { return values4[(ulong)i]; }, (int i, Axis4 value) => { values4[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39214,7 +39214,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis5> values5;
+//                IndexedBigArray<Axis5> values5;
 //                IAsyncResult result5 = null;
 //                if (this._subdivisionOverride5 != null)
 //                    values5 = null;
@@ -39223,7 +39223,7 @@ namespace Towel.DataStructures
 //                    values5 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values5 = new BigArray<Axis5>(additions.Length);
+//                        values5 = new IndexedBigArray<Axis5>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values5[i] = LocateVector(additions[i]).Axis5;
 //                        Towel.Algorithms.Sort<Axis5>.Merge(this._compare5, (int i) => { return values5[(ulong)i]; }, (int i, Axis5 value) => { values5[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39236,7 +39236,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis6> values6;
+//                IndexedBigArray<Axis6> values6;
 //                IAsyncResult result6 = null;
 //                if (this._subdivisionOverride6 != null)
 //                    values6 = null;
@@ -39245,7 +39245,7 @@ namespace Towel.DataStructures
 //                    values6 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values6 = new BigArray<Axis6>(additions.Length);
+//                        values6 = new IndexedBigArray<Axis6>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values6[i] = LocateVector(additions[i]).Axis6;
 //                        Towel.Algorithms.Sort<Axis6>.Merge(this._compare6, (int i) => { return values6[(ulong)i]; }, (int i, Axis6 value) => { values6[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39258,7 +39258,7 @@ namespace Towel.DataStructures
 //                }
 //
 //                // prepare data for median computations
-//                BigArray<Axis7> values7;
+//                IndexedBigArray<Axis7> values7;
 //                IAsyncResult result7 = null;
 //                if (this._subdivisionOverride7 != null)
 //                    values7 = null;
@@ -39267,7 +39267,7 @@ namespace Towel.DataStructures
 //                    values7 = null;
 //                    Towel.Parallels.Parallel.Operation operation = () =>
 //                    {
-//                        values7 = new BigArray<Axis7>(additions.Length);
+//                        values7 = new IndexedBigArray<Axis7>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values7[i] = LocateVector(additions[i]).Axis7;
 //                        Towel.Algorithms.Sort<Axis7>.Merge(this._compare7, (int i) => { return values7[(ulong)i]; }, (int i, Axis7 value) => { values7[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
@@ -39369,11 +39369,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6, pointOfDivision7);
 //
 //            // divide the values along the medians
-//            Map<List<T>, int> collection_map = new MapHashLinked<List<T>, int>();
+//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                List<T> list = null;
+//                Addable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -39381,9 +39381,9 @@ namespace Towel.DataStructures
 //                else
 //                {
 //                    if (parent_count < 100000)
-//                        list = new ListArray<T>();
+//                        list = new AddableArray<T>();
 //                    else
-//                        list = new ListLinked<T>();
+//                        list = new AddableLinked<T>();
 //                    collection_map.Add(index, list);
 //                    list.Add(value);
 //                }
@@ -39399,8 +39399,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<List<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<List<T>, int> link) =>
+//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<Addable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 //                            });
@@ -39414,7 +39414,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<List<T>, int> link) =>
+//                collection_map.Pairs((Link<Addable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 //                });

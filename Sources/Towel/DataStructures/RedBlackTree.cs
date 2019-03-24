@@ -1,4 +1,6 @@
-﻿namespace Towel.DataStructures
+﻿using System;
+
+namespace Towel.DataStructures
 {
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
@@ -102,7 +104,7 @@
 	/// addition into the Towel framework.
 	/// http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
 	/// </citation>
-	[System.Serializable]
+	[Serializable]
 	public class RedBlackTreeLinked<T> : RedBlackTree<T>
 	{
 		// Fields
@@ -114,9 +116,10 @@
 		internal int _count;
 		private Node _root;
 
-		#region Nested Types
+        #region Nested Types
 
-		private class Node
+        [Serializable]
+        private class Node
 		{
 			private bool _color;
 			private T _value;

@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Mass
     {
         /// <summary>Units for Mass measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -85,6 +86,7 @@ namespace Towel.Measurements
 
     /// <summary>An Mass measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Mass measurement.</typeparam>
+    [Serializable]
     public struct Mass<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Mass.Units, T>();

@@ -7,6 +7,7 @@ namespace Towel.Measurements
     public static class Volumne
     {
         /// <summary>Units for Volumne measurements.</summary>
+        [Serializable]
         public enum Units
         {
             #region Units
@@ -25,6 +26,7 @@ namespace Towel.Measurements
 
     /// <summary>An Volumne measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Volumne measurement.</typeparam>
+    [Serializable]
     public struct Volumne<T>
     {
         internal static T[][] Table = UnitConversionTable.Build<Volumne.Units, T>();
