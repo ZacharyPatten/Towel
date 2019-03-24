@@ -33,9 +33,9 @@
 		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
 		public static void Bubble(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Bubble(compare, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Bubble(compare, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
@@ -48,16 +48,18 @@
 		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
 		public static void Bubble(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
 		{
-			for (int i = start; i < end; i++)
-				for (int j = start; j < end - 1; j++)
-				{
-					if (compare(get(j), get(j + 1)) == Comparison.Greater)
-					{
-						T temp = get(j + 1);
-						set(j + 1, get(j));
-						set(j, temp);
-					}
-				}
+            for (int i = start; i < end; i++)
+            {
+                for (int j = start; j < end - 1; j++)
+                {
+                    if (compare(get(j), get(j + 1)) == Comparison.Greater)
+                    {
+                        T temp = get(j + 1);
+                        set(j + 1, get(j));
+                        set(j, temp);
+                    }
+                }
+            }
 		}
 
 		#endregion
@@ -92,9 +94,9 @@
 		/// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
 		public static void Selection(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Selection(compare, get, set, 0, array.Length);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Selection(compare, get, set, 0, array.Length);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -110,14 +112,16 @@
 			for (int i = start; i < end; i++)
 			{
 				int min = i;
-				for (int j = i + 1; j < end; j++)
-					if (compare(get(j), get(min)) == Comparison.Less)
-					{
-						min = j;
-						T temp = get(i);
-						set(i, get(min));
-						set(min, temp);
-					}
+                for (int j = i + 1; j < end; j++)
+                {
+                    if (compare(get(j), get(min)) == Comparison.Less)
+                    {
+                        min = j;
+                        T temp = get(i);
+                        set(i, get(min));
+                        set(min, temp);
+                    }
+                }
 			}
 		}
 
@@ -153,9 +157,9 @@
 		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
 		public static void Insertion(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Insertion(compare, get, set, 0, array.Length);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Insertion(compare, get, set, 0, array.Length);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -172,8 +176,10 @@
 			{
 				T temp = get(i);
 				int j;
-				for (j = i; j > start && compare(get(j - 1), temp) == Comparison.Greater; j--)
-					set(j, get(j - 1));
+                for (j = i; j > start && compare(get(j - 1), temp) == Comparison.Greater; j--)
+                {
+                    set(j, get(j - 1));
+                }
 				set(j, temp);
 			}
 		}
@@ -210,9 +216,9 @@
 		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
 		public static void Quick(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Quick(compare, Accessor.Get(array), Accessor.Assign(array), start, end - start);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Quick(compare, get, set, start, end - start);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -238,20 +244,22 @@
 				int k = j;
 				while (i <= j)
 				{
-					if (compare(get(j), pivot) == Comparison.Less)
-					{
-						T temp = get(i);
-						set(i++, get(j));
-						set(j, temp);
-					}
-					else if (compare(get(j), pivot) == Comparison.Equal)
-						j--;
-					else
-					{
-						T temp = get(k);
-						set(k--, get(j));
-						set(j--, temp);
-					}
+                    if (compare(get(j), pivot) == Comparison.Less)
+                    {
+                        T temp = get(i);
+                        set(i++, get(j));
+                        set(j, temp);
+                    }
+                    else if (compare(get(j), pivot) == Comparison.Equal)
+                    {
+                        j--;
+                    }
+                    else
+                    {
+                        T temp = get(k);
+                        set(k--, get(j));
+                        set(j--, temp);
+                    }
 				}
 				Sort<T>.Quick_Recursive(compare, get, set, start, i - start);
 				Sort<T>.Quick_Recursive(compare, get, set, k + 1, start + len - (k + 1));
@@ -291,9 +299,9 @@
 		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
 		public static void Merge(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Merge(compare, get, set, start, end - start);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Merge(compare, get, set, start, end - start);
 		}
 
 		/// <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
@@ -322,10 +330,14 @@
 				int k = 0;
 				while (i < start + half && j < start + len)
 				{
-					if (compare(get(i), get(j)) == Comparison.Greater)
-						sorted[k++] = get(j++);
-					else
-						sorted[k++] = get(i++);
+                    if (compare(get(i), get(j)) == Comparison.Greater)
+                    {
+                        sorted[k++] = get(j++);
+                    }
+                    else
+                    {
+                        sorted[k++] = get(i++);
+                    }
 				}
 				for (int h = 0; h < start + half - i; h++)
 					sorted[k + h] = get(i + h);
@@ -368,9 +380,9 @@
 		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
 		public static void Heap(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Heap(compare, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Heap(compare, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
@@ -384,8 +396,10 @@
 		public static void Heap(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
 		{
 			int heapSize = end - start;
-			for (int i = (heapSize - 1) / 2; i >= 0; i--)
-				Sort<T>.MaxHeapify(compare, get, set, heapSize, i);
+            for (int i = (heapSize - 1) / 2; i >= 0; i--)
+            {
+                Sort<T>.MaxHeapify(compare, get, set, heapSize, i);
+            }
 			for (int i = end - 1; i > start; i--)
 			{
 				T temp = get(0);
@@ -401,12 +415,18 @@
 			int left = (index + 1) * 2 - 1;
 			int right = (index + 1) * 2;
 			int largest = 0;
-			if (left < heapSize && compare(get(left), get(index)) == Comparison.Greater)
-				largest = left;
-			else
-				largest = index;
-			if (right < heapSize && compare(get(right), get(largest)) == Comparison.Greater)
-				largest = right;
+            if (left < heapSize && compare(get(left), get(index)) == Comparison.Greater)
+            {
+                largest = left;
+            }
+            else
+            {
+                largest = index;
+            }
+            if (right < heapSize && compare(get(right), get(largest)) == Comparison.Greater)
+            {
+                largest = right;
+            }
 			if (largest != index)
 			{
 				T temp = get(index);
@@ -446,9 +466,9 @@
 		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
 		public static void OddEven(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.OddEven(compare, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.OddEven(compare, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
@@ -581,9 +601,9 @@
 		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
 		public static void Shuffle(System.Random random, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Shuffle(random, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Shuffle(random, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in a randomized order.</summary>
@@ -594,9 +614,9 @@
 		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
 		public static void Shuffle(T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Shuffle(get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Shuffle(get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in a randomized order.</summary>
@@ -659,9 +679,9 @@
 		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
 		public static void Bogo(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Bogo(compare, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Bogo(compare, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
@@ -671,15 +691,21 @@
 		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
 		public static void Bogo(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
 		{
-			while (!BogoCheck(compare, get, set, start, end))
-				Sort<T>.Shuffle(get, set, start, end);
+            while (!BogoCheck(compare, get, set, start, end))
+            {
+                Sort<T>.Shuffle(get, set, start, end);
+            }
 		}
 
 		private static bool BogoCheck(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
 		{
-			for (int i = start; i < end - 1; i++)
-				if (compare(get(i), get(i + 1)) == Comparison.Greater)
-					return false;
+            for (int i = start; i < end - 1; i++)
+            {
+                if (compare(get(i), get(i + 1)) == Comparison.Greater)
+                {
+                    return false;
+                }
+            }
 			return true;
 		}
 
@@ -713,9 +739,9 @@
 		/// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
 		public static void Slow(Compare<T> compare, T[] array, int start, int end)
 		{
-			Get<T> get = (int index) => { return array[index]; };
-			Assign<T> set = (int index, T value) => { array[index] = value; };
-			Sort<T>.Slow(compare, get, set, start, end);
+            T get(int index) { return array[index]; }
+            void set(int index, T value) { array[index] = value; }
+            Sort<T>.Slow(compare, get, set, start, end);
 		}
 
 		/// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
@@ -726,14 +752,15 @@
 		public static void Slow(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
 		{
 			throw new System.NotImplementedException();
-
 			Sort<T>.Slow_Recursive(compare, get, set, start, end);
 		}
 
 		private static void Slow_Recursive(Compare<T> compare, Get<T> get, Assign<T> set, int i, int j)
 		{
-			if (i >= j)
-				return;
+            if (i >= j)
+            {
+                return;
+            }
 			int m = (i + j) / 2;
 			Sort<T>.Slow_Recursive(compare, get, set, i, m);
 			Sort<T>.Slow_Recursive(compare, get, set, m + 1, j);
