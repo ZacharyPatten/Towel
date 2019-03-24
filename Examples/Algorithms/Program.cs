@@ -433,12 +433,12 @@ namespace Algorithms
             Console.WriteLine();
 
             int iterationsperrandom = 3;
-            Action<Random> testrandom = (Random random) =>
+            void testrandom(Random random)
             {
                 for (int i = 0; i < iterationsperrandom; i++)
                     Console.WriteLine("    " + i + ": " + random.Next());
                 Console.WriteLine();
-            };
+            }
             Arbitrary mcg_2pow59_13pow13 = new Arbitrary.Algorithms.MultiplicativeCongruent_A();
             Console.WriteLine("  mcg_2pow59_13pow13 randoms:");
             testrandom(mcg_2pow59_13pow13);
