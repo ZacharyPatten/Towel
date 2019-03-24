@@ -63,7 +63,7 @@ namespace Towel.Measurements
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
         /// <returns>The measurement in the specified units.</returns>
-        internal T this[Energy.Units units]
+        public T this[Energy.Units units]
         {
             get
             {
@@ -78,15 +78,6 @@ namespace Towel.Measurements
                 }
             }
         }
-
-        ///// <summary>Gets the measurement in XXXXX.</summary>
-        //public T XXXXX
-        //{
-        //    get
-        //    {
-        //        return this[Energy.Units.XXXXX];
-        //    }
-        //}
 
         #endregion
 
@@ -255,7 +246,7 @@ namespace Towel.Measurements
             switch (this._units)
             {
                 //case Energy.Units.Degrees: return this._measurement.ToString() + "°";
-                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Energy<T>) + ".");
+                default: return this._measurement + " " + this._units;
             }
         }
 

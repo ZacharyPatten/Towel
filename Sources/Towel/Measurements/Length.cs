@@ -241,15 +241,6 @@ namespace Towel.Measurements
             }
         }
 
-        //      /// <summary>Gets the measurement in Gradians.</summary>
-        //public T Gradians
-        //      {
-        //          get
-        //          {
-        //              return this[Length.Units.Gradians];
-        //          }
-        //      }
-
         #endregion
 
         #region Mathematics
@@ -416,8 +407,7 @@ namespace Towel.Measurements
         {
             switch (this._units)
             {
-                //case Length.Units.Degrees: return this._measurement.ToString() + "°";
-                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Length<T>) + ".");
+                default: return this._measurement + " " + this._units;
             }
         }
 

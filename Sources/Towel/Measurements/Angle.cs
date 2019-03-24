@@ -80,7 +80,7 @@ namespace Towel.Measurements
 		/// <summary>Gets the measurement in the desired units.</summary>
 		/// <param name="units">The units you want the measurement to be in.</param>
 		/// <returns>The measurement in the specified units.</returns>
-		internal T this[Angle.Units units]
+		public T this[Angle.Units units]
 		{
 			get
 			{
@@ -95,42 +95,6 @@ namespace Towel.Measurements
                 }
 			}
 		}
-
-        /// <summary>Gets the measurement in Gradians.</summary>
-		public T Gradians
-        {
-            get
-            {
-                return this[Angle.Units.Gradians];
-            }
-        }
-
-        /// <summary>Gets the measurement in Degrees.</summary>
-		public T Degrees
-        {
-            get
-            {
-                return this[Angle.Units.Degrees];
-            }
-        }
-
-        /// <summary>Gets the measurement in Radians.</summary>
-		public T Radians
-        {
-            get
-            {
-                return this[Angle.Units.Radians];
-            }
-        }
-
-        /// <summary>Gets the measurement in Turns.</summary>
-		public T Turns
-        {
-            get
-            {
-                return this[Angle.Units.Turns];
-            }
-        }
 
         #endregion
 
@@ -302,7 +266,7 @@ namespace Towel.Measurements
                 case Angle.Units.Gradians: return this._measurement.ToString() + "ᵍ";
                 case Angle.Units.Radians: return this._measurement.ToString() + "rad";
                 case Angle.Units.Turns: return this._measurement.ToString() + "turn";
-                default: throw new NotImplementedException(nameof(Towel) + " is missing a to string conversion in " + nameof(Angle<T>) + ".");
+                default: return this._measurement + " " + this._units;
             }
         }
 

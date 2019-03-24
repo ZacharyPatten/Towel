@@ -1918,7 +1918,7 @@ namespace Towel.Mathematics
         /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T SineSystem<T>(Angle<T> a)
         {
-            return FromDouble<T>(Math.Sin(ToDouble(a.Radians)));
+            return FromDouble<T>(Math.Sin(ToDouble(a[Angle.Units.Radians])));
         }
 
         /// <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -1931,7 +1931,7 @@ namespace Towel.Mathematics
             // y = (-4/π^2)(x - (π/2))^2 + 1
             // y = (4/π^2)(x - (3π/2))^2 - 1
 
-            T adjusted = Modulo(a.Radians, Constant<T>.Pi2);
+            T adjusted = Modulo(a[Angle.Units.Radians], Constant<T>.Pi2);
             if (IsNegative(adjusted))
             {
                 adjusted = Add(adjusted, Constant<T>.Pi2);
@@ -2172,103 +2172,103 @@ namespace Towel.Mathematics
 
         #region HyperbolicSine
 
-        public static T HyperbolicSine<T>(Angle<T> a)
-        {
-            return HyperbolicSineImplementation<T>.Function(a);
-        }
+        //public static T HyperbolicSine<T>(Angle<T> a)
+        //{
+        //    return HyperbolicSineImplementation<T>.Function(a);
+        //}
 
-        internal static class HyperbolicSineImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sinh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class HyperbolicSineImplementation<T>
+        //{
+        //    internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Sinh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+        //            Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region HyperbolicCosine
 
-        public static T HyperbolicCosine<T>(Angle<T> a)
-        {
-            return HyperbolicCosineImplementation<T>.Function(a);
-        }
+        //public static T HyperbolicCosine<T>(Angle<T> a)
+        //{
+        //    return HyperbolicCosineImplementation<T>.Function(a);
+        //}
 
-        internal static class HyperbolicCosineImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cosh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class HyperbolicCosineImplementation<T>
+        //{
+        //    internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Cosh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+        //            Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region HyperbolicTangent
 
-        public static T HyperbolicTangent<T>(Angle<T> a)
-        {
-            return HyperbolicTangentImplementation<T>.Function(a);
-        }
+        //public static T HyperbolicTangent<T>(Angle<T> a)
+        //{
+        //    return HyperbolicTangentImplementation<T>.Function(a);
+        //}
 
-        internal static class HyperbolicTangentImplementation<T>
-        {
-            internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
-            {
-                // optimization for specific known types
-                if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-                {
-                    ParameterExpression A = Expression.Parameter(typeof(T));
-                    Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tanh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
-                    Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
-                    return Function(a);
-                }
-                throw new NotImplementedException();
-            };
-        }
+        //internal static class HyperbolicTangentImplementation<T>
+        //{
+        //    internal static Func<Angle<T>, T> Function = (Angle<T> a) =>
+        //    {
+        //        // optimization for specific known types
+        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
+        //        {
+        //            ParameterExpression A = Expression.Parameter(typeof(T));
+        //            Expression BODY = Expression.Call(typeof(Math).GetMethod(nameof(Math.Tanh)), Expression.Convert(Expression.Property(A, typeof(Angle<T>).GetProperty(nameof(a.Radians))), typeof(double)));
+        //            Function = Expression.Lambda<Func<Angle<T>, T>>(BODY, A).Compile();
+        //            return Function(a);
+        //        }
+        //        throw new NotImplementedException();
+        //    };
+        //}
 
         #endregion
 
         #region HyperbolicCosecant
 
-        public static T HyperbolicCosecant<T>(Angle<T> a)
-        {
-            return Divide(Constant<T>.One, HyperbolicSine(a));
-        }
+        //public static T HyperbolicCosecant<T>(Angle<T> a)
+        //{
+        //    return Divide(Constant<T>.One, HyperbolicSine(a));
+        //}
 
         #endregion
 
         #region HyperbolicSecant
 
-        public static T HyperbolicSecant<T>(Angle<T> a)
-        {
-            return Divide(Constant<T>.One, HyperbolicCosine(a));
-        }
+        //public static T HyperbolicSecant<T>(Angle<T> a)
+        //{
+        //    return Divide(Constant<T>.One, HyperbolicCosine(a));
+        //}
 
         #endregion
 
         #region HyperbolicCotangent
 
-        public static T HyperbolicCotangent<T>(Angle<T> a)
-        {
-            return Divide(Constant<T>.One, HyperbolicTangent(a));
-        }
+        //public static T HyperbolicCotangent<T>(Angle<T> a)
+        //{
+        //    return Divide(Constant<T>.One, HyperbolicTangent(a));
+        //}
 
         #endregion
 

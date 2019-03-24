@@ -36,7 +36,17 @@ namespace Measurements
             Console.WriteLine("  Lengths--------------------------------------");
             Console.WriteLine();
             Length<double> length1 = new Length<double>(1d, Length.Units.Meters);
+            Console.WriteLine("    length1 = " + length1);
             Length<double> length2 = new Length<double>(2d, Length.Units.Yards);
+            Console.WriteLine("    length2 = " + length2);
+            Console.WriteLine("    length1 + length2 = " + (length1 + length2));
+            Console.WriteLine("    length2 - length1 = " + (length1 - length2));
+            Console.WriteLine("    length1 * 2 = " + (length1 * 2));
+            Console.WriteLine("    length1 / 2 = " + (length1 / 2));
+            Console.WriteLine("    length1 > length2 = " + (length1 > length2));
+            Console.WriteLine("    length1 == length2 = " + (length1 == length2));
+            Console.WriteLine("    length1 * 2 == length2 = " + (length1 * 2 == length2));
+            Console.WriteLine("    length1 != length2 = " + (length1 != length2));
             Console.WriteLine();
 
             //object result = angle1 + length1; WILL NOT COMPILE (this is a good thing) :)

@@ -4,6 +4,7 @@ using System.Reflection;
 using Towel.DataStructures;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Towel.Mathematics
 {
@@ -765,7 +766,10 @@ namespace Towel.Mathematics
                 set { this._a = value; }
             }
 
-            public Unary(Expression a) : base() { }
+            public Unary(Expression a) : base()
+            {
+                this._a = a;
+            }
         }
 
         #endregion
@@ -2810,124 +2814,37 @@ namespace Towel.Mathematics
             // Trim
             @string = @string.Trim();
             // Parse The Next Non-Nested Operator If One Exist
-            Expression ParsedNonNestedOperatorExpression;
-            if (TryParseNonNestedOperatorExpression<T>(@string, tryParsingFunction, out ParsedNonNestedOperatorExpression))
+            if (TryParseNonNestedOperatorExpression<T>(@string, tryParsingFunction, out Expression ParsedNonNestedOperatorExpression))
             {
                 return ParsedNonNestedOperatorExpression;
             }
             // Parse The Next Parenthesis If One Exists
-            Expression ParsedParenthesisExpression;
-            if (TryParseParenthesisExpression<T>(@string, tryParsingFunction, out ParsedParenthesisExpression))
+            if (TryParseParenthesisExpression<T>(@string, tryParsingFunction, out Expression ParsedParenthesisExpression))
             {
                 return ParsedParenthesisExpression;
             }
             // Parse The Next Operation If One Exists
-            Expression ParsedOperationExpression;
-            if (TryParseOperationExpression<T>(@string, tryParsingFunction, out ParsedOperationExpression))
+            if (TryParseOperationExpression<T>(@string, tryParsingFunction, out Expression ParsedOperationExpression))
             {
                 return ParsedOperationExpression;
             }
             // Parse The Next Set Of Variables If Any Exist
-            Expression ParsedVeriablesExpression;
-            if (TryParseVariablesExpression<T>(@string, tryParsingFunction, out ParsedVeriablesExpression))
+            if (TryParseVariablesExpression<T>(@string, tryParsingFunction, out Expression ParsedVeriablesExpression))
             {
                 return ParsedVeriablesExpression;
             }
             // Parse The Next Known Constant Expression If Any Exist
-            Expression ParsedKnownConstantExpression;
-            if (TryParseKnownConstantExpression<T>(@string, tryParsingFunction, out ParsedKnownConstantExpression))
+            if (TryParseKnownConstantExpression<T>(@string, tryParsingFunction, out Expression ParsedKnownConstantExpression))
             {
                 return ParsedKnownConstantExpression;
             }
             // Parse The Next Constant Expression If Any Exist
-            Expression ParsedConstantExpression;
-            if (TryParseConstantExpression<T>(@string, tryParsingFunction, out ParsedConstantExpression))
+            if (TryParseConstantExpression<T>(@string, tryParsingFunction, out Expression ParsedConstantExpression))
             {
                 return ParsedConstantExpression;
             }
             // Invalid Or Non-Supported Expression
             throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
-
-            #region Stupid First Attempt
-
-            //expression = expression.Trim();
-            //if (expression[expression.Length - 1] == ')')
-            //{
-            //    // just parenthesis
-            //    if (expression[0] == '(')
-            //    {
-            //        return Parse<T>(expression.Substring(1, expression.Length - 2));
-            //    }
-            //    // operations
-            //    int parenthasisIndex = expression.IndexOf('(');
-            //    if (parenthasisIndex > -1)
-            //    {
-            //        string operation = expression.Substring(0, parenthasisIndex).Trim();
-            //        operation.ToLower();
-            //        ListArray<string> operandSplits = SplitOperands(expression.Substring(parenthasisIndex + 1, expression.Length - parenthasisIndex - 1));
-            //        switch (operandSplits.Count)
-            //        {
-            //            case 1:
-            //                Func<Expression, Unary> newUnaryFunction;
-            //                if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
-            //                {
-            //                    return newUnaryFunction(Parse<T>(operandSplits[0]));
-            //                }
-            //                break;
-            //            case 2:
-            //                Func<Expression, Expression, Binary> newBinaryFunction;
-            //                if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
-            //                {
-            //                    return newBinaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[1]));
-            //                }
-            //                break;
-            //            case 3:
-            //                Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
-            //                if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
-            //                {
-            //                    return newTernaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[2]), Parse<T>(operandSplits[2]));
-            //                }
-            //                break;
-            //        }
-            //        Func<Expression[], Multinary> newMultinaryFunction;
-            //        if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
-            //        {
-            //            return newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
-            //        }
-            //    }
-            //    throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-            //}
-            //// variables
-            //if (expression[expression.Length - 1] == ']')
-            //{
-            //    if (expression[0] != '[')
-            //    {
-            //        throw new ArgumentException("The expression could not be parsed.", nameof(expression));
-            //    }
-            //    return new Variable(expression.Substring(1, expression.Length - 2).Trim());
-            //}
-            //// operators
-            //Expression operatorParsedNode;
-            //if (TryParseOperators(expression, out operatorParsedNode))
-            //{
-            //    return operatorParsedNode;
-            //}
-            //// implied multiplication with variables
-            //Expression impliedVariableMultiplication;
-            //if (TryParseImpliedVariableMultiplication(expression, out impliedVariableMultiplication))
-            //{
-            //    return impliedVariableMultiplication;
-            //}
-            //// known constants
-            //Func<Constant> newKnownConstantFunction;
-            //if (ParsableKnownConstants.TryGetValue(expression, out newKnownConstantFunction))
-            //{
-            //    return newKnownConstantFunction();
-            //}
-            //// unkown numeric constant
-            //ParseConstant(expression);
-
-            #endregion
         }
 
         internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
@@ -2976,7 +2893,8 @@ namespace Towel.Mathematics
                                 string.IsNullOrWhiteSpace(
                                     @string.Substring(
                                         previousMatch.Index + previousMatch.Length,
-                                        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1))))
+                                        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
+                                        ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value)))
 
                             {
                                 // Unary-Left Operator
@@ -2986,6 +2904,7 @@ namespace Towel.Mathematics
                                     isUnaryLeftOperator = true;
                                     isUnaryRightOperator = false;
                                     isBinaryOperator = false;
+                                    priority = ParsableLeftUnaryOperators[currentMatch.Value].Item1;
                                 }
                             }
                             else if (
@@ -2996,7 +2915,8 @@ namespace Towel.Mathematics
                                 string.IsNullOrWhiteSpace(
                                     @string.Substring(
                                         currentMatch.Index + currentMatch.Length,
-                                        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1))))
+                                        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1)) &&
+                                        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
                             {
                                 // Unary Right Operator
                                 if (@operator == null || priority < ParsableRightUnaryOperators[currentMatch.Value].Item1)
@@ -3005,22 +2925,24 @@ namespace Towel.Mathematics
                                     isUnaryLeftOperator = false;
                                     isUnaryRightOperator = true;
                                     isBinaryOperator = false;
+                                    priority = ParsableRightUnaryOperators[currentMatch.Value].Item1;
                                 }
                             }
                             else
                             {
-                                // Binary Operator
-                                if (@operator == null || priority < ParsableBinaryOperators[currentMatch.Value].Item1)
+                                if (ParsableBinaryOperators.ContainsKey(currentMatch.Value))
                                 {
-                                    @operator = currentMatch;
-                                    isUnaryLeftOperator = false;
-                                    isUnaryRightOperator = false;
-                                    isBinaryOperator = true;
+                                    // Binary Operator
+                                    if (@operator == null || priority < ParsableBinaryOperators[currentMatch.Value].Item1)
+                                    {
+                                        @operator = currentMatch;
+                                        isUnaryLeftOperator = false;
+                                        isUnaryRightOperator = false;
+                                        isBinaryOperator = true;
+                                        priority = ParsableBinaryOperators[currentMatch.Value].Item1;
+                                    }
                                 }
                             }
-
-                            @operator = operatorMatches[currentOperatorMatch];
-                            break;
                         }
                         currentOperatorMatch++;
 
@@ -3036,20 +2958,24 @@ namespace Towel.Mathematics
                 {
                     if (isUnaryLeftOperator)
                     {
-                        Expression A = Parse(@string.Substring(@operator.Index + @operator.Length - 1), tryParsingFunction);
+                        string a = @string.Substring(@operator.Index + @operator.Length);
+                        Expression A = Parse(a, tryParsingFunction);
                         expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
                         return true;
                     }
                     else if (isUnaryRightOperator)
                     {
-                        Expression A = Parse(@string.Substring(0, @operator.Index), tryParsingFunction);
+                        string a = @string.Substring(0, @operator.Index);
+                        Expression A = Parse(a, tryParsingFunction);
                         expression = ParsableRightUnaryOperators[@operator.Value].Item2(A);
                         return true;
                     }
                     else if (isBinaryOperator)
                     {
-                        Expression A = Parse(@string.Substring(0, @operator.Index), tryParsingFunction);
-                        Expression B = Parse(@string.Substring(@operator.Index + @operator.Length), tryParsingFunction);
+                        string a = @string.Substring(0, @operator.Index);
+                        Expression A = Parse(a, tryParsingFunction);
+                        string b = @string.Substring(@operator.Index + @operator.Length);
+                        Expression B = Parse(b, tryParsingFunction);
                         expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
                         return true;
                     }
@@ -3287,19 +3213,14 @@ namespace Towel.Mathematics
                 char character = @string[i];
                 if (character == '.')
                 {
-                    if (decimalIndex >= 0 || i == 0 || i == @string.Length - 1)
+                    if (decimalIndex >= 0 || i == @string.Length - 1)
                     {
                         parsedExpression = null;
                         return false;
                     }
                     decimalIndex = i;
                 }
-                if (character == '0' && i == 0)
-                {
-                    parsedExpression = null;
-                    return false;
-                }
-                if ('0' > character || character > '9')
+                if ('0' > character && character > '9')
                 {
                     parsedExpression = null;
                     return false;
@@ -3308,15 +3229,23 @@ namespace Towel.Mathematics
 
             if (decimalIndex >= 0)
             {
-                string wholeNumberString = @string.Substring(0, decimalIndex);
-                string decimalPlacesString = @string.Substring(decimalIndex);
+                string wholeNumberString;
+                if (decimalIndex == 0)
+                {
+                    wholeNumberString = "0";
+                }
+                else
+                {
+                    wholeNumberString = @string.Substring(0, decimalIndex);
+                }
+                string decimalPlacesString = @string.Substring(decimalIndex + 1);
 
                 if (int.TryParse(wholeNumberString, out int wholeNumberInt) &&
                     int.TryParse(decimalPlacesString, out int decimalPlacesInt))
                 {
                     T wholeNumber = Compute.FromInt32<T>(wholeNumberInt);
                     T decimalPlaces = Compute.FromInt32<T>(decimalPlacesInt);
-                    while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.Zero))
+                    while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.One))
                     {
                         decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
                     }

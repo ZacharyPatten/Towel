@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Towel.Mathematics;
 
@@ -23,16 +24,9 @@ namespace Towel.Measurements
 
         internal T Value<T>()
         {
-            try
-            {
-                Symbolics.Expression expression = Symbolics.Parse<T>(Expression);
-                Symbolics.Constant<T> constant = expression.Simplify() as Symbolics.Constant<T>;
-                return constant.Value;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("There is a BUG in " + nameof(Towel) + ". A " + nameof(ConversionFactorAttribute) + " expression could not simplify to a constant.", exception);
-            }
+            Symbolics.Expression expression = Symbolics.Parse<T>(Expression);
+            Symbolics.Constant<T> constant = expression.Simplify() as Symbolics.Constant<T>;
+            return constant.Value;
         }
     }
 
@@ -96,10 +90,40 @@ namespace Towel.Measurements
         {
             int size = Convert.ToInt32(Extensions.GetMaxEnumValue<UNITS>());
             T[][] conversionFactorTable = Extensions.ConstructSquareJagged<T>(size + 1);
-            foreach (Enum unit in Enum.GetValues(typeof(UNITS)))
+            foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
             {
-                int A = Convert.ToInt32(unit);
-                foreach (ConversionFactorAttribute conversionFactor in unit.GetEnumAttributes<ConversionFactorAttribute>())
+                int A = Convert.ToInt32(A_unit);
+
+                // handle metric units first
+                MetricUnitAttribute A_metric = A_unit.GetEnumAttribute<MetricUnitAttribute>();
+                if (!(A_metric is null))
+                {
+                    foreach (Enum B_units in Enum.GetValues(typeof(UNITS)))
+                    {
+                        int B = Convert.ToInt32(B_units);
+
+                        MetricUnitAttribute B_metric = B_units.GetEnumAttribute<MetricUnitAttribute>();
+                        if (!(B_metric is null))
+                        {
+                            int metricDifference = (int)A_metric.MetricUnits - (int)B_metric.MetricUnits;
+                            conversionFactorTable[A][B] = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                        }
+                        else
+                        {
+                            foreach (ConversionFactorAttribute conversionFactor in B_units.GetEnumAttributes<ConversionFactorAttribute>())
+                            {
+                                if (conversionFactor.To.Equals(A_unit))
+                                {
+                                    conversionFactorTable[A][B] = Compute.Invert(conversionFactor.Value<T>());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // handle explicit conversion factors
+                foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>())
                 {
                     int B = Convert.ToInt32(conversionFactor.To);
                     conversionFactorTable[A][B] = conversionFactor.Value<T>();
