@@ -292,7 +292,7 @@ namespace Algorithms
             Set<Vector<float>> already_used = new SetHashList<Vector<float>>();
 
             // Now we need the neighbor function (getting the neighbors of the current location).
-            Search<Vector<float>>.Graph<float>.Neighbors neighborFunction = (currentLocation, neighbors) =>
+            void neighborFunction(Vector<float> currentLocation, Step<Vector<float>> neighbors)
             {
                 // lets make a simple neighbor function that returns 4 locations (directly north, south, east, and west)
                 // and the distance of each node in the graph will be 1
@@ -331,14 +331,14 @@ namespace Algorithms
                 // RECOMMENDATIONS:
                 // - If the path finding is failing, you may need to increase the resolution.
                 // - If the algorithm is running too slow, you may need to reduce the resolution.
-            };
+            }
 
             // Now we need the heuristic function (how close are we to the goal).
-            Search<Vector<float>>.Graph<float>.Heuristic heuristicFunction = currentLocation =>
+            float heuristicFunction(Vector<float> currentLocation)
             {
                 // The goal is the player's location, so we just need our distance from the player.
                 return (currentLocation - player_location).Magnitude;
-            };
+            }
 
             // Lets say there is a lot of mud around the rock, and the mud makes our player move at half their normal speed.
             // Our path finding needs to find the fastest route to the player, whether it be through the mud or not.
@@ -346,7 +346,7 @@ namespace Algorithms
             float mud_radius = 30;
 
             // Now we need the cost function
-            Search<Vector<float>>.Graph<float>.Cost costFunction = (location1, location2) =>
+            float costFunction(Vector<float> location1, Vector<float> location2)
             {
                 // If either locations are in the mud, lets increase the cost of moving to that spot.
                 float mag1 = (location1 - mud_location).Magnitude;
@@ -358,10 +358,10 @@ namespace Algorithms
 
                 // neither location is in the mud, it is just a standard movement at normal speed.
                 return 1;
-            };
+            }
 
             // Now we need a goal function
-            Search<Vector<float>>.Graph<float>.Goal goalFunction = currentLocation =>
+            bool goalFunction(Vector<float> currentLocation)
             {
                 float mag = (currentLocation - player_location).Magnitude;
                 // if the player is within the enemy's attack range WE FOUND A PATH! :)
@@ -370,7 +370,7 @@ namespace Algorithms
 
                 // the enemy is not yet within attack range
                 return false;
-            };
+            }
 
             // We have all the necessary parameters. Run the pathfinding algorithms!
             Stepper<Vector<float>> aStarPath = Search<Vector<float>>.Graph<float>.Astar(

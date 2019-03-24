@@ -185,15 +185,10 @@ namespace Towel.Mathematics
 
         #region Negate
 
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T NEGATE<T>(int a)
-        {
-            return Negate(FromInt32<T>(a));
-        }
-
+        /// <summary>Negates a numeric value.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to negate.</param>
+        /// <returns>The result of the negation.</returns>
         public static T Negate<T>(T a)
 		{
 			return NegateImplementation<T>.Function(a);
@@ -214,47 +209,32 @@ namespace Towel.Mathematics
 
         #region Add
 
-        #region Syntax Sugar For Generic Constant Declaration
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T ADD<T>(T a, int b)
-        {
-            return Add(a, FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T ADD<T>(int a, int b)
-        {
-            return Add(FromInt32<T>(a), FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T ADD<T>(int a, T b)
-        {
-            return Add(FromInt32<T>(a), b);
-        }
-
-        #endregion
-
+        /// <summary>Adds two numeric values [a + b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition.</returns>
         public static T Add<T>(T a, T b)
         {
             return AddImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Adds multiple numeric values [a + b + c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <param name="b">The third operand of the addition.</param>
+        /// <param name="d">The remaining operands of the addition.</param>
+        /// <returns>The result of the addition.</returns>
         public static T Add<T>(T a, T b, T c, params T[] d)
         {
             return Add((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Adds multiple numeric values [step_1 + step_2 + step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the addition.</returns>
         public static T Add<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.Zero;
@@ -278,47 +258,32 @@ namespace Towel.Mathematics
 
         #region Subtract
 
-        #region Syntax Sugar For Generic Constant Declaration
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T SUBTRACT<T>(T a, int b)
-        {
-            return Subtract(a, FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T SUBTRACT<T>(int a, int b)
-        {
-            return Subtract(FromInt32<T>(a), FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T SUBTRACT<T>(int a, T b)
-        {
-            return Subtract(FromInt32<T>(a), b);
-        }
-
-        #endregion
-
+        /// <summary>Subtracts two numeric values [a - b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(T a, T b)
         {
             return SubtractImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Subtracts multiple numeric values [a - b - c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The first second of the subtraction.</param>
+        /// <param name="c">The first third of the subtraction.</param>
+        /// <param name="d">The remaining values of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(T a, T b, T c, params T[] d)
         {
             return Subtract((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Subtracts multiple numeric values [step_1 - step_2 - step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.Zero;
@@ -355,47 +320,32 @@ namespace Towel.Mathematics
 
         #region Multiply
 
-        #region Syntax Sugar For Generic Constant Declaration
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T MULTIPLY<T>(T a, int b)
-        {
-            return Multiply(a, FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T MULTIPLY<T>(int a, int b)
-        {
-            return Multiply(FromInt32<T>(a), FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T MULTIPLY<T>(int a, T b)
-        {
-            return Multiply(FromInt32<T>(a), b);
-        }
-
-        #endregion
-
+        /// <summary>Multiplies two numeric values [a * b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the multiplication.</param>
+        /// <param name="b">The second operand of the multiplication.</param>
+        /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(T a, T b)
         {
             return MultiplyImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Multiplies multiple numeric values [a * b * c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the multiplication.</param>
+        /// <param name="b">The second operand of the multiplication.</param>
+        /// <param name="c">The third operand of the multiplication.</param>
+        /// <param name="d">The remaining values of the multiplication.</param>
+        /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(T a, T b, T c, params T[] d)
         {
             return Multiply((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.One;
@@ -419,47 +369,32 @@ namespace Towel.Mathematics
 
         #region Divide
 
-        #region Syntax Sugar For Generic Constant Declaration
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T DIVIDE<T>(T a, int b)
-        {
-            return Divide(a, FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T DIVIDE<T>(int a, int b)
-        {
-            return Divide(FromInt32<T>(a), FromInt32<T>(b));
-        }
-
-        /// <summary>
-        /// Syntax sugar for generic constant declaration. I kinda want to keep this "internal."
-        /// If made "public," it could be optimized using it's own delegate.
-        /// </summary>
-        internal static T DIVIDE<T>(int a, T b)
-        {
-            return Divide(FromInt32<T>(a), b);
-        }
-
-        #endregion
-
+        /// <summary>Divides two numeric values [a / b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the division.</param>
+        /// <param name="b">The second operand of the division.</param>
+        /// <returns>The result of the division.</returns>
         public static T Divide<T>(T a, T b)
         {
             return DivideImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Divides multiple numeric values [a / b / c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the division.</param>
+        /// <param name="b">The second operand of the division.</param>
+        /// <param name="c">The third operand of the division.</param>
+        /// <param name="d">The remaining values of the division.</param>
+        /// <returns>The result of the division.</returns>
         public static T Divide<T>(T a, T b, T c, params T[] d)
         {
             return Divide((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Divides multiple numeric values [step_1 / step_2 / step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the division.</returns>
         public static T Divide<T>(Stepper<T> stepper)
         {
             T result = Constant<T>.Zero;
@@ -496,6 +431,10 @@ namespace Towel.Mathematics
 
         #region Invert
 
+        /// <summary>Inverts a numeric value [1 / a].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The numeric value to invert.</param>
+        /// <returns>The result of the inversion.</returns>
 		public static T Invert<T>(T a)
         {
             return InvertImplementation<T>.Function(a);
@@ -516,16 +455,32 @@ namespace Towel.Mathematics
 
         #region Modulo
 
+        /// <summary>Modulos two numeric values [a % b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the modulation.</param>
+        /// <param name="b">The second operand of the modulation.</param>
+        /// <returns>The result of the modulation.</returns>
         public static T Modulo<T>(T a, T b)
         {
             return ModuloImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Modulos multiple numeric values [a % b % c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the modulation.</param>
+        /// <param name="b">The second operand of the modulation.</param>
+        /// <param name="c">The third operand of the modulation.</param>
+        /// <param name="d">The remaining values of the modulation.</param>
+        /// <returns>The result of the modulation.</returns>
         public static T Modulo<T>(T a, T b, T c, params T[] d)
         {
             return Modulo((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the modulation.</returns>
         public static T Modulo<T>(Stepper<T> operands)
         {
             T result = Constant<T>.Zero;
@@ -562,16 +517,32 @@ namespace Towel.Mathematics
 
         #region Power
 
+        /// <summary>Powers two numeric values [a ^ b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the power.</param>
+        /// <param name="b">The first operand of the power.</param>
+        /// <returns>The result of the power.</returns>
         public static T Power<T>(T a, T b)
         {
             return PowerImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Powers multiple numeric values [a ^ b ^ c...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the power.</param>
+        /// <param name="b">The second operand of the power.</param>
+        /// <param name="c">The third operand of the power.</param>
+        /// <param name="d">The remaining values of the power.</param>
+        /// <returns>The result of the power.</returns>
         public static T Power<T>(T a, T b, T c, params T[] d)
         {
             return Power((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
         }
 
+        /// <summary>Powers multiple numeric values [step_1 ^ step_2 ^ step_3...].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The stepper containing the values.</param>
+        /// <returns>The result of the power.</returns>
         public static T Power<T>(Stepper<T> operands)
         {
             T result = Constant<T>.Zero;
@@ -626,11 +597,15 @@ namespace Towel.Mathematics
 
         #region SquareRoot
 
+        /// <summary>Square roots a numeric value [√a].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The numeric value to square root.</param>
+        /// <returns>The result of the square root.</returns>
         public static T SquareRoot<T>(T a)
         {
             return Root(a, Constant<T>.Two);
         }
-        
+
         //internal static class SquareRootImplementation<T>
         //{
         //    internal static Func<T, T> Function = (T a) =>
@@ -651,9 +626,14 @@ namespace Towel.Mathematics
 
         #region Root
 
-        public static T Root<T>(T @base, T root)
+        /// <summary>Roots two numeric values [a ^ (1 / b)].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="base">The base of the root.</param>
+        /// <param name="root">The root of the operation.</param>
+        /// <returns>The result of the root.</returns>
+        public static T Root<T>(T a, T b)
 		{
-            return Power(@base, Invert(root));
+            return Power(a, Invert(b));
         }
 
         #endregion
@@ -683,6 +663,10 @@ namespace Towel.Mathematics
 
         #region IsInteger
 
+        /// <summary>Determines if a numerical value is an integer.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine integer status of.</param>
+        /// <returns>Whether or not the value is an integer.</returns>
         public static bool IsInteger<T>(T a)
         {
             return IsIntegerImplementation<T>.Function(a);
@@ -705,6 +689,10 @@ namespace Towel.Mathematics
 
         #region IsNonNegative
 
+        /// <summary>Determines if a numerical value is non-negative.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine non-negative status of.</param>
+        /// <returns>Whether or not the value is non-negative.</returns>
         public static bool IsNonNegative<T>(T a)
         {
             return IsNonNegativeImplementation<T>.Function(a);
@@ -725,6 +713,10 @@ namespace Towel.Mathematics
 
         #region IsNegative
 
+        /// <summary>Determines if a numerical value is negative.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine negative status of.</param>
+        /// <returns>Whether or not the value is negative.</returns>
         public static bool IsNegative<T>(T a)
         {
             return IsNegativeImplementation<T>.Function(a);
@@ -746,6 +738,10 @@ namespace Towel.Mathematics
 
         #region IsPositive
 
+        /// <summary>Determines if a numerical value is positive.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine positive status of.</param>
+        /// <returns>Whether or not the value is positive.</returns>
         public static bool IsPositive<T>(T a)
         {
             return IsPositiveImplementation<T>.Function(a);
@@ -766,6 +762,10 @@ namespace Towel.Mathematics
 
         #region IsEven
 
+        /// <summary>Determines if a numerical value is even.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine even status of.</param>
+        /// <returns>Whether or not the value is even.</returns>
         public static bool IsEven<T>(T a)
         {
             return IsEvenImplementation<T>.Function(a);
@@ -786,6 +786,10 @@ namespace Towel.Mathematics
 
         #region IsOdd
 
+        /// <summary>Determines if a numerical value is odd.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine odd status of.</param>
+        /// <returns>Whether or not the value is odd.</returns>
         public static bool IsOdd<T>(T a)
         {
             return IsOddImplementation<T>.Function(a);
@@ -796,7 +800,7 @@ namespace Towel.Mathematics
             internal static Func<T, bool> Function = (T a) =>
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.NotEqual(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.Zero));
+                Expression BODY = Expression.NotEqual(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.One));
                 Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
                 return Function(a);
             };
@@ -806,21 +810,33 @@ namespace Towel.Mathematics
 
         #region IsPrime
 
-        public static bool IsPrime<T>(T value)
+        /// <summary>Determines if a numerical value is prime.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to determine prime status of.</param>
+        /// <returns>Whether or not the value is prime.</returns>
+        public static bool IsPrime<T>(T a)
         {
-            if (Equal(Modulo(value, Constant<T>.One), Constant<T>.Zero))
+            if (IsInteger(a))
             {
-                if (Equal(value, Constant<T>.Two))
+                if (Equal(a, Constant<T>.Two))
+                {
                     return true;
-                T squareRoot = SquareRoot(value);
+                }
+                T squareRoot = SquareRoot(a);
                 int squareRootInt = ToInt32(squareRoot);
                 for (int divisor = 3; divisor <= squareRootInt; divisor += 2)
-                    if (Equal(Modulo<T>(value, FromInt32<T>(divisor)), Constant<T>.Zero))
+                {
+                    if (Equal(Modulo<T>(a, FromInt32<T>(divisor)), Constant<T>.Zero))
+                    {
                         return false;
+                    }
+                }
                 return true;
             }
             else
+            {
                 return false;
+            }
             
             //return IsPrimeImplementation<T>.Function(value);
         }
