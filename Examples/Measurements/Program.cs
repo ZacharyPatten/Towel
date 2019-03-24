@@ -11,9 +11,9 @@ namespace Measurements
             Console.WriteLine("==========================================");
             Console.WriteLine();
             
-            #region Angles
+            #region Angle
 
-            Console.WriteLine("  Angles--------------------------------------");
+            Console.WriteLine("  Angle--------------------------------------");
             Console.WriteLine();
             Angle<double> angle1 = new Angle<double>(90, Angle.Units.Degrees);
             Console.WriteLine("    angle1 = " + angle1);
@@ -33,7 +33,7 @@ namespace Measurements
 
             #region Length
 
-            Console.WriteLine("  Lengths--------------------------------------");
+            Console.WriteLine("  Length--------------------------------------");
             Console.WriteLine();
             Length<double> length1 = new Length<double>(1d, Length.Units.Meters);
             Console.WriteLine("    length1 = " + length1);
@@ -47,6 +47,28 @@ namespace Measurements
             Console.WriteLine("    length1 == length2 = " + (length1 == length2));
             Console.WriteLine("    length1 * 2 == length2 = " + (length1 * 2 == length2));
             Console.WriteLine("    length1 != length2 = " + (length1 != length2));
+            Console.WriteLine();
+
+            //object result = angle1 + length1; WILL NOT COMPILE (this is a good thing) :)
+
+            #endregion
+
+            #region Mass
+
+            Console.WriteLine("  Mass--------------------------------------");
+            Console.WriteLine();
+            Mass<double> mass1 = new Mass<double>(1d, Mass.Units.Grams);
+            Console.WriteLine("    mass1 = " + mass1);
+            Mass<double> mass2 = new Mass<double>(2d, Mass.Units.Kilograms);
+            Console.WriteLine("    mass2 = " + mass2);
+            Console.WriteLine("    mass1 + mass2 = " + (mass1 + mass2));
+            Console.WriteLine("    mass2 - mass1 = " + (mass1 - mass2));
+            Console.WriteLine("    mass1 * 2 = " + (mass1 * 2));
+            Console.WriteLine("    mass1 / 2 = " + (mass1 / 2));
+            Console.WriteLine("    mass1 > mass2 = " + (mass1 > mass2));
+            Console.WriteLine("    mass1 == mass2 = " + (mass1 == mass2));
+            Console.WriteLine("    mass1 * 2 == mass2 = " + (mass1 * 2 == mass2));
+            Console.WriteLine("    mass1 != mass2 = " + (mass1 != mass2));
             Console.WriteLine();
 
             //object result = angle1 + length1; WILL NOT COMPILE (this is a good thing) :)
