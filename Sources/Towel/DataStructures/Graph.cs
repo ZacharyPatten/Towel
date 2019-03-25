@@ -55,16 +55,18 @@ namespace Towel.DataStructures
         [Serializable]
         public class Edge
 		{
-			private T _start;
-			private T _end;
+            /// <summary>The starting node of the edge.</summary>
+			public readonly T Start;
+            /// <summary>The ending node of hte edge.</summary>
+			public readonly T End;
 
-			public T Start { get { return this._start; } set { this._start = value; } }
-			public T End { get { return this._end; } set { this._end = value; } }
-
+            /// <summary></summary>
+            /// <param name="start"></param>
+            /// <param name="end"></param>
 			public Edge(T start, T end)
 			{
-				this._start = start;
-				this._end = end;
+				this.Start = start;
+				this.End = end;
 			}
 		}
 
@@ -84,17 +86,13 @@ namespace Towel.DataStructures
             this._edges = new OmnitreePointsLinked<Edge, T, T>((Edge a, out T start, out T end) => { start = a.Start; end = a.End; });
 		}
 
-        public GraphSetOmnitree(Compare<T> compare, Hash<T> hash)
-		{
-			this._nodes = new SetHashList<T>((T a, T b) => { return compare(a, b) == Comparison.Equal; }, hash);
-            this._edges = new OmnitreePointsLinked<Edge, T, T>((Edge a, out T start, out T end) => { start = a.Start; end = a.End; });
-		}
+        public GraphSetOmnitree() : this(Equate.Default, Compare.Default, Hash.Default) { }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int EdgeCount { get { return this._edges.Count; } }
+        public int EdgeCount { get { return this._edges.Count; } }
 		public int NodeCount { get { return this._nodes.Count; } }
 
 		#endregion
@@ -104,11 +102,6 @@ namespace Towel.DataStructures
 		public DataStructure<T> Clone()
 		{
 			return new GraphSetOmnitree<T>(this);
-		}
-
-		public T[] ToArray()
-		{
-			throw new System.NotImplementedException();
 		}
 
 		public void Clear()
@@ -126,8 +119,10 @@ namespace Towel.DataStructures
 
 		public void Neighbors(T a, Step<T> function)
 		{
-			if (!this._nodes.Contains(a))
-				throw new System.InvalidOperationException("Attempting to look up the neighbors of a node that does not belong to a graph");
+            if (!this._nodes.Contains(a))
+            {
+                throw new InvalidOperationException("Attempting to look up the neighbors of a node that does not belong to a graph");
+            }
 
 			this._edges.Stepper((Edge e) => { function(e.End); }, a, a, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
 		}
@@ -135,11 +130,11 @@ namespace Towel.DataStructures
 		public void Add(T start, T end)
 		{
 			if (!this._nodes.Contains(start))
-				throw new System.InvalidOperationException("Adding an edge to a graph from a node that does not exists");
+				throw new InvalidOperationException("Adding an edge to a graph from a node that does not exists");
 			if (!this._nodes.Contains(end))
-				throw new System.InvalidOperationException("Adding an edge to a graph to a node that does not exists");
+				throw new InvalidOperationException("Adding an edge to a graph to a node that does not exists");
 			this._edges.Stepper(
-					(Edge e) => { throw new System.InvalidOperationException("Adding an edge to a graph that already exists"); },
+					(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
 					start, start, end, end);
 
 			this._edges.Add(new Edge(start, end));
@@ -147,33 +142,37 @@ namespace Towel.DataStructures
 
 		public void Remove(T start, T end)
 		{
-			if (!this._nodes.Contains(start))
-				throw new System.InvalidOperationException("Removing an edge to a graph from a node that does not exists");
-			if (!this._nodes.Contains(end))
-				throw new System.InvalidOperationException("Removing an edge to a graph to a node that does not exists");
-
-			bool exists = false;
+            if (!this._nodes.Contains(start))
+            {
+                throw new InvalidOperationException("Removing an edge to a graph from a node that does not exists");
+            }
+            if (!this._nodes.Contains(end))
+            {
+                throw new InvalidOperationException("Removing an edge to a graph to a node that does not exists");
+            }
 			this._edges.Stepper(
-					(Edge e) => { exists = true; },
-					start, end, start, end);
-			if (!exists)
-				throw new System.InvalidOperationException("Removing a non-existing edge in a graph");
-
-			this._edges.Remove(start, end, start, end);
-		}
+                (Edge e) => throw new InvalidOperationException("Removing a non-existing edge in a graph"),
+                start, start, end, end);
+            
+            this._edges.Remove(start, start, end, end);
+        }
 
 		public void Add(T node)
 		{
-			if (this._nodes.Contains(node))
-				throw new System.InvalidOperationException("Adding an already-existing node to a graph");
+            if (this._nodes.Contains(node))
+            {
+                throw new InvalidOperationException("Adding an already-existing node to a graph");
+            }
 
 			this._nodes.Add(node);
 		}
 
 		public void Remove(T node)
 		{
-			if (this._nodes.Contains(node))
-				throw new System.InvalidOperationException("Removing non-existing node from a graph");
+            if (this._nodes.Contains(node))
+            {
+                throw new InvalidOperationException("Removing non-existing node from a graph");
+            }
 
             this._edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
             this._edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
@@ -204,13 +203,13 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		System.Collections.Generic.IEnumerator<T>
 			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		#endregion

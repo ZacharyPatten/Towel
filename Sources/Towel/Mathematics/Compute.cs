@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Towel.Measurements;
 using System.ComponentModel;
+using Towel.Algorithms;
 
 namespace Towel.Mathematics
 {
@@ -1646,7 +1647,7 @@ namespace Towel.Mathematics
             //}
 
             // standard algorithm (sort and grab middle value)
-            Algorithms.Sort<T>.Merge(compare, values);
+            Sort.Merge(compare, values);
             if (values.Length % 2 == 1) // odd... just grab middle value
             {
                 return values[values.Length / 2];
@@ -1815,7 +1816,7 @@ namespace Towel.Mathematics
             T[] ordered = new T[count];
             int a = 0;
             stepper(i => { ordered[a++] = i; });
-            Algorithms.Sort<T>.Quick(Compare, ordered);
+            Sort.Quick(Compare, ordered);
             T[] resultingQuantiles = new T[quantiles + 1];
             resultingQuantiles[0] = ordered[0];
             resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];

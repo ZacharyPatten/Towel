@@ -415,8 +415,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    /// <summary>Implements a growing list as an array (with expansions/contractions)
-    /// data structure that inherits InterfaceTraversable.</summary>
+    /// <summary>A list implemented as a growing array.</summary>
     /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]

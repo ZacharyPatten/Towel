@@ -1,16 +1,18 @@
-﻿namespace Towel.Diagnostics
+﻿using System;
+
+namespace Towel.Diagnostics
 {
 	public static class Performance
 	{
-		public static System.TimeSpan Time_DateTimNow(System.Action action)
+		public static TimeSpan Time_DateTimNow(Action action)
 		{
-			System.DateTime a = System.DateTime.Now;
+			DateTime a = DateTime.Now;
 			action();
-			System.DateTime b = System.DateTime.Now;
+			DateTime b = DateTime.Now;
 			return b - a;
 		}
 
-		public static System.TimeSpan Time_StopWatch(System.Action action)
+		public static TimeSpan Time_StopWatch(Action action)
 		{
 			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
 			watch.Restart();

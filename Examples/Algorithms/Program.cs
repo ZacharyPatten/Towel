@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Towel.DataStructures;
 using Towel.Mathematics;
 using Towel.Algorithms;
@@ -16,120 +17,88 @@ namespace Algorithms
 
             #region Sorting
             {
+                // Note: these functions are not restricted to array types. You can use the
+                // overloads with "Get" and "Assign" delegates to use them on any int-indexed
+                // data structure.
+
                 Console.WriteLine(" Sorting Algorithms----------------------");
                 Console.WriteLine();
                 int[] dataSet = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-                Console.Write("  Data Set:");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Console.Write("  Data Set:" + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                // if you want to sort non-array types, see the overloads using Get<int> and Assign<int>
-                // Delegates
-                //Get<int> get = (int index) => { return dataSet[index]; };
-                //Assign<int> assign = (int index, int value) => { dataSet[index] = value; };
-
                 // Shuffling (Randomizing)
-                Sort<int>.Shuffle(dataSet);
-                Console.Write("  Shuffle (Randomizing): ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Shuffle(dataSet);
+                Console.Write("  Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 // Bubble
-                Sort<int>.Bubble(dataSet);
-                Console.Write("  Bubble: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Bubble(dataSet);
+                Console.Write("  Bubble: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // Selection
-                Sort<int>.Selection(dataSet);
-                Console.Write("  Selection: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Selection(dataSet);
+                Console.Write("  Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // Insertion
-                Sort<int>.Insertion(dataSet);
-                Console.Write("  Insertion: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Insertion(dataSet);
+                Console.Write("  Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // Quick
-                Sort<int>.Quick(dataSet);
-                Console.Write("  Quick: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Quick(dataSet);
+                Console.Write("  Quick: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // Merge
-                Sort<int>.Merge(Compute.Compare, dataSet);
-                Console.Write("  Merge: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Merge(Compute.Compare, dataSet);
+                Console.Write("  Merge: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // Heap
-                Sort<int>.Heap(Compute.Compare, dataSet);
-                Console.Write("  Heap: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.Heap(Compute.Compare, dataSet);
+                Console.Write("  Heap: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 Console.WriteLine("  shuffling dataSet...");
-                Sort<int>.Shuffle(dataSet);
+                Sort.Shuffle(dataSet);
 
                 // OddEven
-                Sort<int>.OddEven(Compute.Compare, dataSet);
-                Console.Write("  OddEven: ");
-                Console.Write(dataSet[0]);
-                for (int i = 1; i < dataSet.Length; i++)
-                    Console.Write(", " + dataSet[i]);
+                Sort.OddEven(Compute.Compare, dataSet);
+                Console.Write("  OddEven: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                //Sort<int>.Shuffle(get, set, 0, dataSet.Length);
+                //Console.WriteLine("  shuffling dataSet...");
+                //Sort<int>.Shuffle(dataSet);
 
                 //// Slow
                 //Sort<int>.Slow(Logic.compare, get, set, 0, dataSet.Length);
-                //Console.Write("Slow: ");
-                //Console.Write(dataSet[0]);
-                //for (int i = 1; i < dataSet.Length; i++)
-                //	Console.Write(", " + dataSet[i]);
+                //Console.Write("Slow: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 //Console.WriteLine();
 
-                Sort<int>.Shuffle(dataSet);
+                //Console.WriteLine("  shuffling dataSet...");
+                //Sort<int>.Shuffle(dataSet);
 
                 // Bogo
                 //Sort<int>.Bogo(Logic.compare, get, set, 0, dataSet.Length);
-                Console.Write("  Bogo: Disabled (takes forever)");
-                //Console.Write(dataSet[0]);
-                //for (int i = 1; i < dataSet.Length; i++)
-                //	Console.Write(", " + dataSet[i]);
+                Console.Write("  Bogo: Disabled (takes forever)"); //+ string.Join(", ", dataSet.Select(x => x.ToString())));
                 //Console.WriteLine();
 
                 Console.WriteLine();
@@ -143,7 +112,7 @@ namespace Algorithms
                 Console.WriteLine();
 
                 // make a graph
-                Graph<int> graph = new GraphSetOmnitree<int>(Compare.Default, Hash.Default)
+                Graph<int> graph = new GraphSetOmnitree<int>()
                 {
                     // add nodes
                     0,
@@ -235,157 +204,174 @@ namespace Algorithms
             {
                 // Lets say you are coding enemy AI and you want the AI to find a path towards the player
                 // in order to attack them. Here are their starting positions:
-                Vector<float> enemy_location = new Vector<float>(-100, 0, -50);
-                Vector<float> player_location = new Vector<float>(200, 0, -50);
-                float enemy_attack_range = 3; // enemy has a melee attack with 3 range
+                Vector<float> enemyLocation = new Vector<float>(-100f, 0f, -50f);
+                Vector<float> playerLocation = new Vector<float>(200f, 0f, -50f);
+                float enemyAttackRange = 3f; // enemy has a melee attack with 3 range
 
                 // Lets say most of the terrain is open, but there is a big rock in between them that they
                 // must go around.
-                Vector<float> rock_location = new Vector<float>(15, 0, -40);
-                float rock_radius = 20;
+                Vector<float> rockLocation = new Vector<float>(15f, 0f, -40f);
+                float rockRadius = 20f;
+
+                // Make sure we don't re-use locations (must be wiped after running the algorithm)
+                Set<Vector<float>> alreadyUsed = new SetHashList<Vector<float>>();
 
                 // So, we just need to validate movement locations (make sure the path finding algorithm
                 // ignores locations inside the rock)
                 bool validateMovementLocation(Vector<float> location)
                 {
-                    float mag = (location - rock_location).Magnitude;
-                    if (mag <= rock_radius)
-                        return false; // inside rock (not valid)
-                    return true; // not inside rock (valid)
+                    // if the location is inside the rock, it is not a valid movement
+                    float magnitude = (location - rockLocation).Magnitude;
+                    if (magnitude <= rockRadius)
+                    {
+                        return false;
+                    }
 
-                    // NOTE:
-                    // This function will normally be handled by your physics engine if you are running one.
+                    // NOTE: If you are running a physics engine, you might be able to just call it to validate a location.
+
+                    // if the location was already used, then let's consider it invalid, because
+                    // another path (which is faster) has already reached that location
+                    if (alreadyUsed.Contains(location))
+                    {
+                        return false;
+                    }
+
+                    return true;
                 }
-
-                // Make sure we don't re-use locations (must be wiped after running the algorithm)
-                Set<Vector<float>> already_used = new SetHashList<Vector<float>>();
 
                 // Now we need the neighbor function (getting the neighbors of the current location).
                 void neighborFunction(Vector<float> currentLocation, Step<Vector<float>> neighbors)
                 {
-                    // lets make a simple neighbor function that returns 4 locations (directly north, south, east, and west)
-                    // and the distance of each node in the graph will be 1
-                    Vector<float>
-                        north = new Vector<float>(currentLocation.X + 1, currentLocation.Y, currentLocation.Z),
-                        east = new Vector<float>(currentLocation.X, currentLocation.Y, currentLocation.Z + 1),
-                        south = new Vector<float>(currentLocation.X - 1, currentLocation.Y, currentLocation.Z),
-                        west = new Vector<float>(currentLocation.X, currentLocation.Y, currentLocation.Z - 1);
-
-                    // validate the locations (not inside the rock) and make sure we have not already traversed the location
-                    if (validateMovementLocation(north) && !already_used.Contains(north))
-                    {
-                        already_used.Add(north); // mark for usage so we do not use this location again
-                        neighbors(north);
-                    }
-                    if (validateMovementLocation(east) && !already_used.Contains(east))
-                    {
-                        already_used.Add(east); // mark for usage so we do not use this location again
-                        neighbors(east);
-                    }
-                    if (validateMovementLocation(south) && !already_used.Contains(south))
-                    {
-                        already_used.Add(south); // mark for usage so we do not use this location again
-                        neighbors(south);
-                    }
-                    if (validateMovementLocation(west) && !already_used.Contains(west))
-                    {
-                        already_used.Add(west); // mark for usage so we do not use this location again
-                        neighbors(west);
-                    }
-
                     // NOTES:
                     // - This neighbor function has a 90 degree per-node resolution (360 / 4 [north/south/east/west] = 90).
-                    // - This neighbor function has a 1 unit per-node resolution, because we went 1 unit in each direction.
+                    // - This neighbor function has a 1 unit per-node distance resolution, because we went 1 unit in each direction.
 
                     // RECOMMENDATIONS:
                     // - If the path finding is failing, you may need to increase the resolution.
                     // - If the algorithm is running too slow, you may need to reduce the resolution.
+
+                    float distanceResolution = 1;
+
+                    float x = currentLocation.X;
+                    float y = currentLocation.Y;
+                    float z = currentLocation.Z;
+
+                    // Note: I'm using the X-axis and Z-axis here, but which axis you need to use
+                    // depends on your environment. Your "north" could be along the Y-axis for example.
+
+                    Vector<float> north = new Vector<float>(x + distanceResolution, y, z);
+                    if (validateMovementLocation(north))
+                    {
+                        alreadyUsed.Add(north); // mark location as used
+                        neighbors(north);
+                    }
+
+                    Vector<float> east = new Vector<float>(x, y, z + distanceResolution);
+                    if (validateMovementLocation(east))
+                    {
+                        alreadyUsed.Add(east); // mark location as used
+                        neighbors(east);
+                    }
+
+                    Vector<float> south = new Vector<float>(x - distanceResolution, y, z);
+                    if (validateMovementLocation(south))
+                    {
+                        alreadyUsed.Add(south); // mark location as used
+                        neighbors(south);
+                    }
+
+                    Vector<float> west = new Vector<float>(x, y, z - distanceResolution);
+                    if (validateMovementLocation(west))
+                    {
+                        alreadyUsed.Add(west); // mark location as used
+                        neighbors(west);
+                    }
                 }
 
-                // Now we need the heuristic function (how close are we to the goal).
+                // Heuristic function (how close are we to the goal)
                 float heuristicFunction(Vector<float> currentLocation)
                 {
                     // The goal is the player's location, so we just need our distance from the player.
-                    return (currentLocation - player_location).Magnitude;
+                    return (currentLocation - playerLocation).Magnitude;
                 }
 
                 // Lets say there is a lot of mud around the rock, and the mud makes our player move at half their normal speed.
                 // Our path finding needs to find the fastest route to the player, whether it be through the mud or not.
-                Vector<float> mud_location = new Vector<float>(15, 0, -70);
-                float mud_radius = 30;
+                Vector<float> mudLocation = new Vector<float>(15f, 0f, -70f);
+                float mudRadius = 30f;
 
-                // Now we need the cost function
-                float costFunction(Vector<float> location1, Vector<float> location2)
+                // Cost function
+                float costFunction(Vector<float> from, Vector<float> to)
                 {
-                    // If either locations are in the mud, lets increase the cost of moving to that spot.
-                    float mag1 = (location1 - mud_location).Magnitude;
-                    if (mag1 <= mud_radius)
-                        return 2;
-                    float mag2 = (location2 - mud_location).Magnitude;
-                    if (mag2 <= mud_radius)
-                        return 2;
+                    // If the location we are moving to is in the mud, lets adjust the
+                    // cost because mud makes us move slower.
+                    float magnitude = (to - mudLocation).Magnitude;
+                    if (magnitude <= mudRadius)
+                    {
+                        return 2f;
+                    }
 
                     // neither location is in the mud, it is just a standard movement at normal speed.
-                    return 1;
+                    return 1f;
                 }
 
-                // Now we need a goal function
+                // Goal function
                 bool goalFunction(Vector<float> currentLocation)
                 {
-                    float mag = (currentLocation - player_location).Magnitude;
                     // if the player is within the enemy's attack range WE FOUND A PATH! :)
-                    if (mag <= enemy_attack_range)
+                    float magnitude = (currentLocation - playerLocation).Magnitude;
+                    if (magnitude <= enemyAttackRange)
+                    {
                         return true;
+                    }
 
                     // the enemy is not yet within attack range
                     return false;
                 }
 
                 // We have all the necessary parameters. Run the pathfinding algorithms!
-                Stepper<Vector<float>> aStarPath = Search.Graph<Vector<float>, float>(
-                    enemy_location,
-                    neighborFunction,
-                    heuristicFunction,
-                    costFunction,
-                    goalFunction);
+                Stepper<Vector<float>> aStarPath =
+                    Search.Graph(
+                        enemyLocation,
+                        neighborFunction,
+                        heuristicFunction,
+                        costFunction,
+                        goalFunction);
 
-                // NOTE:
-                // if the "Astar" function returns "null" there is no valid path. (in this example there
-                // are valid paths, so I didn't add a nul check)
+                // Flush the already used markers before running the Greedy algorithm.
+                // Normally you won't run two algorithms for the same graph/location, but 
+                // we are running both algorithms in this example to demonstrate the
+                // differences between them.
+                alreadyUsed.Clear();
 
-                // Here is the path converted to an array (easier to read while debugging)
-                Vector<float>[] aStarPath_array = aStarPath.ToArray();
+                Stepper<Vector<float>> greedyPath = 
+                    Search.Graph(
+                        enemyLocation,
+                        neighborFunction,
+                        heuristicFunction,
+                        goalFunction);
 
-                // flush the duplicate locations checker before running the Greedy algorithm
-                already_used.Clear();
+                // NOTE: If there is no valid path, then "Search.Graph" will return "null."
+                // For this example, I know that there will be a valid path so I did not 
+                // include a null check.
+                
+                // Lets convert the paths into arrays so you can look at them in the debugger. :)
+                Vector<float>[] aStarPathArray = aStarPath.ToArray();
+                Vector<float>[] greedyPathArray = greedyPath.ToArray();
 
-                Stepper<Vector<float>> greedyPath = Search.Graph<Vector<float>, float>(
-                    enemy_location,
-                    neighborFunction,
-                    heuristicFunction,
-                    goalFunction);
-
-                // Here is the path converted to an array (easier to read while debugging)
-                Vector<float>[] greedyPath_array = greedyPath.ToArray();
-
-
-                // lets calculate the movement cost of each path
-
-                float total_cost_astar = Compute.Add<float>(step =>
+                // lets calculate the movement cost of each path to see how they compare
+                float astartTotalCost = Compute.Add<float>(step =>
                 {
-                    for (int i = 0; i < aStarPath_array.Length - 1; i++)
+                    for (int i = 0; i < aStarPathArray.Length - 1; i++)
                     {
-                        float cost = costFunction(aStarPath_array[i], aStarPath_array[i + 1]);
-                        step(cost);
+                        step(costFunction(aStarPathArray[i], aStarPathArray[i + 1]));
                     }
                 });
-
-                float total_cost_greedy = Compute.Add<float>(step =>
+                float greedyTotalCost = Compute.Add<float>(step =>
                 {
-                    for (int i = 0; i < greedyPath_array.Length - 1; i++)
+                    for (int i = 0; i < greedyPathArray.Length - 1; i++)
                     {
-                        float cost = costFunction(greedyPath_array[i], greedyPath_array[i + 1]);
-                        step(cost);
+                        step(costFunction(greedyPathArray[i], greedyPathArray[i + 1]));
                     }
                 });
 

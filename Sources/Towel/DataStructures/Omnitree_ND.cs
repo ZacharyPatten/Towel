@@ -190,7 +190,7 @@ namespace Towel.DataStructures
             if (!exists)
                 return default(T);
 
-            Towel.Algorithms.Sort<Bound<T>>.Merge(Bound<T>.Compare(compare), index => bounds[index], (index, value) => { bounds[index] = value; }, 0, (int)bounds.Length);
+            Towel.Algorithms.Sort.Merge(Bound<T>.Compare(compare), index => bounds[index], (index, value) => { bounds[index] = value; }, 0, (int)bounds.Length);
             
             // after sorting, we need to find the middle-most value that exists
             ulong medianIndex = bounds.Length / 2;

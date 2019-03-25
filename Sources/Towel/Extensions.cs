@@ -577,7 +577,7 @@ namespace System
         /// <param name="iList">The structure to be shuffled.</param>
         public static void Shuffle<T>(this Random random, IList<T> iList)
         {
-            Sort<T>.Shuffle(random, Accessor.Get(iList), Accessor.Assign(iList), 0, iList.Count);
+            Sort.Shuffle(random, Accessor.Get(iList), Accessor.Assign(iList), 0, iList.Count);
         }
 
         /// <summary>Shuffles the elements of an IList into random order.</summary>
@@ -589,7 +589,7 @@ namespace System
         /// <param name="end">The </param>
         public static void Shuffle<T>(this Random random, Get<T> get, Assign<T> assign, int start, int end)
         {
-            Sort<T>.Shuffle(random, get, assign, start, end);
+            Sort.Shuffle(random, get, assign, start, end);
         }
 
         /// <summary>Chooses an item at random (all equally weighted).</summary>

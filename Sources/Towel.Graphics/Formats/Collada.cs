@@ -170,7 +170,7 @@ namespace Towel.Graphics.Formats
                     jointAndWeightsPerVertex[j] = new Link<int, float>(jointIndex, weight);
                 }
 
-                Sort<Link<int, float>>.Merge((x, y) => Compare.Invert(Compute.Compare(x._2, y._2)), jointAndWeightsPerVertex);
+                Sort.Merge((x, y) => Compare.Invert(Compute.Compare(x._2, y._2)), jointAndWeightsPerVertex);
 
                 // Joint Effector Count Syncronization (get all verteces to have the same number of effectors)
                 if (count > maxJointEffectors) // too many effectors (select largest weights)

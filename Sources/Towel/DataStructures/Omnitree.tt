@@ -939,7 +939,7 @@ namespace Towel.DataStructures
                         values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
                         for (ulong i = 0; i < additions.Length; i++)
                             values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-                        Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+                        Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
                     };
 
                     if (allowMultithreading)
@@ -993,7 +993,7 @@ namespace Towel.DataStructures
                         values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
                         for (int i = 0; i < additions.Length; i++)
                             values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-                        Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+                        Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
                     };
 
                     if (allowMultithreading)
@@ -1257,8 +1257,8 @@ namespace Towel.DataStructures
                     values<#= j #>[i] = value<#= j #>;<# } #>
                 }
                 // sort the values<# for (int j = 1; j <= i; j++) { #>
-                if (_defaultCompare<#= j #>) Towel.Algorithms.Sort<Axis<#= j #>>.Merge(Compare.Default, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);
-                else Towel.Algorithms.Sort<Axis<#= j #>>.Merge(_compare<#= j #>, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);<# } #>
+                if (_defaultCompare<#= j #>) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);
+                else Towel.Algorithms.Sort.Merge(_compare<#= j #>, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);<# } #>
                 // pull out the lazy medians (if even # of items... just take the left)
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<<#= chain_AxisX #>>(values1[index]<# for (int j = 2; j <= i; j++) { #>, values<#= j #>[index]<# } #>);
@@ -2953,7 +2953,7 @@ namespace Towel.DataStructures
 //							values<#= j #>[i * 2 + 1] = bounds.Max1;
 //						}
 //
-//                        Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//                        Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //                    };
 //
 //                    if (allowMultithreading)
@@ -3006,7 +3006,7 @@ namespace Towel.DataStructures
 //                        values<#= j #> = new IndexedBigArray<Axis<#= j #>>(additions.Length);
 //                        for (int i = 0; i < additions.Length; i++)
 //                            values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-//                        Towel.Algorithms.Sort<Axis<#= j #>>.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//                        Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //                    };
 //
 //                    if (allowMultithreading)
