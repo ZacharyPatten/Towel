@@ -37,7 +37,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class AddableLinked<T> : Addable<T>
 	{
-		// Fields
 		internal int _count;
 		internal Node _head;
 		internal Node _tail;
@@ -417,7 +416,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class AddableArray<T> : Addable<T>
 	{
-		// Fields
 		internal T[] _list;
 		internal int _count;
 		internal Equate<T> _equate;

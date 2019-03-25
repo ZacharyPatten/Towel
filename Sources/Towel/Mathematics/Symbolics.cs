@@ -2808,9 +2808,9 @@ namespace Towel.Mathematics
 
                 return recursive(e);
             }
-            catch (System.ArithmeticException exception_specific)
+            catch (ArithmeticException arithmeticException)
             {
-                throw new ArgumentException("The expression could not be parsed.", nameof(e));
+                throw new ArgumentException("The expression could not be parsed.", nameof(e), arithmeticException);
             }
         }
 

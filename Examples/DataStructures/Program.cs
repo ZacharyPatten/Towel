@@ -227,6 +227,18 @@ namespace DataStructures
                 });
                 Console.WriteLine();
 
+                //// Note: Although the AVL tree implements IEnumerable, it should be
+                //// avoided. IEnumerable does not allow for recursion on recursive
+                //// data structures, so it requires a stack be stored on the program's
+                //// heap, which is incredibly slow.
+                //
+                //Console.Write("    Traversal Foreach: ");
+                //foreach (int i in avlTree)
+                //{
+                //    Console.Write(i);
+                //}
+                //Console.WriteLine();
+                
                 int minimum = random.Next(1, test / 2);
                 int maximum = random.Next(1, test / 2) + test / 2;
                 Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
