@@ -207,11 +207,11 @@ namespace DataStructures
 
             //Console.WriteLine("  Testing AvlTree_Linked<int>----------------");
             //// Construction
-            //AvlTree<int> avlTree_linked = new AvlTree_Linked<int>(Logic.compare);
+            //AvlTree<int> avlTree_linked = new AvlTreeLinked<int>(Compute.Compare);
             //// Adding Items
             //Console.Write("    Adding (0-" + test + ")...");
             //for (int i = 0; i < test; i++)
-            //	avlTree_linked.Add(i);
+            //    avlTree_linked.Add(i);
             //Console.WriteLine();
             //// Iteration
             //Console.Write("    Traversal: ");
@@ -226,19 +226,12 @@ namespace DataStructures
             //// Look Up Items
             //int avl_tree_linked_lookup = random.Next(0, test);
             //while (avl_tree_linked_lookup == avl_tree_linked_removal)
-            //	avl_tree_linked_lookup = random.Next(0, test);
-            //Console.WriteLine("    Look Up (" + avl_tree_linked_lookup + "): " + avlTree_linked.TryGet(avl_tree_linked_lookup, Logic.compare, out temp));
-            //Console.WriteLine("    Look Up (" + avl_tree_linked_removal + "): " + avlTree_linked.TryGet(avl_tree_linked_removal, Logic.compare, out temp));
-            //avlTree_linked.Get(avl_tree_linked_lookup, Logic.compare);
+            //    avl_tree_linked_lookup = random.Next(0, test);
+            ////Console.WriteLine("    Look Up (" + avl_tree_linked_lookup + "): " + avlTree_linked.TryGet(avl_tree_linked_lookup, Compute.Compare, out temp));
+            ////Console.WriteLine("    Look Up (" + avl_tree_linked_removal + "): " + avlTree_linked.TryGet(avl_tree_linked_removal, Compute.Compare, out temp));
+            //avlTree_linked.Get(avl_tree_linked_lookup, Compute.Compare);
             //// Current Min-Max Values
             //Console.WriteLine("    Least: " + avlTree_linked.CurrentLeast + " Greatest: " + avlTree_linked.CurrentGreatest);
-            //// Saving to a file
-            //string avltreelinked_file = "avlTree_linked." + ToExtension(avlTree_linked.GetType());
-            //Console.WriteLine("    File: \"" + avltreelinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(avltreelinked_file, avlTree_linked));
-            //AvlTree_Linked<int> deserialized_avltreelinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(avltreelinked_file, out deserialized_avltreelinked));
-            //Console.WriteLine();
 
             #endregion
 

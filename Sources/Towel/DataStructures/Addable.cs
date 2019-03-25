@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using System.Xml;
 
 namespace Towel.DataStructures
 {
@@ -16,7 +12,7 @@ namespace Towel.DataStructures
 		DataStructure.Clearable<T>,
 		DataStructure.Equating<T>
 	{
-		#region Methods
+		#region Members
 
 		/// <summary>Removes the first occurence of an item in the list.</summary>
 		/// <param name="predicate">The function to determine equality.</param>
