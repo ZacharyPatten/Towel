@@ -204,35 +204,54 @@ namespace DataStructures
             #endregion
 
             #region AVL Tree
+            {
+                Console.WriteLine("  AvlTree------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An AVL tree is a sorted binary tree.");
+                Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
+                Console.WriteLine();
 
-            //Console.WriteLine("  Testing AvlTree_Linked<int>----------------");
-            //// Construction
-            //AvlTree<int> avlTree_linked = new AvlTreeLinked<int>(Compute.Compare);
-            //// Adding Items
-            //Console.Write("    Adding (0-" + test + ")...");
-            //for (int i = 0; i < test; i++)
-            //    avlTree_linked.Add(i);
-            //Console.WriteLine();
-            //// Iteration
-            //Console.Write("    Traversal: ");
-            //avlTree_linked.Stepper((int current) => { Console.Write(current); });
-            //Console.WriteLine();
-            //// Removal
-            //int avl_tree_linked_removal = random.Next(0, test);
-            //avlTree_linked.Remove(avl_tree_linked_removal);
-            //Console.Write("    Remove(" + avl_tree_linked_removal + "): ");
-            //avlTree_linked.Stepper((int current) => { Console.Write(current); });
-            //Console.WriteLine();
-            //// Look Up Items
-            //int avl_tree_linked_lookup = random.Next(0, test);
-            //while (avl_tree_linked_lookup == avl_tree_linked_removal)
-            //    avl_tree_linked_lookup = random.Next(0, test);
-            ////Console.WriteLine("    Look Up (" + avl_tree_linked_lookup + "): " + avlTree_linked.TryGet(avl_tree_linked_lookup, Compute.Compare, out temp));
-            ////Console.WriteLine("    Look Up (" + avl_tree_linked_removal + "): " + avlTree_linked.TryGet(avl_tree_linked_removal, Compute.Compare, out temp));
-            //avlTree_linked.Get(avl_tree_linked_lookup, Compute.Compare);
-            //// Current Min-Max Values
-            //Console.WriteLine("    Least: " + avlTree_linked.CurrentLeast + " Greatest: " + avlTree_linked.CurrentGreatest);
+                AvlTree<int> avlTree = new AvlTreeLinked<int>();
 
+                Console.Write("    Adding (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    avlTree.Add(i);
+                }
+                Console.WriteLine();
+
+                Console.Write("    Traversal: ");
+                avlTree.Stepper((int current) =>
+                {
+                    Console.Write(current);
+                });
+                Console.WriteLine();
+
+                int minimum = random.Next(1, test / 2);
+                int maximum = random.Next(1, test / 2) + test / 2;
+                Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
+                avlTree.Stepper((int current) =>
+                {
+                    Console.Write(current);
+                }, minimum, maximum);
+                Console.WriteLine();
+
+                int removal = random.Next(0, test);
+                Console.Write("    Remove(" + removal + "): ");
+                avlTree.Remove(removal);
+                avlTree.Stepper((int current) =>
+                {
+                    Console.Write(current);
+                });
+                Console.WriteLine();
+
+                int contains = random.Next(0, test);
+                Console.WriteLine("    Contains(" + contains + "): " + avlTree.Contains(contains));
+                Console.WriteLine("    Current Least: " + avlTree.CurrentLeast);
+                Console.WriteLine("    Current Greatest: " + avlTree.CurrentGreatest);
+
+                Console.WriteLine();
+            }
             #endregion
 
             #region Red-Black Tree
