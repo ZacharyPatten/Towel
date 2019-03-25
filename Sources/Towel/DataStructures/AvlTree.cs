@@ -1125,8 +1125,8 @@ namespace Towel.DataStructures
                 temp.LeftChild = NODE.LeftChild;
                 NODE.LeftChild = temp.RightChild;
                 temp.RightChild = NODE;
-                SetHeight(temp.LeftChild);
                 SetHeight(temp.RightChild);
+                SetHeight(temp.LeftChild);
                 SetHeight(temp);
                 return temp;
             }
@@ -1212,7 +1212,11 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(1).</remarks>
 		private void SetHeight(Node node)
 		{
-            if (Height(node.LeftChild) < Height(node.RightChild))
+            if (node.LeftChild is null && node.RightChild is null)
+            {
+                node.Height = 0;
+            }
+            else if (Height(node.LeftChild) < Height(node.RightChild))
             {
                 node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
             }
