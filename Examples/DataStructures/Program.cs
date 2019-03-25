@@ -205,7 +205,7 @@ namespace DataStructures
 
             #region AVL Tree
             {
-                Console.WriteLine("  AvlTree------------------------");
+                Console.WriteLine("  AvlTree------------------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("    An AVL tree is a sorted binary tree.");
                 Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
@@ -341,7 +341,7 @@ namespace DataStructures
 
             #region OmnitreePoints
             {
-                Console.WriteLine("  OmnitreePoints----------------");
+                Console.WriteLine("  OmnitreePoints--------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("    An Omnitree is an ND SPT that allows for");
                 Console.WriteLine("    multidimensional sorting. Any time you need to look");
@@ -349,6 +349,9 @@ namespace DataStructures
                 Console.WriteLine("    you might want to use an Omnitree. If you need to");
                 Console.WriteLine("    perform ranged queries on multiple dimensions, then");
                 Console.WriteLine("    the Omnitree is the data structure for you.");
+                Console.WriteLine();
+                Console.WriteLine("    The \"OmnitreePoints\" stores individual points (vectors),");
+                Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
                 Console.WriteLine();
 
                 OmnitreePoints<int, double, double, double> omnitree =
@@ -433,10 +436,22 @@ namespace DataStructures
 
             #region OmnitreeBounds
             {
+                Console.WriteLine("  OmnitreeBounds--------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An Omnitree is an ND SPT that allows for");
+                Console.WriteLine("    multidimensional sorting. Any time you need to look");
+                Console.WriteLine("    items up based on multiple fields/properties, then");
+                Console.WriteLine("    you might want to use an Omnitree. If you need to");
+                Console.WriteLine("    perform ranged queries on multiple dimensions, then");
+                Console.WriteLine("    the Omnitree is the data structure for you.");
+                Console.WriteLine();
+                Console.WriteLine("    The \"OmnitreePoints\" stores individual points (vectors),");
+                Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
+                Console.WriteLine();
 
-                Console.WriteLine("  Testing OmnitreeBoundsLinked<int, double>-------");
-                // Construction
-                OmnitreeBounds<int, double, double, double> omnitreeBounds_linked = new OmnitreeBoundsLinked<int, double, double, double>(
+                OmnitreeBounds<int, double, double, double> omnitree =
+                    new OmnitreeBoundsLinked<int, double, double, double>(
+                    // This is a location delegate. (how to locate the item along each dimension)
                     (int index,
                      out double min1, out double max1,
                      out double min2, out double max2,
@@ -447,45 +462,72 @@ namespace DataStructures
                         min3 = index; max3 = index;
                     });
 
-                // Properties
-                Console.WriteLine("      Dimensions: " + omnitreeBounds_linked.Dimensions);
-                Console.WriteLine("      Count: " + omnitreeBounds_linked.Count);
-
-                // Addition
-                Console.Write("    Adding 0-" + test + ": ");
+                Console.Write("    Adding (0-" + test + ")...");
                 for (int i = 0; i < test; i++)
-                    omnitreeBounds_linked.Add(i);
-                omnitreeBounds_linked.Stepper((int current) => { Console.Write(current); });
-                Console.WriteLine();
-                Console.WriteLine("      Count: " + omnitreeBounds_linked.Count);
-                // Traversal
-                Console.Write("    Traversal [ALL]: ");
-                omnitreeBounds_linked.Stepper((int current) => { Console.Write(current); });
-                Console.WriteLine();
-                // Look Up 1
-                //Console.Write("    Traversal [(" + (test / 2) + ", " + (test / 2) + ", " + (test / 2) + ")->(" + test + ", " + test + ", " + test + ")]: ");
-                //omnitreeBounds_linked.Stepper((int current) => { Console.Write(current); },
-                //    test / 2, test,
-                //    test / 2, test,
-                //    test / 2, test);
-                //Console.WriteLine();
-                // Removal
-                Console.Write("    Remove 0-" + test / 3 + ": ");
-                omnitreeBounds_linked.RemoveOverlapped(
-                    0, test / 3,
-                    0, test / 3,
-                    0, test / 3);
-                omnitreeBounds_linked.Stepper((int current) => { Console.Write(current); });
-                Console.WriteLine();
-                Console.WriteLine("      Count: " + omnitreeBounds_linked.Count);
-                // Clear
-                Console.Write("    Clear: ");
-                omnitreeBounds_linked.Clear();
-                omnitreeBounds_linked.Stepper((int current) => { Console.Write(current); });
-                Console.WriteLine();
-                Console.WriteLine("      Count: " + omnitreeBounds_linked.Count);
+                {
+                    omnitree.Add(i);
+                }
                 Console.WriteLine();
 
+                Console.Write("    Traversal: ");
+                omnitree.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                int minimum = random.Next(1, test / 2);
+                int maximum = random.Next(1, test / 2) + test / 2;
+                Console.Write("    Spacial Traversal [" +
+                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
+                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: ");
+                omnitree.StepperOverlapped(i => Console.Write(i),
+                    minimum, maximum,
+                    minimum, maximum,
+                    minimum, maximum);
+                Console.WriteLine();
+
+                // Note: this "look up" is just a very narrow spacial query that (since we know the data)
+                // wil only give us one result.
+                int lookUp = random.Next(0, test);
+                Console.Write("    Look Up (" + lookUp + "): ");
+                omnitree.StepperOverlapped(i => Console.Write(i),
+                    lookUp, lookUp,
+                    lookUp, lookUp,
+                    lookUp, lookUp);
+                Console.WriteLine();
+
+                //void DoNothing() { }
+                //// Ignoring dimensions on traversals example.
+                //// If you want to ignore a column on a traversal, you can do so like this:
+                //omnitree.Stepper(i => DoNothing(),
+                //    lookUp, lookUp,
+                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None,
+                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None);
+                //Console.WriteLine();
+
+                Console.Write("    Counting Items In a Space [" +
+                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
+                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: " +
+                    omnitree.CountSubSpaceOverlapped(
+                        minimum, maximum,
+                        minimum, maximum,
+                        minimum, maximum));
+                Console.WriteLine();
+
+                int removalMinimum = random.Next(1, test / 2);
+                int removalMaximum = random.Next(1, test / 2) + test / 2;
+                Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum + "): ");
+                omnitree.RemoveOverlapped(
+                    removalMinimum, removalMaximum,
+                    removalMinimum, removalMaximum,
+                    removalMinimum, removalMaximum);
+                omnitree.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    Dimensions: " + omnitree.Dimensions);
+                Console.WriteLine("    Count: " + omnitree.Count);
+
+                omnitree.Clear(); // Clears the Omnitree
+
+                Console.WriteLine();
             }
             #endregion
 
