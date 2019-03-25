@@ -383,6 +383,8 @@ namespace DataStructures
                     minimum, maximum);
                 Console.WriteLine();
 
+                // Note: this "look up" is just a very narrow spacial query that (since we know the data)
+                // wil only give us one result.
                 int lookUp = random.Next(0, test);
                 Console.Write("    Look Up (" + lookUp + "): ");
                 omnitree.Stepper(i => Console.Write(i),
