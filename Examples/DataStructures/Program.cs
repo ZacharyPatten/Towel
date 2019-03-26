@@ -228,16 +228,6 @@ namespace DataStructures
 
                 Console.WriteLine();
             }
-
-            Console.WriteLine("  Testing Queue_Linked<int>------------------");
-            FirstInFirstOut<int> queue_linked = new FirstInFirstOutLinked<int>();
-            for (int i = 0; i < test; i++)
-                queue_linked.Enqueue(i);
-            Console.Write("    Traversal: ");
-            queue_linked.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            Console.WriteLine();
-
             #endregion
 
             #region Heap
