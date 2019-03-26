@@ -9,20 +9,18 @@ namespace Towel.DataStructures
 		DataStructure.Countable<T>,
 		DataStructure.Clearable<T>
 	{
-		#region void Push(T push);
-		/// <summary>Adds an item to the top of the stack.</summary>
-		/// <param name="push">The item to add to the stack.</param>
-		void Push(T push);
-		#endregion
-		#region T Peek();
+        #region Methods
+
+        /// <summary>Adds an item to the top of the stack.</summary>
+        /// <param name="push">The item to add to the stack.</param>
+        void Push(T push);
 		/// <summary>Returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		T Peek();
-		#endregion
-		#region T Pop();
 		/// <summary>Removes and returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		T Pop();
+
 		#endregion
 	}
 
@@ -31,56 +29,67 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class FirstInLastOutLinked<T> : FirstInLastOut<T>
 	{
-		// fields
 		private Node _top;
 		private int _count;
-		// nested types
-		#region private class Node
-
-		/// <summary>This class just holds the data for each individual node of the stack.</summary>
+		
+		#region Node
+        
 		[Serializable]
 		internal class Node
 		{
-			internal T _value;
-			internal Node _down;
-
-			internal T Value { get { return _value; } set { _value = value; } }
-			internal Node Down { get { return _down; } set { _down = value; } }
-
+			internal T Value;
+			internal Node Down;
+            
 			internal Node(T data, Node down) 
 			{
-				_value = data;
-				_down = down;
+                Value = data;
+                Down = down;
 			}
 		}
-		#endregion
-		// constructors
-		#region Stack_Linked()
-		/// <summary>Creates an instance of a stack.</summary>
-		/// <runtime>O(1)</runtime>
-		public FirstInLastOutLinked()
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Creates an instance of a stack.</summary>
+        /// <runtime>θ(1)</runtime>
+        public FirstInLastOutLinked()
 		{
 			_top = null;
 			_count = 0;
 		}
-		#endregion
-		// poperties
-		#region public int Count
-		/// <summary>Returns the number of items in the stack.</summary>
-		/// <runtime>O(1)</runtime>
-		public int Count { get { return this._count; } }
-		#endregion
-		// methods
-		#region public StackLinked<T> Clone()
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public FirstInLastOutLinked<T> Clone()
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>Returns the number of items in the stack.</summary>
+        /// <runtime>θ(1)</runtime>
+        public int Count
+        {
+            get
+            {
+                return this._count;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+        
+        #region Clone
+
+        /// <summary>Creates a shallow clone of this data structure.</summary>
+        /// <returns>A shallow clone of this data structure.</returns>
+        public FirstInLastOutLinked<T> Clone()
 		{
 			FirstInLastOutLinked<T> clone = new FirstInLastOutLinked<T>();
-			if (this._count == 0)
-				return clone;
-			Node copying = this._top;
-			Node cloneTop = new Node(this._top.Value, null);
+            if (_count == 0)
+            {
+                return clone;
+            }
+			Node copying = _top;
+			Node cloneTop = new Node(_top.Value, null);
 			Node cloning = cloneTop;
 			while (copying != null)
 			{
@@ -91,15 +100,20 @@ namespace Towel.DataStructures
 			clone._top = cloneTop;
 			return clone;
 		}
+
 		#endregion
-		#region public T[] ToArray()
+
+		#region ToArray
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		/// <remarks>Runtime: Towel(n).</remarks>
 		public T[] ToArray()
 		{
-			if (_count == 0)
-				return null;
+            if (_count == 0)
+            {
+                return null;
+            }
 			T[] array = new T[_count];
 			Node looper = _top;
 			for (int i = 0; i < _count; i++)
@@ -109,8 +123,11 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
-		#endregion
-		#region public void Push(T addition)
+
+        #endregion
+
+        #region Push
+
 		/// <summary>Adds an item to the top of the stack.</summary>
 		/// <param name="addition">The item to add to the stack.</param>
 		/// <runtime>O(1)</runtime>
@@ -119,8 +136,11 @@ namespace Towel.DataStructures
 			_top = new Node(addition, _top);
 			_count++;
 		}
+
 		#endregion
-		#region public T Peek()
+
+		#region Peek
+
 		/// <summary>Returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		/// <remarks>Runtime: O(1).</remarks>
@@ -131,8 +151,11 @@ namespace Towel.DataStructures
 			T peek = _top.Value;
 			return peek;
 		}
+
 		#endregion
-		#region public T Pop()
+
+		#region Pop
+
 		/// <summary>Removes and returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		/// <remarks>Runtime: O(1).</remarks>
@@ -143,8 +166,11 @@ namespace Towel.DataStructures
 			_count--;
 			return x;
 		}
+
 		#endregion
-		#region public void Clear()
+
+		#region Clear
+
 		/// <summary>Clears the stack to an empty state.</summary>
 		/// <remarks>Runtime: O(1). Note: causes considerable garbage collection.</remarks>
 		public void Clear()
@@ -152,119 +178,135 @@ namespace Towel.DataStructures
 			_top = null;
 			_count = 0;
 		}
-		#endregion
-		#region public void Stepper(Step<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
+
+        #endregion
+
+        #region Stepper and IEnumerable
+
+        #region Stepper
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
 		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
-				function(looper.Value);
+            for (Node looper = _top; looper != null; looper = looper.Down)
+            {
+                step(looper.Value);
+            }
 		}
-		#endregion
-		#region public void Stepper(StepRef<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> function)
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
 		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
+			for (Node looper = _top; looper != null; looper = looper.Down)
 			{
-				T temp = looper.Value;
-				function(ref temp);
-				looper.Value = temp;
+                step(ref looper.Value);
 			}
 		}
-		#endregion
-		#region public StepStatus Stepper(StepBreak<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
-				if (function(looper.Value) == StepStatus.Break)
-					return StepStatus.Break;
+            for (Node looper = _top; looper != null; looper = looper.Down)
+            {
+                if (step(looper.Value) == StepStatus.Break)
+                {
+                    return StepStatus.Break;
+                }
+            }
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region public StepStatus Stepper(StepRefBreak<T> function)
+
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> function)
+		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
+			for (Node looper = _top; looper != null; looper = looper.Down)
 			{
-				T temp = looper.Value;
-				if (function(ref temp) == StepStatus.Break)
+				if (step(ref looper.Value) == StepStatus.Break)
 				{
-					looper.Value = temp;
 					return StepStatus.Break;
 				}
-				looper.Value = temp;
 			}
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.IEnumerator
+
+        #endregion
+
+        #region IEnumerable
+
+        System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
-				yield return looper.Value;
+            for (Node looper = _top; looper != null; looper = looper.Down)
+            {
+                yield return looper.Value;
+            }
 		}
-		#endregion
-		#region System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			for (Node looper = this._top; looper != null; looper = looper.Down)
-				yield return looper.Value;
-		}
-		#endregion
-	}
 
-	/// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
-	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[System.Serializable]
+		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		{
+            for (Node looper = _top; looper != null; looper = looper.Down)
+            {
+                yield return looper.Value;
+            }
+		}
+
+        #endregion
+
+        #endregion
+
+        #endregion
+    }
+
+    /// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
+    /// <typeparam name="T">The generic type within the structure.</typeparam>
+    [Serializable]
 	public class FirstInLastOutArray<T> : FirstInLastOut<T>
 	{
-		// fields
-		private T[] _stack;
+		private T[] _array;
 		private int _count;
 		private int _minimumCapacity;
-		// constructors
-		#region public Stack_Array()
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-		/// <remarks>Runtime: O(1).</remarks>
-		public FirstInLastOutArray()
+        
+        #region Constructors
+
+        /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
+        public FirstInLastOutArray()
 		{
-			_stack = new T[1];
+			_array = new T[1];
 			_count = 0;
 			_minimumCapacity = 1;
 		}
-		#endregion
-		#region public Stack_Array(int minimumCapacity)
+        
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		/// <remarks>Runtime: O(1).</remarks>
 		public FirstInLastOutArray(int minimumCapacity)
 		{
-			_stack = new T[minimumCapacity];
+			_array = new T[minimumCapacity];
 			_count = 0;
 			_minimumCapacity = minimumCapacity;
 		}
-		#endregion
-		// properties
-		#region public int CurrentCapacity
-		/// <summary>Gets the current capacity of the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int CurrentCapacity { get { return _stack.Length; } }
-		#endregion
-		#region public int MinimumCapacity
+
+        #endregion
+
+        #region Properties
+        
+        /// <summary>Gets the current capacity of the list.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
+        public int CurrentCapacity
+        {
+            get
+            {
+                return _array.Length;
+            }
+        }
+
 		/// <summary>Allows you to adjust the minimum capacity of this list.</summary>
 		/// <remarks>Runtime: O(n), Omega(1).</remarks>
 		public int MinimumCapacity
@@ -276,178 +318,213 @@ namespace Towel.DataStructures
 			}
 			set
 			{
-				if (value < 1)
-					throw new System.InvalidOperationException("Attempting to set a minimum capacity to a negative or zero value.");
-				else if (value > _stack.Length)
-				{
-					T[] newList = new T[value];
-					_stack.CopyTo(newList, 0);
-					_stack = newList;
-				}
-				else
-					_minimumCapacity = value;
+                if (value < 1)
+                {
+                    throw new InvalidOperationException("Attempting to set a minimum capacity to a negative or zero value.");
+                }
+                else if (value > _array.Length)
+                {
+                    T[] newList = new T[value];
+                    _array.CopyTo(newList, 0);
+                    _array = newList;
+                }
+                else
+                {
+                    _minimumCapacity = value;
+                }
 			}
 		}
-		#endregion
-		#region public int Count
+
 		/// <summary>Gets the number of items in the list.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public int Count { get { return _count; } }
-		#endregion
-		// methods
-		#region public StackArray<T> Clone()
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public FirstInLastOutArray<T> Clone()
+		public int Count
+        {
+            get
+            {
+                return _count;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+        
+        #region Clone
+
+        /// <summary>Creates a shallow clone of this data structure.</summary>
+        /// <returns>A shallow clone of this data structure.</returns>
+        public FirstInLastOutArray<T> Clone()
 		{
 			FirstInLastOutArray<T> clone = new FirstInLastOutArray<T>();
-			clone._stack = new T[this._stack.Length];
+			clone._array = new T[this._array.Length];
 			for (int i = 0; i < this._count; i++)
-				clone._stack[i] = this._stack[i];
+				clone._array[i] = this._array[i];
 			clone._minimumCapacity = this._minimumCapacity;
 			clone._count = this._count;
 			return clone;
 		}
+
 		#endregion
-		#region public T[] ToArray()
+
+		#region ToArray
+
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
 		public T[] ToArray()
 		{
 			T[] array = new T[this._count];
 			for (int i = 0; i < this._count; i++)
-				array[i] = this._stack[i];
+				array[i] = this._array[i];
 			return array;
 		}
+
 		#endregion
-		#region public void Push(T addition)
+
+		#region Push
+
 		/// <summary>Adds an item to the end of the list.</summary>
 		/// <param name="addition">The item to be added.</param>
 		/// <remarks>Runtime: O(n), EstAvg(1). </remarks>
 		public void Push(T addition)
 		{
-			if (_count == _stack.Length)
+			if (_count == _array.Length)
 			{
-				if (_stack.Length > int.MaxValue / 2)
+				if (_array.Length > int.MaxValue / 2)
 					throw new System.InvalidOperationException("your queue is so large that it can no longer double itself (Int32.MaxValue barrier reached).");
-				T[] newStack = new T[_stack.Length * 2];
+				T[] newStack = new T[_array.Length * 2];
 				for (int i = 0; i < _count; i++)
-					newStack[i] = _stack[i];
-				_stack = newStack;
+					newStack[i] = _array[i];
+				_array = newStack;
 			}
-			_stack[_count++] = addition;
+			_array[_count++] = addition;
 		}
+
 		#endregion
-		#region public T Pop()
+
+		#region Pop
+
 		/// <summary>Removes the item at a specific index.</summary>
 		/// <remarks>Runtime: Towel(n - index).</remarks>
 		public T Pop()
 		{
 			if (_count == 0)
 				throw new System.InvalidOperationException("attempting to dequeue from an empty queue.");
-			if (_count < _stack.Length / 4 && _stack.Length / 2 > _minimumCapacity)
+			if (_count < _array.Length / 4 && _array.Length / 2 > _minimumCapacity)
 			{
-				T[] newQueue = new T[_stack.Length / 2];
+				T[] newQueue = new T[_array.Length / 2];
 				for (int i = 0; i < _count; i++)
-					newQueue[i] = _stack[i];
-				_stack = newQueue;
+					newQueue[i] = _array[i];
+				_array = newQueue;
 			}
-			T returnValue = _stack[--_count];
+			T returnValue = _array[--_count];
 			return returnValue;
 		}
+
 		#endregion
-		#region public T Peek()
+
+		#region Peek
+
 		/// <summary>Returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		/// <remarks>Runtime: O(1).</remarks>
 		public T Peek()
 		{
-			T returnValue = _stack[_count - 1];
+			T returnValue = _array[_count - 1];
 			return returnValue;
 		}
+
 		#endregion
-		#region public void Clear()
+
+		#region Clear
+
 		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
 		public void Clear()
 		{
-			_stack = new T[_minimumCapacity];
+			_array = new T[_minimumCapacity];
 			_count = 0;
 		}
-		#endregion
-		#region public void Stepper(Step<T> step_function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step_function)
+
+        #endregion
+
+        #region Stepper And IEnumerabe
+
+        #region Stepper
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
 		{
-			for (int i = 0; i < this._stack.Length; i++)
-				step_function(this._stack[i]);
+            for (int i = 0; i < this._count; i++)
+            {
+                step(_array[i]);
+            }
 		}
-		#endregion
-		#region public void Stepper(StepRef<T> step_function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step_function)
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
 		{
-			for (int i = 0; i < this._stack.Length; i++)
-				step_function(ref this._stack[i]);
+            for (int i = 0; i < this._count; i++)
+            {
+                step(ref _array[i]);
+            }
 		}
-		#endregion
-		#region public StepStatus Stepper(StepBreak<T> step_function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step_function)
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (int i = 0; i < this._stack.Length; i++)
-				switch (step_function(this._stack[i]))
-				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
-						continue;
-					default:
-						throw new System.NotImplementedException();
-				}
+            for (int i = 0; i < _count; i++)
+            {
+                if (step(_array[i]) == StepStatus.Break)
+                {
+                    return StepStatus.Break;
+                }
+            }
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region public StepStatus Stepper(StepRefBreak<T> step_function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step_function)
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (int i = 0; i < this._stack.Length; i++)
-				switch (step_function(ref this._stack[i]))
-				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
-						continue;
-					default:
-						throw new System.NotImplementedException();
-				}
+            for (int i = 0; i < this._count; i++)
+            {
+                if (step(ref _array[i]) == StepStatus.Break)
+                {
+                    return StepStatus.Break;
+                }
+            }
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
+        
+        #endregion
+
+        #region IEnumerable
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			for (int i = 0; i < this._count; i++)
-				yield return this._stack[i];
+            for (int i = 0; i < _count; i++)
+            {
+                yield return _array[i];
+            }
 		}
-		#endregion
-		#region System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+
+        System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
 		{
-			for (int i = 0; i < this._count; i++)
-				yield return this._stack[i];
+            for (int i = 0; i < _count; i++)
+            {
+                yield return _array[i];
+            }
 		}
-		#endregion
-	}
+
+        #endregion
+
+        #endregion
+
+        #endregion
+    }
 }

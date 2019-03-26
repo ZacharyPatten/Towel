@@ -42,47 +42,62 @@ namespace Towel.DataStructures
 		internal Node _tail;
 		internal Equate<T> _equate;
 
-        #region Nested Types
+        #region Node
 
         /// <summary>This class just holds the data for each individual node of the list.</summary>
         [Serializable]
         internal class Node
 		{
-			internal Node _next;
-			internal T _value;
+			internal Node Next;
+			internal T Value;
 
-			internal Node(T data) { _value = data; }
-
-			internal Node Next { get { return _next; } set { _next = value; } }
-			internal T Value { get { return _value; } set { _value = value; } }
+			internal Node(T data)
+            {
+                Value = data;
+            }
 		}
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
-		/// <summary>Creates an instance of a stalistck.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public AddableLinked() : this(Towel.Equate.Default) { }
-
-		/// <summary>Creates an instance of a stalistck.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public AddableLinked(Equate<T> equate)
+        /// <summary>Creates an instance of a AddableLinked.</summary>
+        /// <param name="equate">The equate delegate to be used by the structure.</param>
+        /// <runtime>θ(1)</runtime>
+        public AddableLinked(Equate<T> equate)
 		{
 			this._equate = equate;
 			this._head = _tail = null;
 			this._count = 0;
 		}
 
-		#endregion
+        /// <summary>Creates an instance of a AddableLinked.</summary>
+        /// <runtime>θ(1)</runtime>
+        public AddableLinked() : this(Towel.Equate.Default) { }
 
-		#region Properties
+        #endregion
 
-		/// <summary>Returns the number of items in the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int Count { get { return _count; } }
+        #region Properties
 
-		public Equate<T> Equate { get { return this._equate; } }
+        /// <summary>Returns the number of items in the list.</summary>
+        /// <runtime>θ(1)</runtime>
+        public int Count
+        {
+            get
+            {
+                return _count;
+            }
+        }
+
+        /// <summary>Returns the equate delegate being used by the structure.</summary>
+        /// <runtime>θ(1)</runtime>
+		public Equate<T> Equate
+        {
+            get
+            {
+                return this._equate;
+            }
+        }
 
 		#endregion
 
@@ -472,7 +487,7 @@ namespace Towel.DataStructures
 			{
 				if (index < 0 || index > _count)
 				{
-					throw new System.InvalidOperationException("Attempting an index look-up outside the ListArray's current size.");
+                    throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
 				}
 				T returnValue = _list[index];
 				return returnValue;
@@ -481,8 +496,8 @@ namespace Towel.DataStructures
 			{
 				if (index < 0 || index > _count)
 				{
-					throw new System.InvalidOperationException("Attempting an index assignment outside the ListArray's current size.");
-				}
+                    throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
+                }
 				_list[index] = value;
 			}
 		}
@@ -497,21 +512,23 @@ namespace Towel.DataStructures
 
 		public Equate<T> Equate { get { return this._equate; } }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		#region Add
+        #region Add
 
-		/// <summary>Adds an item to the end of the list.</summary>
-		/// <param name="addition">The item to be added.</param>
-		/// <remarks>Runtime: O(n), EstAvg(1). </remarks>
-		public void Add(T addition)
+        /// <summary>Adds an item to the end of the list.</summary>
+        /// <param name="addition">The item to be added.</param>
+        /// <runtime>O(n) Ω(1) ε(1)</runtime>
+        public void Add(T addition)
 		{
 			if (_count == _list.Length)
 			{
-				if (_list.Length > int.MaxValue / 2)
-					throw new System.InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+                if (_list.Length > int.MaxValue / 2)
+                {
+                    throw new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+                }
 				T[] newList = new T[_list.Length * 2];
 				this._list.CopyTo(newList, 0);
 				this._list = newList;
@@ -526,8 +543,10 @@ namespace Towel.DataStructures
 		{
 			if (_count == _list.Length)
 			{
-				if (_list.Length > int.MaxValue / 2)
-					throw new System.InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+                if (_list.Length > int.MaxValue / 2)
+                {
+                    throw new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+                }
 				T[] newList = new T[_list.Length * 2];
 				_list.CopyTo(newList, 0);
 				_list = newList;

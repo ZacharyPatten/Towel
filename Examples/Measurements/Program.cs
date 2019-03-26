@@ -71,7 +71,7 @@ namespace Measurements
             Console.WriteLine("    mass1 != mass2 = " + (mass1 != mass2));
             Console.WriteLine();
 
-            //object result = angle1 + length1; WILL NOT COMPILE (this is a good thing) :)
+            //object result = angle1 + mass1; WILL NOT COMPILE (this is a good thing) :)
 
             #endregion
 

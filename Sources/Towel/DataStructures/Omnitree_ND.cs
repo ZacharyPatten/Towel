@@ -87,22 +87,19 @@ namespace Towel.DataStructures
         
         public struct Bound<T>
         {
-            private bool _exists;
-            private T _value;
-
-            public bool Exists { get { return this._exists; } }
-            public T Value { get { return this._value; } }
+            internal readonly bool Exists;
+            internal readonly T Value;
 
             public Bound(T value)
             {
-                this._exists = true;
-                this._value = value;
+                Exists = true;
+                Value = value;
             }
 
             internal Bound(bool exists, T value)
             {
-                this._exists = exists;
-                this._value = value;
+                Exists = exists;
+                Value = value;
             }
 
             public static Bound<T> None { get { return new Bound<T>(false, default(T)); } }

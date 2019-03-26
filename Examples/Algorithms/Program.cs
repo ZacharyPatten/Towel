@@ -11,7 +11,7 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("You are runnning the Algorithms tutorial.");
+            Console.WriteLine("You are runnning the Algorithms example.");
             Console.WriteLine("======================================================");
             Console.WriteLine();
 
@@ -21,68 +21,68 @@ namespace Algorithms
                 // overloads with "Get" and "Assign" delegates to use them on any int-indexed
                 // data structure.
 
-                Console.WriteLine(" Sorting Algorithms----------------------");
+                Console.WriteLine("  Sorting Algorithms----------------------");
                 Console.WriteLine();
                 int[] dataSet = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-                Console.Write("  Data Set:" + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Data Set:" + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 // Shuffling (Randomizing)
                 Sort.Shuffle(dataSet);
-                Console.Write("  Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 // Bubble
                 Sort.Bubble(dataSet);
-                Console.Write("  Bubble: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Bubble: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // Selection
                 Sort.Selection(dataSet);
-                Console.Write("  Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // Insertion
                 Sort.Insertion(dataSet);
-                Console.Write("  Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // Quick
                 Sort.Quick(dataSet);
-                Console.Write("  Quick: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Quick: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // Merge
                 Sort.Merge(Compute.Compare, dataSet);
-                Console.Write("  Merge: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Merge: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // Heap
                 Sort.Heap(Compute.Compare, dataSet);
-                Console.Write("  Heap: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Heap: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
-                Console.WriteLine("  shuffling dataSet...");
+                Console.WriteLine("    shuffling dataSet...");
                 Sort.Shuffle(dataSet);
 
                 // OddEven
                 Sort.OddEven(Compute.Compare, dataSet);
-                Console.Write("  OddEven: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    OddEven: " + string.Join(", ", dataSet.Select(x => x.ToString())));
                 Console.WriteLine();
 
                 //Console.WriteLine("  shuffling dataSet...");
@@ -98,7 +98,7 @@ namespace Algorithms
 
                 // Bogo
                 //Sort<int>.Bogo(Logic.compare, get, set, 0, dataSet.Length);
-                Console.Write("  Bogo: Disabled (takes forever)"); //+ string.Join(", ", dataSet.Select(x => x.ToString())));
+                Console.Write("    Bogo: Disabled (takes forever)"); //+ string.Join(", ", dataSet.Select(x => x.ToString())));
                 //Console.WriteLine();
 
                 Console.WriteLine();
@@ -106,9 +106,9 @@ namespace Algorithms
             }
             #endregion
 
-            #region Graph Search
+            #region Graph Search (Using Graph Data Structure)
             {
-                Console.WriteLine(" Graph Searching----------------------");
+                Console.WriteLine("  Graph Searching----------------------");
                 Console.WriteLine();
 
                 // make a graph
@@ -171,28 +171,28 @@ namespace Algorithms
 
                 // run A* the algorithm
                 Stepper<int> aStar_path = Search.Graph<int, int>(0, graph, heuristic, cost, goal);
-                Console.Write("  A* Path: ");
+                Console.Write("    A* Path: ");
                 if (aStar_path != null)
                 {
                     aStar_path(i => Console.Write(i + " "));
                 }
                 else
                 {
-                    Console.Write("  none");
+                    Console.Write("none");
                 }
 
                 Console.WriteLine();
 
                 // run the Greedy algorithm
                 Stepper<int> greedy_path = Search.Graph<int, int>(0, graph, heuristic, goal);
-                Console.Write("  Greedy Path: ");
+                Console.Write("    Greedy Path: ");
                 if (greedy_path != null)
                 {
                     greedy_path(i => Console.Write(i + " "));
                 }
                 else
                 {
-                    Console.Write("  none");
+                    Console.Write("none");
                 }
 
                 Console.WriteLine();
@@ -202,6 +202,11 @@ namespace Algorithms
 
             #region Graph Search (Vector Game-Style Example)
             {
+                Console.WriteLine("  Graph Searching (Vector Game-Style Example)-------------------");
+                Console.WriteLine();
+                Console.WriteLine("    Debug the code. The path is to large to write to the console.");
+                Console.WriteLine();
+
                 // Lets say you are coding enemy AI and you want the AI to find a path towards the player
                 // in order to attack them. Here are their starting positions:
                 Vector<float> enemyLocation = new Vector<float>(-100f, 0f, -50f);
@@ -384,7 +389,7 @@ namespace Algorithms
 
             #region Random Generation
             {
-                Console.WriteLine(" Random Generation---------------------");
+                Console.WriteLine("  Random Generation---------------------");
                 Console.WriteLine();
 
                 int iterationsperrandom = 3;
@@ -395,25 +400,25 @@ namespace Algorithms
                     Console.WriteLine();
                 }
                 Arbitrary mcg_2pow59_13pow13 = new Arbitrary.Algorithms.MultiplicativeCongruent_A();
-                Console.WriteLine("  mcg_2pow59_13pow13 randoms:");
+                Console.WriteLine("    mcg_2pow59_13pow13 randoms:");
                 testrandom(mcg_2pow59_13pow13);
                 Arbitrary mcg_2pow31m1_1132489760 = new Arbitrary.Algorithms.MultiplicativeCongruent_B();
-                Console.WriteLine("  mcg_2pow31m1_1132489760 randoms:");
+                Console.WriteLine("    mcg_2pow31m1_1132489760 randoms:");
                 testrandom(mcg_2pow31m1_1132489760);
                 Arbitrary mersenneTwister = new Arbitrary.Algorithms.MersenneTwister();
-                Console.WriteLine("  mersenneTwister randoms:");
+                Console.WriteLine("    mersenneTwister randoms:");
                 testrandom(mersenneTwister);
                 Arbitrary cmr32_c2_o3 = new Arbitrary.Algorithms.CombinedMultipleRecursive();
-                Console.WriteLine("  mersenneTwister randoms:");
+                Console.WriteLine("    mersenneTwister randoms:");
                 testrandom(cmr32_c2_o3);
                 Arbitrary wh1982cmcg = new Arbitrary.Algorithms.WichmannHills1982();
-                Console.WriteLine("  mersenneTwister randoms:");
+                Console.WriteLine("    mersenneTwister randoms:");
                 testrandom(wh1982cmcg);
                 Arbitrary wh2006cmcg = new Arbitrary.Algorithms.WichmannHills2006();
-                Console.WriteLine("  mersenneTwister randoms:");
+                Console.WriteLine("    mersenneTwister randoms:");
                 testrandom(wh2006cmcg);
                 Arbitrary mwcxorsg = new Arbitrary.Algorithms.MultiplyWithCarryXorshift();
-                Console.WriteLine("  mwcxorsg randoms:");
+                Console.WriteLine("    mwcxorsg randoms:");
                 testrandom(mwcxorsg);
             }
             #endregion

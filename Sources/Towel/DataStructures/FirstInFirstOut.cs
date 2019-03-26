@@ -39,73 +39,88 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class FirstInFirstOutLinked<T> : FirstInFirstOut<T>
 	{
-		// fields
 		private Node _head;
 		private Node _tail;
 		private int _count;
-		// nested types
-		#region private class Node
-		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		[Serializable]
-		private class Node
+
+        #region Node
+
+        [Serializable]
+        internal class Node
 		{
-			private T _value;
-			private Node _next;
-
-			internal T Value { get { return _value; } set { _value = value; } }
-			internal Node Next { get { return _next; } set { _next = value; } }
-
-			internal Node(T data) { _value = data; }
+			internal T Value;
+            internal Node Next;
+            
+			internal Node(T data)
+            {
+                Value = data;
+            }
 		}
-		#endregion
-		// constructor
-		#region public Queue_Linked()
-		/// <summary>Creates an instance of a queue.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public FirstInFirstOutLinked()
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Creates an instance of a queue.</summary>
+        /// <runtime>θ(1)</runtime>
+        public FirstInFirstOutLinked()
 		{
 			_head = _tail = null;
 			_count = 0;
 		}
-		#endregion
-		// properties
-		#region public T Newest
-		/// <summary>The newest item currently in the queue.</summary>
-		public T Newest
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The newest item currently in the queue.</summary>
+        /// <runtime>θ(1)</runtime>
+        public T Newest
 		{
 			get
 			{
-				if (this._count > 0)
-					return this._tail.Value;
-				else
-					throw new System.InvalidOperationException("attempting to get the newest item in an empty queue");
+                if (_count > 0)
+                {
+                    return _tail.Value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("attempting to get the newest item in an empty queue");
+                }
 			}
 		}
-		#endregion
-		#region public T Oldest
-		/// <summary>The oldest item currently in the queue.</summary>
-		public T Oldest
+
+        /// <summary>The oldest item currently in the queue.</summary>
+        /// <runtime>θ(1)</runtime>
+        public T Oldest
 		{
 			get
 			{
-				if (this._count > 0)
-					return this._head.Value;
-				else
-					throw new System.InvalidOperationException("attempting to get the oldet item in an empty queue");
+                if (_count > 0)
+                {
+                    return _head.Value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("attempting to get the oldet item in an empty queue");
+                }
 			}
 		}
-		#endregion
-		#region public int Count
-		/// <summary>Returns the number of items in the queue.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int Count { get { return _count; } }
-		#endregion
-		// methods
-		#region public T[] ToArray()
-		/// <summary>Converts the list into a standard array.</summary>
-		/// <returns>A standard array of all the items.</returns>
-		/// /// <remarks>Runtime: Towel(n).</remarks>
-		public T[] ToArray()
+
+        /// <summary>Returns the number of items in the queue.</summary>
+        /// <runtime>θ(1)</runtime>
+        public int Count { get { return _count; } }
+
+        #endregion
+
+        #region Methods
+
+        #region ToArray
+
+        /// <summary>Converts the list into a standard array.</summary>
+        /// <returns>A standard array of all the items.</returns>
+        /// /// <remarks>Runtime: Towel(n).</remarks>
+        public T[] ToArray()
 		{
 			if (_count == 0)
 				return null;
@@ -118,8 +133,11 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
+
 		#endregion
-		#region public Queue_Linked<T> Clone()
+
+		#region Clone
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public FirstInFirstOutLinked<T> Clone()
@@ -139,8 +157,11 @@ namespace Towel.DataStructures
 			clone._count = this._count;
 			return clone;
 		}
+
 		#endregion
-		#region public void Enqueue(T enqueue)
+
+		#region Enqueue
+
 		/// <summary>Adds an item to the back of the queue.</summary>
 		/// <param name="enqueue">The item to add to the queue.</param>
 		/// <remarks>Runtime: O(1).</remarks>
@@ -152,24 +173,34 @@ namespace Towel.DataStructures
 				_tail = _tail.Next = new Node(enqueue);
 			_count++;
 		}
+
 		#endregion
-		#region public T Dequeue()
+
+		#region Dequeue
+
 		/// <summary>Removes the oldest item in the queue.</summary>
 		/// <returns>The next item in the queue.</returns>
 		/// <remarks>Runtime: O(1).</remarks>
 		public T Dequeue()
 		{
-			if (_head == null)
-				throw new System.InvalidOperationException("deque from an empty queue");
+            if (_head == null)
+            {
+                throw new InvalidOperationException("deque from an empty queue");
+            }
 			T value = _head.Value;
-			if (_head == _tail)
-				_tail = null;
+            if (_head == _tail)
+            {
+                _tail = null;
+            }
 			_head = null;
 			_count--;
 			return value;
 		}
+
 		#endregion
-		#region public T Peek()
+
+		#region Peek
+
 		/// <summary>Gets the next item in the queue without removing it.</summary>
 		/// <returns>The next item in the queue.</returns>
 		public T Peek()
@@ -179,8 +210,11 @@ namespace Towel.DataStructures
 			T returnValue = _head.Value;
 			return returnValue;
 		}
+
 		#endregion
-		#region public void Clear()
+
+		#region Clear
+
 		/// <summary>Resets the queue to an empty state.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
 		public void Clear()
@@ -188,11 +222,15 @@ namespace Towel.DataStructures
 			_head = _tail = null;
 			_count = 0;
 		}
-		#endregion
-		#region public void Stepper(Step<T> function)
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
+
+        #endregion
+
+        #region Stepper And IEnumerable
+
+        #region public void Stepper(Step<T> function)
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> function)
 		{
 			Node current = this._head;
 			while (current != null)
@@ -296,47 +334,52 @@ namespace Towel.DataStructures
 				current = current.Next;
 			}
 		}
-		#endregion
-	}
+        #endregion
+
+        #endregion
+
+        #endregion
+    }
 
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	[Serializable]
 	public class QueueArray<T> : FirstInFirstOut<T>
 	{
-		// fields
 		private T[] _queue;
 		private int _start;
 		private int _count;
 		private int _minimumCapacity;
-		// constructors
-		#region public Queue_Array()
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-		/// <remarks>Runtime: O(1).</remarks>
-		public QueueArray()
+
+        #region Constructors
+
+        /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+        /// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
+        /// <runtime>θ(1)</runtime>
+        public QueueArray()
 		{
 			_queue = new T[1];
 			_count = 0;
 			_minimumCapacity = 1;
 		}
-		#endregion
-		#region public Queue_Array(int minimumCapacity)
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-		/// <remarks>Runtime: O(1).</remarks>
-		public QueueArray(int minimumCapacity)
+
+        /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+        /// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
+        /// <runtime>θ(1)</runtime>
+        public QueueArray(int minimumCapacity)
 		{
 			_queue = new T[minimumCapacity];
 			_count = 0;
 			_minimumCapacity = minimumCapacity;
 		}
-		#endregion
-		// properties
-		#region public int Count
-		/// <summary>Gets the number of items in the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int Count { get { return this._count; } }
+
+        #endregion
+
+        // properties
+        #region public int Count
+        /// <summary>Gets the number of items in the list.</summary>
+        /// <remarks>Runtime: O(1).</remarks>
+        public int Count { get { return this._count; } }
 		#endregion
 		#region public int CurrentCapacity
 		/// <summary>Gets the current capacity of the list.</summary>

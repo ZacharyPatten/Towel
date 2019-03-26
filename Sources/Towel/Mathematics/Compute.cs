@@ -289,7 +289,7 @@ namespace Towel.Mathematics
         {
             T result = Constant<T>.Zero;
             bool assigned = false;
-            Step<T> step = (a) =>
+            void step(T a)
             {
                 if (assigned)
                 {
@@ -300,7 +300,7 @@ namespace Towel.Mathematics
                     result = a;
                     assigned = true;
                 }
-            };
+            }
             stepper(step);
             return result;
         }
@@ -400,7 +400,7 @@ namespace Towel.Mathematics
         {
             T result = Constant<T>.Zero;
             bool assigned = false;
-            Step<T> step = (a) =>
+            void step(T a)
             {
                 if (assigned)
                 {
@@ -411,7 +411,7 @@ namespace Towel.Mathematics
                     result = a;
                     assigned = true;
                 }
-            };
+            }
             stepper(step);
             return result;
         }
@@ -486,7 +486,7 @@ namespace Towel.Mathematics
         {
             T result = Constant<T>.Zero;
             bool assigned = false;
-            Step<T> step = (a) =>
+            void step(T a)
             {
                 if (assigned)
                 {
@@ -497,7 +497,7 @@ namespace Towel.Mathematics
                     result = a;
                     assigned = true;
                 }
-            };
+            }
             operands(step);
             return result;
         }
@@ -547,11 +547,19 @@ namespace Towel.Mathematics
         public static T Power<T>(Stepper<T> operands)
         {
             T result = Constant<T>.Zero;
-            Step<T> step = (a) =>
+            bool assigned = false;
+            void step(T a)
             {
-                result = a;
-                step = b => Power(result, b);
-            };
+                if (assigned)
+                {
+                    result = Power(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
+            }
             operands(step);
             return result;
         }

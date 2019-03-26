@@ -17,130 +17,162 @@ namespace DataStructures
             Console.WriteLine("======================================================");
             Console.WriteLine();
 
-            #region Link
+            #region Link (aka Tuple)
 
-            Console.WriteLine("  Testing Link-------------------------------");
-            Console.WriteLine("   Size: 6");
+            Console.WriteLine("  Link------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("    A \"Link\" is like a System.Tuple that implements");
+            Console.WriteLine("    Towel.DataStructures.DataStructure.");
+            Console.WriteLine();
+
             Link link = new Link<int, int, int, int, int, int>(0, 1, 2, 3, 4, 5);
             Console.Write("    Traversal: ");
-            link.Stepper((dynamic current) => { Console.Write(current); });
+            link.Stepper(i => Console.Write(i));
             Console.WriteLine();
-            // Saving to a file
-            //string linklink_file = "link." + ToExtension(link.GetType());
-            //Console.WriteLine("    File: \"" + linklink_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(linklink_file, link));
-            //Link<int, int, int, int, int, int> deserialized_linklink;
-            //Console.WriteLine("    Deserialized: " + Deserialize(linklink_file, out deserialized_linklink));
+
+            Console.WriteLine("    Size: " + link.Size);
             Console.WriteLine();
 
             #endregion
 
-            #region Array
+            #region Indexed (aka Array)
 
-            Console.WriteLine("  Testing Array_Array<int>-------------------");
-            Indexed<int> array = new IndexedArray<int>(test);
-            for (int i = 0; i < test; i++)
-                array[i] = i;
-            Console.Write("    Traversal: ");
-            array.Stepper((int current) => { Console.Write(current); });
+            Console.WriteLine("  Indexed---------------------------------");
             Console.WriteLine();
-            // Saving to a file
-            //string arrayarray_file = "array." + ToExtension(array.GetType());
-            //Console.WriteLine("    File: \"" + arrayarray_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(arrayarray_file, array));
-            //ArrayArray<int> deserialized_arrayarray;
-            //Console.WriteLine("    Deserialized: " + Deserialize(arrayarray_file, out deserialized_arrayarray));
+            Console.WriteLine("    An \"Indexed\" is just a wrapper for arrays that implements");
+            Console.WriteLine("    Towel.DataStructures.DataStructure.");
+            Console.WriteLine();
+
+            Indexed<int> indexed = new IndexedArray<int>(test);
+
+            Console.Write("    Filling in (0-" + test + ")...");
+            for (int i = 0; i < test; i++)
+            {
+                indexed[i] = i;
+            }
+            Console.WriteLine();
+
+            Console.Write("    Traversal: ");
+            indexed.Stepper(i => Console.Write(i));
+            Console.WriteLine();
+
+            Console.WriteLine("    Length: " + indexed.Length);
+
             Console.WriteLine();
 
             #endregion
 
-            #region List
+            #region Addable (aka List)
 
-            Console.WriteLine("  Testing List_Array<int>--------------------");
-            Addable<int> list_array = new AddableArray<int>(test);
+            Console.WriteLine("  Addable---------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("    An \"Addable\" is like an IList that implements");
+            Console.WriteLine("    Towel.DataStructures.DataStructure. \"AddableArray\" is");
+            Console.WriteLine("    the array implementation while \"AddableLinked\" is the");
+            Console.WriteLine("    the linked-list implementation.");
+            Console.WriteLine();
+
+            // AddableArray ---------------------------------------
+            Addable<int> addableArray = new AddableArray<int>(test);
+
+            Console.Write("    [AddableArray] Adding (0-" + test + ")...");
             for (int i = 0; i < test; i++)
-                list_array.Add(i);
-            Console.Write("    Traversal: ");
-            list_array.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            //string list_array_serialization = (list_array as ListArray<int>).Serialize(x => x.ToString());
-            //using (StreamWriter writer = new StreamWriter("ListArray.ListArray"))
-            //{
-            //    writer.WriteLine(list_array_serialization);
-            //}
-            //using (StreamReader reader = new StreamReader("ListArray.ListArray"))
-            //{
-            //    list_array = ListArray<int>.Deserialize(reader.ReadToEnd(), x => Int16.Parse(x.Trim()));
-            //}
-            //Console.Write("    Serialization/Deserialization is possible.");
-            list_array.Add(11);
-            list_array.Remove(7);
-            Console.WriteLine();
+            {
+                addableArray.Add(i);
+            }
             Console.WriteLine();
 
+            Console.Write("    [AddableArray] Traversal: ");
+            addableArray.Stepper(i => Console.Write(i));
+            Console.WriteLine();
 
-            //ListArray<ListArray<int>> list_array2 = new ListArray<ListArray<int>>(test);
-            //for (int i = 0; i < test; i++)
-            //{
-            //    ListArray<int> nested_list = new ListArray<int>();
-            //    for (int j = 0; j < test; j++)
-            //    {
-            //        nested_list.Add(j);
-            //    }
-            //    list_array2.Add(nested_list);
-            //}
-            //string list_array2_serialization = list_array2.Serialize(x => x.Serialize(y => y.ToString()));
-            //using (StreamWriter writer = new StreamWriter("ListArray2.ListArray"))
-            //{
-            //    writer.WriteLine(list_array2_serialization);
-            //}
-            //using (StreamReader reader = new StreamReader("ListArray2.ListArray"))
-            //{
-            //    list_array2 = ListArray<ListArray<int>>.Deserialize(reader.ReadToEnd(), x => ListArray<int>.Deserialize(x, y => Int16.Parse(y.Trim())));
-            //}
+            Console.WriteLine("    [AddableArray] Count: " + addableArray.Count);
 
-            Console.WriteLine("  Testing List_Linked<int>-------------------");
-            Addable<int> list_linked = new AddableLinked<int>();
+            addableArray.Clear(); // Clears the addable
+
+            Console.WriteLine();
+
+            // AddableLinked ---------------------------------------
+            Addable<int> addableLinked = new AddableLinked<int>();
+
+            Console.Write("    [AddableLinked] Adding (0-" + test + ")...");
             for (int i = 0; i < test; i++)
-                list_linked.Add(i);
-            Console.Write("    Traversal: ");
-            list_linked.Stepper((int current) => { Console.Write(current); });
+            {
+                addableLinked.Add(i);
+            }
             Console.WriteLine();
 
+            Console.Write("    [AddableLinked] Traversal: ");
+            addableLinked.Stepper(i => Console.Write(i));
+            Console.WriteLine();
 
+            Console.WriteLine("    [AddableLinked] Count: " + addableLinked.Count);
 
+            addableLinked.Clear(); // Clears the addable
 
-
-            // Saving to a file
-            //string listlinked_file = "list_linked." + ToExtension(list_linked.GetType());
-            //Console.WriteLine("    File: \"" + listlinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(listlinked_file, list_linked));
-            //ListLinked<int> deserialized_listlinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(listlinked_file, out deserialized_listlinked));
             Console.WriteLine();
 
             #endregion
 
-            #region Stack
+            #region FirstInLastOut (aka stack)
+            {
+                Console.WriteLine("  FirstInLastOut---------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An \"FirstInLastOut\" is a Stack that implements");
+                Console.WriteLine("    Towel.DataStructures.DataStructure. \"FirstInLastOutArray\" is");
+                Console.WriteLine("    the array implementation while \"FirstInLastOutLinked\" is the");
+                Console.WriteLine("    the linked-list implementation.");
+                Console.WriteLine();
+                
+                FirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
 
-            Console.WriteLine("  Testing Stack_Linked<int>------------------");
-            FirstInLastOut<int> stack_linked = new FirstInLastOutLinked<int>();
-            for (int i = 0; i < test; i++)
-                stack_linked.Push(i);
-            Console.Write("    Traversal: ");
-            stack_linked.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            // Saving to a file
-            //string stacklinked_file = "stack_linked." + ToExtension(stack_linked.GetType());
-            //Console.WriteLine("    File: \"" + stacklinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(stacklinked_file, stack_linked));
-            //StackLinked<int> deserialized_stacklinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(stacklinked_file, out deserialized_stacklinked));
-            Console.WriteLine();
+                Console.Write("    [FirstInLastOutArray] Pushing (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    firstInLastOutArray.Push(i);
+                }
+                Console.WriteLine();
 
+                Console.Write("    [FirstInLastOutArray] Traversal: ");
+                firstInLastOutArray.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    [FirstInLastOutArray] Pop: " + firstInLastOutArray.Pop());
+                Console.WriteLine("    [FirstInLastOutArray] Pop: " + firstInLastOutArray.Pop());
+                Console.WriteLine("    [FirstInLastOutArray] Peek: " + firstInLastOutArray.Peek());
+                Console.WriteLine("    [FirstInLastOutArray] Pop: " + firstInLastOutArray.Pop());
+                Console.WriteLine("    [FirstInLastOutArray] Count: " + firstInLastOutArray.Count);
+
+                firstInLastOutArray.Clear(); // Clears the firstInLastOut
+
+                Console.WriteLine();
+
+                FirstInLastOut<int> firstInLastOutLinked = new FirstInLastOutLinked<int>();
+
+                Console.Write("    [FirstInLastOutLinked] Pushing (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    firstInLastOutLinked.Push(i);
+                }
+                Console.WriteLine();
+
+                Console.Write("    [FirstInLastOutLinked] Traversal: ");
+                firstInLastOutLinked.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    [FirstInLastOutLinked] Pop: " + firstInLastOutLinked.Pop());
+                Console.WriteLine("    [FirstInLastOutLinked] Pop: " + firstInLastOutLinked.Pop());
+                Console.WriteLine("    [FirstInLastOutLinked] Peek: " + firstInLastOutLinked.Peek());
+                Console.WriteLine("    [FirstInLastOutLinked] Pop: " + firstInLastOutLinked.Pop());
+                Console.WriteLine("    [FirstInLastOutLinked] Count: " + firstInLastOutLinked.Count);
+
+                firstInLastOutLinked.Clear(); // Clears the firstInLastOut
+                
+                Console.WriteLine();
+            }
             #endregion
 
-            #region Queue
+            #region FirstInFirstOut (aka Queue)
 
             Console.WriteLine("  Testing Queue_Linked<int>------------------");
             FirstInFirstOut<int> queue_linked = new FirstInFirstOutLinked<int>();
@@ -149,12 +181,6 @@ namespace DataStructures
             Console.Write("    Traversal: ");
             queue_linked.Stepper((int current) => { Console.Write(current); });
             Console.WriteLine();
-            // Saving to a file
-            //string queuelinked_file = "queue_linked." + ToExtension(queue_linked.GetType());
-            //Console.WriteLine("    File: \"" + queuelinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(queuelinked_file, queue_linked));
-            //QueueLinked<int> deserialized_queuelinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(queuelinked_file, out deserialized_queuelinked));
             Console.WriteLine();
 
             #endregion
@@ -168,38 +194,31 @@ namespace DataStructures
             Console.Write("    Delegate: ");
             heap_array.Stepper((int current) => { Console.Write(current); });
             Console.WriteLine();
-            // Saving to a file
-            //string heaplinked_file = "heap_array." + ToExtension(heap_array.GetType());
-            //Console.WriteLine("    File: \"" + heaplinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(heaplinked_file, heap_array));
-            //HeapArray<int> deserialized_heaplinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(heaplinked_file, out deserialized_heaplinked));
             Console.WriteLine();
 
             #endregion
 
             #region Tree
 
-            Console.WriteLine("  Testing Tree_Map<int>----------------------");
-            Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
-            for (int i = 1; i < test; i++)
-                tree_Map.Add(i, i / (int)System.Math.Sqrt(test));
-            Console.Write("    Children of 0 (root): ");
-            tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
-            Console.WriteLine();
-            Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
-            tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
-            Console.WriteLine();
-            Console.Write("    Traversal: ");
-            tree_Map.Stepper((int i) => { Console.Write(i + " "); });
-            Console.WriteLine();
-            // Saving to a file
-            //string treelinked_file = "tree_Map." + ToExtension(tree_Map.GetType());
-            //Console.WriteLine("    File: \"" + treelinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(treelinked_file, tree_Map));
-            //TreeMap<int> deserialized_treelinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(treelinked_file, out deserialized_treelinked));
-            Console.WriteLine();
+            //Console.WriteLine("  Tree-----------------------------");
+
+            //Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
+
+            //for (int i = 1; i < test; i++)
+            //{
+            //    tree_Map.Add(i, i / Compute.SquareRoot(i));
+            //}
+            //Console.Write("    Children of 0 (root): ");
+            //tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
+            //Console.WriteLine();
+            //Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
+            //tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
+            //Console.WriteLine();
+            //Console.Write("    Traversal: ");
+            //tree_Map.Stepper((int i) => { Console.Write(i + " "); });
+            //Console.WriteLine();
+
+            //Console.WriteLine();
 
             #endregion
 
@@ -207,7 +226,7 @@ namespace DataStructures
             {
                 Console.WriteLine("  AvlTree------------------------------------------------");
                 Console.WriteLine();
-                Console.WriteLine("    An AVL tree is a sorted binary tree.");
+                Console.WriteLine("    An AVL Tree is a sorted binary tree.");
                 Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
                 Console.WriteLine();
 
@@ -261,22 +280,28 @@ namespace DataStructures
             #endregion
 
             #region Red-Black Tree
+            {
+                Console.WriteLine("  Red-Black Tree------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An Red-Black Tree is a sorted binary tree.");
+                Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
+                Console.WriteLine();
 
-            Console.WriteLine("  Testing RedBlack_Linked<int>---------------");
-            RedBlackTree<int> redBlackTree_linked = new RedBlackTreeLinked<int>(Compute.Compare);
-            for (int i = 0; i < test; i++)
-                redBlackTree_linked.Add(i);
-            Console.Write("    Traversal: ");
-            redBlackTree_linked.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            // Saving to a file
-            //string redblacktreelinked_file = "redBlackTree_linked." + ToExtension(redBlackTree_linked.GetType());
-            //Console.WriteLine("    File: \"" + redblacktreelinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(redblacktreelinked_file, redBlackTree_linked));
-            //RedBlackTreeLinked<int> deserialized_redblacktreelinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(redblacktreelinked_file, out deserialized_redblacktreelinked));
-            Console.WriteLine();
-
+                Console.WriteLine("  Testing RedBlack_Linked<int>---------------");
+                RedBlackTree<int> redBlackTree_linked = new RedBlackTreeLinked<int>(Compute.Compare);
+                for (int i = 0; i < test; i++)
+                    redBlackTree_linked.Add(i);
+                Console.Write("    Traversal: ");
+                redBlackTree_linked.Stepper((int current) => { Console.Write(current); });
+                Console.WriteLine();
+                // Saving to a file
+                //string redblacktreelinked_file = "redBlackTree_linked." + ToExtension(redBlackTree_linked.GetType());
+                //Console.WriteLine("    File: \"" + redblacktreelinked_file + "\"");
+                //Console.WriteLine("    Serialized: " + Serialize(redblacktreelinked_file, redBlackTree_linked));
+                //RedBlackTreeLinked<int> deserialized_redblacktreelinked;
+                //Console.WriteLine("    Deserialized: " + Deserialize(redblacktreelinked_file, out deserialized_redblacktreelinked));
+                Console.WriteLine();
+            }
             #endregion
 
             #region BTree
@@ -319,7 +344,7 @@ namespace DataStructures
 
             #endregion
 
-            #region Map
+            #region Map (aka Dictionary)
 
             Console.WriteLine("  Testing MapHashList<int, int>--------------");
             Map<int, int> map_sethash = new MapHashLinked<int, int>(Compute.Equal, Hash.Default);
@@ -584,8 +609,8 @@ namespace DataStructures
 
             #region Graph
 
-            Console.WriteLine("  Testing Graph_SetOmnitree<int>-------------");
-            Graph<int> graph = new GraphSetOmnitree<int>(Compute.Equal, Compute.Compare, Hash.Default);
+            Console.WriteLine("  Graph--------------------------------");
+            Graph<int> graph = new GraphSetOmnitree<int>();
             // add nodes
             for (int i = 0; i < test; i++)
                 graph.Add(i);
