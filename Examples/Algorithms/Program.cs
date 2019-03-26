@@ -220,13 +220,16 @@ namespace Algorithms
 
                 // Make sure we don't re-use locations (must be wiped after running the algorithm)
                 Set<Vector<float>> alreadyUsed = new SetHashList<Vector<float>>();
+                
+                Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
 
                 // So, we just need to validate movement locations (make sure the path finding algorithm
                 // ignores locations inside the rock)
                 bool validateMovementLocation(Vector<float> location)
                 {
                     // if the location is inside the rock, it is not a valid movement
-                    float magnitude = (location - rockLocation).Magnitude;
+                    location.Subtract(rockLocation, ref validationVectorStorage);
+                    float magnitude = validationVectorStorage.Magnitude;
                     if (magnitude <= rockRadius)
                     {
                         return false;
@@ -293,11 +296,14 @@ namespace Algorithms
                     }
                 }
 
+                Vector<float> heuristicVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+
                 // Heuristic function (how close are we to the goal)
                 float heuristicFunction(Vector<float> currentLocation)
                 {
                     // The goal is the player's location, so we just need our distance from the player.
-                    return (currentLocation - playerLocation).Magnitude;
+                    currentLocation.Subtract(playerLocation, ref heuristicVectorStorage);
+                    return heuristicVectorStorage.Magnitude;
                 }
 
                 // Lets say there is a lot of mud around the rock, and the mud makes our player move at half their normal speed.
@@ -305,12 +311,15 @@ namespace Algorithms
                 Vector<float> mudLocation = new Vector<float>(15f, 0f, -70f);
                 float mudRadius = 30f;
 
+                Vector<float> costVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+
                 // Cost function
                 float costFunction(Vector<float> from, Vector<float> to)
                 {
                     // If the location we are moving to is in the mud, lets adjust the
                     // cost because mud makes us move slower.
-                    float magnitude = (to - mudLocation).Magnitude;
+                    to.Subtract(mudLocation, ref costVectorStorage);
+                    float magnitude = costVectorStorage.Magnitude;
                     if (magnitude <= mudRadius)
                     {
                         return 2f;
@@ -320,11 +329,14 @@ namespace Algorithms
                     return 1f;
                 }
 
+                Vector<float> goalVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+
                 // Goal function
                 bool goalFunction(Vector<float> currentLocation)
                 {
                     // if the player is within the enemy's attack range WE FOUND A PATH! :)
-                    float magnitude = (currentLocation - playerLocation).Magnitude;
+                    currentLocation.Subtract(playerLocation, ref goalVectorStorage);
+                    float magnitude = goalVectorStorage.Magnitude;
                     if (magnitude <= enemyAttackRange)
                     {
                         return true;
