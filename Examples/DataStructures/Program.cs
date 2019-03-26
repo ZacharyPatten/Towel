@@ -22,7 +22,10 @@ namespace DataStructures
             Console.WriteLine("  Link------------------------------------");
             Console.WriteLine();
             Console.WriteLine("    A \"Link\" is like a System.Tuple that implements");
-            Console.WriteLine("    Towel.DataStructures.DataStructure.");
+            Console.WriteLine("    Towel.DataStructures.DataStructure. A Link/Tuple is");
+            Console.WriteLine("    used when you have a small, known-sized set of objects");
+            Console.WriteLine("    that you want to bundle together without making a custom");
+            Console.WriteLine("    custom class.");
             Console.WriteLine();
 
             Link link = new Link<int, int, int, int, int, int>(0, 1, 2, 3, 4, 5);
@@ -40,7 +43,9 @@ namespace DataStructures
             Console.WriteLine("  Indexed---------------------------------");
             Console.WriteLine();
             Console.WriteLine("    An \"Indexed\" is just a wrapper for arrays that implements");
-            Console.WriteLine("    Towel.DataStructures.DataStructure.");
+            Console.WriteLine("    Towel.DataStructures.DataStructure. An array is used when");
+            Console.WriteLine("    dealing with static-sized, known-sized sets of data. Arrays");
+            Console.WriteLine("    can be sorted along 1 dimensions for binary searching algorithms.");
             Console.WriteLine();
 
             Indexed<int> indexed = new IndexedArray<int>(test);
@@ -69,7 +74,12 @@ namespace DataStructures
             Console.WriteLine("    An \"Addable\" is like an IList that implements");
             Console.WriteLine("    Towel.DataStructures.DataStructure. \"AddableArray\" is");
             Console.WriteLine("    the array implementation while \"AddableLinked\" is the");
-            Console.WriteLine("    the linked-list implementation.");
+            Console.WriteLine("    the linked-list implementation. An Addable/List is used");
+            Console.WriteLine("    when dealing with an unknown quantity of data that you");
+            Console.WriteLine("    will likely have to enumerate/step through everything. The");
+            Console.WriteLine("    AddableArray shares the properties of an Indexed/Array in");
+            Console.WriteLine("    that it can be relateively quickly sorted along 1 dimensions");
+            Console.WriteLine("    for binary search algorithms.");
             Console.WriteLine();
 
             // AddableArray ---------------------------------------
@@ -121,7 +131,9 @@ namespace DataStructures
                 Console.WriteLine("    An \"FirstInLastOut\" is a Stack that implements");
                 Console.WriteLine("    Towel.DataStructures.DataStructure. \"FirstInLastOutArray\" is");
                 Console.WriteLine("    the array implementation while \"FirstInLastOutLinked\" is the");
-                Console.WriteLine("    the linked-list implementation.");
+                Console.WriteLine("    the linked-list implementation. A FirstInLastOut/Stack is used");
+                Console.WriteLine("    specifically when you need the algorithm provided by the Push");
+                Console.WriteLine("    and Pop functions.");
                 Console.WriteLine();
 
                 FirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
@@ -179,7 +191,9 @@ namespace DataStructures
                 Console.WriteLine("    An \"FirstInFirstOut\" is a Queue that implements");
                 Console.WriteLine("    Towel.DataStructures.DataStructure. \"FirstInFirstOutArray\" is");
                 Console.WriteLine("    the array implementation while \"FirstInFirstOutLinked\" is the");
-                Console.WriteLine("    the linked-list implementation.");
+                Console.WriteLine("    the linked-list implementation. A FirstInFirstOut/Stack is used");
+                Console.WriteLine("    specifically when you need the algorithm provided by the Queue");
+                Console.WriteLine("    and Dequeue functions.");
                 Console.WriteLine();
 
                 FirstInFirstOut<int> firstInFirstOutArray = new FirstInFirstOutArray<int>();
@@ -231,16 +245,45 @@ namespace DataStructures
             #endregion
 
             #region Heap
+            {
+                Console.WriteLine("  Heap---------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An \"Heap\" is a binary tree that stores items based on priorities.");
+                Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+                Console.WriteLine("    It uses sifting algorithms to move nodes vertically through itself.");
+                Console.WriteLine("    It is often the best data structure for standard priority queues.");
+                Console.WriteLine();
 
-            Console.WriteLine("  Testing Heap_Array<int>--------------------");
-            Heap<int> heap_array = new HeapArray<int>(Compute.Compare);
-            for (int i = 0; i < test; i++)
-                heap_array.Enqueue(i);
-            Console.Write("    Delegate: ");
-            heap_array.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            Console.WriteLine();
+                Console.WriteLine("    Let's say the priority is how close a number is to \"5\".");
+                Console.WriteLine("    So \"Dequeue\" will give us the next closest value to \"5\".");
+                Comparison Priority(int a, int b)
+                {
+                    int _a = Compute.AbsoluteValue(a - 5);
+                    int _b = Compute.AbsoluteValue(b - 5);
+                    Comparison comparison = Compare.Wrap(_b.CompareTo(_a));
+                    return comparison;
+                }
+                Console.WriteLine();
 
+                Heap<int> heapArray = new HeapArray<int>(Priority);
+
+                Console.Write("    [HeapArray] Enqueuing (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    heapArray.Enqueue(i);
+                }
+                Console.WriteLine();
+
+                Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
+                Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
+                Console.WriteLine("    [HeapArray] Peek: " + heapArray.Peek());
+                Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
+                Console.WriteLine("    [HeapArray] Count: " + heapArray.Count);
+
+                heapArray.Clear(); // Clears the heapArray
+                
+                Console.WriteLine();
+            }
             #endregion
 
             #region Tree
@@ -285,7 +328,7 @@ namespace DataStructures
                 Console.WriteLine();
 
                 Console.Write("    Traversal: ");
-                avlTree.Stepper((int i) => Console.Write(i));
+                avlTree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
 
                 //// Note: Although the AVL tree implements IEnumerable, it should be

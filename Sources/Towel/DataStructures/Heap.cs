@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 
         /// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
         /// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-        /// <remarks>Runtime: Theta(capacity).</remarks>
+        /// <runtime>θ(1)</runtime>
         public HeapArray(Compare<T> compare)
         {
             this._compare = compare;
@@ -60,7 +60,7 @@ namespace Towel.DataStructures
         /// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
         /// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
         /// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-        /// <remarks>Runtime: Theta(capacity).</remarks>
+        /// <runtime>θ(1)</runtime>
         public HeapArray(Compare<T> compare, int minimumCapacity)
         {
             this._compare = compare;
@@ -68,6 +68,10 @@ namespace Towel.DataStructures
             this._minimumCapacity = minimumCapacity;
             this._count = 0;
         }
+
+        /// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+        /// <runtime>θ(1)</runtime>
+        public HeapArray() : this(Towel.Compare.Default) { }
 
         #endregion
 
