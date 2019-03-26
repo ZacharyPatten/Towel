@@ -15,7 +15,7 @@ namespace Towel.Measurements
             // Note: These enum values are critical. They are used to determine
             // unit priorities and storage of location conversion factors. They 
             // need to be small and in non-increasing order of unit size.
-            
+
             [ConversionFactor(Degrees, "9 / 10")]
             [ConversionFactor(Radians, "π / 200")]
             [ConversionFactor(Turns, "1 / 400")]
@@ -39,16 +39,16 @@ namespace Towel.Measurements
 
             #endregion
         }
-	}
+    }
 
     /// <summary>An angle measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
     [Serializable]
     public struct Angle<T>
-	{
+    {
         internal static T[][] Table = UnitConversionTable.Build<Angle.Units, T>();
         internal T _measurement;
-		internal Angle.Units _units;
+        internal Angle.Units _units;
 
         #region Constructors
 
@@ -56,36 +56,36 @@ namespace Towel.Measurements
         /// <param name="measurement">The measurement of the angle.</param>
         /// <param name="units">The units of the angle.</param>
         public Angle(T measurement, Angle.Units units)
-		{
-			this._measurement = measurement;
-			this._units = units;
-		}
+        {
+            this._measurement = measurement;
+            this._units = units;
+        }
 
         #endregion
 
-		#region Properties
+        #region Properties
 
-		/// <summary>The current units used to represent the angle.</summary>
-		public Angle.Units Units
-		{
-			get { return this._units; }
-			set
-			{
-				if (value != this._units)
-				{
-					this._measurement = this[value];
-					this._units = value;
-				}
-			}
-		}
+        /// <summary>The current units used to represent the angle.</summary>
+        public Angle.Units Units
+        {
+            get { return this._units; }
+            set
+            {
+                if (value != this._units)
+                {
+                    this._measurement = this[value];
+                    this._units = value;
+                }
+            }
+        }
 
-		/// <summary>Gets the measurement in the desired units.</summary>
-		/// <param name="units">The units you want the measurement to be in.</param>
-		/// <returns>The measurement in the specified units.</returns>
-		public T this[Angle.Units units]
-		{
-			get
-			{
+        /// <summary>Gets the measurement in the desired units.</summary>
+        /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
+        public T this[Angle.Units units]
+        {
+            get
+            {
                 if (this._units == units)
                 {
                     return this._measurement;
@@ -95,8 +95,8 @@ namespace Towel.Measurements
                     T factor = Table[(int)this._units][(int)units];
                     return Compute.Multiply(this._measurement, factor);
                 }
-			}
-		}
+            }
+        }
 
         #endregion
 
@@ -272,20 +272,20 @@ namespace Towel.Measurements
             }
         }
 
-		public override bool Equals(object obj)
-		{
+        public override bool Equals(object obj)
+        {
             if (obj is Angle<T>)
             {
                 return this == ((Angle<T>)obj);
             }
-			return false;
-		}
+            return false;
+        }
 
-		public override int GetHashCode()
-		{
-			return this._measurement.GetHashCode() ^ this._units.GetHashCode();
-		}
+        public override int GetHashCode()
+        {
+            return this._measurement.GetHashCode() ^ this._units.GetHashCode();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

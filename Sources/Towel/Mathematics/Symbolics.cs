@@ -577,7 +577,7 @@ namespace Towel.Mathematics
             {
                 return new Constant<T>(this.Value);
             }
-            
+
             public override string ToString()
             {
                 return this.Value.ToString();
@@ -776,7 +776,7 @@ namespace Towel.Mathematics
         public abstract class Unary : Operation
         {
             protected Expression _a;
-            
+
             public Expression A
             {
                 get { return this._a; }
@@ -2316,7 +2316,7 @@ namespace Towel.Mathematics
         }
 
         #endregion
-        
+
         #region LessThanOrEqual
 
         [BinaryOperator("<=", OperatorPriority.Logical)]
@@ -2687,7 +2687,7 @@ namespace Towel.Mathematics
                 ParsableOperationsRegexPattern = string.Join(@"\s*\(.*\)|", operations) + @"\s *\(.*\)";
 
                 // Build a regex to match any operator
-                System.Collections.Generic.IEnumerable<string> operators = 
+                System.Collections.Generic.IEnumerable<string> operators =
                     ParsableLeftUnaryOperators.Keys.Concat(
                         ParsableRightUnaryOperators.Keys.Concat(
                             ParsableBinaryOperators.Keys)).Select(x => Regex.Escape(x));
@@ -2915,7 +2915,7 @@ namespace Towel.Mathematics
                     {
                         throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
                     }
-                    
+
                     Match currentMatch = operatorMatches[currentOperatorMatch];
                     if (currentMatch.Index == i)
                     {

@@ -123,7 +123,7 @@ namespace DataStructures
                 Console.WriteLine("    the array implementation while \"FirstInLastOutLinked\" is the");
                 Console.WriteLine("    the linked-list implementation.");
                 Console.WriteLine();
-                
+
                 FirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
 
                 Console.Write("    [FirstInLastOutArray] Pushing (0-" + test + ")...");
@@ -167,7 +167,7 @@ namespace DataStructures
                 Console.WriteLine("    [FirstInLastOutLinked] Count: " + firstInLastOutLinked.Count);
 
                 firstInLastOutLinked.Clear(); // Clears the firstInLastOut
-                
+
                 Console.WriteLine();
             }
             #endregion
@@ -286,7 +286,7 @@ namespace DataStructures
                 Console.WriteLine();
 
                 AvlTree<int> avlTree = new AvlTreeLinked<int>();
-                
+
                 Console.Write("    Adding (0-" + test + ")...");
                 for (int i = 0; i < test; i++)
                 {
@@ -309,7 +309,7 @@ namespace DataStructures
                 //    Console.Write(i);
                 //}
                 //Console.WriteLine();
-                
+
                 int minimum = random.Next(1, test / 2);
                 int maximum = random.Next(1, test / 2) + test / 2;
                 Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
@@ -443,7 +443,7 @@ namespace DataStructures
                             b = index;
                             c = index;
                         });
-                
+
                 Console.Write("    Adding (0-" + test + ")...");
                 for (int i = 0; i < test; i++)
                 {
@@ -496,7 +496,7 @@ namespace DataStructures
 
                 int removalMinimum = random.Next(1, test / 2);
                 int removalMaximum = random.Next(1, test / 2) + test / 2;
-                Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum +"): ");
+                Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum + "): ");
                 omnitree.Remove(
                     removalMinimum, removalMaximum,
                     removalMinimum, removalMaximum,

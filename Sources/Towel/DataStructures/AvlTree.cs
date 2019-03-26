@@ -2,23 +2,23 @@
 
 namespace Towel.DataStructures
 {
-	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface AvlTree<T> : DataStructure<T>,
-		// Structure Properties
-		DataStructure.Addable<T>,
-		DataStructure.Removable<T>,
-		DataStructure.Countable<T>,
-		DataStructure.Clearable<T>,
-		DataStructure.Comparing<T>,
-		DataStructure.Auditable<T>
-	{
-		#region Properties
+    /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+    /// <typeparam name="T">The generic type of this data structure.</typeparam>
+    public interface AvlTree<T> : DataStructure<T>,
+        // Structure Properties
+        DataStructure.Addable<T>,
+        DataStructure.Removable<T>,
+        DataStructure.Countable<T>,
+        DataStructure.Clearable<T>,
+        DataStructure.Comparing<T>,
+        DataStructure.Auditable<T>
+    {
+        #region Properties
 
-		/// <summary>Gets the current least item in the avl tree.</summary>
-		T CurrentLeast { get; }
-		/// <summary>Gets the current greated item in the avl tree.</summary>
-		T CurrentGreatest { get; }
+        /// <summary>Gets the current least item in the avl tree.</summary>
+        T CurrentLeast { get; }
+        /// <summary>Gets the current greated item in the avl tree.</summary>
+        T CurrentGreatest { get; }
 
         #endregion
 
@@ -100,12 +100,12 @@ namespace Towel.DataStructures
         /// <returns>The result status of the stepper function.</returns>
         StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum);
 
-		#endregion
-	}
+        #endregion
+    }
 
-	/// <summary>Contains extensions methods for the AvlTree interface.</summary>
-	public static class AvlTree
-	{
+    /// <summary>Contains extensions methods for the AvlTree interface.</summary>
+    public static class AvlTree
+    {
         #region Extensions
 
         /// <summary>Wrapper for the get function to handle exceptions.</summary>
@@ -117,18 +117,18 @@ namespace Towel.DataStructures
         /// <param name="item">The item if found.</param>
         /// <returns>True if successful, False if not.</returns>
         public static bool TryGet<T, Key>(this AvlTree<T> avlTree, Key key, Compare<T, Key> compare, out T item)
-		{
-			try
-			{
-				item = avlTree.Get<Key>(key, compare);
-				return true;
-			}
-			catch
-			{
-				item = default(T);
-				return false;
-			}
-		}
+        {
+            try
+            {
+                item = avlTree.Get<Key>(key, compare);
+                return true;
+            }
+            catch
+            {
+                item = default(T);
+                return false;
+            }
+        }
 
         /// <summary>Wrapper for the remove function to handle exceptions.</summary>
         /// <typeparam name="T">The generic type of this data structure.</typeparam>
@@ -138,20 +138,20 @@ namespace Towel.DataStructures
         /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>True if successful, False if not.</returns>
         public static bool TryRemove<T, Key>(this AvlTree<T> avlTree, Key key, Compare<T, Key> compare)
-		{
-			try
-			{
+        {
+            try
+            {
                 avlTree.Remove(key, compare);
-				return true;
-			}
-			catch
-			{
-				return false;
-			}
-		}
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
     /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
     /// <citation>
@@ -161,30 +161,30 @@ namespace Towel.DataStructures
     /// </citation>
     [Serializable]
     public class AvlTreeLinked<T> : AvlTree<T>
-	{
-		internal Node _root;
+    {
+        internal Node _root;
         internal int _count;
         internal Compare<T> _compare;
 
-		#region Node
+        #region Node
 
-		/// <summary>This class just holds the data for each individual node of the tree.</summary>
-		[Serializable]
-		internal class Node
-		{
-			internal T Value;
-			internal Node LeftChild;
-			internal Node RightChild;
-			internal int Height;
-            
-			internal Node(T value)
-			{
-				this.Value = value;
-				this.LeftChild = null;
-				this.RightChild = null;
-				this.Height = 0;
-			}
-		}
+        /// <summary>This class just holds the data for each individual node of the tree.</summary>
+        [Serializable]
+        internal class Node
+        {
+            internal T Value;
+            internal Node LeftChild;
+            internal Node RightChild;
+            internal int Height;
+
+            internal Node(T value)
+            {
+                this.Value = value;
+                this.LeftChild = null;
+                this.RightChild = null;
+                this.Height = 0;
+            }
+        }
 
         #endregion
 
@@ -194,11 +194,11 @@ namespace Towel.DataStructures
         /// <param name="compare">The comparison function for sorting the items.</param>
         /// <runtime>θ(1)</runtime>
         public AvlTreeLinked(Compare<T> compare)
-		{
-			this._root = null;
-			this._count = 0;
-			this._compare = compare;
-		}
+        {
+            this._root = null;
+            this._count = 0;
+            this._compare = compare;
+        }
 
         /// <summary>Constructs an AVL Tree.</summary>
         /// <runtime>θ(1)</runtime>
@@ -211,32 +211,32 @@ namespace Towel.DataStructures
         /// <summary>Gets the current least item in the avl tree.</summary>
         /// <runtime>θ(ln(Count))</runtime>
         public T CurrentLeast
-		{
-			get
-			{
-				Node node = this._root;
+        {
+            get
+            {
+                Node node = this._root;
                 while (node.LeftChild != null)
                 {
                     node = node.LeftChild;
                 }
-				return node.Value;
-			}
-		}
+                return node.Value;
+            }
+        }
 
         /// <summary>Gets the current greated item in the avl tree.</summary>
         /// <runtime>θ(ln(Count))</runtime>
         public T CurrentGreatest
-		{
-			get
-			{
-				Node node = this._root;
+        {
+            get
+            {
+                Node node = this._root;
                 while (node.RightChild != null)
                 {
                     node = node.RightChild;
                 }
-				return node.Value;
-			}
-		}
+                return node.Value;
+            }
+        }
 
         /// <summary>The comparison function being utilized by this structure.</summary>
         /// <runtime>θ(1)</runtime>
@@ -258,17 +258,17 @@ namespace Towel.DataStructures
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		#region Add
+        #region Add
 
-		/// <summary>Adds an object to the AVL Tree.</summary>
-		/// <param name="addition">The object to add.</param>
-		/// <runtime>O(ln(n))</runtime>
-		public void Add(T addition)
-		{
+        /// <summary>Adds an object to the AVL Tree.</summary>
+        /// <param name="addition">The object to add.</param>
+        /// <runtime>O(ln(n))</runtime>
+        public void Add(T addition)
+        {
             Node ADD(T ADDITION, Node NODE)
             {
                 if (NODE is null)
@@ -290,22 +290,22 @@ namespace Towel.DataStructures
                 }
                 return Balance(NODE);
             }
-            
+
             _root = ADD(addition, _root);
-			_count++;
+            _count++;
         }
 
-		#endregion
+        #endregion
 
-		#region Clear
+        #region Clear
 
-		/// <summary>Returns the tree to an iterative state.</summary>
-		/// <runtime>θ(1)</runtime>
+        /// <summary>Returns the tree to an iterative state.</summary>
+        /// <runtime>θ(1)</runtime>
         public void Clear()
-		{
-			_root = null;
-			_count = 0;
-		}
+        {
+            _root = null;
+            _count = 0;
+        }
 
         #endregion
 
@@ -315,12 +315,12 @@ namespace Towel.DataStructures
         /// <returns>A clone of the AVL tree.</returns>
         /// <runtime>θ(n)</runtime>
         public AvlTreeLinked<T> Clone()
-		{
+        {
             // Note: this has room for optimization
-			AvlTreeLinked<T> clone = new AvlTreeLinked<T>(this._compare);
+            AvlTreeLinked<T> clone = new AvlTreeLinked<T>(this._compare);
             Stepper(x => clone.Add(x));
-			return clone;
-		}
+            return clone;
+        }
 
         #endregion
 
@@ -331,7 +331,7 @@ namespace Towel.DataStructures
         /// <returns>Whether or not the AVL tree contains the value.</returns>
         /// <runtime>O(ln(Count)) Ω(1)</runtime>
         public bool Contains(T value)
-		{
+        {
             bool CONTAINS(T VALUE, Node NODE)
             {
                 if (NODE is null)
@@ -354,7 +354,7 @@ namespace Towel.DataStructures
             }
 
             return CONTAINS(value, this._root);
-		}
+        }
 
         /// <summary>Determines if this structure contains an item by a given key.</summary>
         /// <typeparam name="Key">The type of the key.</typeparam>
@@ -363,11 +363,11 @@ namespace Towel.DataStructures
         /// <returns>True of contained, False if not.</returns>
         /// <runtime>O(ln(Count)) Ω(1)</runtime>
         public bool Contains<Key>(Key key, Compare<T, Key> comparison)
-		{
-			Node node = _root;
-			while (node != null)
-			{
-				Comparison compareResult = comparison(node.Value, key);
+        {
+            Node node = _root;
+            while (node != null)
+            {
+                Comparison compareResult = comparison(node.Value, key);
                 if (compareResult == Comparison.Equal)
                 {
                     return true;
@@ -380,9 +380,9 @@ namespace Towel.DataStructures
                 {
                     node = node.RightChild;
                 }
-			}
-			return false;
-		}
+            }
+            return false;
+        }
 
         #endregion
 
@@ -394,11 +394,11 @@ namespace Towel.DataStructures
         /// <returns>The object with the desired string ID if it exists.</returns>
         /// <runtime>O(ln(Count)) Ω(1)</runtime>
         public T Get<Key>(Key key, Compare<T, Key> compare)
-		{
-			Node node = _root;
-			while (node != null)
-			{
-				Comparison comparison = compare(node.Value, key);
+        {
+            Node node = _root;
+            while (node != null)
+            {
+                Comparison comparison = compare(node.Value, key);
                 if (comparison == Comparison.Equal)
                 {
                     return node.Value;
@@ -411,19 +411,19 @@ namespace Towel.DataStructures
                 {
                     node = node.RightChild;
                 }
-			}
-			throw new InvalidOperationException("Attempting to get a non-existing item.");
-		}
+            }
+            throw new InvalidOperationException("Attempting to get a non-existing item.");
+        }
 
-		#endregion
+        #endregion
 
-		#region Remove
+        #region Remove
 
-		/// <summary>Removes an item from this structure.</summary>
-		/// <param name="removal">The item to remove.</param>
-		/// <runtime>O(ln(n))</runtime>
-		public void Remove(T removal)
-		{
+        /// <summary>Removes an item from this structure.</summary>
+        /// <param name="removal">The item to remove.</param>
+        /// <runtime>O(ln(n))</runtime>
+        public void Remove(T removal)
+        {
             Node REMOVE(T REMOVAL, Node NODE)
             {
                 if (NODE != null)
@@ -467,8 +467,8 @@ namespace Towel.DataStructures
             }
 
             _root = REMOVE(removal, _root);
-			_count--;
-		}
+            _count--;
+        }
 
         #endregion
 
@@ -480,7 +480,7 @@ namespace Towel.DataStructures
         /// <param name="comparison">The sorting technique (must synchronize with the structure's sorting).</param>
         /// <runtime>O(ln(n))</runtime>
         public void Remove<Key>(Key key, Compare<T, Key> comparison)
-		{
+        {
             Node REMOVE(Key KEY, Compare<T, Key> COMPARE, Node NODE)
             {
                 if (NODE != null)
@@ -524,12 +524,12 @@ namespace Towel.DataStructures
             }
 
             _root = REMOVE(key, comparison, _root);
-			_count--;
-		}
+            _count--;
+        }
 
-		#endregion
+        #endregion
 
-		#region Stepper And IEnumerable
+        #region Stepper And IEnumerable
 
         #region Stepper
 
@@ -1047,31 +1047,31 @@ namespace Towel.DataStructures
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         [Obsolete("AVL Trees should be enumerated using the Stepper functions.")]
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+        {
+            return GetEnumerator();
+        }
 
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         [Obsolete("AVL Trees should be enumerated using the Stepper functions.")]
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-		{
-			FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
-			Node current = _root;
-			while (current != null || forks.Count > 0)
-			{
-				if (current != null)
-				{
-					forks.Push(current);
-					current = current.LeftChild;
-				}
-				else if (forks.Count > 0)
-				{
-					current = forks.Pop();
-					yield return current.Value;
-					current = current.RightChild;
-				}
-			}
-		}
+        {
+            FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
+            Node current = _root;
+            while (current != null || forks.Count > 0)
+            {
+                if (current != null)
+                {
+                    forks.Push(current);
+                    current = current.LeftChild;
+                }
+                else if (forks.Count > 0)
+                {
+                    current = forks.Pop();
+                    yield return current.Value;
+                    current = current.RightChild;
+                }
+            }
+        }
 
         #endregion
 
@@ -1084,7 +1084,7 @@ namespace Towel.DataStructures
         /// <returns>The result of the possible balancing.</returns>
         /// <runtime>θ(1)</runtime>
         private Node Balance(Node node)
-		{
+        {
             Node RotateSingleLeft(Node NODE)
             {
                 Node temp = NODE.RightChild;
@@ -1132,7 +1132,7 @@ namespace Towel.DataStructures
             }
 
             if (Height(node.LeftChild) == Height(node.RightChild) + 2)
-			{
+            {
                 if (Height(node.LeftChild.LeftChild) > Height(node.RightChild))
                 {
                     return RotateSingleRight(node);
@@ -1141,9 +1141,9 @@ namespace Towel.DataStructures
                 {
                     return RotateDoubleRight(node);
                 }
-			}
-			else if (Height(node.RightChild) == Height(node.LeftChild) + 2)
-			{
+            }
+            else if (Height(node.RightChild) == Height(node.LeftChild) + 2)
+            {
                 if (Height(node.RightChild.RightChild) > Height(node.LeftChild))
                 {
                     return RotateSingleLeft(node);
@@ -1152,17 +1152,17 @@ namespace Towel.DataStructures
                 {
                     return RotateDoubleLeft(node);
                 }
-			}
-			SetHeight(node);
-			return node;
-		}
+            }
+            SetHeight(node);
+            return node;
+        }
 
         /// <summary>This is just a protection against the null valued leaf nodes, which have a height of "-1".</summary>
         /// <param name="node">The node to find the hight of.</param>
         /// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
         /// <runtime>θ(1)</runtime>
         private int Height(Node node)
-		{
+        {
             if (node is null)
             {
                 return -1;
@@ -1171,7 +1171,7 @@ namespace Towel.DataStructures
             {
                 return node.Height;
             }
-		}
+        }
 
         /// <summary>Removes the left-most child of an AVL Tree node and returns it 
         /// through the out parameter.</summary>
@@ -1179,16 +1179,16 @@ namespace Towel.DataStructures
         /// <param name="leftMost">The left-most child of this AVL tree.</param>
         /// <returns>The updated tree with the removal.</returns>
         private Node RemoveLeftMost(Node node, out Node leftMost)
-		{
-			if (node.LeftChild is null)
+        {
+            if (node.LeftChild is null)
             {
                 leftMost = node;
                 return null;
             }
-			node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
-			SetHeight(node);
-			return Balance(node);
-		}
+            node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
+            SetHeight(node);
+            return Balance(node);
+        }
 
         /// <summary>Removes the right-most child of an AVL Tree node and returns it 
         /// through the out parameter.</summary>
@@ -1196,22 +1196,22 @@ namespace Towel.DataStructures
         /// <param name="leftMost">The right-most child of this AVL tree.</param>
         /// <returns>The updated tree with the removal.</returns>
         private Node RemoveRightMost(Node node, out Node rightMost)
-		{
-			if (node.RightChild is null)
+        {
+            if (node.RightChild is null)
             {
                 rightMost = node;
                 return null;
             }
-			node.LeftChild = RemoveRightMost(node.RightChild, out rightMost);
-			SetHeight(node);
-			return Balance(node);
-		}
-        
-		/// <summary>Sets the height of a tree based on its children's heights.</summary>
-		/// <param name="node">The tree to have its height adjusted.</param>
-		/// <remarks>Runtime: O(1).</remarks>
-		private void SetHeight(Node node)
-		{
+            node.LeftChild = RemoveRightMost(node.RightChild, out rightMost);
+            SetHeight(node);
+            return Balance(node);
+        }
+
+        /// <summary>Sets the height of a tree based on its children's heights.</summary>
+        /// <param name="node">The tree to have its height adjusted.</param>
+        /// <remarks>Runtime: O(1).</remarks>
+        private void SetHeight(Node node)
+        {
             if (node.LeftChild is null && node.RightChild is null)
             {
                 node.Height = 0;
@@ -1220,7 +1220,7 @@ namespace Towel.DataStructures
             {
                 node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
             }
-		}
+        }
 
         #endregion
 

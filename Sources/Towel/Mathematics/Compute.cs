@@ -9,9 +9,9 @@ using Towel.Algorithms;
 
 namespace Towel.Mathematics
 {
-	/// <summary>Static Generic Mathematics Computation.</summary>
-	public static class Compute
-	{
+    /// <summary>Static Generic Mathematics Computation.</summary>
+    public static class Compute
+    {
         #region Internal Optimizations
 
         // These are some shared internal optimizations that I don't want to expose because it might confuse people.
@@ -110,7 +110,7 @@ namespace Towel.Mathematics
         {
             return FromInt32Implementation<T>.Function(a);
         }
-        
+
         internal static class FromInt32Implementation<T>
         {
             internal static Func<int, T> Function = (int a) =>
@@ -121,7 +121,7 @@ namespace Towel.Mathematics
                 return Function(a);
             };
         }
-        
+
         #endregion
 
         #region ToInt32
@@ -191,9 +191,9 @@ namespace Towel.Mathematics
         /// <param name="a">The value to negate.</param>
         /// <returns>The result of the negation.</returns>
         public static T Negate<T>(T a)
-		{
-			return NegateImplementation<T>.Function(a);
-		}
+        {
+            return NegateImplementation<T>.Function(a);
+        }
 
         internal static class NegateImplementation<T>
         {
@@ -641,7 +641,7 @@ namespace Towel.Mathematics
         /// <param name="root">The root of the operation.</param>
         /// <returns>The result of the root.</returns>
         public static T Root<T>(T a, T b)
-		{
+        {
             return Power(a, Invert(b));
         }
 
@@ -846,7 +846,7 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            
+
             //return IsPrimeImplementation<T>.Function(value);
         }
 
@@ -882,7 +882,7 @@ namespace Towel.Mathematics
         {
             return AbsoluteValueImplementation<T>.Function(a);
         }
-        
+
         internal static class AbsoluteValueImplementation<T>
         {
             internal static Func<T, T> Function = (T a) =>
@@ -1058,7 +1058,7 @@ namespace Towel.Mathematics
         {
             return CompareImplementation<T>.Function(a, b);
         }
-        
+
         internal static class CompareImplementation<T>
         {
             internal static Func<T, T, Comparison> Function = (T a, T b) =>
@@ -1435,7 +1435,7 @@ namespace Towel.Mathematics
                 }
                 else if (!IsInteger(n))
                 {
-			        throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
+                    throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }
                 if (!assigned)
                 {
@@ -1494,10 +1494,10 @@ namespace Towel.Mathematics
                     throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }
                 if (!assigned)
-		        {
-			        answer = AbsoluteValue(n);
-			        assigned = true;
-		        }
+                {
+                    answer = AbsoluteValue(n);
+                    assigned = true;
+                }
                 if (GreaterThan(answer, Constant<T>.One))
                 {
                     answer = AbsoluteValue(Multiply(Divide(answer, GreatestCommonFactor((Step<T> step) => { step(answer); step(n); })), n));
@@ -1526,7 +1526,7 @@ namespace Towel.Mathematics
             {
                 if (NotEqual(y0, y1))
                 {
-                    throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) +") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
+                    throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) + ") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
                 }
                 else
                 {
@@ -1731,7 +1731,7 @@ namespace Towel.Mathematics
             T multiple = Constant<T>.One;
             T count = Constant<T>.Zero;
             stepper(i =>
-	        {
+            {
                 count = Add(count, Constant<T>.One);
                 multiple = Multiply(multiple, i);
             });
@@ -1759,7 +1759,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region StandardDeviation
-        
+
         public static T StandardDeviation<T>(Stepper<T> stepper)
         {
             return SquareRoot(Variance(stepper));
@@ -1897,7 +1897,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region Exponential
-        
+
         /// <summary>Computes: [ e ^ a ].</summary>
         public static T Exponential<T>(T a)
         {
@@ -2411,7 +2411,7 @@ namespace Towel.Mathematics
                 step(FromInt32<T>(-1));
             }
             while (IsEven(A))
-        	{
+            {
                 step(Constant<T>.Two);
                 A = Divide(A, Constant<T>.Two);
             }

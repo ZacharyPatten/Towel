@@ -80,7 +80,7 @@ namespace Towel.Measurements
                 }
             }
         }
-        
+
         #endregion
 
         #region Mathematics

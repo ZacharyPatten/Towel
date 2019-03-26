@@ -180,16 +180,16 @@ namespace Towel.Mathematics
             this._matrix = vector._vector.Clone() as T[];
         }
 
-		#endregion
+        #endregion
 
-		#region Factories
+        #region Factories
 
-		/// <summary>Constructs a new zero-matrix of the given dimensions.</summary>
-		/// <param name="rows">The number of rows of the matrix.</param>
-		/// <param name="columns">The number of columns of the matrix.</param>
-		/// <returns>The newly constructed zero-matrix.</returns>
-		public static Matrix<T> FactoryZero(int rows, int columns)
-		{
+        /// <summary>Constructs a new zero-matrix of the given dimensions.</summary>
+        /// <param name="rows">The number of rows of the matrix.</param>
+        /// <param name="columns">The number of columns of the matrix.</param>
+        /// <returns>The newly constructed zero-matrix.</returns>
+        public static Matrix<T> FactoryZero(int rows, int columns)
+        {
             if (rows < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
@@ -199,7 +199,7 @@ namespace Towel.Mathematics
                 throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
             }
             return FactoryZeroImplementation(rows, columns);
-		}
+        }
 
         internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
         {
@@ -224,7 +224,7 @@ namespace Towel.Mathematics
         /// <param name="columns">The number of columns of the matrix.</param>
         /// <returns>The newly constructed identity-matrix.</returns>
         public static Matrix<T> FactoryIdentity(int rows, int columns)
-		{
+        {
             if (rows < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
@@ -234,7 +234,7 @@ namespace Towel.Mathematics
                 throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
             }
             return FactoryIdentityImplementation(rows, columns);
-		}
+        }
 
         internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
         {
@@ -270,7 +270,7 @@ namespace Towel.Mathematics
         /// <param name="value">The value to assign every spot in the matrix.</param>
         /// <returns>The newly constructed matrix filled with the uniform value.</returns>
         public static Matrix<T> FactoryUniform(int rows, int columns, T value)
-		{
+        {
             if (rows < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(" + nameof(rows) + " > 0)");
@@ -281,8 +281,8 @@ namespace Towel.Mathematics
             }
             Matrix<T> matrix = new Matrix<T>(rows, columns);
             matrix._matrix.Fill(value);
-			return matrix;
-		}
+            return matrix;
+        }
 
         #endregion
 
@@ -515,13 +515,13 @@ namespace Towel.Mathematics
         {
             return this + b;
         }
-        
+
         #endregion
 
         #region Subtract
 
         /// <summary>Does a standard matrix subtraction.</summary>
-		/// <param name="a">The left matrix of the subtraction.</param>
+        /// <param name="a">The left matrix of the subtraction.</param>
         /// <param name="b">The right matrix of the subtraction.</param>
         /// <param name="c">The resulting matrix after the subtraction.</param>
         private static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
@@ -1104,7 +1104,7 @@ namespace Towel.Mathematics
         }
 
         #endregion
-        
+
         #region Minor
 
         /// <summary>Gets the minor of a matrix.</summary>
@@ -2193,7 +2193,7 @@ namespace Towel.Mathematics
         /// <summary>Converts a matrix into a T[,].</summary>
         /// <param name="a">The matrix toconvert to a T[,].</param>
         /// <returns>The resulting T[,] after conversion.</returns>
-        public static explicit operator T[,](Matrix<T> matrix)
+        public static explicit operator T[,] (Matrix<T> matrix)
         {
             int rows = matrix._rows;
             int columns = matrix._columns;
@@ -2217,28 +2217,28 @@ namespace Towel.Mathematics
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         public void Stepper(Step<T> step)
-		{
+        {
             for (int i = 0; i < this._matrix.Length; i++)
             {
                 step(this._matrix[i]);
             }
-		}
+        }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         public void Stepper(StepRef<T> step)
-		{
+        {
             for (int i = 0; i < this._matrix.Length; i++)
             {
                 step(ref this._matrix[i]);
             }
-		}
+        }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> step)
-		{
+        {
             for (int i = 0; i < this._matrix.Length; i++)
             {
                 if (step(this._matrix[i]) == StepStatus.Break)
@@ -2246,14 +2246,14 @@ namespace Towel.Mathematics
                     return StepStatus.Break;
                 }
             }
-			return StepStatus.Continue;
-		}
+            return StepStatus.Continue;
+        }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepRefBreak<T> step)
-		{
+        {
             for (int i = 0; i < this._matrix.Length; i++)
             {
                 if (step(ref this._matrix[i]) == StepStatus.Break)
@@ -2261,39 +2261,39 @@ namespace Towel.Mathematics
                     return StepStatus.Break;
                 }
             }
-			return StepStatus.Continue;
-		}
+            return StepStatus.Continue;
+        }
 
-		#endregion
+        #endregion
 
-		#region Overrides
+        #region Overrides
 
-		/// <summary>Prints out a string representation of this matrix.</summary>
-		/// <returns>A string representing this matrix.</returns>
-		public override string ToString()
-		{
+        /// <summary>Prints out a string representation of this matrix.</summary>
+        /// <returns>A string representing this matrix.</returns>
+        public override string ToString()
+        {
             return base.ToString();
         }
 
-		/// <summary>Matrixs a hash code from the values of this matrix.</summary>
-		/// <returns>A hash code for the matrix.</returns>
-		public override int GetHashCode()
-		{
+        /// <summary>Matrixs a hash code from the values of this matrix.</summary>
+        /// <returns>A hash code for the matrix.</returns>
+        public override int GetHashCode()
+        {
             return this._matrix.GetHashCode() ^ this._rows ^ this._columns;
         }
 
-		/// <summary>Does an equality check by value.</summary>
-		/// <param name="b">The object to compare to.</param>
-		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object b)
-		{
+        /// <summary>Does an equality check by value.</summary>
+        /// <param name="b">The object to compare to.</param>
+        /// <returns>True if the references are equal, false if not.</returns>
+        public override bool Equals(object b)
+        {
             if (!(b is Matrix<T>))
             {
                 return Equal(this, (Matrix<T>)b);
             }
-			return false;
-		}
+            return false;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -220,7 +220,7 @@ namespace Algorithms
 
                 // Make sure we don't re-use locations (must be wiped after running the algorithm)
                 Set<Vector<float>> alreadyUsed = new SetHashList<Vector<float>>();
-                
+
                 Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
 
                 // So, we just need to validate movement locations (make sure the path finding algorithm
@@ -361,7 +361,7 @@ namespace Algorithms
                 // differences between them.
                 alreadyUsed.Clear();
 
-                Stepper<Vector<float>> greedyPath = 
+                Stepper<Vector<float>> greedyPath =
                     Search.Graph(
                         enemyLocation,
                         neighborFunction,
@@ -371,7 +371,7 @@ namespace Algorithms
                 // NOTE: If there is no valid path, then "Search.Graph" will return "null."
                 // For this example, I know that there will be a valid path so I did not 
                 // include a null check.
-                
+
                 // Lets convert the paths into arrays so you can look at them in the debugger. :)
                 Vector<float>[] aStarPathArray = aStarPath.ToArray();
                 Vector<float>[] greedyPathArray = greedyPath.ToArray();

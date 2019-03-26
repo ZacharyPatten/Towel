@@ -9,8 +9,8 @@ namespace Towel.Mathematics
     /// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
     [DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
     [Serializable]
-	public class Quaternion<T>
-	{
+    public class Quaternion<T>
+    {
         internal T _x;
         internal T _y;
         internal T _z;
@@ -33,12 +33,12 @@ namespace Towel.Mathematics
 
         /// <summary>The X component of the quaternion. (axis, NOT rotation ammount)</summary>
         public T X { get { return this._x; } set { this._x = value; } }
-		/// <summary>The Y component of the quaternion. (axis, NOT rotation ammount)</summary>
-		public T Y { get { return this._y; } set { this._y = value; } }
-		/// <summary>The Z component of the quaternion. (axis, NOT rotation ammount)</summary>
-		public T Z { get { return this._z; } set { this._z = value; } }
-		/// <summary>The W component of the quaternion. (rotation ammount, NOT axis)</summary>
-		public T W { get { return this._w; } set { this._w = value; } }
+        /// <summary>The Y component of the quaternion. (axis, NOT rotation ammount)</summary>
+        public T Y { get { return this._y; } set { this._y = value; } }
+        /// <summary>The Z component of the quaternion. (axis, NOT rotation ammount)</summary>
+        public T Z { get { return this._z; } set { this._z = value; } }
+        /// <summary>The W component of the quaternion. (rotation ammount, NOT axis)</summary>
+        public T W { get { return this._w; } set { this._w = value; } }
 
         #endregion
 
@@ -72,27 +72,27 @@ namespace Towel.Mathematics
         /// <param name="z">The z component of the quaternion.</param>
         /// <param name="w">The w component of the quaternion.</param>
         public Quaternion(T x, T y, T z, T w) { _x = x; _y = y; _z = z; _w = w; }
-        
-		#endregion
 
-		#region Factories
-        
-		///// <summary>Creates a quaternion from an axis and rotation.</summary>
-		///// <param name="axis">The to create the quaternion from.</param>
-		///// <param name="angle">The angle to create teh quaternion from.</param>
-		///// <returns>The newly created quaternion.</returns>
-		//public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
-		//{
-		//	throw new System.NotImplementedException();
-		//	//if (axis.LengthSquared() == 0.0f)
-		//	//	return FactoryIdentity;
-		//	//T sinAngleOverAxisLength = Calc.Sin(angle / 2) / axis.Length();
-		//	//return Quaternion<T>.Normalize(new Quaternion<T>(
-		//	//	_multiply(axis.X, sinAngleOverAxisLength),
-		//	//	axis.Y * sinAngleOverAxisLength,
-		//	//	axis.Z * sinAngleOverAxisLength,
-		//	//	Calc.Cos(angle / 2)));
-		//}
+        #endregion
+
+        #region Factories
+
+        ///// <summary>Creates a quaternion from an axis and rotation.</summary>
+        ///// <param name="axis">The to create the quaternion from.</param>
+        ///// <param name="angle">The angle to create teh quaternion from.</param>
+        ///// <returns>The newly created quaternion.</returns>
+        //public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
+        //{
+        //	throw new System.NotImplementedException();
+        //	//if (axis.LengthSquared() == 0.0f)
+        //	//	return FactoryIdentity;
+        //	//T sinAngleOverAxisLength = Calc.Sin(angle / 2) / axis.Length();
+        //	//return Quaternion<T>.Normalize(new Quaternion<T>(
+        //	//	_multiply(axis.X, sinAngleOverAxisLength),
+        //	//	axis.Y * sinAngleOverAxisLength,
+        //	//	axis.Z * sinAngleOverAxisLength,
+        //	//	Calc.Cos(angle / 2)));
+        //}
 
         public static Quaternion<T> Factory_Matrix3x3(Matrix<T> matrix)
         {
@@ -910,7 +910,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region Invert
-        
+
         /// <summary>Inverts a quaternion.</summary>
         /// <param name="a">The quaternion to invert.</param>
         /// <param name="b">The result of the inversion.</param>
@@ -1357,33 +1357,33 @@ namespace Towel.Mathematics
         /// <summary>Converts the quaternion into a string.</summary>
         /// <returns>The resulting string after the conversion.</returns>
         public override string ToString()
-		{
-			return base.ToString();
-		}
+        {
+            return base.ToString();
+        }
 
-		/// <summary>Computes a hash code from the values in this quaternion.</summary>
-		/// <returns>The computed hash code.</returns>
-		public override int GetHashCode()
-		{
-			return
-				_x.GetHashCode() ^
-				_y.GetHashCode() ^
-				_z.GetHashCode() ^
-				_w.GetHashCode();
-		}
+        /// <summary>Computes a hash code from the values in this quaternion.</summary>
+        /// <returns>The computed hash code.</returns>
+        public override int GetHashCode()
+        {
+            return
+                _x.GetHashCode() ^
+                _y.GetHashCode() ^
+                _z.GetHashCode() ^
+                _w.GetHashCode();
+        }
 
-		/// <summary>Does a reference equality check.</summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
-		public override bool Equals(object other)
-		{
+        /// <summary>Does a reference equality check.</summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public override bool Equals(object other)
+        {
             if (other is Quaternion<T>)
             {
                 return Quaternion<T>.Equal(this, (Quaternion<T>)other);
             }
-			return false;
-		}
+            return false;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

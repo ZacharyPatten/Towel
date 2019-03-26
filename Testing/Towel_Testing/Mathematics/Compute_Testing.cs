@@ -284,7 +284,7 @@ namespace Towel_Testing.Mathematics
             catch (DivideByZeroException) { }
             Assert.IsTrue(Modulo(0, 1) == 0 % 1);
             Assert.IsTrue(Modulo(1, 1) == 1 % 1);
-            Assert.IsTrue(Modulo(8, 3) ==  8 % 3);
+            Assert.IsTrue(Modulo(8, 3) == 8 % 3);
             Assert.IsTrue(Modulo(-8, 3) == -8 % 3);
             Assert.IsTrue(Modulo(8, -3) == 8 % 3);
             Assert.IsTrue(Modulo(-8, -3) == -8 % 3);

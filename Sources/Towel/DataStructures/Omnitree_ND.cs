@@ -84,7 +84,7 @@ namespace Towel.DataStructures
     public static partial class Omnitree
     {
         #region Spacial Types (Bound, Vector, Bounds) And Location/Bounding Functions
-        
+
         public struct Bound<T>
         {
             internal readonly bool Exists;
@@ -130,7 +130,7 @@ namespace Towel.DataStructures
         }
 
         public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Stepper<T> values);
-        
+
         internal static T SubDivide<T>(Bound<T>[] bounds, Compare<T> compare)
         {
             // make sure a bound exists (not all objects are infinitely bound)
@@ -148,7 +148,7 @@ namespace Towel.DataStructures
             // point of division is, because the objects will never go down the tree
             if (!exists)
                 return default(T);
-            
+
             System.Array.Sort(bounds, Compare.ToSystemComparison(Bound<T>.Compare(compare)));
 
             // after sorting, we need to find the middle-most value that exists
@@ -168,7 +168,7 @@ namespace Towel.DataStructures
             // This exception should never be reached
             throw new System.Exception("There is a bug in the Towel Framwork [SubDivide]");
         }
-        
+
         internal static T SubDivide<T>(IndexedBigArray<Bound<T>> bounds, Compare<T> compare)
         {
             // make sure a bound exists (not all objects are infinitely bound)
@@ -188,7 +188,7 @@ namespace Towel.DataStructures
                 return default(T);
 
             Towel.Algorithms.Sort.Merge(Bound<T>.Compare(compare), index => bounds[index], (index, value) => { bounds[index] = value; }, 0, (int)bounds.Length);
-            
+
             // after sorting, we need to find the middle-most value that exists
             ulong medianIndex = bounds.Length / 2;
             for (ulong i = 0; i < bounds.Length; i++)
@@ -200,7 +200,7 @@ namespace Towel.DataStructures
                     adjustedMedianIndex -= adjuster;
                 else
                     adjustedMedianIndex += adjuster;
-                
+
                 if (bounds[adjustedMedianIndex].Exists)
                     return bounds[adjustedMedianIndex].Value;
             }

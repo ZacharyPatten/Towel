@@ -11,15 +11,15 @@ namespace Towel.Mathematics
     [DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
     [Serializable]
     public class Vector<T>
-	{
-		internal readonly T[] _vector;
+    {
+        internal readonly T[] _vector;
 
-		#region Basic Properties
+        #region Basic Properties
 
-		/// <summary>Index 0</summary>
-		public T X
-		{
-			get
+        /// <summary>Index 0</summary>
+        public T X
+        {
+            get
             {
                 if (this.Dimensions < 1)
                 {
@@ -27,7 +27,7 @@ namespace Towel.Mathematics
                 }
                 return _vector[0];
             }
-			set
+            set
             {
                 if (this.Dimensions < 1)
                 {
@@ -35,12 +35,12 @@ namespace Towel.Mathematics
                 }
                 this._vector[0] = value;
             }
-		}
+        }
 
-		/// <summary>Index 1</summary>
-		public T Y
-		{
-			get
+        /// <summary>Index 1</summary>
+        public T Y
+        {
+            get
             {
                 if (this.Dimensions < 2)
                 {
@@ -58,9 +58,9 @@ namespace Towel.Mathematics
             }
         }
 
-		/// <summary>Index 2</summary>
-		public T Z
-		{
+        /// <summary>Index 2</summary>
+        public T Z
+        {
             get
             {
                 if (this.Dimensions < 3)
@@ -79,8 +79,8 @@ namespace Towel.Mathematics
             }
         }
 
-		/// <summary>The number of components in this vector.</summary>
-		public int Dimensions
+        /// <summary>The number of components in this vector.</summary>
+        public int Dimensions
         {
             get
             {
@@ -88,12 +88,12 @@ namespace Towel.Mathematics
             }
         }
 
-		/// <summary>Allows indexed access to this vector.</summary>
-		/// <param name="index">The index to access.</param>
-		/// <returns>The value of the given index.</returns>
-		public T this[int index]
-		{
-			get
+        /// <summary>Allows indexed access to this vector.</summary>
+        /// <param name="index">The index to access.</param>
+        /// <returns>The value of the given index.</returns>
+        public T this[int index]
+        {
+            get
             {
                 if (0 > index || index > Dimensions)
                 {
@@ -101,7 +101,7 @@ namespace Towel.Mathematics
                 }
                 return this._vector[index];
             }
-			set
+            set
             {
                 if (0 > index || index > Dimensions)
                 {
@@ -109,7 +109,7 @@ namespace Towel.Mathematics
                 }
                 this._vector[index] = value;
             }
-		}
+        }
 
         #endregion
 
@@ -139,20 +139,20 @@ namespace Towel.Mathematics
         /// <summary>Creates a new vector with the given number of components.</summary>
         /// <param name="dimensions">The number of dimensions this vector will have.</param>
         public Vector(int dimensions)
-		{
-			if (dimensions < 0)
+        {
+            if (dimensions < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(dimensions), dimensions, "!(" + nameof(dimensions) + " >= 0)");
             }
-			this._vector = new T[dimensions];
-		}
+            this._vector = new T[dimensions];
+        }
 
-		/// <summary>Creates a vector out of the given values.</summary>
-		/// <param name="vector">The values to initialize the vector to.</param>
-		public Vector(params T[] vector)
-		{
-			this._vector = vector;
-		}
+        /// <summary>Creates a vector out of the given values.</summary>
+        /// <param name="vector">The values to initialize the vector to.</param>
+        public Vector(params T[] vector)
+        {
+            this._vector = vector;
+        }
 
         /// <summary>Creates a new vector and initializes it via function.</summary>
         /// <param name="dimensions">The number of dimensions of the vector to construct.</param>
@@ -170,14 +170,14 @@ namespace Towel.Mathematics
             this._vector = vector._vector.Clone() as T[];
         }
 
-		#endregion
+        #endregion
 
-		#region Factories
+        #region Factories
 
-		/// <summary>Creates a vector with the given number of components with the values initialized to zeroes.</summary>
-		/// <param name="dimensions">The number of components in the vector.</param>
-		/// <returns>The newly constructed vector.</returns>
-		public static Vector<T> FactoryZero(int dimensions)
+        /// <summary>Creates a vector with the given number of components with the values initialized to zeroes.</summary>
+        /// <param name="dimensions">The number of components in the vector.</param>
+        /// <returns>The newly constructed vector.</returns>
+        public static Vector<T> FactoryZero(int dimensions)
         {
             return FactoryZeroImplementation(dimensions);
         }
@@ -1036,7 +1036,7 @@ namespace Towel.Mathematics
             }
             if (Compute.Equal(a.Dimensions, b.Dimensions, c.Dimensions))
             {
-                throw new MathematicsException("Arguments invalid !(" + 
+                throw new MathematicsException("Arguments invalid !(" +
                     nameof(a) + "." + nameof(a.Dimensions) + " == " +
                     nameof(b) + "." + nameof(b.Dimensions) + " == " +
                     nameof(c) + "." + nameof(c.Dimensions) + ")");
@@ -1211,7 +1211,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region Other Methods
-        
+
         #region Clone
 
         /// <summary>Creates a copy of a vector.</summary>
@@ -1242,98 +1242,98 @@ namespace Towel.Mathematics
         /// <summary>Implicit conversions from Vector to T[].</summary>
         /// <param name="vector">The Vector to be converted to a T[].</param>
         /// <returns>The T[] of the vector.</returns>
-        public static implicit operator T[](Vector<T> vector)
-		{
+        public static implicit operator T[] (Vector<T> vector)
+        {
             return vector._vector;
         }
 
-		/// <summary>Implicit conversions from Vector to T[].</summary>
-		/// <param name="array">The Vector to be converted to a T[].</param>
-		/// <returns>The T[] of the vector.</returns>
-		public static implicit operator Vector<T>(T[] array)
-		{
+        /// <summary>Implicit conversions from Vector to T[].</summary>
+        /// <param name="array">The Vector to be converted to a T[].</param>
+        /// <returns>The T[] of the vector.</returns>
+        public static implicit operator Vector<T>(T[] array)
+        {
             return new Vector<T>(array);
         }
 
-		/// <summary>Converts a vector into a matrix.</summary>
-		/// <param name="vector">The vector to convert.</param>
-		/// <returns>The resulting matrix.</returns>
-		public static explicit operator Matrix<T>(Vector<T> vector)
-		{
+        /// <summary>Converts a vector into a matrix.</summary>
+        /// <param name="vector">The vector to convert.</param>
+        /// <returns>The resulting matrix.</returns>
+        public static explicit operator Matrix<T>(Vector<T> vector)
+        {
             return new Matrix<T>(vector);
         }
 
-		/// <summary>Implicitly converts a scalar into a one dimensional vector.</summary>
-		/// <param name="scalar">The scalar value.</param>
-		/// <returns>The one dimensional vector </returns>
-		public static explicit operator Vector<T>(T scalar)
-		{
+        /// <summary>Implicitly converts a scalar into a one dimensional vector.</summary>
+        /// <param name="scalar">The scalar value.</param>
+        /// <returns>The one dimensional vector </returns>
+        public static explicit operator Vector<T>(T scalar)
+        {
             return new Vector<T>(scalar);
         }
 
-		#endregion
+        #endregion
 
-		#region Steppers
+        #region Steppers
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step_function)
-		{
-			for (int i = 0; i < this._vector.Length; i++)
-				step_function(this._vector[i]);
-		}
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step_function)
+        {
+            for (int i = 0; i < this._vector.Length; i++)
+                step_function(this._vector[i]);
+        }
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step_function)
-		{
-			for (int i = 0; i < this._vector.Length; i++)
-				step_function(ref this._vector[i]);
-		}
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step_function)
+        {
+            for (int i = 0; i < this._vector.Length; i++)
+                step_function(ref this._vector[i]);
+        }
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step_function)
-		{
-			for (int i = 0; i < this._vector.Length; i++)
-				if (step_function(this._vector[i]) == StepStatus.Break)
-					return StepStatus.Break;
-			return StepStatus.Continue;
-		}
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> step_function)
+        {
+            for (int i = 0; i < this._vector.Length; i++)
+                if (step_function(this._vector[i]) == StepStatus.Break)
+                    return StepStatus.Break;
+            return StepStatus.Continue;
+        }
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step_function)
-		{
-			for (int i = 0; i < this._vector.Length; i++)
-				if (step_function(ref this._vector[i]) == StepStatus.Break)
-					return StepStatus.Break;
-			return StepStatus.Continue;
-		}
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepRefBreak<T> step_function)
+        {
+            for (int i = 0; i < this._vector.Length; i++)
+                if (step_function(ref this._vector[i]) == StepStatus.Break)
+                    return StepStatus.Break;
+            return StepStatus.Continue;
+        }
 
-		#endregion
+        #endregion
 
-		#region Overrides
+        #region Overrides
 
-		/// <summary>Computes a hash code from the values of this matrix.</summary>
-		/// <returns>A hash code for the matrix.</returns>
-		public override int GetHashCode()
-		{
-			int hash = this._vector[0].GetHashCode();
+        /// <summary>Computes a hash code from the values of this matrix.</summary>
+        /// <returns>A hash code for the matrix.</returns>
+        public override int GetHashCode()
+        {
+            int hash = this._vector[0].GetHashCode();
             for (int i = 1; i < this._vector.Length; i++)
             {
                 hash ^= this._vector[i].GetHashCode();
             }
-			return hash;
-		}
+            return hash;
+        }
 
-		/// <summary>Does an equality check by reference.</summary>
-		/// <param name="right">The object to compare to.</param>
-		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object right)
-		{
+        /// <summary>Does an equality check by reference.</summary>
+        /// <param name="right">The object to compare to.</param>
+        /// <returns>True if the references are equal, false if not.</returns>
+        public override bool Equals(object right)
+        {
             if (!(right is Vector<T>))
             {
                 return false;
@@ -1342,8 +1342,8 @@ namespace Towel.Mathematics
             {
                 return Equal(this, (Vector<T>)right);
             }
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

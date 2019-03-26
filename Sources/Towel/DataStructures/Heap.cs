@@ -3,40 +3,40 @@ using Towel;
 
 namespace Towel.DataStructures
 {
-	/// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
-	/// <typeparam name="T">The generic type to be stored within the heap.</typeparam>
-	public interface Heap<T> : DataStructure<T>,
-		// Structure Properties
-		DataStructure.Countable<T>,
-		DataStructure.Clearable<T>,
-		DataStructure.Comparing<T>
-	{
-		#region Methods
+    /// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
+    /// <typeparam name="T">The generic type to be stored within the heap.</typeparam>
+    public interface Heap<T> : DataStructure<T>,
+        // Structure Properties
+        DataStructure.Countable<T>,
+        DataStructure.Clearable<T>,
+        DataStructure.Comparing<T>
+    {
+        #region Methods
 
-		/// <summary>Enqueues an item into the heap.</summary>
-		/// <param name="addition"></param>
-		void Enqueue(T addition);
-		/// <summary>Removes and returns the highest priority item.</summary>
-		/// <returns>The highest priority item from the queue.</returns>
-		T Dequeue();
-		/// <summary>Returns the highest priority item.</summary>
-		/// <returns>The highest priority item in the queue.</returns>
-		T Peek();
+        /// <summary>Enqueues an item into the heap.</summary>
+        /// <param name="addition"></param>
+        void Enqueue(T addition);
+        /// <summary>Removes and returns the highest priority item.</summary>
+        /// <returns>The highest priority item from the queue.</returns>
+        T Dequeue();
+        /// <summary>Returns the highest priority item.</summary>
+        /// <returns>The highest priority item in the queue.</returns>
+        T Peek();
 
-		#endregion
-	}
-	
-	/// <summary>Implements a priority heap with static priorities using an array.</summary>
-	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-	/// <citation>
-	/// This heap imlpementation was originally developed by 
-	/// Rodney Howell of Kansas State University. However, it has 
-	/// been modified since its addition into the Towel framework.
-	/// </citation>
-	[Serializable]
-	public class HeapArray<T> : Heap<T>
-	{
+        #endregion
+    }
+
+    /// <summary>Implements a priority heap with static priorities using an array.</summary>
+    /// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
+    /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
+    /// <citation>
+    /// This heap imlpementation was originally developed by 
+    /// Rodney Howell of Kansas State University. However, it has 
+    /// been modified since its addition into the Towel framework.
+    /// </citation>
+    [Serializable]
+    public class HeapArray<T> : Heap<T>
+    {
         // Fields
         private Compare<T> _compare;
         private T[] _heap;

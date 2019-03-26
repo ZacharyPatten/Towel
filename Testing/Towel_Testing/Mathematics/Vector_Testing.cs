@@ -156,7 +156,7 @@ namespace Towel_Testing.Mathematics
                 Assert.IsTrue(a * -2m == new Vector<decimal>(-2m, -4m, -6m));
             }
         }
-        
+
         [TestMethod]
         public void Divide()
         {

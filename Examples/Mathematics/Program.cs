@@ -65,7 +65,7 @@ namespace Mathematics
             Console.WriteLine("    Compare(7, 7): " + Compare((Fraction32)7, (Fraction32)7));
             Console.WriteLine("    Equate(7, 6): " + Equal(7, 6));
             Console.WriteLine("    EqualsLeniency(2, 1, 1): " + EqualLeniency(2, 1, 1));
-            
+
 
             Console.WriteLine();
 
