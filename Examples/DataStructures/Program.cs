@@ -173,6 +173,61 @@ namespace DataStructures
             #endregion
 
             #region FirstInFirstOut (aka Queue)
+            {
+                Console.WriteLine("  FirstInFirstOut---------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    An \"FirstInFirstOut\" is a Queue that implements");
+                Console.WriteLine("    Towel.DataStructures.DataStructure. \"FirstInFirstOutArray\" is");
+                Console.WriteLine("    the array implementation while \"FirstInFirstOutLinked\" is the");
+                Console.WriteLine("    the linked-list implementation.");
+                Console.WriteLine();
+
+                FirstInFirstOut<int> firstInFirstOutArray = new FirstInFirstOutArray<int>();
+
+                Console.Write("    [FirstInFirstOutArray] Enqueuing (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    firstInFirstOutArray.Enqueue(i);
+                }
+                Console.WriteLine();
+
+                Console.Write("    [FirstInFirstOutArray] Traversal: ");
+                firstInFirstOutArray.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    [FirstInFirstOutArray] Dequeue: " + firstInFirstOutArray.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutArray] Dequeue: " + firstInFirstOutArray.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutArray] Peek: " + firstInFirstOutArray.Peek());
+                Console.WriteLine("    [FirstInFirstOutArray] Dequeue: " + firstInFirstOutArray.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutArray] Count: " + firstInFirstOutArray.Count);
+
+                firstInFirstOutArray.Clear(); // Clears the firstInLastOut
+
+                Console.WriteLine();
+
+                FirstInFirstOut<int> firstInFirstOutLinked = new FirstInFirstOutLinked<int>();
+
+                Console.Write("    [FirstInFirstOutLinked] Enqueuing (0-" + test + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    firstInFirstOutLinked.Enqueue(i);
+                }
+                Console.WriteLine();
+
+                Console.Write("    [FirstInFirstOutLinked] Traversal: ");
+                firstInFirstOutLinked.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    [FirstInFirstOutLinked] Pop: " + firstInFirstOutLinked.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutLinked] Pop: " + firstInFirstOutLinked.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutLinked] Peek: " + firstInFirstOutLinked.Peek());
+                Console.WriteLine("    [FirstInFirstOutLinked] Pop: " + firstInFirstOutLinked.Dequeue());
+                Console.WriteLine("    [FirstInFirstOutLinked] Count: " + firstInFirstOutLinked.Count);
+
+                firstInFirstOutLinked.Clear(); // Clears the firstInLastOut
+
+                Console.WriteLine();
+            }
 
             Console.WriteLine("  Testing Queue_Linked<int>------------------");
             FirstInFirstOut<int> queue_linked = new FirstInFirstOutLinked<int>();
