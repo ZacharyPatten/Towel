@@ -528,7 +528,7 @@ namespace Towel.DataStructures
         }
 
         #endregion
-
+        
         #region Stepper And IEnumerable
 
         #region Stepper
@@ -538,17 +538,16 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * step).</remarks>
         public void Stepper(Step<T> step)
         {
-            Stepper(step, this._root);
-        }
-        internal static bool Stepper(Step<T> step, Node node)
-        {
-            if (node != null)
+            void Stepper(Step<T> STEP, Node NODE)
             {
-                Stepper(step, node.LeftChild);
-                step(node.Value);
-                Stepper(step, node.RightChild);
+                if (NODE != null)
+                {
+                    Stepper(STEP, NODE.LeftChild);
+                    STEP(NODE.Value);
+                    Stepper(STEP, NODE.RightChild);
+                }
             }
-            return true;
+            Stepper(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -556,16 +555,16 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public void Stepper(StepRef<T> step)
         {
-            Stepper(step, this._root);
-        }
-        internal static void Stepper(StepRef<T> step, Node node)
-        {
-            if (node != null)
+            void Stepper(StepRef<T> STEP, Node NODE)
             {
-                Stepper(step, node.LeftChild);
-                step(ref node.Value);
-                Stepper(step, node.RightChild);
+                if (NODE != null)
+                {
+                    Stepper(STEP, NODE.LeftChild);
+                    STEP(ref NODE.Value);
+                    Stepper(STEP, NODE.RightChild);
+                }
             }
+            Stepper(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -574,26 +573,26 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public StepStatus Stepper(StepBreak<T> step)
         {
-            return Stepper(step, this._root);
-        }
-        internal static StepStatus Stepper(StepBreak<T> step, Node avltreeNode)
-        {
-            if (avltreeNode != null)
+            StepStatus Stepper(StepBreak<T> STEP, Node NODE)
             {
-                if (Stepper(step, avltreeNode.LeftChild) == StepStatus.Break)
+                if (NODE != null)
                 {
-                    return StepStatus.Break;
+                    if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (STEP(NODE.Value) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
                 }
-                if (step(avltreeNode.Value) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
-                if (Stepper(step, avltreeNode.RightChild) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
+                return StepStatus.Continue;
             }
-            return StepStatus.Continue;
+            return Stepper(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -602,26 +601,26 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public StepStatus Stepper(StepRefBreak<T> step)
         {
-            return Stepper(step, this._root);
-        }
-        internal static StepStatus Stepper(StepRefBreak<T> step, Node node)
-        {
-            if (node != null)
+            StepStatus Stepper(StepRefBreak<T> STEP, Node NODE)
             {
-                if (Stepper(step, node.LeftChild) == StepStatus.Break)
+                if (NODE != null)
                 {
-                    return StepStatus.Break;
+                    if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (STEP(ref NODE.Value) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
                 }
-                if (step(ref node.Value) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
-                if (Stepper(step, node.RightChild) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
+                return StepStatus.Continue;
             }
-            return StepStatus.Continue;
+            return Stepper(step, _root);
         }
 
         #endregion
@@ -635,31 +634,32 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual void Stepper(Step<T> step, T minimum, T maximum)
         {
+            void Stepper(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                        STEP(NODE.Value);
+                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                }
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
-            Stepper(step, this._root, minimum, maximum);
-        }
-        internal void Stepper(Step<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    Stepper(step, node.LeftChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    Stepper(step, node.RightChild, minimum, maximum);
-                }
-                else
-                {
-                    Stepper(step, node.LeftChild, minimum, maximum);
-                    step(node.Value);
-                    Stepper(step, node.RightChild, minimum, maximum);
-                }
-            }
+            Stepper(step, _root, minimum, maximum);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -669,31 +669,32 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual void Stepper(StepRef<T> step, T minimum, T maximum)
         {
+            void Stepper(StepRef<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                        STEP(ref NODE.Value);
+                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                }
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
             Stepper(step, _root, minimum, maximum);
-        }
-        internal void Stepper(StepRef<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    Stepper(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    Stepper(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    Stepper(step, node.LeftChild, minimum, maximum);
-                    step(ref node.Value);
-                    Stepper(step, node.RightChild, minimum, maximum);
-                }
-            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -703,41 +704,42 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual StepStatus Stepper(StepBreak<T> step, T minimum, T maximum)
         {
+            StepStatus Stepper(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (STEP(NODE.Value) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                    }
+                }
+                return StepStatus.Continue;
+            }
+
             if (this._compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
             return Stepper(step, _root, minimum, maximum);
-        }
-        internal StepStatus Stepper(StepBreak<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    return Stepper(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    return Stepper(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    if (Stepper(step, node.LeftChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (step(node.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (this.Stepper(step, node.RightChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-            }
-            return StepStatus.Continue;
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -747,41 +749,42 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum)
         {
+            StepStatus Stepper(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (STEP(ref NODE.Value) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                    }
+                }
+                return StepStatus.Continue;
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
             return Stepper(step, _root, minimum, maximum);
-        }
-        internal StepStatus Stepper(StepRefBreak<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    return Stepper(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    return Stepper(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    if (Stepper(step, node.LeftChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (step(ref node.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (Stepper(step, node.RightChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-            }
-            return StepStatus.Continue;
         }
 
         #endregion
@@ -793,17 +796,18 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public void StepperReverse(Step<T> step)
         {
-            StepperReverse(step);
-        }
-        internal static bool StepperReverse(Step<T> step, Node node)
-        {
-            if (node != null)
+            bool StepperReverse(Step<T> STEP, Node NODE)
             {
-                StepperReverse(step, node.RightChild);
-                step(node.Value);
-                StepperReverse(step, node.LeftChild);
+                if (NODE != null)
+                {
+                    StepperReverse(STEP, NODE.RightChild);
+                    STEP(NODE.Value);
+                    StepperReverse(STEP, NODE.LeftChild);
+                }
+                return true;
             }
-            return true;
+
+            StepperReverse(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -811,17 +815,18 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public void StepperReverse(StepRef<T> step)
         {
-            StepperReverse(step);
-        }
-        internal static bool StepperReverse(StepRef<T> step, Node node)
-        {
-            if (node != null)
+            bool StepperReverse(StepRef<T> STEP, Node NODE)
             {
-                StepperReverse(step, node.RightChild);
-                step(ref node.Value);
-                StepperReverse(step, node.LeftChild);
+                if (NODE != null)
+                {
+                    StepperReverse(STEP, NODE.RightChild);
+                    STEP(ref NODE.Value);
+                    StepperReverse(STEP, NODE.LeftChild);
+                }
+                return true;
             }
-            return true;
+
+            StepperReverse(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -830,26 +835,27 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public StepStatus StepperReverse(StepBreak<T> step)
         {
-            return StepperReverse(step);
-        }
-        internal static StepStatus StepperReverse(StepBreak<T> step, Node avltreeNode)
-        {
-            if (avltreeNode != null)
+            StepStatus StepperReverse(StepBreak<T> STEP, Node NODE)
             {
-                if (StepperReverse(step, avltreeNode.RightChild) == StepStatus.Break)
+                if (NODE != null)
                 {
-                    return StepStatus.Break;
+                    if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (STEP(NODE.Value) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
                 }
-                if (step(avltreeNode.Value) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
-                if (StepperReverse(step, avltreeNode.LeftChild) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
+                return StepStatus.Continue;
             }
-            return StepStatus.Continue;
+
+            return StepperReverse(step, _root);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -858,28 +864,29 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public StepStatus StepperReverse(StepRefBreak<T> step)
         {
-            return StepperReverse(step);
-        }
-        internal static StepStatus StepperReverse(StepRefBreak<T> step, Node node)
-        {
-            if (node != null)
+            StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE)
             {
-                if (StepperReverse(step, node.RightChild) == StepStatus.Break)
+                if (NODE != null)
                 {
-                    return StepStatus.Break;
+                    if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (STEP(ref NODE.Value) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                    if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
                 }
-                if (step(ref node.Value) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
-                if (StepperReverse(step, node.LeftChild) == StepStatus.Break)
-                {
-                    return StepStatus.Break;
-                }
+                return StepStatus.Continue;
             }
-            return StepStatus.Continue;
-        }
 
+            return StepperReverse(step, _root);
+        }
+        
         #endregion
 
         #region StepperReverse (ranged)
@@ -891,31 +898,32 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public virtual void StepperReverse(Step<T> step, T minimum, T maximum)
         {
+            void StepperReverse(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                        STEP(NODE.Value);
+                        StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                }
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
-            StepperReverse(step, _root);
-        }
-        internal void StepperReverse(Step<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    StepperReverse(step, node.RightChild, minimum, maximum);
-                }
-                else
-                {
-                    StepperReverse(step, node.RightChild, minimum, maximum);
-                    step(node.Value);
-                    StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-            }
+            StepperReverse(step, _root, minimum, maximum);
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -959,41 +967,42 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * traversalFunction).</remarks>
         public virtual StepStatus StepperReverse(StepBreak<T> step_function, T minimum, T maximum)
         {
+            StepStatus StepperReverse(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (STEP(NODE.Value) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                    }
+                }
+                return StepStatus.Continue;
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
             return StepperReverse(step_function, _root, minimum, maximum);
-        }
-        internal StepStatus StepperReverse(StepBreak<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    return StepperReverse(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    return StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    if (StepperReverse(step, node.RightChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (step(node.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (StepperReverse(step, node.LeftChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-            }
-            return StepStatus.Continue;
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -1003,41 +1012,42 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n * step_function).</remarks>
         public virtual StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum)
         {
+            StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+            {
+                if (NODE != null)
+                {
+                    if (_compare(NODE.Value, MINIMUM) == Comparison.Less)
+                    {
+                        return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+                    }
+                    else if (_compare(NODE.Value, MAXIMUM) == Comparison.Greater)
+                    {
+                        return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+                    }
+                    else
+                    {
+                        if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (STEP(ref NODE.Value) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                        if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+                        {
+                            return StepStatus.Break;
+                        }
+                    }
+                }
+                return StepStatus.Continue;
+            }
+
             if (_compare(minimum, maximum) == Comparison.Greater)
             {
                 throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
             }
             return StepperReverse(step, _root, minimum, maximum);
-        }
-        internal StepStatus StepperReverse(StepRefBreak<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == Comparison.Less)
-                {
-                    return StepperReverse(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == Comparison.Greater)
-                {
-                    return StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    if (StepperReverse(step, node.RightChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (step(ref node.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (StepperReverse(step, node.LeftChild, minimum, maximum) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-            }
-            return StepStatus.Continue;
         }
 
         #endregion
@@ -1045,14 +1055,14 @@ namespace Towel.DataStructures
         #region IEnumerable
 
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("AVL Trees should be enumerated using the Stepper functions.")]
+        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("AVL Trees should be enumerated using the Stepper functions.")]
+        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
             FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();

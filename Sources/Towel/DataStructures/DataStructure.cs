@@ -9,13 +9,13 @@ namespace Towel.DataStructures
         #region Members
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_delegate">The delegate to invoke on each item in the structure.</param>
-        void Stepper(Step<T> step_delegate);
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        void Stepper(Step<T> step);
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_delegate">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        StepStatus Stepper(StepBreak<T> step_delegate);
+        StepStatus Stepper(StepBreak<T> step);
 
         #endregion
     }

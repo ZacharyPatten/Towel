@@ -50,7 +50,7 @@ namespace DataStructures
 
             Indexed<int> indexed = new IndexedArray<int>(test);
 
-            Console.Write("    Filling in (0-" + test + ")...");
+            Console.Write("    Filling in (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
             {
                 indexed[i] = i;
@@ -85,7 +85,7 @@ namespace DataStructures
             // AddableArray ---------------------------------------
             Addable<int> addableArray = new AddableArray<int>(test);
 
-            Console.Write("    [AddableArray] Adding (0-" + test + ")...");
+            Console.Write("    [AddableArray] Adding (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
             {
                 addableArray.Add(i);
@@ -105,7 +105,7 @@ namespace DataStructures
             // AddableLinked ---------------------------------------
             Addable<int> addableLinked = new AddableLinked<int>();
 
-            Console.Write("    [AddableLinked] Adding (0-" + test + ")...");
+            Console.Write("    [AddableLinked] Adding (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
             {
                 addableLinked.Add(i);
@@ -138,7 +138,7 @@ namespace DataStructures
 
                 FirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
 
-                Console.Write("    [FirstInLastOutArray] Pushing (0-" + test + ")...");
+                Console.Write("    [FirstInLastOutArray] Pushing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     firstInLastOutArray.Push(i);
@@ -161,7 +161,7 @@ namespace DataStructures
 
                 FirstInLastOut<int> firstInLastOutLinked = new FirstInLastOutLinked<int>();
 
-                Console.Write("    [FirstInLastOutLinked] Pushing (0-" + test + ")...");
+                Console.Write("    [FirstInLastOutLinked] Pushing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     firstInLastOutLinked.Push(i);
@@ -198,7 +198,7 @@ namespace DataStructures
 
                 FirstInFirstOut<int> firstInFirstOutArray = new FirstInFirstOutArray<int>();
 
-                Console.Write("    [FirstInFirstOutArray] Enqueuing (0-" + test + ")...");
+                Console.Write("    [FirstInFirstOutArray] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     firstInFirstOutArray.Enqueue(i);
@@ -221,7 +221,7 @@ namespace DataStructures
 
                 FirstInFirstOut<int> firstInFirstOutLinked = new FirstInFirstOutLinked<int>();
 
-                Console.Write("    [FirstInFirstOutLinked] Enqueuing (0-" + test + ")...");
+                Console.Write("    [FirstInFirstOutLinked] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     firstInFirstOutLinked.Enqueue(i);
@@ -267,7 +267,7 @@ namespace DataStructures
 
                 Heap<int> heapArray = new HeapArray<int>(Priority);
 
-                Console.Write("    [HeapArray] Enqueuing (0-" + test + ")...");
+                Console.Write("    [HeapArray] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     heapArray.Enqueue(i);
@@ -315,12 +315,14 @@ namespace DataStructures
                 Console.WriteLine("  AvlTree------------------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("    An AVL Tree is a sorted binary tree.");
+                Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
                 Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
+                Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
                 Console.WriteLine();
 
                 AvlTree<int> avlTree = new AvlTreeLinked<int>();
 
-                Console.Write("    Adding (0-" + test + ")...");
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     avlTree.Add(i);
@@ -372,22 +374,56 @@ namespace DataStructures
                 Console.WriteLine("  Red-Black Tree------------------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("    An Red-Black Tree is a sorted binary tree.");
+                Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
                 Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
+                Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
                 Console.WriteLine();
 
-                Console.WriteLine("  Testing RedBlack_Linked<int>---------------");
-                RedBlackTree<int> redBlackTree_linked = new RedBlackTreeLinked<int>(Compute.Compare);
+                RedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
-                    redBlackTree_linked.Add(i);
-                Console.Write("    Traversal: ");
-                redBlackTree_linked.Stepper((int current) => { Console.Write(current); });
+                {
+                    redBlackTree.Add(i);
+                }
                 Console.WriteLine();
-                // Saving to a file
-                //string redblacktreelinked_file = "redBlackTree_linked." + ToExtension(redBlackTree_linked.GetType());
-                //Console.WriteLine("    File: \"" + redblacktreelinked_file + "\"");
-                //Console.WriteLine("    Serialized: " + Serialize(redblacktreelinked_file, redBlackTree_linked));
-                //RedBlackTreeLinked<int> deserialized_redblacktreelinked;
-                //Console.WriteLine("    Deserialized: " + Deserialize(redblacktreelinked_file, out deserialized_redblacktreelinked));
+
+                Console.Write("    Traversal: ");
+                redBlackTree.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                //// Note: Although the Red Black tree implements IEnumerable, it should be
+                //// avoided. IEnumerable does not allow for recursion on recursive
+                //// data structures, so it requires a stack be stored on the program's
+                //// heap, which is incredibly slow.
+                //
+                //Console.Write("    Traversal Foreach: ");
+                //foreach (int i in redBlackTree)
+                //{
+                //    Console.Write(i);
+                //}
+                //Console.WriteLine();
+
+                int minimum = random.Next(1, test / 2);
+                int maximum = random.Next(1, test / 2) + test / 2;
+                Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
+                redBlackTree.Stepper(i => Console.Write(i), minimum, maximum);
+                Console.WriteLine();
+
+                int removal = random.Next(0, test);
+                Console.Write("    Remove(" + removal + "): ");
+                redBlackTree.Remove(removal);
+                redBlackTree.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                int contains = random.Next(0, test);
+                Console.WriteLine("    Contains(" + contains + "): " + redBlackTree.Contains(contains));
+                Console.WriteLine("    Current Least: " + redBlackTree.CurrentLeast);
+                Console.WriteLine("    Current Greatest: " + redBlackTree.CurrentGreatest);
+                Console.WriteLine("    Count: " + redBlackTree.Count);
+
+                redBlackTree.Clear(); // Clears the AVL tree
+
                 Console.WriteLine();
             }
             #endregion
@@ -477,7 +513,7 @@ namespace DataStructures
                             c = index;
                         });
 
-                Console.Write("    Adding (0-" + test + ")...");
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     omnitree.Add(i);
@@ -575,7 +611,7 @@ namespace DataStructures
                         min3 = index; max3 = index;
                     });
 
-                Console.Write("    Adding (0-" + test + ")...");
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
                     omnitree.Add(i);
