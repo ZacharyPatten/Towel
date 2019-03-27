@@ -53,12 +53,12 @@ namespace Towel.DataStructures
         private class NodeData
         {
             private T _parent;
-            private SetHashList<T> _children;
+            private SetHashLinked<T> _children;
 
             public T Parent { get { return this._parent; } set { this._parent = value; } }
-            public SetHashList<T> Children { get { return this._children; } set { this._children = value; } }
+            public SetHashLinked<T> Children { get { return this._children; } set { this._children = value; } }
 
-            public NodeData(T parent, SetHashList<T> children)
+            public NodeData(T parent, SetHashLinked<T> children)
             {
                 this._parent = parent;
                 this._children = children;
@@ -77,7 +77,7 @@ namespace Towel.DataStructures
             this._hash = hash;
             this._head = head;
             this._tree = new MapHashLinked<NodeData, T>(this._equate, this._hash);
-            this._tree.Add(this._head, new NodeData(default(T), new SetHashList<T>(this._equate, this._hash)));
+            this._tree.Add(this._head, new NodeData(default(T), new SetHashLinked<T>(this._equate, this._hash)));
         }
         #endregion
         // properties
@@ -147,7 +147,7 @@ namespace Towel.DataStructures
             NodeData nodeData;
             if (this._tree.TryGet(parent, out nodeData))
             {
-                this._tree.Add(addition, new NodeData(parent, new SetHashList<T>(this._equate, this._hash)));
+                this._tree.Add(addition, new NodeData(parent, new SetHashLinked<T>(this._equate, this._hash)));
                 nodeData.Children.Add(addition);
             }
             else

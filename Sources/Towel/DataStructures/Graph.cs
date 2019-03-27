@@ -56,7 +56,7 @@ namespace Towel.DataStructures
     public class GraphSetOmnitree<T> : Graph<T>
     {
         // Fields
-        public SetHashList<T> _nodes;
+        public SetHashLinked<T> _nodes;
         public OmnitreePointsLinked<Edge, T, T> _edges;
 
         #region Nested Types
@@ -87,12 +87,12 @@ namespace Towel.DataStructures
         private GraphSetOmnitree(GraphSetOmnitree<T> graph)
         {
             this._edges = graph._edges.Clone() as OmnitreePointsLinked<Edge, T, T>;
-            this._nodes = graph._nodes.Clone() as SetHashList<T>;
+            this._nodes = graph._nodes.Clone() as SetHashLinked<T>;
         }
 
         public GraphSetOmnitree(Equate<T> equate, Compare<T> compare, Hash<T> hash)
         {
-            this._nodes = new SetHashList<T>(equate, hash);
+            this._nodes = new SetHashLinked<T>(equate, hash);
             this._edges = new OmnitreePointsLinked<Edge, T, T>((Edge a, out T start, out T end) => { start = a.Start; end = a.End; });
         }
 

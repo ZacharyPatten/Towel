@@ -18,7 +18,7 @@ namespace Towel.DataStructures
     /// <summary>An unsorted structure of unique items.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     [Serializable]
-    public class SetHashList<T> : Set<T>,
+    public class SetHashLinked<T> : Set<T>,
         // Structure Properties
         DataStructure.Hashing<T>
     {
@@ -54,16 +54,16 @@ namespace Towel.DataStructures
 
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public SetHashList() : this(Towel.Equate.Default, Towel.Hash.Default) { }
+        public SetHashLinked() : this(Towel.Equate.Default, Towel.Hash.Default) { }
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public SetHashList(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default, expectedCount) { }
+        public SetHashLinked(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default, expectedCount) { }
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public SetHashList(Equate<T> equate, Hash<T> hash) : this(Towel.Equate.Default, Towel.Hash.Default, 0) { }
+        public SetHashLinked(Equate<T> equate, Hash<T> hash) : this(Towel.Equate.Default, Towel.Hash.Default, 0) { }
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(stepper).</remarks>
-        public SetHashList(Equate<T> equate, Hash<T> hash, int expectedCount)
+        public SetHashLinked(Equate<T> equate, Hash<T> hash, int expectedCount)
         {
             if (expectedCount > 0)
             {
@@ -80,7 +80,7 @@ namespace Towel.DataStructures
             this._hash = hash;
             this._count = 0;
         }
-        private SetHashList(SetHashList<T> setHashList)
+        private SetHashLinked(SetHashLinked<T> setHashList)
         {
             this._equate = setHashList._equate;
             this._hash = setHashList._hash;
@@ -115,9 +115,9 @@ namespace Towel.DataStructures
         #region public Set_Hash<T> Clone()
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public SetHashList<T> Clone()
+        public SetHashLinked<T> Clone()
         {
-            return new SetHashList<T>(this);
+            return new SetHashLinked<T>(this);
         }
         #endregion
         #region public bool Contains(T item)

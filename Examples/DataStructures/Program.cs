@@ -448,39 +448,82 @@ namespace DataStructures
             #endregion
 
             #region Set
+            {
+                Console.WriteLine("  Set------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A Set is like an Addable/List, but it does not allow duplicates. Sets are");
+                Console.WriteLine("    usually implemented using hash codes. Implementations with hash codes");
+                Console.WriteLine("    usually have very fast \"Contains\" checks to see if a value has already");
+                Console.WriteLine("    been added to the set.");
+                Console.WriteLine();
 
-            Console.WriteLine("  Testing Set_Hash<int>----------------------");
-            Set<int> set_linked = new SetHashList<int>(Compute.Equal, Hash.Default);
-            for (int i = 0; i < test; i++)
-                set_linked.Add(i);
-            // Traversal
-            Console.Write("    Traversal: ");
-            set_linked.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            Console.Write("    Table Size: " + (set_linked as SetHashList<int>).TableSize);
-            Console.WriteLine();
-            Console.WriteLine();
+                Set<int> setHashLinked = new SetHashLinked<int>();
 
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    setHashLinked.Add(i);
+                }
+                Console.WriteLine();
+
+                Console.Write("    Traversal: ");
+                setHashLinked.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                int a = random.Next(0, test);
+                setHashLinked.Remove(a);
+                Console.Write("    Remove(" + a + "): ");
+                setHashLinked.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                int b = random.Next(0, test);
+                Console.WriteLine("    Contains(" + b + "): " + setHashLinked.Contains(b));
+                Console.WriteLine("    Count: " + setHashLinked.Count);
+
+                Console.WriteLine();
+            }
             #endregion
 
             #region Map (aka Dictionary)
+            {
+                Console.WriteLine("  Map------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A Map (aka Dictionary) is similar to a Set, but it stores two values (a ");
+                Console.WriteLine("    key and a value). Maps do not allow duplicate keys much like Sets don't");
+                Console.WriteLine("    allow duplicate values. When provided with the key, the Map uses that key");
+                Console.WriteLine("    to look up the value that it is associated with. Thus, it allows you to ");
+                Console.WriteLine("    \"map\" one object to another. As with Sets, Maps are usually implemented");
+                Console.WriteLine("    using hash codes.");
+                Console.WriteLine();
 
-            Console.WriteLine("  Testing MapHashList<int, int>--------------");
-            Map<int, int> map_sethash = new MapHashLinked<int, int>(Compute.Equal, Hash.Default);
-            for (int i = 0; i < test; i++)
-                map_sethash.Add(i, i);
-            Console.Write("    Look Ups: ");
-            for (int i = 0; i < test; i++)
-                Console.Write(map_sethash[i]);
-            Console.WriteLine();
-            // Traversal
-            Console.Write("    Traversal: ");
-            map_sethash.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            Console.Write("    Table Size: " + (map_sethash as MapHashLinked<int, int>).TableSize);
-            Console.WriteLine();
-            Console.WriteLine();
+                // Note: the first generic is the value, the second is the key
+                Map<string, int> mapHashLinked = new MapHashLinked<string, int>();
 
+                Console.WriteLine("    Let's map each int to its word representation (ex 1 -> One).");
+
+                Console.Write("    Adding (0-" + (test - 1) + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    mapHashLinked.Add(i, ((decimal)i).ToWords());
+                }
+                Console.WriteLine();
+
+                Console.WriteLine("    Traversal: ");
+                mapHashLinked.Keys(i => Console.WriteLine("      " + i + "->" + mapHashLinked[i]));
+                Console.WriteLine();
+
+                int a = random.Next(0, test);
+                mapHashLinked.Remove(a);
+                Console.Write("    Remove(" + a + "): ");
+                mapHashLinked.Keys(i => Console.Write(i));
+                Console.WriteLine();
+
+                int b = random.Next(0, test);
+                Console.WriteLine("    Contains(" + b + "): " + mapHashLinked.Contains(b));
+                Console.WriteLine("    Count: " + mapHashLinked.Count);
+
+                Console.WriteLine();
+            }
             #endregion
 
             #region OmnitreePoints
