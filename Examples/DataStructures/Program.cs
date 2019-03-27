@@ -431,9 +431,20 @@ namespace DataStructures
             #endregion
 
             #region BTree
+            {
+                Console.WriteLine("  B Tree------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A B Tree is a sorted binary tree that allows multiple values to");
+                Console.WriteLine("    be stored per node. This makes it sort of a hybrid between a");
+                Console.WriteLine("    binary tree and an array. Because multiple values are stored ");
+                Console.WriteLine("    per node, it means less nodes must be traversed to completely");
+                Console.WriteLine("    traverse the values in the B tree.");
+                Console.WriteLine();
 
-            // The B Tree is still under heavy development.
+                Console.WriteLine("    The generic B Tree in Towel is still in development.");
 
+                Console.WriteLine();
+            }
             #endregion
 
             #region Set
@@ -665,9 +676,19 @@ namespace DataStructures
             #endregion
 
             #region KD Tree
+            {
+                Console.WriteLine("  KD Tree------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A KD Tree binary tree that stores points sorted along along an");
+                Console.WriteLine("    arbitrary number of dimensions. So it performs multidimensional");
+                Console.WriteLine("    sorting similar to the Omnitree (Quadtree/Octree) in Towel, but");
+                Console.WriteLine("    it uses a completely different algorithm and format.");
+                Console.WriteLine();
 
-            // The KD Tree is still under heavy development.
+                Console.WriteLine("    The generic KD Tree in Towel is still in development.");
 
+                Console.WriteLine();
+            }
             #endregion
 
             #region Graph
@@ -733,6 +754,24 @@ namespace DataStructures
                 Console.WriteLine("    Edge Count: " + graphSetOmnitree.EdgeCount);
 
                 graphSetOmnitree.Clear(); // Clears the graph
+
+                Console.WriteLine();
+            }
+            #endregion
+
+            #region Trie
+            {
+                Console.WriteLine("  Trie------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A Trie is a tree where portions of the data are stored in each node");
+                Console.WriteLine("    such that when you traverse the tree to a leaf, you have read the contents");
+                Console.WriteLine("    of that leaf along the way. Because of this, a Trie allows for its values");
+                Console.WriteLine("    to share data, which is a form of compression. So a Trie may be used to save");
+                Console.WriteLine("    memory. A trie may also be a very useful tool in pattern matching, because it");
+                Console.WriteLine("    it allows for culling based are portions of the data.");
+                Console.WriteLine();
+
+                Console.WriteLine("    The generic Trie in Towel is still in development.");
 
                 Console.WriteLine();
             }
