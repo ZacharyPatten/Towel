@@ -432,18 +432,7 @@ namespace DataStructures
 
             #region BTree
 
-            //Console.WriteLine("  Testing BTree_LinkedArray<int>-------------");
-            //BTree<int> btree_linked = new BTree_LinkedArray<int>(Logic.compare, 3);
-            //for (int i = 0; i < test; i++)
-            //	btree_linked.Add(i);
-            //Console.Write("    Delegate: ");
-            //btree_linked.Stepper((int current) => { Console.Write(current); });
-            //Console.WriteLine();
-            //Console.Write("    IEnumerator: ");
-            //foreach (int current in btree_linked)
-            //	Console.Write(current);
-            //Console.WriteLine();
-            //Console.WriteLine();
+            // The B Tree is still under heavy development.
 
             #endregion
 
@@ -677,52 +666,7 @@ namespace DataStructures
 
             #region KD Tree
 
-            ////List<KdTreeNode<float, string>> testNodes = new List_Linked<KdTreeNode<float, string>>();
-            //KdTree_Linked<string, float> tree = new KdTree_Linked<string, float>(
-            //	2,
-            //	Logic.compare,
-            //	float.MinValue,
-            //	float.MaxValue,
-            //	0,
-            //	Arithmetic.Add,
-            //	Arithmetic.Subtract,
-            //	Arithmetic.Multiply);
-
-            //List<KdTree_Linked<string, float>.Node> testNodes =
-            //	new List_Linked<KdTree_Linked<string, float>.Node>
-            //{
-            //	new KdTree_Linked<string, float>.Node(new float[] { 5, 5 }, "Root"),
-            //	new KdTree_Linked<string, float>.Node(new float[] { 2.5f, 2.5f }, "Root-Left"),
-            //	new KdTree_Linked<string, float>.Node(new float[] { 7.5f, 7.5f }, "Root-Right"),
-            //	new KdTree_Linked<string, float>.Node(new float[] { 1, 10 }, "Root-Left-Left"),
-            //	new KdTree_Linked<string, float>.Node(new float[] { 10, 10 }, "Root-Right-Right")
-            //};
-
-            //foreach (var node in testNodes)
-            //	if (!tree.Add(node.Point, node.Value))
-            //		throw new Exception("Failed to add node to tree");
-
-            //var nodesToRemove = new KdTreeNode<float, string>[] {
-            //	testNodes[1], // Root-Left
-            //	testNodes[0] // Root
-            //};
-
-            //foreach (var nodeToRemove in nodesToRemove)
-            //{
-            //	tree.RemoveAt(nodeToRemove.Point);
-            //	testNodes.Remove(nodeToRemove);
-
-            //	Assert.IsNull(tree.FindValue(nodeToRemove.Value));
-            //	Assert.IsNull(tree.FindValueAt(nodeToRemove.Point));
-
-            //	foreach (var testNode in testNodes)
-            //	{
-            //		Assert.AreEqual(testNode.Value, tree.FindValueAt(testNode.Point));
-            //		Assert.AreEqual(testNode.Point, tree.FindValue(testNode.Value));
-            //	}
-
-            //	Assert.AreEqual(testNodes.Count, tree.Count);
-            //}
+            // The KD Tree is still under heavy development.
 
             #endregion
 
