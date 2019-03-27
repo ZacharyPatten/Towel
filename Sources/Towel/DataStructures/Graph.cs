@@ -37,6 +37,16 @@ namespace Towel.DataStructures
         /// <param name="end">The ending point of the edge to remove.</param>
         void Remove(T start, T end);
 
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        void Stepper(Step<T, T> step);
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        //StepStatus Stepper(StepBreak<T, T> step);
+
         #endregion
     }
 
@@ -113,18 +123,23 @@ namespace Towel.DataStructures
         public bool Adjacent(T a, T b)
         {
             bool exists = false;
-            this._edges.Stepper((Edge edge) => { exists = true; }, a, b, a, b);
+            _edges.Stepper(edge =>
+            {
+                exists = true;
+                return StepStatus.Break;
+            }, a, a, b, b);
             return exists;
         }
 
-        public void Neighbors(T a, Step<T> function)
+        public void Neighbors(T a, Step<T> step)
         {
-            if (!this._nodes.Contains(a))
+            if (!_nodes.Contains(a))
             {
                 throw new InvalidOperationException("Attempting to look up the neighbors of a node that does not belong to a graph");
             }
-
-            this._edges.Stepper((Edge e) => { function(e.End); }, a, a, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
+            _edges.Stepper(e => step(e.End),
+                a, a,
+                Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
         }
 
         public void Add(T start, T end)
@@ -190,14 +205,14 @@ namespace Towel.DataStructures
             return this._nodes.Stepper(function);
         }
 
-        public void Stepper(Step<Edge> function)
+        public void Stepper(Step<T, T> function)
         {
-            this._edges.Stepper(function);
+            this._edges.Stepper(edge => function(edge.Start, edge.End));
         }
 
-        public StepStatus Stepper(StepBreak<Edge> function)
+        public StepStatus Stepper(StepBreak<T, T> function)
         {
-            return this._edges.Stepper(function);
+            return this._edges.Stepper(edge => function(edge.Start, edge.End));
         }
 
         System.Collections.IEnumerator
@@ -266,19 +281,22 @@ namespace Towel.DataStructures
 
         public bool Adjacent(T a, T b)
         {
-            bool temp_bool;
-            MapHashLinked<bool, T> temp_map;
-            if (this._map.TryGet(a, out temp_map))
-                if (temp_map.TryGet(a, out temp_bool))
-                    return temp_bool;
+            if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+            {
+                if (tryGetMap.TryGet(a, out bool tryGetBool))
+                {
+                    return tryGetBool;
+                }
+            }
             return false;
         }
 
         public void Neighbors(T a, Step<T> function)
         {
-            MapHashLinked<bool, T> temp_map;
-            if (this._map.TryGet(a, out temp_map))
-                temp_map.Keys(function);
+            if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+            {
+                tryGetMap.Keys(function);
+            }
         }
 
         /// <summary>Adds an edge to the graph.</summary>
@@ -342,22 +360,22 @@ namespace Towel.DataStructures
             throw new System.NotImplementedException();
         }
 
-        public void Stepper(Step<Edge> function)
+        public void Stepper(Step<T, T> function)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Stepper(StepRef<Edge> function)
+        public void Stepper(StepRef<T, T> function)
         {
             throw new System.NotImplementedException();
         }
 
-        public StepStatus Stepper(StepBreak<Edge> function)
+        public StepStatus Stepper(StepBreak<T, T> function)
         {
             throw new System.NotImplementedException();
         }
 
-        public StepStatus Stepper(StepRefBreak<Edge> function)
+        public StepStatus Stepper(StepRefBreak<T, T> function)
         {
             throw new System.NotImplementedException();
         }

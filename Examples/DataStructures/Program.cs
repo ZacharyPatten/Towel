@@ -252,6 +252,8 @@ namespace DataStructures
                 Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
                 Console.WriteLine("    It uses sifting algorithms to move nodes vertically through itself.");
                 Console.WriteLine("    It is often the best data structure for standard priority queues.");
+                Console.WriteLine("    \"HeapArray\" is an implementation where the tree has been flattened");
+                Console.WriteLine("    into an array.");
                 Console.WriteLine();
 
                 Console.WriteLine("    Let's say the priority is how close a number is to \"5\".");
@@ -281,7 +283,7 @@ namespace DataStructures
                 Console.WriteLine("    [HeapArray] Count: " + heapArray.Count);
 
                 heapArray.Clear(); // Clears the heapArray
-                
+
                 Console.WriteLine();
             }
             #endregion
@@ -422,7 +424,7 @@ namespace DataStructures
                 Console.WriteLine("    Current Greatest: " + redBlackTree.CurrentGreatest);
                 Console.WriteLine("    Count: " + redBlackTree.Count);
 
-                redBlackTree.Clear(); // Clears the AVL tree
+                redBlackTree.Clear(); // Clears the Red Black tree
 
                 Console.WriteLine();
             }
@@ -441,13 +443,6 @@ namespace DataStructures
             //foreach (int current in btree_linked)
             //	Console.Write(current);
             //Console.WriteLine();
-            //Console.WriteLine("  Press Enter to continue...");
-            //string maplinked_file = "maplinked.quad";
-            //Console.WriteLine("    File: \"" + maplinked_file + "\"");
-            //Console.WriteLine("    Serialized: " + Serialize(maplinked_file, hashTable_linked));
-            //Omnitree_LinkedLinkedLists<int, double> deserialized_maplinked;
-            //Console.WriteLine("    Deserialized: " + Deserialize(maplinked_file, out deserialized_maplinked));
-            //Console.ReadLine();
             //Console.WriteLine();
 
             #endregion
@@ -732,33 +727,71 @@ namespace DataStructures
             #endregion
 
             #region Graph
+            {
+                Console.WriteLine("  Graph------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("    A Graph is a data structure of nodes and edges. Nodes are values");
+                Console.WriteLine("    and edges are connections between those values. Graphs are often");
+                Console.WriteLine("    used to model real world data such as maps, and are often used in");
+                Console.WriteLine("    path finding algoritms. See the \"Algorithms\" example for path");
+                Console.WriteLine("    finding examples. This is just an example of how to make a graph.");
+                Console.WriteLine("    A \"GraphSetOmnitree\" is an implementation where nodes are stored.");
+                Console.WriteLine("    in a Set and edges are stored in an Omnitree (aka Quadtree).");
+                Console.WriteLine();
 
-            Console.WriteLine("  Graph--------------------------------");
-            Graph<int> graph = new GraphSetOmnitree<int>();
-            // add nodes
-            for (int i = 0; i < test; i++)
-                graph.Add(i);
-            // add edges
-            for (int i = 0; i < test - 1; i++)
-                graph.Add(i, i + 1);
-            Console.Write("    Traversal: ");
-            graph.Stepper((int current) => { Console.Write(current); });
-            Console.WriteLine();
-            Console.WriteLine("    Edges: ");
-            //((Graph_SetQuadtree<int>)graph)._edges.Foreach((Graph_SetQuadtree<int>.Edge e) => { Console.WriteLine("     " + e.Start + " " + e.End); });
-            graph.Stepper(
-                    (int current) =>
+                Graph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+
+                Console.WriteLine("    Adding Nodes (0-" + (test - 1) + ")...");
+                for (int i = 0; i < test; i++)
+                {
+                    graphSetOmnitree.Add(i);
+                }
+                
+                int edgesPerNode = 3;
+                Console.WriteLine("    Adding Random Edges (0-3 per node)...");
+                for (int i = 0; i < test; i++)
+                {
+                    // lets use a heap to randomize the edges using random priorities
+                    Heap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Compare.Wrap(x.Item2.CompareTo(y.Item2)));
+                    for (int j = 0; j < test; j++)
                     {
-                        Console.Write("     " + current + ": ");
-                        graph.Neighbors(current,
-                        (int a) =>
+                        if (j != i)
                         {
-                            Console.Write(a);
-                        });
-                        Console.WriteLine();
-                    });
-            Console.WriteLine();
+                            heap.Enqueue((j, random.Next()));
+                        }
+                    }
+                    
+                    // dequeue some random edges from the heap and add them to the graph
+                    int randomEdgeCount = random.Next(edgesPerNode + 1);
+                    for (int j = 0; j < randomEdgeCount; j++)
+                    {
+                        graphSetOmnitree.Add(i, heap.Dequeue().Item1);
+                    }
+                }
 
+                Console.Write("    Nodes (Traversal): ");
+                graphSetOmnitree.Stepper(i => Console.Write(i));
+                Console.WriteLine();
+
+                Console.WriteLine("    Edges (Traversal): ");
+                graphSetOmnitree.Stepper((from, to) => Console.WriteLine("      " + from + "->" + to));
+                Console.WriteLine();
+
+                int a = random.Next(0, test);
+                Console.Write("    Neighbors (" + a + "):");
+                graphSetOmnitree.Neighbors(a, i => Console.Write(" " + i));
+                Console.WriteLine();
+                
+                int b = random.Next(0, test / 2);
+                int c = random.Next(test / 2, test);
+                Console.WriteLine("    Are Adjacent (" + b + ", " + c + "): " + graphSetOmnitree.Adjacent(b, c));
+                Console.WriteLine("    Node Count: " + graphSetOmnitree.NodeCount);
+                Console.WriteLine("    Edge Count: " + graphSetOmnitree.EdgeCount);
+
+                graphSetOmnitree.Clear(); // Clears the graph
+
+                Console.WriteLine();
+            }
             #endregion
 
             Console.WriteLine("============================================");
