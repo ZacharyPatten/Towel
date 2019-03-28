@@ -309,7 +309,6 @@ namespace Towel.Mathematics
             for (int i = 0; i < columns; i++)
             {
                 matrix.Set(target, i, Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar)));
-                matrix[target, i] = Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar));
             }
         }
 
