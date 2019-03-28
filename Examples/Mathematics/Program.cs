@@ -337,10 +337,10 @@ namespace Mathematics
             //Console.WriteLine("    	upper(M):");
             //ConsoleWrite(u);
 
-            //// Matrix Inverse
-            //Matrix<double> inverse = M.Inverse(); // this method is probably bugged... working on it
-            //Console.WriteLine("    Inverse(M):");
-            //ConsoleWrite(inverse);
+            // Matrix Inverse
+            Matrix<double> inverse = M.Inverse();
+            Console.WriteLine("    Inverse(M):");
+            ConsoleWrite(inverse);
 
             // Quaternion Construction
             Quaternion<double> Q = new Quaternion<double>(

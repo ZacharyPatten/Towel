@@ -704,7 +704,7 @@ namespace System
                 string typeToSring = type.ToString();
                 if (typeToSring.Contains('+'))
                 {
-                    typeToSring = typeToSring.Substring(typeToSring.IndexOf('+') + 1);
+                    typeToSring = typeToSring.Substring(typeToSring.LastIndexOf('+') + 1);
                 }
                 result += typeToSring;
             }
