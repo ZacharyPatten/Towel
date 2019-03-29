@@ -6,7 +6,7 @@
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
-## Status
+Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="30" height="30" title="Discord" alt="Discord"></a>
 
 Build [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
 
@@ -108,7 +108,7 @@ Towel has measurement types to provide type-safe measurement mathematics with au
 // Automatic Unit Conversion Example:
 Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
 Angle<double> angle2 = new Angle<double>(.5d, Angle.Units.Turns);
-Angle<double> result1 = angle1 + angle2; // 270° 
+Angle<double> result1 = angle1 + angle2; // 270Â° 
 // When you perform mathematical operations on measurements, any necessary unit conversions will
 // be automatically performed by the relative measurement type (in this case "Angle<T>").
 
