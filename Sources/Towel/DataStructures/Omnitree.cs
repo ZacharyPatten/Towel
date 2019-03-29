@@ -1015,6 +1015,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1> _locate;
@@ -1977,8 +1979,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1>(values1[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 Leaf.Node for_current = leaf.Head; // used in for loop
@@ -2955,9 +2958,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1> LocateVector(T value)
@@ -3073,6 +3086,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2> _locate;
@@ -4204,8 +4219,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2>(values1[index], values2[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -5256,9 +5272,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2> LocateVector(T value)
@@ -5392,6 +5418,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2, Axis3> _locate;
@@ -6692,8 +6720,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2, Axis3>(values1[index], values2[index], values3[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -7818,9 +7847,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3> LocateVector(T value)
@@ -7972,6 +8011,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> _locate;
@@ -9441,8 +9482,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(values1[index], values2[index], values3[index], values4[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -10641,9 +10683,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> LocateVector(T value)
@@ -10813,6 +10865,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> _locate;
@@ -12451,8 +12505,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(values1[index], values2[index], values3[index], values4[index], values5[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -13725,9 +13780,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> LocateVector(T value)
@@ -13915,6 +13980,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _locate;
@@ -15722,8 +15789,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -17070,9 +17138,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> LocateVector(T value)
@@ -17278,6 +17356,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _locate;
@@ -19254,8 +19334,9 @@ namespace Towel.DataStructures
                 int index = (leaf.Count - 1) / 2;
                 return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index], values7[index]);
             }
-            catch
+            catch (Exception exception)
             {
+				System.Diagnostics.Debugger.Break();
                 // extract the values
                 IndexedBigArray<Axis1> values1 = new IndexedBigArray<Axis1>(leaf.Count);
                 IndexedBigArray<Axis2> values2 = new IndexedBigArray<Axis2>(leaf.Count);
@@ -20676,9 +20757,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> LocateVector(T value)
@@ -20813,6 +20904,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1> _getBounds;
@@ -22719,9 +22812,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1> GetBoundings(T value)
@@ -22872,6 +22975,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2> _getBounds;
@@ -25052,9 +25157,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2> GetBoundings(T value)
@@ -25234,6 +25349,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2, Axis3> _getBounds;
@@ -27688,9 +27805,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3> GetBoundings(T value)
@@ -27899,6 +28026,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> _getBounds;
@@ -30627,9 +30756,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> GetBoundings(T value)
@@ -30867,6 +31006,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> _getBounds;
@@ -33869,9 +34010,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> GetBoundings(T value)
@@ -34138,6 +34289,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _getBounds;
@@ -37414,9 +37567,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> GetBoundings(T value)
@@ -37712,6 +37875,8 @@ namespace Towel.DataStructures
 
         private Node _top;
 
+		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
         private int _depth_load; // ln(count); min = _defaultLoad
         private int _node_load; // ln(count); min = _children_per_node
         private Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _getBounds;
@@ -41262,9 +41427,19 @@ namespace Towel.DataStructures
         /// <summary>Checks for required load reduction.</summary>
         private void ComputeLoads(int count)
         {
-            int natural_log = (int)Math.Log(count);
-            this._depth_load = Compute.Maximum(natural_log, _default_depth_load);
-            this._node_load = (int)Compute.Maximum(natural_log, _children_per_node);
+			if (count < _naturalLogLower || count > _naturalLogUpper)
+			{
+				int naturalLog = (int)Math.Log(count);
+				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+
+				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
+				naturalLog = Math.Max(2, naturalLog);
+
+				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
+				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
+			}
         }
 
         private Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> GetBoundings(T value)
