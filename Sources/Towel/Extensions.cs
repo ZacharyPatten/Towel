@@ -711,20 +711,23 @@ namespace System
             else
             {
                 // non-generic initial parents
-                string text = type.ToString();
-                text = text.Substring(0, text.IndexOf('`')) + "<";
-                text = text.Replace('+', '.');
+                string typeToSring = type.ToString();
+                if (typeToSring.Contains('+'))
+                {
+                    typeToSring = typeToSring.Substring(typeToSring.LastIndexOf('+') + 1);
+                }
+                typeToSring = typeToSring.Substring(0, typeToSring.IndexOf('`')) + "<";
                 // generic string arguments
                 Type[] generics = type.GetGenericArguments();
                 for (int i = 0; i < generics.Length; i++)
                 {
                     if (i > 0)
                     {
-                        text += ", ";
+                        typeToSring += ", ";
                     }
-                    text += ConvertToCsharpSource(generics[i]);
+                    typeToSring += ConvertToCsharpSource(generics[i]);
                 }
-                result += text + ">";
+                result += typeToSring + ">";
             }
             return result;
         }
