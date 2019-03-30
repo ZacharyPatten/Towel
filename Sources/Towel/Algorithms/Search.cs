@@ -83,19 +83,35 @@ namespace Towel.Algorithms
 
         #region Classes
 
-        internal class Node<NODE, NUMERIC>
+        internal class GreedyNode<NODE, NUMERIC>
         {
-            internal readonly Node<NODE, NUMERIC> Previous;
+            internal readonly GreedyNode<NODE, NUMERIC> Previous;
             internal readonly NODE Value;
             internal readonly NUMERIC Priority;
 
-            internal Node(Node<NODE, NUMERIC> previous, NODE value, NUMERIC priority)
+            internal GreedyNode(GreedyNode<NODE, NUMERIC> previous, NODE value, NUMERIC priority)
             {
                 this.Previous = previous;
                 this.Value = value;
                 this.Priority = priority;
             }
         }
+
+        internal class AstarNode<NODE, NUMERIC>
+        {
+            internal readonly AstarNode<NODE, NUMERIC> Previous;
+            internal readonly NODE Value;
+            internal readonly NUMERIC Priority;
+            internal readonly NUMERIC Cost;
+
+            internal AstarNode(AstarNode<NODE, NUMERIC> previous, NODE value, NUMERIC priority, NUMERIC cost)
+            {
+                this.Previous = previous;
+                this.Value = value;
+                this.Priority = priority;
+                this.Cost = cost;
+            }
+        } 
 
         internal class PathNode<NODE>
         {
@@ -112,7 +128,7 @@ namespace Towel.Algorithms
 
         #region Internal Fuctions
 
-        internal static Stepper<NODE> BuildPath<NODE, NUMERIC>(Node<NODE, NUMERIC> node)
+        internal static Stepper<NODE> BuildPath<NODE, NUMERIC>(GreedyNode<NODE, NUMERIC> node)
         {
             PathNode<NODE> start = BuildPath(node, out PathNode<NODE> end);
             return (Step<NODE> step) =>
@@ -126,7 +142,38 @@ namespace Towel.Algorithms
             };
         }
 
-        internal static PathNode<NODE> BuildPath<NODE, NUMERIC>(Node<NODE, NUMERIC> currentNode, out PathNode<NODE> currentPathNode)
+        internal static Stepper<NODE> BuildPath<NODE, NUMERIC>(AstarNode<NODE, NUMERIC> node)
+        {
+            PathNode<NODE> start = BuildPath(node, out PathNode<NODE> end);
+            return (Step<NODE> step) =>
+            {
+                PathNode<NODE> current = start;
+                while (current != null)
+                {
+                    step(current.Value);
+                    current = current.Next;
+                }
+            };
+        }
+
+        internal static PathNode<NODE> BuildPath<NODE, NUMERIC>(GreedyNode<NODE, NUMERIC> currentNode, out PathNode<NODE> currentPathNode)
+        {
+            if (currentNode.Previous == null)
+            {
+                PathNode<NODE> start = new PathNode<NODE>(currentNode.Value);
+                currentPathNode = start;
+                return start;
+            }
+            else
+            {
+                PathNode<NODE> start = BuildPath(currentNode.Previous, out PathNode<NODE> previous);
+                currentPathNode = new PathNode<NODE>(currentNode.Value);
+                previous.Next = currentPathNode;
+                return start;
+            }
+        }
+
+        internal static PathNode<NODE> BuildPath<NODE, NUMERIC>(AstarNode<NODE, NUMERIC> currentNode, out PathNode<NODE> currentPathNode)
         {
             if (currentNode.Previous == null)
             {
@@ -155,32 +202,22 @@ namespace Towel.Algorithms
         public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal)
         {
             // using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
-            IHeap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
+            IHeap<AstarNode<NODE, NUMERIC>> fringe = new HeapArray<AstarNode<NODE, NUMERIC>>(
                 // NOTE: Typical A* implementations prioritize smaller values
                 (a, b) => Compute.Compare(b.Priority, a.Priority));
 
-            // using a map (aka dictionary) to store costs from start to current nodes
-            IMap<NUMERIC, Node<NODE, NUMERIC>> computed_costs = new MapHashArray<NUMERIC, Node<NODE, NUMERIC>>();
-
-            // construct the f(n) for this A* execution
-            NUMERIC function(NODE node, Node<NODE, NUMERIC> previous)
-            {
-                NUMERIC previousCost = computed_costs.Get(previous);
-                NUMERIC currentCost = cost(previous.Value, node);
-                NUMERIC costFromStart = Compute.Add<NUMERIC>(previousCost, currentCost);
-                NUMERIC hueristic = heuristic(node);
-                return Compute.Add<NUMERIC>(costFromStart, hueristic);
-            }
-
             // push starting node
-            Node<NODE, NUMERIC> start_node = new Node<NODE, NUMERIC>(null, start, default(NUMERIC));
-            fringe.Enqueue(start_node);
-            computed_costs.Add(start_node, default(NUMERIC));
+            fringe.Enqueue(
+                new AstarNode<NODE, NUMERIC>(
+                    null,
+                    start,
+                    default(NUMERIC),
+                    Constant<NUMERIC>.Zero));
 
             // run the algorithm
             while (fringe.Count != 0)
             {
-                Node<NODE, NUMERIC> current = fringe.Dequeue();
+                AstarNode<NODE, NUMERIC> current = fringe.Dequeue();
                 if (goal(current.Value))
                 {
                     return BuildPath(current);
@@ -190,10 +227,13 @@ namespace Towel.Algorithms
                     neighbors(current.Value,
                         (NODE neighbor) =>
                         {
-                            Node<NODE, NUMERIC> newNode = new Node<NODE, NUMERIC>(current, neighbor, function(neighbor, current));
-                            NUMERIC costValue = Compute.Add<NUMERIC>(computed_costs.Get(current), cost(current.Value, neighbor));
-                            computed_costs.Add(newNode, costValue);
-                            fringe.Enqueue(newNode);
+                            NUMERIC costValue = Compute.Add(current.Cost, cost(current.Value, neighbor));
+                            fringe.Enqueue(
+                                new AstarNode<NODE, NUMERIC>(
+                                    current,
+                                    neighbor,
+                                    Compute.Add(heuristic(neighbor), costValue),
+                                    costValue));
                         });
                 }
             }
@@ -275,18 +315,21 @@ namespace Towel.Algorithms
         public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal)
         {
             // using a heap (aka priority queue) to store nodes based on their computed heuristic value
-            IHeap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
-                // NOTE: I just reversed the order of left and right because smaller values are higher priority
+            IHeap<GreedyNode<NODE, NUMERIC>> fringe = new HeapArray<GreedyNode<NODE, NUMERIC>>(
+                // NOTE: Typical graph search implementations prioritize smaller values
                 (a, b) => Compute.Compare(b.Priority, a.Priority));
 
             // push starting node
-            Node<NODE, NUMERIC> start_node = new Node<NODE, NUMERIC>(null, start, default(NUMERIC));
-            fringe.Enqueue(start_node);
+            fringe.Enqueue(
+                new GreedyNode<NODE, NUMERIC>(
+                    null,
+                    start,
+                    default(NUMERIC)));
 
             // run the algorithm
             while (fringe.Count != 0)
             {
-                Node<NODE, NUMERIC> current = fringe.Dequeue();
+                GreedyNode<NODE, NUMERIC> current = fringe.Dequeue();
                 if (goal(current.Value))
                 {
                     return BuildPath(current);
@@ -296,8 +339,11 @@ namespace Towel.Algorithms
                     neighbors(current.Value,
                         (NODE neighbor) =>
                         {
-                            Node<NODE, NUMERIC> newNode = new Node<NODE, NUMERIC>(current, neighbor, heuristic(neighbor));
-                            fringe.Enqueue(newNode);
+                            fringe.Enqueue(
+                                new GreedyNode<NODE, NUMERIC>(
+                                    current,
+                                    neighbor,
+                                    heuristic(neighbor)));
                         });
                 }
             }
