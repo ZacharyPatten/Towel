@@ -223,13 +223,7 @@ namespace Mathematics
             Console.WriteLine();
 
             // Vector Construction
-            Vector<double> V = new double[]
-            {
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-            };
+            Vector<double> V = new Vector<double>(4, i => random.NextDouble());
 
             Console.WriteLine("    Vector<double> V: ");
             ConsoleWrite(V);
@@ -258,28 +252,15 @@ namespace Mathematics
             Console.WriteLine();
 
             // Vector Cross Product
-            Vector<double> V3 = new double[]
-            {
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-            };
+            Vector<double> V3 = new Vector<double>(3, i => random.NextDouble());
 
             Console.WriteLine("    Vector<double> V3: ");
             ConsoleWrite(V3);
             Console.WriteLine("    V3 cross V3: ");
             ConsoleWrite(Vector<double>.CrossProduct(V3, V3));
-
-            double[,] doubleData = new double[,]
-            {
-                { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
-                { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
-                { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
-                { random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble() },
-            };
-
+            
             // Matrix Construction
-            Matrix<double> M = new Matrix<double>(4, 4, (row, column) => doubleData[row, column]);
+            Matrix<double> M = new Matrix<double>(4, 4, (row, column) => random.NextDouble());
 
             Console.WriteLine("    Matrix<double>.Identity(4, 4): ");
             ConsoleWrite(Matrix<double>.FactoryIdentity(4, 4));
