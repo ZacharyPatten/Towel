@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurements", "Examples\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Extensions\Extensions.csproj", "{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
