@@ -58,13 +58,13 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Property of a data structure (does it have a Count method).</summary>
-        public interface ICountable<T>
+        public interface ICountable
         {
             int Count { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Clear method).</summary>
-        public interface IClearable<T>
+        public interface IClearable
         {
             void Clear();
         }

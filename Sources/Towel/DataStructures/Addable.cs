@@ -7,9 +7,9 @@ namespace Towel.DataStructures
     public interface IAddable<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.IAddable<T>,
-        DataStructure.ICountable<T>,
+        DataStructure.ICountable,
         DataStructure.IRemovable<T>,
-        DataStructure.IClearable<T>,
+        DataStructure.IClearable,
         DataStructure.IEquating<T>
     {
         #region Members

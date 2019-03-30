@@ -6,7 +6,7 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.IAddable<T>,
         DataStructure.IRemovable<T>,
-        DataStructure.IClearable<T>
+        DataStructure.IClearable
     {
         #region Properties
 

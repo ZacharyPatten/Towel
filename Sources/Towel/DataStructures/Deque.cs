@@ -4,8 +4,8 @@ namespace Towel.DataStructures
 {
     public interface IDeque<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.ICountable<T>,
-        DataStructure.IClearable<T>
+        DataStructure.ICountable,
+        DataStructure.IClearable
     {
         #region Methods
 

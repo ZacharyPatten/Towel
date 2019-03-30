@@ -6,8 +6,8 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     public interface IOrder<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.ICountable<T>,
-        DataStructure.IClearable<T>,
+        DataStructure.ICountable,
+        DataStructure.IClearable,
         DataStructure.IAddable<T>,
         DataStructure.IComparing<T>
     {

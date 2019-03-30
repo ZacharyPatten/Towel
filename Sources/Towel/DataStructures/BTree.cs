@@ -6,9 +6,9 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type of this data structure.</typeparam>
     public interface IBTree<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.IClearable<T>,
+        DataStructure.IClearable,
         DataStructure.IAddable<T>,
-        DataStructure.ICountable<T>,
+        DataStructure.ICountable,
         DataStructure.IRemovable<T>,
         DataStructure.IAuditable<T>
     {

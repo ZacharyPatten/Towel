@@ -9,8 +9,8 @@ namespace Towel.DataStructures
         DataStructure.IAuditable<T>,
         DataStructure.IAddable<T>,
         DataStructure.IRemovable<T>,
-        DataStructure.ICountable<T>,
-        DataStructure.IClearable<T>,
+        DataStructure.ICountable,
+        DataStructure.IClearable,
         DataStructure.IEquating<T>
     {
     }

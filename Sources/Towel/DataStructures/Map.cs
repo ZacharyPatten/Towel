@@ -9,8 +9,8 @@ namespace Towel.DataStructures
     /// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
     public interface IMap<T, K> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.ICountable<T>,
-        DataStructure.IClearable<T>,
+        DataStructure.ICountable,
+        DataStructure.IClearable,
         DataStructure.IAuditable<K>,
         DataStructure.IRemovable<K>,
         DataStructure.IEquating<K>
@@ -57,8 +57,8 @@ namespace Towel.DataStructures
     /// <summary>Static Extension class for Map interface implementers.</summary>
     public static class Map
     {
-        // extensions
-        #region public static bool TryGet<T, Key>(this AvlTree<T> structure, Key get, Compare<T, Key> comparison, out T item)
+        #region Extensions
+
         public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T item)
         {
             try
@@ -72,6 +72,7 @@ namespace Towel.DataStructures
                 return false;
             }
         }
+
         #endregion
     }
 
@@ -629,18 +630,18 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.IHashing<K>
     {
-        private Equate<K> _equate;
-        private Hash<K> _hash;
-        private int[] _table;
-        private Node[] _nodes;
-        private int _count;
-        private int _lastIndex;
-        private int _freeList;
+        internal Equate<K> _equate;
+        internal Hash<K> _hash;
+        internal int[] _table;
+        internal Node[] _nodes;
+        internal int _count;
+        internal int _lastIndex;
+        internal int _freeList;
 
         #region Node
 
         [Serializable]
-        private struct Node
+        internal struct Node
         {
             internal int Hash;
             internal K Key;
@@ -836,51 +837,60 @@ namespace Towel.DataStructures
 
         public void Remove(K removal)
         {
-            this.Remove_private(removal);
+            Remove_private(removal);
             int smallerSize = GetSmallerSize();
-            if (this._count < smallerSize)
+            if (_count < smallerSize)
+            {
                 ShrinkTableSize(smallerSize);
+            }
         }
 
         public void RemoveWithoutShrink(K removal)
         {
-            this.Remove_private(removal);
+            Remove_private(removal);
         }
 
-        private void Remove_private(K removal)
+        internal void Remove_private(K removal)
         {
-            int hashCode = this._hash(removal);
-            int index1 = hashCode % this._table.Length;
+            int hashCode = _hash(removal);
+            int index1 = hashCode % _table.Length;
             int index2 = -1;
-            for (int index3 = this._table[index1] - 1; index3 >= 0; index3 = this._nodes[index3].Next)
+            for (int index3 = _table[index1] - 1; index3 >= 0; index3 = _nodes[index3].Next)
             {
-                if (this._nodes[index3].Hash == hashCode && this._equate(this._nodes[index3].Key, removal))
+                if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Key, removal))
                 {
                     if (index2 < 0)
-                        this._table[index1] = this._nodes[index3].Next + 1;
-                    else
-                        this._nodes[index2].Next = this._nodes[index3].Next;
-                    this._nodes[index3].Hash = -1;
-                    this._nodes[index3].Value = default(T);
-                    this._nodes[index3].Next = this._freeList;
-                    this._count -= 1;
-                    if (this._count == 0)
                     {
-                        this._lastIndex = 0;
-                        this._freeList = -1;
+                        _table[index1] = _nodes[index3].Next + 1;
                     }
                     else
-                        this._freeList = index3;
+                    {
+                        _nodes[index2].Next = _nodes[index3].Next;
+                    }
+                    _nodes[index3].Hash = -1;
+                    _nodes[index3].Value = default(T);
+                    _nodes[index3].Next = _freeList;
+                    _count -= 1;
+                    if (_count == 0)
+                    {
+                        _lastIndex = 0;
+                        _freeList = -1;
+                    }
+                    else
+                    {
+                        _freeList = index3;
+                    }
                     return;
                 }
                 else
+                {
                     index2 = index3;
+                }
             }
-            throw new System.InvalidOperationException("attempting to remove a non-existing value in a SetHash");
+            throw new InvalidOperationException("attempting to remove a non-existing value in a SetHash");
         }
 
         #endregion
-
 
         #region ToArray
 

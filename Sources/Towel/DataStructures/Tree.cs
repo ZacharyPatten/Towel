@@ -6,7 +6,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     public interface ITree<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.ICountable<T>,
+        DataStructure.ICountable,
         DataStructure.IRemovable<T>
     {
         #region T Head
