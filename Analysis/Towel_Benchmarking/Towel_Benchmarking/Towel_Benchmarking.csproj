@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Mathematics\" />
+    <Folder Include="Algorithms\" />
+    <Folder Include="Diagnotics\" />
+    <Folder Include="Measurements\" />
+    <Folder Include="DataStructures\" />
+    <Folder Include="Parallels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sources\Towel\Towel.csproj" />
+  </ItemGroup>
+
+</Project>

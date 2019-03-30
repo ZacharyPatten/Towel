@@ -6,8 +6,6 @@
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
-Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="30" height="30" title="Discord" alt="Discord"></a>
-
 Build [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
 
 *Many features are coded and working, but Towel is still in heavy development. It should be ready for its first release later this year.*
@@ -162,6 +160,8 @@ string ConvertToCsharpSource(this Type type);
 string ToWords(this decimal @decimal);
 ```
 ## Developer(s)
+
+Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="30" height="30" title="Discord" alt="Discord"></a>
 
  - Zachary Patten
    - sevenix.zp@gmail.com
