@@ -4,9 +4,9 @@ namespace Towel.DataStructures
 {
     public interface IGraph<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Addable<T>,
-        DataStructure.Removable<T>,
-        DataStructure.Clearable<T>
+        DataStructure.IAddable<T>,
+        DataStructure.IRemovable<T>,
+        DataStructure.IClearable<T>
     {
         #region Properties
 

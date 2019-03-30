@@ -9,11 +9,11 @@ namespace Towel.DataStructures
     /// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
     public interface IMap<T, K> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Countable<T>,
-        DataStructure.Clearable<T>,
-        DataStructure.Auditable<K>,
-        DataStructure.Removable<K>,
-        DataStructure.Equating<K>
+        DataStructure.ICountable<T>,
+        DataStructure.IClearable<T>,
+        DataStructure.IAuditable<K>,
+        DataStructure.IRemovable<K>,
+        DataStructure.IEquating<K>
     {
         #region Properties
 
@@ -81,7 +81,7 @@ namespace Towel.DataStructures
     [Serializable]
     public class MapHashLinked<T, K> : IMap<T, K>,
         // Structure Properties
-        DataStructure.Hashing<K>
+        DataStructure.IHashing<K>
     {
         internal const float _maxLoadFactor = .7f;
         internal const float _minLoadFactor = .3f;
@@ -627,7 +627,7 @@ namespace Towel.DataStructures
     [Serializable]
     public class MapHashArray<T, K> : IMap<T, K>,
         // Structure Properties
-        DataStructure.Hashing<K>
+        DataStructure.IHashing<K>
     {
         private Equate<K> _equate;
         private Hash<K> _hash;

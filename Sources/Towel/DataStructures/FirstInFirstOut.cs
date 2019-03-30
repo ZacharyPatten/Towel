@@ -6,8 +6,8 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     public interface IFirstInFirstOut<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Countable<T>,
-        DataStructure.Clearable<T>
+        DataStructure.ICountable<T>,
+        DataStructure.IClearable<T>
     {
         #region Properties
 

@@ -936,11 +936,11 @@ namespace Towel.DataStructures
     #region 1 Dimensional
 
     public interface IOmnitreePoints<T, Axis1> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -2990,11 +2990,11 @@ namespace Towel.DataStructures
     #region 2 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -5305,11 +5305,11 @@ namespace Towel.DataStructures
     #region 3 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2, Axis3> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -7881,11 +7881,11 @@ namespace Towel.DataStructures
     #region 4 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -10718,11 +10718,11 @@ namespace Towel.DataStructures
     #region 5 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -13816,11 +13816,11 @@ namespace Towel.DataStructures
     #region 6 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -17175,11 +17175,11 @@ namespace Towel.DataStructures
     #region 7 Dimensional
 
     public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -20801,11 +20801,11 @@ namespace Towel.DataStructures
     #region 1 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -22846,11 +22846,11 @@ namespace Towel.DataStructures
     #region 2 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -25194,11 +25194,11 @@ namespace Towel.DataStructures
     #region 3 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -27845,11 +27845,11 @@ namespace Towel.DataStructures
     #region 4 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -30799,11 +30799,11 @@ namespace Towel.DataStructures
     #region 5 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -34056,11 +34056,11 @@ namespace Towel.DataStructures
     #region 6 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -37616,11 +37616,11 @@ namespace Towel.DataStructures
     #region 7 Dimensional
 
     public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 

@@ -26,31 +26,31 @@ namespace Towel.DataStructures
         #region Interfaces
 
         /// <summary>Property of a data structure (does it have a contains method).</summary>
-        public interface Auditable<T>
+        public interface IAuditable<T>
         {
             bool Contains(T value);
         }
 
         /// <summary>Property of a data structure (does it have a Hash property).</summary>
-        public interface Hashing<T>
+        public interface IHashing<T>
         {
             Hash<T> Hash { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Compare property).</summary>
-        public interface Comparing<T>
+        public interface IComparing<T>
         {
             Compare<T> Compare { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Add method).</summary>
-        public interface Addable<T>
+        public interface IAddable<T>
         {
             void Add(T value);
         }
 
         /// <summary>Property of a data structure (does it have a Romove method).</summary>
-        public interface Removable<T>
+        public interface IRemovable<T>
         {
             /// <summary>Removes the first instance found in the data structure.</summary>
             /// <param name="removal">The value to be removed.</param>
@@ -58,19 +58,19 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Property of a data structure (does it have a Count method).</summary>
-        public interface Countable<T>
+        public interface ICountable<T>
         {
             int Count { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Clear method).</summary>
-        public interface Clearable<T>
+        public interface IClearable<T>
         {
             void Clear();
         }
 
         /// <summary>Property of a data structure (does it have a Equate property).</summary>
-        public interface Equating<T>
+        public interface IEquating<T>
         {
             Equate<T> Equate { get; }
         }
@@ -84,7 +84,7 @@ namespace Towel.DataStructures
         /// <param name="redBlackTree">The structure.</param>
         /// <param name="addition">The item to be added.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryAdd<T>(this Addable<T> structure, T addition)
+        public static bool TryAdd<T>(this IAddable<T> structure, T addition)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace Towel.DataStructures
         /// <param name="structure">The structure.</param>
         /// <param name="removal">The item to be removed.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T>(this Removable<T> structure, T removal)
+        public static bool TryRemove<T>(this IRemovable<T> structure, T removal)
         {
             try
             {

@@ -191,11 +191,11 @@ namespace Towel.DataStructures
     #region <#= i #> Dimensional
 
     public interface IOmnitreePoints<T, <#= chain_AxisX #>> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 
@@ -2267,11 +2267,11 @@ namespace Towel.DataStructures
     #region <#= i #> Dimensional
 
     public interface IOmnitreeBounds<T, <#= chain_AxisX #>> : IDataStructure<T>,
-            DataStructure.Countable<T>,
-            DataStructure.Addable<T>,
-            DataStructure.Clearable<T>,
-            DataStructure.Removable<T>,
-            DataStructure.Equating<T>
+            DataStructure.ICountable<T>,
+            DataStructure.IAddable<T>,
+            DataStructure.IClearable<T>,
+            DataStructure.IRemovable<T>,
+            DataStructure.IEquating<T>
     {
         #region Properties
 

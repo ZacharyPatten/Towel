@@ -6,8 +6,8 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     public interface ITree<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Countable<T>,
-        DataStructure.Removable<T>
+        DataStructure.ICountable<T>,
+        DataStructure.IRemovable<T>
     {
         #region T Head
         /// <summary>The head of the tree.</summary>
@@ -39,8 +39,8 @@ namespace Towel.DataStructures
     [Serializable]
     public class TreeMap<T> : ITree<T>,
         // Structure Properties
-        DataStructure.Hashing<T>,
-        DataStructure.Equating<T>
+        DataStructure.IHashing<T>,
+        DataStructure.IEquating<T>
     {
         private Equate<T> _equate;
         private Hash<T> _hash;

@@ -7,12 +7,12 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     public interface IRedBlackTree<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Addable<T>,
-        DataStructure.Removable<T>,
-        DataStructure.Countable<T>,
-        DataStructure.Clearable<T>,
-        DataStructure.Comparing<T>,
-        DataStructure.Auditable<T>
+        DataStructure.IAddable<T>,
+        DataStructure.IRemovable<T>,
+        DataStructure.ICountable<T>,
+        DataStructure.IClearable<T>,
+        DataStructure.IComparing<T>,
+        DataStructure.IAuditable<T>
     {
         #region Properties
 

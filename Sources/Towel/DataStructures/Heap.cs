@@ -7,9 +7,9 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type to be stored within the heap.</typeparam>
     public interface IHeap<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Countable<T>,
-        DataStructure.Clearable<T>,
-        DataStructure.Comparing<T>
+        DataStructure.ICountable<T>,
+        DataStructure.IClearable<T>,
+        DataStructure.IComparing<T>
     {
         #region Methods
 

@@ -6,11 +6,11 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The type of items to store in the list.</typeparam>
     public interface IAddable<T> : IDataStructure<T>,
         // Structure Properties
-        DataStructure.Addable<T>,
-        DataStructure.Countable<T>,
-        DataStructure.Removable<T>,
-        DataStructure.Clearable<T>,
-        DataStructure.Equating<T>
+        DataStructure.IAddable<T>,
+        DataStructure.ICountable<T>,
+        DataStructure.IRemovable<T>,
+        DataStructure.IClearable<T>,
+        DataStructure.IEquating<T>
     {
         #region Members
 
