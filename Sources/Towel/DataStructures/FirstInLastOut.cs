@@ -29,8 +29,8 @@ namespace Towel.DataStructures
     [Serializable]
     public class FirstInLastOutLinked<T> : FirstInLastOut<T>
     {
-        private Node _top;
-        private int _count;
+        internal Node _top;
+        internal int _count;
 
         #region Node
 
@@ -69,7 +69,7 @@ namespace Towel.DataStructures
         {
             get
             {
-                return this._count;
+                return _count;
             }
         }
 

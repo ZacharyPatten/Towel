@@ -335,10 +335,10 @@ namespace DataStructures
                 avlTree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
 
-                //// Note: Although the AVL tree implements IEnumerable, it should be
-                //// avoided. IEnumerable does not allow for recursion on recursive
-                //// data structures, so it requires a stack be stored on the program's
-                //// heap, which is incredibly slow.
+                //// Note: Because the nodes in AVL Tree linked do not have
+                //// a parent pointer, the IEnumerable "foreach" iteration
+                //// is extremely slow and should be avoided. It requires
+                //// a stack for it's iteration.
                 //
                 //Console.Write("    Traversal Foreach: ");
                 //foreach (int i in avlTree)
@@ -393,18 +393,6 @@ namespace DataStructures
                 Console.Write("    Traversal: ");
                 redBlackTree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
-
-                //// Note: Although the Red Black tree implements IEnumerable, it should be
-                //// avoided. IEnumerable does not allow for recursion on recursive
-                //// data structures, so it requires a stack be stored on the program's
-                //// heap, which is incredibly slow.
-                //
-                //Console.Write("    Traversal Foreach: ");
-                //foreach (int i in redBlackTree)
-                //{
-                //    Console.Write(i);
-                //}
-                //Console.WriteLine();
 
                 int minimum = random.Next(1, test / 2);
                 int maximum = random.Next(1, test / 2) + test / 2;

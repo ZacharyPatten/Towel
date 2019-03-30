@@ -31,7 +31,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class IndexedArray<T> : Indexed<T>
     {
-        // Fields
         internal T[] _array;
 
         #region Constructors
@@ -190,9 +189,7 @@ namespace Towel.DataStructures
     }
 
     // Goal: create an array that allows for a number of elements > Int.MaxValue
-    public class IndexedBigArray<T> :
-        //Array<T, System.Numerics.BigInteger>,
-        System.Collections.Generic.IEnumerable<T>
+    public class IndexedBigArray<T> : IEnumerable<T>
     {
         // These need to be const so that the getter/setter get inlined by the JIT into 
         // calling methods just like with a real array to have any chance of meeting our 

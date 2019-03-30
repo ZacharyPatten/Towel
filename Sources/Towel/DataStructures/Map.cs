@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Towel.Mathematics;
 
 namespace Towel.DataStructures
 {
@@ -81,32 +83,28 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.Hashing<K>
     {
-        // Fields
         internal const float _maxLoadFactor = .7f;
         internal const float _minLoadFactor = .3f;
+
         internal Equate<K> _equate;
         internal Hash<K> _hash;
         internal Node[] _table;
         internal int _count;
 
-        #region Nested Types
+        #region Node
 
         [Serializable]
         internal class Node
         {
-            internal K _key;
-            internal T _value;
-            internal Node _next;
-
-            internal K Key { get { return _key; } set { _key = value; } }
-            internal T Value { get { return _value; } set { _value = value; } }
-            internal Node Next { get { return _next; } set { _next = value; } }
-
+            internal K Key;
+            internal T Value;
+            internal Node Next;
+            
             internal Node(K key, T value, Node next)
             {
-                this._key = key;
-                this._value = value;
-                this._next = next;
+                Key = key;
+                Value = value;
+                Next = next;
             }
         }
 
@@ -133,25 +131,27 @@ namespace Towel.DataStructures
             if (expectedCount > 0)
             {
                 int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-                while (Towel.Mathematics.Compute.IsPrime(prime))
+                while (!Compute.IsPrime(prime))
+                {
                     prime++;
+                }
                 this._table = new Node[prime];
             }
             else
             {
                 this._table = new Node[Towel.Hash.TableSizes[0]];
             }
-            this._equate = equate;
-            this._hash = hash;
-            this._count = 0;
+            _equate = equate;
+            _hash = hash;
+            _count = 0;
         }
 
         private MapHashLinked(MapHashLinked<T, K> setHashList)
         {
-            this._equate = setHashList._equate;
-            this._hash = setHashList._hash;
-            this._table = setHashList._table.Clone() as Node[];
-            this._count = setHashList._count;
+            _equate = setHashList._equate;
+            _hash = setHashList._hash;
+            _table = setHashList._table.Clone() as Node[];
+            _count = setHashList._count;
         }
 
         #endregion
@@ -192,14 +192,18 @@ namespace Towel.DataStructures
         public void Add(K key, T value)
         {
             if (object.ReferenceEquals(null, key))
-                throw new System.ArgumentNullException("key");
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
             int location = ComputeHash(key);
             if (Find(key, location) == null)
             {
                 if (++_count > _table.Length * _maxLoadFactor)
                 {
                     if (Count == int.MaxValue)
-                        throw new System.InvalidOperationException("maximum size of hash table reached.");
+                    {
+                        throw new InvalidOperationException("maximum size of hash table reached.");
+                    }
 
                     Resize(GetLargerSize());
                     location = ComputeHash(key);
@@ -208,7 +212,9 @@ namespace Towel.DataStructures
                 Add(p, location);
             }
             else
-                throw new System.InvalidOperationException("\nMember: \"Add(TKey key, TValue value)\"\nThe key is already in the table.");
+            {
+                throw new InvalidOperationException("\nMember: \"Add(TKey key, TValue value)\"\nThe key is already in the table.");
+            }
         }
 
         internal void Add(Node cell, int location)
@@ -248,9 +254,13 @@ namespace Towel.DataStructures
         public bool Contains(K key)
         {
             if (Find(key, ComputeHash(key)) == null)
+            {
                 return false;
+            }
             else
+            {
                 return true;
+            }
         }
 
         #endregion
@@ -265,9 +275,13 @@ namespace Towel.DataStructures
             int hashCode = ComputeHash(key);
             int table_index = hashCode % this._table.Length;
             for (Node bucket = this._table[table_index]; bucket != null; bucket = bucket.Next)
-                if (this._equate(bucket.Key, key))
+            {
+                if (_equate(bucket.Key, key))
+                {
                     return bucket.Value;
-            throw new System.InvalidOperationException("attempting to get a non-existing key from a map");
+                }
+            }
+            throw new InvalidOperationException("attempting to get a non-existing key from a map");
         }
 
         #endregion
@@ -279,19 +293,19 @@ namespace Towel.DataStructures
         /// <param name="value">The value to set relative to the key.</param>
         public void Set(K key, T value)
         {
-            if (this.Contains(key))
+            if (Contains(key))
             {
-                int hashCode = this._hash(key);
-                int table_index = hashCode % this._table.Length;
-                for (Node bucket = this._table[table_index]; bucket != null; bucket = bucket.Next)
-                    if (this._equate(bucket.Key, key))
+                int hashCode = _hash(key);
+                int table_index = hashCode % _table.Length;
+                for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
+                    if (_equate(bucket.Key, key))
                     {
                         bucket.Value = value;
                     }
             }
             else
             {
-                this.Add(key, value);
+                Add(key, value);
             }
         }
 
@@ -305,8 +319,10 @@ namespace Towel.DataStructures
         public void Remove(K key)
         {
             Remove_private(key);
-            if (this._count > Towel.Hash.TableSizes[0] && _count < this._table.Length * _minLoadFactor)
+            if (_count > Towel.Hash.TableSizes[0] && _count < _table.Length * _minLoadFactor)
+            {
                 Resize(GetSmallerSize());
+            }
         }
 
         /// <summary>Removes a value from the hash table.</summary>
@@ -322,17 +338,25 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
         internal void Remove_private(K key)
         {
-            if (key == null)
-                throw new System.ArgumentNullException("key");
+            if (object.ReferenceEquals(key, null))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
             int location = ComputeHash(key);
-            if (this._equate(this._table[location].Key, key))
+            if (_equate(_table[location].Key, key))
+            {
                 _table[location] = _table[location].Next;
+            }
             for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
             {
                 if (bucket.Next == null)
-                    throw new System.InvalidOperationException("attempting to remove a non-existing value.");
-                else if (this._equate(bucket.Next.Key, key))
+                {
+                    throw new InvalidOperationException("attempting to remove a non-existing value.");
+                }
+                else if (_equate(bucket.Next.Key, key))
+                {
                     bucket.Next = bucket.Next.Next;
+                }
             }
             _count--;
         }
@@ -354,11 +378,14 @@ namespace Towel.DataStructures
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
-                    do
-                    {
+                {
+                    do {
                         function(node.Key);
                     } while ((node = node.Next) != null);
+                }
+            }
         }
 
         /// <summary>Steps through all the keys.</summary>
@@ -368,7 +395,9 @@ namespace Towel.DataStructures
             Restart:
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
+                {
                     do
                     {
                         switch (function(node.Key))
@@ -383,6 +412,8 @@ namespace Towel.DataStructures
                                 throw new System.NotImplementedException();
                         }
                     } while ((node = node.Next) != null);
+                }
+            }
             return StepStatus.Continue;
         }
 
@@ -392,11 +423,14 @@ namespace Towel.DataStructures
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
-                    do
-                    {
+                {
+                    do {
                         function(node.Value);
                     } while ((node = node.Next) != null);
+                }
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -431,11 +465,15 @@ namespace Towel.DataStructures
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
+                {
                     do
                     {
                         function(new Link<T, K>(node.Value, node.Key));
                     } while ((node = node.Next) != null);
+                }
+            }
         }
 
         /// <summary>Steps through all the pairs.</summary>
@@ -445,6 +483,7 @@ namespace Towel.DataStructures
             Restart:
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
                     do
                     {
@@ -460,6 +499,7 @@ namespace Towel.DataStructures
                                 throw new System.NotImplementedException();
                         }
                     } while ((node = node.Next) != null);
+            }
             return StepStatus.Continue;
         }
 
@@ -468,15 +508,18 @@ namespace Towel.DataStructures
             return this.GetEnumerator();
         }
 
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
-                    do
-                    {
+                {
+                    do {
                         yield return node.Value;
                     } while ((node = node.Next) != null);
+                }
+            }
         }
 
         #endregion
@@ -489,11 +532,15 @@ namespace Towel.DataStructures
             int index = 0;
             Node node;
             for (int i = 0; i < _table.Length; i++)
+            {
                 if ((node = _table[i]) != null)
+                {
                     do
                     {
                         array[index++] = node.Value;
                     } while ((node = node.Next) != null);
+                }
+            }
             return array;
         }
 
@@ -504,11 +551,15 @@ namespace Towel.DataStructures
         /// <summary>Trims the map table size to the first prime number following the current count.</summary>
         public void Trim()
         {
-            int prime = this._count;
-            while (Towel.Mathematics.Compute.IsPrime(prime))
+            int prime = _count;
+            while (!Compute.IsPrime(prime))
+            {
                 prime++;
-            if (prime != this._table.Length)
+            }
+            if (prime != _table.Length)
+            {
                 Resize(prime);
+            }
         }
         #endregion
 
@@ -530,16 +581,24 @@ namespace Towel.DataStructures
         internal int GetLargerSize()
         {
             for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
-                if (this._table.Length < Towel.Hash.TableSizes[i])
+            {
+                if (_table.Length < Towel.Hash.TableSizes[i])
+                {
                     return Towel.Hash.TableSizes[i];
+                }
+            }
             return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
         }
 
         internal int GetSmallerSize()
         {
             for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-                if (this._table.Length > Towel.Hash.TableSizes[i])
+            {
+                if (_table.Length > Towel.Hash.TableSizes[i])
+                {
                     return Towel.Hash.TableSizes[i];
+                }
+            }
             return Towel.Hash.TableSizes[0];
         }
 
@@ -570,7 +629,6 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.Hashing<K>
     {
-        // Fields
         private Equate<K> _equate;
         private Hash<K> _hash;
         private int[] _table;
@@ -579,27 +637,22 @@ namespace Towel.DataStructures
         private int _lastIndex;
         private int _freeList;
 
-        #region Nested Types
+        #region Node
 
         [Serializable]
         private struct Node
         {
-            private int _hash;
-            private K _key;
-            private T _value;
-            private int _next;
-
-            internal int Hash { get { return this._hash; } set { this._hash = value; } }
-            internal K Key { get { return this._key; } set { this._key = value; } }
-            internal T Value { get { return this._value; } set { this._value = value; } }
-            internal int Next { get { return this._next; } set { this._next = value; } }
+            internal int Hash;
+            internal K Key;
+            internal T Value;
+            internal int Next;
 
             internal Node(int hash, K key, T value, int next)
             {
-                this._hash = hash;
-                this._key = key;
-                this._value = value;
-                this._next = next;
+                this.Hash = hash;
+                this.Key = key;
+                this.Value = value;
+                this.Next = next;
             }
         }
 

@@ -22,7 +22,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class DequeLinked<T> : Deque<T>
     {
-        // Fields
         private Node _head;
         private Node _tail;
         private int _count;

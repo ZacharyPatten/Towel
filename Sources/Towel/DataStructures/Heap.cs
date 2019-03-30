@@ -1,5 +1,5 @@
 ﻿using System;
-using Towel;
+using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
@@ -37,8 +37,7 @@ namespace Towel.DataStructures
     [Serializable]
     public class HeapArray<T> : Heap<T>
     {
-        // Fields
-        private Compare<T> _compare;
+        private readonly Compare<T> _compare;
         private T[] _heap;
         private int _minimumCapacity;
         private int _count;
@@ -51,10 +50,10 @@ namespace Towel.DataStructures
         /// <runtime>θ(1)</runtime>
         public HeapArray(Compare<T> compare)
         {
-            this._compare = compare;
-            this._heap = new T[2];
-            this._minimumCapacity = 1;
-            this._count = 0;
+            _compare = compare;
+            _heap = new T[2];
+            _minimumCapacity = 1;
+            _count = 0;
         }
 
         /// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
@@ -63,10 +62,10 @@ namespace Towel.DataStructures
         /// <runtime>θ(1)</runtime>
         public HeapArray(Compare<T> compare, int minimumCapacity)
         {
-            this._compare = compare;
-            this._heap = new T[minimumCapacity + 1];
-            this._minimumCapacity = minimumCapacity;
-            this._count = 0;
+            _compare = compare;
+            _heap = new T[minimumCapacity + 1];
+            _minimumCapacity = minimumCapacity;
+            _count = 0;
         }
 
         /// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
@@ -78,15 +77,42 @@ namespace Towel.DataStructures
         #region Properties
 
         /// <summary>Delegate determining the comparison technique used for sorting.</summary>
-        public Compare<T> Compare { get { return this._compare; } }
+        public Compare<T> Compare
+        {
+            get
+            {
+                return _compare;
+            }
+        }
+
         /// <summary>The maximum items the queue can hold.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public int CurrentCapacity { get { return this._heap.Length - 1; } }
+        public int CurrentCapacity
+        {
+            get
+            {
+                return _heap.Length - 1;
+            }
+        }
+
         /// <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
-        public int MinimumCapacity { get { return this._minimumCapacity; } }
+        public int MinimumCapacity
+        {
+            get
+            {
+                return _minimumCapacity;
+            }
+        }
+
         /// <summary>The number of items in the queue.</summary
         /// <remarks>Runtime: O(1).</remarks>
-        public int Count { get { return this._count; } }
+        public int Count
+        {
+            get
+            {
+                return _count;
+            }
+        }
 
         #endregion
 
@@ -95,7 +121,7 @@ namespace Towel.DataStructures
         /// <summary>Gets the index of the left child of the provided item.</summary>
         /// <param name="parent">The item to find the left child of.</param>
         /// <returns>The index of the left child of the provided item.</returns>
-        private static int LeftChild(int parent)
+        internal static int LeftChild(int parent)
         {
             return parent * 2;
         }
@@ -103,7 +129,7 @@ namespace Towel.DataStructures
         /// <summary>Gets the index of the right child of the provided item.</summary>
         /// <param name="parent">The item to find the right child of.</param>
         /// <returns>The index of the right child of the provided item.</returns>
-        private static int RightChild(int parent)
+        internal static int RightChild(int parent)
         {
             return parent * 2 + 1;
         }
@@ -111,7 +137,7 @@ namespace Towel.DataStructures
         /// <summary>Gets the index of the parent of the provided item.</summary>
         /// <param name="child">The item to find the parent of.</param>
         /// <returns>The index of the parent of the provided item.</returns>
-        private static int Parent(int child)
+        internal static int Parent(int child)
         {
             return child / 2;
         }
@@ -125,15 +151,19 @@ namespace Towel.DataStructures
             if (!(_count + 1 < _heap.Length))
             {
                 if (_heap.Length * 2 > int.MaxValue)
-                    throw new System.InvalidOperationException("this heap has become too large");
+                {
+                    throw new InvalidOperationException("this heap has become too large");
+                }
                 T[] _newHeap = new T[_heap.Length * 2];
                 for (int i = 1; i <= _count; i++)
-                    _newHeap[i] = this._heap[i];
-                this._heap = _newHeap;
+                {
+                    _newHeap[i] = _heap[i];
+                }
+                _heap = _newHeap;
             }
-            this._count++;
-            this._heap[this._count] = addition;
-            this.ShiftUp(this._count);
+            _count++;
+            _heap[_count] = addition;
+            ShiftUp(_count);
         }
 
         /// <summary>Dequeues the item with the highest priority.</summary>
@@ -143,13 +173,13 @@ namespace Towel.DataStructures
         {
             if (_count > 0)
             {
-                T removal = this._heap[_root];
-                this.ArraySwap(_root, this._count);
-                this._count--;
-                this.ShiftDown(_root);
+                T removal = _heap[_root];
+                ArraySwap(_root, _count);
+                _count--;
+                ShiftDown(_root);
                 return removal;
             }
-            throw new System.InvalidOperationException("Attempting to remove from an empty priority queue.");
+            throw new InvalidOperationException("Attempting to remove from an empty priority queue.");
         }
 
         /// <summary>Requeues an item after a change has occured.</summary>
@@ -158,11 +188,17 @@ namespace Towel.DataStructures
         public void Requeue(T item)
         {
             int i;
-            for (i = 1; i <= this._count; i++)
-                if (this._compare(item, this._heap[i]) == Comparison.Equal)
+            for (i = 1; i <= _count; i++)
+            {
+                if (_compare(item, _heap[i]) == Comparison.Equal)
+                {
                     break;
-            if (i > this._count)
-                throw new System.InvalidOperationException("Attempting to re-queue an item that is not in the heap.");
+                }
+            }
+            if (i > _count)
+            {
+                throw new InvalidOperationException("Attempting to re-queue an item that is not in the heap.");
+            }
             ShiftUp(i);
             ShiftDown(i);
         }
@@ -171,22 +207,22 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(1).</remarks>
         public T Peek()
         {
-            if (this._count > 0)
-                return this._heap[_root];
-            throw new System.InvalidOperationException("Attempting to peek at an empty priority queue.");
+            if (_count > 0)
+            {
+                return _heap[_root];
+            }
+            throw new InvalidOperationException("Attempting to peek at an empty priority queue.");
         }
 
         /// <summary>Standard priority queue algorithm for up sifting.</summary>
         /// <param name="index">The index to be up sifted.</param>
         /// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-        private void ShiftUp(int index)
+        internal void ShiftUp(int index)
         {
             int parent;
-            while (
-                (parent = Parent(index)) > 0 &&
-                this._compare(_heap[index], _heap[parent]) == Comparison.Greater)
+            while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) == Comparison.Greater)
             {
-                this.ArraySwap(index, parent);
+                ArraySwap(index, parent);
                 index = parent;
             }
         }
@@ -194,18 +230,21 @@ namespace Towel.DataStructures
         /// <summary>Standard priority queue algorithm for sifting down.</summary>
         /// <param name="index">The index to be down sifted.</param>
         /// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-        private void ShiftDown(int index)
+        internal void ShiftDown(int index)
         {
             int leftChild, rightChild;
-            while ((leftChild = LeftChild(index)) <= this._count)
+            while ((leftChild = LeftChild(index)) <= _count)
             {
                 int down = leftChild;
-                if ((rightChild = RightChild(index)) <= this._count &&
-                    this._compare(this._heap[rightChild], this._heap[leftChild]) == Comparison.Greater)
+                if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) == Comparison.Greater)
+                {
                     down = rightChild;
-                if (this._compare(this._heap[down], this._heap[index]) == Comparison.Less)
+                }
+                if (_compare(_heap[down], _heap[index]) == Comparison.Less)
+                {
                     break;
-                this.ArraySwap(index, down);
+                }
+                ArraySwap(index, down);
                 index = down;
             }
         }
@@ -214,82 +253,66 @@ namespace Towel.DataStructures
         /// <param name="indexOne">The first index of the swap.</param>
         /// <param name="indexTwo">The second index of the swap.</param>
         /// <remarks>Runtime: O(1).</remarks>
-        private void ArraySwap(int indexOne, int indexTwo)
+        internal void ArraySwap(int indexOne, int indexTwo)
         {
-            T temp = this._heap[indexTwo];
-            this._heap[indexTwo] = this._heap[indexOne];
-            this._heap[indexOne] = temp;
+            T temp = _heap[indexTwo];
+            _heap[indexTwo] = _heap[indexOne];
+            _heap[indexOne] = temp;
         }
 
         /// <summary>Returns this queue to an empty state.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public void Clear() { this._count = 0; }
+        public void Clear()
+        {
+            _count = 0;
+        }
 
         /// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
         /// <returns>The array of priority-sorted items.</returns>
         public T[] ToArray()
         {
-            T[] array = new T[this._count];
-            for (int i = 1; i <= this._count; i++)
-                array[i] = this._heap[i];
+            T[] array = new T[_count];
+            for (int i = 1; i <= _count; i++)
+            {
+                array[i] = _heap[i];
+            }
             return array;
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        System.Collections.IEnumerator
-            System.Collections.IEnumerable.GetEnumerator()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             for (int i = 0; i <= _count; i++)
-                yield return this._heap[i];
+            {
+                yield return _heap[i];
+            }
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        System.Collections.Generic.IEnumerator<T>
-            System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i <= _count; i++)
-                yield return this._heap[i];
-        }
-
-        /// <summary>Checks to see if a given object is in this data structure.</summary>
-        /// <param name="item">The item to check for.</param>
-        /// <param name="compare">Delegate representing comparison technique.</param>
-        /// <returns>true if the item is in this structure; false if not.</returns>
-        public bool Contains(T item, Compare<T> compare)
-        {
-            for (int i = 1; i <= this._count; i++)
-                if (compare(this._heap[i], item) == Comparison.Equal)
-                    return true;
-            return false;
-        }
-
-        /// <summary>Checks to see if a given object is in this data structure.</summary>
-        /// <typeparam name="Key">The type of the key to check for.</typeparam>
-        /// <param name="key">The key to check for.</param>
-        /// <param name="compare">Delegate representing comparison technique.</param>
-        /// <returns>true if the item is in this structure; false if not.</returns>
-        public bool Contains<Key>(Key key, Compare<T, Key> compare)
-        {
-            for (int i = 1; i <= this._count; i++)
-                if (compare(this._heap[i], key) == Comparison.Equal)
-                    return true;
-            return false;
+            {
+                yield return _heap[i];
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="function">The delegate to invoke on each item in the structure.</param>
         public void Stepper(Step<T> function)
         {
-            for (int i = 1; i <= this._count; i++)
-                function(this._heap[i]);
+            for (int i = 1; i <= _count; i++)
+            {
+                function(_heap[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="function">The delegate to invoke on each item in the structure.</param>
         public void Stepper(StepRef<T> function)
         {
-            for (int i = 1; i <= this._count; i++)
-                function(ref this._heap[i]);
+            for (int i = 1; i <= _count; i++)
+            {
+                function(ref _heap[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -297,9 +320,13 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            for (int i = 1; i <= this._count; i++)
-                if (function(this._heap[i]) == StepStatus.Break)
+            for (int i = 1; i <= _count; i++)
+            {
+                if (function(_heap[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
@@ -308,9 +335,13 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepRefBreak<T> function)
         {
-            for (int i = 1; i <= this._count; i++)
-                if (function(ref this._heap[i]) == StepStatus.Break)
+            for (int i = 1; i <= _count; i++)
+            {
+                if (function(ref _heap[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
@@ -318,65 +349,17 @@ namespace Towel.DataStructures
         /// <returns>A shallow clone of this data structure.</returns>
         public DataStructure<T> Clone()
         {
-            HeapArray<T> clone =
-                new HeapArray<T>(this._compare);
-            T[] cloneItems = new T[this._heap.Length];
-            for (int i = 1; i <= this._count; i++)
+            HeapArray<T> clone = new HeapArray<T>(_compare);
+            T[] cloneItems = new T[_heap.Length];
+            for (int i = 1; i <= _count; i++)
+            {
                 cloneItems[i] = _heap[i];
+            }
             clone._heap = cloneItems;
-            clone._count = this._count;
-            clone._minimumCapacity = this._minimumCapacity;
+            clone._count = _count;
+            clone._minimumCapacity = _minimumCapacity;
             return clone;
         }
-
-        #endregion
-
-        #region needs to be reviewed
-
-        ///// <summary>Traversal function for a heap. Following a pre-order traversal.</summary>
-        ///// <param name="traversalFunction">The function to perform per iteration.</param>
-        ///// <returns>A determining a break in the traversal. (true = continue, false = break)</returns>
-        //public bool TraverseBreakable(Func<Type, bool> traversalFunction) { return TraversalPreOrderBreakable(traversalFunction); }
-
-        ///// <summary>Traversal function for a heap. Following a pre-order traversal.</summary>
-        ///// <param name="traversalFunction">The function to perform per iteration.</param>
-        //public void Traverse(Action<T> traversalFunction) { TraversalPreOrder(traversalFunction); }
-
-        ///// <summary>Implements an imperative traversal of the structure.</summary>
-        ///// <param name="traversalFunction">The function to perform per node in the traversal.</param>
-        ///// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        //public bool TraversalPreOrderBreakable(Func<Type, bool> traversalFunction)
-        //{
-        //	for (int i = 0; i < _count; i++)
-        //		if (!traversalFunction(_heapArray[i].Value))
-        //			return false;
-        //	return true;
-        //}
-
-        ///// <summary>Implements an imperative traversal of the structure.</summary>
-        ///// <param name="traversalAction">The action to perform per node in the traversal.</param>
-        ///// <remarks>Runtime: O(n * traversalAction).</remarks>
-        //public void TraversalPreOrder(Action<T> traversalAction)
-        //{
-        //	for (int i = 0; i < _count; i++)
-        //		traversalAction(_heapArray[i].Value);
-        //}
-
-        /// <summary>Pulls out all the values in the structure that are equivalent to the key.</summary>
-        /// <typeparam name="Key">The type of the key to check for.</typeparam>
-        /// <param name="key">The key to check for.</param>
-        /// <param name="compare">Delegate representing comparison technique.</param>
-        /// <returns>An array containing all the values matching the key or null if non were found.</returns>
-        //Type[] GetValues<Key>(Key key, Compare<Type, Key> compare);
-
-        /// <summary>Pulls out all the values in the structure that are equivalent to the key.</summary>
-        /// <typeparam name="Key">The type of the key to check for.</typeparam>
-        /// <param name="key">The key to check for.</param>
-        /// <param name="compare">Delegate representing comparison technique.</param>
-        /// <returns>An array containing all the values matching the key or null if non were found.</returns>
-        /// <param name="values">The values that matched the given key.</param>
-        /// <returns>true if 1 or more values were found; false if no values were found.</returns>
-        //bool TryGetValues<Key>(Key key, Compare<Type, Key> compare, out Type[] values);
 
         #endregion
     }

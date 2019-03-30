@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
@@ -165,14 +166,13 @@ namespace Towel.DataStructures
     [Serializable]
     public class RedBlackTreeLinked<T> : RedBlackTree<T>
     {
-        // Fields
         internal const bool Red = true;
         internal const bool Black = false;
-        private static Node _sentinelNode;
+        internal static Node _sentinelNode;
 
         internal Compare<T> _compare;
         internal int _count;
-        private Node _root;
+        internal Node _root;
 
         #region Node
 
@@ -1005,32 +1005,38 @@ namespace Towel.DataStructures
 
         #region IEnumerable
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
+        /// <summary>Returns the IEnumerator for this data structure.</summary>
+        /// <returns>The IEnumerator for this data structure.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        /// <summary>Returns the IEnumerator for this data structure.</summary>
+        /// <returns>The IEnumerator for this data structure.</returns>
+        /// <citation>
+        /// This method was provided by user CyrusNajmabadi from GitHub.
+        /// </citation>
+        public IEnumerator<T> GetEnumerator()
         {
-            FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
-            Node current = _root;
-            while ((current != null && current != _sentinelNode) || forks.Count > 0)
+            Node GetNextNode(Node current)
             {
-                if (current != null)
+                if (current.RightChild != null && current.RightChild != _sentinelNode)
                 {
-                    forks.Push(current);
-                    current = current.LeftChild;
+                    return GetLeftMostNode(current.RightChild);
                 }
-                else if (forks.Count > 0)
+                var parent = current.Parent;
+                while (parent != null && current == parent.RightChild)
                 {
-                    current = forks.Pop();
-                    yield return current.Value;
-                    current = current.RightChild;
+                    current = parent;
+                    parent = parent.Parent;
                 }
+                return parent;
+            }
+
+            for (var current = GetLeftMostNode(_root); current != null; current = GetNextNode(current))
+            {
+                yield return current.Value;
             }
         }
 
@@ -1040,7 +1046,7 @@ namespace Towel.DataStructures
 
         #region Helpers
 
-        private void BalanceAddition(Node balancing)
+        internal void BalanceAddition(Node balancing)
         {
             Node temp;
             while (balancing != _root && balancing.Parent.Color == Red)
@@ -1093,7 +1099,7 @@ namespace Towel.DataStructures
             _root.Color = Black;
         }
 
-        private void RotateLeft(Node redBlackTree)
+        internal void RotateLeft(Node redBlackTree)
         {
             Node temp = redBlackTree.RightChild;
             redBlackTree.RightChild = temp.LeftChild;
@@ -1115,7 +1121,7 @@ namespace Towel.DataStructures
                 redBlackTree.Parent = temp;
         }
 
-        private void RotateRight(Node redBlacktree)
+        internal void RotateRight(Node redBlacktree)
         {
             Node temp = redBlacktree.LeftChild;
             redBlacktree.LeftChild = temp.RightChild;
@@ -1137,7 +1143,7 @@ namespace Towel.DataStructures
                 redBlacktree.Parent = temp;
         }
 
-        private void BalanceRemoval(Node balancing)
+        internal void BalanceRemoval(Node balancing)
         {
             Node temp;
             while (balancing != _root && balancing.Color == Black)
@@ -1206,6 +1212,15 @@ namespace Towel.DataStructures
                 }
             }
             balancing.Color = Black;
+        }
+
+        internal Node GetLeftMostNode(Node node)
+        {
+            while (node.LeftChild != null && node.LeftChild != _sentinelNode)
+            {
+                node = node.LeftChild;
+            }
+            return node;
         }
 
         #endregion

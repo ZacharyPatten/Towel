@@ -22,29 +22,26 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.Hashing<T>
     {
-        // Fields
         internal const float _maxLoadFactor = .7f;
         internal const float _minLoadFactor = .3f;
+
         internal Equate<T> _equate;
         internal Hash<T> _hash;
         internal Node[] _table;
         internal int _count;
 
-        #region Nested Types
+        #region Node
 
         [Serializable]
         internal class Node
         {
-            internal T _value;
-            internal Node _next;
-
-            internal T Value { get { return _value; } set { _value = value; } }
-            internal Node Next { get { return _next; } set { _next = value; } }
-
+            internal T Value;
+            internal Node Next;
+            
             internal Node(T value, Node next)
             {
-                _value = value;
-                _next = next;
+                Value = value;
+                Next = next;
             }
         }
 
@@ -363,7 +360,6 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.Hashing<T>
     {
-        // fields
         private Equate<T> _equate;
         private Hash<T> _hash;
         private int[] _table;
@@ -372,24 +368,20 @@ namespace Towel.DataStructures
         private int _lastIndex;
         private int _freeList;
 
-        #region Nested Types
+        #region Node
 
         [Serializable]
         private struct Node
         {
-            private int _hash;
-            private T _value;
-            private int _next;
-
-            internal int Hash { get { return this._hash; } set { this._hash = value; } }
-            internal T Value { get { return this._value; } set { this._value = value; } }
-            internal int Next { get { return this._next; } set { this._next = value; } }
+            internal int Hash;
+            internal T Value;
+            internal int Next;
 
             internal Node(int hash, T value, int next)
             {
-                this._hash = hash;
-                this._value = value;
-                this._next = next;
+                Hash = hash;
+                Value = value;
+                Next = next;
             }
         }
 

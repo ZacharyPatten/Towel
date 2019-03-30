@@ -21,7 +21,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class SkipListLinked<T> : System.Collections.IEnumerable
     {
-        // fields
         private const int MaxLevel = 32; // Maximum level any node in a skip list can have
         private const double Probability = 0.5; // Probability factor used to determine the node level
         private Node header = new Node(MaxLevel); // The skip list header. It also serves as the NIL node.

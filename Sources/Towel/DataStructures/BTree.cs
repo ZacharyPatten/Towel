@@ -119,7 +119,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class BTreeLinkedArray<T> : BTree<T>
     {
-        // Fields
         Node _root;
         int _count;
         int _height;

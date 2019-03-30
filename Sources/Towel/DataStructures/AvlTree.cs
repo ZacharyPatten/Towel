@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
@@ -1054,16 +1055,12 @@ namespace Towel.DataStructures
 
         #region IEnumerable
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        [Obsolete("Binary Trees should be enumerated using the Stepper functions.")]
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
             Node current = _root;
@@ -1082,6 +1079,8 @@ namespace Towel.DataStructures
                 }
             }
         }
+
+        
 
         #endregion
 

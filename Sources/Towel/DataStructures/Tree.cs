@@ -42,7 +42,6 @@ namespace Towel.DataStructures
         DataStructure.Hashing<T>,
         DataStructure.Equating<T>
     {
-        // fields
         private Equate<T> _equate;
         private Hash<T> _hash;
         private T _head;
