@@ -37,11 +37,11 @@ namespace Towel.DataStructures
     [Serializable]
     public class HeapArray<T> : IHeap<T>
     {
-        private readonly Compare<T> _compare;
-        private T[] _heap;
-        private int _minimumCapacity;
-        private int _count;
-        private const int _root = 1; // The root index of the heap.
+        internal readonly Compare<T> _compare;
+        internal T[] _heap;
+        internal int _minimumCapacity;
+        internal int _count;
+        internal const int _root = 1; // The root index of the heap.
 
         #region Constructors
 

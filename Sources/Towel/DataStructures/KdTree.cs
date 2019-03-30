@@ -41,17 +41,17 @@ namespace Towel.DataStructures
     [Serializable]
     public class KdTree_Linked<T, K> : IKdTree<K, T>
     {
-        private Compare<K> _compareKey;
-        private K _minValue;
-        private K _maxValue;
-        private K _zero;
-        private KdTree.Add<K> _add;
-        private KdTree.Subtract<K> _subtract;
-        private KdTree.Multiply<K> _multiply;
-        private KdTree.Locate<T, K> _locate;
-        private int _dimensions;
-        private Node _root;
-        private int _count;
+        internal Compare<K> _compareKey;
+        internal K _minValue;
+        internal K _maxValue;
+        internal K _zero;
+        internal KdTree.Add<K> _add;
+        internal KdTree.Subtract<K> _subtract;
+        internal KdTree.Multiply<K> _multiply;
+        internal KdTree.Locate<T, K> _locate;
+        internal int _dimensions;
+        internal Node _root;
+        internal int _count;
 
         // 1. Search for the target
         // 

@@ -213,20 +213,20 @@ namespace Towel.DataStructures
         /// <summary>Counts the number of items in a sub space.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
         /// <returns>The number of items in the provided sub space.</returns>
-        int CountSubSpace(<#= chain_AxisX_minX_AxisX_maxX #>);
+        int CountSubSpace(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
 
         /// <summary>Iterates through the entire tree and ensures each item is in the proper leaf.</summary>
         void Update();
         /// <summary>Iterates through the provided dimensions and ensures each item is in the proper leaf.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        void Update(<#= chain_AxisX_minX_AxisX_maxX #>);
+        void Update(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
 
         /// <summary>Removes all the items in a given space.</summary>
         <#= documentation_AxisX_axisX #>
         void Remove(<#= chain_AxisX_axisX #>);
         /// <summary>Removes all the items in a given space.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        void Remove(<#= chain_AxisX_minX_AxisX_maxX #>);
+        void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         /// <summary>Removes all the items in a given space where equality is met.</summary>
         <#= documentation_AxisX_axisX #>
         /// <param name="where">The equality constraint of the removal.</param>
@@ -234,16 +234,16 @@ namespace Towel.DataStructures
         /// <summary>Removes all the items in a given space where predicate is met.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
         /// <param name="where">The predicate constraint of the removal.</param>
-        void Remove(<#= chain_AxisX_minX_AxisX_maxX #>, Predicate<T> where);
+        void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>, Predicate<T> where);
 
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        void Stepper(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        void Stepper(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        StepStatus Stepper(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        StepStatus Stepper(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_axisX #>
@@ -2324,20 +2324,20 @@ namespace Towel.DataStructures
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        void StepperEncapsulated(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        void StepperEncapsulated(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        void StepperOverlapped(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        void StepperOverlapped(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
         <#= documentation_AxisX_minX_AxisX_maxX #>
-        StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>);
+        StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         /// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>

@@ -204,8 +204,8 @@ namespace Towel.DataStructures
         // Don’t use a multi-dimensional array here because then we can’t right size the last
         // block and we have to do range checking on our own and since there will then be 
         // exception throwing in our code there is a good chance that the JIT won’t inline.
-        T[][] _elements;
-        ulong _length;
+        internal T[][] _elements;
+        internal ulong _length;
 
         private IndexedBigArray(IndexedBigArray<T> bigArray)
         {

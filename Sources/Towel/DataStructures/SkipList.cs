@@ -21,17 +21,17 @@ namespace Towel.DataStructures
     [Serializable]
     public class SkipListLinked<T> : System.Collections.IEnumerable
     {
-        private const int MaxLevel = 32; // Maximum level any node in a skip list can have
-        private const double Probability = 0.5; // Probability factor used to determine the node level
-        private Node header = new Node(MaxLevel); // The skip list header. It also serves as the NIL node.
-        private System.Collections.IComparer _comparer; // Comparer for comparing keys.
-        private System.Random _random = new System.Random(); // Random number generator for generating random node levels.
-        private int _listLevel; // Current maximum list level.
-        private int _count; // Current number of elements in the skip list.
+        internal const int MaxLevel = 32; // Maximum level any node in a skip list can have
+        internal const double Probability = 0.5; // Probability factor used to determine the node level
+        internal Node header = new Node(MaxLevel); // The skip list header. It also serves as the NIL node.
+        internal System.Collections.IComparer _comparer; // Comparer for comparing keys.
+        internal System.Random _random = new System.Random(); // Random number generator for generating random node levels.
+        internal int _listLevel; // Current maximum list level.
+        internal int _count; // Current number of elements in the skip list.
                             // nested types
         #region private class Node
         [Serializable]
-        private class Node
+        internal class Node
         {
             // References to nodes further along in the skip list.
             public Node[] forward;

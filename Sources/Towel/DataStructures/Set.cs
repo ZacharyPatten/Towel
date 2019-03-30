@@ -360,18 +360,18 @@ namespace Towel.DataStructures
         // Structure Properties
         DataStructure.IHashing<T>
     {
-        private Equate<T> _equate;
-        private Hash<T> _hash;
-        private int[] _table;
-        private Node[] _nodes;
-        private int _count;
-        private int _lastIndex;
-        private int _freeList;
+        internal Equate<T> _equate;
+        internal Hash<T> _hash;
+        internal int[] _table;
+        internal Node[] _nodes;
+        internal int _count;
+        internal int _lastIndex;
+        internal int _freeList;
 
         #region Node
 
         [Serializable]
-        private struct Node
+        internal struct Node
         {
             internal int Hash;
             internal T Value;

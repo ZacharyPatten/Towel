@@ -20,10 +20,7 @@ namespace Mathematics
             Console.WriteLine("You are runnning the Mathematics example.");
             Console.WriteLine("==========================================");
             Console.WriteLine();
-
-            Console.WriteLine("  The Towel.Mathemeatics.Compute class allows generic mathematics (you can use any type). :)");
-            Console.WriteLine();
-
+            
             #region Basic Operations
 
             Console.WriteLine("  Basics----------------------------------------------");

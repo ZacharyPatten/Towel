@@ -529,13 +529,13 @@ namespace DataStructures
                 Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
                 Console.WriteLine();
 
-                IOmnitreePoints<int, double, double, double> omnitree =
-                    new OmnitreePointsLinked<int, double, double, double>(
+                IOmnitreePoints<int, double, string, decimal> omnitree =
+                    new OmnitreePointsLinked<int, double, string, decimal>(
                         // This is a location delegate. (how to locate the item along each dimension)
-                        (int index, out double a, out double b, out double c) =>
+                        (int index, out double a, out string b, out decimal c) =>
                         {
                             a = index;
-                            b = index;
+                            b = index.ToString();
                             c = index;
                         });
 
@@ -550,51 +550,54 @@ namespace DataStructures
                 omnitree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
 
-                int minimum = random.Next(1, test / 2);
-                int maximum = random.Next(1, test / 2) + test / 2;
+                int minimumXZ = random.Next(1, test / 2);
+                int maximumXZ = random.Next(1, test / 2) + test / 2;
+                string minimumY = minimumXZ.ToString();
+                string maximumY = maximumXZ.ToString();
                 Console.Write("    Spacial Traversal [" +
-                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
-                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: ");
+                    "(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
+                    "(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
                 omnitree.Stepper(i => Console.Write(i),
-                    minimum, maximum,
-                    minimum, maximum,
-                    minimum, maximum);
+                    minimumXZ, maximumXZ,
+                    minimumY, maximumY,
+                    minimumXZ, maximumXZ);
                 Console.WriteLine();
 
                 // Note: this "look up" is just a very narrow spacial query that (since we know the data)
                 // wil only give us one result.
                 int lookUp = random.Next(0, test);
-                Console.Write("    Look Up (" + lookUp + "): ");
+                string lookUpToString = lookUp.ToString();
+                Console.Write("    Look Up (" + lookUp + ", \"" + lookUpToString + "\", " + lookUp +"): ");
                 omnitree.Stepper(i => Console.Write(i),
                     lookUp, lookUp,
-                    lookUp, lookUp,
+                    lookUp.ToString(), lookUp.ToString(),
                     lookUp, lookUp);
                 Console.WriteLine();
-
-                //void DoNothing() { }
-                //// Ignoring dimensions on traversals example.
-                //// If you want to ignore a column on a traversal, you can do so like this:
-                //omnitree.Stepper(i => DoNothing(),
-                //    lookUp, lookUp,
-                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None,
-                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None);
-                //Console.WriteLine();
+                
+                // Ignoring dimensions on traversals example.
+                // If you want to ignore a column on a traversal, you can do so like this:
+                omnitree.Stepper(i => { /*Do Nothing*/ },
+                    lookUp, lookUp,
+                    Omnitree.Bound<string>.None, Omnitree.Bound<string>.None,
+                    Omnitree.Bound<decimal>.None, Omnitree.Bound<decimal>.None);
 
                 Console.Write("    Counting Items In a Space [" +
-                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
-                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: " +
+                    "(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
+                    "(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
                     omnitree.CountSubSpace(
-                        minimum, maximum,
-                        minimum, maximum,
-                        minimum, maximum));
+                        minimumXZ, maximumXZ,
+                        minimumY, maximumY,
+                        minimumXZ, maximumXZ);
                 Console.WriteLine();
 
                 int removalMinimum = random.Next(1, test / 2);
                 int removalMaximum = random.Next(1, test / 2) + test / 2;
+                string removalMinimumY = removalMinimum.ToString();
+                string removalMaximumY = removalMaximum.ToString();
                 Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum + "): ");
                 omnitree.Remove(
                     removalMinimum, removalMaximum,
-                    removalMinimum, removalMaximum,
+                    removalMinimumY, removalMaximumY,
                     removalMinimum, removalMaximum);
                 omnitree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
@@ -624,16 +627,18 @@ namespace DataStructures
                 Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
                 Console.WriteLine();
 
-                IOmnitreeBounds<int, double, double, double> omnitree =
-                    new OmnitreeBoundsLinked<int, double, double, double>(
+                IOmnitreeBounds<int, double, string, decimal> omnitree =
+                    new OmnitreeBoundsLinked<int, double, string, decimal>(
                     // This is a location delegate. (how to locate the item along each dimension)
                     (int index,
                      out double min1, out double max1,
-                     out double min2, out double max2,
-                     out double min3, out double max3) =>
+                     out string min2, out string max2,
+                     out decimal min3, out decimal max3) =>
                     {
+                        string indexToString = index.ToString();
+
                         min1 = index; max1 = index;
-                        min2 = index; max2 = index;
+                        min2 = indexToString; max2 = indexToString;
                         min3 = index; max3 = index;
                     });
 
@@ -648,52 +653,56 @@ namespace DataStructures
                 omnitree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
 
-                int minimum = random.Next(1, test / 2);
-                int maximum = random.Next(1, test / 2) + test / 2;
+                int minimumXZ = random.Next(1, test / 2);
+                int maximumXZ = random.Next(1, test / 2) + test / 2;
+                string minimumY = minimumXZ.ToString();
+                string maximumY = maximumXZ.ToString();
                 Console.Write("    Spacial Traversal [" +
-                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
-                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: ");
+                    "(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
+                    "(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
                 omnitree.StepperOverlapped(i => Console.Write(i),
-                    minimum, maximum,
-                    minimum, maximum,
-                    minimum, maximum);
+                    minimumXZ, maximumXZ,
+                    minimumY, maximumY,
+                    minimumXZ, maximumXZ);
                 Console.WriteLine();
 
                 // Note: this "look up" is just a very narrow spacial query that (since we know the data)
                 // wil only give us one result.
-                int lookUp = random.Next(0, test);
-                Console.Write("    Look Up (" + lookUp + "): ");
+                int lookUpXZ = random.Next(0, test);
+                string lookUpY = lookUpXZ.ToString();
+                Console.Write("    Look Up (" + lookUpXZ + ", \"" + lookUpY + "\", " + lookUpXZ + "): ");
                 omnitree.StepperOverlapped(i => Console.Write(i),
-                    lookUp, lookUp,
-                    lookUp, lookUp,
-                    lookUp, lookUp);
+                    lookUpXZ, lookUpXZ,
+                    lookUpY, lookUpY,
+                    lookUpXZ, lookUpXZ);
                 Console.WriteLine();
-
-                //void DoNothing() { }
-                //// Ignoring dimensions on traversals example.
-                //// If you want to ignore a column on a traversal, you can do so like this:
-                //omnitree.Stepper(i => DoNothing(),
-                //    lookUp, lookUp,
-                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None,
-                //    Omnitree.Bound<int>.None, Omnitree.Bound<int>.None);
-                //Console.WriteLine();
+                
+                // Ignoring dimensions on traversals example.
+                // If you want to ignore a dimension on a traversal, you can do so like this:
+                omnitree.StepperOverlapped(i => { /*Do Nothing*/ },
+                    lookUpXZ, lookUpXZ,
+                    // The "None" means there is no bound, so all values are valid
+                    Omnitree.Bound<string>.None, Omnitree.Bound<string>.None,
+                    Omnitree.Bound<decimal>.None, Omnitree.Bound<decimal>.None);
 
                 Console.Write("    Counting Items In a Space [" +
-                    "(" + minimum + ", " + minimum + ", " + minimum + ")->" +
-                    "(" + maximum + ", " + maximum + ", " + maximum + ")]: " +
+                    "(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
+                    "(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: " +
                     omnitree.CountSubSpaceOverlapped(
-                        minimum, maximum,
-                        minimum, maximum,
-                        minimum, maximum));
+                        minimumXZ, maximumXZ,
+                        minimumY, maximumY,
+                        minimumXZ, maximumXZ));
                 Console.WriteLine();
 
-                int removalMinimum = random.Next(1, test / 2);
-                int removalMaximum = random.Next(1, test / 2) + test / 2;
-                Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum + "): ");
+                int removalMinimumXZ = random.Next(1, test / 2);
+                int removalMaximumXZ = random.Next(1, test / 2) + test / 2;
+                string removalMinimumY = removalMinimumXZ.ToString();
+                string removalMaximumY = removalMaximumXZ.ToString();
+                Console.Write("    Remove (" + removalMinimumXZ + "-" + removalMaximumXZ + "): ");
                 omnitree.RemoveOverlapped(
-                    removalMinimum, removalMaximum,
-                    removalMinimum, removalMaximum,
-                    removalMinimum, removalMaximum);
+                    removalMinimumXZ, removalMaximumXZ,
+                    removalMinimumY, removalMaximumY,
+                    removalMinimumXZ, removalMaximumXZ);
                 omnitree.Stepper(i => Console.Write(i));
                 Console.WriteLine();
 
