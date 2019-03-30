@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Implements First-In-First-Out queue data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface FirstInFirstOut<T> : DataStructure<T>,
+    public interface IFirstInFirstOut<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>
@@ -36,7 +36,7 @@ namespace Towel.DataStructures
     /// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInFirstOutLinked<T> : FirstInFirstOut<T>
+    public class FirstInFirstOutLinked<T> : IFirstInFirstOut<T>
     {
         private Node _head;
         private Node _tail;
@@ -345,7 +345,7 @@ namespace Towel.DataStructures
     /// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInFirstOutArray<T> : FirstInFirstOut<T>
+    public class FirstInFirstOutArray<T> : IFirstInFirstOut<T>
     {
         internal T[] _queue;
         internal int _start;
@@ -476,7 +476,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             FirstInFirstOutArray<T> clone = new FirstInFirstOutArray<T>
             {

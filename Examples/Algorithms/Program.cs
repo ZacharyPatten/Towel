@@ -112,7 +112,7 @@ namespace Algorithms
                 Console.WriteLine();
 
                 // make a graph
-                Graph<int> graph = new GraphSetOmnitree<int>()
+                IGraph<int> graph = new GraphSetOmnitree<int>()
                 {
                     // add nodes
                     0,
@@ -219,7 +219,7 @@ namespace Algorithms
                 float rockRadius = 20f;
 
                 // Make sure we don't re-use locations (must be wiped after running the algorithm)
-                Set<Vector<float>> alreadyUsed = new SetHashLinked<Vector<float>>();
+                ISet<Vector<float>> alreadyUsed = new SetHashLinked<Vector<float>>();
 
                 Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
 

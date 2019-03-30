@@ -56,7 +56,7 @@ namespace System
                 throw new InvalidOperationException("Attempting a contains check with an empty set.");
             }
 
-            Set<char> set = new SetHashArray<char>();
+            Towel.DataStructures.ISet<char> set = new SetHashArray<char>();
             foreach (char c in chars)
             {
                 set.Add(c);

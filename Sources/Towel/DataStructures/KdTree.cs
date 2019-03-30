@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Towel.DataStructures
 {
-    public interface KdTree<T, K> //: Structure<TValue>
+    public interface IKdTree<T, K> //: Structure<TValue>
     {
         //bool Add(TKey[] point, TValue value);
         //bool TryFindValueAt(TKey[] point, out TValue value);
@@ -39,7 +39,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic items to be stored in this data structure.</typeparam>
     /// <typeparam name="K">The type of the axis dimensions to sort the "T" values upon.</typeparam>
     [Serializable]
-    public class KdTree_Linked<T, K> : KdTree<K, T>
+    public class KdTree_Linked<T, K> : IKdTree<K, T>
     {
         private Compare<K> _compareKey;
         private K _minValue;

@@ -486,8 +486,8 @@ namespace Towel.Graphics.Formats
 
             // Index Data
             AddableArray<int> indeces = new AddableArray<int>();
-            Map<Vertex, int> verteces = new MapHashLinked<Vertex, int>();
-            Map<Addable<Vertex>, int> vertecesByOriginalPositionIndex = new MapHashLinked<Addable<Vertex>, int>();
+            IMap<Vertex, int> verteces = new MapHashLinked<Vertex, int>();
+            IMap<IAddable<Vertex>, int> vertecesByOriginalPositionIndex = new MapHashLinked<IAddable<Vertex>, int>();
             int vertexCount = positions.Length / 3;
             XmlNode xml_polylist = xml_mesh.First(x => x.Name == "polylist");
             int indexFormat = xml_polylist.Count(x => x.Name == "input");

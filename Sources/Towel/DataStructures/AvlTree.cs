@@ -5,7 +5,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
     /// <typeparam name="T">The generic type of this data structure.</typeparam>
-    public interface AvlTree<T> : DataStructure<T>,
+    public interface IAvlTree<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Addable<T>,
         DataStructure.Removable<T>,
@@ -117,7 +117,7 @@ namespace Towel.DataStructures
         /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <param name="item">The item if found.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T, Key>(this AvlTree<T> avlTree, Key key, Compare<T, Key> compare, out T item)
+        public static bool TryGet<T, Key>(this IAvlTree<T> avlTree, Key key, Compare<T, Key> compare, out T item)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace Towel.DataStructures
         /// <param name="key">The key.</param>
         /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T, Key>(this AvlTree<T> avlTree, Key key, Compare<T, Key> compare)
+        public static bool TryRemove<T, Key>(this IAvlTree<T> avlTree, Key key, Compare<T, Key> compare)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace Towel.DataStructures
     /// been modified since its addition into the Towel framework.
     /// </citation>
     [Serializable]
-    public class AvlTreeLinked<T> : AvlTree<T>
+    public class AvlTreeLinked<T> : IAvlTree<T>
     {
         internal Node _root;
         internal int _count;
@@ -1062,7 +1062,7 @@ namespace Towel.DataStructures
 
         public IEnumerator<T> GetEnumerator()
         {
-            FirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
+            IFirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
             Node current = _root;
             while (current != null || forks.Count > 0)
             {

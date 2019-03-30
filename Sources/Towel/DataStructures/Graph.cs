@@ -2,7 +2,7 @@
 
 namespace Towel.DataStructures
 {
-    public interface Graph<T> : DataStructure<T>,
+    public interface IGraph<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Addable<T>,
         DataStructure.Removable<T>,
@@ -53,7 +53,7 @@ namespace Towel.DataStructures
     /// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
     /// <typeparam name="T">The generic type of this data structure.</typeparam>
     [Serializable]
-    public class GraphSetOmnitree<T> : Graph<T>
+    public class GraphSetOmnitree<T> : IGraph<T>
     {
         // Fields
         public SetHashLinked<T> _nodes;
@@ -109,7 +109,7 @@ namespace Towel.DataStructures
 
         #region Methods
 
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             return new GraphSetOmnitree<T>(this);
         }
@@ -233,7 +233,7 @@ namespace Towel.DataStructures
     /// <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
     /// <typeparam name="T">The generic node type of this graph.</typeparam>
     [Serializable]
-    public class GraphMap<T> : Graph<T>
+    public class GraphMap<T> : IGraph<T>
     {
         // Fields
         public MapHashLinked<MapHashLinked<bool, T>, T> _map;
@@ -380,7 +380,7 @@ namespace Towel.DataStructures
             throw new System.NotImplementedException();
         }
 
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             throw new System.NotImplementedException();
         }

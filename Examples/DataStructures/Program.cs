@@ -48,7 +48,7 @@ namespace DataStructures
             Console.WriteLine("    can be sorted along 1 dimensions for binary searching algorithms.");
             Console.WriteLine();
 
-            Indexed<int> indexed = new IndexedArray<int>(test);
+            IIndexed<int> indexed = new IndexedArray<int>(test);
 
             Console.Write("    Filling in (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
@@ -83,7 +83,7 @@ namespace DataStructures
             Console.WriteLine();
 
             // AddableArray ---------------------------------------
-            Addable<int> addableArray = new AddableArray<int>(test);
+            IAddable<int> addableArray = new AddableArray<int>(test);
 
             Console.Write("    [AddableArray] Adding (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
@@ -103,7 +103,7 @@ namespace DataStructures
             Console.WriteLine();
 
             // AddableLinked ---------------------------------------
-            Addable<int> addableLinked = new AddableLinked<int>();
+            IAddable<int> addableLinked = new AddableLinked<int>();
 
             Console.Write("    [AddableLinked] Adding (0-" + (test - 1) + ")...");
             for (int i = 0; i < test; i++)
@@ -136,7 +136,7 @@ namespace DataStructures
                 Console.WriteLine("    and Pop functions.");
                 Console.WriteLine();
 
-                FirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
+                IFirstInLastOut<int> firstInLastOutArray = new FirstInLastOutArray<int>();
 
                 Console.Write("    [FirstInLastOutArray] Pushing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -159,7 +159,7 @@ namespace DataStructures
 
                 Console.WriteLine();
 
-                FirstInLastOut<int> firstInLastOutLinked = new FirstInLastOutLinked<int>();
+                IFirstInLastOut<int> firstInLastOutLinked = new FirstInLastOutLinked<int>();
 
                 Console.Write("    [FirstInLastOutLinked] Pushing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -196,7 +196,7 @@ namespace DataStructures
                 Console.WriteLine("    and Dequeue functions.");
                 Console.WriteLine();
 
-                FirstInFirstOut<int> firstInFirstOutArray = new FirstInFirstOutArray<int>();
+                IFirstInFirstOut<int> firstInFirstOutArray = new FirstInFirstOutArray<int>();
 
                 Console.Write("    [FirstInFirstOutArray] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -219,7 +219,7 @@ namespace DataStructures
 
                 Console.WriteLine();
 
-                FirstInFirstOut<int> firstInFirstOutLinked = new FirstInFirstOutLinked<int>();
+                IFirstInFirstOut<int> firstInFirstOutLinked = new FirstInFirstOutLinked<int>();
 
                 Console.Write("    [FirstInFirstOutLinked] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -267,7 +267,7 @@ namespace DataStructures
                 }
                 Console.WriteLine();
 
-                Heap<int> heapArray = new HeapArray<int>(Priority);
+                IHeap<int> heapArray = new HeapArray<int>(Priority);
 
                 Console.Write("    [HeapArray] Enqueuing (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -322,7 +322,7 @@ namespace DataStructures
                 Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
                 Console.WriteLine();
 
-                AvlTree<int> avlTree = new AvlTreeLinked<int>();
+                IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 
                 Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -381,7 +381,7 @@ namespace DataStructures
                 Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
                 Console.WriteLine();
 
-                RedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+                IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 
                 Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -445,7 +445,7 @@ namespace DataStructures
                 Console.WriteLine("    been added to the set.");
                 Console.WriteLine();
 
-                Set<int> setHashLinked = new SetHashLinked<int>();
+                ISet<int> setHashLinked = new SetHashLinked<int>();
 
                 Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -485,7 +485,7 @@ namespace DataStructures
                 Console.WriteLine();
 
                 // Note: the first generic is the value, the second is the key
-                Map<string, int> mapHashLinked = new MapHashLinked<string, int>();
+                IMap<string, int> mapHashLinked = new MapHashLinked<string, int>();
 
                 Console.WriteLine("    Let's map each int to its word representation (ex 1 -> One).");
 
@@ -529,7 +529,7 @@ namespace DataStructures
                 Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
                 Console.WriteLine();
 
-                OmnitreePoints<int, double, double, double> omnitree =
+                IOmnitreePoints<int, double, double, double> omnitree =
                     new OmnitreePointsLinked<int, double, double, double>(
                         // This is a location delegate. (how to locate the item along each dimension)
                         (int index, out double a, out double b, out double c) =>
@@ -624,7 +624,7 @@ namespace DataStructures
                 Console.WriteLine("    and the \"OmnitreeBounds\" stores bounded objects (spaces).");
                 Console.WriteLine();
 
-                OmnitreeBounds<int, double, double, double> omnitree =
+                IOmnitreeBounds<int, double, double, double> omnitree =
                     new OmnitreeBoundsLinked<int, double, double, double>(
                     // This is a location delegate. (how to locate the item along each dimension)
                     (int index,
@@ -735,7 +735,7 @@ namespace DataStructures
                 Console.WriteLine("    in a Set and edges are stored in an Omnitree (aka Quadtree).");
                 Console.WriteLine();
 
-                Graph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+                IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
 
                 Console.WriteLine("    Adding Nodes (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
@@ -748,7 +748,7 @@ namespace DataStructures
                 for (int i = 0; i < test; i++)
                 {
                     // lets use a heap to randomize the edges using random priorities
-                    Heap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Compare.Wrap(x.Item2.CompareTo(y.Item2)));
+                    IHeap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Compare.Wrap(x.Item2.CompareTo(y.Item2)));
                     for (int j = 0; j < test; j++)
                     {
                         if (j != i)

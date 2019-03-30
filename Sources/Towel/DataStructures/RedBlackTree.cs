@@ -5,7 +5,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
-    public interface RedBlackTree<T> : DataStructure<T>,
+    public interface IRedBlackTree<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Addable<T>,
         DataStructure.Removable<T>,
@@ -117,7 +117,7 @@ namespace Towel.DataStructures
         /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
         /// <param name="item">The item if it was found.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T, Key>(this RedBlackTree<T> redBlackTree, Key get, Compare<T, Key> comparison, out T item)
+        public static bool TryGet<T, Key>(this IRedBlackTree<T> redBlackTree, Key get, Compare<T, Key> comparison, out T item)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace Towel.DataStructures
         /// <param name="removal">The key of the item to remove.</param>
         /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T, Key>(this RedBlackTree<T> redBlackTree, Key removal, Compare<T, Key> comparison)
+        public static bool TryRemove<T, Key>(this IRedBlackTree<T> redBlackTree, Key removal, Compare<T, Key> comparison)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace Towel.DataStructures
     /// http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
     /// </citation>
     [Serializable]
-    public class RedBlackTreeLinked<T> : RedBlackTree<T>
+    public class RedBlackTreeLinked<T> : IRedBlackTree<T>
     {
         internal const bool Red = true;
         internal const bool Black = false;

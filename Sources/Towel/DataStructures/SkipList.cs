@@ -2,7 +2,7 @@
 
 namespace Towel.DataStructures
 {
-    public interface SkipList<T> : DataStructure<T>
+    public interface ISkipList<T> : IDataStructure<T>
     {
 
     }
@@ -365,7 +365,7 @@ namespace Towel.DataStructures
         #region public Structure<T> Clone()
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             throw new System.NotImplementedException();
         }

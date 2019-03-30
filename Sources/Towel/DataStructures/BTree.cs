@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
     /// <typeparam name="T">The generic type of this data structure.</typeparam>
-    public interface BTree<T> : DataStructure<T>,
+    public interface IBTree<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Clearable<T>,
         DataStructure.Addable<T>,
@@ -77,7 +77,7 @@ namespace Towel.DataStructures
         /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <param name="item">The item if found.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T, Key>(this BTree<T> structure, Key get, Compare<T, Key> comparison, out T item)
+        public static bool TryGet<T, Key>(this IBTree<T> structure, Key get, Compare<T, Key> comparison, out T item)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace Towel.DataStructures
         /// <param name="removal">The key.</param>
         /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T, Key>(this BTree<T> structure, Key removal, Compare<T, Key> comparison)
+        public static bool TryRemove<T, Key>(this IBTree<T> structure, Key removal, Compare<T, Key> comparison)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace Towel.DataStructures
     /// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
     /// <typeparam name="T">The generic type of this data structure.</typeparam>
     [Serializable]
-    public class BTreeLinkedArray<T> : BTree<T>
+    public class BTreeLinkedArray<T> : IBTree<T>
     {
         Node _root;
         int _count;
@@ -432,7 +432,7 @@ namespace Towel.DataStructures
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
-            FirstInLastOut<Link<Node, int, bool>> forks = new FirstInLastOutLinked<Link<Node, int, bool>>();
+            IFirstInLastOut<Link<Node, int, bool>> forks = new FirstInLastOutLinked<Link<Node, int, bool>>();
             forks.Push(new Link<Node, int, bool>(this._root, 0, false));
             while (forks.Count > 0)
             {

@@ -7,7 +7,7 @@ namespace Towel.DataStructures
     /// <summary>A map between instances of two types. The polymorphism base for Map implementations in Towel.</summary>
     /// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
     /// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
-    public interface Map<T, K> : DataStructure<T>,
+    public interface IMap<T, K> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>,
@@ -59,7 +59,7 @@ namespace Towel.DataStructures
     {
         // extensions
         #region public static bool TryGet<T, Key>(this AvlTree<T> structure, Key get, Compare<T, Key> comparison, out T item)
-        public static bool TryGet<T, K>(this Map<T, K> map, K key, out T item)
+        public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T item)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     /// <typeparam name="K">The generic key type of this map.</typeparam>
     [Serializable]
-    public class MapHashLinked<T, K> : Map<T, K>,
+    public class MapHashLinked<T, K> : IMap<T, K>,
         // Structure Properties
         DataStructure.Hashing<K>
     {
@@ -625,7 +625,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     /// <typeparam name="K">The generic key type of this map.</typeparam>
     [Serializable]
-    public class MapHashArray<T, K> : Map<T, K>,
+    public class MapHashArray<T, K> : IMap<T, K>,
         // Structure Properties
         DataStructure.Hashing<K>
     {

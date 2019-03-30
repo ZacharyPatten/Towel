@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>An unsorted structure of unique items.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
-    public interface Set<T> : DataStructure<T>,
+    public interface ISet<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Auditable<T>,
         DataStructure.Addable<T>,
@@ -18,7 +18,7 @@ namespace Towel.DataStructures
     /// <summary>An unsorted structure of unique items.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     [Serializable]
-    public class SetHashLinked<T> : Set<T>,
+    public class SetHashLinked<T> : ISet<T>,
         // Structure Properties
         DataStructure.Hashing<T>
     {
@@ -356,7 +356,7 @@ namespace Towel.DataStructures
     /// <summary>An unsorted structure of unique items.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     [Serializable]
-    public class SetHashArray<T> : Set<T>,
+    public class SetHashArray<T> : ISet<T>,
         // Structure Properties
         DataStructure.Hashing<T>
     {
@@ -725,10 +725,10 @@ namespace Towel.DataStructures
     /// <summary>An unsorted structure of unique items.</summary>
     /// <typeparam name="T">The generic type of the structure.</typeparam>
     [Serializable]
-    public class Set<STRUCTURE, T> : Set<T>,
+    public class Set<STRUCTURE, T> : ISet<T>,
         // Structure Properties
         DataStructure.Hashing<T>
-        where STRUCTURE : class, DataStructure<T>, DataStructure.Addable<T>, DataStructure.Removable<T>, DataStructure.Auditable<T>
+        where STRUCTURE : class, IDataStructure<T>, DataStructure.Addable<T>, DataStructure.Removable<T>, DataStructure.Auditable<T>
     {
         private const float _maxLoadFactor = .7f;
         private const float _minLoadFactor = .3f;

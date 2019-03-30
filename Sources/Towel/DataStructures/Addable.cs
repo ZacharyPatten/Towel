@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A primitive dynamic sized data structure.</summary>
     /// <typeparam name="T">The type of items to store in the list.</typeparam>
-    public interface Addable<T> : DataStructure<T>,
+    public interface IAddable<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Addable<T>,
         DataStructure.Countable<T>,
@@ -35,7 +35,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]
-    public class AddableLinked<T> : Addable<T>
+    public class AddableLinked<T> : IAddable<T>
     {
         internal int _count;
         internal Node _head;
@@ -429,7 +429,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]
-    public class AddableArray<T> : Addable<T>
+    public class AddableArray<T> : IAddable<T>
     {
         internal T[] _list;
         internal int _count;

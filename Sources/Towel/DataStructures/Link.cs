@@ -7,7 +7,7 @@
 namespace Towel.DataStructures
 {
 	/// <summary>Represents a link between objects.</summary>
-	public interface Link : DataStructure<object>
+	public interface Link : IDataStructure<object>
 	{
 		#region Properties
 		
@@ -122,7 +122,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1>((T1)this._1);
 		}
@@ -262,7 +262,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1>((T1)this._1);
 		}
@@ -420,7 +420,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2>((T1)this._1, this._2);
 		}
@@ -581,7 +581,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2>((T1)this._1, this._2);
 		}
@@ -760,7 +760,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2, T3>((T1)this._1, this._2, this._3);
 		}
@@ -942,7 +942,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2, T3>((T1)this._1, this._2, this._3);
 		}
@@ -1142,7 +1142,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2, T3, T4>((T1)this._1, this._2, this._3, this._4);
 		}
@@ -1345,7 +1345,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2, T3, T4>((T1)this._1, this._2, this._3, this._4);
 		}
@@ -1566,7 +1566,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2, T3, T4, T5>((T1)this._1, this._2, this._3, this._4, this._5);
 		}
@@ -1790,7 +1790,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2, T3, T4, T5>((T1)this._1, this._2, this._3, this._4, this._5);
 		}
@@ -2032,7 +2032,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2, T3, T4, T5, T6>((T1)this._1, this._2, this._3, this._4, this._5, this._6);
 		}
@@ -2277,7 +2277,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2, T3, T4, T5, T6>((T1)this._1, this._2, this._3, this._4, this._5, this._6);
 		}
@@ -2540,7 +2540,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	DataStructure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1, T2, T3, T4, T5, T6, T7>((T1)this._1, this._2, this._3, this._4, this._5, this._6, this._7);
 		}
@@ -2806,7 +2806,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public DataStructure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1, T2, T3, T4, T5, T6, T7>((T1)this._1, this._2, this._3, this._4, this._5, this._6, this._7);
 		}

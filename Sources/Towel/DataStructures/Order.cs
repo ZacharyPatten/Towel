@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Sorted linear data structure.</summary>
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-    public interface Order<T> : DataStructure<T>,
+    public interface IOrder<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>,
@@ -30,7 +30,7 @@ namespace Towel.DataStructures
     /// <summary>Sorted linear data structure implemented using a list array.</summary>
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     [Serializable]
-    public class OrderListArray<T> : Order<T>
+    public class OrderListArray<T> : IOrder<T>
     {
         #region Fields
 
@@ -172,7 +172,7 @@ namespace Towel.DataStructures
     /// <summary>Sorted linear data structure implemented using a list array.</summary>
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     [Serializable]
-    public class OrderListLinked<T> : Order<T>
+    public class OrderListLinked<T> : IOrder<T>
     {
         #region Fields
 

@@ -2,7 +2,7 @@
 
 namespace Towel.DataStructures
 {
-    public interface Trie<T> : DataStructure<T>
+    public interface ITrie<T> : IDataStructure<T>
     {
         #region member
 
@@ -28,13 +28,13 @@ namespace Towel.DataStructures
     }
 
     [Serializable]
-    public class Trie_Linked<T> : Trie<T>
+    public class Trie_Linked<T> : ITrie<T>
     {
         #region Trie_Linked<T>
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             throw new System.NotImplementedException();
         }

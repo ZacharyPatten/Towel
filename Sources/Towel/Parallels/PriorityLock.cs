@@ -14,7 +14,7 @@ namespace Towel.Parallels
 
         private T _current;
         private int _count;
-        private AvlTree<Link<T, int>> _pending;
+        private IAvlTree<Link<T, int>> _pending;
 
         /// <summary>Creates an instance of a ReaderWriterLock.</summary>
         public PriorityLock(Compare<T> compare)

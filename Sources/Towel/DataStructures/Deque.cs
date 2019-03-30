@@ -2,7 +2,7 @@
 
 namespace Towel.DataStructures
 {
-    public interface Deque<T> : DataStructure<T>,
+    public interface IDeque<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>
@@ -20,7 +20,7 @@ namespace Towel.DataStructures
     /// <summary>Implements First-In-First-Out queue data structure.</summary>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]
-    public class DequeLinked<T> : Deque<T>
+    public class DequeLinked<T> : IDeque<T>
     {
         private Node _head;
         private Node _tail;
@@ -206,7 +206,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             throw new System.NotImplementedException();
         }

@@ -6,7 +6,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Contiguous fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface Indexed<T, Index> : DataStructure<T>
+    public interface IIndexed<T, Index> : IDataStructure<T>
     {
         #region Properties
 
@@ -22,14 +22,14 @@ namespace Towel.DataStructures
 
     /// <summary>Contiguous fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface Indexed<T> : Indexed<T, int>
+    public interface IIndexed<T> : IIndexed<T, int>
     {
     }
 
     /// <summary>Contiguous fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class IndexedArray<T> : Indexed<T>
+    public class IndexedArray<T> : IIndexed<T>
     {
         internal T[] _array;
 

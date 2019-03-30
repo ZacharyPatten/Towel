@@ -935,7 +935,7 @@ namespace Towel.DataStructures
 
     #region 1 Dimensional
 
-    public interface OmnitreePoints<T, Axis1> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -1007,7 +1007,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1> : OmnitreePoints<T, Axis1>
+    public class OmnitreePointsLinked<T, Axis1> : IOmnitreePoints<T, Axis1>
     {
         private const int _dimensions = 1;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 1);
@@ -1766,11 +1766,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1>(pointOfDivision1);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -1796,8 +1796,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
                             });
@@ -1811,7 +1811,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
                 });
@@ -2989,7 +2989,7 @@ namespace Towel.DataStructures
 
     #region 2 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -3078,7 +3078,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2> : OmnitreePoints<T, Axis1, Axis2>
+    public class OmnitreePointsLinked<T, Axis1, Axis2> : IOmnitreePoints<T, Axis1, Axis2>
     {
         private const int _dimensions = 2;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 2);
@@ -3992,11 +3992,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2>(pointOfDivision1, pointOfDivision2);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -4022,8 +4022,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
                             });
@@ -4037,7 +4037,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
                 });
@@ -5304,7 +5304,7 @@ namespace Towel.DataStructures
 
     #region 3 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2, Axis3> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -5410,7 +5410,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3> : OmnitreePoints<T, Axis1, Axis2, Axis3>
+    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3> : IOmnitreePoints<T, Axis1, Axis2, Axis3>
     {
         private const int _dimensions = 3;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 3);
@@ -6479,11 +6479,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3>(pointOfDivision1, pointOfDivision2, pointOfDivision3);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -6509,8 +6509,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
                             });
@@ -6524,7 +6524,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
                 });
@@ -7880,7 +7880,7 @@ namespace Towel.DataStructures
 
     #region 4 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -8003,7 +8003,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4> : OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4>
+    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4>
     {
         private const int _dimensions = 4;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 4);
@@ -9227,11 +9227,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -9257,8 +9257,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
                             });
@@ -9272,7 +9272,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
                 });
@@ -10717,7 +10717,7 @@ namespace Towel.DataStructures
 
     #region 5 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -10857,7 +10857,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5> : OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5>
+    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5>
     {
         private const int _dimensions = 5;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 5);
@@ -12236,11 +12236,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -12266,8 +12266,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
                             });
@@ -12281,7 +12281,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
                 });
@@ -13815,7 +13815,7 @@ namespace Towel.DataStructures
 
     #region 6 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -13972,7 +13972,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>
+    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>
     {
         private const int _dimensions = 6;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 6);
@@ -15506,11 +15506,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -15536,8 +15536,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
                             });
@@ -15551,7 +15551,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
                 });
@@ -17174,7 +17174,7 @@ namespace Towel.DataStructures
 
     #region 7 Dimensional
 
-    public interface OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : DataStructure<T>,
+    public interface IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -17348,7 +17348,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : OmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>
+    public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>
     {
         private const int _dimensions = 7;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 7);
@@ -19037,11 +19037,11 @@ namespace Towel.DataStructures
             parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6, pointOfDivision7);
 
             // divide the values along the medians
-            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
             additions((T value) => 
             {
                 int index = DetermineChildIndex(parent.PointOfDivision, LocateVector(value));
-                Addable<T> list = null;
+                IAddable<T> list = null;
                 if (collection_map.TryGet(index, out list))
                 {
                     list.Add(value);
@@ -19067,8 +19067,8 @@ namespace Towel.DataStructures
                     int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
                     handles[i] = Towel.Parallels.Parallel.Thread(() =>
                     {
-                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-                        (Link<Addable<T>, int> link) =>
+                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+                        (Link<IAddable<T>, int> link) =>
                             {
                                 ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
                             });
@@ -19082,7 +19082,7 @@ namespace Towel.DataStructures
             }
             else
             {
-                collection_map.Pairs((Link<Addable<T>, int> link) =>
+                collection_map.Pairs((Link<IAddable<T>, int> link) =>
                 { 
                     ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
                 });
@@ -20800,7 +20800,7 @@ namespace Towel.DataStructures
 
     #region 1 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -20896,7 +20896,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1> : OmnitreeBounds<T, Axis1>
+    public class OmnitreeBoundsLinked<T, Axis1> : IOmnitreeBounds<T, Axis1>
     {
         private const int _dimensions = 1;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 1);
@@ -21585,11 +21585,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1>(pointOfDivision1);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -21615,8 +21615,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
 //                            });
@@ -21630,7 +21630,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
 //                });
@@ -22264,7 +22264,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -22845,7 +22845,7 @@ namespace Towel.DataStructures
 
     #region 2 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -22967,7 +22967,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2> : OmnitreeBounds<T, Axis1, Axis2>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2> : IOmnitreeBounds<T, Axis1, Axis2>
     {
         private const int _dimensions = 2;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 2);
@@ -23819,11 +23819,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2>(pointOfDivision1, pointOfDivision2);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -23849,8 +23849,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 //                            });
@@ -23864,7 +23864,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 //                });
@@ -24557,7 +24557,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -25193,7 +25193,7 @@ namespace Towel.DataStructures
 
     #region 3 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -25341,7 +25341,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3> : OmnitreeBounds<T, Axis1, Axis2, Axis3>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3> : IOmnitreeBounds<T, Axis1, Axis2, Axis3>
     {
         private const int _dimensions = 3;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 3);
@@ -26356,11 +26356,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3>(pointOfDivision1, pointOfDivision2, pointOfDivision3);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -26386,8 +26386,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 //                            });
@@ -26401,7 +26401,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 //                });
@@ -27153,7 +27153,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -27844,7 +27844,7 @@ namespace Towel.DataStructures
 
     #region 4 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -28018,7 +28018,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4> : OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4> : IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4>
     {
         private const int _dimensions = 4;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 4);
@@ -29196,11 +29196,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -29226,8 +29226,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 //                            });
@@ -29241,7 +29241,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 //                });
@@ -30052,7 +30052,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -30798,7 +30798,7 @@ namespace Towel.DataStructures
 
     #region 5 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -30998,7 +30998,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5> : OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5>
     {
         private const int _dimensions = 5;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 5);
@@ -32339,11 +32339,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -32369,8 +32369,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 //                            });
@@ -32384,7 +32384,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 //                });
@@ -33254,7 +33254,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -34055,7 +34055,7 @@ namespace Towel.DataStructures
 
     #region 6 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -34281,7 +34281,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>
     {
         private const int _dimensions = 6;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 6);
@@ -35785,11 +35785,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -35815,8 +35815,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 //                            });
@@ -35830,7 +35830,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 //                });
@@ -36759,7 +36759,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }
@@ -37615,7 +37615,7 @@ namespace Towel.DataStructures
 
     #region 7 Dimensional
 
-    public interface OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : DataStructure<T>,
+    public interface IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IDataStructure<T>,
             DataStructure.Countable<T>,
             DataStructure.Addable<T>,
             DataStructure.Clearable<T>,
@@ -37867,7 +37867,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : OmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>
+    public class OmnitreeBoundsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>
     {
         private const int _dimensions = 7;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 7);
@@ -39534,11 +39534,11 @@ namespace Towel.DataStructures
 //            parent.PointOfDivision = new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(pointOfDivision1, pointOfDivision2, pointOfDivision3, pointOfDivision4, pointOfDivision5, pointOfDivision6, pointOfDivision7);
 //
 //            // divide the values along the medians
-//            Map<Addable<T>, int> collection_map = new MapHashLinked<Addable<T>, int>();
+//            IMap<IAddable<T>, int> collection_map = new MapHashLinked<IAddable<T>, int>();
 //            additions((T value) => 
 //            {
 //                int index = DetermineChildIndex(parent.PointOfDivision.Value, LocateVector(value));
-//                Addable<T> list = null;
+//                IAddable<T> list = null;
 //                if (collection_map.TryGet(index, out list))
 //                {
 //                    list.Add(value);
@@ -39564,8 +39564,8 @@ namespace Towel.DataStructures
 //                    int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
 //                    handles[i] = Towel.Parallels.Parallel.Thread(() =>
 //                    {
-//                        Step.EveryNth<Link<Addable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-//                        (Link<Addable<T>, int> link) =>
+//                        Step.EveryNth<Link<IAddable<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+//                        (Link<IAddable<T>, int> link) =>
 //                            {
 //                                ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 //                            });
@@ -39579,7 +39579,7 @@ namespace Towel.DataStructures
 //            }
 //            else
 //            {
-//                collection_map.Pairs((Link<Addable<T>, int> link) =>
+//                collection_map.Pairs((Link<IAddable<T>, int> link) =>
 //                { 
 //                    ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 //                });
@@ -40567,7 +40567,7 @@ namespace Towel.DataStructures
         }
         private int RemoveOverlapped(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
         {
-            int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+            int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
 			ComputeLoads(this._top.Count);
 			return removals;
         }

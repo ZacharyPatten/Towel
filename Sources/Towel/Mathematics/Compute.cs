@@ -1613,12 +1613,12 @@ namespace Towel.Mathematics
 
         #region Mode
 
-        public static Heap<Link<T, int>> Mode<T>(T a, params T[] b)
+        public static IHeap<Link<T, int>> Mode<T>(T a, params T[] b)
         {
             return Mode((Step<T> step) => { step(a); b.Stepper()(step); });
         }
 
-        public static Heap<Link<T, int>> Mode<T>(Stepper<T> stepper)
+        public static IHeap<Link<T, int>> Mode<T>(Stepper<T> stepper)
         {
             throw new NotImplementedException();
         }

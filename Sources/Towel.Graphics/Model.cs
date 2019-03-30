@@ -21,7 +21,7 @@ namespace Towel.Graphics
             public class KeyFrame
             {
                 public float TimeSpan { get; set; }
-                public Map<Link<Vector<float>, Quaternion<float>>, Joint> JointTransformations { get; set; }
+                public IMap<Link<Vector<float>, Quaternion<float>>, Joint> JointTransformations { get; set; }
             }
 
             public int Id { get; set; }
@@ -69,8 +69,8 @@ namespace Towel.Graphics
         public int[] _indices;
 
         // static animation data
-        public Tree<Joint> _joints;
-        public Map<Animation, string> _animations;
+        public ITree<Joint> _joints;
+        public IMap<Animation, string> _animations;
 
         // running animation data
         public Animation _activeAnimation;
@@ -150,7 +150,7 @@ namespace Towel.Graphics
             float keyFrameRatio = currentKeyFrameTime / keyFrameTimeSpan;
 
             // interpolate the joint matrices
-            Map<Matrix<float>, string> currentPose = new MapHashLinked<Matrix<float>, string>();
+            IMap<Matrix<float>, string> currentPose = new MapHashLinked<Matrix<float>, string>();
             previousFrame.JointTransformations.Keys(joint =>
                 {
                     Link<Vector<float>, Quaternion<float>> previousTransform = previousFrame.JointTransformations[joint];

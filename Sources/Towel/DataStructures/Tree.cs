@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A generic tree data structure.</summary>
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-    public interface Tree<T> : DataStructure<T>,
+    public interface ITree<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Removable<T>
@@ -37,7 +37,7 @@ namespace Towel.DataStructures
     /// <summary>A generic tree data structure using a dictionary to store node data.</summary>
     /// <typeparam name="T">The generic type stored in this data structure.</typeparam>
     [Serializable]
-    public class TreeMap<T> : Tree<T>,
+    public class TreeMap<T> : ITree<T>,
         // Structure Properties
         DataStructure.Hashing<T>,
         DataStructure.Equating<T>

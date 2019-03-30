@@ -10,7 +10,7 @@ namespace Towel.Physics
         public static Vector<T> DefaultGravity { get { return new Vector<T>(Constant<T>.Zero, Compute.Divide(Compute.FromInt32<T>(-981), Compute.FromInt32<T>(100)), Constant<T>.Zero); } }
 
         public Vector<T> _gravity;
-        public OmnitreePoints<RigidPhysicsObject<T>, T, T, T> _rigidPhysicsObjects;
+        public IOmnitreePoints<RigidPhysicsObject<T>, T, T, T> _rigidPhysicsObjects;
 
         public PhysicsSystem()
         {
@@ -26,7 +26,7 @@ namespace Towel.Physics
 
         public Vector<T> Gravity { get { return this._gravity; } set { this._gravity = value; } }
 
-        public OmnitreePoints<RigidPhysicsObject<T>, T, T, T> PhysicsObjects
+        public IOmnitreePoints<RigidPhysicsObject<T>, T, T, T> PhysicsObjects
         {
             get
             {

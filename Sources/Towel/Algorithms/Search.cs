@@ -155,12 +155,12 @@ namespace Towel.Algorithms
         public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal)
         {
             // using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
-            Heap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
+            IHeap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
                 // NOTE: Typical A* implementations prioritize smaller values
                 (a, b) => Compute.Compare(b.Priority, a.Priority));
 
             // using a map (aka dictionary) to store costs from start to current nodes
-            Map<NUMERIC, Node<NODE, NUMERIC>> computed_costs = new MapHashArray<NUMERIC, Node<NODE, NUMERIC>>();
+            IMap<NUMERIC, Node<NODE, NUMERIC>> computed_costs = new MapHashArray<NUMERIC, Node<NODE, NUMERIC>>();
 
             // construct the f(n) for this A* execution
             NUMERIC function(NODE node, Node<NODE, NUMERIC> previous)
@@ -209,7 +209,7 @@ namespace Towel.Algorithms
         /// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
         /// <param name="goal">Predicate for determining if we have reached the goal node.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal)
         {
             return Graph(start, graph.Neighbors, heuristic, cost, goal);
         }
@@ -246,7 +246,7 @@ namespace Towel.Algorithms
         /// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
         /// <param name="goal">The goal node.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal)
         {
             return Graph(start, graph, heuristic, cost, goal, Equate.Default);
         }
@@ -259,7 +259,7 @@ namespace Towel.Algorithms
         /// <param name="goal">The goal node.</param>
         /// <param name="equate">A delegate for checking for equality between two nodes.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate)
         {
             return Graph(start, graph.Neighbors, heuristic, cost, (NODE node) => { return equate(node, goal); });
         }
@@ -275,7 +275,7 @@ namespace Towel.Algorithms
         public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal)
         {
             // using a heap (aka priority queue) to store nodes based on their computed heuristic value
-            Heap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
+            IHeap<Node<NODE, NUMERIC>> fringe = new HeapArray<Node<NODE, NUMERIC>>(
                 // NOTE: I just reversed the order of left and right because smaller values are higher priority
                 (a, b) => Compute.Compare(b.Priority, a.Priority));
 
@@ -335,7 +335,7 @@ namespace Towel.Algorithms
         /// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
         /// <param name="goal">Predicate for determining if we have reached the goal node.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal)
         {
             return Graph(start, graph, heuristic, goal, Equate.Default);
         }
@@ -347,7 +347,7 @@ namespace Towel.Algorithms
         /// <param name="goal">Predicate for determining if we have reached the goal node.</param>
         /// <param name="equate">Delegate for checking for equality between two nodes.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate)
         {
             return Graph(start, graph.Neighbors, heuristic, (NODE node) => { return equate(node, goal); });
         }
@@ -358,7 +358,7 @@ namespace Towel.Algorithms
         /// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
         /// <param name="goal">Predicate for determining if we have reached the goal node.</param>
         /// <returns>Stepper of the shortest path or null if no path exists.</returns>
-        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Graph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal)
+        public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal)
         {
             return Graph(start, graph.Neighbors, heuristic, goal);
         }

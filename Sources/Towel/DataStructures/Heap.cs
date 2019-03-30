@@ -5,7 +5,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
     /// <typeparam name="T">The generic type to be stored within the heap.</typeparam>
-    public interface Heap<T> : DataStructure<T>,
+    public interface IHeap<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>,
@@ -35,7 +35,7 @@ namespace Towel.DataStructures
     /// been modified since its addition into the Towel framework.
     /// </citation>
     [Serializable]
-    public class HeapArray<T> : Heap<T>
+    public class HeapArray<T> : IHeap<T>
     {
         private readonly Compare<T> _compare;
         private T[] _heap;
@@ -347,7 +347,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public DataStructure<T> Clone()
+        public IDataStructure<T> Clone()
         {
             HeapArray<T> clone = new HeapArray<T>(_compare);
             T[] cloneItems = new T[_heap.Length];

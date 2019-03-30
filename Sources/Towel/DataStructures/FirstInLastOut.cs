@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Implements a First-In-Last-Out stack data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface FirstInLastOut<T> : DataStructure<T>,
+    public interface IFirstInLastOut<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.Countable<T>,
         DataStructure.Clearable<T>
@@ -27,7 +27,7 @@ namespace Towel.DataStructures
     /// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInLastOutLinked<T> : FirstInLastOut<T>
+    public class FirstInLastOutLinked<T> : IFirstInLastOut<T>
     {
         internal Node _top;
         internal int _count;
@@ -266,7 +266,7 @@ namespace Towel.DataStructures
     /// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInLastOutArray<T> : FirstInLastOut<T>
+    public class FirstInLastOutArray<T> : IFirstInLastOut<T>
     {
         private T[] _array;
         private int _count;
