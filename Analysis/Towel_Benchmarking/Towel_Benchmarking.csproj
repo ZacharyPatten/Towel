@@ -10,7 +10,6 @@
     <Folder Include="Algorithms\" />
     <Folder Include="Diagnotics\" />
     <Folder Include="Measurements\" />
-    <Folder Include="DataStructures\" />
     <Folder Include="Parallels\" />
   </ItemGroup>
 
