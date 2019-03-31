@@ -1893,12 +1893,7 @@ namespace Towel.DataStructures
         /// <param name="function">The delegate to perform on every item in the tree.</param>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            StepStatus status;
-            do
-            {
-                status = Stepper(function, _top);
-            } while (status == StepStatus.Restart);
-            return status;
+            return Stepper(function, _top);
         }
         private StepStatus Stepper(StepBreak<T> function, Node node)
         {
@@ -1955,23 +1950,13 @@ namespace Towel.DataStructures
         <#= documentation_AxisX_minX_AxisX_maxX #>
         public StepStatus Stepper(StepBreak<T> function, <#= chain_AxisX_minX_AxisX_maxX #>)
         {
-            StepStatus status;
-            do
-            {
-                status = Stepper(function, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-            } while (status == StepStatus.Restart);
-            return status;
+            return Stepper(function, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
         }
         /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
         public StepStatus Stepper(StepBreak<T> function, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
         {
-            StepStatus status;
-            do
-            {
-                status = Stepper(function, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-            } while (status == StepStatus.Restart);
-            return status;
+            return Stepper(function, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
         }
         private StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
@@ -2029,12 +2014,7 @@ namespace Towel.DataStructures
         <#= documentation_axisX #>
         public StepStatus Stepper(StepBreak<T> function, <#= chain_AxisX_axisX #>)
         {
-            StepStatus status;
-            do
-            {
-                status = Stepper(function, _top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>));
-            } while (status == StepStatus.Restart);
-            return status;
+            return Stepper(function, _top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>));
         }
         private StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
         {
@@ -3945,12 +3925,7 @@ namespace Towel.DataStructures
         /// <param name="function">The delegate to perform on every item in the tree.</param>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            StepStatus status;
-            do
-            {
-                status = Stepper(function, _top);
-            } while (status == StepStatus.Restart);
-            return status;
+            return Stepper(function, _top);
         }
         private StepStatus Stepper(StepBreak<T> function, Node node)
         {
@@ -4041,12 +4016,7 @@ namespace Towel.DataStructures
         }
         private StepStatus StepperEncapsulated(StepBreak<T> function, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
-			StepStatus status;
-            do
-            {
-                status = StepperBase(function, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
-            } while (status == StepStatus.Restart);
-            return status;
+            return StepperBase(function, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
         }
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -4063,12 +4033,7 @@ namespace Towel.DataStructures
         }
         private StepStatus StepperOverlapped(StepBreak<T> function, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
-			StepStatus status;
-            do
-            {
-                status = StepperBase(function, node, bounds, (a, b) => this.InclusionCheck(a, b));
-            } while (status == StepStatus.Restart);
-            return status;
+            return StepperBase(function, node, bounds, (a, b) => this.InclusionCheck(a, b));
         }
 
 		private StepStatus StepperBase(

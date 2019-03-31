@@ -393,7 +393,6 @@ namespace Towel.DataStructures
         /// <param name="function">The step function.</param>
         public StepStatus Keys(StepBreak<K> function)
         {
-            Restart:
             Node node;
             for (int i = 0; i < _table.Length; i++)
             {
@@ -407,10 +406,8 @@ namespace Towel.DataStructures
                                 return StepStatus.Break;
                             case StepStatus.Continue:
                                 continue;
-                            case StepStatus.Restart:
-                                goto Restart;
                             default:
-                                throw new System.NotImplementedException();
+                                throw new NotImplementedException();
                         }
                     } while ((node = node.Next) != null);
                 }
@@ -439,7 +436,6 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            Restart:
             Node node;
             for (int i = 0; i < _table.Length; i++)
                 if ((node = _table[i]) != null)
@@ -451,10 +447,8 @@ namespace Towel.DataStructures
                                 return StepStatus.Break;
                             case StepStatus.Continue:
                                 continue;
-                            case StepStatus.Restart:
-                                goto Restart;
                             default:
-                                throw new System.NotImplementedException();
+                                throw new NotImplementedException();
                         }
                     } while ((node = node.Next) != null);
             return StepStatus.Continue;
@@ -481,7 +475,6 @@ namespace Towel.DataStructures
         /// <param name="function">The step function.</param>
         public StepStatus Pairs(StepBreak<Link<T, K>> function)
         {
-            Restart:
             Node node;
             for (int i = 0; i < _table.Length; i++)
             {
@@ -494,10 +487,8 @@ namespace Towel.DataStructures
                                 return StepStatus.Break;
                             case StepStatus.Continue:
                                 continue;
-                            case StepStatus.Restart:
-                                goto Restart;
                             default:
-                                throw new System.NotImplementedException();
+                                throw new NotImplementedException();
                         }
                     } while ((node = node.Next) != null);
             }
@@ -945,7 +936,6 @@ namespace Towel.DataStructures
         /// <param name="step_function">The step function.</param>
         public StepStatus Keys(StepBreak<K> function)
         {
-            Restart:
             int num = 0;
             for (int index = 0; index < this._lastIndex && num < this._count; ++index)
             {
@@ -958,8 +948,6 @@ namespace Towel.DataStructures
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
-                        case StepStatus.Restart:
-                            goto Restart;
                         default:
                             throw new System.NotImplementedException();
                     }
@@ -988,7 +976,6 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            Restart:
             int num = 0;
             for (int index = 0; index < this._lastIndex && num < this._count; ++index)
             {
@@ -1001,8 +988,6 @@ namespace Towel.DataStructures
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
-                        case StepStatus.Restart:
-                            goto Restart;
                         default:
                             throw new System.NotImplementedException();
                     }
@@ -1031,7 +1016,6 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Pairs(StepBreak<Link<T, K>> function)
         {
-            Restart:
             int num = 0;
             for (int index = 0; index < this._lastIndex && num < this._count; ++index)
             {
@@ -1044,8 +1028,6 @@ namespace Towel.DataStructures
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
-                        case StepStatus.Restart:
-                            goto Restart;
                         default:
                             throw new System.NotImplementedException();
                     }

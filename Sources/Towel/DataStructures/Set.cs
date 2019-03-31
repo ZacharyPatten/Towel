@@ -596,7 +596,6 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            Restart:
             int num = 0;
             for (int index = 0; index < this._lastIndex && num < this._count; ++index)
             {
@@ -609,8 +608,6 @@ namespace Towel.DataStructures
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
-                        case StepStatus.Restart:
-                            goto Restart;
                         default:
                             throw new System.NotImplementedException();
                     }
@@ -909,7 +906,6 @@ namespace Towel.DataStructures
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> function)
         {
-            Restart:
             for (int i = 0; i < this._table.Length; i++)
                 if (object.ReferenceEquals(null, this._table[i]))
                     switch (this._table[i].Stepper(function))
@@ -918,8 +914,6 @@ namespace Towel.DataStructures
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
-                        case StepStatus.Restart:
-                            goto Restart;
                         default:
                             throw new System.NotImplementedException();
                     }
