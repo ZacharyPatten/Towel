@@ -260,14 +260,12 @@ namespace Towel.DataStructures
     {
         private const int _dimensions = <#= i #>;
         internal static <#= child_index_type #> _children_per_node = (<#= child_index_type #>)BigInteger.Pow(2, <#= i #>);
-        private const int _default_depth_load = 1; // starting and minimum depth load
 
         private Node _top;
 
 		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-        private int _depth_load; // ln(count); min = _defaultLoad
-        private int _node_load; // ln(count); min = _children_per_node
+		private int _load; // ln(count); min = _defaultLoad
         private Omnitree.Location<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> _locate;
 
         private bool _defaultEquate;
@@ -491,8 +489,7 @@ namespace Towel.DataStructures
         private OmnitreePointsLinked(OmnitreePointsLinked<T, <#= chain_AxisX #>> omnitree)
         {
             this._top = omnitree._top.Clone();
-            this._depth_load = omnitree._depth_load;
-            this._node_load = omnitree._node_load;
+            this._load = omnitree._load;
             this._locate = omnitree._locate;
             this._defaultEquate = omnitree._defaultEquate;
             this._equate = omnitree._equate;
@@ -553,7 +550,7 @@ namespace Towel.DataStructures
             this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;<# } #>
 
             this._top = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
-            ComputeLoads(0);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         private OmnitreePointsLinked(
@@ -914,7 +911,7 @@ namespace Towel.DataStructures
             if (additions.Length > int.MaxValue)
                 throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
 
-            if (this._top.Count != 0 || (int)additions.Length <= this._depth_load)
+            if (this._top.Count != 0 || (int)additions.Length <= _load)
             {
                 for (ulong i = 0; i < additions.Length; i++)
                     this.Add(additions[i]);
@@ -922,7 +919,7 @@ namespace Towel.DataStructures
             else
             {
                 // adjust the loads prior to additions
-                ComputeLoads((int)additions.Length);
+				Omnitree.ComputeLoads((int)additions.Length, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 
                 Branch new_top = new Branch(Omnitree.Vector<<#= chain_AxisX #>>.Default, Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
                 new_top.Count = (int)additions.Length;
@@ -968,7 +965,7 @@ namespace Towel.DataStructures
             if (additions.Length > int.MaxValue)
                 throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
 
-            if (this._top.Count != 0 || (int)additions.Length <= this._depth_load)
+            if (this._top.Count != 0 || (int)additions.Length <= _load)
             {
                 for (int i = 0; i < additions.Length; i++)
                     this.Add(additions[i]);
@@ -976,7 +973,7 @@ namespace Towel.DataStructures
             else
             {
                 // adjust the loads prior to additions
-                ComputeLoads((int)additions.Length);
+				Omnitree.ComputeLoads((int)additions.Length, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 
                 Branch new_top = new Branch(Omnitree.Vector<<#= chain_AxisX #>>.Default, Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
                 new_top.Count = (int)additions.Length;
@@ -1094,7 +1091,7 @@ namespace Towel.DataStructures
         int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
         {
             Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
-            if (depth >= this._depth_load || count <= this._node_load)
+            if (depth >= _load || count <= _load)
             {
                 Leaf new_leaf = new Leaf(child_bounds, parent, child_index);
                 additions((T value) => { new_leaf.Add(value); });
@@ -1146,12 +1143,12 @@ namespace Towel.DataStructures
                 throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
             // dynamic tree sizes
-            ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 
             Omnitree.Vector<<#= chain_AxisX #>> location = LocateVector(addition);
 
             // grow the first branch of the tree
-            if (this._top is Leaf && (this._top as Leaf).Count >= this._node_load)
+            if (this._top is Leaf && (this._top as Leaf).Count >= _load)
             {
                 Leaf top = this._top as Leaf;
 
@@ -1176,7 +1173,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 Leaf leaf = node as Leaf;
-                if (depth >= this._depth_load || !(leaf.Count >= this._node_load))
+                if (depth >= _load || !(leaf.Count >= _load))
                 {
                     leaf.Add(addition);
                     return;
@@ -1301,7 +1298,7 @@ namespace Towel.DataStructures
         public void Clear()
         {
             this._top = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
-            ComputeLoads(0);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         #endregion
@@ -1450,7 +1447,7 @@ namespace Towel.DataStructures
 
                 branch.Count -= removals;
 
-                if (branch.Count < this._depth_load && branch.Count != 0)
+                if (branch.Count < _load && branch.Count != 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
 
@@ -1537,7 +1534,7 @@ namespace Towel.DataStructures
 
                 branch.Count -= removals;
 
-                if (branch.Count < this._depth_load && branch.Count != 0)
+                if (branch.Count < _load && branch.Count != 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
 
@@ -1553,7 +1550,7 @@ namespace Towel.DataStructures
         public void Remove(Predicate<T> where)
         {
             this.Remove(this._top, where);
-            ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         /// <summary>Recursive version of the remove method.</summary>
@@ -1604,7 +1601,7 @@ namespace Towel.DataStructures
 
                 branch.Count -= removals;
 
-                if (branch.Count < this._depth_load && branch.Count != 0)
+                if (branch.Count < _load && branch.Count != 0)
                     ShrinkChild(branch.Parent, branch.Index);
 
                 return removals;
@@ -1617,7 +1614,7 @@ namespace Towel.DataStructures
         public void Remove(<#= chain_AxisX_minX_AxisX_maxX #>)
         {
             this.Remove(this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         /// <summary>Removes all the items in a given space.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
@@ -1625,7 +1622,7 @@ namespace Towel.DataStructures
         public void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
         {
             this.Remove(this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         private int Remove(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
@@ -1675,7 +1672,7 @@ namespace Towel.DataStructures
                     branch.Count -= removals;
                     // convert this branch back into a leaf
                     // Note: if count is zero, it will be chopped off
-                    if (branch.Count < this._depth_load && branch.Count > 0)
+                    if (branch.Count < _load && branch.Count > 0)
                         ShrinkChild(branch.Parent, branch.Index);
                 }
             }
@@ -1689,7 +1686,7 @@ namespace Towel.DataStructures
         public void Remove(<#= chain_AxisX_minX_AxisX_maxX #>, Predicate<T> where)
         {
             this.Remove(this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>), where);
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         /// <summary>Removes all the items in a given space validated by a predicate.</summary>
         <#= documentation_AxisX_minX_AxisX_maxX #>
@@ -1697,7 +1694,7 @@ namespace Towel.DataStructures
         public void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>, Predicate<T> where)
         {
             this.Remove(this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>), where);
-            ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         private int Remove(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds, Predicate<T> where)
         {
@@ -1748,7 +1745,7 @@ namespace Towel.DataStructures
 
                 node.Count -= removals;
 
-                if (node.Count < this._depth_load && node.Count != 0)
+                if (node.Count < _load && node.Count != 0)
                     ShrinkChild(node.Parent, node.Index);
 
                 return removals;
@@ -1768,7 +1765,7 @@ namespace Towel.DataStructures
         public void Remove(Axis1 axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #> axis<#= j #><# } #>)
         {
             this.Remove(this._top, new Omnitree.Vector<<#= chain_AxisX #>>(axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #><# } #>));
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         private int Remove(Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
         {
@@ -1805,7 +1802,7 @@ namespace Towel.DataStructures
                 branch.Count -= removals;
                 // convert this branch back into a leaf
                 // Note: if count is zero, it will be chopped off
-                if (branch.Count < this._depth_load && branch.Count > 0)
+                if (branch.Count < _load && branch.Count > 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
 
@@ -1818,7 +1815,7 @@ namespace Towel.DataStructures
         public void Remove(<#= chain_AxisX_axisX #>, Predicate<T> where)
         {
             this.Remove(this._top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>), where);
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         private int Remove(Node node, Omnitree.Vector<<#= chain_AxisX #>> vector, Predicate<T> where)
         {
@@ -1855,7 +1852,7 @@ namespace Towel.DataStructures
                 branch.Count -= removals;
                 // convert this branch back into a leaf
                 // Note: if count is zero, it will be chopped off
-                if (branch.Count < this._depth_load && branch.Count > 0)
+                if (branch.Count < _load && branch.Count > 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
             return removals;
@@ -2191,24 +2188,6 @@ namespace Towel.DataStructures
             return node;
         }
 
-        /// <summary>Checks for required load reduction.</summary>
-        private void ComputeLoads(int count)
-        {
-            if (count < _naturalLogLower || count > _naturalLogUpper)
-			{
-				int naturalLog = (int)Math.Log(count);
-				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
-				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
-
-				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
-				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
-				naturalLog = Math.Max(2, naturalLog);
-
-				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
-				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
-			}
-        }
-
         private Omnitree.Vector<<#= chain_AxisX #>> LocateVector(T value)
         {<# for (int j = 1; j <= i; j++) { #>
             Axis<#= j #> axis<#= j #>;<# } #>
@@ -2335,14 +2314,12 @@ namespace Towel.DataStructures
     {
         private const int _dimensions = <#= i #>;
         internal static <#= child_index_type #> _children_per_node = (<#= child_index_type #>)BigInteger.Pow(2, <#= i #>);
-        private const int _default_depth_load = 1; // starting and minimum depth load
 
         private Node _top;
 
 		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-        private int _depth_load; // ln(count); min = _defaultLoad
-        private int _node_load; // ln(count); min = _children_per_node
+        private int _load; // ln(count); min = _defaultLoad
         private Omnitree.GetBounds<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> _getBounds;
 
         private bool _defaultEquate;
@@ -2534,8 +2511,7 @@ namespace Towel.DataStructures
         private OmnitreeBoundsLinked(OmnitreeBoundsLinked<T, <#= chain_AxisX #>> omnitree)
         {
             this._top = omnitree._top.Clone();
-            this._depth_load = omnitree._depth_load;
-            this._node_load = omnitree._node_load;
+            this._load = omnitree._load;
             this._getBounds = omnitree._getBounds;
             this._defaultEquate = omnitree._defaultEquate;
             this._equate = omnitree._equate;
@@ -2596,7 +2572,7 @@ namespace Towel.DataStructures
             this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;<# } #>
 
             this._top = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
-            ComputeLoads(0);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         private OmnitreeBoundsLinked(
@@ -2916,7 +2892,7 @@ namespace Towel.DataStructures
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
 //
-//            if (this._top.Count != 0 || (int)additions.Length <= this._depth_load)
+//            if (this._top.Count != 0 || (int)additions.Length <= _load)
 //            {
 //                for (ulong i = 0; i < additions.Length; i++)
 //                    this.Add(additions[i]);
@@ -2974,7 +2950,7 @@ namespace Towel.DataStructures
 //            if (additions.Length > int.MaxValue)
 //                throw new System.Exception("The maximum size of the Omnitree was exceeded during bulk addition.");
 //
-//            if (this._top.Count != 0 || (int)additions.Length <= this._depth_load)
+//            if (this._top.Count != 0 || (int)additions.Length <= _load)
 //            {
 //                for (int i = 0; i < additions.Length; i++)
 //                    this.Add(additions[i]);
@@ -3100,7 +3076,7 @@ namespace Towel.DataStructures
 //        int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
-//            if (depth >= this._depth_load || count <= this._node_load)
+//            if (depth >= _load || count <= _load)
 //            {
 //                Node new_leaf = new Node(child_bounds, parent, child_index);
 //                additions((T value) => { new_leaf.Add(value); });
@@ -3154,12 +3130,12 @@ namespace Towel.DataStructures
                 throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
             // dynamic tree sizes
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 
             Omnitree.Bounds<<#= chain_AxisX #>> bounds = GetBoundings(addition);
 
             // grow the first branch of the tree
-            if (!this._top.PointOfDivision.HasValue && this._top.Count >= this._node_load)
+            if (!this._top.PointOfDivision.HasValue && this._top.Count >= _load)
             {
                 Node top = this._top;
 
@@ -3184,7 +3160,7 @@ namespace Towel.DataStructures
             if (!node.PointOfDivision.HasValue)
             {
                 //Leaf leaf = node as Leaf;
-                if (depth >= this._depth_load || !(node.Count >= this._node_load))
+                if (depth >= _load || !(node.Count >= _load))
                 {
                     node.Add(addition);
                     return;
@@ -3320,7 +3296,7 @@ namespace Towel.DataStructures
         public void Clear()
         {
             this._top = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
-            ComputeLoads(0);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         #endregion
@@ -3511,7 +3487,7 @@ namespace Towel.DataStructures
 
                 branch.Count -= removals;
 
-                if (branch.Count < this._depth_load && branch.Count != 0)
+                if (branch.Count < _load && branch.Count != 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
 
@@ -3600,7 +3576,7 @@ namespace Towel.DataStructures
 
                 branch.Count -= removals;
 
-                if (branch.Count < this._depth_load && branch.Count != 0)
+                if (branch.Count < _load && branch.Count != 0)
                     ShrinkChild(branch.Parent, branch.Index);
             }
 
@@ -3616,7 +3592,7 @@ namespace Towel.DataStructures
         public void Remove(Predicate<T> where)
         {
             this.Remove(this._top, where);
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         /// <summary>Recursive version of the remove method.</summary>
@@ -3664,7 +3640,7 @@ namespace Towel.DataStructures
 
 				node.Count -= removals;
 
-				if (node.Count < this._depth_load && node.Count != 0)
+				if (node.Count < _load && node.Count != 0)
 				    ShrinkChild(node.Parent, node.Index);
 			}
             return removals;
@@ -3693,7 +3669,7 @@ namespace Towel.DataStructures
         private int RemoveEncapsulated(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
             int removals = this.RemoveBase(node, bounds, (a, b) => this.EncapsulationCheck(a, b));
-			ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 			return removals;
         }
 
@@ -3714,7 +3690,7 @@ namespace Towel.DataStructures
         private int RemoveOverlapped(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
         {
             int removals = this.RemoveBase(node, bounds, (a, b) => this.InclusionCheck(a, b));
-			ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 			return removals;
         }
 
@@ -3767,7 +3743,7 @@ namespace Towel.DataStructures
 					node.Count -= removals;
 					// convert this branch back into a leaf
 					// Note: if count is zero, it will be chopped off
-					if (node.Count < this._depth_load && node.Count > 0)
+					if (node.Count < _load && node.Count > 0)
 					    ShrinkChild(node.Parent, node.Index);
 				}
             }
@@ -3792,7 +3768,7 @@ namespace Towel.DataStructures
         private int RemoveEncapsulated(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds, Predicate<T> where)
         {
             int removals = RemoveBase(node, bounds, where, (a, b) => this.EncapsulationCheck(a, b));
-			ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 			return removals;
         }
 
@@ -3813,7 +3789,7 @@ namespace Towel.DataStructures
         private int RemoveOverlapped(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds, Predicate<T> where)
         {
             int removals = RemoveBase(node, bounds, where, (a, b) => this.InclusionCheck(a, b));
-			ComputeLoads(this._top.Count);
+			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 			return removals;
         }
 
@@ -3867,7 +3843,7 @@ namespace Towel.DataStructures
 
 				node.Count -= removals;
 
-				if (node.Count < this._depth_load && node.Count != 0)
+				if (node.Count < _load && node.Count != 0)
 				    ShrinkChild(node.Parent, node.Index);
 			}
             return removals;
@@ -3886,7 +3862,7 @@ namespace Towel.DataStructures
         public void RemoveOverlapped(Axis1 axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #> axis<#= j #><# } #>)
         {
             this.RemoveOverlapped(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>);
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
         
         /// <summary>Removes all the items in a given space validated by a predicate.</summary>
@@ -3895,7 +3871,7 @@ namespace Towel.DataStructures
         public void RemoveOverlapped(<#= chain_AxisX_axisX #>, Predicate<T> where)
         {
 			this.RemoveOverlapped(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>, where);
-            ComputeLoads(this._top.Count);
+            Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
         }
 
         #endregion
@@ -4229,24 +4205,6 @@ namespace Towel.DataStructures
             while (node != null && !EncapsulationCheck(node.Bounds, bounds))
                 node = node.Parent;
             return node;
-        }
-
-        /// <summary>Checks for required load reduction.</summary>
-        private void ComputeLoads(int count)
-        {
-			if (count < _naturalLogLower || count > _naturalLogUpper)
-			{
-				int naturalLog = (int)Math.Log(count);
-				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
-				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
-
-				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
-				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
-				naturalLog = Math.Max(2, naturalLog);
-
-				this._depth_load = Compute.Maximum(naturalLog, _default_depth_load);
-				this._node_load = (int)Compute.Maximum(naturalLog, _children_per_node);
-			}
         }
 
         private Omnitree.Bounds<<#= chain_AxisX #>> GetBoundings(T value)
