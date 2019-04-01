@@ -884,7 +884,7 @@ namespace System
 
         #region Decimal
 
-        #region To Words
+        #region To English Words
 
         internal static string ConvertDigit(decimal @decimal)
         {
@@ -1062,7 +1062,7 @@ namespace System
             return result;
         }
 
-        public static string ToWords(this decimal @decimal)
+        public static string ToEnglishWords(this decimal @decimal)
         {
             if (@decimal == 0m)
             {

@@ -492,7 +492,7 @@ namespace DataStructures
                 Console.Write("    Adding (0-" + (test - 1) + ")...");
                 for (int i = 0; i < test; i++)
                 {
-                    mapHashLinked.Add(i, ((decimal)i).ToWords());
+                    mapHashLinked.Add(i, ((decimal)i).ToEnglishWords());
                 }
                 Console.WriteLine();
 

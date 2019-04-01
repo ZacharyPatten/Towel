@@ -21,6 +21,28 @@ namespace Mathematics
             Console.WriteLine("==========================================");
             Console.WriteLine();
             
+            #region Fraction
+
+            // Fractions need some work... commenting out for now
+
+            //Console.WriteLine("  Fractions-----------------------------------");
+            //Console.WriteLine();
+            //Fraction128 fraction1 = new Fraction128(2.5);
+            //Console.WriteLine("    fraction1 = " + fraction1);
+            //Fraction128 fraction2 = new Fraction128(3.75);
+            //Console.WriteLine("    fraction2 = " + fraction2);
+            //Console.WriteLine("    fraction1 + fraction2 = " + (fraction1 + fraction2));
+            //Console.WriteLine("    fraction2 - fraction1 = " + (fraction1 - fraction2));
+            //Console.WriteLine("    fraction1 * 2 = " + (fraction1 * 2));
+            //Console.WriteLine("    fraction1 / 2 = " + (fraction1 / 2));
+            //Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
+            //Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
+            //Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
+            //Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
+            //Console.WriteLine();
+
+            #endregion
+            
             #region Basic Operations
 
             Console.WriteLine("  Basics----------------------------------------------");
@@ -68,44 +90,35 @@ namespace Mathematics
 
             #endregion
 
-            #region Number Theory
+            #region More Numeric Mathematics
 
-            Console.WriteLine("  Number Theory--------------------------------------");
+            Console.WriteLine("  More Numeric Mathematics----------------------------");
             Console.WriteLine();
 
             // Variables
             int prime_check = random.Next(0, 100000);
             int[] gcf = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
             int[] lcm = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
+            int prime_factors = random.Next(0, 100000);
+            int check = random.Next(0, 100000);
 
             // Examples
             Console.WriteLine("    IsPrime(" + prime_check + "): " + IsPrime(prime_check));
+            Console.WriteLine("    IsNegative(" + check + "): " + IsNegative(check));
+            Console.WriteLine("    IsNonNegative(" + check + "): " + IsNonNegative(check));
+            Console.WriteLine("    IsPositive(" + check + "): " + IsPositive(check));
+            Console.WriteLine("    IsOdd(" + check + "): " + IsOdd(check));
+            Console.WriteLine("    IsEven(" + check + "): " + IsEven(check));
             Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.Stepper()));
             Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.Stepper()));
+            Console.Write("    Prime Factors(" + prime_factors + "): ");
+            FactorPrimes(prime_factors, (int i) => { Console.Write(i + " "); });
+            Console.WriteLine();
+            Console.WriteLine("    7!: " + Factorial(7));
+            Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
+            Console.WriteLine("    7 choose 2: " + Choose(7, 2));
 
             Console.WriteLine();
-
-            #endregion
-
-            #region Fraction
-
-            // Fractions need some work... commenting out for now
-
-            //Console.WriteLine("  Fractions-----------------------------------");
-            //Console.WriteLine();
-            //Fraction128 fraction1 = new Fraction128(2.5);
-            //Console.WriteLine("    fraction1 = " + fraction1);
-            //Fraction128 fraction2 = new Fraction128(3.75);
-            //Console.WriteLine("    fraction2 = " + fraction2);
-            //Console.WriteLine("    fraction1 + fraction2 = " + (fraction1 + fraction2));
-            //Console.WriteLine("    fraction2 - fraction1 = " + (fraction1 - fraction2));
-            //Console.WriteLine("    fraction1 * 2 = " + (fraction1 * 2));
-            //Console.WriteLine("    fraction1 / 2 = " + (fraction1 / 2));
-            //Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
-            //Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
-            //Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
-            //Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
-            //Console.WriteLine();
 
             #endregion
 
@@ -176,40 +189,6 @@ namespace Mathematics
             }
 
             Console.WriteLine();
-            Console.WriteLine();
-
-            #endregion
-
-            #region Algebra
-
-            Console.WriteLine("  Algebra---------------------------------------------");
-            Console.WriteLine();
-
-            // Variables
-            int prime_factors = random.Next(0, 100000);
-
-            // Examples
-            Console.Write("    Prime Factors(" + prime_factors + "): ");
-            FactorPrimes(prime_factors, (int i) => { Console.Write(i + " "); });
-            Console.WriteLine();
-            Console.WriteLine();
-
-            // Logarithms
-            //int log_1 = random.Next(0, 11), log_2 = random.Next(0, 100000);
-            //Console.WriteLine("    log_" + log_1 + "(" + log_2 + "): " + string.Format("{0:0.00}", Logarithm((double)log_1, (double)log_2)));
-            //Console.WriteLine();
-
-            #endregion
-
-            #region Combinatorics
-
-            Console.WriteLine("  Combinatorics--------------------------------------");
-            Console.WriteLine();
-
-            // Examples
-            Console.WriteLine("    7!: " + Factorial(7));
-            Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
-            Console.WriteLine("    7 choose 2: " + Choose(7, 2));
             Console.WriteLine();
 
             #endregion

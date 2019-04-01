@@ -6,6 +6,8 @@
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
+Source Code: https://github.com/ZacharyPatten/Towel
+
 Build [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
 
 *Many features are coded and working, but Towel is still in heavy development. It should be ready for its first release later this year.*
@@ -30,6 +32,7 @@ T Factorial<T>(T a);
 T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
 T LeastCommonMultiple<T>(T a, T b, params T[] c);
 T GreatestCommonFactor<T>(T a, T b, params T[] c);
+LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept);
 ```
 ### Statistics
 ```csharp
@@ -130,22 +133,23 @@ Graph<T> graph;
 ## Algorithms
 ```csharp
 // Sorting
-Sort<T>.Shuffle(...);
-Sort<T>.Bubble(...);
-Sort<T>.Selection(...);
-Sort<T>.Insertion(...);
-Sort<T>.Quick(...);
-Sort<T>.Merge(...);
-Sort<T>.Heap(...);
-Sort<T>.OddEven(...);
+Sort.Shuffle<T>(...);
+Sort.Bubble<T>(...);
+Sort.Selection<T>(...);
+Sort.Insertion<T>(...);
+Sort.Quick<T>(...);
+Sort.Merge<T>(...);
+Sort.Heap<T>(...);
+Sort.OddEven<T>(...);
 
 // Path Finding
-Search<T>.Graph<Math>.Astar(...);
-Search<T>.Graph<Math>.Greedy(...);
+// Note: overloads for both Greedy and A* algorithms
+Search.Graph<NODE, NUMERIC>(...);
 ```
 ## Extensions
 ```csharp
 // System.Random extensions to generate more random types
+// Note: there are overloads to specify possible ranges
 string NextString(this Random random, int length);
 char NextChar(this Random random);
 decimal NextDecimal(this Random random);
@@ -154,16 +158,20 @@ TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
 
 // Type conversion to string as appears in C# source code
+// Note: useful for runtime compilation from strings
 string ConvertToCsharpSource(this Type type);
+// Example typeof(List<int>) -> "System.Collections.Generic.List<int>"
 
-// decimal conversion to English words
-string ToWords(this decimal @decimal);
+string ToEnglishWords(this decimal @decimal);
+// Example: 12 -> "Twelve"
 ```
 ## Developer(s)
+
+You can chat the the developer(s) in Discord:
 
 Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="30" height="30" title="Discord" alt="Discord"></a>
 
  - Zachary Patten
    - sevenix.zp@gmail.com
 
-Howdy! I'm Zachary Patten, and Towel has been a 5+ year long project of mine to make the most advanced, easy-to-use coding library around. Data structures, mathematics, mearsurements, algorithms, extensions... Towel has something for every project out there. Currently, I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
+Howdy! I'm Zachary Patten. I like making code frameworks and teaching people how to code. I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
