@@ -91,8 +91,26 @@ namespace Towel.DataStructures
 	/// <summary>Contains the necessary type definitions for the various omnitree types.</summary>
     public static partial class Omnitree
     {
-        #region Spacial Types (Bound, Vector, Bounds) And Location/Bounding Functions
+        #region Spacial Types (Bound, Vector, Bounds), Location/Bounding Delegates, And Dimensional Helper Methods
 <# foreach (int i in dimensionsToGenerate) { #>
+<# // ------------------------------------------------------------------------------------------------------------------------------ 
+ // PARAMETER/ARGUMENT CHAINS
+      string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
+      string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
+      string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
+      string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
+      string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
+      string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
+	  string chain_Compare_AxisX_compareX = "Compare<Axis1> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Compare<Axis" + j + "> compare" + j; }
+	  string chain_Equate_AxisX_equateX = "Equate<Axis1> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Equate<Axis" + j + "> equate" + j; }
+      string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
+      string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
+      string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+ // DOCUMENTATION
+      string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
+      string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
+      string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
+ // ------------------------------------------------------------------------------------------------------------------------------ #>
         #region <#= i #> Dimensional
 
         public struct Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>
@@ -158,11 +176,64 @@ namespace Towel.DataStructures
 					A<#= j #> min<#= j #>; A<#= j #> max<#= j #>;<# } #>
 					getBoundings(item<# for (int j = 1; j <= i; j++) { #>,
 						out min<#= j #>, out max<#= j #><# } #>);
-
 					<# for (int j = 1; j <= i; j++) { #>
 					minBound<#= j #> = min<#= j #>; maxBound<#= j #> = max<#= j #>;<# } #>
 				};
 		}
+
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b, <#= chain_Compare_AxisX_compareX #>)
+        {<# for (int j = 1; j <= i; j++) { #>
+            if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == Comparison.Less)
+                return false;
+            else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == Comparison.Greater)
+                return false;
+<# } #>
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector, <#= chain_Compare_AxisX_compareX #>)
+        {
+            // if the location is not outside the bounds, it must be inside
+<# for (int j = 1; j <= i; j++) { #>
+            if (bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == Comparison.Greater)
+                return false;
+<# } #>
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b, <#= chain_Compare_AxisX_compareX #>)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Min<#= j #>.Exists && !b.Min<#= j #>.Exists)<# } #>)
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #>)
+                return false;
+<# for (int j = 1; j <= i; j++) { #>
+            if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != Comparison.Less)
+                return false;
+            if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != Comparison.Greater)
+                return false;
+<# } #>
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<<#= chain_AxisX #>>(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b, <#= chain_Equate_AxisX_equateX #>)
+        {<# for (int j = 1; j <= i; j++) { #>
+            if (!equate<#= j #>(a.Axis<#= j #>, b.Axis<#= j #>))
+                return false;
+<# } #>
+            return true;
+        }
 
         #endregion
 <# } #>

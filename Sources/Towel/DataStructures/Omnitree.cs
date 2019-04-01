@@ -91,7 +91,8 @@ namespace Towel.DataStructures
 	/// <summary>Contains the necessary type definitions for the various omnitree types.</summary>
     public static partial class Omnitree
     {
-        #region Spacial Types (Bound, Vector, Bounds) And Location/Bounding Functions
+        #region Spacial Types (Bound, Vector, Bounds), Location/Bounding Delegates, And Dimensional Helper Methods
+
 
         #region 1 Dimensional
 
@@ -156,13 +157,67 @@ namespace Towel.DataStructures
 					A1 min1; A1 max1;
 					getBoundings(item,
 						out min1, out max1);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1>(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b, Compare<Axis1> compare1)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1>(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector, Compare<Axis1> compare1)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1>(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b, Compare<Axis1> compare1)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1>(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b, Equate<Axis1> equate1)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 2 Dimensional
 
@@ -242,14 +297,86 @@ namespace Towel.DataStructures
 					getBoundings(item,
 						out min1, out max1,
 						out min2, out max2);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b, Compare<Axis1> compare1, Compare<Axis2> compare2)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector, Compare<Axis1> compare1, Compare<Axis2> compare2)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b, Compare<Axis1> compare1, Compare<Axis2> compare2)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2>(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b, Equate<Axis1> equate1, Equate<Axis2> equate2)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 3 Dimensional
 
@@ -344,7 +471,6 @@ namespace Towel.DataStructures
 						out min1, out max1,
 						out min2, out max2,
 						out min3, out max3);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
@@ -352,7 +478,98 @@ namespace Towel.DataStructures
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+                return false;
+            else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+                return false;
+            if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2, Axis3>(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b, Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            if (!equate3(a.Axis3, b.Axis3))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 4 Dimensional
 
@@ -462,7 +679,6 @@ namespace Towel.DataStructures
 						out min2, out max2,
 						out min3, out max3,
 						out min4, out max4);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
@@ -471,7 +687,116 @@ namespace Towel.DataStructures
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+                return false;
+            else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+                return false;
+            else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+                return false;
+            if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+                return false;
+            if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> b, Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            if (!equate3(a.Axis3, b.Axis3))
+                return false;
+
+            if (!equate4(a.Axis4, b.Axis4))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 5 Dimensional
 
@@ -596,7 +921,6 @@ namespace Towel.DataStructures
 						out min3, out max3,
 						out min4, out max4,
 						out min5, out max5);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
@@ -606,7 +930,134 @@ namespace Towel.DataStructures
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+                return false;
+            else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+                return false;
+            else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+                return false;
+            else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+                return false;
+            if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+                return false;
+            if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+                return false;
+            if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> b, Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            if (!equate3(a.Axis3, b.Axis3))
+                return false;
+
+            if (!equate4(a.Axis4, b.Axis4))
+                return false;
+
+            if (!equate5(a.Axis5, b.Axis5))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 6 Dimensional
 
@@ -746,7 +1197,6 @@ namespace Towel.DataStructures
 						out min4, out max4,
 						out min5, out max5,
 						out min6, out max6);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
@@ -757,7 +1207,152 @@ namespace Towel.DataStructures
 				};
 		}
 
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+                return false;
+            else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+                return false;
+            else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+                return false;
+            else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
+                return false;
+            else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists) || (a.Min6.Exists && !b.Min6.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+                return false;
+            if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+                return false;
+            if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+                return false;
+            if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
+                return false;
+            if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b, Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5, Equate<Axis6> equate6)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            if (!equate3(a.Axis3, b.Axis3))
+                return false;
+
+            if (!equate4(a.Axis4, b.Axis4))
+                return false;
+
+            if (!equate5(a.Axis5, b.Axis5))
+                return false;
+
+            if (!equate6(a.Axis6, b.Axis6))
+                return false;
+
+            return true;
+        }
+
         #endregion
+
 
         #region 7 Dimensional
 
@@ -912,7 +1507,6 @@ namespace Towel.DataStructures
 						out min5, out max5,
 						out min6, out max6,
 						out min7, out max7);
-
 					
 					minBound1 = min1; maxBound1 = max1;
 					minBound2 = min2; maxBound2 = max2;
@@ -923,6 +1517,168 @@ namespace Towel.DataStructures
 					minBound7 = min7; maxBound7 = max7;
 				};
 		}
+
+		
+        /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
+        /// <returns>True if the spaces overlap; False if not.</returns>
+        internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6, Compare<Axis7> compare7)
+        {
+            if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+                return false;
+            else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+                return false;
+            else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+                return false;
+            else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+                return false;
+            else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+                return false;
+            else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
+                return false;
+            else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+                return false;
+
+            if (a.Max7.Exists && b.Min7.Exists && compare7(a.Max7.Value, b.Min7.Value) == Comparison.Less)
+                return false;
+            else if (a.Min7.Exists && b.Max7.Exists && compare7(a.Min7.Value, b.Max7.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space encapsulates a point.</summary>
+        /// <returns>True if the space encapsulates the point; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6, Compare<Axis7> compare7)
+        {
+            // if the location is not outside the bounds, it must be inside
+
+            if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+                return false;
+
+            if (bounds.Min7.Exists && compare7(vector.Axis7, bounds.Min7.Value) == Comparison.Less)
+                return false;
+            else if (bounds.Max7.Exists && compare7(vector.Axis7, bounds.Max7.Value) == Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
+        /// <returns>True if the left space encapsulates the right; False if not.</returns>
+        internal static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6, Compare<Axis7> compare7)
+        {
+            if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists) || (a.Min6.Exists && !b.Min6.Exists) || (a.Min7.Exists && !b.Min7.Exists))
+                return false;
+			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) || (a.Max7.Exists && !b.Max7.Exists))
+                return false;
+
+            if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+                return false;
+            if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+                return false;
+            if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+                return false;
+            if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+                return false;
+            if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+                return false;
+            if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
+                return false;
+            if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+                return false;
+
+            if (b.Min7.Exists && a.Min7.Exists && compare7(a.Min7.Value, b.Min7.Value) != Comparison.Less)
+                return false;
+            if (b.Max7.Exists && a.Max7.Exists && compare7(a.Max7.Value, b.Max7.Value) != Comparison.Greater)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>Checks for equality between two locations.</summary>
+        /// <returns>True if equal; False if not;</returns>
+        internal static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b, Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5, Equate<Axis6> equate6, Equate<Axis7> equate7)
+        {
+            if (!equate1(a.Axis1, b.Axis1))
+                return false;
+
+            if (!equate2(a.Axis2, b.Axis2))
+                return false;
+
+            if (!equate3(a.Axis3, b.Axis3))
+                return false;
+
+            if (!equate4(a.Axis4, b.Axis4))
+                return false;
+
+            if (!equate5(a.Axis5, b.Axis5))
+                return false;
+
+            if (!equate6(a.Axis6, b.Axis6))
+                return false;
+
+            if (!equate7(a.Axis7, b.Axis7))
+                return false;
+
+            return true;
+        }
 
         #endregion
 
