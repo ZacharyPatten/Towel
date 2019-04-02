@@ -1196,38 +1196,6 @@ namespace Towel.Mathematics
             return NotEqualImplementation<T>.Function(a, b);
         }
 
-        public static bool NotEqual<T>(params T[] operands)
-        {
-            for (int i = 1; i < operands.Length; i++)
-            {
-                if (!NotEqual(operands[i - 1], operands[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool NotEqual<T>(Stepper<T> stepper)
-        {
-            bool result = true;
-            T a;
-            Step<T> step = (b) =>
-            {
-                a = b;
-                step = c =>
-                {
-                    if (!NotEqual(a, c))
-                    {
-                        result = false;
-                    }
-                    a = c;
-                };
-            };
-            stepper(step);
-            return result;
-        }
-
         internal static class NotEqualImplementation<T>
         {
             internal static Func<T, T, bool> Function = (T a, T b) =>
