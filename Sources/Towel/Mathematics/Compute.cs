@@ -1154,19 +1154,23 @@ namespace Towel.Mathematics
         public static bool Equal<T>(Stepper<T> stepper)
         {
             bool result = true;
-            T a;
-            Step<T> step = (b) =>
+            T value = default(T);
+            bool assigned = false;
+            void step(T a)
             {
-                a = b;
-                step = c =>
+                if (assigned)
                 {
-                    if (!Equal(a, c))
+                    if (!Equal(value, a))
                     {
-                        result = false;
+                        result = false; 
                     }
-                    a = c;
-                };
-            };
+                }
+                else
+                {
+                    value = a;
+                    assigned = true;
+                }
+            }
             stepper(step);
             return result;
         }

@@ -393,6 +393,24 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Equal(0m, 0m));
             Assert.IsTrue(Equal(1m, 1m));
             Assert.IsTrue(Equal(2m, 2m));
+
+            // More than 2 operands
+
+            Assert.IsTrue(Equal(0, 0, 0));
+            Assert.IsTrue(Equal(1, 1, 1));
+            Assert.IsTrue(Equal(2, 2, 2));
+
+            Assert.IsFalse(Equal(0, 0, 1));
+            Assert.IsFalse(Equal(1, 1, 2));
+            Assert.IsFalse(Equal(2, 2, 3));
+
+            Assert.IsFalse(Equal(0, 1, 0));
+            Assert.IsFalse(Equal(1, 2, 1));
+            Assert.IsFalse(Equal(2, 3, 2));
+
+            Assert.IsFalse(Equal(1, 0, 0));
+            Assert.IsFalse(Equal(2, 1, 1));
+            Assert.IsFalse(Equal(3, 2, 2));
         }
 
         [TestMethod]
