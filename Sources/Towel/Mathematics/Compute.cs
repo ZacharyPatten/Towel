@@ -1217,38 +1217,6 @@ namespace Towel.Mathematics
             return LessThanImplementation<T>.Function(a, b);
         }
 
-        public static bool LessThan<T>(params T[] operands)
-        {
-            for (int i = 1; i < operands.Length; i++)
-            {
-                if (!LessThan(operands[i - 1], operands[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool LessThan<T>(Stepper<T> stepper)
-        {
-            bool result = true;
-            T a;
-            Step<T> step = (b) =>
-            {
-                a = b;
-                step = c =>
-                {
-                    if (!LessThan(a, c))
-                    {
-                        result = false;
-                    }
-                    a = c;
-                };
-            };
-            stepper(step);
-            return result;
-        }
-
         internal static class LessThanImplementation<T>
         {
             internal static Func<T, T, bool> Function = (T a, T b) =>
@@ -1268,38 +1236,6 @@ namespace Towel.Mathematics
         public static bool GreaterThan<T>(T a, T b)
         {
             return GreaterThanImplementation<T>.Function(a, b);
-        }
-
-        public static bool GreaterThan<T>(params T[] operands)
-        {
-            for (int i = 1; i < operands.Length; i++)
-            {
-                if (!GreaterThan(operands[i - 1], operands[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool GreaterThan<T>(Stepper<T> stepper)
-        {
-            bool result = true;
-            T a;
-            Step<T> step = (b) =>
-            {
-                a = b;
-                step = c =>
-                {
-                    if (!GreaterThan(a, c))
-                    {
-                        result = false;
-                    }
-                    a = c;
-                };
-            };
-            stepper(step);
-            return result;
         }
 
         internal static class GreaterThanImplementation<T>
@@ -1323,38 +1259,6 @@ namespace Towel.Mathematics
             return LessThanOrEqualImplementation<T>.Function(a, b);
         }
 
-        public static bool LessThanOrEqual<T>(params T[] operands)
-        {
-            for (int i = 1; i < operands.Length; i++)
-            {
-                if (!LessThanOrEqual(operands[i - 1], operands[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool LessThanOrEqual<T>(Stepper<T> stepper)
-        {
-            bool result = true;
-            T a;
-            Step<T> step = (b) =>
-            {
-                a = b;
-                step = c =>
-                {
-                    if (!LessThanOrEqual(a, c))
-                    {
-                        result = false;
-                    }
-                    a = c;
-                };
-            };
-            stepper(step);
-            return result;
-        }
-
         internal static class LessThanOrEqualImplementation<T>
         {
             internal static Func<T, T, bool> Function = (T a, T b) =>
@@ -1374,38 +1278,6 @@ namespace Towel.Mathematics
         public static bool GreaterThanOrEqual<T>(T a, T b)
         {
             return GreaterThanOrEqualImplementation<T>.Function(a, b);
-        }
-
-        public static bool GreaterThanOrEqual<T>(params T[] operands)
-        {
-            for (int i = 1; i < operands.Length; i++)
-            {
-                if (!GreaterThanOrEqual(operands[i - 1], operands[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool GreaterThanOrEqual<T>(Stepper<T> stepper)
-        {
-            bool result = true;
-            T a;
-            Step<T> step = (b) =>
-            {
-                a = b;
-                step = c =>
-                {
-                    if (!GreaterThanOrEqual(a, c))
-                    {
-                        result = false;
-                    }
-                    a = c;
-                };
-            };
-            stepper(step);
-            return result;
         }
 
         internal static class GreaterThanOrEqualImplementation<T>
