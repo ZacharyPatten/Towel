@@ -238,8 +238,21 @@ namespace Towel.Mathematics
         /// <returns>The result of the addition.</returns>
         public static T Add<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
-            stepper(a => result = Add(result, a));
+            T result = default(T);
+            bool assigned = false;
+            void step(T a)
+            {
+                if (assigned)
+                {
+                    result = Add(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
+            }
+            stepper(step);
             return result;
         }
 
@@ -287,7 +300,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
+            T result = default(T);
             bool assigned = false;
             void step(T a)
             {
@@ -349,8 +362,21 @@ namespace Towel.Mathematics
         /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.One;
-            stepper(a => result = Multiply(result, a));
+            T result = default(T);
+            bool assigned = false;
+            void step(T a)
+            {
+                if (assigned)
+                {
+                    result = Multiply(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
+            }
+            stepper(step);
             return result;
         }
 
@@ -398,7 +424,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the division.</returns>
         public static T Divide<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
+            T result = default(T);
             bool assigned = false;
             void step(T a)
             {
@@ -484,7 +510,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the modulation.</returns>
         public static T Modulo<T>(Stepper<T> operands)
         {
-            T result = Constant<T>.Zero;
+            T result = default(T);
             bool assigned = false;
             void step(T a)
             {
@@ -546,7 +572,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the power.</returns>
         public static T Power<T>(Stepper<T> operands)
         {
-            T result = Constant<T>.Zero;
+            T result = default(T);
             bool assigned = false;
             void step(T a)
             {
@@ -916,12 +942,20 @@ namespace Towel.Mathematics
 
         public static T Maximum<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
-            Step<T> step = (a) =>
+            T result = default(T);
+            bool assigned = false;
+            void step(T a)
             {
-                result = a;
-                step = b => Maximum(result, a);
-            };
+                if (assigned)
+                {
+                    result = Maximum(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
+            }
             stepper(step);
             return result;
         }
@@ -960,12 +994,20 @@ namespace Towel.Mathematics
 
         public static T Minimum<T>(Stepper<T> stepper)
         {
-            T result = Constant<T>.Zero;
-            Step<T> step = (a) =>
+            T result = default(T);
+            bool assigned = false;
+            void step(T a)
             {
-                result = a;
-                step = b => Minimum(result, a);
-            };
+                if (assigned)
+                {
+                    result = Minimum(result, a);
+                }
+                else
+                {
+                    result = a;
+                    assigned = true;
+                }
+            }
             stepper(step);
             return result;
         }
