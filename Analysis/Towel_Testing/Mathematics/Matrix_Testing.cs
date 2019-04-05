@@ -308,7 +308,99 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Multiply_Matrix()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {  // int
+                Matrix<int> A = new Matrix<int>(2, 3)
+                {
+                    [0] = 1, [1] = 2, [2] = 3,
+                    [3] = 4, [4] = 5, [5] = 6,
+                };
+
+                Matrix<int> B = new Matrix<int>(3, 2)
+                {
+                    [0] =  7,  [1] =  8,
+                    [2] =  9,  [3] = 10,
+                    [4] = 11,  [5] = 12,
+                };
+
+                Matrix<int> C = new Matrix<int>(2, 2)
+                {
+                    [0] =  58, [1] =  64,
+                    [2] = 139, [3] = 154,
+                };
+
+                Assert.IsTrue(A * B == C);
+            }
+            {  // float
+                Matrix<float> A = new Matrix<float>(2, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 4f, [4] = 5f, [5] = 6f,
+                };
+
+                Matrix<float> B = new Matrix<float>(3, 2)
+                {
+                    [0] =  7f,  [1] =  8f,
+                    [2] =  9f,  [3] = 10f,
+                    [4] = 11f,  [5] = 12f,
+                };
+
+                Matrix<float> C = new Matrix<float>(2, 2)
+                {
+                    [0] =  58f, [1] =  64f,
+                    [2] = 139f, [3] = 154f,
+                };
+
+                Assert.IsTrue(A * B == C);
+            }
+            {  // double
+                Matrix<double> A = new Matrix<double>(2, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 4d, [4] = 5d, [5] = 6d,
+                };
+
+                Matrix<double> B = new Matrix<double>(3, 2)
+                {
+                    [0] =  7d,  [1] =  8d,
+                    [2] =  9d,  [3] = 10d,
+                    [4] = 11d,  [5] = 12d,
+                };
+
+                Matrix<double> C = new Matrix<double>(2, 2)
+                {
+                    [0] =  58d, [1] =  64d,
+                    [2] = 139d, [3] = 154d,
+                };
+
+                Assert.IsTrue(A * B == C);
+            }
+            {  // decimal
+                Matrix<decimal> A = new Matrix<decimal>(2, 3)
+                {
+                    [0] = 1m, [1] = 2m, [2] = 3m,
+                    [3] = 4m, [4] = 5m, [5] = 6m,
+                };
+
+                Matrix<decimal> B = new Matrix<decimal>(3, 2)
+                {
+                    [0] =  7m,  [1] =  8m,
+                    [2] =  9m,  [3] = 10m,
+                    [4] = 11m,  [5] = 12m,
+                };
+
+                Matrix<decimal> C = new Matrix<decimal>(2, 2)
+                {
+                    [0] =  58m, [1] =  64m,
+                    [2] = 139m, [3] = 154m,
+                };
+
+                Assert.IsTrue(A * B == C);
+            }
+            { // Dimension Missmatch
+                Matrix<decimal> A = new Matrix<decimal>(2, 2);
+                Matrix<decimal> B = new Matrix<decimal>(3, 3);
+                Assert.ThrowsException<MathematicsException>(() => A * B);
+            }
         }
 
         [TestMethod]
