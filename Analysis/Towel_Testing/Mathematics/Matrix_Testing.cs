@@ -314,7 +314,67 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Multiply_Vector()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // int
+                Matrix<int> matrix = new Matrix<int>(3, 3)
+                {
+                    [0] =  2, [1] = 3, [2] = -4,
+                    [3] = 11, [4] = 8, [5] =  7,
+                    [6] =  2, [7] = 5, [8] =  3,
+                };
+
+                Vector<int> vector = new Vector<int>(3, 7, 5);
+
+                Vector<int> result = new Vector<int>(7, 124, 56);
+
+                Assert.IsTrue(result == (matrix * vector));
+            }
+            { // float
+                Matrix<float> matrix = new Matrix<float>(3, 3)
+                {
+                    [0] =  2f, [1] = 3f, [2] = -4f,
+                    [3] = 11f, [4] = 8f, [5] =  7f,
+                    [6] =  2f, [7] = 5f, [8] =  3f,
+                };
+
+                Vector<float> vector = new Vector<float>(3f, 7f, 5f);
+
+                Vector<float> result = new Vector<float>(7f, 124f, 56f);
+
+                Assert.IsTrue(result == (matrix * vector));
+            }
+            { // double
+                Matrix<double> matrix = new Matrix<double>(3, 3)
+                {
+                    [0] =  2d, [1] = 3d, [2] = -4d,
+                    [3] = 11d, [4] = 8d, [5] =  7d,
+                    [6] =  2d, [7] = 5d, [8] =  3d,
+                };
+
+                Vector<double> vector = new Vector<double>(3d, 7d, 5d);
+
+                Vector<double> result = new Vector<double>(7d, 124d, 56d);
+
+                Assert.IsTrue(result == (matrix * vector));
+            }
+            { // decimal
+                Matrix<decimal> matrix = new Matrix<decimal>(3, 3)
+                {
+                    [0] =  2m, [1] = 3m, [2] = -4m,
+                    [3] = 11m, [4] = 8m, [5] =  7m,
+                    [6] =  2m, [7] = 5m, [8] =  3m,
+                };
+
+                Vector<decimal> vector = new Vector<decimal>(3m, 7m, 5m);
+
+                Vector<decimal> result = new Vector<decimal>(7m, 124m, 56m);
+
+                Assert.IsTrue(result == (matrix * vector));
+            }
+            { // Dimension Mismatch
+                Vector<int> V = new Vector<int>(1);
+                Matrix<int> M = new Matrix<int>(2, 2);
+                Assert.ThrowsException<MathematicsException>(() => M * V);
+            }
         }
 
         [TestMethod]
