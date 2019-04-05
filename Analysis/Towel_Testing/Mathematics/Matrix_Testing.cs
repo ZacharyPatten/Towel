@@ -759,7 +759,50 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Transpose()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            {
+                Matrix<int> A = new Matrix<int>(1, 1)
+                {
+                    [0] = 1,
+                };
+
+                Matrix<int> B = new Matrix<int>(1, 1)
+                {
+                    [0] = 1,
+                };
+
+                Assert.IsTrue(A.Transpose() == B);
+            }
+            {
+                Matrix<int> A = new Matrix<int>(2, 2)
+                {
+                    [0] = 1, [1] = 2,
+                    [2] = 3, [3] = 4,
+                };
+
+                Matrix<int> B = new Matrix<int>(2, 2)
+                {
+                    [0] = 1, [1] = 3,
+                    [2] = 2, [3] = 4,
+                };
+
+                Assert.IsTrue(A.Transpose() == B);
+            }
+            {
+                Matrix<int> A = new Matrix<int>(3, 2)
+                {
+                    [0] = 1, [1] = 2,
+                    [2] = 3, [3] = 4,
+                    [4] = 5, [5] = 6,
+                };
+
+                Matrix<int> B = new Matrix<int>(2, 3)
+                {
+                    [0] = 1, [1] = 3, [2] = 5,
+                    [3] = 2, [4] = 4, [5] = 6,
+                };
+
+                Assert.IsTrue(A.Transpose() == B);
+            }
         }
 
         [TestMethod]

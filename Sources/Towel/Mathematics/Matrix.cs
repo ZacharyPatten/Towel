@@ -1689,8 +1689,8 @@ namespace Towel.Mathematics
                 return;
             }
             int Length = a.Length;
-            int Rows = a.Rows;
-            int Columns = a.Columns;
+            int Rows = a.Columns;
+            int Columns = a.Rows;
             if (b != null && b.Length == a.Length)
             {
                 b._rows = Rows;
