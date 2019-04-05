@@ -108,21 +108,21 @@ namespace Towel.Mathematics
                 if (ROWS < 5 && COLUMNS < 5)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.AppendLine("[ ");
+                    stringBuilder.Append("[");
                     for (int i = 0; i < ROWS; i++)
                     {
-                        stringBuilder.Append("[ ");
+                        stringBuilder.Append("[");
                         for (int j = 0; j < COLUMNS; j++)
                         {
                             stringBuilder.Append(Get(i, j));
                             if (j < COLUMNS - 1)
                             {
-                                stringBuilder.Append(", ");
+                                stringBuilder.Append(",");
                             }
                         }
-                        stringBuilder.AppendLine("[ ");
+                        stringBuilder.Append("]");
                     }
-                    stringBuilder.Append(" ]");
+                    stringBuilder.Append("]");
                     return stringBuilder.ToString();
                 }
                 return ToString();
@@ -1023,7 +1023,7 @@ namespace Towel.Mathematics
             Matrix<T> d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
             for (int i = 0; i < b; i++)
             {
-                Multiply(c, c, ref d);
+                Multiply(c, a, ref d);
                 Matrix<T> temp = d;
                 d = c;
                 c = d;

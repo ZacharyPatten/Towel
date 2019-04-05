@@ -648,7 +648,70 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Power()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // int
+                Matrix<int> A = new Matrix<int>(2, 2)
+                {
+                    [0] = 1, [1] = 2,
+                    [2] = 3, [3] = 4,
+                };
+
+                Matrix<int> B = new Matrix<int>(2, 2)
+                {
+                    [0] = 37, [1] =  54,
+                    [2] = 81, [3] = 118,
+                };
+
+                Assert.IsTrue((A ^ 3) == B);
+            }
+            { // float
+                Matrix<float> A = new Matrix<float>(2, 2)
+                {
+                    [0] = 1f, [1] = 2f,
+                    [2] = 3f, [3] = 4f,
+                };
+
+                Matrix<float> B = new Matrix<float>(2, 2)
+                {
+                    [0] = 37f, [1] =  54f,
+                    [2] = 81f, [3] = 118f,
+                };
+
+                Assert.IsTrue((A ^ 3) == B);
+            }
+            { // double
+                Matrix<double> A = new Matrix<double>(2, 2)
+                {
+                    [0] = 1d, [1] = 2d,
+                    [2] = 3d, [3] = 4d,
+                };
+
+                Matrix<double> B = new Matrix<double>(2, 2)
+                {
+                    [0] = 37d, [1] =  54d,
+                    [2] = 81d, [3] = 118d,
+                };
+
+                Assert.IsTrue((A ^ 3) == B);
+            }
+            { // decimal
+                Matrix<decimal> A = new Matrix<decimal>(2, 2)
+                {
+                    [0] = 1m, [1] = 2m,
+                    [2] = 3m, [3] = 4m,
+                };
+
+                Matrix<decimal> B = new Matrix<decimal>(2, 2)
+                {
+                    [0] = 37m, [1] =  54m,
+                    [2] = 81m, [3] = 118m,
+                };
+
+                Assert.IsTrue((A ^ 3) == B);
+            }
+            { // non-square matrix
+                Matrix<decimal> A = new Matrix<decimal>(2, 3);
+                Assert.ThrowsException<MathematicsException>(() => A ^ 3);
+            }
         }
 
         [TestMethod]
