@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Towel.DataStructures;
 
 namespace Towel
 {
@@ -129,7 +131,7 @@ namespace Towel
         /// <typeparam name="T">The generic type being iterated.</typeparam>
         /// <param name="enumerable">The Ienumerable to convert.</param>
         /// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-        public static Stepper<T> Stepper<T>(this System.Collections.Generic.IEnumerable<T> enumerable)
+        public static Stepper<T> ToStepper<T>(this IEnumerable<T> enumerable)
         {
             return (Step<T> step) =>
             {
@@ -193,20 +195,22 @@ namespace Towel
         public static T Get<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate)
         {
             bool contains = false;
-            T item = default(T);
+            T value = default(T);
             stepper((T step) =>
             {
                 if (equate(step, key))
                 {
                     contains = true;
-                    item = step;
+                    value = step;
                     return StepStatus.Break;
                 }
                 return StepStatus.Continue;
             });
             if (contains == false)
+            {
                 throw new InvalidOperationException("item not found in structure");
-            return item;
+            }
+            return value;
         }
 
         /// <summary>Trys to look up an item this structure by a given key.</summary>
@@ -215,9 +219,9 @@ namespace Towel
         /// <param name="stepper">The structure to check against.</param>
         /// <param name="key">The key to look up.</param>
         /// <param name="equate">Delegate for equating two instances of different types.</param>
-        /// <param name="item">The item if it was found or null if not the default(Type) value.</param>
+        /// <param name="value">The item if it was found or null if not the default(Type) value.</param>
         /// <returns>true if the key was found; false if the key was not found.</returns>
-        public static bool TryGet<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate, out T item)
+        public static bool TryGet<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate, out T value)
         {
             bool contains = false;
             T temp = default(T);
@@ -231,7 +235,7 @@ namespace Towel
                 }
                 return StepStatus.Continue;
             });
-            item = temp;
+            value = temp;
             return contains;
         }
 
@@ -304,7 +308,7 @@ namespace Towel
         public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Equate<T> equate, Hash<T> hash)
         {
             bool duplicateFound = false;
-            Towel.DataStructures.SetHashArray<T> set = new Towel.DataStructures.SetHashArray<T>(equate, hash);
+            SetHashArray<T> set = new SetHashArray<T>(equate, hash);
             stepper((T item) =>
             {
                 if (set.Contains(item))
@@ -333,7 +337,7 @@ namespace Towel
         public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Equate<T> equate, Hash<T> hash)
         {
             bool duplicateFound = false;
-            Towel.DataStructures.SetHashArray<T> set = new Towel.DataStructures.SetHashArray<T>(equate, hash);
+            SetHashArray<T> set = new SetHashArray<T>(equate, hash);
             stepper((T item) =>
             {
                 if (set.Contains(item))

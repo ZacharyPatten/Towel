@@ -70,7 +70,7 @@ namespace Mathematics
                 Console.Write(", " + string.Format("{0:0.00}", summation_values[i]));
             }
             // multiple parameter add overload example (most math functions have this overload)
-            Console.WriteLine(") = " + string.Format("{0:0.00}", Add(summation_values.Stepper())));
+            Console.WriteLine(") = " + string.Format("{0:0.00}", Add(summation_values.ToStepper())));
 
             Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
             Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
@@ -109,8 +109,8 @@ namespace Mathematics
             Console.WriteLine("    IsPositive(" + check + "): " + IsPositive(check));
             Console.WriteLine("    IsOdd(" + check + "): " + IsOdd(check));
             Console.WriteLine("    IsEven(" + check + "): " + IsEven(check));
-            Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.Stepper()));
-            Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.Stepper()));
+            Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.ToStepper()));
+            Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.ToStepper()));
             Console.Write("    Prime Factors(" + prime_factors + "): ");
             FactorPrimes(prime_factors, (int i) => { Console.Write(i + " "); });
             Console.WriteLine();
@@ -162,8 +162,8 @@ namespace Mathematics
             Console.WriteLine();
 
             // Examples
-            Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.Stepper())));
-            Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.Stepper())));
+            Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.ToStepper())));
+            Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.ToStepper())));
 
             // I need to fix the "Mode" function
             //Console.WriteLine("    Mode(data): ");
@@ -175,13 +175,13 @@ namespace Mathematics
             //}
             //Console.WriteLine();
 
-            Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.Stepper())));
-            Range(out double min, out double max, statistics_data.Stepper());
+            Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.ToStepper())));
+            Range(out double min, out double max, statistics_data.ToStepper());
             Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", min) + "-" + string.Format("{0:0.00}", max));
-            Console.WriteLine("    Variance(data): " + string.Format("{0:0.00}", Variance(statistics_data.Stepper())));
-            Console.WriteLine("    Standard Deviation(data): " + string.Format("{0:0.00}", StandardDeviation(statistics_data.Stepper())));
-            Console.WriteLine("    Mean Deviation(data): " + string.Format("{0:0.00}", MeanDeviation(statistics_data.Stepper())));
-            double[] quatiles = Quantiles(4, statistics_data.Stepper());
+            Console.WriteLine("    Variance(data): " + string.Format("{0:0.00}", Variance(statistics_data.ToStepper())));
+            Console.WriteLine("    Standard Deviation(data): " + string.Format("{0:0.00}", StandardDeviation(statistics_data.ToStepper())));
+            Console.WriteLine("    Mean Deviation(data): " + string.Format("{0:0.00}", MeanDeviation(statistics_data.ToStepper())));
+            double[] quatiles = Quantiles(4, statistics_data.ToStepper());
             Console.Write("    Quartiles(data):");
             foreach (double i in quatiles)
             {

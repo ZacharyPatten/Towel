@@ -229,7 +229,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the addition.</returns>
         public static T Add<T>(T a, T b, T c, params T[] d)
         {
-            return Add((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Add((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Adds multiple numeric values [step_1 + step_2 + step_3...].</summary>
@@ -291,7 +291,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(T a, T b, T c, params T[] d)
         {
-            return Subtract((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Subtract((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Subtracts multiple numeric values [step_1 - step_2 - step_3...].</summary>
@@ -353,7 +353,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(T a, T b, T c, params T[] d)
         {
-            return Multiply((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Multiply((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
@@ -415,7 +415,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the division.</returns>
         public static T Divide<T>(T a, T b, T c, params T[] d)
         {
-            return Divide((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Divide((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Divides multiple numeric values [step_1 / step_2 / step_3...].</summary>
@@ -501,7 +501,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the modulation.</returns>
         public static T Modulo<T>(T a, T b, T c, params T[] d)
         {
-            return Modulo((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Modulo((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
@@ -563,7 +563,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the power.</returns>
         public static T Power<T>(T a, T b, T c, params T[] d)
         {
-            return Power((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Power((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         /// <summary>Powers multiple numeric values [step_1 ^ step_2 ^ step_3...].</summary>
@@ -937,7 +937,7 @@ namespace Towel.Mathematics
 
         public static T Maximum<T>(T a, T b, T c, params T[] d)
         {
-            return Maximum((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Maximum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         public static T Maximum<T>(Stepper<T> stepper)
@@ -989,7 +989,7 @@ namespace Towel.Mathematics
 
         public static T Minimum<T>(T a, T b, T c, params T[] d)
         {
-            return Minimum((Step<T> step) => { step(a); step(b); step(c); d.Stepper()(step); });
+            return Minimum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
         public static T Minimum<T>(Stepper<T> stepper)
@@ -1298,7 +1298,7 @@ namespace Towel.Mathematics
 
         public static T GreatestCommonFactor<T>(T a, T b, params T[] c)
         {
-            return GreatestCommonFactor<T>((Step<T> step) => { step(a); step(b); c.Stepper()(step); });
+            return GreatestCommonFactor<T>((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
         }
 
         public static T GreatestCommonFactor<T>(Stepper<T> stepper)
@@ -1357,7 +1357,7 @@ namespace Towel.Mathematics
 
         public static T LeastCommonMultiple<T>(T a, T b, params T[] c)
         {
-            return LeastCommonMultiple((Step<T> step) => { step(a); step(b); c.Stepper()(step); });
+            return LeastCommonMultiple((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
         }
 
         public static T LeastCommonMultiple<T>(Stepper<T> stepper)
@@ -1501,7 +1501,7 @@ namespace Towel.Mathematics
 
         public static IHeap<Link<T, int>> Mode<T>(T a, params T[] b)
         {
-            return Mode((Step<T> step) => { step(a); b.Stepper()(step); });
+            return Mode((Step<T> step) => { step(a); b.ToStepper()(step); });
         }
 
         public static IHeap<Link<T, int>> Mode<T>(Stepper<T> stepper)
@@ -1515,7 +1515,7 @@ namespace Towel.Mathematics
 
         public static T Mean<T>(T a, params T[] b)
         {
-            return Mean((Step<T> step) => { step(a); b.Stepper()(step); });
+            return Mean((Step<T> step) => { step(a); b.ToStepper()(step); });
         }
 
         public static T Mean<T>(Stepper<T> stepper)

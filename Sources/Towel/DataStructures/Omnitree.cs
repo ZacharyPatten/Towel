@@ -2425,7 +2425,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -2479,7 +2479,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -4561,7 +4561,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -4640,7 +4640,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -6958,7 +6958,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -7062,7 +7062,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -9616,7 +9616,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -9745,7 +9745,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -12535,7 +12535,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -12689,7 +12689,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -15715,7 +15715,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -15894,7 +15894,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -19156,7 +19156,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -19360,7 +19360,7 @@ namespace Towel.DataStructures
 
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
                 
                 this._top = new_top;
             }

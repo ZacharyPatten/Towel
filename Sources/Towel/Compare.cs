@@ -99,7 +99,7 @@ namespace Towel
 
         /// <summary>Inverts a comparison delegate.</summary>
         /// <returns>The invert of the compare delegate.</returns>
-        public static Compare<L, R> Invert<L, R>(Compare<L, R> comparison)
+        public static Compare<L, R> Invert<L, R>(this Compare<L, R> comparison)
         {
             return (L left, R right) =>
             {
@@ -109,7 +109,7 @@ namespace Towel
 
         /// <summary>Inverts a comparison delegate.</summary>
         /// <returns>The invert of the compare delegate.</returns>
-        public static Compare<T> Invert<T>(Compare<T> comparison)
+        public static Compare<T> Invert<T>(this Compare<T> comparison)
         {
             return (T left, T right) =>
                 {
@@ -119,7 +119,7 @@ namespace Towel
 
         /// <summary>Inverts a comparison value.</summary>
         /// <returns>The invert of the comparison value.</returns>
-        public static Comparison Invert(Comparison comparison)
+        public static Comparison Invert(this Comparison comparison)
         {
             switch (comparison)
             {

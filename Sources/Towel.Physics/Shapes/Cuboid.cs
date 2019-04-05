@@ -112,17 +112,17 @@ namespace Towel.Physics.Shapes
         private Vector<T> GetMinimumVector(Vector<T>[] corners)
         {
             return new Vector<T>(
-                Compute.Minimum<T>(step => corners.Stepper()(vector => step(vector.X))),
-                Compute.Minimum<T>(step => corners.Stepper()(vector => step(vector.Y))),
-                Compute.Minimum<T>(step => corners.Stepper()(vector => step(vector.Z))));
+                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.X))),
+                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
+                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
         }
 
         private Vector<T> GetMaximumVector(Vector<T>[] corners)
         {
             return new Vector<T>(
-                Compute.Maximum<T>(step => corners.Stepper()(vector => step(vector.X))),
-                Compute.Maximum<T>(step => corners.Stepper()(vector => step(vector.Y))),
-                Compute.Maximum<T>(step => corners.Stepper()(vector => step(vector.Z))));
+                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.X))),
+                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
+                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
         }
 
         public Vector<T> XenoScan(Vector<T> direction)
