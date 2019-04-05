@@ -231,7 +231,35 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void CrossProduct()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // int
+                Vector<int> A = new Vector<int>(1, 2, 3);
+                Vector<int> B = new Vector<int>(4, 5, 6);
+                Vector<int> C = new Vector<int>(-3, 6, -3);
+                Assert.IsTrue(A.CrossProduct(B) == C);
+            }
+            { // float
+                Vector<float> A = new Vector<float>(1f, 2f, 3f);
+                Vector<float> B = new Vector<float>(4f, 5f, 6f);
+                Vector<float> C = new Vector<float>(-3f, 6f, -3f);
+                Assert.IsTrue(A.CrossProduct(B) == C);
+            }
+            { // double
+                Vector<double> A = new Vector<double>(1d, 2d, 3d);
+                Vector<double> B = new Vector<double>(4d, 5d, 6d);
+                Vector<double> C = new Vector<double>(-3d, 6d, -3d);
+                Assert.IsTrue(A.CrossProduct(B) == C);
+            }
+            { // decimal
+                Vector<decimal> A = new Vector<decimal>(1m, 2m, 3m);
+                Vector<decimal> B = new Vector<decimal>(4m, 5m, 6m);
+                Vector<decimal> C = new Vector<decimal>(-3m, 6m, -3m);
+                Assert.IsTrue(A.CrossProduct(B) == C);
+            }
+            { // dimension missmatch
+                Vector<int> A = new Vector<int>(2);
+                Vector<int> B = new Vector<int>(3);
+                Assert.ThrowsException<MathematicsException>(() => A.CrossProduct(B));
+            }
         }
 
         [TestMethod]
