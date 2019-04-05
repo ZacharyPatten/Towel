@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Towel
 {
@@ -57,9 +58,9 @@ namespace Towel
         {
             internal static Compare<T> Compare = (T a, T b) =>
                 {
-                    FromComparer(System.Collections.Generic.Comparer<T>.Default);
-                    System.Collections.Generic.Comparer<T> comparer = null;
-                    try { comparer = System.Collections.Generic.Comparer<T>.Default; }
+                    FromComparer(Comparer<T>.Default);
+                    Comparer<T> comparer = null;
+                    try { comparer = Comparer<T>.Default; }
                     catch { }
                     if (comparer is null)
                     {
@@ -129,7 +130,7 @@ namespace Towel
             }
         }
 
-        public static Compare<T> FromComparer<T>(System.Collections.Generic.Comparer<T> comparer)
+        public static Compare<T> FromComparer<T>(Comparer<T> comparer)
         {
             return (T a, T b) =>
             {

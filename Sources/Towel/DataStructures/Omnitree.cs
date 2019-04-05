@@ -3394,13 +3394,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -3462,7 +3462,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -3470,10 +3470,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -3524,7 +3524,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -5634,13 +5634,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -5710,7 +5710,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -5718,10 +5718,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -5774,7 +5774,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -8135,13 +8135,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -8219,7 +8219,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -8227,10 +8227,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -8285,7 +8285,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -10897,13 +10897,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -10989,7 +10989,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -10997,10 +10997,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -11057,7 +11057,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -13920,13 +13920,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -14020,7 +14020,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -14028,10 +14028,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -14090,7 +14090,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -17204,13 +17204,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -17312,7 +17312,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -17320,10 +17320,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -17384,7 +17384,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -20749,13 +20749,13 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list._value)) != StepStatus.Continue)
                         break;
             }
             else
             {
                 foreach (Node child in (node as Branch).Children)
-                    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+                    if ((status = Stepper(function, child)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -20865,7 +20865,7 @@ namespace Towel.DataStructures
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
                     if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
-                        Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                        (status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -20873,10 +20873,10 @@ namespace Towel.DataStructures
                 foreach (Node child in (node as Branch).Children)
                     // optimization: stop bounds checking if space encapsulates node
                     if (EncapsulationCheck(bounds, child.Bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child)) != StepStatus.Continue)
                         break;
                     else if (!InclusionCheck(child.Bounds, bounds) &&
-                        Code.ReturnAssign(ref status, this.Stepper(function, child, bounds)) != StepStatus.Continue)
+                        (status = this.Stepper(function, child, bounds)) != StepStatus.Continue)
                         break;
             }
             return status;
@@ -20939,7 +20939,7 @@ namespace Towel.DataStructures
                     {
                         StepStatus status = StepStatus.Continue;
                         if (EqualsCheck(vector, LocateVector(list.Value)) &&
-                            Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                            (status = function(list.Value)) != StepStatus.Continue)
                             return status;
                     }
                 }
@@ -22953,12 +22953,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -23075,7 +23075,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -23083,10 +23083,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -25221,12 +25221,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -25359,7 +25359,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -25367,10 +25367,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -27792,12 +27792,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -27946,7 +27946,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -27954,10 +27954,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -30666,12 +30666,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -30836,7 +30836,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -30844,10 +30844,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -33843,12 +33843,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -34029,7 +34029,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -34037,10 +34037,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -37323,12 +37323,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -37525,7 +37525,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -37533,10 +37533,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
@@ -41106,12 +41106,12 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if (Code.ReturnAssign(ref status, function(list._value)) != StepStatus.Continue)
+                if ((status = function(list._value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
 				foreach (Node child in node.Children)
-				    if (Code.ReturnAssign(ref status, Stepper(function, child)) != StepStatus.Continue)
+				    if ((status = Stepper(function, child)) != StepStatus.Continue)
 				        break;
             
             return status;
@@ -41324,7 +41324,7 @@ namespace Towel.DataStructures
 
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
                 if (spatialCheck(bounds, GetBoundings(list.Value)) &&
-                    Code.ReturnAssign(ref status, function(list.Value)) != StepStatus.Continue)
+                    (status = function(list.Value)) != StepStatus.Continue)
                     break;
 
 			if (node.Children != null)
@@ -41332,10 +41332,10 @@ namespace Towel.DataStructures
 				foreach (Node child in node.Children)
 				    // optimization: stop bounds checking if space encapsulates node
 				    if (EncapsulationCheck(bounds, child.Bounds) &&
-				        Code.ReturnAssign(ref status, this.Stepper(function, child)) != StepStatus.Continue)
+				        (status = this.Stepper(function, child)) != StepStatus.Continue)
 				        break;
 				    else if (!InclusionCheck(child.Bounds, bounds) &&
-				        Code.ReturnAssign(ref status, this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
+				        (status = this.StepperBase(function, child, bounds, spatialCheck)) != StepStatus.Continue)
 				        break;
 			}
 
