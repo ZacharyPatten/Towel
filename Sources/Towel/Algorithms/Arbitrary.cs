@@ -1,4 +1,6 @@
-﻿namespace Towel.Algorithms
+﻿using System;
+
+namespace Towel.Algorithms
 {
     /// <summary>
     /// 
@@ -34,7 +36,7 @@
     /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     /// OTHER DEALINGS IN THE SOFTWARE.
     /// </citation>
-    public class Arbitrary : System.Random
+    public class Arbitrary : Random
     {
         #region Fields
 

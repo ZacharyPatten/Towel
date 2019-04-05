@@ -18,27 +18,27 @@ namespace Towel.Mathematics
 
         #region Properties
 
-        internal int Length { get { return this._matrix.Length; } }
+        internal int Length { get { return _matrix.Length; } }
         /// <summary>The number of rows in the matrix.</summary>
-        public int Rows { get { return this._rows; } }
+        public int Rows { get { return _rows; } }
         /// <summary>The number of columns in the matrix.</summary>
-        public int Columns { get { return this._columns; } }
+        public int Columns { get { return _columns; } }
         /// <summary>Determines if the matrix is square.</summary>
-        public bool IsSquare { get { return this._rows == this._columns; } }
+        public bool IsSquare { get { return _rows == _columns; } }
         /// <summary>Determines if the matrix is a vector.</summary>
-        public bool IsVector { get { return this._columns == 1; } }
+        public bool IsVector { get { return _columns == 1; } }
         /// <summary>Determines if the matrix is a 2 component vector.</summary>
-        public bool Is2x1 { get { return this._rows == 2 && this._columns == 1; } }
+        public bool Is2x1 { get { return _rows == 2 && _columns == 1; } }
         /// <summary>Determines if the matrix is a 3 component vector.</summary>
-        public bool Is3x1 { get { return this._rows == 3 && this._columns == 1; } }
+        public bool Is3x1 { get { return _rows == 3 && _columns == 1; } }
         /// <summary>Determines if the matrix is a 4 component vector.</summary>
-        public bool Is4x1 { get { return this._rows == 4 && this._columns == 1; } }
+        public bool Is4x1 { get { return _rows == 4 && _columns == 1; } }
         /// <summary>Determines if the matrix is a 2 square matrix.</summary>
-        public bool Is2x2 { get { return this._rows == 2 && this._columns == 2; } }
+        public bool Is2x2 { get { return _rows == 2 && _columns == 2; } }
         /// <summary>Determines if the matrix is a 3 square matrix.</summary>
-        public bool Is3x3 { get { return this._rows == 3 && this._columns == 3; } }
+        public bool Is3x3 { get { return _rows == 3 && _columns == 3; } }
         /// <summary>Determines if the matrix is a 4 square matrix.</summary>
-        public bool Is4x4 { get { return this._rows == 4 && this._columns == 4; } }
+        public bool Is4x4 { get { return _rows == 4 && _columns == 4; } }
 
         /// <summary>Standard row-major matrix indexing.</summary>
         /// <param name="row">The row index.</param>
@@ -48,11 +48,11 @@ namespace Towel.Mathematics
         {
             get
             {
-                if (row < 0 || row > this.Rows)
+                if (row < 0 || row > Rows)
                 {
                     throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " >= 0) || !(" + nameof(row) + " < " + nameof(Rows) + ")");
                 }
-                if (column < 0 || column > this.Columns)
+                if (column < 0 || column > Columns)
                 {
                     throw new ArgumentOutOfRangeException(nameof(column), row, "!(" + nameof(column) + " >= 0) || !(" + nameof(column) + " < " + nameof(Columns) + ")");
                 }
@@ -60,15 +60,38 @@ namespace Towel.Mathematics
             }
             set
             {
-                if (row < 0 || row > this.Rows)
+                if (row < 0 || row > Rows)
                 {
                     throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " >= 0) || !(" + nameof(row) + " < " + nameof(Rows) + ")");
                 }
-                if (column < 0 || column > this.Columns)
+                if (column < 0 || column > Columns)
                 {
                     throw new ArgumentOutOfRangeException(nameof(column), row, "!(" + nameof(column) + " >= 0) || !(" + nameof(column) + " < " + nameof(Columns) + ")");
                 }
-                this.Set(row, column, value);
+                Set(row, column, value);
+            }
+        }
+
+        /// <summary>Indexing of the flattened array representing the matrix.</summary>
+        /// <param name="flatIndex">The flattened index of the matrix.</param>
+        /// <returns>The value at the given flattened index.</returns>
+        public T this[int flatIndex]
+        {
+            get
+            {
+                if (flatIndex < 0 || _matrix.Length < flatIndex)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(flatIndex), flatIndex, "!(" + nameof(flatIndex) + " >= 0) || !(" + nameof(flatIndex) + " < " + nameof(Rows) + " * " + nameof(Columns) + ")");
+                }
+                return _matrix[flatIndex];
+            }
+            set
+            {
+                if (flatIndex < 0 || _matrix.Length < flatIndex)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(flatIndex), flatIndex, "!(" + nameof(flatIndex) + " >= 0) || !(" + nameof(flatIndex) + " < " + nameof(Rows) + " * " + nameof(Columns) + ")");
+                }
+                _matrix[flatIndex] = value;
             }
         }
 
@@ -80,19 +103,19 @@ namespace Towel.Mathematics
         {
             get
             {
-                int Rows = this.Rows;
-                int Columns = this.Columns;
-                if (Rows < 5 && Columns < 5)
+                int ROWS = this.Rows;
+                int COLUMNS = this.Columns;
+                if (ROWS < 5 && COLUMNS < 5)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.AppendLine("[ ");
-                    for (int i = 0; i < Rows; i++)
+                    for (int i = 0; i < ROWS; i++)
                     {
                         stringBuilder.Append("[ ");
-                        for (int j = 0; j < Columns; j++)
+                        for (int j = 0; j < COLUMNS; j++)
                         {
-                            stringBuilder.Append(this[i, j]);
-                            if (j < Columns - 1)
+                            stringBuilder.Append(Get(i, j));
+                            if (j < COLUMNS - 1)
                             {
                                 stringBuilder.Append(", ");
                             }
@@ -102,7 +125,7 @@ namespace Towel.Mathematics
                     stringBuilder.Append(" ]");
                     return stringBuilder.ToString();
                 }
-                return this.ToString();
+                return ToString();
             }
         }
 
@@ -112,9 +135,9 @@ namespace Towel.Mathematics
 
         internal Matrix(int rows, int columns, int length)
         {
-            this._matrix = new T[length];
-            this._rows = rows;
-            this._columns = columns;
+            _matrix = new T[length];
+            _rows = rows;
+            _columns = columns;
         }
 
         /// <summary>Constructs a new default matrix of the given dimensions.</summary>
@@ -130,9 +153,9 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentOutOfRangeException("columns", columns, "!(columns > 0)");
             }
-            this._matrix = new T[rows * columns];
-            this._rows = rows;
-            this._columns = columns;
+            _matrix = new T[rows * columns];
+            _rows = rows;
+            _columns = columns;
         }
 
         /// <summary>Constructs a new matrix and initializes it via function.</summary>
@@ -161,23 +184,23 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentException("!(" + nameof(rows) + " * " + nameof(columns) + " == " + nameof(data) + "." + nameof(data.Length) + ")");
             }
-            this._rows = rows;
-            this._columns = columns;
-            this._matrix = data;
+            _rows = rows;
+            _columns = columns;
+            _matrix = data;
         }
 
         private Matrix(Matrix<T> matrix)
         {
-            this._rows = matrix._rows;
-            this._columns = matrix.Columns;
-            this._matrix = (matrix._matrix).Clone() as T[];
+            _rows = matrix._rows;
+            _columns = matrix.Columns;
+            _matrix = (matrix._matrix).Clone() as T[];
         }
 
         internal Matrix(Vector<T> vector)
         {
-            this._rows = vector.Dimensions;
-            this._columns = 1;
-            this._matrix = vector._vector.Clone() as T[];
+            _rows = vector.Dimensions;
+            _columns = 1;
+            _matrix = vector._vector.Clone() as T[];
         }
 
         #endregion
