@@ -845,9 +845,12 @@ namespace Towel.Mathematics
         /// <summary>Computes the angle between two vectors.</summary>
         /// <param name="a">The first vector to determine the angle between.</param>
         /// <param name="b">The second vector to determine the angle between.</param>
+        /// <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
         /// <returns>The angle between the two vectors in radians.</returns>
-        public static Angle<T> Angle(Vector<T> a, Vector<T> b)
+        public static Angle<T> Angle(Vector<T> a, Vector<T> b, MathematicsDelegates.InverseCosine<T> arccos)
         {
+            // a ⋅ b = |a| * |b| * cosθ
+
             if (a == null)
             {
                 throw new ArgumentNullException(nameof(a));
@@ -856,7 +859,19 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(b));
             }
-            throw new NotImplementedException();
+            T dotProduct = a.DotProduct(b);
+            T aMagTimesbMag = Compute.Multiply(a.Magnitude, b.Magnitude);
+            T divided = Compute.Divide(dotProduct, aMagTimesbMag);
+            return arccos(divided);
+        }
+
+        /// <summary>Computes the angle between two vectors.</summary>
+        /// <param name="b">The second vector to determine the angle between.</param>
+        /// <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
+        /// <returns>The angle between the two vectors in radians.</returns>
+        public Angle<T> Angle(Vector<T> b, MathematicsDelegates.InverseCosine<T> arccos)
+        {
+            return Angle(this, b, arccos);
         }
 
         #endregion

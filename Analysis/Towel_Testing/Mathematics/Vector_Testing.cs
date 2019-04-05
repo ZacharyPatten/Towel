@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Towel.Mathematics;
+using Towel.Measurements;
 
 namespace Towel_Testing.Mathematics
 {
@@ -310,9 +311,37 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
-        public void Angle()
+        public void Angle_Testing()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // Note: need to update this once the Towel Trig functions are completed (it is using system trig functions)
+
+            { // float
+                Vector<float> a = new Vector<float>(2f, 9f, -3f);
+                Vector<float> b = new Vector<float>(-3f, -4f, 8f);
+                Angle<float> angle = a.Angle(b, f => new Angle<float>((float)Math.Acos(f), Angle.Units.Radians));
+                Angle<float> expected = new Angle<float>(136.2f, Angle.Units.Degrees);
+                float angleDegrees = angle[Angle.Units.Degrees];
+                float expectedDegrees = expected[Angle.Units.Degrees];
+                Assert.IsTrue(Compute.EqualLeniency(angleDegrees, expectedDegrees, 0.1f));
+            }
+            { // double
+                Vector<double> a = new Vector<double>(2d, 9d, -3d);
+                Vector<double> b = new Vector<double>(-3d, -4d, 8d);
+                Angle<double> angle = a.Angle(b, d => new Angle<double>(Math.Acos(d), Angle.Units.Radians));
+                Angle<double> expected = new Angle<double>(136.2d, Angle.Units.Degrees);
+                double angleDegrees = angle[Angle.Units.Degrees];
+                double expectedDegrees = expected[Angle.Units.Degrees];
+                Assert.IsTrue(Compute.EqualLeniency(angleDegrees, expectedDegrees, 0.1d));
+            }
+            { // decimal
+                Vector<decimal> a = new Vector<decimal>(2m, 9m, -3m);
+                Vector<decimal> b = new Vector<decimal>(-3m, -4m, 8m);
+                Angle<decimal> angle = a.Angle(b, m => new Angle<decimal>((decimal)Math.Acos((double)m), Angle.Units.Radians));
+                Angle<decimal> expected = new Angle<decimal>(136.2m, Angle.Units.Degrees);
+                decimal angleDegrees = angle[Angle.Units.Degrees];
+                decimal expectedDegrees = expected[Angle.Units.Degrees];
+                Assert.IsTrue(Compute.EqualLeniency(angleDegrees, expectedDegrees, 0.1m));
+            }
         }
 
         [TestMethod]

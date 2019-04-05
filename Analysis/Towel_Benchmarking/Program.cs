@@ -40,6 +40,7 @@ namespace Towel_Benchmarking
                 Tag.KdTree,
                 Tag.Omnitree,
                 
+                
             };
 
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
@@ -89,5 +90,10 @@ namespace Towel_Benchmarking
         Map, // aka Dictionary
         KdTree,
         Omnitree,
+
+        // Mathemtatics
+        Compute,
+        Vector,
+        Matrix,
     }
 }
