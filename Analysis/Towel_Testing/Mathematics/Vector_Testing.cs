@@ -237,7 +237,31 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void DotProduct()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // int
+                Vector<int> A = new Vector<int>(1, 2, 3);
+                Vector<int> B = new Vector<int>(4, 5, 6);
+                Assert.IsTrue(A.DotProduct(B) == 32);
+            }
+            { // float
+                Vector<float> A = new Vector<float>(1f, 2f, 3f);
+                Vector<float> B = new Vector<float>(4f, 5f, 6f);
+                Assert.IsTrue(A.DotProduct(B) == 32f);
+            }
+            { // double
+                Vector<double> A = new Vector<double>(1d, 2d, 3d);
+                Vector<double> B = new Vector<double>(4d, 5d, 6d);
+                Assert.IsTrue(A.DotProduct(B) == 32d);
+            }
+            { // decimal
+                Vector<decimal> A = new Vector<decimal>(1m, 2m, 3m);
+                Vector<decimal> B = new Vector<decimal>(4m, 5m, 6m);
+                Assert.IsTrue(A.DotProduct(B) == 32m);
+            }
+            { // dimension missmatch
+                Vector<int> A = new Vector<int>(2);
+                Vector<int> B = new Vector<int>(3);
+                Assert.ThrowsException<MathematicsException>(() => A.DotProduct(B));
+            }
         }
 
         [TestMethod]
