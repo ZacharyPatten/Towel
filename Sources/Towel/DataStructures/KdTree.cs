@@ -32,7 +32,7 @@ namespace Towel.DataStructures
         /// <typeparam name="M">The type of axis type of the Omnitree.</typeparam>
         /// <param name="item">The item to be located.</param>
         /// <returns>A delegate for getting the location along a given axis.</returns>
-        public delegate Get<M> Locate<T, M>(T item);
+        public delegate GetIndex<M> Locate<T, M>(T item);
     }
 
     /// <summary>A binary tree data structure for sorting items along multiple dimensions.</summary>
@@ -139,7 +139,7 @@ namespace Towel.DataStructures
         #endregion
         // methods
         #region public bool Add(Get<K> point, T value)
-        public bool Add(Get<K> point, T value)
+        public bool Add(GetIndex<K> point, T value)
         {
             var nodeToAdd = new Node(value);
 
@@ -242,7 +242,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public bool AreEqual(Get<K> a, Get<K> b)
-        public bool AreEqual(Get<K> a, Get<K> b)
+        public bool AreEqual(GetIndex<K> a, GetIndex<K> b)
         {
             for (var index = 0; index < this._dimensions; index++)
             {
@@ -254,7 +254,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public void RemoveAt(Get<K> point)
-        public void RemoveAt(Get<K> point)
+        public void RemoveAt(GetIndex<K> point)
         {
             // Is tree empty?
             if (_root == null)
@@ -318,7 +318,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public Node[] GetNearestNeighbours(Get<K> point, int count)
-        public Node[] GetNearestNeighbours(Get<K> point, int count)
+        public Node[] GetNearestNeighbours(GetIndex<K> point, int count)
         {
             if (count > Count)
                 count = Count;
@@ -352,7 +352,7 @@ namespace Towel.DataStructures
         #region private void AddNearestNeighbours(Node node, Get<K> target, HyperRect<K> rect, int depth, NearestNeighbourList<Node, K> nearestNeighbours, K maxSearchRadiusSquared)
         private void AddNearestNeighbours(
             Node node,
-            Get<K> target,
+            GetIndex<K> target,
             HyperRect<K> rect,
             int depth,
             NearestNeighbourList<Node, K> nearestNeighbours,
@@ -413,7 +413,7 @@ namespace Towel.DataStructures
             // Walk down into the further branch but only if our capacity hasn't been reached 
             // OR if there's a region in the further rect that's closer to the target than our
             // current furtherest nearest neighbour
-            Get<K> closestPointInFurtherRect = furtherRect.GetClosestPoint(target, this._dimensions);
+            GetIndex<K> closestPointInFurtherRect = furtherRect.GetClosestPoint(target, this._dimensions);
             distanceSquaredToTarget = DistanceSquaredBetweenPoints(closestPointInFurtherRect, target);
 
             if (this._compareKey(distanceSquaredToTarget, maxSearchRadiusSquared) == (Comparison.Less | Comparison.Equal))
@@ -449,7 +449,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region private K DistanceSquaredBetweenPoints(Get<K> a, Get<K> b)
-        private K DistanceSquaredBetweenPoints(Get<K> a, Get<K> b)
+        private K DistanceSquaredBetweenPoints(GetIndex<K> a, GetIndex<K> b)
         {
             K distance = this._zero;
 
@@ -466,7 +466,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public Node[] RadialSearch(Get<K> center, K radius, int count)
-        public Node[] RadialSearch(Get<K> center, K radius, int count)
+        public Node[] RadialSearch(GetIndex<K> center, K radius, int count)
         {
             var nearestNeighbours = new NearestNeighbourList<Node, K>(count, this._minValue, this._compareKey);
 
@@ -489,7 +489,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public bool TryFindValueAt(Get<K> point, out T value)
-        public bool TryFindValueAt(Get<K> point, out T value)
+        public bool TryFindValueAt(GetIndex<K> point, out T value)
         {
             var parent = _root;
             int dimension = -1;
@@ -518,7 +518,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public T FindValueAt(Get<K> point)
-        public T FindValueAt(Get<K> point)
+        public T FindValueAt(GetIndex<K> point)
         {
             T value;
             if (TryFindValueAt(point, out value))
@@ -528,7 +528,7 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public bool TryFindValue(T value, out Get<K> point)
-        public bool TryFindValue(T value, out Get<K> point)
+        public bool TryFindValue(T value, out GetIndex<K> point)
         {
             if (_root == null)
             {
@@ -564,9 +564,9 @@ namespace Towel.DataStructures
         }
         #endregion
         #region public Get<K> FindValue(T value)
-        public Get<K> FindValue(T value)
+        public GetIndex<K> FindValue(T value)
         {
-            Get<K> point;
+            GetIndex<K> point;
             if (TryFindValue(value, out point))
                 return point;
             else
@@ -730,7 +730,7 @@ namespace Towel.DataStructures
             return rect;
         }
 
-        public Get<T> GetClosestPoint(Get<T> toPoint, int length)
+        public GetIndex<T> GetClosestPoint(GetIndex<T> toPoint, int length)
         {
             T[] closest = new T[length];
 

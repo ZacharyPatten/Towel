@@ -46,7 +46,7 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
-        public static void Bubble<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Bubble<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             for (int i = start; i < end; i++)
             {
@@ -107,7 +107,7 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
-        public static void Selection<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Selection<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             for (int i = 0; i < end - 1; i++)
             {
@@ -170,7 +170,7 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
-        public static void Insertion<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Insertion<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             for (int i = start + 1; i < end; i++)
             {
@@ -229,12 +229,12 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
-        public static void Quick<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Quick<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             Quick_Recursive(compare, get, set, start, end - start);
         }
 
-        private static void Quick_Recursive<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int len)
+        private static void Quick_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
         {
             if (len > 1)
             {
@@ -312,12 +312,12 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
-        public static void Merge<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Merge<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             Merge_Recursive(compare, get, set, start, end - start);
         }
 
-        private static void Merge_Recursive<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int len)
+        private static void Merge_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
         {
             if (len > 1)
             {
@@ -393,7 +393,7 @@
         /// <param name="start">The starting index of the sort.</param>
         /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
-        public static void Heap<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Heap<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             int heapSize = end - start;
             for (int i = (heapSize - 1) / 2; i >= 0; i--)
@@ -410,7 +410,7 @@
             }
         }
 
-        private static void MaxHeapify<T>(Compare<T> compare, Get<T> get, Assign<T> set, int heapSize, int index)
+        private static void MaxHeapify<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int heapSize, int index)
         {
             int left = (index + 1) * 2 - 1;
             int right = (index + 1) * 2;
@@ -477,7 +477,7 @@
         /// <param name="get">Delegate for getting a value at a specified index.</param>
         /// <param name="set">Delegate for setting a value at a specified index.</param>
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
-        public static void OddEven<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void OddEven<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             var sorted = false;
             while (!sorted)
@@ -626,7 +626,7 @@
         /// <param name="start">The starting index of the shuffle.</param>
         /// <param name="end">The ending index of the shuffle.</param>
         /// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
-        public static void Shuffle<T>(Get<T> get, Assign<T> set, int start, int end)
+        public static void Shuffle<T>(GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             Shuffle(new System.Random(), get, set, start, end);
         }
@@ -638,7 +638,7 @@
         /// <param name="start">The starting index of the shuffle.</param>
         /// <param name="end">The ending index of the shuffle.</param>
         /// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
-        public static void Shuffle<T>(System.Random random, Get<T> get, Assign<T> set, int start, int end)
+        public static void Shuffle<T>(System.Random random, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             for (int i = start; i < end; i++)
             {
@@ -689,7 +689,7 @@
         /// <param name="compare">The method of compare for the sort.</param>
         /// <param name="array">The array to be sorted.</param>
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
-        public static void Bogo<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Bogo<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             while (!BogoCheck(compare, get, set, start, end))
             {
@@ -697,7 +697,7 @@
             }
         }
 
-        private static bool BogoCheck<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        private static bool BogoCheck<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             for (int i = start; i < end - 1; i++)
             {
@@ -749,13 +749,13 @@
         /// <param name="compare">The method of compare for the sort.</param>
         /// <param name="array">The array to be sorted</param>
         /// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        public static void Slow<T>(Compare<T> compare, Get<T> get, Assign<T> set, int start, int end)
+        public static void Slow<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
             throw new System.NotImplementedException();
             Slow_Recursive(compare, get, set, start, end);
         }
 
-        private static void Slow_Recursive<T>(Compare<T> compare, Get<T> get, Assign<T> set, int i, int j)
+        private static void Slow_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int i, int j)
         {
             if (i >= j)
             {

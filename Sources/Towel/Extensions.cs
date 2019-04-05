@@ -587,7 +587,7 @@ namespace System
         /// <param name="assign">The set accessor for the structure to shuffle.</param>
         /// <param name="start">The starting index of the shuffle.</param>
         /// <param name="end">The </param>
-        public static void Shuffle<T>(this Random random, Get<T> get, Assign<T> assign, int start, int end)
+        public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> assign, int start, int end)
         {
             Sort.Shuffle(random, get, assign, start, end);
         }

@@ -2486,7 +2486,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int initial_count, Get<Axis1> values1, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int initial_count, GetIndex<Axis1> values1, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
 
@@ -2559,7 +2559,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int initial_count, Get<Axis1> values1, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int initial_count, GetIndex<Axis1> values1, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -4647,7 +4647,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int initial_count, Get<Axis1> values1, Get<Axis2> values2, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -4727,7 +4727,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int initial_count, Get<Axis1> values1, Get<Axis2> values2, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -7069,7 +7069,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -7156,7 +7156,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2, Axis3> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -9752,7 +9752,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -9846,7 +9846,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -12696,7 +12696,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -12797,7 +12797,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -15901,7 +15901,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -16009,7 +16009,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -19367,7 +19367,7 @@ namespace Towel.DataStructures
         }
 
         
-        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, Get<Axis7> values7, bool allowMultithreading)
+        private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, GetIndex<Axis7> values7, bool allowMultithreading)
         {
             Axis1 pointOfDivision1;
             Axis2 pointOfDivision2;
@@ -19482,7 +19482,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, Get<Axis7> values7, bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, GetIndex<Axis7> values7, bool allowMultithreading)
         {
             Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
