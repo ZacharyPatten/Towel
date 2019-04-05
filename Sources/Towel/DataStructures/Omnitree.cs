@@ -1765,50 +1765,41 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1> : IOmnitreePoints<T, Axis1>
     {
-        private const int _dimensions = 1;
+        internal const int _dimensions = 1;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 1);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> _subdivisionOverride1;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -1828,31 +1819,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -1860,11 +1848,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -1876,59 +1864,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1> pointOfDivision, Omnitree.Bounds<Axis1> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -1939,34 +1927,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -1978,11 +1961,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -3394,7 +3377,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -3795,57 +3778,48 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2> : IOmnitreePoints<T, Axis1, Axis2>
     {
-        private const int _dimensions = 2;
+        internal const int _dimensions = 2;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 2);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride2;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -3865,31 +3839,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -3897,11 +3868,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -3913,59 +3884,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2> pointOfDivision, Omnitree.Bounds<Axis1, Axis2> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -3976,34 +3947,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -4015,11 +3981,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -5634,7 +5600,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -6086,64 +6052,55 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3> : IOmnitreePoints<T, Axis1, Axis2, Axis3>
     {
-        private const int _dimensions = 3;
+        internal const int _dimensions = 3;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 3);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2, Axis3> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2, Axis3> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
-
-        private bool _defaultEquate3;
-        private Equate<Axis3> _equate3;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+        internal bool _defaultEquate3;
+        internal Equate<Axis3> _equate3;
 
-        private bool _defaultCompare3;
-        private Compare<Axis3> _compare3;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
+
+        internal bool _defaultCompare3;
+        internal Compare<Axis3> _compare3;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride2;
-        private Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride3;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride3;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -6163,31 +6120,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -6195,11 +6149,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -6211,59 +6165,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -6274,34 +6228,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -6313,11 +6262,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2, Axis3>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2, Axis3>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -8135,7 +8084,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -8638,71 +8587,62 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4>
     {
-        private const int _dimensions = 4;
+        internal const int _dimensions = 4;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 4);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
-
-        private bool _defaultEquate3;
-        private Equate<Axis3> _equate3;
-
-        private bool _defaultEquate4;
-        private Equate<Axis4> _equate4;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+        internal bool _defaultEquate3;
+        internal Equate<Axis3> _equate3;
 
-        private bool _defaultCompare3;
-        private Compare<Axis3> _compare3;
+        internal bool _defaultEquate4;
+        internal Equate<Axis4> _equate4;
 
-        private bool _defaultCompare4;
-        private Compare<Axis4> _compare4;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
+
+        internal bool _defaultCompare3;
+        internal Compare<Axis3> _compare3;
+
+        internal bool _defaultCompare4;
+        internal Compare<Axis4> _compare4;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride2;
-        private Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride3;
-        private Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride4;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride3;
+        internal Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride4;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -8722,31 +8662,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -8754,11 +8691,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -8770,59 +8707,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -8833,34 +8770,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -8872,11 +8804,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -10897,7 +10829,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -11451,78 +11383,69 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5>
     {
-        private const int _dimensions = 5;
+        internal const int _dimensions = 5;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 5);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
-
-        private bool _defaultEquate3;
-        private Equate<Axis3> _equate3;
-
-        private bool _defaultEquate4;
-        private Equate<Axis4> _equate4;
-
-        private bool _defaultEquate5;
-        private Equate<Axis5> _equate5;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+        internal bool _defaultEquate3;
+        internal Equate<Axis3> _equate3;
 
-        private bool _defaultCompare3;
-        private Compare<Axis3> _compare3;
+        internal bool _defaultEquate4;
+        internal Equate<Axis4> _equate4;
 
-        private bool _defaultCompare4;
-        private Compare<Axis4> _compare4;
+        internal bool _defaultEquate5;
+        internal Equate<Axis5> _equate5;
 
-        private bool _defaultCompare5;
-        private Compare<Axis5> _compare5;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
+
+        internal bool _defaultCompare3;
+        internal Compare<Axis3> _compare3;
+
+        internal bool _defaultCompare4;
+        internal Compare<Axis4> _compare4;
+
+        internal bool _defaultCompare5;
+        internal Compare<Axis5> _compare5;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride2;
-        private Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride3;
-        private Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride4;
-        private Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride5;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride3;
+        internal Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride4;
+        internal Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride5;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -11542,31 +11465,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -11574,11 +11494,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -11590,59 +11510,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -11653,34 +11573,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -11692,11 +11607,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -13920,7 +13835,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -14525,85 +14440,76 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>
     {
-        private const int _dimensions = 6;
+        internal const int _dimensions = 6;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 6);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
-
-        private bool _defaultEquate3;
-        private Equate<Axis3> _equate3;
-
-        private bool _defaultEquate4;
-        private Equate<Axis4> _equate4;
-
-        private bool _defaultEquate5;
-        private Equate<Axis5> _equate5;
-
-        private bool _defaultEquate6;
-        private Equate<Axis6> _equate6;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+        internal bool _defaultEquate3;
+        internal Equate<Axis3> _equate3;
 
-        private bool _defaultCompare3;
-        private Compare<Axis3> _compare3;
+        internal bool _defaultEquate4;
+        internal Equate<Axis4> _equate4;
 
-        private bool _defaultCompare4;
-        private Compare<Axis4> _compare4;
+        internal bool _defaultEquate5;
+        internal Equate<Axis5> _equate5;
 
-        private bool _defaultCompare5;
-        private Compare<Axis5> _compare5;
+        internal bool _defaultEquate6;
+        internal Equate<Axis6> _equate6;
 
-        private bool _defaultCompare6;
-        private Compare<Axis6> _compare6;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
+
+        internal bool _defaultCompare3;
+        internal Compare<Axis3> _compare3;
+
+        internal bool _defaultCompare4;
+        internal Compare<Axis4> _compare4;
+
+        internal bool _defaultCompare5;
+        internal Compare<Axis5> _compare5;
+
+        internal bool _defaultCompare6;
+        internal Compare<Axis6> _compare6;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride2;
-        private Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride3;
-        private Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride4;
-        private Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride5;
-        private Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride6;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride3;
+        internal Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride4;
+        internal Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride5;
+        internal Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride6;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -14623,31 +14529,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -14655,11 +14558,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -14671,59 +14574,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -14734,34 +14637,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -14773,11 +14671,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -17204,7 +17102,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -17860,92 +17758,83 @@ namespace Towel.DataStructures
 
     public class OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> : IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>
     {
-        private const int _dimensions = 7;
+        internal const int _dimensions = 7;
         internal static int _children_per_node = (int)BigInteger.Pow(2, 7);
 
         private Node _top;
 
-		private int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
-		private int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
-		private int _load; // ln(count); min = _defaultLoad
-        private Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _locate;
+		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
+		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
+		internal int _load; // ln(count); min = _defaultLoad
+        internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _locate;
 
-        private bool _defaultEquate;
-        private Equate<T> _equate;
-
-
-        private bool _defaultEquate1;
-        private Equate<Axis1> _equate1;
-
-        private bool _defaultEquate2;
-        private Equate<Axis2> _equate2;
-
-        private bool _defaultEquate3;
-        private Equate<Axis3> _equate3;
-
-        private bool _defaultEquate4;
-        private Equate<Axis4> _equate4;
-
-        private bool _defaultEquate5;
-        private Equate<Axis5> _equate5;
-
-        private bool _defaultEquate6;
-        private Equate<Axis6> _equate6;
-
-        private bool _defaultEquate7;
-        private Equate<Axis7> _equate7;
+        internal bool _defaultEquate;
+        internal Equate<T> _equate;
 
 
+        internal bool _defaultEquate1;
+        internal Equate<Axis1> _equate1;
 
-        private bool _defaultCompare1;
-        private Compare<Axis1> _compare1;
+        internal bool _defaultEquate2;
+        internal Equate<Axis2> _equate2;
 
-        private bool _defaultCompare2;
-        private Compare<Axis2> _compare2;
+        internal bool _defaultEquate3;
+        internal Equate<Axis3> _equate3;
 
-        private bool _defaultCompare3;
-        private Compare<Axis3> _compare3;
+        internal bool _defaultEquate4;
+        internal Equate<Axis4> _equate4;
 
-        private bool _defaultCompare4;
-        private Compare<Axis4> _compare4;
+        internal bool _defaultEquate5;
+        internal Equate<Axis5> _equate5;
 
-        private bool _defaultCompare5;
-        private Compare<Axis5> _compare5;
+        internal bool _defaultEquate6;
+        internal Equate<Axis6> _equate6;
 
-        private bool _defaultCompare6;
-        private Compare<Axis6> _compare6;
+        internal bool _defaultEquate7;
+        internal Equate<Axis7> _equate7;
 
-        private bool _defaultCompare7;
-        private Compare<Axis7> _compare7;
+
+
+        internal bool _defaultCompare1;
+        internal Compare<Axis1> _compare1;
+
+        internal bool _defaultCompare2;
+        internal Compare<Axis2> _compare2;
+
+        internal bool _defaultCompare3;
+        internal Compare<Axis3> _compare3;
+
+        internal bool _defaultCompare4;
+        internal Compare<Axis4> _compare4;
+
+        internal bool _defaultCompare5;
+        internal Compare<Axis5> _compare5;
+
+        internal bool _defaultCompare6;
+        internal Compare<Axis6> _compare6;
+
+        internal bool _defaultCompare7;
+        internal Compare<Axis7> _compare7;
 
 
         // allows median overriding for custom optimizations (USE AT YOUR OWN RISK)
-        private Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride1;
-        private Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride2;
-        private Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride3;
-        private Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride4;
-        private Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride5;
-        private Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride6;
-        private Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride7;
+        internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride1;
+        internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride2;
+        internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride3;
+        internal Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride4;
+        internal Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride5;
+        internal Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride6;
+        internal Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride7;
 
         #region Nested Types
 
         /// <summary>Can be a leaf or a branch.</summary>
         public abstract class Node
         {
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _bounds;
-            internal Branch _parent;
-            internal int _index;
-            internal int _count;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Branch Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> Bounds;
+            public Branch Parent;
+            public int Index;
+            public int Count;
 
             /// <summary>The depth this node is located in the Omnitree.</summary>
             public int Depth
@@ -17965,31 +17854,28 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Branch parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
-            internal Node(Node nodeToClone)
+            public Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
             }
 
-            internal abstract Node Clone();
+            public abstract Node Clone();
         }
 
         /// <summary>A branch in the tree. Only contains nodes.</summary>
         public class Branch : Node
         {
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _pointOfDivision;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> PointOfDivision;
 
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
-            
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
             /// <returns>The child of the given index or null if non-existent.</returns>
@@ -17997,11 +17883,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -18013,59 +17899,59 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
+                    else if (this.Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    this.Children = newArray;
                 }
             }
 
             public Branch(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                this.PointOfDivision = pointOfDivision;
             }
 
             public Branch(Branch branchToClone)
                 : base(branchToClone)
             {
-                this._children = branchToClone._children.Clone() as Node[];
-                this._pointOfDivision = branchToClone._pointOfDivision;
+                Children = branchToClone.Children.Clone() as Node[];
+                PointOfDivision = branchToClone.PointOfDivision;
             }
 
-            internal override Node Clone()
+            public override Node Clone()
             {
                 return new Branch(this);
             }
@@ -18076,34 +17962,29 @@ namespace Towel.DataStructures
         {
             public class Node
             {
-                internal T _value;
-                internal Leaf.Node _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public Leaf.Node Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal Leaf.Node Next;
 
                 public Node(T value, Leaf.Node next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            private Leaf.Node _head;
+            public Leaf.Node Head;
 
-            public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
-
-            internal Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Branch parent, int index)
+            public Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Branch parent, int index)
                 : base(bounds, parent, index)
             { }
 
-            internal Leaf(Leaf leafToClone)
+            private Leaf(Leaf leafToClone)
                 : base(leafToClone)
             {
-                this._head = new Node(leafToClone._head.Value, null);
+                Head = new Node(leafToClone.Head.Value, null);
 
-                Node this_looper = this._head;
-                Node other_looper = leafToClone._head;
+                Node this_looper = Head;
+                Node other_looper = leafToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -18115,11 +17996,11 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new Leaf.Node(addition, this._head);
+                Head = new Leaf.Node(addition, Head);
                 this.Count++;
             }
 
-            internal override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.Node Clone()
+            public override OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.Node Clone()
             {
                 return new Leaf(this);
             }
@@ -20749,7 +20630,7 @@ namespace Towel.DataStructures
             if (node is Leaf)
             {
                 for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
-                    if ((status = function(list._value)) != StepStatus.Continue)
+                    if ((status = function(list.Value)) != StepStatus.Continue)
                         break;
             }
             else
@@ -21400,39 +21281,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -21441,11 +21306,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -21457,42 +21322,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -21514,29 +21379,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1> pointOfDivision, Omnitree.Bounds<Axis1> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -21548,8 +21413,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -22953,7 +22818,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -23442,39 +23307,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -23483,11 +23332,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -23499,42 +23348,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -23556,29 +23405,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2> pointOfDivision, Omnitree.Bounds<Axis1, Axis2> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -23590,8 +23439,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -25221,7 +25070,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -25787,39 +25636,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -25828,11 +25661,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -25844,42 +25677,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -25901,29 +25734,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -25935,8 +25768,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -27792,7 +27625,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -28435,39 +28268,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -28476,11 +28293,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -28492,42 +28309,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -28549,29 +28366,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -28583,8 +28400,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -30666,7 +30483,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -31386,39 +31203,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -31427,11 +31228,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -31443,42 +31244,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -31500,29 +31301,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -31534,8 +31335,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -33843,7 +33644,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -34640,39 +34441,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -34681,11 +34466,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -34697,42 +34482,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -34754,29 +34539,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -34788,8 +34573,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -37323,7 +37108,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
@@ -38197,39 +37982,23 @@ namespace Towel.DataStructures
         {
             public class ValueNode
             {
-                internal T _value;
-                internal ValueNode _next;
-
-                public T Value { get { return _value; } set { _value = value; } }
-                public ValueNode Next { get { return _next; } set { _next = value; } }
+                internal T Value;
+                internal ValueNode Next;
 
                 public ValueNode(T value, ValueNode next)
                 {
-                    _value = value;
-                    _next = next;
+                    Value = value;
+                    Next = next;
                 }
             }
 
-            internal Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _bounds;
-            internal Node _parent;
-            internal int _index;
-            internal int _count;
-            internal ValueNode _head;
-            private Node[] _children;
-            private Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>? _pointOfDivision;
-
-            /// <summary>The parent of this node.</summary>
-            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> Bounds { get { return this._bounds; } }
-            /// <summary>The parent of this node.</summary>
-            public Node Parent { get { return this._parent; } }
-            /// <summary>The computed child index of this node (see the "Notes" region in "Omnitree.cs" for the algorithm.</summary>
-            public int Index { get { return this._index; } }
-            /// <summary>The number of elements stored in this node and its children.</summary>
-            public int Count { get { return this._count; } set { this._count = value; } }
-            /// <summary>The first object stored in this node.</summary>
-            public ValueNode Head { get { return this._head; } set { this._head = value; } }
-            public Node[] Children { get { return this._children; } set { this._children = value; } }
-            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>? PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
+            public Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> Bounds;
+            public Node Parent;
+            public int Index;
+            public int Count;
+            public ValueNode Head;
+            public Node[] Children;
+            public Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>? PointOfDivision;
 
             /// <summary>Gets child by index.</summary>
             /// <param name="child_index">The index of the child to get.</param>
@@ -38238,11 +38007,11 @@ namespace Towel.DataStructures
             {
                 get
                 {
-                    if (this._children == null)
+                    if (Children == null)
                         return null;
-                    if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
-                        return this._children[(int)child_index];
-                    foreach (Node node in this._children)
+                    if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
+                        return Children[(int)child_index];
+                    foreach (Node node in Children)
                         if (node.Index == child_index)
                             return node;
                     return null;
@@ -38254,42 +38023,42 @@ namespace Towel.DataStructures
                         throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
                     // no children yet
-                    if (this._children == null)
+                    if (Children == null)
                     {
-                        this._children = new Node[] { value };
+                        Children = new Node[] { value };
                         return;
                     }
                     // max children overwrite
-                    else if (this._children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
+                    else if (Children.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
                     {
-                        this._children[(int)child_index] = value;
+                        Children[(int)child_index] = value;
                         return;
                     }
                     // non-max child overwrite
-                    for (int i = 0; i < this._children.Length; i++)
-                        if (this._children[i].Index == child_index)
+                    for (int i = 0; i < Children.Length; i++)
+                        if (Children[i].Index == child_index)
                         {
-                            this._children[i] = value;
+                            Children[i] = value;
                             return;
                         }
                     // new child
-                    Node[] newArray = new Node[this._children.Length + 1];
+                    Node[] newArray = new Node[Children.Length + 1];
                     if (newArray.Length == OmnitreePointsLinked<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>._children_per_node)
                     {
                         // new child resulting in a max children branch (sorting required)
-                        for (int i = 0; i < this._children.Length; i++)
+                        for (int i = 0; i < Children.Length; i++)
                         {
-                            newArray[(int)this._children[i]._index] = this._children[i];
+                            newArray[(int)Children[i].Index] = Children[i];
                         }
-                        newArray[(int)value._index] = value;
+                        newArray[(int)value.Index] = value;
                     }
                     else
                     {
                         // new child resulting in a non-max children branch
-                        Array.Copy(this._children, newArray, this._children.Length);
+                        Array.Copy(Children, newArray, Children.Length);
                         newArray[newArray.Length - 1] = value;
                     }
-                    this._children = newArray;
+                    Children = newArray;
                 }
             }
 
@@ -38311,29 +38080,29 @@ namespace Towel.DataStructures
             /// <param name="index">The number of elements stored in this node and its children.</param>
             public Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Node parent, int index)
             {
-                this._bounds = bounds;
-                this._parent = parent;
-                this._index = index;
+                Bounds = bounds;
+                Parent = parent;
+                Index = index;
             }
 
             public Node(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> pointOfDivision, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Node parent, int index)
                 : this(bounds, parent, index)
             {
-                this._pointOfDivision = pointOfDivision;
+                PointOfDivision = pointOfDivision;
             }
 
             internal Node(Node nodeToClone)
             {
-                this._bounds = nodeToClone._bounds;
-                this._parent = nodeToClone._parent;
-                this._index = nodeToClone._index;
-                this._count = nodeToClone._count;
+                this.Bounds = nodeToClone.Bounds;
+                this.Parent = nodeToClone.Parent;
+                this.Index = nodeToClone.Index;
+                this.Count = nodeToClone.Count;
 
-                this._children = nodeToClone._children.Clone() as Node[];
-                this._pointOfDivision = nodeToClone._pointOfDivision;
+                Children = nodeToClone.Children.Clone() as Node[];
+                PointOfDivision = nodeToClone.PointOfDivision;
 
-                ValueNode this_looper = this._head;
-                ValueNode other_looper = nodeToClone._head;
+                ValueNode this_looper = this.Head;
+                ValueNode other_looper = nodeToClone.Head;
 
                 while (other_looper != null)
                 {
@@ -38345,8 +38114,8 @@ namespace Towel.DataStructures
 
             public void Add(T addition)
             {
-                this._head = new ValueNode(addition, this._head);
-                this.Count++;
+                Head = new ValueNode(addition, Head);
+                Count++;
             }
 
             internal Node Clone()
@@ -41106,7 +40875,7 @@ namespace Towel.DataStructures
             StepStatus status = StepStatus.Continue;
             
             for (Node.ValueNode list = node.Head; list != null; list = list.Next)
-                if ((status = function(list._value)) != StepStatus.Continue)
+                if ((status = function(list.Value)) != StepStatus.Continue)
                     break;
             
 			if (node.Children != null)
