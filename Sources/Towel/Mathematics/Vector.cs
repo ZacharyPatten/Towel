@@ -701,7 +701,7 @@ namespace Towel.Mathematics
             T[] B = b._vector;
             for (int i = 0; i < Length; i++)
             {
-                result = Compute.Add(result, Compute.Multiply(A[i], B[i]));
+                result = Compute.MultiplyAddImplementation<T>.Function(A[i], B[i], result);
             }
             return result;
         }
