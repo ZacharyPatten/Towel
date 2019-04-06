@@ -1127,6 +1127,42 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region Trace
+
+        /// <summary>Computes the trace of a square matrix.</summary>
+        /// <param name="a">The matrix to compute the trace of.</param>
+		/// <returns>The computed trace.</returns>
+        public static T Trace(Matrix<T> a)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            }
+            T trace = Compute.Add((Step<T> step) =>
+            {
+                T[] A = a._matrix;
+                int rows = a.Rows;
+                for (int i = 0; i < rows; i++)
+                {
+                    step(A[i * rows + i]);
+                }
+            });
+            return trace;
+        }
+
+        /// <summary>Computes the trace of a square matrix.</summary>
+		/// <returns>The computed trace.</returns>
+		public T Trace()
+        {
+            return Trace(this);
+        }
+
+        #endregion
+
         #region Minor
 
         /// <summary>Gets the minor of a matrix.</summary>
@@ -2113,12 +2149,12 @@ namespace Towel.Mathematics
 
         internal T Get(int row, int column)
         {
-            return this._matrix[row * this.Columns + column];
+            return _matrix[row * Columns + column];
         }
 
         internal void Set(int row, int column, T value)
         {
-            this._matrix[row * this.Columns + column] = value;
+            _matrix[row * Columns + column] = value;
         }
 
         #endregion

@@ -719,6 +719,51 @@ namespace Towel_Testing.Mathematics
         {
             Assert.Inconclusive("Test Not Implemented");
         }
+        
+        [TestMethod]
+        public void Trace()
+        {
+            { // int
+                Matrix<int> a = new Matrix<int>(3, 3)
+                {
+                    [0] = 1, [1] = 2, [2] = 3,
+                    [3] = 4, [4] = 5, [5] = 6,
+                    [6] = 7, [7] = 8, [8] = 9,
+                };
+                Assert.IsTrue(a.Trace() == 15);
+            }
+            { // float
+                Matrix<float> a = new Matrix<float>(3, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 4f, [4] = 5f, [5] = 6f,
+                    [6] = 7f, [7] = 8f, [8] = 9f,
+                };
+                Assert.IsTrue(a.Trace() == 15f);
+            }
+            { // double
+                Matrix<double> a = new Matrix<double>(3, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 4d, [4] = 5d, [5] = 6d,
+                    [6] = 7d, [7] = 8d, [8] = 9d,
+                };
+                Assert.IsTrue(a.Trace() == 15d);
+            }
+            { // decimal
+                Matrix<decimal> a = new Matrix<decimal>(3, 3)
+                {
+                    [0] = 1m, [1] = 2m, [2] = 3m,
+                    [3] = 4m, [4] = 5m, [5] = 6m,
+                    [6] = 7m, [7] = 8m, [8] = 9m,
+                };
+                Assert.IsTrue(a.Trace() == 15m);
+            }
+            { // dimension missmatch
+                Matrix<decimal> a = new Matrix<decimal>(2, 3);
+                Assert.ThrowsException<MathematicsException>(() => a.Trace());
+            }
+        }
 
         [TestMethod]
         public void Minor()
