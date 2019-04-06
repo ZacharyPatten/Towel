@@ -876,6 +876,70 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region Projection
+        
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="a">The first vector of the cross product operation.</param>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <param name="c">The result of the cross product operation.</param>
+        public static void Projection(Vector<T> a, Vector<T> b, ref Vector<T> c)
+        {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (b is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+            if (a.Dimensions != b.Dimensions)
+            {
+                throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
+            }
+            int Dimensions = a.Dimensions;
+            if (c is null || c.Dimensions != Dimensions)
+            {
+                c = new Vector<T>(Dimensions);
+            }
+            T magSquared = a.MagnitudeSquared;
+            if (Compute.Equal(magSquared, Constant<T>.Zero))
+            {
+                throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
+            }
+            T dot = a.DotProduct(b);
+            T divided = Compute.Divide(dot, magSquared);
+            a.Multiply(divided, ref c);
+        }
+
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="a">The first vector of the cross product operation.</param>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <returns>The result of the cross product operation.</returns>
+        public static Vector<T> Projection(Vector<T> a, Vector<T> b)
+        {
+            Vector<T> c = null;
+            Projection(a, b, ref c);
+            return c;
+        }
+
+        /// <summary>Computes teh cross product of two vectors.</summary>
+        /// <param name="b">The second vector of the cross product operation.</param>
+        /// <param name="c">The result of the cross product operation.</param>
+		public void Projection(Vector<T> b, ref Vector<T> c)
+        {
+            Projection(this, b, ref c);
+        }
+
+        /// <summary>Computes teh cross product of two vectors.</summary>
+		/// <param name="b">The second vector of the dot product operation.</param>
+		/// <returns>The result of the dot product operation.</returns>
+		public Vector<T> Projection(Vector<T> b)
+        {
+            return Projection(this, b);
+        }
+
+        #endregion
+
         #region RotateBy
 
         /// <summary>Rotates a vector by the specified axis and rotation values.</summary>
