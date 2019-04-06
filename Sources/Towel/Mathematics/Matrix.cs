@@ -267,10 +267,10 @@ namespace Towel.Mathematics
                 {
                     Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
                     T[] MATRIX = matrix._matrix;
-                    int minimum = Compute.Minimum(rows, columns);
-                    for (int i = 1; i < minimum; i++)
+                    int minimum = Compute.Minimum(ROWS, COLUMNS);
+                    for (int i = 0; i < minimum; i++)
                     {
-                        MATRIX[i * i] = Constant<T>.One;
+                        MATRIX[i * COLUMNS + i] = Constant<T>.One;
                     }
                     return matrix;
                 };
