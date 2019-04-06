@@ -57,6 +57,53 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
+        public void FactoryZero()
+        {
+            { // 1 x 1
+                Matrix<int> a = Matrix<int>.FactoryZero(1, 1);
+                Matrix<int> b = new Matrix<int>(1, 1)
+                {
+                    [0] = 0,
+                };
+                Assert.IsTrue(a == b);
+            }
+            { // 2 x 2
+                Matrix<int> a = Matrix<int>.FactoryZero(2, 2);
+                Matrix<int> b = new Matrix<int>(2, 2)
+                {
+                    [0] = 0, [1] = 0,
+                    [2] = 0, [3] = 0,
+                };
+                Assert.IsTrue(a == b);
+            }
+            { // 3 x 3
+                Matrix<int> a = Matrix<int>.FactoryZero(3, 3);
+                Matrix<int> b = new Matrix<int>(3, 3)
+                {
+                    [0] = 0, [1] = 0, [2] = 0,
+                    [3] = 0, [4] = 0, [5] = 0,
+                    [6] = 0, [7] = 0, [8] = 0,
+                };
+                Assert.IsTrue(a == b);
+            }
+            { // 4 x 4
+                Matrix<int> a = Matrix<int>.FactoryZero(4, 4);
+                Matrix<int> b = new Matrix<int>(4, 4)
+                {
+                    [0]  = 0, [1]  = 0, [2]  = 0, [3]  = 0,
+                    [4]  = 0, [5]  = 0, [6]  = 0, [7]  = 0,
+                    [8]  = 0, [9]  = 0, [10] = 0, [11] = 0,
+                    [12] = 0, [13] = 0, [14] = 0, [15] = 0,
+                };
+                Assert.IsTrue(a == b);
+            }
+            { // argument exception
+                Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(0, 1));
+                Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(1, 0));
+            }
+        }
+
+        [TestMethod]
         public void Negate()
         {
             // int
