@@ -345,6 +345,34 @@ namespace Towel_Testing.Mathematics
         }
 
         [TestMethod]
+        public void Projection()
+        {
+            { // float
+                Vector<float> A = new Vector<float>(1f, 0f, 3f);
+                Vector<float> B = new Vector<float>(-1f, 4f, 2f);
+                Vector<float> C = new Vector<float>(1f/2f, 0f, 3f/2f);
+                Assert.IsTrue(A.Projection(B) == C);
+            }
+            { // double
+                Vector<double> A = new Vector<double>(1d, 0d, 3d);
+                Vector<double> B = new Vector<double>(-1d, 4d, 2d);
+                Vector<double> C = new Vector<double>(1d/2d, 0d, 3d/2d);
+                Assert.IsTrue(A.Projection(B) == C);
+            }
+            { // decimal
+                Vector<decimal> A = new Vector<decimal>(1m, 0m, 3m);
+                Vector<decimal> B = new Vector<decimal>(-1m, 4m, 2m);
+                Vector<decimal> C = new Vector<decimal>(1m/2m, 0m, 3m/2m);
+                Assert.IsTrue(A.Projection(B) == C);
+            }
+            { // dimension missmatch
+                Vector<float> A = new Vector<float>(2);
+                Vector<float> B = new Vector<float>(3);
+                Assert.ThrowsException<MathematicsException>(() => A.Projection(B));
+            }
+        }
+
+        [TestMethod]
         public void RotateBy()
         {
             Assert.Inconclusive("Test Not Implemented");
