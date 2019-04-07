@@ -156,7 +156,50 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Multiply_Scalar()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // int
+            {
+                Quaternion<int> A = new Quaternion<int>(2, 3, 4, 5);
+                Quaternion<int> B = new Quaternion<int>(-2, -3, -4, -5);
+                Assert.IsTrue(A * -1 == B);
+            }
+            {
+                Quaternion<int> A = new Quaternion<int>(1, 2, 3, 4);
+                Quaternion<int> B = new Quaternion<int>(2, 4, 6, 8);
+                Assert.IsTrue(A * 2 == B);
+            }
+            // float
+            {
+                Quaternion<float> A = new Quaternion<float>(2f, 3f, 4f, 5f);
+                Quaternion<float> B = new Quaternion<float>(-2f, -3f, -4f, -5f);
+                Assert.IsTrue(A * -1f == B);
+            }
+            {
+                Quaternion<float> A = new Quaternion<float>(1f, 2f, 3f, 4f);
+                Quaternion<float> B = new Quaternion<float>(2f, 4f, 6f, 8f);
+                Assert.IsTrue(A * 2f == B);
+            }
+            // double
+            {
+                Quaternion<double> A = new Quaternion<double>(2d, 3d, 4d, 5d);
+                Quaternion<double> B = new Quaternion<double>(-2d, -3d, -4d, -5d);
+                Assert.IsTrue(A * -1d == B);
+            }
+            {
+                Quaternion<double> A = new Quaternion<double>(1d, 2d, 3d, 4d);
+                Quaternion<double> B = new Quaternion<double>(2d, 4d, 6d, 8d);
+                Assert.IsTrue(A * 2d == B);
+            }
+            // decimal
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(2m, 3m, 4m, 5m);
+                Quaternion<decimal> B = new Quaternion<decimal>(-2m, -3m, -4m, -5m);
+                Assert.IsTrue(A * -1m == B);
+            }
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(1m, 2m, 3m, 4m);
+                Quaternion<decimal> B = new Quaternion<decimal>(2m, 4m, 6m, 8m);
+                Assert.IsTrue(A * 2m == B);
+            }
         }
 
         [TestMethod]
