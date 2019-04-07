@@ -32,13 +32,13 @@ namespace Towel.Mathematics
         #region Properties
 
         /// <summary>The X component of the quaternion. (axis, NOT rotation ammount)</summary>
-        public T X { get { return this._x; } set { this._x = value; } }
+        public T X { get { return _x; } set { _x = value; } }
         /// <summary>The Y component of the quaternion. (axis, NOT rotation ammount)</summary>
-        public T Y { get { return this._y; } set { this._y = value; } }
+        public T Y { get { return _y; } set { _y = value; } }
         /// <summary>The Z component of the quaternion. (axis, NOT rotation ammount)</summary>
-        public T Z { get { return this._z; } set { this._z = value; } }
+        public T Z { get { return _z; } set { _z = value; } }
         /// <summary>The W component of the quaternion. (rotation ammount, NOT axis)</summary>
-        public T W { get { return this._w; } set { this._w = value; } }
+        public T W { get { return _w; } set { _w = value; } }
 
         #endregion
 
@@ -50,13 +50,13 @@ namespace Towel.Mathematics
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.Append("[ ");
-                stringBuilder.Append(this._x);
+                stringBuilder.Append(_x);
                 stringBuilder.Append(", ");
-                stringBuilder.Append(this._y);
+                stringBuilder.Append(_y);
                 stringBuilder.Append(", ");
-                stringBuilder.Append(this._z);
+                stringBuilder.Append(_z);
                 stringBuilder.Append(", ");
-                stringBuilder.Append(this._x);
+                stringBuilder.Append(_w);
                 stringBuilder.Append(" ]");
                 return stringBuilder.ToString();
             }
@@ -359,7 +359,7 @@ namespace Towel.Mathematics
         public static Quaternion<T> Subtract(Quaternion<T> a, Quaternion<T> b)
         {
             Quaternion<T> c = null;
-            Add(a, b, ref c);
+            Subtract(a, b, ref c);
             return c;
         }
 
@@ -369,7 +369,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the subtraction.</returns>
         public static Quaternion<T> operator -(Quaternion<T> a, Quaternion<T> b)
         {
-            return Add(a, b);
+            return Subtract(a, b);
         }
 
         /// <summary>Subtracts two quaternions.</summary>
@@ -377,7 +377,7 @@ namespace Towel.Mathematics
         /// <param name="c">The result of the subtraction.</param>
         public void Subtract(Quaternion<T> b, ref Quaternion<T> c)
         {
-            Add(this, b, ref c);
+            Subtract(this, b, ref c);
         }
 
         /// <summary>Subtracts two quaternions together.</summary>
