@@ -12,13 +12,65 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Magnitude()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // float
+            {
+                Quaternion<float> A = new Quaternion<float>(2f, 2f, 2f, 2f);
+                Assert.IsTrue(A.Magnitude == 4f);
+            }
+            {
+                Quaternion<float> A = new Quaternion<float>(3f, 3f, 3f, 3f);
+                Assert.IsTrue(A.Magnitude == 6f);
+            }
+            // double
+            {
+                Quaternion<double> A = new Quaternion<double>(2d, 2d, 2d, 2d);
+                Assert.IsTrue(A.Magnitude == 4d);
+            }
+            {
+                Quaternion<double> A = new Quaternion<double>(3d, 3d, 3d, 3d);
+                Assert.IsTrue(A.Magnitude == 6d);
+            }
+            // decimal
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(2m, 2m, 2m, 2m);
+                Assert.IsTrue(A.Magnitude == 4m);
+            }
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(3m, 3m, 3m, 3m);
+                Assert.IsTrue(A.Magnitude == 6m);
+            }
         }
 
         [TestMethod]
         public void MagnitudeSquared()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // float
+            {
+                Quaternion<float> A = new Quaternion<float>(2f, 2f, 2f, 2f);
+                Assert.IsTrue(A.MagnitudeSquared == 16f);
+            }
+            {
+                Quaternion<float> A = new Quaternion<float>(3f, 3f, 3f, 3f);
+                Assert.IsTrue(A.MagnitudeSquared == 36f);
+            }
+            // double
+            {
+                Quaternion<double> A = new Quaternion<double>(2d, 2d, 2d, 2d);
+                Assert.IsTrue(A.MagnitudeSquared == 16d);
+            }
+            {
+                Quaternion<double> A = new Quaternion<double>(3d, 3d, 3d, 3d);
+                Assert.IsTrue(A.MagnitudeSquared == 36d);
+            }
+            // decimal
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(2m, 2m, 2m, 2m);
+                Assert.IsTrue(A.MagnitudeSquared == 16m);
+            }
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(3m, 3m, 3m, 3m);
+                Assert.IsTrue(A.MagnitudeSquared == 36m);
+            }
         }
 
         [TestMethod]
