@@ -98,10 +98,8 @@ namespace Towel.DataStructures
 
         public struct Vector<A1>
         {
-            internal A1 _axis1;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1> Default
@@ -113,16 +111,14 @@ namespace Towel.DataStructures
             /// <param name="axis1">The location along axis 1.</param>
             public Vector(A1 axis1)
             {
-                this._axis1 = axis1;
+                this.Axis1 = axis1;
             }
         }
 
         public struct Bounds<A1>
         {
-            Bound<A1> _min1, _max1;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1> None
@@ -138,8 +134,8 @@ namespace Towel.DataStructures
             public Bounds(
                 Bound<A1> min1, Bound<A1> max1)
             {
-                this._min1 = min1;
-                this._max1 = max1;
+                this.Min1 = min1;
+                this.Max1 = max1;
             }
         }
 
@@ -223,13 +219,10 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2> Default
@@ -242,20 +235,17 @@ namespace Towel.DataStructures
             /// <param name="axis2">The location along axis 2.</param>
             public Vector(A1 axis1, A2 axis2)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
             }
         }
 
         public struct Bounds<A1, A2>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2> None
@@ -273,10 +263,10 @@ namespace Towel.DataStructures
                 Bound<A1> min1, Bound<A1> max1,
                 Bound<A2> min2, Bound<A2> max2)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
             }
         }
 
@@ -382,16 +372,12 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2, A3>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-            internal A3 _axis3;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
             /// <summary>The value along axis 3.</summary>
-            public A3 Axis3 { get { return this._axis3; } }
+            public A3 Axis3;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2, A3> Default
@@ -405,24 +391,20 @@ namespace Towel.DataStructures
             /// <param name="axis3">The location along axis 3.</param>
             public Vector(A1 axis1, A2 axis2, A3 axis3)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
-                this._axis3 = axis3;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
+                this.Axis3 = axis3;
             }
         }
 
         public struct Bounds<A1, A2, A3>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-            Bound<A3> _min3, _max3;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
-            public Bound<A3> Min3 { get { return this._min3; } }
-            public Bound<A3> Max3 { get { return this._max3; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
+            public Bound<A3> Min3;
+            public Bound<A3> Max3;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2, A3> None
@@ -442,12 +424,12 @@ namespace Towel.DataStructures
                 Bound<A2> min2, Bound<A2> max2,
                 Bound<A3> min3, Bound<A3> max3)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
-                this._min3 = min3;
-                this._max3 = max3;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
+                this.Min3 = min3;
+                this.Max3 = max3;
             }
         }
 
@@ -575,19 +557,14 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2, A3, A4>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-            internal A3 _axis3;
-            internal A4 _axis4;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
             /// <summary>The value along axis 3.</summary>
-            public A3 Axis3 { get { return this._axis3; } }
+            public A3 Axis3;
             /// <summary>The value along axis 4.</summary>
-            public A4 Axis4 { get { return this._axis4; } }
+            public A4 Axis4;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2, A3, A4> Default
@@ -602,28 +579,23 @@ namespace Towel.DataStructures
             /// <param name="axis4">The location along axis 4.</param>
             public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
-                this._axis3 = axis3;
-                this._axis4 = axis4;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
+                this.Axis3 = axis3;
+                this.Axis4 = axis4;
             }
         }
 
         public struct Bounds<A1, A2, A3, A4>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-            Bound<A3> _min3, _max3;
-            Bound<A4> _min4, _max4;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
-            public Bound<A3> Min3 { get { return this._min3; } }
-            public Bound<A3> Max3 { get { return this._max3; } }
-            public Bound<A4> Min4 { get { return this._min4; } }
-            public Bound<A4> Max4 { get { return this._max4; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
+            public Bound<A3> Min3;
+            public Bound<A3> Max3;
+            public Bound<A4> Min4;
+            public Bound<A4> Max4;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2, A3, A4> None
@@ -645,14 +617,14 @@ namespace Towel.DataStructures
                 Bound<A3> min3, Bound<A3> max3,
                 Bound<A4> min4, Bound<A4> max4)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
-                this._min3 = min3;
-                this._max3 = max3;
-                this._min4 = min4;
-                this._max4 = max4;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
+                this.Min3 = min3;
+                this.Max3 = max3;
+                this.Min4 = min4;
+                this.Max4 = max4;
             }
         }
 
@@ -802,22 +774,16 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2, A3, A4, A5>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-            internal A3 _axis3;
-            internal A4 _axis4;
-            internal A5 _axis5;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
             /// <summary>The value along axis 3.</summary>
-            public A3 Axis3 { get { return this._axis3; } }
+            public A3 Axis3;
             /// <summary>The value along axis 4.</summary>
-            public A4 Axis4 { get { return this._axis4; } }
+            public A4 Axis4;
             /// <summary>The value along axis 5.</summary>
-            public A5 Axis5 { get { return this._axis5; } }
+            public A5 Axis5;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2, A3, A4, A5> Default
@@ -833,32 +799,26 @@ namespace Towel.DataStructures
             /// <param name="axis5">The location along axis 5.</param>
             public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
-                this._axis3 = axis3;
-                this._axis4 = axis4;
-                this._axis5 = axis5;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
+                this.Axis3 = axis3;
+                this.Axis4 = axis4;
+                this.Axis5 = axis5;
             }
         }
 
         public struct Bounds<A1, A2, A3, A4, A5>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-            Bound<A3> _min3, _max3;
-            Bound<A4> _min4, _max4;
-            Bound<A5> _min5, _max5;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
-            public Bound<A3> Min3 { get { return this._min3; } }
-            public Bound<A3> Max3 { get { return this._max3; } }
-            public Bound<A4> Min4 { get { return this._min4; } }
-            public Bound<A4> Max4 { get { return this._max4; } }
-            public Bound<A5> Min5 { get { return this._min5; } }
-            public Bound<A5> Max5 { get { return this._max5; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
+            public Bound<A3> Min3;
+            public Bound<A3> Max3;
+            public Bound<A4> Min4;
+            public Bound<A4> Max4;
+            public Bound<A5> Min5;
+            public Bound<A5> Max5;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2, A3, A4, A5> None
@@ -882,16 +842,16 @@ namespace Towel.DataStructures
                 Bound<A4> min4, Bound<A4> max4,
                 Bound<A5> min5, Bound<A5> max5)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
-                this._min3 = min3;
-                this._max3 = max3;
-                this._min4 = min4;
-                this._max4 = max4;
-                this._min5 = min5;
-                this._max5 = max5;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
+                this.Min3 = min3;
+                this.Max3 = max3;
+                this.Min4 = min4;
+                this.Max4 = max4;
+                this.Min5 = min5;
+                this.Max5 = max5;
             }
         }
 
@@ -1063,25 +1023,18 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2, A3, A4, A5, A6>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-            internal A3 _axis3;
-            internal A4 _axis4;
-            internal A5 _axis5;
-            internal A6 _axis6;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
             /// <summary>The value along axis 3.</summary>
-            public A3 Axis3 { get { return this._axis3; } }
+            public A3 Axis3;
             /// <summary>The value along axis 4.</summary>
-            public A4 Axis4 { get { return this._axis4; } }
+            public A4 Axis4;
             /// <summary>The value along axis 5.</summary>
-            public A5 Axis5 { get { return this._axis5; } }
+            public A5 Axis5;
             /// <summary>The value along axis 6.</summary>
-            public A6 Axis6 { get { return this._axis6; } }
+            public A6 Axis6;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2, A3, A4, A5, A6> Default
@@ -1098,36 +1051,29 @@ namespace Towel.DataStructures
             /// <param name="axis6">The location along axis 6.</param>
             public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5, A6 axis6)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
-                this._axis3 = axis3;
-                this._axis4 = axis4;
-                this._axis5 = axis5;
-                this._axis6 = axis6;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
+                this.Axis3 = axis3;
+                this.Axis4 = axis4;
+                this.Axis5 = axis5;
+                this.Axis6 = axis6;
             }
         }
 
         public struct Bounds<A1, A2, A3, A4, A5, A6>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-            Bound<A3> _min3, _max3;
-            Bound<A4> _min4, _max4;
-            Bound<A5> _min5, _max5;
-            Bound<A6> _min6, _max6;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
-            public Bound<A3> Min3 { get { return this._min3; } }
-            public Bound<A3> Max3 { get { return this._max3; } }
-            public Bound<A4> Min4 { get { return this._min4; } }
-            public Bound<A4> Max4 { get { return this._max4; } }
-            public Bound<A5> Min5 { get { return this._min5; } }
-            public Bound<A5> Max5 { get { return this._max5; } }
-            public Bound<A6> Min6 { get { return this._min6; } }
-            public Bound<A6> Max6 { get { return this._max6; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
+            public Bound<A3> Min3;
+            public Bound<A3> Max3;
+            public Bound<A4> Min4;
+            public Bound<A4> Max4;
+            public Bound<A5> Min5;
+            public Bound<A5> Max5;
+            public Bound<A6> Min6;
+            public Bound<A6> Max6;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2, A3, A4, A5, A6> None
@@ -1153,18 +1099,18 @@ namespace Towel.DataStructures
                 Bound<A5> min5, Bound<A5> max5,
                 Bound<A6> min6, Bound<A6> max6)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
-                this._min3 = min3;
-                this._max3 = max3;
-                this._min4 = min4;
-                this._max4 = max4;
-                this._min5 = min5;
-                this._max5 = max5;
-                this._min6 = min6;
-                this._max6 = max6;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
+                this.Min3 = min3;
+                this.Max3 = max3;
+                this.Min4 = min4;
+                this.Max4 = max4;
+                this.Min5 = min5;
+                this.Max5 = max5;
+                this.Min6 = min6;
+                this.Max6 = max6;
             }
         }
 
@@ -1358,28 +1304,20 @@ namespace Towel.DataStructures
 
         public struct Vector<A1, A2, A3, A4, A5, A6, A7>
         {
-            internal A1 _axis1;
-            internal A2 _axis2;
-            internal A3 _axis3;
-            internal A4 _axis4;
-            internal A5 _axis5;
-            internal A6 _axis6;
-            internal A7 _axis7;
-
             /// <summary>The value along axis 1.</summary>
-            public A1 Axis1 { get { return this._axis1; } }
+            public A1 Axis1;
             /// <summary>The value along axis 2.</summary>
-            public A2 Axis2 { get { return this._axis2; } }
+            public A2 Axis2;
             /// <summary>The value along axis 3.</summary>
-            public A3 Axis3 { get { return this._axis3; } }
+            public A3 Axis3;
             /// <summary>The value along axis 4.</summary>
-            public A4 Axis4 { get { return this._axis4; } }
+            public A4 Axis4;
             /// <summary>The value along axis 5.</summary>
-            public A5 Axis5 { get { return this._axis5; } }
+            public A5 Axis5;
             /// <summary>The value along axis 6.</summary>
-            public A6 Axis6 { get { return this._axis6; } }
+            public A6 Axis6;
             /// <summary>The value along axis 7.</summary>
-            public A7 Axis7 { get { return this._axis7; } }
+            public A7 Axis7;
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1, A2, A3, A4, A5, A6, A7> Default
@@ -1397,40 +1335,32 @@ namespace Towel.DataStructures
             /// <param name="axis7">The location along axis 7.</param>
             public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5, A6 axis6, A7 axis7)
             {
-                this._axis1 = axis1;
-                this._axis2 = axis2;
-                this._axis3 = axis3;
-                this._axis4 = axis4;
-                this._axis5 = axis5;
-                this._axis6 = axis6;
-                this._axis7 = axis7;
+                this.Axis1 = axis1;
+                this.Axis2 = axis2;
+                this.Axis3 = axis3;
+                this.Axis4 = axis4;
+                this.Axis5 = axis5;
+                this.Axis6 = axis6;
+                this.Axis7 = axis7;
             }
         }
 
         public struct Bounds<A1, A2, A3, A4, A5, A6, A7>
         {
-            Bound<A1> _min1, _max1;
-            Bound<A2> _min2, _max2;
-            Bound<A3> _min3, _max3;
-            Bound<A4> _min4, _max4;
-            Bound<A5> _min5, _max5;
-            Bound<A6> _min6, _max6;
-            Bound<A7> _min7, _max7;
-
-            public Bound<A1> Min1 { get { return this._min1; } }
-            public Bound<A1> Max1 { get { return this._max1; } }
-            public Bound<A2> Min2 { get { return this._min2; } }
-            public Bound<A2> Max2 { get { return this._max2; } }
-            public Bound<A3> Min3 { get { return this._min3; } }
-            public Bound<A3> Max3 { get { return this._max3; } }
-            public Bound<A4> Min4 { get { return this._min4; } }
-            public Bound<A4> Max4 { get { return this._max4; } }
-            public Bound<A5> Min5 { get { return this._min5; } }
-            public Bound<A5> Max5 { get { return this._max5; } }
-            public Bound<A6> Min6 { get { return this._min6; } }
-            public Bound<A6> Max6 { get { return this._max6; } }
-            public Bound<A7> Min7 { get { return this._min7; } }
-            public Bound<A7> Max7 { get { return this._max7; } }
+            public Bound<A1> Min1;
+            public Bound<A1> Max1;
+            public Bound<A2> Min2;
+            public Bound<A2> Max2;
+            public Bound<A3> Min3;
+            public Bound<A3> Max3;
+            public Bound<A4> Min4;
+            public Bound<A4> Max4;
+            public Bound<A5> Min5;
+            public Bound<A5> Max5;
+            public Bound<A6> Min6;
+            public Bound<A6> Max6;
+            public Bound<A7> Min7;
+            public Bound<A7> Max7;
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1, A2, A3, A4, A5, A6, A7> None
@@ -1458,20 +1388,20 @@ namespace Towel.DataStructures
                 Bound<A6> min6, Bound<A6> max6,
                 Bound<A7> min7, Bound<A7> max7)
             {
-                this._min1 = min1;
-                this._max1 = max1;
-                this._min2 = min2;
-                this._max2 = max2;
-                this._min3 = min3;
-                this._max3 = max3;
-                this._min4 = min4;
-                this._max4 = max4;
-                this._min5 = min5;
-                this._max5 = max5;
-                this._min6 = min6;
-                this._max6 = max6;
-                this._min7 = min7;
-                this._max7 = max7;
+                this.Min1 = min1;
+                this.Max1 = max1;
+                this.Min2 = min2;
+                this.Max2 = max2;
+                this.Min3 = min3;
+                this.Max3 = max3;
+                this.Min4 = min4;
+                this.Max4 = max4;
+                this.Min5 = min5;
+                this.Max5 = max5;
+                this.Min6 = min6;
+                this.Max6 = max6;
+                this.Min7 = min7;
+                this.Max7 = max7;
             }
         }
 
@@ -21839,7 +21769,7 @@ namespace Towel.DataStructures
 //                    result1.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -21893,14 +21823,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int initial_count, Get<Axis1> values1, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int initial_count, GetIndex<Axis1> values1, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //
@@ -21973,7 +21903,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int initial_count, Get<Axis1> values1, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int initial_count, GetIndex<Axis1> values1, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -23989,7 +23919,7 @@ namespace Towel.DataStructures
 //                    result2.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -24068,14 +23998,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int initial_count, Get<Axis1> values1, Get<Axis2> values2, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -24155,7 +24085,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int initial_count, Get<Axis1> values1, Get<Axis2> values2, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -26442,7 +26372,7 @@ namespace Towel.DataStructures
 //                    result3.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -26546,14 +26476,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -26640,7 +26570,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2, Axis3> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -29198,7 +29128,7 @@ namespace Towel.DataStructures
 //                    result4.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -29327,14 +29257,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -29428,7 +29358,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -32257,7 +32187,7 @@ namespace Towel.DataStructures
 //                    result5.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -32411,14 +32341,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -32519,7 +32449,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -35619,7 +35549,7 @@ namespace Towel.DataStructures
 //                    result6.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -35798,14 +35728,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -35913,7 +35843,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
@@ -39284,7 +39214,7 @@ namespace Towel.DataStructures
 //                    result7.AsyncWaitHandle.WaitOne();
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -39488,14 +39418,14 @@ namespace Towel.DataStructures
 //
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue, (int)additions.Length, (int index) => { return values1[index]; }, (int index) => { return values2[index]; }, (int index) => { return values3[index]; }, (int index) => { return values4[index]; }, (int index) => { return values5[index]; }, (int index) => { return values6[index]; }, (int index) => { return values7[index]; }, allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, Get<Axis7> values7, bool allowMultithreading)
+//        private int Add(Node parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, GetIndex<Axis7> values7, bool allowMultithreading)
 //        {
 //            Axis1 pointOfDivision1;
 //            Axis2 pointOfDivision2;
@@ -39610,7 +39540,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, Get<Axis4> values4, Get<Axis5> values5, Get<Axis6> values6, Get<Axis7> values7, bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, int child_index, int depth, Stepper<T> additions, int count, int prevmed1, int prevmed2, int prevmed3, int prevmed4, int prevmed5, int prevmed6, int prevmed7, int initial_count, GetIndex<Axis1> values1, GetIndex<Axis2> values2, GetIndex<Axis3> values3, GetIndex<Axis4> values4, GetIndex<Axis5> values5, GetIndex<Axis6> values6, GetIndex<Axis7> values7, bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)

@@ -115,10 +115,8 @@ namespace Towel.DataStructures
 
         public struct Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>
         {<# for (int j = 1; j <= i; j++) { #>
-            internal A<#= j #> _axis<#= j #>;<# } #>
-<# for (int j = 1; j <= i; j++) { #>
             /// <summary>The value along axis <#= j #>.</summary>
-            public A<#= j #> Axis<#= j #> { get { return this._axis<#= j #>; } }<# } #>
+            public A<#= j #> Axis<#= j #>;<# } #>
 
             /// <summary>Returns a vector with defaulted values.</summary>
             public static Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> Default
@@ -130,16 +128,14 @@ namespace Towel.DataStructures
             /// <param name="axis<#= j #>">The location along axis <#= j #>.</param><# } #>
             public Vector(A1 axis1<# for (int j = 2; j <= i; j++) { #>, A<#= j #> axis<#= j #><# } #>)
             {<# for (int j = 1; j <= i; j++) { #>
-                this._axis<#= j #> = axis<#= j #>;<# } #>
+                this.Axis<#= j #> = axis<#= j #>;<# } #>
             }
         }
 
         public struct Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>
         {<# for (int j = 1; j <= i; j++) { #>
-            Bound<A<#= j #>> _min<#= j #>, _max<#= j #>;<# } #>
-<# for (int j = 1; j <= i; j++) { #>
-            public Bound<A<#= j #>> Min<#= j #> { get { return this._min<#= j #>; } }
-            public Bound<A<#= j #>> Max<#= j #> { get { return this._max<#= j #>; } }<# } #>
+            public Bound<A<#= j #>> Min<#= j #>;
+            public Bound<A<#= j #>> Max<#= j #>;<# } #>
 
             /// <summary>Extends infinitely along each axis.</summary>
             public static Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> None
@@ -157,8 +153,8 @@ namespace Towel.DataStructures
                 Bound<A1> min1, Bound<A1> max1<# for (int j = 2; j <= i; j++) { #>,
                 Bound<A<#= j #>> min<#= j #>, Bound<A<#= j #>> max<#= j #><# } #>)
             {<# for (int j = 1; j <= i; j++) { #>
-                this._min<#= j #> = min<#= j #>;
-                this._max<#= j #> = max<#= j #>;<# } #>
+                this.Min<#= j #> = min<#= j #>;
+                this.Max<#= j #> = max<#= j #>;<# } #>
             }
         }
 
@@ -1008,7 +1004,7 @@ namespace Towel.DataStructures
 <# } #>
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
                 
                 this._top = new_top;
             }
@@ -1062,14 +1058,14 @@ namespace Towel.DataStructures
 <# } #>
 
                 // build the tree
-                Add(new_top, 1, -1, additions.Stepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
                 
                 this._top = new_top;
             }
         }
 
         
-        private int Add(Branch parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+        private int Add(Branch parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
         {<# for (int j = 1; j <= i; j++) { #>
             Axis<#= j #> pointOfDivision<#= j #>;<# } #>
 <# for (int j = 1; j <= i; j++) { #>
@@ -1142,7 +1138,7 @@ namespace Towel.DataStructures
             return count;
         }
 
-        int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+        int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
         {
             Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
             if (depth >= _load || count <= _load)
@@ -2977,7 +2973,7 @@ namespace Towel.DataStructures
 //                    result<#= j #>.AsyncWaitHandle.WaitOne();<# } #>
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
@@ -3031,14 +3027,14 @@ namespace Towel.DataStructures
 //<# } #>
 //
 //                // build the tree
-//                Add(new_top, 1, -1, additions.Stepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//                Add(new_top, 1, -1, additions.ToStepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
 //                
 //                this._top = new_top;
 //            }
 //        }
 //
 //        
-//        private int Add(Node parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+//        private int Add(Node parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
 //        {<# for (int j = 1; j <= i; j++) { #>
 //            Axis<#= j #> pointOfDivision<#= j #>;<# } #>
 //<# for (int j = 1; j <= i; j++) { #>
@@ -3111,7 +3107,7 @@ namespace Towel.DataStructures
 //            return count;
 //        }
 //
-//        int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>Get<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+//        int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
 //        {
 //            Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
 //            if (depth >= _load || count <= _load)
