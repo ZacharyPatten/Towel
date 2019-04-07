@@ -1063,7 +1063,40 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Inverse()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // float
+                Matrix<float> A = new Matrix<float>(3, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 4f, [4] = 5f, [5] = 6f,
+                    [6] = 7f, [7] = 8f, [8] = 9f,
+                };
+
+                Matrix<float> B = new Matrix<float>(3, 3)
+                {
+                    [0] = -11f/12f, [1] =  1f/3f, [2] = 1f/12f,
+                    [3] =   -1f/6f, [4] =  1f/3f, [5] = -1f/6f,
+                    [6] =    3f/4f, [7] = -1f/3f, [8] = 1f/12f,
+                };
+
+                Assert.IsTrue(A.Inverse().Equal(B, 0.1f));
+            }
+            { // double
+                Matrix<double> A = new Matrix<double>(3, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 4d, [4] = 5d, [5] = 6d,
+                    [6] = 7d, [7] = 8d, [8] = 9d,
+                };
+
+                Matrix<double> B = new Matrix<double>(3, 3)
+                {
+                    [0] = -11d/12d, [1] =  1d/3d, [2] = 1d/12d,
+                    [3] =   -1d/6d, [4] =  1d/3d, [5] = -1d/6d,
+                    [6] =    3d/4d, [7] = -1d/3d, [8] = 1d/12d,
+                };
+
+                Assert.IsTrue(A.Inverse().Equal(B, 0.1d));
+            }
         }
 
         [TestMethod]
