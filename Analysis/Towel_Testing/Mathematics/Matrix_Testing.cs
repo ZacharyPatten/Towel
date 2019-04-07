@@ -811,7 +811,83 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Determinent()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // 2 x 2 -------------------------
+            { // int
+                Matrix<int> a = new Matrix<int>(2, 2)
+                {
+                    [0] = 1, [1] = 2,
+                    [2] = 3, [3] = 4,
+                };
+                Assert.IsTrue(a.Determinent() == -2);
+            }
+            { // float
+                Matrix<float> a = new Matrix<float>(2, 2)
+                {
+                    [0] = 1f, [1] = 2f,
+                    [2] = 3f, [3] = 4f,
+                };
+                Assert.IsTrue(a.Determinent() == -2f);
+            }
+            { // double
+                Matrix<double> a = new Matrix<double>(2, 2)
+                {
+                    [0] = 1d, [1] = 2d,
+                    [2] = 3d, [3] = 4d,
+                };
+                Assert.IsTrue(a.Determinent() == -2d);
+            }
+            { // decimal
+                Matrix<decimal> a = new Matrix<decimal>(2, 2)
+                {
+                    [0] = 1m, [1] = 2m,
+                    [2] = 3m, [3] = 4m,
+                };
+                Assert.IsTrue(a.Determinent() == -2m);
+            }
+
+            // 3 x 3 -------------------------
+            //{ // int
+            //    Matrix<int> a = new Matrix<int>(3, 3)
+            //    {
+            //        [0] = 1, [1] = 2, [2] = 3,
+            //        [3] = 4, [4] = 5, [5] = 6,
+            //        [6] = 7, [7] = 8, [8] = 9,
+            //    };
+            //    Assert.IsTrue(a.Determinent() == 0);
+            //}
+            { // float
+                Matrix<float> a = new Matrix<float>(3, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 4f, [4] = 5f, [5] = 6f,
+                    [6] = 7f, [7] = 8f, [8] = 9f,
+                };
+                Assert.IsTrue(a.Determinent() == 0f);
+            }
+            { // double
+                Matrix<double> a = new Matrix<double>(3, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 4d, [4] = 5d, [5] = 6d,
+                    [6] = 7d, [7] = 8d, [8] = 9d,
+                };
+                Assert.IsTrue(a.Determinent() == 0d);
+            }
+            //{ // decimal
+            //    Matrix<decimal> a = new Matrix<decimal>(3, 3)
+            //    {
+            //        [0] = 1m, [1] = 2m, [2] = 3m,
+            //        [3] = 4m, [4] = 5m, [5] = 6m,
+            //        [6] = 7m, [7] = 8m, [8] = 9m,
+            //    };
+            //    Assert.IsTrue(a.Determinent() == 0m);
+            //}
+
+            // non-square ------------------------
+            {
+                Matrix<decimal> a = new Matrix<decimal>(2, 3);
+                Assert.ThrowsException<MathematicsException>(() => a.Determinent());
+            }
         }
         
         [TestMethod]
@@ -874,7 +950,108 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Echelon()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // 2 x 2 ------------------------------------
+            { // float
+                Matrix<float> a = new Matrix<float>(2, 2)
+                {
+                    [0] = 1f, [1] = 2f,
+                    [2] = 3f, [3] = 4f,
+                };
+
+                Matrix<float> b = new Matrix<float>(2, 2)
+                {
+                    [0] = 1f, [1] = 2f,
+                    [2] = 0f, [3] = 1f,
+                };
+                
+                Assert.IsTrue(a.Echelon() == b);
+            }
+            { // double
+                Matrix<double> a = new Matrix<double>(2, 2)
+                {
+                    [0] = 1d, [1] = 2d,
+                    [2] = 3d, [3] = 4d,
+                };
+
+                Matrix<double> b = new Matrix<double>(2, 2)
+                {
+                    [0] = 1d, [1] = 2d,
+                    [2] = 0d, [3] = 1d,
+                };
+
+                Assert.IsTrue(a.Echelon() == b);
+            }
+            { // decimal
+                Matrix<decimal> a = new Matrix<decimal>(2, 2)
+                {
+                    [0] = 1m, [1] = 2m,
+                    [2] = 3m, [3] = 4m,
+                };
+
+                Matrix<decimal> b = new Matrix<decimal>(2, 2)
+                {
+                    [0] = 1m, [1] = 2m,
+                    [2] = 0m, [3] = 1m,
+                };
+
+                Assert.IsTrue(a.Echelon() == b);
+            }
+
+            // 3 x 3 ----------------------------------------
+            { // float
+                Matrix<float> a = new Matrix<float>(3, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 4f, [4] = 5f, [5] = 6f,
+                    [6] = 7f, [7] = 8f, [8] = 9f,
+                };
+
+                Matrix<float> b = new Matrix<float>(3, 3)
+                {
+                    [0] = 1f, [1] = 2f, [2] = 3f,
+                    [3] = 0f, [4] = 1f, [5] = 2f,
+                    [6] = 0f, [7] = 0f, [8] = 0f,
+                };
+                
+                Assert.IsTrue(a.Echelon() == b);
+            }
+            { // double
+                Matrix<double> a = new Matrix<double>(3, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 4d, [4] = 5d, [5] = 6d,
+                    [6] = 7d, [7] = 8d, [8] = 9d,
+                };
+
+                Matrix<double> b = new Matrix<double>(3, 3)
+                {
+                    [0] = 1d, [1] = 2d, [2] = 3d,
+                    [3] = 0d, [4] = 1d, [5] = 2d,
+                    [6] = 0d, [7] = 0d, [8] = 0d,
+                };
+                
+                Assert.IsTrue(a.Echelon() == b);
+            }
+
+            // Note: decimal needs to be looked at
+
+            //{ // decimal
+            //    Matrix<decimal> a = new Matrix<decimal>(3, 3)
+            //    {
+            //        [0] = 1m, [1] = 2m, [2] = 3m,
+            //        [3] = 4m, [4] = 5m, [5] = 6m,
+            //        [6] = 7m, [7] = 8m, [8] = 9m,
+            //    };
+
+            //    Matrix<decimal> b = new Matrix<decimal>(3, 3)
+            //    {
+            //        [0] = 1m, [1] = 2m, [2] = 3m,
+            //        [3] = 0m, [4] = 1m, [5] = 2m,
+            //        [6] = 0m, [7] = 0m, [8] = 0m,
+            //    };
+              
+            //    Assert.IsTrue(a.Echelon().Equal(b, 0.1m));
+            //}
         }
 
         [TestMethod]
