@@ -1222,23 +1222,11 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            if (Compute.NotEqual(a._x, b._x))
-            {
-                return false;
-            }
-            if (Compute.NotEqual(a._y, b._y))
-            {
-                return false;
-            }
-            if (Compute.NotEqual(a._z, b._z))
-            {
-                return false;
-            }
-            if (Compute.NotEqual(a._w, b._w))
-            {
-                return false;
-            }
-            return true;
+            return 
+                Compute.Equal(a._x, b._x) &&
+                Compute.Equal(a._y, b._y) &&
+                Compute.Equal(a._z, b._z) &&
+                Compute.Equal(a._w, b._w);
         }
 
         /// <summary>Does a value equality check.</summary>
@@ -1293,23 +1281,11 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            if (!Compute.EqualLeniency(a._x, b._x, leniency))
-            {
-                return false;
-            }
-            if (!Compute.EqualLeniency(a._y, b._y, leniency))
-            {
-                return false;
-            }
-            if (!Compute.EqualLeniency(a._z, b._z, leniency))
-            {
-                return false;
-            }
-            if (!Compute.EqualLeniency(a._w, b._w, leniency))
-            {
-                return false;
-            }
-            return true;
+            return
+                Compute.EqualLeniency(a._x, b._x, leniency) &&
+                Compute.EqualLeniency(a._y, b._y, leniency) &&
+                Compute.EqualLeniency(a._z, b._z, leniency) &&
+                Compute.EqualLeniency(a._w, b._w, leniency);
         }
 
         /// <summary>Does a value equality check with leniency.</summary>
