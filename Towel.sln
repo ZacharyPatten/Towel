@@ -36,7 +36,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurements", "Examples\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Extensions\Extensions.csproj", "{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WikiFiles", "WikiFiles", "{5712ADA4-33DC-4A63-8B38-C9564B02D414}"
+	ProjectSection(SolutionItems) = preProject
+		WikiFiles\Omnitree Example 1D.svg = WikiFiles\Omnitree Example 1D.svg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +104,7 @@ Global
 		{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{CEFA125F-39A4-433C-AAED-36B61F7944A7} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
+		{5712ADA4-33DC-4A63-8B38-C9564B02D414} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}
