@@ -2046,14 +2046,14 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            for (int i = 0; i < Rows; i++)
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            int Length = A.Length;
+            for (int i = 0; i < Length; i++)
             {
-                for (int j = 0; j < Columns; j++)
+                if (!Compute.Equal(A[i], B[i]))
                 {
-                    if (Compute.NotEqual(a.Get(i, j), b.Get(i, j)))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
@@ -2117,14 +2117,14 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            for (int i = 0; i < Rows; i++)
+            T[] A = a._matrix;
+            T[] B = b._matrix;
+            int Length = A.Length;
+            for (int i = 0; i < Length; i++)
             {
-                for (int j = 0; j < Columns; j++)
+                if (!Compute.EqualLeniency(A[i], B[i], leniency))
                 {
-                    if (!Compute.EqualLeniency(a.Get(i, j), b.Get(i, j), leniency))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
