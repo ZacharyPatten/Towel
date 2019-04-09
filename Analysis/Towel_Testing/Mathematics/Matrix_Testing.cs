@@ -944,7 +944,63 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void ConcatenateRowWise()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            { // [2 x 2] + [2 x 2] = [2 x 4]
+                Matrix<int> A = new Matrix<int>(2, 2)
+                {
+                    [0] = 2, [1] = 2,
+                    [2] = 2, [3] = 2,
+                };
+                Matrix<int> B = new Matrix<int>(2, 2)
+                {
+                    [0] = 3, [1] = 3,
+                    [2] = 3, [3] = 3,
+                };
+                Matrix<int> C = new Matrix<int>(2, 4)
+                {
+                    [0] = 2, [1] = 2, [2] = 3, [3] = 3,
+                    [4] = 2, [5] = 2, [6] = 3, [7] = 3,
+                };
+                Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+            }
+            { // [2 x 3] + [2 x 1] = [2 x 3]
+                Matrix<int> A = new Matrix<int>(2, 3)
+                {
+                    [0] = 2, [1] = 2, [2] = 2,
+                    [3] = 2, [4] = 2, [5] = 2,
+                };
+                Matrix<int> B = new Matrix<int>(2, 1)
+                {
+                    [0] = 3,
+                    [1] = 3,
+                };
+                Matrix<int> C = new Matrix<int>(2, 4)
+                {
+                    [0] = 2, [1] = 2, [2] = 2, [3] = 3,
+                    [4] = 2, [5] = 2, [6] = 2, [7] = 3,
+                };
+                Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+            }
+            { // [3 x 3] + [3 x 4] = [3 x 7]
+                Matrix<int> A = new Matrix<int>(3, 3)
+                {
+                    [0] = 2, [1] = 2, [2] = 2,
+                    [3] = 2, [4] = 2, [5] = 2,
+                    [6] = 2, [7] = 2, [8] = 2,
+                };
+                Matrix<int> B = new Matrix<int>(3, 4)
+                {
+                    [0] = 3, [1] = 3, [2] = 3, [3] = 3,
+                    [4] = 3, [5] = 3, [6] = 3, [7] = 3,
+                    [8] = 3, [9] = 3, [10] = 3, [11] = 3,
+                };
+                Matrix<int> C = new Matrix<int>(3, 7)
+                {
+                    [0] = 2, [1] = 2, [2] = 2, [3] = 3, [4] = 3, [5] = 3, [6] = 3,
+                    [7] = 2, [8] = 2, [9] = 2, [10] = 3, [11] = 3, [12] = 3, [13] = 3,
+                    [14] = 2, [15] = 2, [16] = 2, [17] = 3, [18] = 3, [19] = 3, [20] = 3,
+                };
+                Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+            }
         }
 
         [TestMethod]
