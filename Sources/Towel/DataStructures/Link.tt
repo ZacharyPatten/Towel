@@ -7,7 +7,7 @@
 namespace Towel.DataStructures
 {
 	/// <summary>Represents a link between objects.</summary>
-	public interface Link : Structure<object>
+	public interface Link : IDataStructure<object>
 	{
 		#region Properties
 		
@@ -123,7 +123,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public	Structure<object> Clone()
+		public	IDataStructure<object> Clone()
 		{
 			return new Link<T1<# for (int j = 2; j <= i; j++) { #>, T<#= j #><# } #>>((T1)this._1<# for (int j = 2; j <= i; j++) { #>, this._<#= j #><# } #>);
 		}
@@ -266,7 +266,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Structure<object> Clone()
+		public IDataStructure<object> Clone()
 		{
 			return new LinkStruct<T1<# for (int j = 2; j <= i; j++) { #>, T<#= j #><# } #>>((T1)this._1<# for (int j = 2; j <= i; j++) { #>, this._<#= j #><# } #>);
 		}
