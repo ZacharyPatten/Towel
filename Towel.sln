@@ -41,6 +41,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WikiFiles", "WikiFiles", "{5712ADA4-33DC-4A63-8B38-C9564B02D414}"
 	ProjectSection(SolutionItems) = preProject
 		WikiFiles\Omnitree Example 1D.svg = WikiFiles\Omnitree Example 1D.svg
+		WikiFiles\Omnitree Example 2D.svg = WikiFiles\Omnitree Example 2D.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old Articles", "Old Articles", "{6F27F8BC-CB8E-4633-853A-C001E7222BF5}"
+	ProjectSection(SolutionItems) = preProject
+		WikiFiles\Old Articles\2014 Omnitree Article from Codeproject.html = WikiFiles\Old Articles\2014 Omnitree Article from Codeproject.html
+		WikiFiles\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html = WikiFiles\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html
 	EndProjectSection
 EndProject
 Global
@@ -105,6 +112,7 @@ Global
 		{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{CEFA125F-39A4-433C-AAED-36B61F7944A7} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{5712ADA4-33DC-4A63-8B38-C9564B02D414} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
+		{6F27F8BC-CB8E-4633-853A-C001E7222BF5} = {5712ADA4-33DC-4A63-8B38-C9564B02D414}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}
