@@ -300,7 +300,39 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Normalize()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // float
+            {
+                Quaternion<float> A = new Quaternion<float>(2f, 2f, 2f, 2f);
+                Quaternion<float> B = new Quaternion<float>(0.5f, 0.5f, 0.5f, 0.5f);
+                Assert.IsTrue(A.Normalize() == B);
+            }
+            {
+                Quaternion<float> A = new Quaternion<float>(3f, 3f, 3f, 3f);
+                Quaternion<float> B = new Quaternion<float>(0.5f, 0.5f, 0.5f, 0.5f);
+                Assert.IsTrue(A.Normalize() == B);
+            }
+            // double
+            {
+                Quaternion<double> A = new Quaternion<double>(2d, 2d, 2d, 2d);
+                Quaternion<double> B = new Quaternion<double>(0.5d, 0.5d, 0.5d, 0.5d);
+                Assert.IsTrue(A.Normalize() == B);
+            }
+            {
+                Quaternion<double> A = new Quaternion<double>(3d, 3d, 3d, 3d);
+                Quaternion<double> B = new Quaternion<double>(0.5d, 0.5d, 0.5d, 0.5d);
+                Assert.IsTrue(A.Normalize() == B);
+            }
+            // decimal
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(2m, 2m, 2m, 2m);
+                Quaternion<decimal> B = new Quaternion<decimal>(0.5m, 0.5m, 0.5m, 0.5m);
+                Assert.IsTrue(A.Normalize() == B);
+            }
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(3m, 3m, 3m, 3m);
+                Quaternion<decimal> B = new Quaternion<decimal>(0.5m, 0.5m, 0.5m, 0.5m);
+                Assert.IsTrue(A.Normalize() == B);
+            }
         }
 
         [TestMethod]
