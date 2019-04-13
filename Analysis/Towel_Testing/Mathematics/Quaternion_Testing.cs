@@ -76,7 +76,50 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Conjugate()
         {
-            Assert.Inconclusive("Test Not Implemented");
+            // int
+            {
+                Quaternion<int> A = new Quaternion<int>(2, 2, 2, 2);
+                Quaternion<int> B = new Quaternion<int>(-2, -2, -2, 2);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            {
+                Quaternion<int> A = new Quaternion<int>(-2, -2, -2, -2);
+                Quaternion<int> B = new Quaternion<int>(2, 2, 2, -2);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            // float
+            {
+                Quaternion<float> A = new Quaternion<float>(2f, 2f, 2f, 2f);
+                Quaternion<float> B = new Quaternion<float>(-2f, -2f, -2f, 2f);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            {
+                Quaternion<float> A = new Quaternion<float>(-2f, -2f, -2f, -2f);
+                Quaternion<float> B = new Quaternion<float>(2f, 2f, 2f, -2f);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            // double
+            {
+                Quaternion<double> A = new Quaternion<double>(2d, 2d, 2d, 2d);
+                Quaternion<double> B = new Quaternion<double>(-2d, -2d, -2d, 2d);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            {
+                Quaternion<double> A = new Quaternion<double>(-2d, -2d, -2d, -2d);
+                Quaternion<double> B = new Quaternion<double>(2d, 2d, 2d, -2d);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            // decimal
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(2m, 2m, 2m, 2m);
+                Quaternion<decimal> B = new Quaternion<decimal>(-2m, -2m, -2m, 2m);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
+            {
+                Quaternion<decimal> A = new Quaternion<decimal>(-2m, -2m, -2m, -2m);
+                Quaternion<decimal> B = new Quaternion<decimal>(2m, 2m, 2m, -2m);
+                Assert.IsTrue(A.Conjugate() == B);
+            }
         }
 
         [TestMethod]
