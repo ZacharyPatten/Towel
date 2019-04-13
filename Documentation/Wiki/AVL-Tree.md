@@ -1,0 +1,1 @@
+An AVL Tree is a sorted binary.

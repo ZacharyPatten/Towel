@@ -1,0 +1,1 @@
+A red black tree is a sorted binary tree.

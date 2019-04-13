@@ -1,0 +1,1 @@
+A stack is a first-in-first-out data structure.
