@@ -27,7 +27,8 @@ namespace Towel_Benchmarking
                 // Data Structure Tags
                 Tag.Link, // aka Tuple
                 Tag.Indexed, // aka Array
-                Tag.Addable, // aka List
+                Tag.AddableArray, // aka ListArray
+                Tag.AddableLinked, // aka ListArray
                 Tag.FirstInLastout, // aka Stack
                 Tag.FirstInFirstOut, // aka Queue
                 Tag.Heap,
@@ -39,8 +40,6 @@ namespace Towel_Benchmarking
                 Tag.Map, // aka Dictionary
                 Tag.KdTree,
                 Tag.Omnitree,
-                
-                
             };
 
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
@@ -48,9 +47,10 @@ namespace Towel_Benchmarking
                 BenchmarksAttribute attribute = type.GetCustomAttribute<BenchmarksAttribute>();
                 if (!(attribute is null))
                 {
-                    var summary = BenchmarkRunner.Run<Program>();
+                    var summary = BenchmarkRunner.Run(type);
                 }
             }
+            Console.ReadLine();
         }
     }
 
@@ -59,12 +59,10 @@ namespace Towel_Benchmarking
     {
         public Tag[] Tags;
 
-        public BenchmarksAttribute(params Tag[] tags)
-        {
-            Tags = tags;
+        public BenchmarksAttribute(params Tag[] tags) { Tags = tags;
         }
     }
-
+    
     public enum Tag
     {
         // Major Tags
@@ -78,7 +76,8 @@ namespace Towel_Benchmarking
         // Data Structure Tags
         Link, // aka Tuple
         Indexed, // aka Array
-        Addable, // aka List
+        AddableArray, // aka ListArray
+        AddableLinked, // aka LinkedList
         FirstInLastout, // aka Stack
         FirstInFirstOut, // aka Queue
         Heap,
