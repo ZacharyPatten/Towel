@@ -9,6 +9,13 @@ namespace Towel_Benchmarking
     {
         public static void Main(string[] args)
         {
+            // Note:
+            // Benchmarking should always be run outside of Visual Studio by running
+            // a Release mode build via the command line. These settings help set up
+            // a build to be run outside of Visual Studio. By default I have all tests
+            // uncommented, which means all of them will run, and this can take a very
+            // long time.
+
             // Settings
             //
             // You can control what benchmarking is done by commenting out
@@ -29,14 +36,17 @@ namespace Towel_Benchmarking
                 Tag.Indexed, // aka Array
                 Tag.AddableArray, // aka ListArray
                 Tag.AddableLinked, // aka ListArray
-                Tag.FirstInLastout, // aka Stack
-                Tag.FirstInFirstOut, // aka Queue
-                Tag.Heap,
-                Tag.AvlTree,
-                Tag.RedBlackTree,
+                Tag.FirstInLastOutArray, // aka Stack as Array
+                Tag.FirstInLastOutLinked, // aka Stack as Linked List
+                Tag.FirstInFirstOutArray, // aka Queue as Array
+                Tag.FirstInFirstOutLinked, // aka Queue as Linked List
+                Tag.HeapArray,
+                Tag.AvlTreeLinked,
+                Tag.RedBlackTreeLinked,
                 Tag.BTree,
                 Tag.SkipList,
-                Tag.Set,
+                Tag.SetHashArray,
+                Tag.SetHashLinked,
                 Tag.Map, // aka Dictionary
                 Tag.KdTree,
                 Tag.Omnitree,
@@ -50,7 +60,6 @@ namespace Towel_Benchmarking
                     var summary = BenchmarkRunner.Run(type);
                 }
             }
-            Console.ReadLine();
         }
     }
 
@@ -78,14 +87,17 @@ namespace Towel_Benchmarking
         Indexed, // aka Array
         AddableArray, // aka ListArray
         AddableLinked, // aka LinkedList
-        FirstInLastout, // aka Stack
-        FirstInFirstOut, // aka Queue
-        Heap,
-        AvlTree,
-        RedBlackTree,
+        FirstInFirstOutArray, // aka Queue as Array
+        FirstInFirstOutLinked, // aka Queue as Linked List
+        FirstInLastOutArray, // aka Stack as Array
+        FirstInLastOutLinked, // aka Stack as Linked List
+        HeapArray, // as Flattened Array
+        AvlTreeLinked,
+        RedBlackTreeLinked,
         BTree,
         SkipList,
-        Set,
+        SetHashArray,
+        SetHashLinked,
         Map, // aka Dictionary
         KdTree,
         Omnitree,
