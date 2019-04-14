@@ -8,8 +8,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.SetHashArray)]
     public class SetHashArray_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(AddCounts))]
         public int AddCount { get; set; }
+
+        public int[] AddCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Add()
@@ -26,8 +28,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.SetHashLinked)]
     public class SetHashLinked_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(AddCounts))]
         public int AddCount { get; set; }
+
+        public int[] AddCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Add()

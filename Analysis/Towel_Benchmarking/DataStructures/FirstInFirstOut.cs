@@ -9,8 +9,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.FirstInFirstOutArray)]
     public class FirstInFirstOutArray_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(EnqueueCounts))]
         public int EnqueueCount { get; set; }
+
+        public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Enqueue()
@@ -38,8 +40,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.FirstInFirstOutLinked)]
     public class FirstInFirstOutLinked_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(EnqueueCounts))]
         public int EnqueueCount { get; set; }
+
+        public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Enqueue()

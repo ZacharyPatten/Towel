@@ -9,8 +9,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.HeapArray)]
     public class HeapArray_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(EnqueueCounts))]
         public int EnqueueCount { get; set; }
+
+        public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Enqueue()

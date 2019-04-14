@@ -8,8 +8,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.RedBlackTreeLinked)]
     public class RedBlackTreeLinked_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(AddCounts))]
         public int AddCount { get; set; }
+
+        public int[] AddCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Add()

@@ -9,8 +9,9 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.AvlTreeLinked)]
     public class AvlTreeLinked_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(AddCounts))]
         public int AddCount { get; set; }
+        public int[] AddCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Add()

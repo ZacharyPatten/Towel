@@ -9,8 +9,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.FirstInLastOutArray)]
     public class FirstInLastOutArray_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(PushCounts))]
         public int PushCount { get; set; }
+
+        public int[] PushCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Push()
@@ -38,8 +40,10 @@ namespace Towel_Benchmarking.DataStructures
     [Benchmarks(Tag.DataStructures, Tag.FirstInLastOutLinked)]
     public class FirstInLastOutLinked_Benchmarks
     {
-        [Params(100, 100000)]
+        [ParamsSource(nameof(PushCounts))]
         public int PushCount { get; set; }
+
+        public int[] PushCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
         [Benchmark]
         public void Push()
