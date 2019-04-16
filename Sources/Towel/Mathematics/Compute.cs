@@ -1822,6 +1822,39 @@ namespace Towel.Mathematics
 
         #region Sine
 
+        /// <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="angle">The angle to compute the sine ratio of.</param>
+        /// <returns>The taylor series computed sine ratio of the provided angle.</returns>
+        public static T SineTaylorSeries<T>(Angle<T> angle)
+        {
+            // Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!)
+            // more terms in computation inproves accuracy
+
+            // Note: there is room for optimization (custom runtime compilation)
+
+            T x = angle[Angle.Units.Radians];
+            T sine = x;
+            T previous;
+            bool isAddTerm = false;
+            T i = Constant<T>.Three;
+            do
+            {
+                previous = sine;
+                if (isAddTerm)
+                {
+                    sine = Add(sine, Divide(Power(x, i), Factorial(i)));
+                }
+                else
+                {
+                    sine = Subtract(sine, Divide(Power(x, i), Factorial(i)));
+                }
+                isAddTerm = !isAddTerm;
+                i = Add(i, Constant<T>.Two);
+            } while (NotEqual(sine, previous));
+            return sine;
+        }
+
         /// <summary>Computes the sine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The angle to compute the sine ratio of.</param>

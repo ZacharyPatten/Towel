@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Towel.Mathematics;
+using Towel.Measurements;
 using static Towel.Mathematics.Compute;
 
 namespace Towel_Testing.Mathematics
@@ -463,6 +464,31 @@ namespace Towel_Testing.Mathematics
             Assert.IsFalse(EqualLeniency(0m, 2m, 1m));
             Assert.IsFalse(EqualLeniency(1m, 3m, 1m));
             Assert.IsFalse(EqualLeniency(2m, 4m, 1m));
+        }
+
+        [TestMethod]
+        public void SineTaylorSeries_Testing()
+        {
+            double sine_zero = SineTaylorSeries(new Angle<double>(0d, Angle.Units.Radians));
+            Assert.IsTrue(sine_zero == 0d);
+
+            double sine_pi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_pi, 0d, .00001d));
+
+            double sine_2pi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_2pi, 0d, .00001d));
+
+            double sine_halfPi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_halfPi, 1d, .00001d));
+
+            double sine_3halfsPi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_3halfsPi, -1d, .00001d));
+
+            double sine_neghalfPi = SineTaylorSeries(new Angle<double>(-Constant<double>.Pi / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_neghalfPi, -1d, .00001d));
+
+            double sine_neg3halfsPi = SineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(sine_neg3halfsPi, 1d, .00001d));
         }
     }
 }
