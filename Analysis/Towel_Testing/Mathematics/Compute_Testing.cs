@@ -490,5 +490,30 @@ namespace Towel_Testing.Mathematics
             double sine_neg3halfsPi = SineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
             Assert.IsTrue(EqualLeniency(sine_neg3halfsPi, 1d, .00001d));
         }
+
+        [TestMethod]
+        public void CosineTaylorSeries_Testing()
+        {
+            double cosine_zero = CosineTaylorSeries(new Angle<double>(0d, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_zero, 1d, .00001d));
+
+            double cosine_pi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_pi, -1d, .00001d));
+
+            double cosine_2pi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_2pi, 1d, .00001d));
+
+            double cosine_halfPi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_halfPi, 0d, .00001d));
+
+            double cosine_3halfsPi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_3halfsPi, 0d, .00001d));
+
+            double cosine_neghalfPi = CosineTaylorSeries(new Angle<double>(-Constant<double>.Pi / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_neghalfPi, 0d, .00001d));
+
+            double cosine_neg3halfsPi = CosineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
+            Assert.IsTrue(EqualLeniency(cosine_neg3halfsPi, 0d, .00001d));
+        }
     }
 }

@@ -1828,7 +1828,7 @@ namespace Towel.Mathematics
         /// <returns>The taylor series computed sine ratio of the provided angle.</returns>
         public static T SineTaylorSeries<T>(Angle<T> angle)
         {
-            // Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!)
+            // Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!) + ...
             // more terms in computation inproves accuracy
 
             // Note: there is room for optimization (custom runtime compilation)
@@ -1898,6 +1898,39 @@ namespace Towel.Mathematics
 
         #region Cosine
 
+        /// <summary>Computes the cosine ratio of an angle using the relative talor series. Accurate but slow.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="angle">The angle to compute the cosine ratio of.</param>
+        /// <returns>The taylor series computed cosine ratio of the provided angle.</returns>
+        public static T CosineTaylorSeries<T>(Angle<T> angle)
+        {
+            // Series: cosine(x) = 1 - (x^2 / 2!) + (x^4 / 4!) - (x^6 / 6!) + (x^8 / 8!) - ...
+            // more terms in computation inproves accuracy
+
+            // Note: there is room for optimization (custom runtime compilation)
+
+            T x = angle[Angle.Units.Radians];
+            T cosine = Constant<T>.One;
+            T previous;
+            bool isAddTerm = false;
+            T i = Constant<T>.Two;
+            do
+            {
+                previous = cosine;
+                if (isAddTerm)
+                {
+                    cosine = Add(cosine, Divide(Power(x, i), Factorial(i)));
+                }
+                else
+                {
+                    cosine = Subtract(cosine, Divide(Power(x, i), Factorial(i)));
+                }
+                isAddTerm = !isAddTerm;
+                i = Add(i, Constant<T>.Two);
+            } while (NotEqual(cosine, previous));
+            return cosine;
+        }
+
         /// <summary>Computes the cosine ratio of an angle using the system's cosine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The angle to compute the cosine ratio of.</param>
@@ -1921,6 +1954,15 @@ namespace Towel.Mathematics
         #endregion
 
         #region Tangent
+
+        /// <summary>Computes the tangent ratio of an angle using the relative talor series. Accurate but slow.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="angle">The angle to compute the tangent ratio of.</param>
+        /// <returns>The taylor series computed tangent ratio of the provided angle.</returns>
+        public static T TangentTaylorSeries<T>(Angle<T> a)
+        {
+            return Divide(SineTaylorSeries(a), CosineTaylorSeries(a));
+        }
 
         /// <summary>Computes the tangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
