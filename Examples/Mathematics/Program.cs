@@ -124,12 +124,16 @@ namespace Mathematics
 
             #region Trigonometry
 
-            //Console.WriteLine("  Trigonometry -----------------------------------------");
-            //Console.WriteLine();
+            Console.WriteLine("  Trigonometry -----------------------------------------");
+            Console.WriteLine();
+            
+            double randomDouble = random.NextDouble();
+            Angle<double> randomAngle = new Angle<double>(randomDouble, Angle.Units.Radians);
 
-            //Angle<double> testingAngle = Angle<double>.Factory_Degrees(90d);
+            Console.WriteLine("    SinTaylorSeries(" + randomAngle + ") = " + SineTaylorSeries(randomAngle));
+            Console.WriteLine("    CosinTaylorSeries(" + randomAngle + ") = " + CosineTaylorSeries(randomAngle));
 
-            //Console.WriteLine("    Sin(90degrees) = " + Sine(testingAngle));
+            Console.WriteLine();
 
             #endregion
 

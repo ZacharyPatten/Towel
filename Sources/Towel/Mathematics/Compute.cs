@@ -35,14 +35,20 @@ namespace Towel.Mathematics
 
         #region Pi
 
-        public static T Pi<T>(int maxIterations = 100)
+        public static T Pi<T>(Predicate<T> predicate = null)
         {
             // Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
             // more terms in computation inproves accuracy
 
+            if (predicate is null)
+            {
+                int iterations = 0;
+                predicate = PI => iterations < 100;
+            }
+
             T pi = Constant<T>.One;
             T previous = Constant<T>.Zero;
-            for (int i = 1; NotEqual(previous, pi) && i < maxIterations; i++)
+            for (int i = 1; NotEqual(previous, pi) && predicate(pi); i++)
             {
                 previous = pi;
                 pi = Constant<T>.One;
@@ -1825,8 +1831,9 @@ namespace Towel.Mathematics
         /// <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="angle">The angle to compute the sine ratio of.</param>
+        /// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
         /// <returns>The taylor series computed sine ratio of the provided angle.</returns>
-        public static T SineTaylorSeries<T>(Angle<T> angle, int maxIterations = 100)
+        public static T SineTaylorSeries<T>(Angle<T> angle, Predicate<T> predicate = null)
         {
             // Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!) + ...
             // more terms in computation inproves accuracy
@@ -1856,7 +1863,7 @@ namespace Towel.Mathematics
                 }
                 isAddTerm = !isAddTerm;
                 i = Add(i, Constant<T>.Two);
-            } while (NotEqual(sine, previous));
+            } while (NotEqual(sine, previous) && (predicate is null || !predicate(sine)));
             return sine;
         }
 
@@ -1906,8 +1913,9 @@ namespace Towel.Mathematics
         /// <summary>Computes the cosine ratio of an angle using the relative talor series. Accurate but slow.</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="angle">The angle to compute the cosine ratio of.</param>
+        /// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
         /// <returns>The taylor series computed cosine ratio of the provided angle.</returns>
-        public static T CosineTaylorSeries<T>(Angle<T> angle)
+        public static T CosineTaylorSeries<T>(Angle<T> angle, Predicate<T> predicate = null)
         {
             // Series: cosine(x) = 1 - (x^2 / 2!) + (x^4 / 4!) - (x^6 / 6!) + (x^8 / 8!) - ...
             // more terms in computation inproves accuracy
@@ -1937,7 +1945,7 @@ namespace Towel.Mathematics
                 }
                 isAddTerm = !isAddTerm;
                 i = Add(i, Constant<T>.Two);
-            } while (NotEqual(cosine, previous));
+            } while (NotEqual(cosine, previous) && (predicate is null || !predicate(cosine)));
             return cosine;
         }
 
