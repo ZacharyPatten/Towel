@@ -1826,7 +1826,7 @@ namespace Towel.Mathematics
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="angle">The angle to compute the sine ratio of.</param>
         /// <returns>The taylor series computed sine ratio of the provided angle.</returns>
-        public static T SineTaylorSeries<T>(Angle<T> angle)
+        public static T SineTaylorSeries<T>(Angle<T> angle, int maxIterations = 100)
         {
             // Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!) + ...
             // more terms in computation inproves accuracy
@@ -1838,16 +1838,21 @@ namespace Towel.Mathematics
             T previous;
             bool isAddTerm = false;
             T i = Constant<T>.Three;
+            T xSquared = Multiply(x, x);
+            T xRunningPower = x;
+            T xRunningFactorial = Constant<T>.One;
             do
             {
+                xRunningPower = Multiply(xRunningPower, xSquared);
+                xRunningFactorial = Multiply(xRunningFactorial, Multiply(i, Subtract(i, Constant<T>.One)));
                 previous = sine;
                 if (isAddTerm)
                 {
-                    sine = Add(sine, Divide(Power(x, i), Factorial(i)));
+                    sine = Add(sine, Divide(xRunningPower, xRunningFactorial));
                 }
                 else
                 {
-                    sine = Subtract(sine, Divide(Power(x, i), Factorial(i)));
+                    sine = Subtract(sine, Divide(xRunningPower, xRunningFactorial));
                 }
                 isAddTerm = !isAddTerm;
                 i = Add(i, Constant<T>.Two);
@@ -1912,18 +1917,23 @@ namespace Towel.Mathematics
             T x = angle[Angle.Units.Radians];
             T cosine = Constant<T>.One;
             T previous;
+            T xSquared = Multiply(x, x);
+            T xRunningPower = Constant<T>.One;
+            T xRunningFactorial = Constant<T>.One;
             bool isAddTerm = false;
             T i = Constant<T>.Two;
             do
             {
+                xRunningPower = Multiply(xRunningPower, xSquared);
+                xRunningFactorial = Multiply(xRunningFactorial, Multiply(i, Subtract(i, Constant<T>.One)));
                 previous = cosine;
                 if (isAddTerm)
                 {
-                    cosine = Add(cosine, Divide(Power(x, i), Factorial(i)));
+                    cosine = Add(cosine, Divide(xRunningPower, xRunningFactorial));
                 }
                 else
                 {
-                    cosine = Subtract(cosine, Divide(Power(x, i), Factorial(i)));
+                    cosine = Subtract(cosine, Divide(xRunningPower, xRunningFactorial));
                 }
                 isAddTerm = !isAddTerm;
                 i = Add(i, Constant<T>.Two);
