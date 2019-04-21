@@ -6,10 +6,6 @@
 
 Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
 
-Website: http://towelcode.com/
-
-Source Code: https://github.com/ZacharyPatten/Towel
-
 | Topic | Info |
 | :---    | :--- |
 | Website | http://towelcode.com/ |
