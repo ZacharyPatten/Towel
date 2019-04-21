@@ -10,7 +10,12 @@ Website: http://towelcode.com/
 
 Source Code: https://github.com/ZacharyPatten/Towel
 
-Build [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master)
+| Topic | Info |
+| :---    | :--- |
+| Website | http://towelcode.com/ |
+| GitHub  | https://github.com/ZacharyPatten/Towel|
+| Build   | [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master) |
+| NuGet   | [![nuget](https://img.shields.io/nuget/v/Towel.svg)](https://www.nuget.org/packages/Towel/) |
 
 *Many features are coded and working, but Towel is still in heavy development. It should be ready for its first release later this year. The website is also very new and lacking content.*
 
