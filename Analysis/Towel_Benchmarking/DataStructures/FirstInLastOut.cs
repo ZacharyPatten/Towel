@@ -17,7 +17,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Push()
         {
-            IFirstInLastOut<int> stack = new FirstInLastOutArray<int>();
+            IStack<int> stack = new StackArray<int>();
             int pushCount = PushCount;
             for (int i = 0; i < pushCount; i++)
             {
@@ -28,7 +28,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void PushWithCapacity()
         {
-            IFirstInLastOut<int> stack = new FirstInLastOutArray<int>(PushCount);
+            IStack<int> stack = new StackArray<int>(PushCount);
             int pushCount = PushCount;
             for (int i = 0; i < pushCount; i++)
             {
@@ -48,7 +48,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Push()
         {
-            IFirstInLastOut<int> stack = new FirstInLastOutLinked<int>();
+            IStack<int> stack = new StackLinked<int>();
             int pushCount = PushCount;
             for (int i = 0; i < pushCount; i++)
             {

@@ -15,7 +15,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Add()
         {
-            IAddable<int> addable = new AddableArray<int>();
+            IList<int> addable = new ListArray<int>();
             int addCount = AddCount;
             for (int i = 0; i < addCount; i++)
             {
@@ -26,7 +26,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void AddWithCapacity()
         {
-            IAddable<int> addable = new AddableArray<int>(AddCount);
+            IList<int> addable = new ListArray<int>(AddCount);
             int addCount = AddCount;
             for (int i = 0; i < addCount; i++)
             {
@@ -46,7 +46,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Add()
         {
-            IAddable<int> addable = new AddableLinked<int>();
+            IList<int> addable = new ListLinked<int>();
             int addCount = AddCount;
             for (int i = 0; i < addCount; i++)
             {

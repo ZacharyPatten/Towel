@@ -1,1 +1,0 @@
-A heap it a tree that stores values base of priority using vertical sifting algorithms.

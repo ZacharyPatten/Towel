@@ -3082,7 +3082,7 @@ namespace Towel.Mathematics
                 string operation = operationMatch_Value.Substring(0, operationMatch_Value.IndexOf('(') - 1);
                 Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
                 string parenthesisMatch_Value = parenthesisMatch.Value;
-                AddableArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
+                ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
 
                 switch (operandSplits.Count)
                 {
@@ -3140,9 +3140,9 @@ namespace Towel.Mathematics
             return false;
         }
 
-        internal static AddableArray<string> SplitOperands(string @string)
+        internal static ListArray<string> SplitOperands(string @string)
         {
-            AddableArray<string> operands = new AddableArray<string>();
+            ListArray<string> operands = new ListArray<string>();
             int scope = 0;
             int operandStart = 0;
             for (int i = 0; i < @string.Length; i++)

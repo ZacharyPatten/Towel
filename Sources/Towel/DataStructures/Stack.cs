@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>Implements a First-In-Last-Out stack data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface IFirstInLastOut<T> : IDataStructure<T>,
+    public interface IStack<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.ICountable,
         DataStructure.IClearable
@@ -27,7 +27,7 @@ namespace Towel.DataStructures
     /// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInLastOutLinked<T> : IFirstInLastOut<T>
+    public class StackLinked<T> : IStack<T>
     {
         internal Node _top;
         internal int _count;
@@ -53,7 +53,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates an instance of a stack.</summary>
         /// <runtime>θ(1)</runtime>
-        public FirstInLastOutLinked()
+        public StackLinked()
         {
             _top = null;
             _count = 0;
@@ -81,9 +81,9 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public FirstInLastOutLinked<T> Clone()
+        public StackLinked<T> Clone()
         {
-            FirstInLastOutLinked<T> clone = new FirstInLastOutLinked<T>();
+            StackLinked<T> clone = new StackLinked<T>();
             if (_count == 0)
             {
                 return clone;
@@ -266,7 +266,7 @@ namespace Towel.DataStructures
     /// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class FirstInLastOutArray<T> : IFirstInLastOut<T>
+    public class StackArray<T> : IStack<T>
     {
         private T[] _array;
         private int _count;
@@ -276,7 +276,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public FirstInLastOutArray()
+        public StackArray()
         {
             _array = new T[1];
             _count = 0;
@@ -286,7 +286,7 @@ namespace Towel.DataStructures
         /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
         /// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
         /// <remarks>Runtime: O(1).</remarks>
-        public FirstInLastOutArray(int minimumCapacity)
+        public StackArray(int minimumCapacity)
         {
             _array = new T[minimumCapacity];
             _count = 0;
@@ -353,9 +353,9 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public FirstInLastOutArray<T> Clone()
+        public StackArray<T> Clone()
         {
-            FirstInLastOutArray<T> clone = new FirstInLastOutArray<T>();
+            StackArray<T> clone = new StackArray<T>();
             clone._array = new T[this._array.Length];
             for (int i = 0; i < this._count; i++)
                 clone._array[i] = this._array[i];

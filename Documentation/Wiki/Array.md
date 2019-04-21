@@ -1,1 +1,0 @@
-An array is a contiguous fixed size data structure.

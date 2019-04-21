@@ -1,1 +1,0 @@
-A link is a small, fixed-sized data structure of varying but known types.

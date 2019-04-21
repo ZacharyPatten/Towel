@@ -432,7 +432,7 @@ namespace Towel.DataStructures
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
-            IFirstInLastOut<Link<Node, int, bool>> forks = new FirstInLastOutLinked<Link<Node, int, bool>>();
+            IStack<Link<Node, int, bool>> forks = new StackLinked<Link<Node, int, bool>>();
             forks.Push(new Link<Node, int, bool>(this._root, 0, false));
             while (forks.Count > 0)
             {

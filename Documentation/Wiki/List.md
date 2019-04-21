@@ -1,1 +1,0 @@
-A list is a data structure that grows as necessary to store data.

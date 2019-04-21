@@ -46,28 +46,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old Articles", "Old Article
 		Documentation\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html = Documentation\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{74960F24-8258-4A69-8E38-F5D84D7847C4}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Resources\Omnitree Example 1D.svg = Documentation\Resources\Omnitree Example 1D.svg
-		Documentation\Resources\Omnitree Example 2D.svg = Documentation\Resources\Omnitree Example 2D.svg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{859F1FD4-ED15-4D0B-A769-8465F4CEA7DE}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Wiki\_Sidebar.md = Documentation\Wiki\_Sidebar.md
-		Documentation\Wiki\Array.md = Documentation\Wiki\Array.md
-		Documentation\Wiki\AVL-Tree.md = Documentation\Wiki\AVL-Tree.md
-		Documentation\Wiki\Data-Structures.md = Documentation\Wiki\Data-Structures.md
-		Documentation\Wiki\Heap.md = Documentation\Wiki\Heap.md
-		Documentation\Wiki\Home.md = Documentation\Wiki\Home.md
-		Documentation\Wiki\Link.md = Documentation\Wiki\Link.md
-		Documentation\Wiki\List.md = Documentation\Wiki\List.md
-		Documentation\Wiki\Omnitree.md = Documentation\Wiki\Omnitree.md
-		Documentation\Wiki\Queue.md = Documentation\Wiki\Queue.md
-		Documentation\Wiki\Red-Black-Tree.md = Documentation\Wiki\Red-Black-Tree.md
-		Documentation\Wiki\Stack.md = Documentation\Wiki\Stack.md
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,8 +109,6 @@ Global
 		{CEFA125F-39A4-433C-AAED-36B61F7944A7} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{5712ADA4-33DC-4A63-8B38-C9564B02D414} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
 		{6F27F8BC-CB8E-4633-853A-C001E7222BF5} = {5712ADA4-33DC-4A63-8B38-C9564B02D414}
-		{74960F24-8258-4A69-8E38-F5D84D7847C4} = {5712ADA4-33DC-4A63-8B38-C9564B02D414}
-		{859F1FD4-ED15-4D0B-A769-8465F4CEA7DE} = {5712ADA4-33DC-4A63-8B38-C9564B02D414}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}

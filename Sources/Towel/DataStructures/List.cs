@@ -4,7 +4,7 @@ namespace Towel.DataStructures
 {
     /// <summary>A primitive dynamic sized data structure.</summary>
     /// <typeparam name="T">The type of items to store in the list.</typeparam>
-    public interface IAddable<T> : IDataStructure<T>,
+    public interface IList<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.IAddable<T>,
         DataStructure.ICountable,
@@ -35,7 +35,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]
-    public class AddableLinked<T> : IAddable<T>
+    public class ListLinked<T> : IList<T>
     {
         internal int _count;
         internal Node _head;
@@ -64,7 +64,7 @@ namespace Towel.DataStructures
         /// <summary>Creates an instance of a AddableLinked.</summary>
         /// <param name="equate">The equate delegate to be used by the structure.</param>
         /// <runtime>θ(1)</runtime>
-        public AddableLinked(Equate<T> equate)
+        public ListLinked(Equate<T> equate)
         {
             this._equate = equate;
             this._head = _tail = null;
@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates an instance of a AddableLinked.</summary>
         /// <runtime>θ(1)</runtime>
-        public AddableLinked() : this(Towel.Equate.Default) { }
+        public ListLinked() : this(Towel.Equate.Default) { }
 
         #endregion
 
@@ -134,7 +134,7 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public AddableLinked<T> Clone()
+        public ListLinked<T> Clone()
         {
             Node head = new Node(this._head.Value);
             Node current = this._head.Next;
@@ -145,7 +145,7 @@ namespace Towel.DataStructures
                 current_clone = current_clone.Next;
                 current = current.Next;
             }
-            AddableLinked<T> clone = new AddableLinked<T>();
+            ListLinked<T> clone = new ListLinked<T>();
             clone._head = head;
             clone._tail = current_clone;
             clone._count = this._count;
@@ -429,7 +429,7 @@ namespace Towel.DataStructures
     /// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
     /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     [Serializable]
-    public class AddableArray<T> : IAddable<T>
+    public class ListArray<T> : IList<T>
     {
         internal T[] _list;
         internal int _count;
@@ -439,17 +439,17 @@ namespace Towel.DataStructures
 
         /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public AddableArray() : this(1, Towel.Equate.Default<T>) { }
+        public ListArray() : this(1, Towel.Equate.Default<T>) { }
 
         /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
         /// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
         /// <remarks>Runtime: O(1).</remarks>
-        public AddableArray(int expectedCount) : this(expectedCount, Towel.Equate.Default) { }
+        public ListArray(int expectedCount) : this(expectedCount, Towel.Equate.Default) { }
 
         /// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
         /// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
         /// <remarks>Runtime: O(1).</remarks>
-        public AddableArray(int expectedCount, Equate<T> equate)
+        public ListArray(int expectedCount, Equate<T> equate)
         {
             if (expectedCount < 1)
                 throw new System.ArgumentOutOfRangeException("expectedCount", "expectedCount must be greater than 0");
@@ -458,7 +458,7 @@ namespace Towel.DataStructures
             _count = 0;
         }
 
-        internal AddableArray(AddableArray<T> listArray)
+        internal ListArray(ListArray<T> listArray)
         {
             this._list = new T[listArray._list.Length];
             for (int i = 0; i < this._list.Length; i++)
@@ -467,7 +467,7 @@ namespace Towel.DataStructures
             this._count = listArray._count;
         }
 
-        internal AddableArray(T[] list, int count, Equate<T> equate)
+        internal ListArray(T[] list, int count, Equate<T> equate)
         {
             this._list = list;
             this._count = count;
@@ -575,9 +575,9 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public AddableArray<T> Clone()
+        public ListArray<T> Clone()
         {
-            return new AddableArray<T>(this);
+            return new ListArray<T>(this);
         }
 
         #endregion

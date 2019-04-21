@@ -1062,7 +1062,7 @@ namespace Towel.DataStructures
 
         public IEnumerator<T> GetEnumerator()
         {
-            IFirstInLastOut<Node> forks = new FirstInLastOutLinked<Node>();
+            IStack<Node> forks = new StackLinked<Node>();
             Node current = _root;
             while (current != null || forks.Count > 0)
             {

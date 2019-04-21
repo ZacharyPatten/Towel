@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
-    /// <summary>Contiguous fixed-sized data structure.</summary>
+    /// <summary>An indexed fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface IIndexed<T, Index> : IDataStructure<T>
+    public interface IArray<T, Index> : IDataStructure<T>
     {
         #region Properties
 
@@ -20,16 +20,16 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    /// <summary>Contiguous fixed-sized data structure.</summary>
+    /// <summary>An indexed fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
-    public interface IIndexed<T> : IIndexed<T, int>
+    public interface IArray<T> : IArray<T, int>
     {
     }
 
     /// <summary>Contiguous fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
     [Serializable]
-    public class IndexedArray<T> : IIndexed<T>
+    public class Array<T> : IArray<T>
     {
         internal T[] _array;
 
@@ -38,7 +38,7 @@ namespace Towel.DataStructures
         /// <summary>Constructs an array that implements a traversal delegate function 
         /// which is an optimized "foreach" implementation.</summary>
         /// <param name="size">The length of the array in memory.</param>
-        public IndexedArray(int size)
+        public Array(int size)
         {
             if (size < 1)
                 throw new System.ArgumentOutOfRangeException("size of the array must be at least 1.");
@@ -47,7 +47,7 @@ namespace Towel.DataStructures
 
         /// <summary>Constructs by wrapping an existing array.</summary>
         /// <param name="array">The array to be wrapped.</param>
-        public IndexedArray(params T[] array)
+        public Array(params T[] array)
         {
             this._array = new T[array.Length];
             for (int i = 0; i < array.Length; i++)
@@ -85,13 +85,13 @@ namespace Towel.DataStructures
         /// <summary>Implicitly converts a C# System array into a Towel array.</summary>
         /// <param name="array">The array to be represented as a Towel array.</param>
         /// <returns>The array wrapped in a Towel array.</returns>
-        public static implicit operator IndexedArray<T>(T[] array)
+        public static implicit operator Array<T>(T[] array)
         {
-            return new IndexedArray<T>(array);
+            return new Array<T>(array);
         }
 
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        public static implicit operator T[] (IndexedArray<T> array)
+        public static implicit operator T[] (Array<T> array)
         {
             return array.ToArray();
         }
@@ -104,12 +104,9 @@ namespace Towel.DataStructures
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
-        public IndexedArray<T> Clone()
+        public Array<T> Clone()
         {
-            IndexedArray<T> clone = new IndexedArray<T>(_array.Length);
-            for (int i = 0; i < this._array.Length; i++)
-                clone._array[i] = this._array[i];
-            return clone;
+            return new Array<T>((T[])_array.Clone());
         }
 
         #endregion
@@ -117,56 +114,63 @@ namespace Towel.DataStructures
         #region Stepper And IEnumerable
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(Step<T> function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
         {
-
             for (int i = 0; i < _array.Length; i++)
-                function(_array[i]);
+            {
+                step(_array[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(StepRef<T> function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
         {
             for (int i = 0; i < _array.Length; i++)
-                function(ref _array[i]);
+            {
+                step(ref _array[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> function)
+        public StepStatus Stepper(StepBreak<T> step)
         {
             for (int i = 0; i < _array.Length; i++)
-                if (function(_array[i]) == StepStatus.Break)
+            {
+                if (step(_array[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepRefBreak<T> function)
+        public StepStatus Stepper(StepRefBreak<T> step)
         {
             for (int i = 0; i < _array.Length; i++)
-                if (function(ref _array[i]) == StepStatus.Break)
+            {
+                if (step(ref _array[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        System.Collections.IEnumerator
-            System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < _array.Length; i++)
-                yield return _array[i];
+            return ((IEnumerable<T>)_array).GetEnumerator();
         }
 
         #endregion
@@ -177,10 +181,7 @@ namespace Towel.DataStructures
         /// <returns>An array containing all the item in the structure.</returns>
         public T[] ToArray()
         {
-            T[] array = new T[this._array.Length];
-            for (int i = 0; i < this._array.Length; i++)
-                array[i] = this._array[i];
-            return array;
+            return _array;
         }
 
         #endregion
@@ -189,17 +190,12 @@ namespace Towel.DataStructures
     }
 
     // Goal: create an array that allows for a number of elements > Int.MaxValue
-    public class IndexedBigArray<T> : IEnumerable<T>
+    public class ArrayJagged<T> : IArray<T, ulong>
     {
-        // These need to be const so that the getter/setter get inlined by the JIT into 
-        // calling methods just like with a real array to have any chance of meeting our 
-        // performance goals.
-        //
         // BLOCK_SIZE must be a power of 2, and we want it to be big enough that we allocate
         // blocks in the large object heap so that they don’t move.
         internal const int BLOCK_SIZE = 524288;
         internal const int BLOCK_SIZE_LOG2 = 19;
-
 
         // Don’t use a multi-dimensional array here because then we can’t right size the last
         // block and we have to do range checking on our own and since there will then be 
@@ -207,7 +203,9 @@ namespace Towel.DataStructures
         internal T[][] _elements;
         internal ulong _length;
 
-        private IndexedBigArray(IndexedBigArray<T> bigArray)
+        #region Constructors
+
+        internal ArrayJagged(ArrayJagged<T> bigArray)
         {
             int numBlocks = (int)(bigArray.Length / BLOCK_SIZE);
             if ((ulong)(numBlocks * BLOCK_SIZE) < bigArray.Length)
@@ -222,13 +220,13 @@ namespace Towel.DataStructures
             }
         }
 
-        public IndexedBigArray(int size)
+        public ArrayJagged(int size)
             : this((ulong)size)
         { }
 
 
         // maximum BigArray size = BLOCK_SIZE * Int.MaxValue
-        public IndexedBigArray(ulong size)
+        public ArrayJagged(ulong size)
         {
             if (size == 0)
                 return;
@@ -251,6 +249,9 @@ namespace Towel.DataStructures
             _elements[numBlocks - 1] = new T[size % (ulong)BLOCK_SIZE];
         }
 
+        #endregion
+
+        #region Properties
 
         public ulong Length
         {
@@ -291,6 +292,87 @@ namespace Towel.DataStructures
             }
         }
 
+        #endregion
+
+        #region Methods
+
+        public ArrayJagged<T> Clone()
+        {
+            return new ArrayJagged<T>(this);
+        }
+
+        #region Stepper And IEnumerable
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
+        {
+            for (int i = 0; i < _elements.Length; i++)
+            {
+                T[] array = _elements[i];
+                int arrayLength = array.Length;
+                for (int j = 0; j < arrayLength; j++)
+                {
+                    step(array[j]);
+                }
+            }
+        }
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
+        {
+            for (int i = 0; i < _elements.Length; i++)
+            {
+                T[] array = _elements[i];
+                int arrayLength = array.Length;
+                for (int j = 0; j < arrayLength; j++)
+                {
+                    step(ref array[j]);
+                }
+            }
+        }
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepBreak<T> step)
+        {
+            for (int i = 0; i < _elements.Length; i++)
+            {
+                T[] array = _elements[i];
+                int arrayLength = array.Length;
+                for (int j = 0; j < arrayLength; j++)
+                {
+                    if (step(array[i]) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                }
+            }
+            return StepStatus.Continue;
+        }
+
+        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        /// <returns>The resulting status of the iteration.</returns>
+        public StepStatus Stepper(StepRefBreak<T> step)
+        {
+            for (int i = 0; i < _elements.Length; i++)
+            {
+                T[] array = _elements[i];
+                int arrayLength = array.Length;
+                for (int j = 0; j < arrayLength; j++)
+                {
+                    if (step(ref array[i]) == StepStatus.Break)
+                    {
+                        return StepStatus.Break;
+                    }
+                }
+            }
+            return StepStatus.Continue;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             foreach (T[] array in _elements)
@@ -313,20 +395,8 @@ namespace Towel.DataStructures
             }
         }
 
-        public void Stepper(Step<T> step)
-        {
-            foreach (T[] array in _elements)
-            {
-                foreach (T value in array)
-                {
-                    step(value);
-                }
-            }
-        }
+        #endregion
 
-        public IndexedBigArray<T> Clone()
-        {
-            return new IndexedBigArray<T>(this);
-        }
+        #endregion
     }
 }

@@ -575,7 +575,7 @@ namespace System
         /// <typeparam name="T">The generic type of the IList.</typeparam>
         /// <param name="random">The random algorithm for index generation.</param>
         /// <param name="iList">The structure to be shuffled.</param>
-        public static void Shuffle<T>(this Random random, IList<T> iList)
+        public static void Shuffle<T>(this Random random, Collections.Generic.IList<T> iList)
         {
             Sort.Shuffle(random, Accessor.Get(iList), Accessor.Assign(iList), 0, iList.Count);
         }

@@ -32,7 +32,7 @@ namespace Towel.DataStructures
     [Serializable]
     public class OrderListArray<T> : IOrder<T>
     {
-        internal AddableArray<T> _list;
+        internal ListArray<T> _list;
         internal Compare<T> _compare;
         
         #region Constructor
@@ -41,7 +41,7 @@ namespace Towel.DataStructures
         public OrderListArray()
         {
             this._compare = Towel.Compare.Default;
-            this._list = new AddableArray<T>();
+            this._list = new ListArray<T>();
         }
 
         /// <summary>Constructs a Order_ListArray.</summary>
@@ -49,7 +49,7 @@ namespace Towel.DataStructures
         public OrderListArray(Compare<T> compare)
         {
             this._compare = compare;
-            this._list = new AddableArray<T>();
+            this._list = new ListArray<T>();
         }
 
         #endregion
@@ -170,7 +170,7 @@ namespace Towel.DataStructures
     [Serializable]
     public class OrderListLinked<T> : IOrder<T>
     {
-        internal AddableLinked<T> _list;
+        internal ListLinked<T> _list;
         internal Compare<T> _compare;
 
         #region Constructors
@@ -180,7 +180,7 @@ namespace Towel.DataStructures
         public OrderListLinked(Compare<T> compare)
         {
             this._compare = compare;
-            this._list = new AddableLinked<T>();
+            this._list = new ListLinked<T>();
         }
 
         #endregion

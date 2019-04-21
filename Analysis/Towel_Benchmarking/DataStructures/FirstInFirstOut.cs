@@ -17,7 +17,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Enqueue()
         {
-            IFirstInFirstOut<int> queue = new FirstInFirstOutArray<int>();
+            IQueue<int> queue = new QueueArray<int>();
             int enqueueCount = EnqueueCount;
             for (int i = 0; i < enqueueCount; i++)
             {
@@ -28,7 +28,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void EnqueueWithCapacity()
         {
-            IFirstInFirstOut<int> queue = new FirstInFirstOutArray<int>(EnqueueCount);
+            IQueue<int> queue = new QueueArray<int>(EnqueueCount);
             int enqueueCount = EnqueueCount;
             for (int i = 0; i < enqueueCount; i++)
             {
@@ -48,7 +48,7 @@ namespace Towel_Benchmarking.DataStructures
         [Benchmark]
         public void Enqueue()
         {
-            IFirstInFirstOut<int> queue = new FirstInFirstOutLinked<int>();
+            IQueue<int> queue = new QueueLinked<int>();
             int enqueueCount = EnqueueCount;
             for (int i = 0; i < enqueueCount; i++)
             {

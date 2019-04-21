@@ -1,1 +1,0 @@
-A queue is a first-in-first-out data structure.

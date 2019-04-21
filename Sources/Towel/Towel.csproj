@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageProjectUrl>http://towelcode.com/</PackageProjectUrl>
+    <PackageIconUrl>http://towelcode.com/wp-content/uploads/2019/04/Towel-Icon.png</PackageIconUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags>mathematics,matrix,vector,quaternion,linear-algebra,linear-regression,data-structures,pathfinding,generic-mathematics,sorting-algorithms,avl-tree,graph-algorithms,octree,quadtree,omnitree,redblacktree,symbolic-computation,measurements,statistics,algorithms</PackageTags>
+    <PackageLicenseUrl>https://github.com/ZacharyPatten/Towel/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright (c) 2019 Zachary Patten</Copyright>
+    <Description>Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
+
+Generic mathematics, symbolic mathematics, generic path finding (graph search), sorting algorithms, extensions... Towel has low level topics that could help any program.</Description>
+    <PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
+    <Authors>Zachary Patten</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
