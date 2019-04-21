@@ -171,7 +171,7 @@ string ToEnglishWords(this decimal @decimal);
 
 You can chat the the developer(s) in Discord:
 
-Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="30" height="30" title="Discord" alt="Discord"></a>
+Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a>
 
  - Zachary Patten
    - sevenix.zp@gmail.com
