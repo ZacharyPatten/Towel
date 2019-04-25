@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Towel.DataStructures;
 using Towel.Mathematics;
 
@@ -64,6 +65,25 @@ namespace Extensions
             Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
             Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());
             Console.WriteLine();
+
+            #endregion
+
+            #region XML Code Documentation Via Reflection
+
+            Console.WriteLine("  XML Code Documentation Extensions------------");
+            Console.WriteLine();
+            Console.WriteLine("    You can access XML on source code via reflection");
+            Console.WriteLine("    using Towel's extension methods.");
+            Console.WriteLine();
+
+            // This function loads in XML documentation so you can access it via reflection.
+            System.Extensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
+
+            Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
+            Console.WriteLine(typeof(Compute).GetDocumentation());
+            Console.WriteLine();
+            Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
+            Console.WriteLine(typeof(Constant<float>).GetField(nameof(Constant<float>.Pi)).GetDocumentation());
 
             #endregion
 

@@ -1267,7 +1267,7 @@ namespace Towel.Mathematics
         #region ConcatenateRowWise
 
         /// <summary>Combines two matrices from left to right 
-		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
         /// <param name="c">The resulting matrix of the concatenation.</param>
@@ -1325,7 +1325,7 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Combines two matrices from left to right 
-		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <returns>The resulting matrix of the concatenation.</returns>
@@ -1337,7 +1337,7 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Combines two matrices from left to right 
-		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="b">The right matrix of the concatenation.</param>
         /// <param name="c">The resulting matrix of the concatenation.</param>
         public void ConcatenateRowWise(Matrix<T> b, ref Matrix<T> c)
@@ -1346,7 +1346,7 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Combines two matrices from left to right 
-		/// (result.Rows = left.Rows && result.Columns = left.Columns + right.Columns).</summary>
+		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <returns>The resulting matrix of the concatenation.</returns>
         public Matrix<T> ConcatenateRowWise(Matrix<T> b)

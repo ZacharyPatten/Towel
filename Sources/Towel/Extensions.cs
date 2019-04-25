@@ -5,6 +5,10 @@ using Towel.Algorithms;
 using Towel.DataStructures;
 using System.Linq;
 using Towel.Mathematics;
+using System.Xml;
+using System.IO;
+using System.Web;
+using System.Text.RegularExpressions;
 
 namespace System
 {
@@ -716,7 +720,12 @@ namespace System
                 {
                     typeToSring = typeToSring.Substring(typeToSring.LastIndexOf('+') + 1);
                 }
-                typeToSring = typeToSring.Substring(0, typeToSring.IndexOf('`')) + "<";
+                bool containsSquigly = false;
+                if (typeToSring.Contains('`'))
+                {
+                    typeToSring = typeToSring.Substring(0, typeToSring.IndexOf('`')) + "<";
+                    containsSquigly = true;
+                }
                 // generic string arguments
                 Type[] generics = type.GetGenericArguments();
                 for (int i = 0; i < generics.Length; i++)
@@ -725,9 +734,20 @@ namespace System
                     {
                         typeToSring += ", ";
                     }
-                    typeToSring += ConvertToCsharpSource(generics[i]);
+                    if (generics[i].DeclaringType == type)
+                    {
+                        typeToSring += generics[i].ToString();
+                    }
+                    else
+                    {
+                        typeToSring += ConvertToCsharpSource(generics[i]);
+                    }
                 }
-                result += typeToSring + ">";
+                result += typeToSring;
+                if (containsSquigly)
+                {
+                    result += ">";
+                }
             }
             return result;
         }
@@ -1087,6 +1107,154 @@ namespace System
         }
 
         #endregion
+
+        #endregion
+
+        #region XML Code Documentation
+
+        internal static Dictionary<string, string> loadedXmlDocumentation = new Dictionary<string, string>();
+
+        /// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+        /// <param name="xmlDocumentation">The content of the XML code documentation.</param>
+        public static void LoadXmlDocumentation(string xmlDocumentation)
+        {
+            using (XmlReader xmlReader = XmlReader.Create(new StringReader(xmlDocumentation)))
+            {
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
+                    {
+                        string raw_name = xmlReader["name"];
+                        loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+                    }
+                }
+            }
+        }
+
+        /// <summary>Clears the currently loaded XML documentation.</summary>
+        public static void ClearXmlDocumentation()
+        {
+            loadedXmlDocumentation.Clear();
+        }
+
+        /// <summary>Gets the XML documentation on a type.</summary>
+        /// <param name="type">The type to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the type.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this Type type)
+        {
+            string key = "T:" + Regex.Replace(type.FullName, @"\[.*\]", string.Empty).Replace('+', '.');
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on a method.</summary>
+        /// <param name="methodInfo">The method to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the method.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this MethodInfo methodInfo)
+        {
+            int genericParameterCounts = methodInfo.GetGenericArguments().Length;
+            ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+
+            string key = "M:" +
+                Regex.Replace(methodInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + methodInfo.Name +
+                (genericParameterCounts > 0 ? "`" + genericParameterCounts : string.Empty) +
+                (parameterInfos.Length > 0 ? "(" + string.Join(",", parameterInfos.Select(x => x.ParameterType.ToString())) + ")" : string.Empty);
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on a constructor.</summary>
+        /// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the constructor.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this ConstructorInfo constructorInfo)
+        {
+            ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
+
+            string key = "M:" +
+                Regex.Replace(constructorInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + ".#ctor" +
+                (parameterInfos.Length > 0 ? "(" + string.Join(",", parameterInfos.Select(x => x.ParameterType.ToString())) + ")" : string.Empty);
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on a property.</summary>
+        /// <param name="propertyInfo">The property to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the property.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this PropertyInfo propertyInfo)
+        {
+            string key = "P:" + Regex.Replace(propertyInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + propertyInfo.Name;
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on a field.</summary>
+        /// <param name="fieldInfo">The field to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the field.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this FieldInfo fieldInfo)
+        {
+            string key = "F:" + Regex.Replace(fieldInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + fieldInfo.Name;
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on an event.</summary>
+        /// <param name="eventInfo">The event to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the event.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this EventInfo eventInfo)
+        {
+            string key = "E:" + Regex.Replace(eventInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + eventInfo.Name;
+
+            loadedXmlDocumentation.TryGetValue(key, out string documentation);
+            return documentation;
+        }
+
+        /// <summary>Gets the XML documentation on a member.</summary>
+        /// <param name="memberInfo">The member to get the XML documentation of.</param>
+        /// <returns>The XML documentation on the member.</returns>
+        /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        public static string GetDocumentation(this MemberInfo memberInfo)
+        {
+            if (memberInfo.MemberType.HasFlag(MemberTypes.Field))
+            {
+                return ((FieldInfo)memberInfo).GetDocumentation();
+            }
+            else if (memberInfo.MemberType.HasFlag(MemberTypes.Property))
+            {
+                return ((PropertyInfo)memberInfo).GetDocumentation();
+            }
+            else if (memberInfo.MemberType.HasFlag(MemberTypes.Event))
+            {
+                return ((EventInfo)memberInfo).GetDocumentation();
+            }
+            else if (memberInfo.MemberType.HasFlag(MemberTypes.Constructor))
+            {
+                return ((ConstructorInfo)memberInfo).GetDocumentation();
+            }
+            else if (memberInfo.MemberType.HasFlag(MemberTypes.Method))
+            {
+                return ((MethodInfo)memberInfo).GetDocumentation();
+            }
+            else if (memberInfo.MemberType.HasFlag(MemberTypes.TypeInfo) ||
+                memberInfo.MemberType.HasFlag(MemberTypes.NestedType))
+            {
+                return ((TypeInfo)memberInfo).GetDocumentation();
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         #endregion
     }
