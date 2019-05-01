@@ -38,10 +38,6 @@
             <summary>Test H</summary>
             <param name="a">a</param>
         </member>
-        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodIn(System.Object@)">
-            <summary>Test I</summary>
-            <param name="a">a</param>
-        </member>
         <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1">
             <summary>Test J</summary>
             <typeparam name="A">A</typeparam>
