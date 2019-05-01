@@ -1155,13 +1155,78 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this MethodInfo methodInfo)
         {
-            int genericParameterCounts = methodInfo.GetGenericArguments().Length;
-            ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+            // Note: This method still needs more work
 
-            string key = "M:" +
-                Regex.Replace(methodInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + methodInfo.Name +
-                (genericParameterCounts > 0 ? "`" + genericParameterCounts : string.Empty) +
-                (parameterInfos.Length > 0 ? "(" + string.Join(",", parameterInfos.Select(x => x.ParameterType.ToString())) + ")" : string.Empty);
+            // Get The Full Name Of A Type Without The Assembly
+            string GetFormattedFullName(Type type)
+            {
+                string formattedFullName =
+                    type.FullName is null ?
+                    type.ToString() :
+                    Regex.Replace(type.FullName, @"\[.*\]", string.Empty);
+                return formattedFullName.Replace('+', '.');
+            }
+
+            // Process Parameters (Which In Turn Can Have Generic Parameters)
+            string ProcessParameterType(Type type, string genericParametersOnType)
+            {
+                //string parameter = Regex.Replace(GetFormattedFullName(type), @"`\d+|\[.*\]", string.Empty);
+                string parameter = Regex.Replace(GetFormattedFullName(type), @"`\d+", string.Empty);
+                Match genericParametersMatch = Regex.Match(genericParametersOnType, @"\[.*?\]");
+                if (genericParametersMatch.Success)
+                {
+                    parameter += genericParametersMatch.Value;
+                }
+                parameter.Replace('[', '{');
+                parameter.Replace(']', '}');
+                return parameter;
+            }
+
+            string key;
+            key = methodInfo.ToString();
+            key = key.Substring(key.IndexOf(' ') + 1);
+            key = GetFormattedFullName(methodInfo.DeclaringType) + "." + key;
+
+            // Convert All Parameters To Full Name Of Type
+            ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+            if (parameterInfos.Length > 0)
+            {
+                string parametersFull = Regex.Match(key, @"\(.*?\)").Value;
+                int genericParameterIndex = 0;
+                string[] genericParameters = parametersFull.Substring(1, parametersFull.Length - 2).Split(',');
+                string parametersFormated = "(" + string.Join(",", parameterInfos.Select(x =>
+                    ProcessParameterType(x.ParameterType, genericParameters[genericParameterIndex++]))) + ")";
+                parametersFormated = Regex.Replace(parametersFormated, @"``\d+", string.Empty);
+                key = key.Replace(parametersFull, parametersFormated); // NOTE BUG
+                key = key.Replace("&", "@");
+            }
+            else
+            {
+                key = key.Replace("()", string.Empty);
+            }
+
+            // Handle Generic Parameters
+            if (methodInfo.IsGenericMethod)
+            {
+                key = Regex.Replace(key, @"`\d+", string.Empty);
+                string genericsFull = Regex.Match(key, @"\[.*?\]").Value;
+                string[] generics = genericsFull.Substring(1, genericsFull.Length - 2).Split(',');
+                key = new Regex(Regex.Escape(genericsFull)).Replace(key, "``" + generics.Length, 1);
+                for (int i = 0; i < generics.Length; i++)
+                {
+                    string G = generics[i].Trim();
+                    key = Regex.Replace(key, @"\(\s*" + G, "(``" + i);
+                    key = Regex.Replace(key, @"\,\s*" + G, ",``" + i);
+                    key = Regex.Replace(key, @"\[\s*" + G, "[``" + i);
+                    key = Regex.Replace(key, @"\{\s*" + G, "{``" + i);
+                }
+                key = key.Replace("[", "{");
+                key = key.Replace("]", "}");
+            }
+
+            // Add The XML Prefix And Trim
+            key = "M:" + key;
+            key = Regex.Replace(key, @"\s+", string.Empty);
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;

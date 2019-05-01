@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Towel_Testing</name>
+    </assembly>
+    <members>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodReturns">
+            <summary>Test A</summary>
+            <returns>object</returns>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod">
+            <summary>Test B</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(System.Object)">
+            <summary>Test C</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(System.Object,System.Object)">
+            <summary>Test D</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(System.Object,System.Object,System.Object)">
+            <summary>Test E</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(System.Object[])">
+            <summary>Test F</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodOut(System.Object@)">
+            <summary>Test G</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodRef(System.Object@)">
+            <summary>Test H</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodIn(System.Object@)">
+            <summary>Test I</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1">
+            <summary>Test J</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1(``0)">
+            <summary>Test K</summary>
+            <typeparam name="A">A</typeparam>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1(``0,System.Object)">
+            <summary>Test L</summary>
+            <typeparam name="A">A</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``2(``0,``1)">
+            <summary>Test M</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``2(``1,``0)">
+            <summary>Test N</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+            <param name="b">b</param>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.NestedType.DocumentedMethod">
+            <summary>Test O</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.NestedGenericType`1.DocumentedMethod">
+            <summary>Test P</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(Towel_Testing.XmlDocumentationMethod.NestedType)">
+            <summary>Test Q</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1(Towel_Testing.XmlDocumentationMethod.NestedGenericType{``0})">
+            <summary>Test R</summary>
+            <typeparam name="A">A</typeparam>
+            <param name="a">a</param>
+        </member>
+    </members>
+</doc>
