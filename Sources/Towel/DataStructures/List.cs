@@ -393,35 +393,6 @@ namespace Towel.DataStructures
 
         #endregion
 
-        #region Serialization
-
-        //public string Serialize()
-        //{
-        //    return this.Serialize(0);
-        //}
-
-        //public string Serialize(int indentCount)
-        //{
-        //    string indent = "\t".Repeat(indentCount);
-        //    StringBuilder stringBuilder = new StringBuilder();
-        //    stringBuilder.AppendLine(string.Concat(indent, "<ListLinked<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">>"));
-        //    // <ListLinked<T>>
-        //    this.Stepper()
-
-
-
-
-        //    stringBuilder.AppendLine(string.Concat(indent, "</ListLinked<", Meta.ConvertTypeToCsharpSource(typeof(T)), ">>"));
-        //    // </ListLinked<T>>
-        //}
-
-        //public static ListLinked<T> Deserialize(string str)
-        //{
-
-        //}
-
-        #endregion
-
         #endregion
     }
 
