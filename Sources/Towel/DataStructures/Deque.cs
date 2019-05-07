@@ -12,7 +12,6 @@ namespace Towel.DataStructures
         void EnqueueBack(T enqueue);
         T DequeueFront();
         T PeekFront();
-        void Clear();
 
         #endregion
     }
@@ -32,13 +31,13 @@ namespace Towel.DataStructures
         [Serializable]
         private class Node
         {
-            private T _value;
-            private Node _next;
+            public T Value;
+            public Node Next;
 
-            internal T Value { get { return _value; } set { _value = value; } }
-            internal Node Next { get { return _next; } set { _next = value; } }
-
-            internal Node(T data) { _value = data; }
+            internal Node(T data)
+            {
+                Value = data;
+            }
         }
 
         #endregion
@@ -67,7 +66,7 @@ namespace Towel.DataStructures
 
         /// <summary>Adds an item to the back of the queue.</summary>
         /// <param name="enqueue">The item to add to the queue.</param>
-        /// <remarks>Runtime: O(1).</remarks>
+        /// <runtime>O(1)</runtime>
         public void EnqueueBack(T enqueue)
         {
             if (_tail == null)
@@ -78,11 +77,11 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Removes the oldest item in the queue.</summary>
-        /// <remarks>Runtime: O(1).</remarks>
+        /// <runtime>O(1)</runtime>
         public T DequeueFront()
         {
             if (_head == null)
-                throw new System.InvalidOperationException("Attempting to remove a non-existing id value.");
+                throw new InvalidOperationException("Attempting to remove a non-existing id value.");
             T value = _head.Value;
             if (_head == _tail)
                 _tail = null;
@@ -96,13 +95,13 @@ namespace Towel.DataStructures
         public T PeekFront()
         {
             if (_head == null)
-                throw new System.InvalidOperationException("Attempting to remove a non-existing id value.");
+                throw new InvalidOperationException("Attempting to remove a non-existing id value.");
             T returnValue = _head.Value;
             return returnValue;
         }
 
         /// <summary>Resets the queue to an empty state.</summary>
-        /// <remarks>Runtime: O(1).</remarks>
+        /// <runtime>O(1)</runtime>
         public void Clear()
         {
             _head = _tail = null;
@@ -111,7 +110,7 @@ namespace Towel.DataStructures
 
         /// <summary>Converts the list into a standard array.</summary>
         /// <returns>A standard array of all the items.</returns>
-        /// /// <remarks>Runtime: Towel(n).</remarks>
+        /// <runtime>O(n)</runtime>
         public T[] ToArray()
         {
             if (_count == 0)
@@ -126,7 +125,6 @@ namespace Towel.DataStructures
             return array;
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         System.Collections.IEnumerator
             System.Collections.IEnumerable.GetEnumerator()
         {
@@ -138,7 +136,6 @@ namespace Towel.DataStructures
             }
         }
 
-        /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         System.Collections.Generic.IEnumerator<T>
             System.Collections.Generic.IEnumerable<T>.GetEnumerator()
         {
@@ -156,7 +153,7 @@ namespace Towel.DataStructures
         /// <returns>true if the item is in this structure; false if not.</returns>
         public bool Contains(T item, Compare<T> compare)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>Checks to see if a given object is in this data structure.</summary>
@@ -166,49 +163,49 @@ namespace Towel.DataStructures
         /// <returns>true if the item is in this structure; false if not.</returns>
         public bool Contains<Key>(Key key, Compare<T, Key> compare)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(Step<T> function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
         {
             Node current = this._head;
             while (current != null)
             {
-                function(current.Value);
+                step(current.Value);
                 current = current.Next;
             }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(StepRef<T> function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> function)
+        public StepStatus Stepper(StepBreak<T> step)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepRefBreak<T> function)
+        public StepStatus Stepper(StepRefBreak<T> step)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>Creates a shallow clone of this data structure.</summary>
         /// <returns>A shallow clone of this data structure.</returns>
         public IDataStructure<T> Clone()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         #endregion

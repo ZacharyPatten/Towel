@@ -16,7 +16,7 @@ namespace Towel_Documentation
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // This program generates HTML from the XML documentation of the code in the Towel project.
 

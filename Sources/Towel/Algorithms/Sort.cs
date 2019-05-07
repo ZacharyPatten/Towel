@@ -11,7 +11,7 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
         public static void Bubble<T>(T[] array)
         {
-            Bubble(Compare.Default, array, 0, array.Length);
+            Bubble(Compare.Default, array);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
@@ -21,7 +21,7 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
         public static void Bubble<T>(Compare<T> compare, T[] array)
         {
-            Bubble(compare, array, 0, array.Length);
+            Bubble(compare, array, 0, array.Length - 1);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
@@ -48,9 +48,9 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
         public static void Bubble<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
-            for (int i = start; i < end; i++)
+            for (int i = start; i <= end; i++)
             {
-                for (int j = start; j < end - 1; j++)
+                for (int j = start; j <= end - 1; j++)
                 {
                     if (compare(get(j), get(j + 1)) == Comparison.Greater)
                     {
@@ -72,7 +72,7 @@
         /// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
         public static void Selection<T>(T[] array)
         {
-            Selection(Compare.Default, array, 0, array.Length);
+            Selection(Compare.Default, array);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -82,7 +82,7 @@
         /// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
         public static void Selection<T>(Compare<T> compare, T[] array)
         {
-            Selection(compare, array, 0, array.Length);
+            Selection(compare, array, 0, array.Length - 1);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -96,7 +96,7 @@
         {
             T get(int index) { return array[index]; }
             void set(int index, T value) { array[index] = value; }
-            Selection(compare, get, set, 0, array.Length);
+            Selection(compare, get, set, start, end);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -109,10 +109,10 @@
         /// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
         public static void Selection<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
-            for (int i = 0; i < end - 1; i++)
+            for (int i = start; i <= end; i++)
             {
                 int min_idx = i;
-                for (int j = i + 1; j < end; j++)
+                for (int j = i + 1; j <= end; j++)
                 {
                     if (compare(get(j), get(min_idx)) == Comparison.Less)
                     {
@@ -135,7 +135,7 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         public static void Insertion<T>(T[] array)
         {
-            Insertion(Compare.Default, array, 0, array.Length);
+            Insertion(Compare.Default, array);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -145,7 +145,7 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         public static void Insertion<T>(Compare<T> compare, T[] array)
         {
-            Insertion(compare, array, 0, array.Length);
+            Insertion(compare, array, 0, array.Length - 1);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -159,7 +159,7 @@
         {
             T get(int index) { return array[index]; }
             void set(int index, T value) { array[index] = value; }
-            Insertion(compare, get, set, 0, array.Length);
+            Insertion(compare, get, set, start, end);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -172,11 +172,11 @@
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         public static void Insertion<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
-            for (int i = start + 1; i < end; i++)
+            for (int i = start + 1; i <= end; i++)
             {
                 T temp = get(i);
-                int j;
-                for (j = i; j > start && compare(get(j - 1), temp) == Comparison.Greater; j--)
+                int j = i;
+                for (; j > start && compare(get(j - 1), temp) == Comparison.Greater; j--)
                 {
                     set(j, get(j - 1));
                 }
@@ -194,7 +194,7 @@
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
         public static void Quick<T>(T[] array)
         {
-            Quick(Compare.Default, array, 0, array.Length);
+            Quick(Compare.Default, array);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -204,7 +204,7 @@
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
         public static void Quick<T>(Compare<T> compare, T[] array)
         {
-            Quick(compare, array, 0, array.Length);
+            Quick(compare, array, 0, array.Length - 1);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -218,7 +218,7 @@
         {
             T get(int index) { return array[index]; }
             void set(int index, T value) { array[index] = value; }
-            Quick(compare, get, set, start, end - start);
+            Quick(compare, get, set, start, end);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -231,7 +231,7 @@
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
         public static void Quick<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
-            Quick_Recursive(compare, get, set, start, end - start);
+            Quick_Recursive(compare, get, set, start, end - start + 1);
         }
 
         private static void Quick_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
@@ -414,7 +414,7 @@
         {
             int left = (index + 1) * 2 - 1;
             int right = (index + 1) * 2;
-            int largest = 0;
+            int largest;
             if (left < heapSize && compare(get(left), get(index)) == Comparison.Greater)
             {
                 largest = left;
@@ -659,7 +659,7 @@
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         public static void Bogo<T>(T[] array)
         {
-            Bogo(Compare.Default, array, 0, array.Length);
+            Bogo(Compare.Default, array);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
@@ -669,7 +669,7 @@
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         public static void Bogo<T>(Compare<T> compare, T[] array)
         {
-            Bogo(compare, array, 0, array.Length);
+            Bogo(compare, array, 0, array.Length - 1);
         }
 
         /// <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
@@ -691,15 +691,15 @@
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         public static void Bogo<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
-            while (!BogoCheck(compare, get, set, start, end))
+            while (!BogoCheck(compare, get, start, end))
             {
                 Shuffle(get, set, start, end);
             }
         }
 
-        private static bool BogoCheck<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
+        private static bool BogoCheck<T>(Compare<T> compare, GetIndex<T> get, int start, int end)
         {
-            for (int i = start; i < end - 1; i++)
+            for (int i = start; i <= end - 1; i++)
             {
                 if (compare(get(i), get(i + 1)) == Comparison.Greater)
                 {
@@ -713,65 +713,65 @@
 
         #region Slow
 
-        /// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-        /// <typeparam name="T">The type of objects stored within the array.</typeparam>
-        /// <param name="array">The array to be sorted</param>
-        /// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        public static void Slow<T>(T[] array)
-        {
-            Slow(Compare.Default, array, 0, array.Length);
-        }
+        ///// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
+        ///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        ///// <param name="array">The array to be sorted</param>
+        ///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+        //public static void Slow<T>(T[] array)
+        //{
+        //    Slow(Compare.Default, array, 0, array.Length);
+        //}
 
-        /// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-        /// <typeparam name="T">The type of objects stored within the array.</typeparam>
-        /// <param name="compare">The method of compare for the sort.</param>
-        /// <param name="array">The array to be sorted</param>
-        /// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        public static void Slow<T>(Compare<T> compare, T[] array)
-        {
-            Slow(compare, array, 0, array.Length);
-        }
+        ///// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
+        ///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        ///// <param name="compare">The method of compare for the sort.</param>
+        ///// <param name="array">The array to be sorted</param>
+        ///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+        //public static void Slow<T>(Compare<T> compare, T[] array)
+        //{
+        //    Slow(compare, array, 0, array.Length);
+        //}
 
-        /// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-        /// <typeparam name="T">The type of objects stored within the array.</typeparam>
-        /// <param name="compare">The method of compare for the sort.</param>
-        /// <param name="array">The array to be sorted</param>
-        /// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        public static void Slow<T>(Compare<T> compare, T[] array, int start, int end)
-        {
-            T get(int index) { return array[index]; }
-            void set(int index, T value) { array[index] = value; }
-            Slow(compare, get, set, start, end);
-        }
+        ///// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
+        ///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        ///// <param name="compare">The method of compare for the sort.</param>
+        ///// <param name="array">The array to be sorted</param>
+        ///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+        //public static void Slow<T>(Compare<T> compare, T[] array, int start, int end)
+        //{
+        //    T get(int index) { return array[index]; }
+        //    void set(int index, T value) { array[index] = value; }
+        //    Slow(compare, get, set, start, end);
+        //}
 
-        /// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-        /// <typeparam name="T">The type of objects stored within the array.</typeparam>
-        /// <param name="compare">The method of compare for the sort.</param>
-        /// <param name="array">The array to be sorted</param>
-        /// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        public static void Slow<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
-        {
-            throw new System.NotImplementedException();
-            Slow_Recursive(compare, get, set, start, end);
-        }
+        ///// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
+        ///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        ///// <param name="compare">The method of compare for the sort.</param>
+        ///// <param name="array">The array to be sorted</param>
+        ///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+        //public static void Slow<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
+        //{
+        //    throw new System.NotImplementedException();
+        //    Slow_Recursive(compare, get, set, start, end);
+        //}
 
-        private static void Slow_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int i, int j)
-        {
-            if (i >= j)
-            {
-                return;
-            }
-            int m = (i + j) / 2;
-            Slow_Recursive(compare, get, set, i, m);
-            Slow_Recursive(compare, get, set, m + 1, j);
-            if (compare(get(m), get(j)) == Comparison.Less)
-            {
-                T temp = get(j);
-                set(j, get(m));
-                set(m, temp);
-            }
-            Slow_Recursive(compare, get, set, i, j - 1);
-        }
+        //private static void Slow_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int i, int j)
+        //{
+        //    if (i >= j)
+        //    {
+        //        return;
+        //    }
+        //    int m = (i + j) / 2;
+        //    Slow_Recursive(compare, get, set, i, m);
+        //    Slow_Recursive(compare, get, set, m + 1, j);
+        //    if (compare(get(m), get(j)) == Comparison.Less)
+        //    {
+        //        T temp = get(j);
+        //        set(j, get(m));
+        //        set(m, temp);
+        //    }
+        //    Slow_Recursive(compare, get, set, i, j - 1);
+        //}
 
         #endregion
     }

@@ -497,7 +497,7 @@ namespace Towel.DataStructures
             {
                 if (parent == null)
                 {
-                    value = default(T);
+                    value = default;
                     return false;
                 }
                 else if (AreEqual(point, this._locate(parent.Value)))
@@ -520,11 +520,10 @@ namespace Towel.DataStructures
         #region public T FindValueAt(Get<K> point)
         public T FindValueAt(GetIndex<K> point)
         {
-            T value;
-            if (TryFindValueAt(point, out value))
+            if (TryFindValueAt(point, out T value))
                 return value;
             else
-                return default(T);
+                return default;
         }
         #endregion
         #region public bool TryFindValue(T value, out Get<K> point)
@@ -566,8 +565,7 @@ namespace Towel.DataStructures
         #region public Get<K> FindValue(T value)
         public GetIndex<K> FindValue(T value)
         {
-            GetIndex<K> point;
-            if (TryFindValue(value, out point))
+            if (TryFindValue(value, out GetIndex<K> point))
                 return point;
             else
                 return null;
@@ -835,7 +833,7 @@ namespace Towel.DataStructures
         {
             TItem item = queue[0].Item;
 
-            queue[0].Item = default(TItem);
+            queue[0].Item = default;
             queue[0].Priority = this._minvalue;
 
             ReorderItem(0, 1);
@@ -909,7 +907,7 @@ namespace Towel.DataStructures
     public class NearestNeighbourList<TItem, TDistance> : INearestNeighbourList<TItem, TDistance>
     {
         Compare<TDistance> _compareKey;
-        TDistance _minValue;
+        private TDistance _minValue;
         private int maxCapacity;
         private PriorityQueue<TItem, TDistance> _queue;
 

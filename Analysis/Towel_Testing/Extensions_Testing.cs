@@ -5,6 +5,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
+#pragma warning disable IDE0060 // Suppress Compiler Messages (they are intentional for testing)
+
 namespace Towel_Testing
 {
     [TestClass]
@@ -109,8 +111,8 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         public void DocumentedMethodRef(ref object a) { }
 
-        /// <summary>Test I</summary>
-        /// <param name="a">a</param>
+        ///// <summary>Test I</summary>
+        ///// <param name="a">a</param>
         //public void DocumentedMethodIn(in object a) { }
 
         /// <summary>Test J</summary>
@@ -166,3 +168,5 @@ namespace Towel_Testing
 
     #endregion
 }
+
+#pragma warning restore IDE0060

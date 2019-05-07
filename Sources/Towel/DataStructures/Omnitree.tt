@@ -105,7 +105,7 @@ namespace Towel.DataStructures
 	  string chain_Equate_AxisX_equateX = "Equate<Axis1> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Equate<Axis" + j + "> equate" + j; }
 	  string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
 	  string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
-	  string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+	  //string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
  // DOCUMENTATION
 	  string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
 	  string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
@@ -1294,7 +1294,7 @@ namespace Towel.DataStructures
 				int index = (leaf.Count - 1) / 2;
 				return new Omnitree.Vector<<#= chain_AxisX #>>(values1[index]<# for (int j = 2; j <= i; j++) { #>, values<#= j #>[index]<# } #>);
 			}
-			catch (Exception exception)
+			catch //(Exception exception)
 			{
 				System.Diagnostics.Debugger.Break();
 				// extract the values<# for (int j = 1; j <= i; j++) { #>
@@ -3467,12 +3467,27 @@ namespace Towel.DataStructures
 		/// <param name="depth">The current depth of iteration.</param>
 		private int Update(Node node, int depth)
 		{
-			// I messed up this function in the conversion
-			throw new System.NotImplementedException();
-
 			int removals = 0;
 
-			if (!node.PointOfDivision.HasValue)
+			{
+				Node branch = node as Node;
+				int skipped = 0;
+				for (int i = 0; i + skipped < branch.Children.Length; )
+				{
+					removals += this.Update(branch.Children[i], depth + 1);
+					if (branch.Children[i].Count == 0)
+						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
+					else
+						i++;
+				}
+				Node[] newArray = new Node[branch.Children.Length - skipped];
+				Array.Copy(branch.Children, newArray, newArray.Length);
+				branch.Children = newArray;
+
+				if (branch.Count < _load && branch.Count != 0)
+					ShrinkChild(branch.Parent, branch.Index);
+			}
+
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
@@ -3502,31 +3517,9 @@ namespace Towel.DataStructures
 				HeadRemoved:
 					current = current.Next;
 				}
-				node.Count -= removals;
-				return removals;
 			}
-			else
-			{
-				Node branch = node as Node;
-				int skipped = 0;
-				for (int i = 0; i + skipped < branch.Children.Length; )
-				{
-					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
-						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
-					else
-						i++;
-				}
-				Node[] newArray = new Node[branch.Children.Length - skipped];
-				Array.Copy(branch.Children, newArray, newArray.Length);
-				branch.Children = newArray;
-
-				branch.Count -= removals;
-
-				if (branch.Count < _load && branch.Count != 0)
-					ShrinkChild(branch.Parent, branch.Index);
-			}
-
+			
+			node.Count -= removals;
 			return removals;
 		}
 
@@ -3556,15 +3549,30 @@ namespace Towel.DataStructures
 		}
 		private int Update(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node node, int depth)
 		{
-			// I messed up this function in the conversion
-			throw new System.NotImplementedException();
-
 			if (!InclusionCheck(bounds, node.Bounds))
 				return 0;
 
 			int removals = 0;
 
-			if (!node.PointOfDivision.HasValue)
+			{
+				Node branch = node as Node;
+				int skipped = 0;
+				for (int i = 0; i + skipped < branch.Children.Length; )
+				{
+					removals += this.Update(branch.Children[i], depth + 1);
+					if (branch.Children[i].Count == 0)
+						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
+					else
+						i++;
+				}
+				Node[] newArray = new Node[branch.Children.Length - skipped];
+				Array.Copy(branch.Children, newArray, newArray.Length);
+				branch.Children = newArray;
+
+				if (branch.Count < _load && branch.Count != 0)
+					ShrinkChild(branch.Parent, branch.Index);
+			}
+
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
@@ -3591,31 +3599,9 @@ namespace Towel.DataStructures
 				HeadRemoved:
 					current = current.Next;
 				}
-				node.Count -= removals;
-				return removals;
 			}
-			else
-			{
-				Node branch = node as Node;
-				int skipped = 0;
-				for (int i = 0; i + skipped < branch.Children.Length; )
-				{
-					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
-						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
-					else
-						i++;
-				}
-				Node[] newArray = new Node[branch.Children.Length - skipped];
-				Array.Copy(branch.Children, newArray, newArray.Length);
-				branch.Children = newArray;
-
-				branch.Count -= removals;
-
-				if (branch.Count < _load && branch.Count != 0)
-					ShrinkChild(branch.Parent, branch.Index);
-			}
-
+			
+			node.Count -= removals;
 			return removals;
 		}
 
@@ -3638,6 +3624,26 @@ namespace Towel.DataStructures
 		{
 			int removals = 0;
 
+			// children
+			if (node.Children != null)
+			{
+				int skipped = 0;
+				for (int i = 0; i + skipped < node.Children.Length; )
+				{
+					removals += this.Remove(node.Children[i], where);
+					if (node.Children[i].Count == 0)
+						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
+					else
+						i++;
+				}
+				Node[] newArray = new Node[node.Children.Length - skipped];
+				Array.Copy(node.Children, newArray, newArray.Length);
+				node.Children = newArray;
+
+				if (node.Count < _load && node.Count != 0)
+					ShrinkChild(node.Parent, node.Index);
+			}
+
 			// items
 			while (node.Head != null && where(node.Head.Value))
 			{
@@ -3656,29 +3662,8 @@ namespace Towel.DataStructures
 					}
 				}
 			}
+
 			node.Count -= removals;
-			
-			// children
-			if (node.Children != null)
-			{
-				int skipped = 0;
-				for (int i = 0; i + skipped < node.Children.Length; )
-				{
-					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
-						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
-					else
-						i++;
-				}
-				Node[] newArray = new Node[node.Children.Length - skipped];
-				Array.Copy(node.Children, newArray, newArray.Length);
-				node.Children = newArray;
-
-				node.Count -= removals;
-
-				if (node.Count < _load && node.Count != 0)
-					ShrinkChild(node.Parent, node.Index);
-			}
 			return removals;
 		}
 
@@ -3758,8 +3743,7 @@ namespace Towel.DataStructures
 					previous_node = temp_previous;
 					current_node = current_node.Next;
 				}
-				node.Count -= removals;
-				
+
 				// children
 				if (node.Children != null)
 				{
@@ -3776,7 +3760,6 @@ namespace Towel.DataStructures
 					Array.Copy(node.Children, newArray, newArray.Length);
 					node.Children = newArray;
 
-					node.Count -= removals;
 					// convert this branch back into a leaf
 					// Note: if count is zero, it will be chopped off
 					if (node.Count < _load && node.Count > 0)
@@ -3784,6 +3767,7 @@ namespace Towel.DataStructures
 				}
 			}
 			
+			node.Count -= removals;
 			return removals;
 		}
 
@@ -3859,7 +3843,6 @@ namespace Towel.DataStructures
 			HeadRemoved:
 				current = current.Next;
 			}
-			node.Count -= removals;
 
 			// children
 			if (node.Children != null)
@@ -3877,11 +3860,11 @@ namespace Towel.DataStructures
 				Array.Copy(node.Children, newArray, newArray.Length);
 				node.Children = newArray;
 
-				node.Count -= removals;
-
 				if (node.Count < _load && node.Count != 0)
 					ShrinkChild(node.Parent, node.Index);
 			}
+
+			node.Count -= removals;
 			return removals;
 		}
 

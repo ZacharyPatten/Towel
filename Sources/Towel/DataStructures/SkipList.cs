@@ -101,13 +101,10 @@ namespace Towel.DataStructures
         private class SkipListEnumerator : System.Collections.IDictionaryEnumerator
         {
             // The skip list to enumerate.
-            private SkipListLinked<T> _skiplist;
+            private readonly SkipListLinked<T> _skiplist;
 
             // The current node.
             private Node _current;
-
-            // The version of the skip list we are enumerating.
-            private long _version;
 
             // Keeps track of previous move result so that we can know 
             // whether or not we are at the end of the skip list.
@@ -133,7 +130,7 @@ namespace Towel.DataStructures
                     if (_current == _skiplist.header)
                     {
                         //string msg = list.resManager.GetString("BadEnumAccess");
-                        throw new System.Exception("BadEnumAccess");
+                        throw new Exception("BadEnumAccess");
                     }
                     // Finally, all checks have passed. Get the current entry.
                     else
@@ -197,9 +194,8 @@ namespace Towel.DataStructures
             get
             {
                 object val = null;
-                Node curr;
 
-                if (Search(key, out curr))
+                if (Search(key, out Node curr))
                 {
                     val = curr.entry.Value;
                 }
@@ -209,10 +205,9 @@ namespace Towel.DataStructures
             set
             {
                 Node[] update = new Node[MaxLevel];
-                Node curr;
 
                 // If the search key already exists in the skip list.
-                if (Search(key, out curr, update))
+                if (Search(key, out Node curr, update))
                 {
                     // Replace the current value with the new value.
                     curr.entry.Value = value;
@@ -450,10 +445,8 @@ namespace Towel.DataStructures
         /// </returns>
         private bool Search(object key)
         {
-            Node curr;
             Node[] dummy = new Node[MaxLevel];
-
-            return Search(key, out curr, dummy);
+            return Search(key, out Node curr, dummy);
         }
         #endregion
         #region private bool Search(object key, out Node curr)
@@ -493,9 +486,7 @@ namespace Towel.DataStructures
         /// </returns>
         private bool Search(object key, Node[] update)
         {
-            Node curr;
-
-            return Search(key, out curr, update);
+            return Search(key, out Node curr, update);
         }
         #endregion
         #region private bool Search(object key, out Node curr, Node[] update)

@@ -8,7 +8,7 @@ namespace Towel_Benchmarking
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {
