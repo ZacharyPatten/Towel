@@ -497,7 +497,7 @@ namespace Towel.DataStructures
             {
                 if (parent == null)
                 {
-                    value = default;
+                    value = default(T);
                     return false;
                 }
                 else if (AreEqual(point, this._locate(parent.Value)))
@@ -523,7 +523,7 @@ namespace Towel.DataStructures
             if (TryFindValueAt(point, out T value))
                 return value;
             else
-                return default;
+                return default(T);
         }
         #endregion
         #region public bool TryFindValue(T value, out Get<K> point)
@@ -833,7 +833,7 @@ namespace Towel.DataStructures
         {
             TItem item = queue[0].Item;
 
-            queue[0].Item = default;
+            queue[0].Item = default(TItem);
             queue[0].Priority = this._minvalue;
 
             ReorderItem(0, 1);
