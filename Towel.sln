@@ -38,15 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Exte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{5712ADA4-33DC-4A63-8B38-C9564B02D414}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old Articles", "Old Articles", "{6F27F8BC-CB8E-4633-853A-C001E7222BF5}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Old Articles\2014 Omnitree Article from Codeproject.html = Documentation\Old Articles\2014 Omnitree Article from Codeproject.html
-		Documentation\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html = Documentation\Old Articles\2015 Generic Mathematics in C# Article from Codeproject.html
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towel_Documentation", "Analysis\Towel_Documentation\Towel_Documentation.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documentation", "Analysis\Towel_Documentation\Towel_Documentation.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,8 +105,6 @@ Global
 		{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{CEFA125F-39A4-433C-AAED-36B61F7944A7} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
-		{5712ADA4-33DC-4A63-8B38-C9564B02D414} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
-		{6F27F8BC-CB8E-4633-853A-C001E7222BF5} = {5712ADA4-33DC-4A63-8B38-C9564B02D414}
 		{6D530E88-E507-4F83-889C-47FB888021BA} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
