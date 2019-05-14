@@ -482,33 +482,6 @@
             <param name="array">The array to be sorted.</param>
             <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(``0[])">
-            <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(Towel.Compare{``0},``0[])">
-            <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The method of compare for the sort.</param>
-            <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
-            <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The method of compare for the sort.</param>
-            <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
-            <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The method of compare for the sort.</param>
-            <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
-        </member>
         <member name="T:Towel.Comparison">
             <summary>Comparison operator between two operands in a logical expression.</summary>
         </member>
@@ -1278,11 +1251,11 @@
         <member name="M:Towel.DataStructures.DequeLinked`1.EnqueueBack(`0)">
             <summary>Adds an item to the back of the queue.</summary>
             <param name="enqueue">The item to add to the queue.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.DequeueFront">
             <summary>Removes the oldest item in the queue.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.PeekFront">
             <summary>Looks at the front-most value.</summary>
@@ -1290,18 +1263,12 @@
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Clear">
             <summary>Resets the queue to an empty state.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.ToArray">
             <summary>Converts the list into a standard array.</summary>
             <returns>A standard array of all the items.</returns>
-            /// <remarks>Runtime: Towel(n).</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <runtime>O(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Contains(`0,Towel.Compare{`0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
@@ -1318,20 +1285,20 @@
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Clone">
@@ -14351,10 +14318,32 @@
             <param name="column">The restricted column to form the minor.</param>
             <returns>The minor of the matrix.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)" -->
-        <!-- Badly formed XML comment ignored for member "M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0})" -->
-        <!-- Badly formed XML comment ignored for member "M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)" -->
-        <!-- Badly formed XML comment ignored for member "M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0})" -->
+        <member name="M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
+            <summary>Combines two matrices from left to right 
+            (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
+            <param name="a">The left matrix of the concatenation.</param>
+            <param name="b">The right matrix of the concatenation.</param>
+            <param name="c">The resulting matrix of the concatenation.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0})">
+            <summary>Combines two matrices from left to right 
+            (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
+            <param name="a">The left matrix of the concatenation.</param>
+            <param name="b">The right matrix of the concatenation.</param>
+            <returns>The resulting matrix of the concatenation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
+            <summary>Combines two matrices from left to right 
+            (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
+            <param name="b">The right matrix of the concatenation.</param>
+            <param name="c">The resulting matrix of the concatenation.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0})">
+            <summary>Combines two matrices from left to right 
+            (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
+            <param name="b">The right matrix of the concatenation.</param>
+            <returns>The resulting matrix of the concatenation.</returns>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.Echelon(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
             <summary>Calculates the echelon of a matrix (aka REF).</summary>
             <param name="a">The matrix to calculate the echelon of (aka REF).</param>
