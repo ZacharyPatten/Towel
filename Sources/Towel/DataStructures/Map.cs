@@ -207,7 +207,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n), Omega(1).</remarks>
         public void Add(K key, T value)
         {
-            if (key is null)
+            if (object.ReferenceEquals(key, null))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -355,7 +355,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
         internal void Remove_private(K key)
         {
-            if (key is null)
+            if (object.ReferenceEquals(key, null))
             {
                 throw new ArgumentNullException(nameof(key));
             }
