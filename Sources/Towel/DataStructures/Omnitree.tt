@@ -603,7 +603,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, <#= chain_AxisX #>> locate,
 			Equate<T> equate,
 <# for (int j = 1; j <= i; j++) { #>
@@ -2611,7 +2611,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,
 			Equate<T> equate,
 <# for (int j = 1; j <= i; j++) { #>

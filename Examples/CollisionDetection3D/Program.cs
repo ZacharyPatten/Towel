@@ -27,7 +27,7 @@ namespace CollisionDetection3D
                 //"OpenTK project. :)";
             MessageBox.Show(message);
 
-            using (var window = new Window())
+            using (var window = new Window(1000, 1000, "Collision Detection 3D Example"))
             {
                 window.Run(120.0);
             }

@@ -1972,7 +1972,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1> locate,
 			Equate<T> equate,
 
@@ -4017,7 +4017,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2> locate,
 			Equate<T> equate,
 
@@ -6323,7 +6323,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
 			Equate<T> equate,
 
@@ -8890,7 +8890,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> locate,
 			Equate<T> equate,
 
@@ -11718,7 +11718,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> locate,
 			Equate<T> equate,
 
@@ -14807,7 +14807,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> locate,
 			Equate<T> equate,
 
@@ -18157,7 +18157,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreePointsLinked(
+		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> locate,
 			Equate<T> equate,
 
@@ -21438,7 +21438,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1> getBounds,
 			Equate<T> equate,
 
@@ -23470,7 +23470,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2> getBounds,
 			Equate<T> equate,
 
@@ -25805,7 +25805,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3> getBounds,
 			Equate<T> equate,
 
@@ -28443,7 +28443,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> getBounds,
 			Equate<T> equate,
 
@@ -31384,7 +31384,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> getBounds,
 			Equate<T> equate,
 
@@ -34628,7 +34628,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> getBounds,
 			Equate<T> equate,
 
@@ -38175,7 +38175,7 @@ namespace Towel.DataStructures
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
-		private OmnitreeBoundsLinked(
+		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> getBounds,
 			Equate<T> equate,
 
