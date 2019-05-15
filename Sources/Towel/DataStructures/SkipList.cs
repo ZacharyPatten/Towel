@@ -462,7 +462,6 @@ namespace Towel.DataStructures
         /// <returns>
         /// Returns true if the specified key is in the SkipList.
         /// </returns>
-        /// <remarks>
         private bool Search(object key, out Node curr)
         {
             Node[] dummy = new Node[MaxLevel];

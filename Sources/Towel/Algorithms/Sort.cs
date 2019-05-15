@@ -272,7 +272,6 @@
 
         /// <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
-        /// <param name="compare">Returns zero or negative if the left is less than or equal to the right.</param>
         /// <param name="array">The array to be sorted</param>
         /// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
         public static void Merge<T>(T[] array)
@@ -463,6 +462,8 @@
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
         /// <param name="compare">The method of compare for the sort.</param>
         /// <param name="array">The array to be sorted</param>
+        /// <param name="start">The starting index of the sort.</param>
+        /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         public static void OddEven<T>(Compare<T> compare, T[] array, int start, int end)
         {
@@ -476,6 +477,8 @@
         /// <param name="compare">The method of compare for the sort.</param>
         /// <param name="get">Delegate for getting a value at a specified index.</param>
         /// <param name="set">Delegate for setting a value at a specified index.</param>
+        /// <param name="start">The starting index of the sort.</param>
+        /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         public static void OddEven<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {
@@ -579,6 +582,7 @@
 
         /// <summary>Sorts an entire array in a randomized order.</summary>
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        /// <param name="random">The random to shuffle with.</param>
         /// <param name="array">The aray to shuffle.</param>
         /// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
         public static void Shuffle<T>(System.Random random, T[] array)
@@ -597,8 +601,11 @@
 
         /// <summary>Sorts an entire array in a randomized order.</summary>
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        /// <param name="random">The random to shuffle with.</param>
         /// <param name="array">The array to shuffle.</param>
-        /// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+        /// <param name="start">The starting index of the shuffle.</param>
+        /// <param name="end">The ending index of the shuffle.</param>
+        /// <runtime>O(n)</runtime>
         public static void Shuffle<T>(System.Random random, T[] array, int start, int end)
         {
             T get(int index) { return array[index]; }
@@ -633,6 +640,7 @@
 
         /// <summary>Sorts an entire array in a randomized order.</summary>
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
+        /// <param name="random">The random to shuffle with.</param>
         /// <param name="get">The get accessor of the structure to shuffle.</param>
         /// <param name="set">The set accessor of the structure to shuffle.</param>
         /// <param name="start">The starting index of the shuffle.</param>
@@ -676,6 +684,8 @@
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
         /// <param name="compare">The method of compare for the sort.</param>
         /// <param name="array">The array to be sorted.</param>
+        /// <param name="start">The starting index of the sort.</param>
+        /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         public static void Bogo<T>(Compare<T> compare, T[] array, int start, int end)
         {
@@ -687,7 +697,10 @@
         /// <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
         /// <typeparam name="T">The type of objects stored within the array.</typeparam>
         /// <param name="compare">The method of compare for the sort.</param>
-        /// <param name="array">The array to be sorted.</param>
+        /// <param name="get">Delegate for getting a value at a specified index.</param>
+        /// <param name="set">Delegate for setting a value at a specified index.</param>
+        /// <param name="start">The starting index of the sort.</param>
+        /// <param name="end">The ending index of the sort.</param>
         /// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         public static void Bogo<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
         {

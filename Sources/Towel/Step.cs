@@ -72,55 +72,67 @@ namespace Towel
 
     #region <T1, T2>
 
-    /// <summary>Delegate for data structure iteration.</summary>
-    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <summary>Delegate for an action to perform while stepping.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="a">The first component of the step.</param>
+    /// <param name="b">The second component of the step.</param>
     [Serializable]
     public delegate void Step<T1, T2>(T1 a, T2 b);
 
-    /// <summary>Delegate for data structure iteration.</summary>
-    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <summary>Delegate for an action to perform while stepping.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="a">The first component of the step.</param>
+    /// <param name="b">The second component of the step.</param>
     [Serializable]
     public delegate void StepRef<T1, T2>(ref T1 a, ref T2 b);
 
-    /// <summary>Delegate for data structure iteration.</summary>
-    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <summary>Delegate for an action to perform while stepping.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="a">The first component of the step.</param>
+    /// <param name="b">The second component of the step.</param>
     /// <returns>The status of the iteration. Allows breaking functionality.</returns>
     [Serializable]
     public delegate StepStatus StepBreak<T1, T2>(T1 a, T2 b);
 
-    /// <summary>Delegate for data structure iteration.</summary>
-    /// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-    /// <param name="current">The current instance of iteration through the data structure.</param>
+    /// <summary>Delegate for an action to perform while stepping.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="a">The first component of the step.</param>
+    /// <param name="b">The second component of the step.</param>
     /// <returns>The status of the iteration. Allows breaking functionality.</returns>
     [Serializable]
     public delegate StepStatus StepRefBreak<T1, T2>(ref T1 a, ref T2 b);
 
-    /// <summary>Delegate for a traversal function on a data structure.</summary>
-    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-    /// <param name="step">The foreach function to perform on each iteration.</param>
+    /// <summary>Delegate for stepping through a collection.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="step">The action to perform on every step.</param>
     [Serializable]
     public delegate void Stepper<T1, T2>(Step<T1, T2> step);
 
-    /// <summary>Delegate for a traversal function on a data structure.</summary>
-    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-    /// <param name="step">The foreach function to perform on each iteration.</param>
+    /// <summary>Delegate for stepping through a collection.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="step">The action to perform on every step.</param>
     [Serializable]
     public delegate void StepperRef<T1, T2>(StepRef<T1, T2> step);
 
-    /// <summary>Delegate for a traversal function on a data structure.</summary>
-    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-    /// <param name="step">The foreach function to perform on each iteration.</param>
+    /// <summary>Delegate for stepping through a collection.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="step">The action to perform on every step.</param>
     [Serializable]
     public delegate void StepperBreak<T1, T2>(StepBreak<T1, T2> step);
 
-    /// <summary>Delegate for a traversal function on a data structure.</summary>
-    /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-    /// <param name="step">The foreach function to perform on each iteration.</param>
+    /// <summary>Delegate for stepping through a collection.</summary>
+    /// <typeparam name="T1">The type of the object to step on.</typeparam>
+    /// <typeparam name="T2">The type of the object to step on.</typeparam>
+    /// <param name="step">The action to perform on every step.</param>
     [Serializable]
-    public delegate void StepperRefBreak<T1, T2>(StepRefBreak<T1, T2> stepn);
+    public delegate void StepperRefBreak<T1, T2>(StepRefBreak<T1, T2> step);
 
     #endregion
 

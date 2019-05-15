@@ -14,6 +14,21 @@
             <param name="index">The index to set the value of.</param>
             <param name="value">The value to set at the given index.</param>
         </member>
+        <member name="T:Towel.Accessor">
+            <summary>Static class containing extensions for converting IList indexers to delegates.</summary>
+        </member>
+        <member name="M:Towel.Accessor.Get``1(System.Collections.Generic.IList{``0})">
+            <summary>Converts the get indexer of an IList to a delegate.</summary>
+            <typeparam name="T">The generic type of the IList.</typeparam>
+            <param name="ilist">The IList to retrieve the get delegate of.</param>
+            <returns>A delegate for getting an indexed value in the IList.</returns>
+        </member>
+        <member name="M:Towel.Accessor.Assign``1(System.Collections.Generic.IList{``0})">
+            <summary>Converts the set indexer of an IList to a delegate.</summary>
+            <typeparam name="T">The generic type of the IList.</typeparam>
+            <param name="ilist">The IList to retrieve the set delegate of.</param>
+            <returns>A delegate for setting an indexed value in the IList.</returns>
+        </member>
         <member name="T:Towel.Algorithms.Arbitrary">
              <summary>
              
@@ -53,7 +68,7 @@
         <member name="T:Towel.Algorithms.Search">
             <summary>Static class taht constains algorithms for searching.</summary>
         </member>
-        <member name="M:Towel.Algorithms.Search.Binary``1(Towel.GetIndex{``0},System.Int32,Towel.CompareToExpectedValue{``0})">
+        <member name="M:Towel.Algorithms.Search.Binary``1(Towel.GetIndex{``0},System.Int32,Towel.CompareToKnownValue{``0})">
             <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
             <param name="get">Indexer delegate.</param>
             <param name="length">The number of indexed items.</param>
@@ -321,7 +336,6 @@
         <member name="M:Towel.Algorithms.Sort.Merge``1(``0[])">
             <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">Returns zero or negative if the left is less than or equal to the right.</param>
             <param name="array">The array to be sorted</param>
             <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
         </member>
@@ -401,6 +415,8 @@
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
             <param name="array">The array to be sorted</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         </member>
         <member name="M:Towel.Algorithms.Sort.OddEven``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
@@ -409,11 +425,14 @@
             <param name="compare">The method of compare for the sort.</param>
             <param name="get">Delegate for getting a value at a specified index.</param>
             <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,``0[])">
             <summary>Sorts an entire array in a randomized order.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="random">The random to shuffle with.</param>
             <param name="array">The aray to shuffle.</param>
             <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
         </member>
@@ -426,8 +445,11 @@
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="random">The random to shuffle with.</param>
             <param name="array">The array to shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <param name="start">The starting index of the shuffle.</param>
+            <param name="end">The ending index of the shuffle.</param>
+            <runtime>O(n)</runtime>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
@@ -449,6 +471,7 @@
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="random">The random to shuffle with.</param>
             <param name="get">The get accessor of the structure to shuffle.</param>
             <param name="set">The set accessor of the structure to shuffle.</param>
             <param name="start">The starting index of the shuffle.</param>
@@ -473,13 +496,18 @@
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
             <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bogo``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
-            <param name="array">The array to be sorted.</param>
+            <param name="get">Delegate for getting a value at a specified index.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         </member>
         <member name="T:Towel.Comparison">
@@ -509,8 +537,19 @@
             <param name="right">The right operand of the comparison.</param>
             <returns>The Comparison operator between the operands to form a true logic statement.</returns>
         </member>
+        <member name="T:Towel.CompareToKnownValue`1">
+            <summary>Delegate for comparing a value to a known value.</summary>
+            <typeparam name="T">The generic types to compare.</typeparam>
+            <param name="value">The value to compare to the known value.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
         <member name="T:Towel.Compare">
             <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
+        </member>
+        <member name="M:Towel.Compare.Wrap(System.Int32)">
+            <summary>Converts an int into a comparison.</summary>
+            <param name="comparison">The integer comparison result to convert into a Comparison.</param>
+            <returns>The converted Comparison value.</returns>
         </member>
         <member name="M:Towel.Compare.Default``1(``0,``0)">
             <summary>Gets the default comparer or throws an exception if non exists.</summary>
@@ -531,9 +570,22 @@
             <summary>Inverts a comparison value.</summary>
             <returns>The invert of the comparison value.</returns>
         </member>
+        <member name="M:Towel.Compare.FromComparer``1(System.Collections.Generic.Comparer{``0})">
+            <summary>Converts a System.Collection.Generic.Comparer into a Towel.Compare delegate.</summary>
+            <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
+            <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
+            <returns>The converted Towel.Compare delegate.</returns>
+        </member>
+        <member name="M:Towel.Compare.ToSystemComparison``1(Towel.Compare{``0})">
+            <summary>Converts a Towel.Compare to a System.Comparison.</summary>
+            <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
+            <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
+            <returns>The converted System.Comparison delegate.</returns>
+        </member>
         <member name="T:Towel.DataStructures.IArray`2">
             <summary>An indexed fixed-sized data structure.</summary>
             <typeparam name="T">The generic type within the structure.</typeparam>
+            <typeparam name="Index">The generic type of the indexing.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IArray`2.Item(`1)">
             <summary>Allows indexed access of the array.</summary>
@@ -597,6 +649,10 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Array`1.GetEnumerator">
+            <summary>Gets the enumerator for the array.</summary>
+            <returns>The enumerator for the array.</returns>
         </member>
         <member name="M:Towel.DataStructures.Array`1.ToArray">
             <summary>Converts the structure into an array.</summary>
@@ -729,7 +785,7 @@
             <typeparam name="Key">The type of the key.</typeparam>
             <param name="avlTree">This structure.</param>
             <param name="key">The key to get.</param>
-            <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
             <param name="item">The item if found.</param>
             <returns>True if successful, False if not.</returns>
         </member>
@@ -1015,7 +1071,9 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Towel.DataStructures.BTree" -->
+        <member name="T:Towel.DataStructures.BTree">
+            <summary>Contains extensions methods for the BTree interface.</summary>
+        </member>
         <member name="M:Towel.DataStructures.BTree.TryGet``2(Towel.DataStructures.IBTree{``0},``1,Towel.Compare{``0,``1},``0@)">
             <summary>Wrapper for the get function to handle exceptions.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
@@ -1194,14 +1252,29 @@
         <member name="T:Towel.DataStructures.DataStructure.IAuditable`1">
             <summary>Property of a data structure (does it have a contains method).</summary>
         </member>
+        <member name="M:Towel.DataStructures.DataStructure.IAuditable`1.Contains(`0)">
+            <summary>Checks if the data structure contains a value.</summary>
+            <param name="value">The value to look for in the data structure.</param>
+            <returns>True if the value exists in the data structure. False if not.</returns>
+        </member>
         <member name="T:Towel.DataStructures.DataStructure.IHashing`1">
             <summary>Property of a data structure (does it have a Hash property).</summary>
+        </member>
+        <member name="P:Towel.DataStructures.DataStructure.IHashing`1.Hash">
+            <summary>Gets the hashing function being used by the data structure.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IComparing`1">
             <summary>Property of a data structure (does it have a Compare property).</summary>
         </member>
+        <member name="P:Towel.DataStructures.DataStructure.IComparing`1.Compare">
+            <summary>Gets the comparing function of the data structure.</summary>
+        </member>
         <member name="T:Towel.DataStructures.DataStructure.IAddable`1">
             <summary>Property of a data structure (does it have a Add method).</summary>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.IAddable`1.Add(`0)">
+            <summary>Adds a value to the data structure.</summary>
+            <param name="value">The value to be added.</param>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IRemovable`1">
             <summary>Property of a data structure (does it have a Romove method).</summary>
@@ -1213,23 +1286,32 @@
         <member name="T:Towel.DataStructures.DataStructure.ICountable">
             <summary>Property of a data structure (does it have a Count method).</summary>
         </member>
+        <member name="P:Towel.DataStructures.DataStructure.ICountable.Count">
+            <summary>Gets the current count of the data structure.</summary>
+        </member>
         <member name="T:Towel.DataStructures.DataStructure.IClearable">
             <summary>Property of a data structure (does it have a Clear method).</summary>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.IClearable.Clear">
+            <summary>Returns the data structure to an empty state.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IEquating`1">
             <summary>Property of a data structure (does it have a Equate property).</summary>
         </member>
+        <member name="P:Towel.DataStructures.DataStructure.IEquating`1.Equate">
+            <summary>Gets the equating function of the data structure.</summary>
+        </member>
         <member name="M:Towel.DataStructures.DataStructure.TryAdd``1(Towel.DataStructures.DataStructure.IAddable{``0},``0)">
             <summary>Wrapper for the "Add" method to help with exceptions.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
-            <param name="redBlackTree">The structure.</param>
+            <param name="structure">The data structure.</param>
             <param name="addition">The item to be added.</param>
             <returns>True if successful, False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.DataStructure.TryRemove``1(Towel.DataStructures.DataStructure.IRemovable{``0},``0)">
             <summary>Wrapper for the "Remove" method to help with exceptions.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
-            <param name="structure">The structure.</param>
+            <param name="structure">The data structure.</param>
             <param name="removal">The item to be removed.</param>
             <returns>True if successful, False if not.</returns>
         </member>
@@ -1304,6 +1386,10 @@
         <member name="M:Towel.DataStructures.DequeLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IGraph`1">
+            <summary>A graph data structure that stores nodes and edges.</summary>
+            <typeparam name="T">The generic node type to store in the graph.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IGraph`1.EdgeCount">
             <summary>The number of edges in the graph.</summary>
@@ -1426,7 +1512,10 @@
         <member name="P:Towel.DataStructures.HeapArray`1.MinimumCapacity">
             <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Towel.DataStructures.HeapArray`1.Count" -->
+        <member name="P:Towel.DataStructures.HeapArray`1.Count">
+            <summary>The number of items in the queue.</summary>
+            <remarks>Runtime: O(1).</remarks>
+        </member>
         <member name="M:Towel.DataStructures.HeapArray`1.LeftChild(System.Int32)">
             <summary>Gets the index of the left child of the provided item.</summary>
             <param name="parent">The item to find the left child of.</param>
@@ -1445,7 +1534,6 @@
         <member name="M:Towel.DataStructures.HeapArray`1.Enqueue(`0)">
             <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
             <param name="addition">The item to be added.</param>
-            <param name="priority">The priority of the addition. (LARGER PRIORITY -> HIGHER PRIORITY)</param>
             <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Dequeue">
@@ -1485,6 +1573,10 @@
         <member name="M:Towel.DataStructures.HeapArray`1.ToArray">
             <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
             <returns>The array of priority-sorted items.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.HeapArray`1.GetEnumerator">
+            <summary>Gets the enumerator of the heap.</summary>
+            <returns>The enumerator of the heap.</returns>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -2811,17 +2903,18 @@
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Get(`1)">
             <summary>Gets an item by key.</summary>
-            <param name="key">The key of the item to get.</param>
+            <param name="key">The key of the pair to get.</param>
             <returns>The by the provided key.</returns>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Set(`1,`0)">
             <summary>Gets an item by key.</summary>
-            <param name="key">The key of the item to get.</param>
+            <param name="key">The key of the pair to set.</param>
+            <param name="value">The value of the pair to set.</param>
             <returns>The by the provided key.</returns>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Add(`1,`0)">
             <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key value to use as the look-up reference in the hash table.</param>
+            <param name="key">The key to use as the look-up reference in the hash table.</param>
             <param name="value">The value to store in the hash table.</param>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Keys(Towel.Step{`1})">
@@ -2842,6 +2935,15 @@
         </member>
         <member name="T:Towel.DataStructures.Map">
             <summary>Static Extension class for Map interface implementers.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0@)">
+            <summary>Wrapper for the "Get" method to help with exceptions.</summary>
+            <typeparam name="T">The generic value type of the structure.</typeparam>
+            <typeparam name="K">The generic key type of the structure.</typeparam>
+            <param name="map">The map data structure.</param>
+            <param name="key">The key to get the value of.</param>
+            <param name="item">The value relative to the key if exists.</param>
+            <returns>True if the value was found. False if not.</returns>
         </member>
         <member name="T:Towel.DataStructures.MapHashLinked`2">
             <summary>An unsorted structure of unique items.</summary>
@@ -2864,6 +2966,11 @@
             <summary>Constructs a new hash table instance.</summary>
             <remarks>Runtime: O(stepper).</remarks>
         </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`2.Item(`1)">
+            <summary>Gets the value of the specified key.</summary>
+            <param name="key">The key to get the value of.</param>
+            <returns>The value relative to the provided key.</returns>
+        </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.TableSize">
             <summary>Returns the current size of the actual table. You will want this if you 
             wish to multithread structure traversals.</summary>
@@ -2885,14 +2992,17 @@
             <param name="value">The value to store relative to the key.</param>
             <remarks>Runtime: O(n), Omega(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Clear">
+            <summary>Returns the data structure to an empty state.</summary>
+        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Contains(`1)">
-            <summary>Determines if this structure contains a given item.</summary>
-            <param name="item">The item to see if theis structure contains.</param>
-            <returns>True if the item is in the structure; False if not.</returns>
+            <summary>Determines if this structure contains a given key.</summary>
+            <param name="key">The key to see if theis structure contains.</param>
+            <returns>True if the key is in the structure. False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Get(`1)">
             <summary>Gets an item by key.</summary>
@@ -2944,6 +3054,14 @@
             <summary>Steps through all the pairs.</summary>
             <param name="function">The step function.</param>
         </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.GetEnumerator">
+            <summary>Gets the enumerator for the data structure.</summary>
+            <returns>The enumerator for the data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.ToArray">
+            <summary>Places all the values of the data structure into an array.</summary>
+            <returns>An array with all the values in the data structure.</returns>
+        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Trim">
             <summary>Trims the map table size to the first prime number following the current count.</summary>
         </member>
@@ -2952,9 +3070,12 @@
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
         </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.#ctor">
+            <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
+        </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.#ctor(Towel.Equate{`1},Towel.Hash{`1})">
             <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashArray`2.Item(`1)">
             <summary>Gets/Sets the value relative to a key.</summary>
@@ -2976,10 +3097,46 @@
         <member name="P:Towel.DataStructures.MapHashArray`2.Equate">
             <summary>The function for equating keys in this table.</summary>
         </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Add(`1,`0)">
+            <summary>Adds a key value pair to the map.</summary>
+            <param name="key">The key of the pair to add.</param>
+            <param name="value">The value of the pair to add.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Clear">
+            <summary>Returns the data structure to an empty state.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.ClearWithoutShrink">
+            <summary>Returns the data structure to an empty state.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Contains(`1)">
+            <summary>Checks if a key exists in the map.</summary>
+            <param name="key">The key to look for.</param>
+            <returns>True if the key exists in the map. False if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Get(`1)">
             <summary>Gets an item by key.</summary>
             <param name="key">The key of the item to get.</param>
             <returns>The by the provided key.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Set(`1,`0)">
+            <summary>Sets the value of a given key in the map.</summary>
+            <param name="key">The key to set the value of in the map.</param>
+            <param name="value">The value to set relative to the key in the map.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Remove(`1)">
+            <summary>Removes a pair from the map.</summary>
+            <param name="removal">The key of the pair to remove from the map.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.RemoveWithoutShrink(`1)">
+            <summary>Removes a pair from the map without triggering a shrink in the data structure.</summary>
+            <param name="removal">The key of the pair to remove from the map.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.ToArray">
+            <summary>Puts all the values of this structure into an array.</summary>
+            <returns>An array with all the values of this structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.Trim">
+            <summary>Trims the data structure to only the necessary size.</summary>
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Keys(Towel.Step{`1})">
             <summary>Steps through all the keys.</summary>
@@ -2987,7 +3144,7 @@
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Keys(Towel.StepBreak{`1})">
             <summary>Steps through all the keys.</summary>
-            <param name="step_function">The step function.</param>
+            <param name="step">The step function.</param>
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -3000,12 +3157,16 @@
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Pairs(Towel.Step{Towel.DataStructures.Link{`0,`1}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Pairs(Towel.StepBreak{Towel.DataStructures.Link{`0,`1}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.GetEnumerator">
+            <summary>Gets the enumerator for the data structure.</summary>
+            <returns>The enumerator for the data structure.</returns>
         </member>
         <member name="T:Towel.DataStructures.Omnitree">
             <summary>Contains the necessary type definitions for the various omnitree types.</summary>
@@ -12512,7 +12673,20 @@
             Returns true if the specified key is in the SkipList.
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Towel.DataStructures.SkipListLinked`1.Search(System.Object,Towel.DataStructures.SkipListLinked{`0}.Node@)" -->
+        <member name="M:Towel.DataStructures.SkipListLinked`1.Search(System.Object,Towel.DataStructures.SkipListLinked{`0}.Node@)">
+            <summary>
+            Searches for the specified key.
+            </summary>
+            <param name="key">
+            The key to search for.
+            </param>
+            <param name="curr">
+            A SkipList node to hold the results of the search.
+            </param>
+            <returns>
+            Returns true if the specified key is in the SkipList.
+            </returns>
+        </member>
         <member name="M:Towel.DataStructures.SkipListLinked`1.Search(System.Object,Towel.DataStructures.SkipListLinked{`0}.Node[])">
             <summary>	
             Searches for the specified key.
@@ -15899,46 +16073,58 @@
             <param name="step">The foreach function to perform on each iteration.</param>
         </member>
         <member name="T:Towel.Step`2">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
         </member>
         <member name="T:Towel.StepRef`2">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
         </member>
         <member name="T:Towel.StepBreak`2">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
             <returns>The status of the iteration. Allows breaking functionality.</returns>
         </member>
         <member name="T:Towel.StepRefBreak`2">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
             <returns>The status of the iteration. Allows breaking functionality.</returns>
         </member>
         <member name="T:Towel.Stepper`2">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.StepperRef`2">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.StepperBreak`2">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.StepperRefBreak`2">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.Step">
             <summary>Extension methods.</summary>

@@ -24,6 +24,7 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <DocumentationFile>Towel.xml</DocumentationFile>
+    <NoWarn>1701;1702;IDE0034</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

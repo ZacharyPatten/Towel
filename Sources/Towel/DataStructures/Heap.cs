@@ -104,7 +104,7 @@ namespace Towel.DataStructures
             }
         }
 
-        /// <summary>The number of items in the queue.</summary
+        /// <summary>The number of items in the queue.</summary>
         /// <remarks>Runtime: O(1).</remarks>
         public int Count
         {
@@ -144,7 +144,6 @@ namespace Towel.DataStructures
 
         /// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
         /// <param name="addition">The item to be added.</param>
-        /// <param name="priority">The priority of the addition. (LARGER PRIORITY -> HIGHER PRIORITY)</param>
         /// <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
         public void Enqueue(T addition)
         {
@@ -287,6 +286,8 @@ namespace Towel.DataStructures
             }
         }
 
+        /// <summary>Gets the enumerator of the heap.</summary>
+        /// <returns>The enumerator of the heap.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i <= _count; i++)

@@ -14,7 +14,7 @@ namespace Towel.Algorithms
         /// <param name="length">The number of indexed items.</param>
         /// <param name="compare">Comparison delegate.</param>
         /// <returns>The index where the specific value fits into the index, sorted items.</returns>
-        public static int Binary<T>(GetIndex<T> get, int length, CompareToExpectedValue<T> compare)
+        public static int Binary<T>(GetIndex<T> get, int length, CompareToKnownValue<T> compare)
         {
             if (get is null)
             {
@@ -31,7 +31,7 @@ namespace Towel.Algorithms
             return Binary(get, 0, length, compare);
         }
 
-        private static int Binary<T>(GetIndex<T> get, int index, int length, CompareToExpectedValue<T> compare)
+        private static int Binary<T>(GetIndex<T> get, int index, int length, CompareToKnownValue<T> compare)
         {
             int low = index;
             int hi = index + length - 1;

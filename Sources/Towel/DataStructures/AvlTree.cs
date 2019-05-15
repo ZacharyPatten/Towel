@@ -114,7 +114,7 @@ namespace Towel.DataStructures
         /// <typeparam name="Key">The type of the key.</typeparam>
         /// <param name="avlTree">This structure.</param>
         /// <param name="key">The key to get.</param>
-        /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+        /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <param name="item">The item if found.</param>
         /// <returns>True if successful, False if not.</returns>
         public static bool TryGet<T, Key>(this IAvlTree<T> avlTree, Key key, Compare<T, Key> compare, out T item)

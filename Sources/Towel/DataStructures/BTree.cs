@@ -64,7 +64,7 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    /// <summary>Contains extensions methods for the BTree<T> interface.</summary>
+    /// <summary>Contains extensions methods for the BTree interface.</summary>
     public static class BTree
     {
         #region Extensions

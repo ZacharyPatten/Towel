@@ -32,19 +32,26 @@ namespace Towel
     [Serializable]
     public delegate Comparison Compare<Left, Right>(Left left, Right right);
 
+    /// <summary>Delegate for comparing a value to a known value.</summary>
+    /// <typeparam name="T">The generic types to compare.</typeparam>
+    /// <param name="value">The value to compare to the known value.</param>
+    /// <returns>The result of the comparison.</returns>
     [Serializable]
-    public delegate Comparison CompareToExpectedValue<T>(T value);
+    public delegate Comparison CompareToKnownValue<T>(T value);
 
     /// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
     public static class Compare
     {
-        public static Comparison Wrap(int result)
+        /// <summary>Converts an int into a comparison.</summary>
+        /// <param name="comparison">The integer comparison result to convert into a Comparison.</param>
+        /// <returns>The converted Comparison value.</returns>
+        public static Comparison Wrap(int comparison)
         {
-            if (result < 0)
+            if (comparison < 0)
             {
                 return Comparison.Less;
             }
-            else if (result > 0)
+            else if (comparison > 0)
             {
                 return Comparison.Greater;
             }
@@ -130,6 +137,10 @@ namespace Towel
             }
         }
 
+        /// <summary>Converts a System.Collection.Generic.Comparer into a Towel.Compare delegate.</summary>
+        /// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
+        /// <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
+        /// <returns>The converted Towel.Compare delegate.</returns>
         public static Compare<T> FromComparer<T>(Comparer<T> comparer)
         {
             return (T a, T b) =>
@@ -154,6 +165,10 @@ namespace Towel
             };
         }
 
+        /// <summary>Converts a Towel.Compare to a System.Comparison.</summary>
+        /// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
+        /// <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
+        /// <returns>The converted System.Comparison delegate.</returns>
         public static Comparison<T> ToSystemComparison<T>(Compare<T> compare)
         {
             return (T a, T b) => { return (int)compare(a, b); };

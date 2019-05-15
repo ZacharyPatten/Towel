@@ -27,15 +27,16 @@ namespace Towel.DataStructures
         #region Methods
 
         /// <summary>Gets an item by key.</summary>
-        /// <param name="key">The key of the item to get.</param>
+        /// <param name="key">The key of the pair to get.</param>
         /// <returns>The by the provided key.</returns>
         T Get(K key);
         /// <summary>Gets an item by key.</summary>
-        /// <param name="key">The key of the item to get.</param>
+        /// <param name="key">The key of the pair to set.</param>
+        /// <param name="value">The value of the pair to set.</param>
         /// <returns>The by the provided key.</returns>
-        void Set(K key, T Value);
+        void Set(K key, T value);
         /// <summary>Adds a value to the hash table.</summary>
-        /// <param name="key">The key value to use as the look-up reference in the hash table.</param>
+        /// <param name="key">The key to use as the look-up reference in the hash table.</param>
         /// <param name="value">The value to store in the hash table.</param>
         void Add(K key, T value);
         /// <summary>Steps through all the keys.</summary>
@@ -59,8 +60,19 @@ namespace Towel.DataStructures
     {
         #region Extensions
 
+        /// <summary>Wrapper for the "Get" method to help with exceptions.</summary>
+        /// <typeparam name="T">The generic value type of the structure.</typeparam>
+        /// <typeparam name="K">The generic key type of the structure.</typeparam>
+        /// <param name="map">The map data structure.</param>
+        /// <param name="key">The key to get the value of.</param>
+        /// <param name="item">The value relative to the key if exists.</param>
+        /// <returns>True if the value was found. False if not.</returns>
         public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T item)
         {
+            // Note: This is most likely a bad practice. try-catch-ing should
+            // not be used for control flow like this. I will likely be moving this
+            // method into the "IMap<T>" interface in the future.
+
             try
             {
                 item = map.Get(key);
@@ -123,7 +135,7 @@ namespace Towel.DataStructures
 
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public MapHashLinked(Equate<K> equate, Hash<K> hash) : this(Towel.Equate.Default, Towel.Hash.Default, 0) { }
+        public MapHashLinked(Equate<K> equate, Hash<K> hash) : this(equate, hash, 0) { }
 
         /// <summary>Constructs a new hash table instance.</summary>
         /// <remarks>Runtime: O(stepper).</remarks>
@@ -159,6 +171,9 @@ namespace Towel.DataStructures
 
         #region Properties
 
+        /// <summary>Gets the value of the specified key.</summary>
+        /// <param name="key">The key to get the value of.</param>
+        /// <returns>The value relative to the provided key.</returns>
         public T this[K key]
         {
             get { return Get(key); }
@@ -192,7 +207,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: O(n), Omega(1).</remarks>
         public void Add(K key, T value)
         {
-            if (object.ReferenceEquals(null, key))
+            if (key is null)
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -228,6 +243,7 @@ namespace Towel.DataStructures
 
         #region Clear
 
+        /// <summary>Returns the data structure to an empty state.</summary>
         public void Clear()
         {
             _table = new Node[Towel.Hash.TableSizes[0]];
@@ -249,9 +265,9 @@ namespace Towel.DataStructures
 
         #region Contains
 
-        /// <summary>Determines if this structure contains a given item.</summary>
-        /// <param name="item">The item to see if theis structure contains.</param>
-        /// <returns>True if the item is in the structure; False if not.</returns>
+        /// <summary>Determines if this structure contains a given key.</summary>
+        /// <param name="key">The key to see if theis structure contains.</param>
+        /// <returns>True if the key is in the structure. False if not.</returns>
         public bool Contains(K key)
         {
             if (Find(key, ComputeHash(key)) == null)
@@ -339,7 +355,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
         internal void Remove_private(K key)
         {
-            if (object.ReferenceEquals(key, null))
+            if (key is null)
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -497,9 +513,11 @@ namespace Towel.DataStructures
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
+        /// <summary>Gets the enumerator for the data structure.</summary>
+        /// <returns>The enumerator for the data structure.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             Node node;
@@ -518,6 +536,8 @@ namespace Towel.DataStructures
 
         #region ToArray
 
+        /// <summary>Places all the values of the data structure into an array.</summary>
+        /// <returns>An array with all the values in the data structure.</returns>
         public T[] ToArray()
         {
             T[] array = new T[_count];
@@ -652,12 +672,17 @@ namespace Towel.DataStructures
 
         #region  Constructors
 
+        /// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
         public MapHashArray() : this(Towel.Equate.Default, Towel.Hash.Default) { }
 
-        public MapHashArray(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default) { }
+        #pragma warning disable CS1587
+        /// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
+        /// <param name="expectedCount">The expected count to initialize the size of the data structure to allow for.</param>
+        //public MapHashArray(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default) { }
+        #pragma warning restore CS1587
 
         /// <summary>Constructs a new hash table instance.</summary>
-        /// <remarks>Runtime: O(1).</remarks>
+        /// <runtime>O(1)</runtime>
         public MapHashArray(Equate<K> equate, Hash<K> hash)
         {
             this._nodes = new Node[Towel.Hash.TableSizes[0]];
@@ -703,68 +728,75 @@ namespace Towel.DataStructures
 
         #region Add
 
+        /// <summary>Adds a key value pair to the map.</summary>
+        /// <param name="key">The key of the pair to add.</param>
+        /// <param name="value">The value of the pair to add.</param>
         public void Add(K key, T value)
         {
             //if (this._buckets == null)
             //	this.Initialize(0);
-            int hashCode = this._hash(key);
-            int index1 = hashCode % this._table.Length;
+            int hashCode = _hash(key);
+            int index1 = hashCode % _table.Length;
             int num = 0;
-            for (int index2 = this._table[hashCode % this._table.Length] - 1; index2 >= 0; index2 = this._nodes[index2].Next)
+            for (int index2 = _table[hashCode % _table.Length] - 1; index2 >= 0; index2 = _nodes[index2].Next)
             {
-                if (this._nodes[index2].Hash == hashCode && this._equate(this._nodes[index2].Key, key))
-                    throw new System.InvalidOperationException("attempting to add an already existing value in the SetHash");
+                if (_nodes[index2].Hash == hashCode && _equate(_nodes[index2].Key, key))
+                {
+                    throw new InvalidOperationException("attempting to add an already existing value in the SetHash");
+                }
                 ++num;
             }
             int index3;
-            if (this._freeList >= 0)
+            if (_freeList >= 0)
             {
-                index3 = this._freeList;
-                this._freeList = this._nodes[index3].Next;
+                index3 = _freeList;
+                _freeList = _nodes[index3].Next;
             }
             else
             {
-                if (this._lastIndex == this._nodes.Length)
+                if (_lastIndex == _nodes.Length)
                 {
                     GrowTableSize(GetLargerSize());
-                    index1 = hashCode % this._table.Length;
+                    index1 = hashCode % _table.Length;
                 }
-                index3 = this._lastIndex;
-                this._lastIndex = this._lastIndex + 1;
+                index3 = _lastIndex;
+                _lastIndex += 1;
             }
-            this._nodes[index3].Hash = hashCode;
-            this._nodes[index3].Key = key;
-            this._nodes[index3].Value = value;
-            this._nodes[index3].Next = this._table[index1] - 1;
-            this._table[index1] = index3 + 1;
-            this._count += 1;
+            _nodes[index3].Hash = hashCode;
+            _nodes[index3].Key = key;
+            _nodes[index3].Value = value;
+            _nodes[index3].Next = _table[index1] - 1;
+            _table[index1] = index3 + 1;
+            _count += 1;
         }
 
         #endregion
 
         #region Clear
 
+        /// <summary>Returns the data structure to an empty state.</summary>
         public void Clear()
         {
-            if (this._lastIndex > 0)
+            if (_lastIndex > 0)
             {
-                this._nodes = new Node[Towel.Hash.TableSizes[0]];
-                this._table = new int[Towel.Hash.TableSizes[0]];
-                this._lastIndex = 0;
-                this._count = 0;
-                this._freeList = -1;
+                _nodes = new Node[Towel.Hash.TableSizes[0]];
+                _table = new int[Towel.Hash.TableSizes[0]];
+                _lastIndex = 0;
+                _count = 0;
+                _freeList = -1;
             }
         }
 
+        /// <summary>Returns the data structure to an empty state.</summary>
         public void ClearWithoutShrink()
         {
-            if (this._lastIndex > 0)
+            if (_lastIndex > 0)
             {
-                System.Array.Clear((System.Array)this._nodes, 0, this._lastIndex);
-                System.Array.Clear((System.Array)this._table, 0, this._table.Length);
-                this._lastIndex = 0;
-                this._count = 0;
-                this._freeList = -1;
+                Array.Clear(_nodes, 0, _lastIndex);
+                Array.Clear(_table, 0, _table.Length);
+                _lastIndex = 0;
+                _count = 0;
+                _freeList = -1;
             }
         }
 
@@ -772,6 +804,9 @@ namespace Towel.DataStructures
 
         #region Contains
 
+        /// <summary>Checks if a key exists in the map.</summary>
+        /// <param name="key">The key to look for.</param>
+        /// <returns>True if the key exists in the map. False if not.</returns>
         public bool Contains(K key)
         {
             int hashCode = this._hash(key);
@@ -805,20 +840,25 @@ namespace Towel.DataStructures
 
         #region Set
 
+        /// <summary>Sets the value of a given key in the map.</summary>
+        /// <param name="key">The key to set the value of in the map.</param>
+        /// <param name="value">The value to set relative to the key in the map.</param>
         public void Set(K key, T value)
         {
-            if (this.Contains(key))
+            if (Contains(key))
             {
-                int hashCode = this._hash(key);
-                for (int index = this._table[hashCode % this._table.Length] - 1; index >= 0; index = this._nodes[index].Next)
+                int hashCode = _hash(key);
+                for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
                 {
-                    if (this._nodes[index].Hash == hashCode && this._equate(this._nodes[index].Key, key))
-                        this._nodes[index].Value = value;
+                    if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
+                    {
+                        _nodes[index].Value = value;
+                    }
                 }
             }
             else
             {
-                this.Add(key, value);
+                Add(key, value);
             }
         }
 
@@ -826,6 +866,8 @@ namespace Towel.DataStructures
 
         #region Remove
 
+        /// <summary>Removes a pair from the map.</summary>
+        /// <param name="removal">The key of the pair to remove from the map.</param>
         public void Remove(K removal)
         {
             Remove_private(removal);
@@ -836,6 +878,8 @@ namespace Towel.DataStructures
             }
         }
 
+        /// <summary>Removes a pair from the map without triggering a shrink in the data structure.</summary>
+        /// <param name="removal">The key of the pair to remove from the map.</param>
         public void RemoveWithoutShrink(K removal)
         {
             Remove_private(removal);
@@ -885,15 +929,17 @@ namespace Towel.DataStructures
 
         #region ToArray
 
+        /// <summary>Puts all the values of this structure into an array.</summary>
+        /// <returns>An array with all the values of this structure.</returns>
         public T[] ToArray()
         {
-            T[] array = new T[this._count];
+            T[] array = new T[_count];
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
-                    array[num] = this._nodes[index].Value;
+                    array[num] = _nodes[index].Value;
                     ++num;
                 }
             }
@@ -904,13 +950,18 @@ namespace Towel.DataStructures
 
         #region Trim
 
+        /// <summary>Trims the data structure to only the necessary size.</summary>
         public void Trim()
         {
-            int prime = this._count;
-            while (Towel.Mathematics.Compute.IsPrime(prime))
+            int prime = _count;
+            while (Compute.IsPrime(prime))
+            {
                 prime++;
-            if (prime != this._table.Length)
+            }
+            if (prime != _table.Length)
+            {
                 ShrinkTableSize(prime);
+            }
         }
 
         #endregion
@@ -933,23 +984,23 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Steps through all the keys.</summary>
-        /// <param name="step_function">The step function.</param>
-        public StepStatus Keys(StepBreak<K> function)
+        /// <param name="step">The step function.</param>
+        public StepStatus Keys(StepBreak<K> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
                 if (this._nodes[index].Hash >= 0)
                 {
                     ++num;
-                    switch (function(this._nodes[index].Key))
+                    switch (step(_nodes[index].Key))
                     {
                         case StepStatus.Break:
                             return StepStatus.Break;
                         case StepStatus.Continue:
                             continue;
                         default:
-                            throw new System.NotImplementedException();
+                            throw new NotImplementedException();
                     }
                 }
             }
@@ -997,32 +1048,32 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Pairs(Step<Link<T, K>> function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Pairs(Step<Link<T, K>> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    function(new Link<T, K>(this._nodes[index].Value, this._nodes[index].Key));
+                    step(new Link<T, K>(_nodes[index].Value, _nodes[index].Key));
                 }
             }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Pairs(StepBreak<Link<T, K>> function)
+        public StepStatus Pairs(StepBreak<Link<T, K>> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < this._lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    switch (function(new Link<T, K>(this._nodes[index].Value, this._nodes[index].Key)))
+                    switch (step(new Link<T, K>(_nodes[index].Value, _nodes[index].Key)))
                     {
                         case StepStatus.Break:
                             return StepStatus.Break;
@@ -1036,30 +1087,22 @@ namespace Towel.DataStructures
             return StepStatus.Continue;
         }
 
-        System.Collections.IEnumerator
-            System.Collections.IEnumerable.GetEnumerator()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
-            {
-                if (this._nodes[index].Hash >= 0)
-                {
-                    ++num;
-                    yield return this._nodes[index].Value;
-                }
-            }
+            return GetEnumerator();
         }
 
-        System.Collections.Generic.IEnumerator<T>
-            System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+        /// <summary>Gets the enumerator for the data structure.</summary>
+        /// <returns>The enumerator for the data structure.</returns>
+        public IEnumerator<T> GetEnumerator()
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    yield return this._nodes[index].Value;
+                    yield return _nodes[index].Value;
                 }
             }
         }

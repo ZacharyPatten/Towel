@@ -2,6 +2,8 @@
 
 namespace Towel.DataStructures
 {
+    /// <summary>A graph data structure that stores nodes and edges.</summary>
+    /// <typeparam name="T">The generic node type to store in the graph.</typeparam>
     public interface IGraph<T> : IDataStructure<T>,
         // Structure Properties
         DataStructure.IAddable<T>,
@@ -56,8 +58,8 @@ namespace Towel.DataStructures
     public class GraphSetOmnitree<T> : IGraph<T>
     {
         // Fields
-        public SetHashLinked<T> _nodes;
-        public OmnitreePointsLinked<Edge, T, T> _edges;
+        internal SetHashLinked<T> _nodes;
+        internal OmnitreePointsLinked<Edge, T, T> _edges;
 
         #region Nested Types
 
@@ -236,8 +238,8 @@ namespace Towel.DataStructures
     public class GraphMap<T> : IGraph<T>
     {
         // Fields
-        public MapHashLinked<MapHashLinked<bool, T>, T> _map;
-        int _edges;
+        internal MapHashLinked<MapHashLinked<bool, T>, T> _map;
+        internal int _edges;
 
         #region Nested Types
 

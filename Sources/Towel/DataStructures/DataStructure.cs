@@ -28,24 +28,31 @@ namespace Towel.DataStructures
         /// <summary>Property of a data structure (does it have a contains method).</summary>
         public interface IAuditable<T>
         {
+            /// <summary>Checks if the data structure contains a value.</summary>
+            /// <param name="value">The value to look for in the data structure.</param>
+            /// <returns>True if the value exists in the data structure. False if not.</returns>
             bool Contains(T value);
         }
 
         /// <summary>Property of a data structure (does it have a Hash property).</summary>
         public interface IHashing<T>
         {
+            /// <summary>Gets the hashing function being used by the data structure.</summary>
             Hash<T> Hash { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Compare property).</summary>
         public interface IComparing<T>
         {
+            /// <summary>Gets the comparing function of the data structure.</summary>
             Compare<T> Compare { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Add method).</summary>
         public interface IAddable<T>
         {
+            /// <summary>Adds a value to the data structure.</summary>
+            /// <param name="value">The value to be added.</param>
             void Add(T value);
         }
 
@@ -60,18 +67,21 @@ namespace Towel.DataStructures
         /// <summary>Property of a data structure (does it have a Count method).</summary>
         public interface ICountable
         {
+            /// <summary>Gets the current count of the data structure.</summary>
             int Count { get; }
         }
 
         /// <summary>Property of a data structure (does it have a Clear method).</summary>
         public interface IClearable
         {
+            /// <summary>Returns the data structure to an empty state.</summary>
             void Clear();
         }
 
         /// <summary>Property of a data structure (does it have a Equate property).</summary>
         public interface IEquating<T>
         {
+            /// <summary>Gets the equating function of the data structure.</summary>
             Equate<T> Equate { get; }
         }
 
@@ -81,11 +91,15 @@ namespace Towel.DataStructures
 
         /// <summary>Wrapper for the "Add" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
-        /// <param name="redBlackTree">The structure.</param>
+        /// <param name="structure">The data structure.</param>
         /// <param name="addition">The item to be added.</param>
         /// <returns>True if successful, False if not.</returns>
         public static bool TryAdd<T>(this IAddable<T> structure, T addition)
         {
+            // Note: This is most likely a bad practice. try-catch-ing should
+            // not be used for control flow like this. I will likely be moving this
+            // method into the "IAddable<T>" interface in the future.
+
             try
             {
                 structure.Add(addition);
@@ -99,11 +113,15 @@ namespace Towel.DataStructures
 
         /// <summary>Wrapper for the "Remove" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
-        /// <param name="structure">The structure.</param>
+        /// <param name="structure">The data structure.</param>
         /// <param name="removal">The item to be removed.</param>
         /// <returns>True if successful, False if not.</returns>
         public static bool TryRemove<T>(this IRemovable<T> structure, T removal)
         {
+            // Note: This is most likely a bad practice. try-catch-ing should
+            // not be used for control flow like this. I will likely be moving this
+            // method into the "IRemovable<T>" interface in the future.
+
             try
             {
                 structure.Remove(removal);

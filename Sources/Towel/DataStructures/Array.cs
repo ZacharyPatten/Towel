@@ -6,6 +6,7 @@ namespace Towel.DataStructures
 {
     /// <summary>An indexed fixed-sized data structure.</summary>
     /// <typeparam name="T">The generic type within the structure.</typeparam>
+    /// <typeparam name="Index">The generic type of the indexing.</typeparam>
     public interface IArray<T, Index> : IDataStructure<T>
     {
         #region Properties
@@ -168,6 +169,8 @@ namespace Towel.DataStructures
             return GetEnumerator();
         }
 
+        /// <summary>Gets the enumerator for the array.</summary>
+        /// <returns>The enumerator for the array.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return ((IEnumerable<T>)_array).GetEnumerator();

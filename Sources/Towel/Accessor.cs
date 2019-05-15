@@ -12,13 +12,22 @@ namespace Towel
     /// <param name="value">The value to set at the given index.</param>
     public delegate void SetIndex<T>(int index, T value);
 
+    /// <summary>Static class containing extensions for converting IList indexers to delegates.</summary>
     public static class Accessor
     {
+        /// <summary>Converts the get indexer of an IList to a delegate.</summary>
+        /// <typeparam name="T">The generic type of the IList.</typeparam>
+        /// <param name="ilist">The IList to retrieve the get delegate of.</param>
+        /// <returns>A delegate for getting an indexed value in the IList.</returns>
         public static GetIndex<T> Get<T>(IList<T> ilist)
         {
             return (int index) => { return ilist[index]; };
         }
 
+        /// <summary>Converts the set indexer of an IList to a delegate.</summary>
+        /// <typeparam name="T">The generic type of the IList.</typeparam>
+        /// <param name="ilist">The IList to retrieve the set delegate of.</param>
+        /// <returns>A delegate for setting an indexed value in the IList.</returns>
         public static SetIndex<T> Assign<T>(IList<T> ilist)
         {
             return (int index, T value) => { ilist[index] = value; };
