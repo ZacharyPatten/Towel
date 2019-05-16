@@ -515,5 +515,44 @@ namespace Towel_Testing.Mathematics
             double cosine_neg3halfsPi = CosineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
             Assert.IsTrue(EqualLeniency(cosine_neg3halfsPi, 0d, .00001d));
         }
+
+
+        [TestMethod]
+        public void SquareRoot_Testing()
+        {
+            // int
+            Assert.IsTrue(SquareRoot(1) == 1);
+            Assert.IsTrue(SquareRoot(2) == 1);
+            Assert.IsTrue(SquareRoot(3) == 1);
+            Assert.IsTrue(SquareRoot(4) == 2);
+            Assert.IsTrue(SquareRoot(5) == 2);
+            Assert.IsTrue(SquareRoot(6) == 2);
+            Assert.IsTrue(SquareRoot(7) == 2);
+            Assert.IsTrue(SquareRoot(8) == 2);
+            Assert.IsTrue(SquareRoot(9) == 3);
+            Assert.IsTrue(SquareRoot(10) == 3);
+        }
+
+        [TestMethod]
+        public void IsPrime_Testing()
+        {
+            HashSet<int> primeNumbers = new HashSet<int>()
+            {
+                2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
+                103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
+            };
+
+            for (int i = 2; i < 200; i++)
+            {
+                if (primeNumbers.Contains(i))
+                {
+                    Assert.IsTrue(IsPrime(i), i.ToString());
+                }
+                else
+                {
+                    Assert.IsFalse(IsPrime(i), i.ToString());
+                }
+            }
+        }
     }
 }

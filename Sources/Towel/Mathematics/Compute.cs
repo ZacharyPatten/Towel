@@ -644,24 +644,52 @@ namespace Towel.Mathematics
         /// <returns>The result of the square root.</returns>
         public static T SquareRoot<T>(T a)
         {
-            return Root(a, Constant<T>.Two);
+            return SquareRootImplementation<T>.Function(a);
         }
 
-        //internal static class SquareRootImplementation<T>
-        //{
-        //    internal static Func<T, T> Function = (T a) =>
-        //    {
-        //        // optimization for specific known types
-        //        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
-        //        {
-        //            ParameterExpression A = Expression.Parameter(typeof(T));
-        //            Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Sqrt)), Expression.Convert(A, typeof(double))), typeof(T));
-        //            Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-        //            return Function(a);
-        //        }
-        //        throw new NotImplementedException();
-        //    };
-        //}
+        internal static class SquareRootImplementation<T>
+        {
+            internal static Func<T, T> Function = (T a) =>
+            {
+                #region Optimization(int)
+
+                if (typeof(T) == typeof(int))
+                {
+                    int SquareRoot(int x)
+                    {
+                        if (x == 0 || x == 1)
+                        {
+                            return x;
+                        }
+                        int start = 1, end = x, ans = 0;
+                        while (start <= end)
+                        {
+                            int mid = (start + end) / 2;
+                            if (mid * mid == x)
+                            {
+                                return mid;
+                            }
+                            if (mid * mid < x)
+                            {
+                                start = mid + 1;
+                                ans = mid;
+                            }
+                            else
+                            {
+                                end = mid - 1;
+                            }
+                        }
+                        return ans;
+                    }
+                    SquareRootImplementation<int>.Function = SquareRoot;
+                    return Function(a);
+                }
+
+                #endregion
+
+                return Root(a, Constant<T>.Two);
+            };
+        }
 
         #endregion
 
@@ -857,17 +885,20 @@ namespace Towel.Mathematics
         /// <returns>Whether or not the value is prime.</returns>
         public static bool IsPrime<T>(T a)
         {
-            if (IsInteger(a))
+            if (IsInteger(a) && !LessThan(a, Constant<T>.Two))
             {
                 if (Equal(a, Constant<T>.Two))
                 {
                     return true;
                 }
-                T squareRoot = SquareRoot(a);
-                int squareRootInt = ToInt32(squareRoot);
-                for (int divisor = 3; divisor <= squareRootInt; divisor += 2)
+                if (IsEven(a))
                 {
-                    if (Equal(Modulo<T>(a, FromInt32<T>(divisor)), Constant<T>.Zero))
+                    return false;
+                }
+                T squareRoot = SquareRoot(a);
+                for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Add(divisor, Constant<T>.Two))
+                {
+                    if (Equal(Modulo<T>(a, divisor), Constant<T>.Zero))
                     {
                         return false;
                     }
