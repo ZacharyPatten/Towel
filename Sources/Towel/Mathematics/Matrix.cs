@@ -2276,9 +2276,9 @@ namespace Towel.Mathematics
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         public void Stepper(Step<T> step)
         {
-            for (int i = 0; i < this._matrix.Length; i++)
+            for (int i = 0; i < _matrix.Length; i++)
             {
-                step(this._matrix[i]);
+                step(_matrix[i]);
             }
         }
 
@@ -2286,9 +2286,9 @@ namespace Towel.Mathematics
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         public void Stepper(StepRef<T> step)
         {
-            for (int i = 0; i < this._matrix.Length; i++)
+            for (int i = 0; i < _matrix.Length; i++)
             {
-                step(ref this._matrix[i]);
+                step(ref _matrix[i]);
             }
         }
 
@@ -2297,9 +2297,9 @@ namespace Towel.Mathematics
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepBreak<T> step)
         {
-            for (int i = 0; i < this._matrix.Length; i++)
+            for (int i = 0; i < _matrix.Length; i++)
             {
-                if (step(this._matrix[i]) == StepStatus.Break)
+                if (step(_matrix[i]) == StepStatus.Break)
                 {
                     return StepStatus.Break;
                 }
@@ -2312,9 +2312,9 @@ namespace Towel.Mathematics
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepRefBreak<T> step)
         {
-            for (int i = 0; i < this._matrix.Length; i++)
+            for (int i = 0; i < _matrix.Length; i++)
             {
-                if (step(ref this._matrix[i]) == StepStatus.Break)
+                if (step(ref _matrix[i]) == StepStatus.Break)
                 {
                     return StepStatus.Break;
                 }
