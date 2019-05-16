@@ -1355,40 +1355,52 @@ namespace Towel.Mathematics
         #region Steppers
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(Step<T> step_function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(Step<T> step)
         {
-            for (int i = 0; i < this._vector.Length; i++)
-                step_function(this._vector[i]);
+            for (int i = 0; i < _vector.Length; i++)
+            {
+                step(_vector[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(StepRef<T> step_function)
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
+        public void Stepper(StepRef<T> step)
         {
-            for (int i = 0; i < this._vector.Length; i++)
-                step_function(ref this._vector[i]);
+            for (int i = 0; i < _vector.Length; i++)
+            {
+                step(ref _vector[i]);
+            }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> step_function)
+        public StepStatus Stepper(StepBreak<T> step)
         {
-            for (int i = 0; i < this._vector.Length; i++)
-                if (step_function(this._vector[i]) == StepStatus.Break)
+            for (int i = 0; i < _vector.Length; i++)
+            {
+                if (step(_vector[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepRefBreak<T> step_function)
+        public StepStatus Stepper(StepRefBreak<T> step)
         {
-            for (int i = 0; i < this._vector.Length; i++)
-                if (step_function(ref this._vector[i]) == StepStatus.Break)
+            for (int i = 0; i < _vector.Length; i++)
+            {
+                if (step(ref _vector[i]) == StepStatus.Break)
+                {
                     return StepStatus.Break;
+                }
+            }
             return StepStatus.Continue;
         }
 
