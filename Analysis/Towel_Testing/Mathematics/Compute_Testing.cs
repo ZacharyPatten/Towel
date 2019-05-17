@@ -14,11 +14,48 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void Negate_Testing()
         {
-            Assert.IsTrue(Negate(1) == -1);
-            Assert.IsTrue(Negate(1d) == -1d);
-            Assert.IsTrue(Negate(0) == 0);
-            Assert.IsTrue(Negate(-1) == 1);
-            Assert.IsTrue(Negate(-1d) == 1d);
+            { // int
+                Assert.IsTrue(Negate(-3) == 3);
+                Assert.IsTrue(Negate(-2) == 2);
+                Assert.IsTrue(Negate(-1) == 1);
+                Assert.IsTrue(Negate(0) == 0);
+                Assert.IsTrue(Negate(1) == -1);
+                Assert.IsTrue(Negate(2) == -2);
+                Assert.IsTrue(Negate(3) == -3);
+            }
+            { // float
+                Assert.IsTrue(Negate(-3f) == 3f);
+                Assert.IsTrue(Negate(-2f) == 2f);
+                Assert.IsTrue(Negate(-1f) == 1f);
+                Assert.IsTrue(Negate(-0.5f) == 0.5f);
+                Assert.IsTrue(Negate(0f) == 0f);
+                Assert.IsTrue(Negate(0.5f) == -0.5f);
+                Assert.IsTrue(Negate(1f) == -1f);
+                Assert.IsTrue(Negate(2f) == -2f);
+                Assert.IsTrue(Negate(3f) == -3f);
+            }
+            { // double
+                Assert.IsTrue(Negate(-3d) == 3d);
+                Assert.IsTrue(Negate(-2d) == 2d);
+                Assert.IsTrue(Negate(-1d) == 1d);
+                Assert.IsTrue(Negate(-0.5d) == 0.5d);
+                Assert.IsTrue(Negate(0d) == 0d);
+                Assert.IsTrue(Negate(0.5d) == -0.5d);
+                Assert.IsTrue(Negate(1d) == -1d);
+                Assert.IsTrue(Negate(2d) == -2d);
+                Assert.IsTrue(Negate(3d) == -3d);
+            }
+            { // decimal
+                Assert.IsTrue(Negate(-3m) == 3m);
+                Assert.IsTrue(Negate(-2m) == 2m);
+                Assert.IsTrue(Negate(-1m) == 1m);
+                Assert.IsTrue(Negate(-0.5m) == 0.5m);
+                Assert.IsTrue(Negate(0m) == 0m);
+                Assert.IsTrue(Negate(0.5m) == -0.5m);
+                Assert.IsTrue(Negate(1m) == -1m);
+                Assert.IsTrue(Negate(2m) == -2m);
+                Assert.IsTrue(Negate(3m) == -3m);
+            }
         }
 
         [TestMethod]
@@ -516,7 +553,6 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(EqualLeniency(cosine_neg3halfsPi, 0d, .00001d));
         }
 
-
         [TestMethod]
         public void SquareRoot_Testing()
         {
@@ -674,6 +710,52 @@ namespace Towel_Testing.Mathematics
                         Assert.IsFalse(IsOdd(i + randomRatio));
                     }
                 }
+            }
+        }
+        [TestMethod]
+        public void AbsoluteValue_Testing()
+        {
+            { // int
+                Assert.IsTrue(AbsoluteValue(-3) == 3);
+                Assert.IsTrue(AbsoluteValue(-2) == 2);
+                Assert.IsTrue(AbsoluteValue(-1) == 1);
+                Assert.IsTrue(AbsoluteValue(0) == 0);
+                Assert.IsTrue(AbsoluteValue(1) == 1);
+                Assert.IsTrue(AbsoluteValue(2) == 2);
+                Assert.IsTrue(AbsoluteValue(3) == 3);
+            }
+            { // float
+                Assert.IsTrue(AbsoluteValue(-3f) == 3f);
+                Assert.IsTrue(AbsoluteValue(-2f) == 2f);
+                Assert.IsTrue(AbsoluteValue(-1f) == 1f);
+                Assert.IsTrue(AbsoluteValue(-0.5f) == 0.5f);
+                Assert.IsTrue(AbsoluteValue(0f) == 0f);
+                Assert.IsTrue(AbsoluteValue(0.5f) == 0.5f);
+                Assert.IsTrue(AbsoluteValue(1f) == 1f);
+                Assert.IsTrue(AbsoluteValue(2f) == 2f);
+                Assert.IsTrue(AbsoluteValue(3f) == 3f);
+            }
+            { // double
+                Assert.IsTrue(AbsoluteValue(-3d) == 3d);
+                Assert.IsTrue(AbsoluteValue(-2d) == 2d);
+                Assert.IsTrue(AbsoluteValue(-1d) == 1d);
+                Assert.IsTrue(AbsoluteValue(-0.5d) == 0.5d);
+                Assert.IsTrue(AbsoluteValue(0d) == 0d);
+                Assert.IsTrue(AbsoluteValue(0.5d) == 0.5d);
+                Assert.IsTrue(AbsoluteValue(1d) == 1d);
+                Assert.IsTrue(AbsoluteValue(2d) == 2d);
+                Assert.IsTrue(AbsoluteValue(3d) == 3d);
+            }
+            { // decimal
+                Assert.IsTrue(AbsoluteValue(-3m) == 3m);
+                Assert.IsTrue(AbsoluteValue(-2m) == 2m);
+                Assert.IsTrue(AbsoluteValue(-1m) == 1m);
+                Assert.IsTrue(AbsoluteValue(-0.5m) == 0.5m);
+                Assert.IsTrue(AbsoluteValue(0m) == 0m);
+                Assert.IsTrue(AbsoluteValue(0.5m) == 0.5m);
+                Assert.IsTrue(AbsoluteValue(1m) == 1m);
+                Assert.IsTrue(AbsoluteValue(2m) == 2m);
+                Assert.IsTrue(AbsoluteValue(3m) == 3m);
             }
         }
     }
