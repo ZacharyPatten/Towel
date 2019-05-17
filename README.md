@@ -198,11 +198,11 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 // "Quadtree." There are two versions of the Omnitree: Points and Bounds. The Points version stores
 // vectors while the Bounds version stores spaces with a minimum and maximum vector.
 
-IOmnitreePoints<int, double, string, decimal> omnitreePoints =
+IOmnitreePoints<T, A1, A2, A3...> omnitreePoints =
     new OmnitreePointsLinked<T, A1, A2, A3...>(
         (T value, out A1 a1, out A2 a2, out A3 a3...) => { ... });
         
-IOmnitreeBounds<int, double, string, decimal> omnitreeBounds =
+IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
     new OmnitreeBoundsLinked<T, A1, A2, A3...>(
         (T value,
         out A1 min1, out A1 max1,
@@ -229,7 +229,7 @@ Tree<T> treeMap = new TreeMap<T>(...);
 <p>
 
 ```csharp
-IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+IGraph<T> graphSetOmnitree = new GraphSetOmnitree<T>();
 ```
 
 </p>
