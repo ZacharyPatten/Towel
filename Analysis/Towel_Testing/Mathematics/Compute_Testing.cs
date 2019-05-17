@@ -554,5 +554,127 @@ namespace Towel_Testing.Mathematics
                 }
             }
         }
+
+        [TestMethod]
+        public void IsEven_Testing()
+        {
+            Random random = new Random();
+
+            { // int
+                bool isEven = true;
+                for (int i = -100; i < 100; i++)
+                {
+                    Assert.IsTrue(isEven ? IsEven(i) : !IsEven(i));
+                    isEven = !isEven;
+                }
+            }
+            { // float
+                bool isEven = true;
+                for (float i = -100f; i < 100; i++)
+                {
+                    Assert.IsTrue(isEven ? IsEven(i) : !IsEven(i));
+                    isEven = !isEven;
+
+                    // only whole numbers can be even... test a random rational value
+                    float randomRatio = (float)random.NextDouble();
+                    if (randomRatio > 0d)
+                    {
+                        Assert.IsFalse(IsEven(i + randomRatio));
+                    }
+                }
+                random.NextDouble();
+            }
+            { // double
+                bool isEven = true;
+                for (double i = -100; i < 100d; i++)
+                {
+                    Assert.IsTrue(isEven ? IsEven(i) : !IsEven(i));
+                    isEven = !isEven;
+
+                    // only whole numbers can be even... test a random rational value
+                    double randomRatio = random.NextDouble();
+                    if (randomRatio > 0d)
+                    {
+                        Assert.IsFalse(IsEven(i + randomRatio));
+                    }
+                }
+            }
+            { // decimal
+                bool isEven = true;
+                for (decimal i = -100; i < 100m; i++)
+                {
+                    Assert.IsTrue(isEven ? IsEven(i) : !IsEven(i));
+                    isEven = !isEven;
+
+                    // only whole numbers can be even... test a random rational value
+                    decimal randomRatio = random.NextDecimal(10000) / 10000;
+                    if (randomRatio > 0m)
+                    {
+                        Assert.IsFalse(IsEven(i + randomRatio));
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void IsOdd_Testing()
+        {
+            Random random = new Random();
+
+            { // int
+                bool isOdd = false;
+                for (int i = -100; i < 100; i++)
+                {
+                    Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+                    isOdd = !isOdd;
+                }
+            }
+            { // float
+                bool isOdd = false;
+                for (float i = -100f; i < 100; i++)
+                {
+                    Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+                    isOdd = !isOdd;
+
+                    // only whole numbers can be even... test a random rational value
+                    float randomRatio = (float)random.NextDouble();
+                    if (randomRatio > 0d)
+                    {
+                        Assert.IsFalse(IsOdd(i + randomRatio));
+                    }
+                }
+                random.NextDouble();
+            }
+            { // double
+                bool isOdd = false;
+                for (double i = -100; i < 100d; i++)
+                {
+                    Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+                    isOdd = !isOdd;
+
+                    // only whole numbers can be even... test a random rational value
+                    double randomRatio = random.NextDouble();
+                    if (randomRatio > 0d)
+                    {
+                        Assert.IsFalse(IsOdd(i + randomRatio));
+                    }
+                }
+            }
+            { // decimal
+                bool isOdd = false;
+                for (decimal i = -100; i < 100m; i++)
+                {
+                    Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+                    isOdd = !isOdd;
+
+                    // only whole numbers can be even... test a random rational value
+                    decimal randomRatio = random.NextDecimal(10000) / 10000;
+                    if (randomRatio > 0m)
+                    {
+                        Assert.IsFalse(IsOdd(i + randomRatio));
+                    }
+                }
+            }
+        }
     }
 }

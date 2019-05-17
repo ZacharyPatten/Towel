@@ -869,7 +869,12 @@ namespace Towel.Mathematics
             internal static Func<T, bool> Function = (T a) =>
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.NotEqual(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.One));
+                Expression BODY =
+                    Expression.Block(
+                        Expression.IfThen(
+                            Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
+                            Expression.Assign(A, Expression.Negate(A))),
+                        Expression.Equal(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.One)));
                 Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
                 return Function(a);
             };
