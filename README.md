@@ -4,7 +4,7 @@
 
 "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
 
-Towel is a C# .Net Standard libary intended to add much needed functionality that is missing in C# as well as redesign some aspects to bring the language up to modern standards.
+Towel is a C# .Net Standard libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
 
 | Topic | Info |
 | :---    | :--- |
@@ -12,14 +12,14 @@ Towel is a C# .Net Standard libary intended to add much needed functionality tha
 | GitHub  | https://github.com/ZacharyPatten/Towel|
 | Build   | [![Build Status](https://dev.azure.com/ZacharyPatten/Towel/_apis/build/status/ZacharyPatten.Towel?branchName=master)](https://dev.azure.com/ZacharyPatten/Towel/_build/latest?definitionId=1&branchName=master) |
 | NuGet   | [![nuget](https://img.shields.io/nuget/v/Towel.svg)](https://www.nuget.org/packages/Towel/) |
+| Discord | <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a> |
 
-*Many features are coded and working, but Towel is still in heavy development. It should be ready for its first release later this year. The website is also very new and lacking content.*
+*Many features are coded and working, but Towel is still in heavy development. The website is also very new and lacking content. There will be actual NuGet package releases (not just pre-releases) of the code when ready, but note that the project has a goal of keeping as up-to-date as possible on modern C# practices rather than maintaining backwards compatibility.*
 
-## Mathematics
+## Generic Mathematics
 
-Towel has fast generic mathematics functions.
+#### Fundamental Operations
 
-### Fundamental Operations
 ```csharp
 T Add<T>(T a, T b);
 T Negate<T>(T a);
@@ -28,7 +28,9 @@ T Multiply<T>(T a, T b);
 T Divide<T>(T a, T b);
 T Modulo<T>(T a, T b);
 ```
-### More Numeric Mathematics
+
+#### More Numeric Mathematics
+
 ```csharp
 void FactorPrimes<T>(T a, Step<T> step);
 T Factorial<T>(T a);
@@ -37,7 +39,9 @@ T LeastCommonMultiple<T>(T a, T b, params T[] c);
 T GreatestCommonFactor<T>(T a, T b, params T[] c);
 LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept);
 ```
-### Statistics
+
+#### Statistics
+
 ```csharp
 T Mean<T>(T a, params T[] b);
 T Median<T>(params T[] values);
@@ -49,7 +53,9 @@ T Variance<T>(Stepper<T> stepper);
 T StandardDeviation<T>(Stepper<T> stepper);
 T MeanDeviation<T>(Stepper<T> stepper);
 ```
-### Vectors
+
+#### Vectors
+
 ```csharp
 Vector<T> V1 = new Vector<T>(params T[] vector);
 Vector<T> V2 = new Vector<T>(params T[] vector);
@@ -67,7 +73,9 @@ V1.Magnitude;               // Magnitude
 V3 = V1.Normalize();        // Normalize
 bool equal = V1 == V2;      // Equal
 ```
-### Matrices
+
+#### Matrices
+
 ```csharp
 Matrix<T> M1 = new Matrix<T>(int rows, int columns);
 Matrix<T> M2 = new Matrix<T>(int rows, int columns);
@@ -92,48 +100,143 @@ M3 = M1.Inverse();                      // Inverse
 M1.DecomposeLowerUpper(ref M2, ref M3); // Lower Upper Decomposition
 bool equal = M1 == M2;                  // Equal
 ```
-### Symbolic Mathematics
+
+## Symbolic Mathematics
+
 ```csharp
-// From Linq Expression
+// Parsing From Linq Expression
 Expression<Func<double, double>> exp1 = (x) => 2 * (x / 7);
 Symbolics.Expression symExp1 = Symbolics.Parse(exp1);
-Symbolics.Expression simplified = symExp1.Simplify(); // Simplification
-symExp1.Substitute("x", 5);                           // Variable Subsitition
 
-// From String
-Symbolics.Expression symExp2 = Symbolics.Parse("2 * (x / 7)");
-Symbolics.Expression simplified = symExp2.Simplify(); // Simplification
-symExp2.Substitute("x", 5);                           // Variable Subsitition
+// Parsing From String
+Symbolics.Expression symExp2 = Symbolics.Parse("2 * ([x] / 7)");
+
+// Mathematical Simplification
+Symbolics.Expression simplified = symExp1.Simplify();
+
+// Variable Substitution
+symExp1.Substitute("x", 5);
 ```
+
 ## Measurement Mathematics
 
-Towel has measurement types to provide type-safe measurement mathematics with automatic unit conversion. Never make a unit conversion mistake again, and add a layer of mathematical validation to your code.
 ```csharp
-// Automatic Unit Conversion Example:
+// Automatic Unit Conversion
+// When you perform mathematical operations on measurements, any necessary unit conversions will
+// be automatically performed by the relative measurement type (in this case "Angle<T>").
 Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
 Angle<double> angle2 = new Angle<double>(.5d, Angle.Units.Turns);
 Angle<double> result1 = angle1 + angle2; // 270° 
-// When you perform mathematical operations on measurements, any necessary unit conversions will
-// be automatically performed by the relative measurement type (in this case "Angle<T>").
 
-// Type Safeness Example:
-Length<double> length1 = new Length<double>(2d, Length.Units.Yards);
-object result2 = angle1 + length1; // WILL NOT COMPILE!!!
+// Type Safeness
 // The type safe-ness of the measurement types prevents the miss-use of the measurements. You cannot
 // add "Length<T>" to "Angle<T>" because that is mathematically invalid (no operator exists).
+Length<double> length1 = new Length<double>(2d, Length.Units.Yards);
+object result2 = angle1 + length1; // WILL NOT COMPILE!!!
 ```
+
 ## Data Structures
 
-Towel has many useful data structure. Especially the Omnitree, which is an SPT that work on any number of dimensions. It can be used to make a quadtree, octree, or SPT's with higher dimensions.
+<details>
+ <summary><strong>Heap</strong></summary>
+<p>
+
 ```csharp
-Heap<T> heap;
-AvlTree<T> avlTree;
-RedBlackTree<T> redBlackTree;
-Omnitree<T, A1, A2, ... AX> omnitree; // (Quadtree, Octree, ...)
-Tree<T> tree;
-Graph<T> graph;
+// A heap is a binary tree that is sorted vertically using comparison methods. This is different
+// from AVL Trees or Red-Black Trees that keep their contents stored horizontally. The rule
+// of a heap is that no parent can be less than either of its children. A Heap using "sifting up"
+// and "sifting down" algorithms to move values vertically through the tree to keep items sorted.
+
+IHeap<T> heapArray = new HeapArray<T>();
 ```
+ 
+</p>
+</details>
+
+<details>
+ <summary><strong>AVL Tree</strong></summary>
+<p>
+
+```csharp
+// An AVL tree is a binary tree that is sorted using comparison methods and automatically balances
+// itself by tracking the heights of nodes and performing one of four specific algorithms: rotate
+// right, rotate left, double rotate right, or double rotate left. Any parent in an AVL Tree must
+// be greater than its left child but less than its right child (if the children exist). An AVL
+// tree is sorted in the same manor as a Red-Black Tree, but uses different algorithms to maintain
+// the balance of the tree.
+
+IAvlTree<int> avlTree = new AvlTreeLinked<int>();
+```
+
+</p>
+</details>
+
+<details>
+ <summary><strong>Red-Black Tree</strong></summary>
+<p>
+
+```csharp
+// A Red-Black treeis a binary tree that is sorted using comparison methods and automatically 
+// balances itself. Any parent in an Red-Black Tree must be greater than its left child but less
+// than its right child (if the children exist). A Red-Black tree is sorted in the same manor as
+// an AVL Tree, but uses different algorithms to maintain the balance of the tree.
+
+IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+```
+
+</p>
+</details>
+
+<details>
+ <summary><strong>Omnitree</strong></summary>
+<p>
+
+```csharp
+// An Omnitree is a Spacial Partitioning Tree (SPT) that works on an arbitrary number of dimensions.
+// It stores items sorted along multiple dinmensions by dividing spaces into sub-spaces. A 3D
+// version of an SPT is often called an "Octree" and a 2D version of an SPT is often called a
+// "Quadtree." There are two versions of the Omnitree: Points and Bounds. The Points version stores
+// vectors while the Bounds version stores spaces with a minimum and maximum vector.
+
+IOmnitreePoints<int, double, string, decimal> omnitreePoints =
+    new OmnitreePointsLinked<T, A1, A2, A3...>(
+        (T value, out A1 a1, out A2 a2, out A3 a3...) => { ... });
+        
+IOmnitreeBounds<int, double, string, decimal> omnitreeBounds =
+    new OmnitreeBoundsLinked<T, A1, A2, A3...>(
+        (T value,
+        out A1 min1, out A1 max1,
+        out A2 min2, out A2 max2,
+        out A3 min3, out A3 max3...) => { ... });
+```
+ 
+</p>
+</details>
+
+<details>
+ <summary><strong>Tree</strong></summary>
+<p>
+
+```csharp
+Tree<T> treeMap = new TreeMap<T>(...);
+```
+
+</p>
+</details>
+
+<details>
+ <summary><strong>Graph</strong></summary>
+<p>
+
+```csharp
+IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+```
+
+</p>
+</details>
+
 ## Algorithms
+
 ```csharp
 // Sorting
 Sort.Shuffle<T>(...);
@@ -149,7 +252,9 @@ Sort.OddEven<T>(...);
 // Note: overloads for both Greedy and A* algorithms
 Search.Graph<NODE, NUMERIC>(...);
 ```
+
 ## Extensions
+
 ```csharp
 // System.Random extensions to generate more random types
 // Note: there are overloads to specify possible ranges
@@ -168,13 +273,11 @@ string ConvertToCsharpSource(this Type type);
 string ToEnglishWords(this decimal @decimal);
 // Example: 12 -> "Twelve"
 ```
+
 ## Developer(s)
 
-You can chat the the developer(s) in Discord:
-
-Discord <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a>
+Feel free to chat with the developer(s) via [Discord](https://discord.gg/4XbQbwF).
 
  - Zachary Patten
-   - sevenix.zp@gmail.com
 
 Howdy! I'm Zachary Patten. I like making code frameworks and teaching people how to code. I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
