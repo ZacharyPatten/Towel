@@ -1409,26 +1409,26 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(stepper));
             }
             bool assigned = false;
-            T answer = Constant<T>.Zero;
-            stepper((T n) =>
+            T answer = default(T);
+            stepper(parameter =>
             {
-                if (Equal(n, Constant<T>.Zero))
+                if (Equal(parameter, Constant<T>.Zero))
                 {
-                    answer = Constant<T>.Zero;
-                    return;
+                    throw new MathematicsException(nameof(stepper) + " contains 0 value(s).");
                 }
-                if (!IsInteger(n))
+                if (!IsInteger(parameter))
                 {
                     throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
                 }
+                parameter = AbsoluteValue(parameter);
                 if (!assigned)
                 {
-                    answer = AbsoluteValue(n);
+                    answer = parameter;
                     assigned = true;
                 }
-                if (GreaterThan(answer, Constant<T>.One))
+                else
                 {
-                    answer = AbsoluteValue(Multiply(Divide(answer, GreatestCommonFactor((Step<T> step) => { step(answer); step(n); })), n));
+                    answer = Divide(Multiply(answer, parameter), GreatestCommonFactor(answer, parameter));
                 }
             });
             if (!assigned)

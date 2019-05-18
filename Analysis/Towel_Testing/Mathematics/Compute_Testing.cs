@@ -764,113 +764,125 @@ namespace Towel_Testing.Mathematics
         public void Maximum_Testing()
         {
             { // int
-                Assert.IsTrue(Maximum(1, 2, 3, 4, 5) == 5);
-                Assert.IsTrue(Maximum(5, 4, 3, 2, 1) == 5);
-                Assert.IsTrue(Maximum(1, 2, 5, 3, 4) == 5);
-                Assert.IsTrue(Maximum(4, 3, 5, 2, 1) == 5);
-
-                Assert.IsTrue(Maximum(-1, -2, -3, -4, -5) == -1);
-                Assert.IsTrue(Maximum(-5, -4, -3, -2, -1) == -1);
-                Assert.IsTrue(Maximum(-1, -2, -5, -3, -4) == -1);
-                Assert.IsTrue(Maximum(-4, -3, -5, -2, -1) == -1);
-
-                Assert.IsTrue(Maximum(-1, 2, 3, 4, -5) == 4);
-                Assert.IsTrue(Maximum(-5, 4, 3, 2, -1) == 4);
-                Assert.IsTrue(Maximum(-1, 2, -5, 3, 4) == 4);
-                Assert.IsTrue(Maximum(4, 3, -5, 2, -1) == 4);
+                Assert.IsTrue(Maximum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == 5);
+                Assert.IsTrue(Maximum(5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) == 5);
+                Assert.IsTrue(Maximum(0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) == 5);
             }
             { // float
-                Assert.IsTrue(Maximum(1f, 2f, 3f, 4f, 5f) == 5f);
-                Assert.IsTrue(Maximum(5f, 4f, 3f, 2f, 1f) == 5f);
-                Assert.IsTrue(Maximum(1f, 2f, 5f, 3f, 4f) == 5f);
-                Assert.IsTrue(Maximum(4f, 3f, 5f, 2f, 1f) == 5f);
-
-                Assert.IsTrue(Maximum(-1f, -2f, -3f, -4f, -5f) == -1f);
-                Assert.IsTrue(Maximum(-5f, -4f, -3f, -2f, -1f) == -1f);
-                Assert.IsTrue(Maximum(-1f, -2f, -5f, -3f, -4f) == -1f);
-                Assert.IsTrue(Maximum(-4f, -3f, -5f, -2f, -1f) == -1f);
-
-                Assert.IsTrue(Maximum(-1f, 2f, 3f, 4f, -5f) == 4f);
-                Assert.IsTrue(Maximum(-5f, 4f, 3f, 2f, -1f) == 4f);
-                Assert.IsTrue(Maximum(-1f, 2f, -5f, 3f, 4f) == 4f);
-                Assert.IsTrue(Maximum(4f, 3f, -5f, 2f, -1f) == 4f);
-
-                Assert.IsTrue(Maximum(-1f, 0.2f, 3f, 0.4f, -5f) == 3f);
-                Assert.IsTrue(Maximum(-5f, 0.4f, 3f, 0.2f, -1f) == 3f);
-                Assert.IsTrue(Maximum(-1f, 0.2f, -5f, 3f, 0.4f) == 3f);
-                Assert.IsTrue(Maximum(0.4f, 3f, -5f, 0.2f, -1f) == 3f);
-
-                Assert.IsTrue(Maximum(0.1f, 0.2f, 0.3f, 0.4f, 0.5f) == 0.5f);
-                Assert.IsTrue(Maximum(0.5f, 0.4f, 0.3f, 0.2f, 0.1f) == 0.5f);
-                Assert.IsTrue(Maximum(0.1f, 0.2f, 0.5f, 0.3f, 0.4f) == 0.5f);
-                Assert.IsTrue(Maximum(0.4f, 0.3f, 0.5f, 0.2f, 0.1f) == 0.5f);
-
-                Assert.IsTrue(Maximum(-0.1f, -0.2f, -0.3f, -0.4f, -0.5f) == -0.1f);
-                Assert.IsTrue(Maximum(-0.5f, -0.4f, -0.3f, -0.2f, -0.1f) == -0.1f);
-                Assert.IsTrue(Maximum(-0.1f, -0.2f, -0.5f, -0.3f, -0.4f) == -0.1f);
-                Assert.IsTrue(Maximum(-0.4f, -0.3f, -0.5f, -0.2f, -0.1f) == -0.1f);
+                Assert.IsTrue(Maximum(-5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) == 5f);
+                Assert.IsTrue(Maximum(5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) == 5f);
+                Assert.IsTrue(Maximum(0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) == 5f);
+                Assert.IsTrue(Maximum(-0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) == 3f);
             }
             { // double
-                Assert.IsTrue(Maximum(1d, 2d, 3d, 4d, 5d) == 5d);
-                Assert.IsTrue(Maximum(5d, 4d, 3d, 2d, 1d) == 5d);
-                Assert.IsTrue(Maximum(1d, 2d, 5d, 3d, 4d) == 5d);
-                Assert.IsTrue(Maximum(4d, 3d, 5d, 2d, 1d) == 5d);
-
-                Assert.IsTrue(Maximum(-1d, -2d, -3d, -4d, -5d) == -1d);
-                Assert.IsTrue(Maximum(-5d, -4d, -3d, -2d, -1d) == -1d);
-                Assert.IsTrue(Maximum(-1d, -2d, -5d, -3d, -4d) == -1d);
-                Assert.IsTrue(Maximum(-4d, -3d, -5d, -2d, -1d) == -1d);
-
-                Assert.IsTrue(Maximum(-1d, 2d, 3d, 4d, -5d) == 4d);
-                Assert.IsTrue(Maximum(-5d, 4d, 3d, 2d, -1d) == 4d);
-                Assert.IsTrue(Maximum(-1d, 2d, -5d, 3d, 4d) == 4d);
-                Assert.IsTrue(Maximum(4d, 3d, -5d, 2d, -1d) == 4d);
-
-                Assert.IsTrue(Maximum(-1d, 0.2d, 3d, 0.4d, -5d) == 3d);
-                Assert.IsTrue(Maximum(-5d, 0.4d, 3d, 0.2d, -1d) == 3d);
-                Assert.IsTrue(Maximum(-1d, 0.2d, -5d, 3d, 0.4d) == 3d);
-                Assert.IsTrue(Maximum(0.4d, 3d, -5d, 0.2d, -1d) == 3d);
-
-                Assert.IsTrue(Maximum(0.1d, 0.2d, 0.3d, 0.4d, 0.5d) == 0.5d);
-                Assert.IsTrue(Maximum(0.5d, 0.4d, 0.3d, 0.2d, 0.1d) == 0.5d);
-                Assert.IsTrue(Maximum(0.1d, 0.2d, 0.5d, 0.3d, 0.4d) == 0.5d);
-                Assert.IsTrue(Maximum(0.4d, 0.3d, 0.5d, 0.2d, 0.1d) == 0.5d);
-
-                Assert.IsTrue(Maximum(-0.1d, -0.2d, -0.3d, -0.4d, -0.5d) == -0.1d);
-                Assert.IsTrue(Maximum(-0.5d, -0.4d, -0.3d, -0.2d, -0.1d) == -0.1d);
-                Assert.IsTrue(Maximum(-0.1d, -0.2d, -0.5d, -0.3d, -0.4d) == -0.1d);
-                Assert.IsTrue(Maximum(-0.4d, -0.3d, -0.5d, -0.2d, -0.1d) == -0.1d);
+                Assert.IsTrue(Maximum(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) == 5d);
+                Assert.IsTrue(Maximum(5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) == 5d);
+                Assert.IsTrue(Maximum(0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) == 5d);
+                Assert.IsTrue(Maximum(-0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) == 3d);
             }
             { // decimal
-                Assert.IsTrue(Maximum(1m, 2m, 3m, 4m, 5m) == 5m);
-                Assert.IsTrue(Maximum(5m, 4m, 3m, 2m, 1m) == 5m);
-                Assert.IsTrue(Maximum(1m, 2m, 5m, 3m, 4m) == 5m);
-                Assert.IsTrue(Maximum(4m, 3m, 5m, 2m, 1m) == 5m);
+                Assert.IsTrue(Maximum(-5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) == 5m);
+                Assert.IsTrue(Maximum(5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) == 5m);
+                Assert.IsTrue(Maximum(0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) == 5m);
+                Assert.IsTrue(Maximum(-0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) == 3m);
+            }
+        }
 
-                Assert.IsTrue(Maximum(-1m, -2m, -3m, -4m, -5m) == -1m);
-                Assert.IsTrue(Maximum(-5m, -4m, -3m, -2m, -1m) == -1m);
-                Assert.IsTrue(Maximum(-1m, -2m, -5m, -3m, -4m) == -1m);
-                Assert.IsTrue(Maximum(-4m, -3m, -5m, -2m, -1m) == -1m);
+        [TestMethod]
+        public void Minimum_Testing()
+        {
+            { // int
+                Assert.IsTrue(Minimum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == -5);
+                Assert.IsTrue(Minimum(5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) == -5);
+                Assert.IsTrue(Minimum(0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) == -5);
+            }
+            { // float
+                Assert.IsTrue(Minimum(-5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) == -5f);
+                Assert.IsTrue(Minimum(5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) == -5f);
+                Assert.IsTrue(Minimum(0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) == -5f);
+                Assert.IsTrue(Minimum(-0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) == -3f);
+            }
+            { // double
+                Assert.IsTrue(Minimum(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) == -5d);
+                Assert.IsTrue(Minimum(5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) == -5d);
+                Assert.IsTrue(Minimum(0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) == -5d);
+                Assert.IsTrue(Minimum(-0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) == -3d);
+            }
+            { // decimal
+                Assert.IsTrue(Minimum(-5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) == -5m);
+                Assert.IsTrue(Minimum(5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) == -5m);
+                Assert.IsTrue(Minimum(0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) == -5m);
+                Assert.IsTrue(Minimum(-0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) == -3m);
+            }
+        }
 
-                Assert.IsTrue(Maximum(-1m, 2m, 3m, 4m, -5m) == 4m);
-                Assert.IsTrue(Maximum(-5m, 4m, 3m, 2m, -1m) == 4m);
-                Assert.IsTrue(Maximum(-1m, 2m, -5m, 3m, 4m) == 4m);
-                Assert.IsTrue(Maximum(4m, 3m, -5m, 2m, -1m) == 4m);
+        [TestMethod]
+        public void LeastCommonMultiple_Testing()
+        {
+            { // int
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3) == 6);
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3, 4) == 12);
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3, 4, 5) == 60);
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3, 4, 5, 6) == 60);
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3, 4, 5, 6, 7) == 420);
+                Assert.IsTrue(LeastCommonMultiple(1, 2, 3, 4, 5, 6, 7, 8) == 840);
+            }
+            { // float
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f) == 6f);
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f, 4f) == 12f);
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f, 4f, 5f) == 60f);
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f, 4f, 5f, 6f) == 60f);
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f, 4f, 5f, 6f, 7f) == 420f);
+                Assert.IsTrue(LeastCommonMultiple(1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f) == 840f);
+            }
+            { // double
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d) == 6d);
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d, 4d) == 12d);
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d, 4d, 5d) == 60d);
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d, 4d, 5d, 6d) == 60d);
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d, 4d, 5d, 6d, 7d) == 420d);
+                Assert.IsTrue(LeastCommonMultiple(1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d) == 840d);
+            }
+            { // decimal
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m) == 6m);
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m, 4m) == 12m);
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m, 4m, 5m) == 60m);
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m, 4m, 5m, 6m) == 60m);
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m, 4m, 5m, 6m, 7m) == 420m);
+                Assert.IsTrue(LeastCommonMultiple(1m, 2m, 3m, 4m, 5m, 6m, 7m, 8m) == 840m);
+            }
+        }
 
-                Assert.IsTrue(Maximum(-1m, 0.2m, 3m, 0.4m, -5m) == 3m);
-                Assert.IsTrue(Maximum(-5m, 0.4m, 3m, 0.2m, -1m) == 3m);
-                Assert.IsTrue(Maximum(-1m, 0.2m, -5m, 3m, 0.4m) == 3m);
-                Assert.IsTrue(Maximum(0.4m, 3m, -5m, 0.2m, -1m) == 3m);
-
-                Assert.IsTrue(Maximum(0.1m, 0.2m, 0.3m, 0.4m, 0.5m) == 0.5m);
-                Assert.IsTrue(Maximum(0.5m, 0.4m, 0.3m, 0.2m, 0.1m) == 0.5m);
-                Assert.IsTrue(Maximum(0.1m, 0.2m, 0.5m, 0.3m, 0.4m) == 0.5m);
-                Assert.IsTrue(Maximum(0.4m, 0.3m, 0.5m, 0.2m, 0.1m) == 0.5m);
-
-                Assert.IsTrue(Maximum(-0.1m, -0.2m, -0.3m, -0.4m, -0.5m) == -0.1m);
-                Assert.IsTrue(Maximum(-0.5m, -0.4m, -0.3m, -0.2m, -0.1m) == -0.1m);
-                Assert.IsTrue(Maximum(-0.1m, -0.2m, -0.5m, -0.3m, -0.4m) == -0.1m);
-                Assert.IsTrue(Maximum(-0.4m, -0.3m, -0.5m, -0.2m, -0.1m) == -0.1m);
+        [TestMethod]
+        public void GreatestCommonFactor_Testing()
+        {
+            { // int
+                Assert.IsTrue(GreatestCommonFactor(10, 20, 40) == 10);
+                Assert.IsTrue(GreatestCommonFactor(15, 25, 45) == 5);
+                Assert.IsTrue(GreatestCommonFactor(2, 2, 4) == 2);
+                Assert.IsTrue(GreatestCommonFactor(3, 5, 7) == 1);
+                Assert.IsTrue(GreatestCommonFactor(-2, -4, -6) == 2);
+            }
+            { // float
+                Assert.IsTrue(GreatestCommonFactor(10f, 20f, 40f) == 10f);
+                Assert.IsTrue(GreatestCommonFactor(15f, 25f, 45f) == 5f);
+                Assert.IsTrue(GreatestCommonFactor(2f, 2f, 4f) == 2f);
+                Assert.IsTrue(GreatestCommonFactor(3f, 5f, 7f) == 1f);
+                Assert.IsTrue(GreatestCommonFactor(-2f, -4f, -6f) == 2f);
+            }
+            { // double
+                Assert.IsTrue(GreatestCommonFactor(10d, 20d, 40d) == 10d);
+                Assert.IsTrue(GreatestCommonFactor(15d, 25d, 45d) == 5d);
+                Assert.IsTrue(GreatestCommonFactor(2d, 2d, 4d) == 2d);
+                Assert.IsTrue(GreatestCommonFactor(3d, 5d, 7d) == 1d);
+                Assert.IsTrue(GreatestCommonFactor(-2d, -4d, -6d) == 2d);
+            }
+            { // decimal
+                Assert.IsTrue(GreatestCommonFactor(10m, 20m, 40m) == 10m);
+                Assert.IsTrue(GreatestCommonFactor(15m, 25m, 45m) == 5m);
+                Assert.IsTrue(GreatestCommonFactor(2m, 2m, 4m) == 2m);
+                Assert.IsTrue(GreatestCommonFactor(3m, 5m, 7m) == 1m);
+                Assert.IsTrue(GreatestCommonFactor(-2m, -4m, -6m) == 2m);
             }
         }
     }
