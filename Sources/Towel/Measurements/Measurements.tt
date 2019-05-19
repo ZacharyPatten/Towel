@@ -22,7 +22,12 @@
 	"Time",
 	"Torque",
 	"Volume",
-}; #>
+};
+
+(string, string, string)[] multiplications = new (string, string, string)[]
+{
+	("Length", "Time", "Speed"),
+};#>
 using System;
 using Towel.Mathematics;
 
@@ -142,6 +147,13 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
+		<# foreach ((string, string, string) multiplication in multiplications) {  if (multiplication.Item1 == measurement) { #>
+
+		public static <#= multiplication.Item3 #><T> operator *(<#= multiplication.Item1 #><T> a, <#= multiplication.Item2 #><T> b)
+        {
+            throw new NotImplementedException();
+        }
+		<#  } } #>
 
         #endregion
 

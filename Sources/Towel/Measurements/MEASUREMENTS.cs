@@ -123,7 +123,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -371,7 +371,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -619,7 +619,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -867,7 +867,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -1115,7 +1115,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -1363,7 +1363,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -1611,7 +1611,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -1859,7 +1859,12 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
+		public static Speed<T> operator *(Length<T> a, Time<T> b)
+        {
+            throw new NotImplementedException();
+        }
+		
         #endregion
 
         #region Divide
@@ -2107,7 +2112,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -2355,7 +2360,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -2603,7 +2608,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -2851,7 +2856,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -3099,7 +3104,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -3347,7 +3352,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -3595,7 +3600,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -3843,7 +3848,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide
@@ -4091,7 +4096,7 @@ namespace Towel.Measurements
         {
             return Multiply(b, a);
         }
-
+		
         #endregion
 
         #region Divide

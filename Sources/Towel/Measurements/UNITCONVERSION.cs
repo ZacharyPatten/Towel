@@ -71,16 +71,27 @@ namespace Towel.Measurements
     [AttributeUsage(AttributeTargets.Field)]
     internal class ComplexUnitDenominatorsAttribute : Attribute
     {
-        internal readonly Enum[] Denominators;
+        internal readonly Enum[] DENOMINATORS;
 
-        internal ComplexUnitDenominatorsAttribute(Enum a, params Enum[] b)
+        internal ComplexUnitDenominatorsAttribute(object a, params object[] b)
         {
-            Denominators = new Enum[b.Length + 1];
+            if (!(a is Enum))
+            {
+                throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
+            }
+            foreach (object @object in b)
+            {
+                if (!(a is Enum))
+                {
+                    throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
+                }
+            }
+            DENOMINATORS = new Enum[b.Length + 1];
             for (int i = 0; i < b.Length; i++)
             {
-                Denominators[i] = b[i];
+                DENOMINATORS[i] = (Enum)b[i];
             }
-            Denominators[b.Length] = a;
+            DENOMINATORS[b.Length] = (Enum)a;
         }
     }
 

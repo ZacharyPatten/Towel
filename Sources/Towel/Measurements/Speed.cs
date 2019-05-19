@@ -14,9 +14,10 @@ namespace Towel.Measurements
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
-            //[ConversionFactor(XXXXX, XXXXX, "XXX")]
-            /// <summary>Units of an Speed measurement.</summary>
-            //UNITS = X,
+            [ComplexUnitNumerators(Length.Units.Meters)]
+            [ComplexUnitDenominators(Time.Units.Seconds)]
+            /// <summary>Units of an angle measurement.</summary>
+            MertersPerSecond = 0,
         }
     }
 }

@@ -75,6 +75,26 @@ namespace Measurements
 
             #endregion
 
+            #region Time
+
+            Console.WriteLine("  Time--------------------------------------");
+            Console.WriteLine();
+            Time<double> time1 = new Time<double>(1d, Time.Units.Seconds);
+            Console.WriteLine("    time1 = " + time1);
+            Time<double> time2 = new Time<double>(2d, Time.Units.Minutes);
+            Console.WriteLine("    time2 = " + mass2);
+            Console.WriteLine("    time1 + time2 = " + (time1 + time2));
+            Console.WriteLine("    time2 - time1 = " + (time1 - time2));
+            Console.WriteLine("    time1 * 2 = " + (time1 * 2));
+            Console.WriteLine("    time1 / 2 = " + (time1 / 2));
+            Console.WriteLine("    time1 > time2 = " + (time1 > time2));
+            Console.WriteLine("    time1 == time2 = " + (time1 == time2));
+            Console.WriteLine("    time1 * 2 == time2 = " + (time1 * 2 == time2));
+            Console.WriteLine("    time1 != time2 = " + (time1 != time2));
+            Console.WriteLine();
+
+            #endregion
+
             Console.WriteLine();
             Console.WriteLine("=================================================");
             Console.WriteLine("Example Complete...");

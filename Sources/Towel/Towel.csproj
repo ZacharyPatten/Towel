@@ -46,7 +46,7 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
     </None>
     <None Update="Measurements\MEASUREMENTS.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Measurements.cs</LastGenOutput>
+      <LastGenOutput>MEASUREMENTS.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -68,7 +68,7 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
     <Compile Update="Measurements\MEASUREMENTS.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Measurements.tt</DependentUpon>
+      <DependentUpon>MEASUREMENTS.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Algorithms\" />
     <Folder Include="DataStructures\" />
-    <Folder Include="Measurements\" />
     <Folder Include="Diagnostics\" />
     <Folder Include="Parallels\" />
   </ItemGroup>
