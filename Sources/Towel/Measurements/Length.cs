@@ -46,26 +46,13 @@ namespace Towel.Measurements
             [ConversionFactor(Attometers, "2.54 * 10 ^ 16")]
             [ConversionFactor(Femtometers, "2.54 * 10 ^ 13")]
             [ConversionFactor(Picometers, "2.54 * 10 ^ 10")]
-            [ConversionFactor(Nanometers, "2.54 * 10 ^ 7")]
+            [ConversionFactor(Nanometers, "25400000")]
             [ConversionFactor(Micrometers, "25400")]
             [ConversionFactor(Millimeters, "25.4")]
             [ConversionFactor(Centimeters, "2.54")]
-            [ConversionFactor(Feet, " 1 / 12")]
-            [ConversionFactor(Decimeters, "0.254")]
-            [ConversionFactor(Yards, "1 / 36")]
-            [ConversionFactor(Meters, "0.0254")]
-            [ConversionFactor(Dekameters, "0.00254")]
-            [ConversionFactor(Hectometers, "0.00254")]
-            [ConversionFactor(Kilometers, "0.000254")]
-            [ConversionFactor(Miles, "1 / 63360")]
-            [ConversionFactor(Megameters, "2.54 * 10 ^ -8")]
-            [ConversionFactor(Gigameters, "2.54 * 10 ^ -11")]
-            [ConversionFactor(Terameters, "2.54 * 10 ^ -14")]
-            [ConversionFactor(Petameters, "2.54 * 10 ^ -17")]
-            [ConversionFactor(Exameters, "2.54 * 10 ^ -20")]
-            [ConversionFactor(Yottameters, "2.54 * 10 ^ -23")]
             /// <summary>Units of an length measurement.</summary>
             Inches = 9,
+            [ConversionFactor(Inches, "3.937")]
             [MetricUnit(MetricUnits.Deci)]
             /// <summary>Units of an length measurement.</summary>
             Decimeters = 10,
@@ -74,24 +61,12 @@ namespace Towel.Measurements
             [ConversionFactor(Attometers, "3.048 * 10 ^ 17")]
             [ConversionFactor(Femtometers, "3.048 * 10 ^ 14")]
             [ConversionFactor(Picometers, "3.048 * 10 ^ 11")]
-            [ConversionFactor(Nanometers, "3.048 * 10 ^ 8")]
+            [ConversionFactor(Nanometers, "304800000")]
             [ConversionFactor(Micrometers, "304800")]
             [ConversionFactor(Millimeters, "304.8")]
             [ConversionFactor(Centimeters, "30.48")]
             [ConversionFactor(Inches, "12")]
             [ConversionFactor(Decimeters, "3.048")]
-            [ConversionFactor(Yards, "1 / 3")]
-            [ConversionFactor(Meters, ".3048")]
-            [ConversionFactor(Dekameters, ".03048")]
-            [ConversionFactor(Hectometers, ".003048")]
-            [ConversionFactor(Kilometers, ".0003048")]
-            [ConversionFactor(Miles, "1 / 5280")]
-            [ConversionFactor(Megameters, "3.048 * 10 ^ -7")]
-            [ConversionFactor(Gigameters, "3.048 * 10 ^ -10")]
-            [ConversionFactor(Terameters, "3.048 * 10 ^ -13")]
-            [ConversionFactor(Petameters, "3.048 * 10 ^ -16")]
-            [ConversionFactor(Exameters, "3.048 * 10 ^ -19")]
-            [ConversionFactor(Yottameters, "3.048 * 10 ^ -22")]
             /// <summary>Units of an length measurement.</summary>
             Feet = 11,
             [ConversionFactor(Yoctometers, "9.144 * 10 ^ 23")]
@@ -99,35 +74,36 @@ namespace Towel.Measurements
             [ConversionFactor(Attometers, "9.144 * 10 ^ 17")]
             [ConversionFactor(Femtometers, "9.144 * 10 ^ 14")]
             [ConversionFactor(Picometers, "9.144 * 10 ^ 11")]
-            [ConversionFactor(Nanometers, "9.144 * 10 ^ 8")]
+            [ConversionFactor(Nanometers, "914400000")]
             [ConversionFactor(Micrometers, "914400")]
             [ConversionFactor(Millimeters, "914.4")]
             [ConversionFactor(Centimeters, "91.44")]
             [ConversionFactor(Inches, "36")]
             [ConversionFactor(Decimeters, "9.144")]
             [ConversionFactor(Feet, "3")]
-            [ConversionFactor(Meters, "0.9144")]
-            [ConversionFactor(Dekameters, "0.09144")]
-            [ConversionFactor(Hectometers, "0.009144")]
-            [ConversionFactor(Kilometers, "0.0009144")]
-            [ConversionFactor(Miles, "1 / 1760")]
-            [ConversionFactor(Megameters, "9.144 * 10 ^ -7")]
-            [ConversionFactor(Gigameters, "9.144 * 10 ^ -10")]
-            [ConversionFactor(Terameters, "9.144 * 10 ^ -13")]
-            [ConversionFactor(Petameters, "9.144 * 10 ^ -16")]
-            [ConversionFactor(Exameters, "9.144 * 10 ^ -19")]
-            [ConversionFactor(Yottameters, "9.144 * 10 ^ -22")]
             /// <summary>Units of an length measurement.</summary>
 			Yards = 12,
+            [ConversionFactor(Inches, "39.37")]
+            [ConversionFactor(Feet, "3.281")]
+            [ConversionFactor(Yards, "1.094")]
             [MetricUnit(MetricUnits.BASE)]
             /// <summary>Units of an length measurement.</summary>
             Meters = 13,
+            [ConversionFactor(Inches, "393.7")]
+            [ConversionFactor(Feet, "32.81")]
+            [ConversionFactor(Yards, "10.94")]
             [MetricUnit(MetricUnits.Deka)]
             /// <summary>Units of an length measurement.</summary>
             Dekameters = 14,
+            [ConversionFactor(Inches, "3937")]
+            [ConversionFactor(Feet, "328.1")]
+            [ConversionFactor(Yards, "109.4")]
             [MetricUnit(MetricUnits.Hecto)]
             /// <summary>Units of an length measurement.</summary>
             Hectometers = 15,
+            [ConversionFactor(Inches, "39370")]
+            [ConversionFactor(Feet, "3281")]
+            [ConversionFactor(Yards, "1094")]
             [MetricUnit(MetricUnits.Kilo)]
             /// <summary>Units of an length measurement.</summary>
             Kilometers = 16,
@@ -137,48 +113,344 @@ namespace Towel.Measurements
             [ConversionFactor(Femtometers, "1.609 * 10 ^ 18")]
             [ConversionFactor(Picometers, "1.609 * 10 ^ 15")]
             [ConversionFactor(Nanometers, "1.609 * 10 ^ 12")]
-            [ConversionFactor(Micrometers, "1.609 * 10 ^ 9")]
-            [ConversionFactor(Millimeters, "1.609 * 10 ^ 6")]
+            [ConversionFactor(Micrometers, "1609340000")]
+            [ConversionFactor(Millimeters, "1609340")]
             [ConversionFactor(Centimeters, "160934")]
             [ConversionFactor(Inches, "63360")]
             [ConversionFactor(Decimeters, "16093.4")]
             [ConversionFactor(Feet, "5280")]
+            [ConversionFactor(Yards, "1760")]
             [ConversionFactor(Meters, "1609.344")]
             [ConversionFactor(Dekameters, "160.934")]
             [ConversionFactor(Hectometers, "16.0934")]
             [ConversionFactor(Kilometers, "1.60934")]
-            [ConversionFactor(Yards, "1760")]
-            [ConversionFactor(Megameters, "0.00160934")]
-            [ConversionFactor(Gigameters, "1.60934 * 10 ^ -6")]
-            [ConversionFactor(Terameters, "1.60934 * 10 ^ -9")]
-            [ConversionFactor(Petameters, "1.60934 * 10 ^ -12")]
-            [ConversionFactor(Exameters, "1.60934 * 10 ^ -15")]
-            [ConversionFactor(Yottameters, "1.60934 * 10 ^ -18")]
             /// <summary>Units of an length measurement.</summary>
             Miles = 17,
+            [ConversionFactor(Yoctometers, "1.852 * 10 ^ 27")]
+            [ConversionFactor(Zeptometers, "1.852 * 10 ^ 24")]
+            [ConversionFactor(Attometers, "1.852 * 10 ^ 21")]
+            [ConversionFactor(Femtometers, "1.852 * 10 ^ 18")]
+            [ConversionFactor(Picometers, "1.852 * 10 ^ 15")]
+            [ConversionFactor(Nanometers, "1.852 * 10 ^ 12")]
+            [ConversionFactor(Micrometers, "1852000000")]
+            [ConversionFactor(Millimeters, "1852000")]
+            [ConversionFactor(Centimeters, "185200")]
+            [ConversionFactor(Inches, "72913.42082")]
+            [ConversionFactor(Decimeters, "18520")]
+            [ConversionFactor(Feet, "6076.11840")]
+            [ConversionFactor(Yards, "2025.37280")]
+            [ConversionFactor(Meters, "1852")]
+            [ConversionFactor(Dekameters, "185.2")]
+            [ConversionFactor(Hectometers, "18.52")]
+            [ConversionFactor(Kilometers, "1.852")]
+            [ConversionFactor(Miles, "1.15078")]
+            NauticalMiles = 18,
+            [ConversionFactor(Inches, "39370000")]
+            [ConversionFactor(Feet, "3281000")]
+            [ConversionFactor(Yards, "1094000")]
+            [ConversionFactor(Miles, "621.371")]
+            [ConversionFactor(NauticalMiles, "540")]
             [MetricUnit(MetricUnits.Mega)]
             /// <summary>Units of an length measurement.</summary>
-            Megameters = 18,
+            Megameters = 19,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 10")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 9")]
+            [ConversionFactor(Yards, "1094000000")]
+            [ConversionFactor(Miles, "621371")]
+            [ConversionFactor(NauticalMiles, "540000")]
             [MetricUnit(MetricUnits.Giga)]
             /// <summary>Units of an length measurement.</summary>
-            Gigameters = 19,
+            Gigameters = 20,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 13")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 12")]
+            [ConversionFactor(Yards, "1.094 * 10 ^ 12")]
+            [ConversionFactor(Miles, "621371000")]
+            [ConversionFactor(NauticalMiles, "540000000")]
             [MetricUnit(MetricUnits.Tera)]
             /// <summary>Units of an length measurement.</summary>
-            Terameters = 20,
+            Terameters = 21,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 16")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 15")]
+            [ConversionFactor(Yards, "1.094 * 10 ^ 15")]
+            [ConversionFactor(Miles, "6.21371 * 10 ^ 11")]
+            [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 11")]
             [MetricUnit(MetricUnits.Peta)]
             /// <summary>Units of an length measurement.</summary>
-            Petameters = 21,
+            Petameters = 22,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 19")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 18")]
+            [ConversionFactor(Yards, "1.094 * 10 ^ 18")]
+            [ConversionFactor(Miles, "6.21371 * 10 ^ 14")]
+            [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 14")]
             [MetricUnit(MetricUnits.Exa)]
             /// <summary>Units of an length measurement.</summary>
-            Exameters = 22,
+            Exameters = 23,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 22")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 21")]
+            [ConversionFactor(Yards, "1.094 * 10 ^ 21")]
+            [ConversionFactor(Miles, "6.21371 * 10 ^ 17")]
+            [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 17")]
             [MetricUnit(MetricUnits.Zetta)]
             /// <summary>Units of an length measurement.</summary>
-            Zettameters = 23,
+            Zettameters = 24,
+            [ConversionFactor(Inches, "3.937 * 10 ^ 25")]
+            [ConversionFactor(Feet, "3.281 * 10 ^ 24")]
+            [ConversionFactor(Yards, "1.094 * 10 ^ 24")]
+            [ConversionFactor(Miles, "6.21371 * 10 ^ 20")]
+            [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 20")]
             [MetricUnit(MetricUnits.Yotta)]
             /// <summary>Units of an length measurement.</summary>
-            Yottameters = 24,
+            Yottameters = 25,
             /// <summary>Units of an length measurement.</summary>
-            //LightYear = 25,
+            //LightYear = 26,
         }
+    }
+
+    /// <summary>An Length measurement.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the Length measurement.</typeparam>
+    [Serializable]
+    public struct Length<T>
+    {
+        internal static Func<T, T>[][] Table = UnitConversionTable.Build<Length.Units, T>();
+        internal T _measurement;
+        internal Length.Units _units;
+
+        #region Constructors
+
+        /// <summary>Constructs an Length with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the Length.</param>
+        /// <param name="units">The units of the Length.</param>
+        public Length(T measurement, Length.Units units)
+        {
+            _measurement = measurement;
+            _units = units;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The current units used to represent the Length.</summary>
+        public Length.Units Units
+        {
+            get { return _units; }
+            set
+            {
+                if (value != _units)
+                {
+                    _measurement = this[value];
+                    _units = value;
+                }
+            }
+        }
+
+        /// <summary>Gets the measurement in the desired units.</summary>
+        /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
+        public T this[Length.Units units]
+        {
+            get
+            {
+                if (_units == units)
+                {
+                    return _measurement;
+                }
+                else
+                {
+                    return Table[(int)_units][(int)units](_measurement);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Mathematics
+
+        #region Add
+
+        public static Length<T> Add(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Length<T>(Compute.Add(a[units], b[units]), units);
+        }
+
+        public static Length<T> operator +(Length<T> a, Length<T> b)
+        {
+            return Add(a, b);
+        }
+
+        #endregion
+
+        #region Subtract
+
+        public static Length<T> Subtract(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return new Length<T>(Compute.Subtract(a[units], b[units]), units);
+        }
+
+        public static Length<T> operator -(Length<T> a, Length<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        #endregion
+
+        #region Multiply
+
+        public static Length<T> Multiply(Length<T> a, T b)
+        {
+            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
+
+        public static Length<T> Multiply(T b, Length<T> a)
+        {
+            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
+        }
+
+        public static Length<T> operator *(Length<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        public static Length<T> operator *(T b, Length<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        public static Speed<T> operator *(Length<T> a, Time<T> b)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Divide
+
+        public static Length<T> Divide(Length<T> a, T b)
+        {
+            return new Length<T>(Compute.Divide(a._measurement, b), a._units);
+        }
+
+        public static Length<T> operator /(Length<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        #endregion
+
+        #region LessThan
+
+        public static bool LessThan(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThan(a[units], b[units]);
+        }
+
+        public static bool operator <(Length<T> a, Length<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        public static bool GreaterThan(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThan(a[units], b[units]);
+        }
+
+        public static bool operator >(Length<T> a, Length<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        public static bool LessThanOrEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.LessThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator <=(Length<T> a, Length<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        public static bool GreaterThanOrEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.GreaterThanOrEqual(a[units], b[units]);
+        }
+
+        public static bool operator >=(Length<T> left, Length<T> right)
+        {
+            return GreaterThanOrEqual(left, right);
+        }
+
+        #endregion
+
+        #region Equal
+
+        public static bool Equal(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.Equal(a[units], b[units]);
+        }
+
+        public static bool operator ==(Length<T> a, Length<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        public static bool NotEqual(Length<T> a, Length<T> b)
+        {
+            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
+            return Compute.NotEqual(a[units], b[units]);
+        }
+
+        public static bool operator !=(Length<T> a, Length<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            switch (_units)
+            {
+                default: return _measurement + " " + _units;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Length<T>)
+            {
+                return this == ((Length<T>)obj);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return _measurement.GetHashCode() ^ _units.GetHashCode();
+        }
+
+        #endregion
     }
 }

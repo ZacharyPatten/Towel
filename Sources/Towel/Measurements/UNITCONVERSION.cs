@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -97,48 +98,107 @@ namespace Towel.Measurements
 
     internal static class UnitConversionTable
     {
-        internal static T[][] Build<UNITS, T>()
+        internal static Func<T, T>[][] Build<UNITS, T>()
         {
             int size = Convert.ToInt32(Extensions.GetMaxEnumValue<UNITS>());
-            T[][] conversionFactorTable = Extensions.ConstructSquareJagged<T>(size + 1);
+            Func<T, T>[][] conversionFactorTable = Extensions.ConstructSquareJagged<Func<T, T>>(size + 1);
             foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
             {
                 int A = Convert.ToInt32(A_unit);
 
-                // handle metric units first
-                MetricUnitAttribute A_metric = A_unit.GetEnumAttribute<MetricUnitAttribute>();
-                if (!(A_metric is null))
+                foreach (Enum B_unit in Enum.GetValues(typeof(UNITS)))
                 {
-                    foreach (Enum B_units in Enum.GetValues(typeof(UNITS)))
-                    {
-                        int B = Convert.ToInt32(B_units);
+                    int B = Convert.ToInt32(B_unit);
 
-                        MetricUnitAttribute B_metric = B_units.GetEnumAttribute<MetricUnitAttribute>();
-                        if (!(B_metric is null))
+                    MetricUnitAttribute A_metric = A_unit.GetEnumAttribute<MetricUnitAttribute>();
+                    MetricUnitAttribute B_metric = B_unit.GetEnumAttribute<MetricUnitAttribute>();
+
+                    if (A == B)
+                    {
+                        conversionFactorTable[A][B] = x => x;
+                    }
+                    else if (!(A_metric is null) && !(B_metric is null))
+                    {
+                        int metricDifference = (int)A_metric.MetricUnits - (int)B_metric.MetricUnits;
+                        if (metricDifference < 0)
                         {
-                            int metricDifference = (int)A_metric.MetricUnits - (int)B_metric.MetricUnits;
-                            conversionFactorTable[A][B] = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                            metricDifference = -metricDifference;
+                            T factor = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                            conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
                         }
                         else
                         {
-                            foreach (ConversionFactorAttribute conversionFactor in B_units.GetEnumAttributes<ConversionFactorAttribute>())
-                            {
-                                if (conversionFactor.To.Equals(A_unit))
-                                {
-                                    conversionFactorTable[A][B] = Compute.Invert(conversionFactor.Value<T>());
-                                    break;
-                                }
-                            }
+                            T factor = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                            conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
                         }
+                    }
+                    else if (A < B)
+                    {
+                        foreach (ConversionFactorAttribute conversionFactor in B_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => Convert.ToInt32(c.To) == A))
+                        {
+                            T factor = conversionFactor.Value<T>();
+                            conversionFactorTable[A][B] = x => Compute.Divide(x, factor);
+                        }
+                    }
+                    else if (A > B)
+                    {
+                        foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => Convert.ToInt32(c.To) == B))
+                        {
+                            T factor = conversionFactor.Value<T>();
+                            conversionFactorTable[A][B] = x => Compute.Multiply(x, factor);
+                        }
+                    }
+                    else
+                    {
+                        conversionFactorTable[A][B] = x => throw new Exception("Bug. Encountered an unhandled unit conversion.");
+                    }
+
+
+                    if (conversionFactorTable[A][B] is null)
+                    {
+                        Type type1 = typeof(UNITS);
+                        Type type2 = typeof(T);
+                        Debugger.Break();
                     }
                 }
 
-                // handle explicit conversion factors
-                foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>())
-                {
-                    int B = Convert.ToInt32(conversionFactor.To);
-                    conversionFactorTable[A][B] = conversionFactor.Value<T>();
-                }
+                //// handle metric units first
+                //MetricUnitAttribute A_metric = A_unit.GetEnumAttribute<MetricUnitAttribute>();
+                //if (!(A_metric is null))
+                //{
+                //    foreach (Enum B_units in Enum.GetValues(typeof(UNITS)))
+                //    {
+                //        int B = Convert.ToInt32(B_units);
+
+                //        MetricUnitAttribute B_metric = B_units.GetEnumAttribute<MetricUnitAttribute>();
+                //        if (!(B_metric is null))
+                //        {
+                //            int metricDifference = (int)A_metric.MetricUnits - (int)B_metric.MetricUnits;
+                //            T factor = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                //            conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
+                //        }
+                //        else
+                //        {
+                //            foreach (ConversionFactorAttribute conversionFactor in B_units.GetEnumAttributes<ConversionFactorAttribute>())
+                //            {
+                //                if (conversionFactor.To.Equals(A_unit))
+                //                {
+                //                    T factor = Compute.Invert(conversionFactor.Value<T>());
+                //                    conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
+                //                    break;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+
+                //// handle explicit conversion factors
+                //foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>())
+                //{
+                //    int B = Convert.ToInt32(conversionFactor.To);
+                //    T factor = conversionFactor.Value<T>();
+                //    conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
+                //}
             }
             return conversionFactorTable;
         }
