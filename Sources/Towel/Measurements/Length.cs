@@ -217,6 +217,8 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Length(T measurement, MeasurementUnitsSyntaxTypes.LengthUnits units) : this(measurement, units.Units) { }
+
         /// <summary>Constructs an Length with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Length.</param>
         /// <param name="units">The units of the Length.</param>

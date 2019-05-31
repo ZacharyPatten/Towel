@@ -91,6 +91,8 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Mass(T measurement, MeasurementUnitsSyntaxTypes.MassUnits units) : this(measurement, units.Units) { }
+
         /// <summary>Constructs an Mass with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Mass.</param>
         /// <param name="units">The units of the Mass.</param>

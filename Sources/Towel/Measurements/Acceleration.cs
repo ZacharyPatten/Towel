@@ -38,6 +38,9 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Acceleration(T measurement, MeasurementUnitsSyntaxTypes.AccelerationUnits units) :
+            this(measurement, units.LengthUnits, units.TimeUnits1, units.TimeUnits2) { }
+
         /// <summary>Constructs an Acceleration with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Acceleration.</param>
         /// <param name="units">The units of the Acceleration.</param>

@@ -48,6 +48,8 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Angle(T measurement, MeasurementUnitsSyntaxTypes.AngleUnits units) : this(measurement, units.Units) { }
+
         /// <summary>Constructs an Angle with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Angle.</param>
         /// <param name="units">The units of the Angle.</param>

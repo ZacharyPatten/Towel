@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using Towel.Mathematics;
 
 namespace Towel.Measurements
@@ -19,8 +17,8 @@ namespace Towel.Measurements
             {
                 throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ConversionFactorAttribute) + " contains a non-enum value.", nameof(to));
             }
-            this.To = (Enum)to;
-            this.Expression = expression;
+            To = (Enum)to;
+            Expression = expression;
         }
 
         internal T Value<T>()
@@ -38,61 +36,7 @@ namespace Towel.Measurements
 
         internal MetricUnitAttribute(MetricUnits metricUnits)
         {
-            this.MetricUnits = metricUnits;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    internal class ComplexUnitNumeratorsAttribute : Attribute
-    {
-        internal readonly Enum[] NUMERATORS;
-
-        internal ComplexUnitNumeratorsAttribute(object a, params object[] b)
-        {
-            if (!(a is Enum))
-            {
-                throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
-            }
-            foreach (object @object in b)
-            {
-                if (!(a is Enum))
-                {
-                    throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
-                }
-            }
-            NUMERATORS = new Enum[b.Length + 1];
-            for (int i = 0; i < b.Length; i++)
-            {
-                NUMERATORS[i] = (Enum)b[i];
-            }
-            NUMERATORS[b.Length] = (Enum)a;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    internal class ComplexUnitDenominatorsAttribute : Attribute
-    {
-        internal readonly Enum[] DENOMINATORS;
-
-        internal ComplexUnitDenominatorsAttribute(object a, params object[] b)
-        {
-            if (!(a is Enum))
-            {
-                throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
-            }
-            foreach (object @object in b)
-            {
-                if (!(a is Enum))
-                {
-                    throw new ArgumentException("There is a BUG in " + nameof(Towel) + ". A " + nameof(ComplexUnitNumeratorsAttribute) + " contains in a non-enum value.", nameof(a));
-                }
-            }
-            DENOMINATORS = new Enum[b.Length + 1];
-            for (int i = 0; i < b.Length; i++)
-            {
-                DENOMINATORS[i] = (Enum)b[i];
-            }
-            DENOMINATORS[b.Length] = (Enum)a;
+            MetricUnits = metricUnits;
         }
     }
 
@@ -227,33 +171,5 @@ namespace Towel.Measurements
         Exa = 18,
         Zetta = 21,
         Yotta = 24,
-    }
-
-    internal static class MeasurementConversionTable
-    {
-        internal static class Multiplication
-        {
-            //internal static C[][] Build<A, B, C>()
-            //{
-            //    // Notes:
-            //    // A = left hand unit type
-            //    // B = right hand unit type
-            //    // C = resulting unit type (for multiplication)
-
-
-            //}
-        }
-        internal static class Division
-        {
-            //internal static C[][] Build<A, B, C>()
-            //{
-            //    // Notes:
-            //    // A = left hand unit type
-            //    // B = right hand unit type
-            //    // C = resulting unit type (for division)
-
-
-            //}
-        }
     }
 }

@@ -58,6 +58,8 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Time(T measurement, MeasurementUnitsSyntaxTypes.TimeUnits units) : this(measurement, units.Units) { }
+
         /// <summary>Constructs an Time with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Time.</param>
         /// <param name="units">The units of the Time.</param>

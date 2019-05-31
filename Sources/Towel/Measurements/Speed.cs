@@ -64,6 +64,8 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        public Speed(T measurement, MeasurementUnitsSyntaxTypes.SpeedUnits units) : this(measurement, units.LengthUnits, units.TimeUnits) { }
+
         /// <summary>Constructs an speed with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the speed.</param>
         /// <param name="units">The units of the Speed.</param>
