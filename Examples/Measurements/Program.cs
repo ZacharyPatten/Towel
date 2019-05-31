@@ -99,6 +99,48 @@ namespace Measurements
 
             #endregion
 
+            #region Area
+
+            Console.WriteLine("  Area--------------------------------------");
+            Console.WriteLine();
+            Area<double> area1 = new Area<double>(1d, Meters * Meters);
+            Console.WriteLine("    area1 = " + area1);
+            Area<double> area2 = new Area<double>(2d, Yards * Yards);
+            Console.WriteLine("    area2 = " + area2);
+            Console.WriteLine("    area1 + area2 = " + (area1 + area2));
+            Console.WriteLine("    area2 - area1 = " + (area1 - area2));
+            Console.WriteLine("    area1 * 2 = " + (area1 * 2));
+            Console.WriteLine("    area1 / 2 = " + (area1 / 2));
+            Console.WriteLine("    area1 > area2 = " + (area1 > area2));
+            Console.WriteLine("    area1 == area2 = " + (area1 == area2));
+            Console.WriteLine("    area1 * 2 == area2 = " + (area1 * 2 == area2));
+            Console.WriteLine("    area1 != area2 = " + (area1 != area2));
+            Console.WriteLine();
+
+            #endregion
+
+            #region Volume
+
+            Console.WriteLine("  Volume--------------------------------------");
+            Console.WriteLine();
+            Volume<double> volume1 = new Volume<double>(1d, Meters * Meters * Meters);
+            Console.WriteLine("    volume1 = " + volume1);
+            Volume<double> volume2 = new Volume<double>(2d, Yards * Yards * Yards);
+            Console.WriteLine("    volume2 = " + volume2);
+            Console.WriteLine("    volume1 + volume2 = " + (volume1 + volume2));
+            Console.WriteLine("    volume2 - volume1 = " + (volume1 - volume2));
+            Console.WriteLine("    volume1 * 2 = " + (volume1 * 2));
+            Console.WriteLine("    volume1 / 2 = " + (volume1 / 2));
+            Console.WriteLine("    volume1 > volume2 = " + (volume1 > volume2));
+            Console.WriteLine("    volume1 == volume2 = " + (volume1 == volume2));
+            Console.WriteLine("    volume1 * 2 == volume2 = " + (volume1 * 2 == volume2));
+            Console.WriteLine("    volume1 != volume2 = " + (volume1 != volume2));
+            Area<double> area3 = volume1 / length1;
+            Console.WriteLine("    volume1 / length1 = " + area3);
+            Console.WriteLine();
+
+            #endregion
+
             #region Speed
 
             Console.WriteLine("  Speed--------------------------------------");
@@ -167,9 +209,9 @@ namespace Measurements
                 new Speed<float>(3f, Meters / Seconds));
 
             Vector<Speedf> velocity2 = new Vector<Speedf>(
-                new Speedf(.1f, Meters / Seconds),
-                new Speedf(.2f, Meters / Seconds),
-                new Speedf(.3f, Meters / Seconds));
+                new Speedf(.1f, Centimeters / Seconds),
+                new Speedf(.2f, Centimeters / Seconds),
+                new Speedf(.3f, Centimeters / Seconds));
 
             Vector<Speed<float>> velocity3 = velocity1 + velocity2;
 

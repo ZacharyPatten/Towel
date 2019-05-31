@@ -320,9 +320,19 @@ namespace Towel.Measurements
             return Multiply(b, a);
         }
 
-        public static Speed<T> operator *(Length<T> a, Time<T> b)
+        public static Area<T> operator *(Length<T> a, Length<T> b)
         {
-            throw new NotImplementedException();
+            return new Area<T>(Compute.Multiply(a._measurement, b._measurement), a.Units, b.Units);
+        }
+
+        public static Volume<T> operator *(Area<T> a, Length<T> b)
+        {
+            return new Volume<T>(Compute.Multiply(a._measurement, b._measurement), a.LengthUnits1, a.LengthUnits2, b.Units);
+        }
+
+        public static Volume<T> operator *(Length<T> a, Area<T> b)
+        {
+            return new Volume<T>(Compute.Multiply(a._measurement, b._measurement), a.Units, b.LengthUnits1, b.LengthUnits2);
         }
 
         #endregion
@@ -337,6 +347,26 @@ namespace Towel.Measurements
         public static Length<T> operator /(Length<T> a, T b)
         {
             return Divide(a, b);
+        }
+
+        public static Length<T> operator /(Area<T> a, Length<T> b)
+        {
+            Length.Units units = a.LengthUnits1 <= b.Units ? a.LengthUnits1 : b.Units;
+
+            T A = a[units, a.LengthUnits2];
+            T B = b[units];
+
+            return new Length<T>(Compute.Divide(A, B), a.LengthUnits2);
+        }
+
+        public static Area<T> operator /(Volume<T> a, Length<T> b)
+        {
+            Length.Units units = a.LengthUnits1 <= b.Units ? a.LengthUnits1 : b.Units;
+
+            T A = a[units, a.LengthUnits2, a.LengthUnits3];
+            T B = b[units];
+
+            return new Area<T>(Compute.Divide(A, B), a.LengthUnits2, a.LengthUnits3);
         }
 
         #endregion

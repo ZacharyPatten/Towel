@@ -121,18 +121,38 @@ symExp1.Substitute("x", 5);
 ## Measurement Mathematics
 
 ```csharp
+// Towel has measurement types to help write scientific code: Acceleration<T>, Angle<T>, Area<T>, 
+// Density<T>, Length<T>, Mass<T>, Speed<T>, Time<T>, Volume<T>, etc.
+
 // Automatic Unit Conversion
 // When you perform mathematical operations on measurements, any necessary unit conversions will
 // be automatically performed by the relative measurement type (in this case "Angle<T>").
-Angle<double> angle1 = new Angle<double>(90d, Angle.Units.Degrees);
-Angle<double> angle2 = new Angle<double>(.5d, Angle.Units.Turns);
+Angle<double> angle1 = new Angle<double>(90d, Degrees);
+Angle<double> angle2 = new Angle<double>(.5d, Turns);
 Angle<double> result1 = angle1 + angle2; // 270° 
 
 // Type Safeness
 // The type safe-ness of the measurement types prevents the miss-use of the measurements. You cannot
 // add "Length<T>" to "Angle<T>" because that is mathematically invalid (no operator exists).
-Length<double> length1 = new Length<double>(2d, Length.Units.Yards);
+Length<double> length1 = new Length<double>(2d, Yards);
 object result2 = angle1 + length1; // WILL NOT COMPILE!!!
+
+// Simplify The Syntax Even Further
+// You can use alias to remove the generic type if you want to simplify the syntax even further.
+using Speedf = Towel.Measurements.Speed<float>; // at top of file
+Speedf speed1 = new Speedf(5, Meters / Seconds);
+
+// Vector + Measurements
+// You can use the measurement types inside Towel Vectors.
+Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
+	new Speed<float>(1f, Meters / Seconds),
+	new Speed<float>(2f, Meters / Seconds),
+	new Speed<float>(3f, Meters / Seconds));
+Vector<Speedf> velocity2 = new Vector<Speedf>(
+    new Speedf(1f, Centimeters / Seconds),
+    new Speedf(2f, Centimeters / Seconds),
+    new Speedf(3f, Centimeters / Seconds));
+Vector<Speed<float>> velocity3 = velocity1 + velocity2;
 ```
 
 ## Data Structures

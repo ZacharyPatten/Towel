@@ -29,6 +29,16 @@ namespace Towel.Measurements
             {
                 return new SpeedUnits() { LengthUnits = lengthUnits.Units, TimeUnits = timeUnits.Units, };
             }
+
+            public static AreaUnits operator *(LengthUnits lengthUnits1, LengthUnits lengthUnits2)
+            {
+                return new AreaUnits() { LengthUnits1 = lengthUnits1.Units, LengthUnits2 = lengthUnits2.Units, };
+            }
+
+            public static VolumeUnits operator *(AreaUnits areaUnits, LengthUnits lengthUnits)
+            {
+                return new VolumeUnits() { LengthUnits1 = areaUnits.LengthUnits1, LengthUnits2 = areaUnits.LengthUnits2, LengthUnits3 = lengthUnits.Units, };
+            }
         }
 
         public struct MassUnits
@@ -48,6 +58,19 @@ namespace Towel.Measurements
             public static implicit operator TimeUnits(Time.Units units)
             {
                 return new TimeUnits() { Units = units, };
+            }
+        }
+
+        public struct AreaUnits
+        {
+            public Length.Units LengthUnits1;
+            public Length.Units LengthUnits2;
+
+            public static implicit operator AreaUnits(Area.Units units)
+            {
+                AreaUnits areaUnits = new AreaUnits();
+                Area.Map(units, out areaUnits.LengthUnits1, out areaUnits.LengthUnits2);
+                return areaUnits;
             }
         }
 
@@ -88,6 +111,23 @@ namespace Towel.Measurements
                     out accelerationUnits.TimeUnits1,
                     out accelerationUnits.TimeUnits2);
                 return accelerationUnits;
+            }
+        }
+
+        public struct VolumeUnits
+        {
+            public Length.Units LengthUnits1;
+            public Length.Units LengthUnits2;
+            public Length.Units LengthUnits3;
+
+            public static implicit operator VolumeUnits(Volume.Units units)
+            {
+                VolumeUnits areaUnits = new VolumeUnits();
+                Volume.Map(units,
+                    out areaUnits.LengthUnits1,
+                    out areaUnits.LengthUnits2,
+                    out areaUnits.LengthUnits3);
+                return areaUnits;
             }
         }
     }
