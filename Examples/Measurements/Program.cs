@@ -1,7 +1,9 @@
 ﻿using System;
+using Towel.Mathematics;
 using Towel.Measurements;
 
 using static Towel.Measurements.MeasurementUnitsSyntax; // allows measurement syntax
+using Speedf = Towel.Measurements.Speed<float>;
 
 namespace Measurements
 {
@@ -12,6 +14,8 @@ namespace Measurements
             Console.WriteLine("You are runnning the Measurements example.");
             Console.WriteLine("==========================================");
             Console.WriteLine();
+
+            #region Specific Measurement Type Examples
 
             #region Angle
 
@@ -137,6 +141,37 @@ namespace Measurements
             Console.WriteLine("    acceleration1 != acceleration2 = " + (acceleration1 != acceleration2));
             Console.WriteLine("    acceleration1 * time2 = " + (acceleration1 * time2));
             Console.WriteLine();
+
+            #endregion
+
+            #endregion
+
+            #region Syntax Sugar Example (removing the generic type via alias)
+
+            // If you hate seeing the "<float>" or "<double>" you can add syntax 
+            // sugar to your files with an alias in C#:
+            //
+            // using Speedf = Towel.Measurements.Speed<float>;
+
+            Speedf speedf = new Speedf(1f, Meters / Seconds);
+
+            #endregion
+
+            #region Vectors Examples
+
+            // You can use measurements inside Vectors in Towel.
+
+            Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
+                new Speed<float>(1f, Meters / Seconds),
+                new Speed<float>(2f, Meters / Seconds),
+                new Speed<float>(3f, Meters / Seconds));
+
+            Vector<Speedf> velocity2 = new Vector<Speedf>(
+                new Speedf(.1f, Meters / Seconds),
+                new Speedf(.2f, Meters / Seconds),
+                new Speedf(.3f, Meters / Seconds));
+
+            Vector<Speed<float>> velocity3 = velocity1 + velocity2;
 
             #endregion
 
