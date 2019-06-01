@@ -11,12 +11,16 @@ namespace Towel.Measurements
         [Serializable]
         public enum Units
         {
-            // Enum values must be 0, 1, 2, 3... as they are used for array look ups
+            // Enum values must be 0, 1, 2, 3... as they are used for array look ups.
+            // They need not be in any specific order as they are converted into the
+            // relative base units.
 
             [Units(Length.Units.NauticalMiles, Time.Units.Hours)]
             /// <summary>Units of an speed measurement.</summary>
             Knots = 0,
         }
+
+        #region Units Mapping
 
         internal static (Length.Units, Time.Units)[] UnitMapings;
 
@@ -51,6 +55,8 @@ namespace Towel.Measurements
             lengthUnits = mapping.Item1;
             timeUnits = mapping.Item2;
         }
+
+        #endregion
     }
 
     /// <summary>An Speed measurement.</summary>

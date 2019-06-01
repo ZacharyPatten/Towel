@@ -10,9 +10,9 @@ namespace Towel.Measurements
         [Serializable]
         public enum Units
         {
-            // Note: These enum values are critical. They are used to determine
-            // unit priorities and storage of location conversion factors. They 
-            // need to be small and in non-increasing order of unit size.
+            // Enum values must be 0, 1, 2, 3... as they are used for array look ups.
+            // They also need to be in order of least to greatest so that the enum
+            // value can be used for comparison checks.
 
             [ConversionFactor(Seconds, "1/1000")]
             [ConversionFactor(Minutes, "1/60000")]

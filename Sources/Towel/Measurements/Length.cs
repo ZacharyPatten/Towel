@@ -10,9 +10,9 @@ namespace Towel.Measurements
         [Serializable]
         public enum Units
         {
-            // Note: It is critical that these enum values are in increasing order of size.
-            // Their value is used as a priority when doing operations on measurements in
-            // different units.
+            // Enum values must be 0, 1, 2, 3... as they are used for array look ups.
+            // They also need to be in order of least to greatest so that the enum
+            // value can be used for comparison checks.
 
             [MetricUnit(MetricUnits.Yocto)]
             /// <summary>Units of an length measurement.</summary>

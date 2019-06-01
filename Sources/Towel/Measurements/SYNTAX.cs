@@ -4,8 +4,32 @@ using System.Text;
 
 namespace Towel.Measurements
 {
+    /// <summary>Provides the necessary type definitions for the measurement units syntax.</summary>
     public static class MeasurementUnitsSyntaxTypes
     {
+        #region AccelerationUnits
+
+        public struct AccelerationUnits
+        {
+            public Length.Units LengthUnits;
+            public Time.Units TimeUnits1;
+            public Time.Units TimeUnits2;
+
+            public static implicit operator AccelerationUnits(Acceleration.Units units)
+            {
+                AccelerationUnits accelerationUnits = new AccelerationUnits();
+                Acceleration.Map(units,
+                    out accelerationUnits.LengthUnits,
+                    out accelerationUnits.TimeUnits1,
+                    out accelerationUnits.TimeUnits2);
+                return accelerationUnits;
+            }
+        }
+
+        #endregion
+
+        #region AngleUnits
+
         public struct AngleUnits
         {
             public Angle.Units Units;
@@ -15,6 +39,63 @@ namespace Towel.Measurements
                 return new AngleUnits() { Units = units, };
             }
         }
+
+        #endregion
+
+        #region AreaUnits
+
+        public struct AreaUnits
+        {
+            public Length.Units LengthUnits1;
+            public Length.Units LengthUnits2;
+
+            public static implicit operator AreaUnits(Area.Units units)
+            {
+                AreaUnits areaUnits = new AreaUnits();
+                Area.Map(units, out areaUnits.LengthUnits1, out areaUnits.LengthUnits2);
+                return areaUnits;
+            }
+        }
+
+        #endregion
+
+        #region ElectricChargeUnits
+
+        public struct ElectricChargeUnits
+        {
+            public ElectricCharge.Units Units;
+
+            public static implicit operator ElectricChargeUnits(ElectricCharge.Units units)
+            {
+                return new ElectricChargeUnits() { Units = units, };
+            }
+
+            public static ElectricCurrentUnits operator /(ElectricChargeUnits electricChargeUnits, TimeUnits timeUnits)
+            {
+                return new ElectricCurrentUnits() { ElectricChargeUnits = electricChargeUnits.Units, TimeUnits = timeUnits.Units, };
+            }
+        }
+
+        #endregion
+
+        #region ElectricCurrentUnits
+
+        public struct ElectricCurrentUnits
+        {
+            public ElectricCharge.Units ElectricChargeUnits;
+            public Time.Units TimeUnits;
+
+            public static implicit operator ElectricCurrentUnits(ElectricCurrent.Units units)
+            {
+                ElectricCurrentUnits electricCurrentUnits = new ElectricCurrentUnits();
+                ElectricCurrent.Map(units, out electricCurrentUnits.ElectricChargeUnits, out electricCurrentUnits.TimeUnits);
+                return electricCurrentUnits;
+            }
+        }
+
+        #endregion
+
+        #region LengthUnits
 
         public struct LengthUnits
         {
@@ -41,6 +122,10 @@ namespace Towel.Measurements
             }
         }
 
+        #endregion
+
+        #region MassUnits
+
         public struct MassUnits
         {
             public Mass.Units Units;
@@ -51,28 +136,9 @@ namespace Towel.Measurements
             }
         }
 
-        public struct TimeUnits
-        {
-            public Time.Units Units;
+        #endregion
 
-            public static implicit operator TimeUnits(Time.Units units)
-            {
-                return new TimeUnits() { Units = units, };
-            }
-        }
-
-        public struct AreaUnits
-        {
-            public Length.Units LengthUnits1;
-            public Length.Units LengthUnits2;
-
-            public static implicit operator AreaUnits(Area.Units units)
-            {
-                AreaUnits areaUnits = new AreaUnits();
-                Area.Map(units, out areaUnits.LengthUnits1, out areaUnits.LengthUnits2);
-                return areaUnits;
-            }
-        }
+        #region SpeedUnits
 
         public struct SpeedUnits
         {
@@ -84,6 +150,20 @@ namespace Towel.Measurements
                 SpeedUnits speedUnits = new SpeedUnits();
                 Speed.Map(units, out speedUnits.LengthUnits, out speedUnits.TimeUnits);
                 return speedUnits;
+            }
+        }
+
+        #endregion
+
+        #region TimeUnits
+
+        public struct TimeUnits
+        {
+            public Time.Units Units;
+
+            public static implicit operator TimeUnits(Time.Units units)
+            {
+                return new TimeUnits() { Units = units, };
             }
 
             public static AccelerationUnits operator /(SpeedUnits speedUnits, TimeUnits timeUnits)
@@ -97,22 +177,9 @@ namespace Towel.Measurements
             }
         }
 
-        public struct AccelerationUnits
-        {
-            public Length.Units LengthUnits;
-            public Time.Units TimeUnits1;
-            public Time.Units TimeUnits2;
+        #endregion
 
-            public static implicit operator AccelerationUnits(Acceleration.Units units)
-            {
-                AccelerationUnits accelerationUnits = new AccelerationUnits();
-                Acceleration.Map(units,
-                    out accelerationUnits.LengthUnits,
-                    out accelerationUnits.TimeUnits1,
-                    out accelerationUnits.TimeUnits2);
-                return accelerationUnits;
-            }
-        }
+        #region VolumeUnits
 
         public struct VolumeUnits
         {
@@ -130,11 +197,15 @@ namespace Towel.Measurements
                 return areaUnits;
             }
         }
+
+        #endregion
     }
 
     /// <summary>Provides syntax for measurement unit definition. Intended to be referenced via "using static" keyword in files.</summary>
     public static class MeasurementUnitsSyntax
     {
+        #region Angle Units
+
         /// <summary>Units of an angle measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.AngleUnits Gradians = Angle.Units.Gradians;
         /// <summary>Units of an angle measurement.</summary>
@@ -142,7 +213,25 @@ namespace Towel.Measurements
         /// <summary>Units of an angle measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.AngleUnits Radians = Angle.Units.Radians;
         /// <summary>Units of an angle measurement.</summary>
-        public static MeasurementUnitsSyntaxTypes.AngleUnits Turns = Angle.Units.Turns;
+        public static MeasurementUnitsSyntaxTypes.AngleUnits Turns = Angle.Units.Revolutions;
+
+        #endregion
+
+        #region Electric Charge Units
+
+        /// <summary>Units of an electric charge measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.ElectricChargeUnits Coulombs = ElectricCharge.Units.Coulombs;
+
+        #endregion
+
+        #region Electric Current Units
+
+        /// <summary>Units of an electric charge measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.ElectricCurrentUnits Amperes = ElectricCurrent.Units.Amperes;
+
+        #endregion
+
+        #region Lenght Units
 
         /// <summary>Units of an length measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.LengthUnits Yoctometers = Length.Units.Yoctometers;
@@ -197,6 +286,10 @@ namespace Towel.Measurements
         /// <summary>Units of an length measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.LengthUnits Yottameters = Length.Units.Yottameters;
 
+        #endregion
+
+        #region Mass Units
+
         /// <summary>Units of an mass measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.MassUnits Yoctograms = Mass.Units.Yoctograms;
         /// <summary>Units of an mass measurement.</summary>
@@ -240,8 +333,16 @@ namespace Towel.Measurements
         /// <summary>Units of an mass measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.MassUnits Yottagrams = Mass.Units.Yottagrams;
 
+        #endregion
+
+        #region Speed Units
+
         /// <summary>Units of an speed measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.SpeedUnits Knots = Speed.Units.Knots;
+
+        #endregion
+
+        #region Time Units
 
         /// <summary>Units of an time measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.TimeUnits Milliseconds = Time.Units.Milliseconds;
@@ -253,5 +354,7 @@ namespace Towel.Measurements
         public static MeasurementUnitsSyntaxTypes.TimeUnits Hours = Time.Units.Hours;
         /// <summary>Units of an time measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.TimeUnits Days = Time.Units.Days;
+
+        #endregion
     }
 }

@@ -186,6 +186,26 @@ namespace Measurements
 
             #endregion
 
+            #region Electric Current
+
+            Console.WriteLine("  ElectricCurrent--------------------------------------");
+            Console.WriteLine();
+            ElectricCurrent<double> electricCurrent1 = new ElectricCurrent<double>(5d, Coulombs / Seconds);
+            Console.WriteLine("    electricCurrent1 = " + electricCurrent1);
+            ElectricCurrent<double> electricCurrent2 = new ElectricCurrent<double>(4d, Amperes);
+            Console.WriteLine("    electricCurrent2 = " + electricCurrent2);
+            Console.WriteLine("    electricCurrent1 + electricCurrent2 = " + (electricCurrent1 + electricCurrent2));
+            Console.WriteLine("    acceleration2 - electricCurrent1 = " + (electricCurrent1 - electricCurrent2));
+            Console.WriteLine("    electricCurrent1 * 2 = " + (electricCurrent1 * 2));
+            Console.WriteLine("    electricCurrent1 / 2 = " + (electricCurrent1 / 2));
+            Console.WriteLine("    electricCurrent1 > electricCurrent2 = " + (electricCurrent1 > electricCurrent2));
+            Console.WriteLine("    electricCurrent1 == electricCurrent2 = " + (electricCurrent1 == electricCurrent2));
+            Console.WriteLine("    electricCurrent1 * 2 == electricCurrent2 = " + (electricCurrent1 * 2 == electricCurrent2));
+            Console.WriteLine("    electricCurrent1 != electricCurrent2 = " + (electricCurrent1 != electricCurrent2));
+            Console.WriteLine();
+
+            #endregion
+
             #endregion
 
             #region Syntax Sugar Example (removing the generic type via alias)
