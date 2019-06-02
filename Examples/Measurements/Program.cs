@@ -268,6 +268,26 @@ namespace Measurements
 
             #endregion
 
+            #region Desnity
+
+            Console.WriteLine("  Density--------------------------------------");
+            Console.WriteLine();
+            Density<double> density1 = new Density<double>(5d, Kilograms / Meters / Meters / Meters);
+            Console.WriteLine("    density1 = " + density1);
+            Density<double> density2 = new Density<double>(2000d, Grams / Meters / Meters / Meters);
+            Console.WriteLine("    density2 = " + density2);
+            Console.WriteLine("    density1 + density2 = " + (density1 + density2));
+            Console.WriteLine("    density2 - density1 = " + (density2 - density1));
+            Console.WriteLine("    density1 * 2 = " + (density1 * 2));
+            Console.WriteLine("    density1 / 2 = " + (density1 / 2));
+            Console.WriteLine("    density1 > density2 = " + (density1 > density2));
+            Console.WriteLine("    density1 == density2 = " + (density1 == density2));
+            Console.WriteLine("    density1 * 2 == density2 = " + (density1 * 2 == density2));
+            Console.WriteLine("    density1 != density2 = " + (density1 != density2));
+            Console.WriteLine();
+
+            #endregion
+
             #endregion
 
             #region Syntax Sugar Example (removing the generic type via alias)

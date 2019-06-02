@@ -97,6 +97,43 @@ namespace Towel.Measurements
 
         #endregion
 
+        #region AreaDensityUnits
+
+        public struct AreaDensityUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits1;
+            public Length.Units LengthUnits2;
+
+            public static implicit operator AreaDensityUnits(AreaDensity.Units units)
+            {
+                AreaDensityUnits areaDensityUnits = new AreaDensityUnits();
+                AreaDensity.Map(units, out areaDensityUnits.MassUnits, out areaDensityUnits.LengthUnits1, out areaDensityUnits.LengthUnits2);
+                return areaDensityUnits;
+            }
+        }
+
+        #endregion
+
+        #region DensityUnits
+
+        public struct DensityUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits1;
+            public Length.Units LengthUnits2;
+            public Length.Units LengthUnits3;
+
+            public static implicit operator DensityUnits(Density.Units units)
+            {
+                DensityUnits densityUnits = new DensityUnits();
+                Density.Map(units, out densityUnits.MassUnits, out densityUnits.LengthUnits1, out densityUnits.LengthUnits2, out densityUnits.LengthUnits3);
+                return densityUnits;
+            }
+        }
+
+        #endregion
+
         #region ElectricChargeUnits
 
         public struct ElectricChargeUnits
@@ -187,6 +224,32 @@ namespace Towel.Measurements
             {
                 return new LinearMassUnits() { MassUnits = massUnits.Units, LengthUnits = lengthUnits.Units, };
             }
+
+            public static LinearDensityUnits operator /(MassUnits massUnits, LengthUnits lengthUnits)
+            {
+                return new LinearDensityUnits() { MassUnits = massUnits.Units, LengthUnits = lengthUnits.Units, };
+            }
+
+            public static AreaDensityUnits operator /(LinearDensityUnits linearDensityUnits, LengthUnits lengthUnits)
+            {
+                return new AreaDensityUnits()
+                {
+                    MassUnits = linearDensityUnits.MassUnits,
+                    LengthUnits1 = linearDensityUnits.LengthUnits,
+                    LengthUnits2 = lengthUnits.Units,
+                };
+            }
+
+            public static DensityUnits operator /(AreaDensityUnits areaDensityUnits, LengthUnits lengthUnits)
+            {
+                return new DensityUnits()
+                {
+                    MassUnits = areaDensityUnits.MassUnits,
+                    LengthUnits1 = areaDensityUnits.LengthUnits1,
+                    LengthUnits2 = areaDensityUnits.LengthUnits2,
+                    LengthUnits3 = lengthUnits.Units,
+                };
+            }
         }
 
         #endregion
@@ -201,6 +264,34 @@ namespace Towel.Measurements
             {
                 return new MassUnits() { Units = units, };
             }
+
+            public static DensityUnits operator /(MassUnits massUnits, VolumeUnits volumeUnits)
+            {
+                return new DensityUnits()
+                {
+                    MassUnits = massUnits.Units,
+                    LengthUnits1 = volumeUnits.LengthUnits1,
+                    LengthUnits2 = volumeUnits.LengthUnits2,
+                    LengthUnits3 = volumeUnits.LengthUnits3,
+                };
+            }
+        }
+
+        #endregion
+
+        #region LinearDensity
+
+        public struct LinearDensityUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits;
+
+            public static implicit operator LinearDensityUnits(LinearMass.Units units)
+            {
+                LinearDensityUnits linearDensityUnits = new LinearDensityUnits();
+                LinearMass.Map(units, out linearDensityUnits.MassUnits, out linearDensityUnits.LengthUnits);
+                return linearDensityUnits;
+            }
         }
 
         #endregion
@@ -214,9 +305,9 @@ namespace Towel.Measurements
 
             public static implicit operator LinearMassUnits(LinearMass.Units units)
             {
-                LinearMassUnits speedUnits = new LinearMassUnits();
-                LinearMass.Map(units, out speedUnits.MassUnits, out speedUnits.LengthUnits);
-                return speedUnits;
+                LinearMassUnits linearMassUnits = new LinearMassUnits();
+                LinearMass.Map(units, out linearMassUnits.MassUnits, out linearMassUnits.LengthUnits);
+                return linearMassUnits;
             }
         }
 

@@ -4,26 +4,23 @@ using Towel.Mathematics;
 
 namespace Towel.Measurements
 {
-    /// <summary>Contains unit types and conversion factors for the generic Desnity struct.</summary>
-    public static class Density
+    /// <summary>Contains unit types and conversion factors for the generic AreaDensity struct.</summary>
+    public static class AreaDensity
     {
-        /// <summary>Units for Desnity measurements.</summary>
+        /// <summary>Units for AreaDensity measurements.</summary>
         [Serializable]
         public enum Units
         {
-            // Note: It is critical that these enum values are in increasing order of size.
-            // Their value is used as a priority when doing operations on measurements in
-            // different units.
+            // Enum values must be 0, 1, 2, 3... as they are used for array look ups.
+            // They need not be in any specific order as they are converted into the
+            // relative base units.
 
-            //[ConversionFactor(XXXXX, XXXXX, "XXX")]
-            /// <summary>Units of an Desnity measurement.</summary>
-            //UNITS = X,
+
         }
-
 
         #region Units Mapping
 
-        internal static (Mass.Units, Length.Units, Length.Units, Length.Units)[] UnitMapings;
+        internal static (Mass.Units massUnits, Length.Units, Length.Units)[] UnitMapings;
 
         [AttributeUsage(AttributeTargets.Field)]
         internal class UnitsAttribute : Attribute
@@ -31,76 +28,65 @@ namespace Towel.Measurements
             internal Mass.Units MassUnits;
             internal Length.Units LengthUnits1;
             internal Length.Units LengthUnits2;
-            internal Length.Units LengthUnits3;
 
-            internal UnitsAttribute(Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2, Length.Units lengthUnits3)
+            internal UnitsAttribute(Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2)
             {
                 MassUnits = massUnits;
                 LengthUnits1 = lengthUnits1;
                 LengthUnits2 = lengthUnits2;
-                LengthUnits3 = lengthUnits3;
             }
         }
 
         /// <summary>Maps a units to relative base units.</summary>
-        public static void Map(
-            Density.Units densityUnits,
-            out Mass.Units massUnits,
-            out Length.Units lengthUnits1,
-            out Length.Units lengthUnits2,
-            out Length.Units lengthUnits3)
+        public static void Map(AreaDensity.Units areaDensityUnits, out Mass.Units massUnits, out Length.Units lengthUnits1, out Length.Units lengthUnits2)
         {
             if (UnitMapings is null)
             {
                 UnitMapings = Enum.GetValues(typeof(Units)).Cast<Units>().Select(x =>
                 {
                     UnitsAttribute unitsAttribute = x.GetEnumAttribute<UnitsAttribute>();
-                    return (unitsAttribute.MassUnits, unitsAttribute.LengthUnits1, unitsAttribute.LengthUnits2, unitsAttribute.LengthUnits3);
+                    return (unitsAttribute.MassUnits, unitsAttribute.LengthUnits1, unitsAttribute.LengthUnits2);
                 }).ToArray();
             }
 
-            (Mass.Units, Length.Units, Length.Units, Length.Units) mapping = UnitMapings[(int)densityUnits];
+            (Mass.Units, Length.Units, Length.Units) mapping = UnitMapings[(int)areaDensityUnits];
             massUnits = mapping.Item1;
             lengthUnits1 = mapping.Item2;
             lengthUnits2 = mapping.Item3;
-            lengthUnits3 = mapping.Item4;
         }
 
         #endregion
     }
 
-    /// <summary>An Density measurement.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the Density measurement.</typeparam>
+    /// <summary>An AreaDensity measurement.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the AreaDensity measurement.</typeparam>
     [Serializable]
-    public struct Density<T>
+    public struct AreaDensity<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
         internal Length.Units _lengthUnits1;
         internal Length.Units _lengthUnits2;
-        internal Length.Units _lengthUnits3;
 
         #region Constructors
 
-        public Density(T measurement, MeasurementUnitsSyntaxTypes.DensityUnits units) :
-            this(measurement, units.MassUnits, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3) { }
+        public AreaDensity(T measurement, MeasurementUnitsSyntaxTypes.AreaDensityUnits units) : this(measurement, units.MassUnits, units.LengthUnits1, units.LengthUnits2) { }
 
-        /// <summary>Constructs an Density with the specified measurement and units.</summary>
-        /// <param name="measurement">The measurement of the Density.</param>
-        /// <param name="units">The units of the Density.</param>
-        public Density(T measurement, Density.Units units)
+        /// <summary>Constructs an AreaDensity with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the AreaDensity.</param>
+        /// <param name="units">The units of the AreaDensity.</param>
+        public AreaDensity(T measurement, AreaDensity.Units units)
         {
             _measurement = measurement;
-            Density.Map(units, out _massUnits, out _lengthUnits1, out _lengthUnits2, out _lengthUnits3);
+            AreaDensity.Map(units, out _massUnits, out _lengthUnits1, out _lengthUnits2);
         }
 
-        public Density(T measurement, Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2, Length.Units lengthUnits3)
+        public AreaDensity(T measurement, Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2)
         {
             _measurement = measurement;
             _massUnits = massUnits;
             _lengthUnits1 = lengthUnits1;
             _lengthUnits2 = lengthUnits2;
-            _lengthUnits3 = lengthUnits3;
         }
 
         #endregion
@@ -114,8 +100,8 @@ namespace Towel.Measurements
             {
                 if (value != _massUnits)
                 {
-                    this._measurement = this[value, _lengthUnits1, _lengthUnits2, _lengthUnits3];
-                    this._massUnits = value;
+                    _measurement = this[value, _lengthUnits1, _lengthUnits2];
+                    _massUnits = value;
                 }
             }
         }
@@ -127,8 +113,8 @@ namespace Towel.Measurements
             {
                 if (value != _lengthUnits1)
                 {
-                    this._measurement = this[_massUnits, value, _lengthUnits2, _lengthUnits3];
-                    this._lengthUnits1 = value;
+                    _measurement = this[_massUnits, value, _lengthUnits2];
+                    _lengthUnits1 = value;
                 }
             }
         }
@@ -140,26 +126,25 @@ namespace Towel.Measurements
             {
                 if (value != _lengthUnits2)
                 {
-                    this._measurement = this[_massUnits, _lengthUnits1, value, _lengthUnits3];
-                    this._lengthUnits2 = value;
+                    _measurement = this[_massUnits, _lengthUnits1, value];
+                    _lengthUnits2 = value;
                 }
             }
         }
 
-        public Length.Units LengthUnits3
+        /// <summary>Gets the measurement in the desired units.</summary>
+        /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
+        public T this[AreaDensity.Units units]
         {
-            get { return _lengthUnits3; }
-            set
+            get
             {
-                if (value != _lengthUnits3)
-                {
-                    _measurement = this[_massUnits, _lengthUnits1, _lengthUnits2, value];
-                    _lengthUnits3 = value;
-                }
+                AreaDensity.Map(units, out Mass.Units massUnits, out Length.Units lengthUnits1, out Length.Units lengthUnits2);
+                return this[massUnits, lengthUnits1, lengthUnits2];
             }
         }
 
-        public T this[Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2, Length.Units lengthUnits3]
+        public T this[Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2]
         {
             get
             {
@@ -177,7 +162,7 @@ namespace Towel.Measurements
                 }
                 if (lengthUnits1 != _lengthUnits1)
                 {
-                    if (lengthUnits1 > _lengthUnits1)
+                    if (lengthUnits1 < _lengthUnits1)
                     {
                         measurement = Length<T>.Table[(int)_lengthUnits1][(int)lengthUnits1](measurement);
                     }
@@ -188,24 +173,13 @@ namespace Towel.Measurements
                 }
                 if (lengthUnits2 != _lengthUnits2)
                 {
-                    if (lengthUnits2 > _lengthUnits2)
+                    if (lengthUnits2 < _lengthUnits2)
                     {
                         measurement = Length<T>.Table[(int)_lengthUnits2][(int)lengthUnits2](measurement);
                     }
                     else
                     {
                         measurement = Length<T>.Table[(int)lengthUnits2][(int)_lengthUnits2](measurement);
-                    }
-                }
-                if (lengthUnits3 != _lengthUnits3)
-                {
-                    if (lengthUnits3 > _lengthUnits3)
-                    {
-                        measurement = Length<T>.Table[(int)_lengthUnits3][(int)lengthUnits3](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)lengthUnits3][(int)_lengthUnits3](measurement);
                     }
                 }
                 return measurement;
@@ -216,47 +190,43 @@ namespace Towel.Measurements
 
         #region Mathematics
 
-
         #region Bases
 
-        internal static Density<T> MathBase(Density<T> a, Density<T> b, Func<T, T, T> func)
+        internal static AreaDensity<T> MathBase(AreaDensity<T> a, AreaDensity<T> b, Func<T, T, T> func)
         {
             Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
             Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
             Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
-            Length.Units lengthUnits3 = a._lengthUnits3 <= b._lengthUnits3 ? a._lengthUnits3 : b._lengthUnits3;
 
-            T A = a[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
-            T B = b[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
+            T A = a[massUnits, lengthUnits1, lengthUnits2];
+            T B = b[massUnits, lengthUnits1, lengthUnits2];
             T C = func(A, B);
 
-            return new Density<T>(C, massUnits, lengthUnits1, lengthUnits2, lengthUnits3);
+            return new AreaDensity<T>(C, massUnits, lengthUnits1, lengthUnits2);
         }
 
-        internal static bool LogicBase(Density<T> a, Density<T> b, Func<T, T, bool> func)
+        internal static bool LogicBase(AreaDensity<T> a, AreaDensity<T> b, Func<T, T, bool> func)
         {
             Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
             Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
             Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
-            Length.Units lengthUnits3 = a._lengthUnits3 <= b._lengthUnits3 ? a._lengthUnits3 : b._lengthUnits3;
 
-            T A = a[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
-            T B = b[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
+            T A = a[massUnits, lengthUnits1, lengthUnits2];
+            T B = b[massUnits, lengthUnits1, lengthUnits2];
 
             return func(A, B);
         }
 
         #endregion
 
-
         #region Add
 
-        public static Density<T> Add(Density<T> a, Density<T> b)
+        public static AreaDensity<T> Add(AreaDensity<T> a, AreaDensity<T> b)
         {
             return MathBase(a, b, Compute.AddImplementation<T>.Function);
         }
 
-        public static Density<T> operator +(Density<T> a, Density<T> b)
+        public static AreaDensity<T> operator +(AreaDensity<T> a, AreaDensity<T> b)
         {
             return Add(a, b);
         }
@@ -265,12 +235,12 @@ namespace Towel.Measurements
 
         #region Subtract
 
-        public static Density<T> Subtract(Density<T> a, Density<T> b)
+        public static AreaDensity<T> Subtract(AreaDensity<T> a, AreaDensity<T> b)
         {
             return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
         }
 
-        public static Density<T> operator -(Density<T> a, Density<T> b)
+        public static AreaDensity<T> operator -(AreaDensity<T> a, AreaDensity<T> b)
         {
             return Subtract(a, b);
         }
@@ -279,22 +249,22 @@ namespace Towel.Measurements
 
         #region Multiply
 
-        public static Density<T> Multiply(Density<T> a, T b)
+        public static AreaDensity<T> Multiply(AreaDensity<T> a, T b)
         {
-            return new Density<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
+            return new AreaDensity<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2);
         }
 
-        public static Density<T> Multiply(T b, Density<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Density<T> operator *(Density<T> a, T b)
+        public static AreaDensity<T> Multiply(T b, AreaDensity<T> a)
         {
             return Multiply(a, b);
         }
 
-        public static Density<T> operator *(T b, Density<T> a)
+        public static AreaDensity<T> operator *(AreaDensity<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        public static AreaDensity<T> operator *(T b, AreaDensity<T> a)
         {
             return Multiply(b, a);
         }
@@ -303,12 +273,12 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static Density<T> Divide(Density<T> a, T b)
+        public static AreaDensity<T> Divide(AreaDensity<T> a, T b)
         {
-            return new Density<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
+            return new AreaDensity<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2);
         }
 
-        public static Density<T> operator /(Density<T> a, T b)
+        public static AreaDensity<T> operator /(AreaDensity<T> a, T b)
         {
             return Divide(a, b);
         }
@@ -317,12 +287,12 @@ namespace Towel.Measurements
 
         #region LessThan
 
-        public static bool LessThan(Density<T> a, Density<T> b)
+        public static bool LessThan(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
         }
 
-        public static bool operator <(Density<T> a, Density<T> b)
+        public static bool operator <(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LessThan(a, b);
         }
@@ -331,12 +301,12 @@ namespace Towel.Measurements
 
         #region GreaterThan
 
-        public static bool GreaterThan(Density<T> a, Density<T> b)
+        public static bool GreaterThan(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
         }
 
-        public static bool operator >(Density<T> a, Density<T> b)
+        public static bool operator >(AreaDensity<T> a, AreaDensity<T> b)
         {
             return GreaterThan(a, b);
         }
@@ -345,12 +315,12 @@ namespace Towel.Measurements
 
         #region LessThanOrEqual
 
-        public static bool LessThanOrEqual(Density<T> a, Density<T> b)
+        public static bool LessThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
         }
 
-        public static bool operator <=(Density<T> a, Density<T> b)
+        public static bool operator <=(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LessThanOrEqual(a, b);
         }
@@ -359,12 +329,12 @@ namespace Towel.Measurements
 
         #region GreaterThanOrEqual
 
-        public static bool GreaterThanOrEqual(Density<T> a, Density<T> b)
+        public static bool GreaterThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
         }
 
-        public static bool operator >=(Density<T> left, Density<T> right)
+        public static bool operator >=(AreaDensity<T> left, AreaDensity<T> right)
         {
             return GreaterThanOrEqual(left, right);
         }
@@ -373,22 +343,22 @@ namespace Towel.Measurements
 
         #region Equal
 
-        public static bool Equal(Density<T> a, Density<T> b)
+        public static bool Equal(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
         }
 
-        public static bool operator ==(Density<T> a, Density<T> b)
+        public static bool operator ==(AreaDensity<T> a, AreaDensity<T> b)
         {
             return Equal(a, b);
         }
 
-        public static bool NotEqual(Density<T> a, Density<T> b)
+        public static bool NotEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
             return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
         }
 
-        public static bool operator !=(Density<T> a, Density<T> b)
+        public static bool operator !=(AreaDensity<T> a, AreaDensity<T> b)
         {
             return NotEqual(a, b);
         }
@@ -401,14 +371,14 @@ namespace Towel.Measurements
 
         public override string ToString()
         {
-            return _measurement + " " + _massUnits + "/" + _lengthUnits1 + "/" + _lengthUnits2 + "/" + _lengthUnits3;
+            return _measurement + " " + _massUnits + "/" + _lengthUnits1 + "/" + _lengthUnits2;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Density<T>)
+            if (obj is AreaDensity<T>)
             {
-                return this == ((Density<T>)obj);
+                return this == ((AreaDensity<T>)obj);
             }
             return false;
         }
@@ -417,9 +387,9 @@ namespace Towel.Measurements
         {
             return
                 _measurement.GetHashCode() ^
+                _massUnits.GetHashCode() ^
                 _lengthUnits1.GetHashCode() ^
-                _lengthUnits2.GetHashCode() ^
-                _lengthUnits3.GetHashCode();
+                _lengthUnits2.GetHashCode();
         }
 
         #endregion

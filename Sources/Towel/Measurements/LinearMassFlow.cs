@@ -151,7 +151,7 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (massUnits != _massUnits)
                 {
-                    if (lengthUnits < _lengthUnits)
+                    if (massUnits < _massUnits)
                     {
                         measurement = Mass<T>.Table[(int)_massUnits][(int)massUnits](measurement);
                     }
