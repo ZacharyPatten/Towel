@@ -192,7 +192,7 @@ namespace Measurements
             Console.WriteLine();
             Force<double> force1 = new Force<double>(1d, Kilograms * Meters / Seconds / Seconds);
             Console.WriteLine("    force1 = " + force1);
-            Force<double> force2 = new Force<double>(2d, Kilograms * Meters / Seconds / Seconds);
+            Force<double> force2 = new Force<double>(2d, Newtons);
             Console.WriteLine("    force2 = " + force2);
             Console.WriteLine("    force1 + force2 = " + (force1 + force2));
             Console.WriteLine("    force2 - force1 = " + (force2 - force1));
