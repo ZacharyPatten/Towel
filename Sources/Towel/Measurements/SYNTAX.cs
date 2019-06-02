@@ -95,6 +95,25 @@ namespace Towel.Measurements
 
         #endregion
 
+        #region ForceUnits
+
+        public struct ForceUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits;
+            public Time.Units TimeUnits1;
+            public Time.Units TimeUnits2;
+
+            public static implicit operator ForceUnits(Force.Units units)
+            {
+                ForceUnits forceUnits = new ForceUnits();
+                Force.Map(units, out forceUnits.MassUnits, out forceUnits.LengthUnits, out forceUnits.TimeUnits1, out forceUnits.TimeUnits2);
+                return forceUnits;
+            }
+        }
+
+        #endregion
+
         #region LengthUnits
 
         public struct LengthUnits
@@ -120,6 +139,11 @@ namespace Towel.Measurements
             {
                 return new VolumeUnits() { LengthUnits1 = areaUnits.LengthUnits1, LengthUnits2 = areaUnits.LengthUnits2, LengthUnits3 = lengthUnits.Units, };
             }
+
+            public static LinearMassUnits operator *(MassUnits massUnits, LengthUnits lengthUnits)
+            {
+                return new LinearMassUnits() { MassUnits = massUnits.Units, LengthUnits = lengthUnits.Units, };
+            }
         }
 
         #endregion
@@ -133,6 +157,41 @@ namespace Towel.Measurements
             public static implicit operator MassUnits(Mass.Units units)
             {
                 return new MassUnits() { Units = units, };
+            }
+        }
+
+        #endregion
+
+        #region LinearMass
+
+        public struct LinearMassUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits;
+
+            public static implicit operator LinearMassUnits(LinearMass.Units units)
+            {
+                LinearMassUnits speedUnits = new LinearMassUnits();
+                LinearMass.Map(units, out speedUnits.MassUnits, out speedUnits.LengthUnits);
+                return speedUnits;
+            }
+        }
+
+        #endregion
+
+        #region LinearMassFlow
+
+        public struct LinearMassFlowUnits
+        {
+            public Mass.Units MassUnits;
+            public Length.Units LengthUnits;
+            public Time.Units TimeUnits;
+
+            public static implicit operator LinearMassFlowUnits(LinearMassFlow.Units units)
+            {
+                LinearMassFlowUnits linearMassFlowUnits = new LinearMassFlowUnits();
+                LinearMassFlow.Map(units, out linearMassFlowUnits.MassUnits, out linearMassFlowUnits.LengthUnits, out linearMassFlowUnits.TimeUnits);
+                return linearMassFlowUnits;
             }
         }
 
@@ -172,6 +231,27 @@ namespace Towel.Measurements
                 {
                     LengthUnits = speedUnits.LengthUnits,
                     TimeUnits1 = speedUnits.TimeUnits,
+                    TimeUnits2 = timeUnits.Units,
+                };
+            }
+
+            public static LinearMassFlowUnits operator /(LinearMassUnits linearMassUnits, TimeUnits timeUnits)
+            {
+                return new LinearMassFlowUnits()
+                {
+                    MassUnits = linearMassUnits.MassUnits,
+                    LengthUnits = linearMassUnits.LengthUnits,
+                    TimeUnits = timeUnits.Units,
+                };
+            }
+
+            public static ForceUnits operator /(LinearMassFlowUnits linearMassFlowUnits, TimeUnits timeUnits)
+            {
+                return new ForceUnits()
+                {
+                    MassUnits = linearMassFlowUnits.MassUnits,
+                    LengthUnits = linearMassFlowUnits.LengthUnits,
+                    TimeUnits1 = linearMassFlowUnits.TimeUnits,
                     TimeUnits2 = timeUnits.Units,
                 };
             }
@@ -228,6 +308,13 @@ namespace Towel.Measurements
 
         /// <summary>Units of an electric charge measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.ElectricCurrentUnits Amperes = ElectricCurrent.Units.Amperes;
+
+        #endregion
+
+        #region Force Units
+
+        /// <summary>Units of an force measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.ForceUnits Newtons = Force.Units.Newtons;
 
         #endregion
 

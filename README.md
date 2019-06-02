@@ -149,9 +149,9 @@ Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
 	new Speed<float>(2f, Meters / Seconds),
 	new Speed<float>(3f, Meters / Seconds));
 Vector<Speedf> velocity2 = new Vector<Speedf>(
-    new Speedf(1f, Centimeters / Seconds),
-    new Speedf(2f, Centimeters / Seconds),
-    new Speedf(3f, Centimeters / Seconds));
+	new Speedf(1f, Centimeters / Seconds),
+	new Speedf(2f, Centimeters / Seconds),
+	new Speedf(3f, Centimeters / Seconds));
 Vector<Speed<float>> velocity3 = velocity1 + velocity2;
 ```
 

@@ -107,8 +107,6 @@ namespace Towel.Measurements
                     UnitsAttribute unitsAttribute = x.GetEnumAttribute<UnitsAttribute>();
                     return (unitsAttribute.ElectricChargeUnits, unitsAttribute.TimeUnits);
                 }).ToArray();
-                int length = Enum.GetNames(typeof(Units)).Length;
-                (ElectricCharge.Units, Time.Units)[] unitMappings = new (ElectricCharge.Units, Time.Units)[length];
             }
 
             (ElectricCharge.Units, Time.Units) mapping = UnitMapings[(int)electricCurrentUnits];

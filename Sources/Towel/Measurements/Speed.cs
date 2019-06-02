@@ -47,8 +47,6 @@ namespace Towel.Measurements
                     UnitsAttribute unitsAttribute = x.GetEnumAttribute<UnitsAttribute>();
                     return (unitsAttribute.LengthUnits, unitsAttribute.TimeUnits);
                 }).ToArray();
-                int length = Enum.GetNames(typeof(Units)).Length;
-                (Length.Units, Time.Units)[] unitMappings = new (Length.Units, Time.Units)[length];
             }
 
             (Length.Units, Time.Units) mapping = UnitMapings[(int)speedUnits];

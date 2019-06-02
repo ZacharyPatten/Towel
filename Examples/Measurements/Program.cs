@@ -26,7 +26,7 @@ namespace Measurements
             Angle<double> angle2 = new Angle<double>(0.5, Turns);
             Console.WriteLine("    angle2 = " + angle2);
             Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
-            Console.WriteLine("    angle2 - angle1 = " + (angle1 - angle2));
+            Console.WriteLine("    angle2 - angle1 = " + (angle2 - angle1));
             Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
             Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
             Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
@@ -46,7 +46,7 @@ namespace Measurements
             Length<double> length2 = new Length<double>(2d, Yards);
             Console.WriteLine("    length2 = " + length2);
             Console.WriteLine("    length1 + length2 = " + (length1 + length2));
-            Console.WriteLine("    length2 - length1 = " + (length1 - length2));
+            Console.WriteLine("    length2 - length1 = " + (length2 - length1));
             Console.WriteLine("    length1 * 2 = " + (length1 * 2));
             Console.WriteLine("    length1 / 2 = " + (length1 / 2));
             Console.WriteLine("    length1 > length2 = " + (length1 > length2));
@@ -68,7 +68,7 @@ namespace Measurements
             Mass<double> mass2 = new Mass<double>(2d, Kilograms);
             Console.WriteLine("    mass2 = " + mass2);
             Console.WriteLine("    mass1 + mass2 = " + (mass1 + mass2));
-            Console.WriteLine("    mass2 - mass1 = " + (mass1 - mass2));
+            Console.WriteLine("    mass2 - mass1 = " + (mass2 - mass1));
             Console.WriteLine("    mass1 * 2 = " + (mass1 * 2));
             Console.WriteLine("    mass1 / 2 = " + (mass1 / 2));
             Console.WriteLine("    mass1 > mass2 = " + (mass1 > mass2));
@@ -88,7 +88,7 @@ namespace Measurements
             Time<double> time2 = new Time<double>(2d, Minutes);
             Console.WriteLine("    time2 = " + time2);
             Console.WriteLine("    time1 + time2 = " + (time1 + time2));
-            Console.WriteLine("    time2 - time1 = " + (time1 - time2));
+            Console.WriteLine("    time2 - time1 = " + (time2 - time1));
             Console.WriteLine("    time1 * 2 = " + (time1 * 2));
             Console.WriteLine("    time1 / 2 = " + (time1 / 2));
             Console.WriteLine("    time1 > time2 = " + (time1 > time2));
@@ -108,7 +108,7 @@ namespace Measurements
             Area<double> area2 = new Area<double>(2d, Yards * Yards);
             Console.WriteLine("    area2 = " + area2);
             Console.WriteLine("    area1 + area2 = " + (area1 + area2));
-            Console.WriteLine("    area2 - area1 = " + (area1 - area2));
+            Console.WriteLine("    area2 - area1 = " + (area2 - area1));
             Console.WriteLine("    area1 * 2 = " + (area1 * 2));
             Console.WriteLine("    area1 / 2 = " + (area1 / 2));
             Console.WriteLine("    area1 > area2 = " + (area1 > area2));
@@ -128,7 +128,7 @@ namespace Measurements
             Volume<double> volume2 = new Volume<double>(2d, Yards * Yards * Yards);
             Console.WriteLine("    volume2 = " + volume2);
             Console.WriteLine("    volume1 + volume2 = " + (volume1 + volume2));
-            Console.WriteLine("    volume2 - volume1 = " + (volume1 - volume2));
+            Console.WriteLine("    volume2 - volume1 = " + (volume2 - volume1));
             Console.WriteLine("    volume1 * 2 = " + (volume1 * 2));
             Console.WriteLine("    volume1 / 2 = " + (volume1 / 2));
             Console.WriteLine("    volume1 > volume2 = " + (volume1 > volume2));
@@ -150,7 +150,7 @@ namespace Measurements
             Speed<double> speed2 = new Speed<double>(2d, Inches / Milliseconds);
             Console.WriteLine("    speed2 = " + speed2);
             Console.WriteLine("    speed1 + speed2 = " + (speed1 + speed2));
-            Console.WriteLine("    speed2 - speed1 = " + (speed1 - speed2));
+            Console.WriteLine("    speed2 - speed1 = " + (speed2 - speed1));
             Console.WriteLine("    speed1 * 2 = " + (speed1 * 2));
             Console.WriteLine("    speed1 / 2 = " + (speed1 / 2));
             Console.WriteLine("    speed1 > speed2 = " + (speed1 > speed2));
@@ -174,7 +174,7 @@ namespace Measurements
             Acceleration<double> acceleration2 = new Acceleration<double>(4d, Inches / Milliseconds / Milliseconds);
             Console.WriteLine("    acceleration2 = " + acceleration2);
             Console.WriteLine("    acceleration1 + acceleration2 = " + (acceleration1 + acceleration2));
-            Console.WriteLine("    acceleration2 - acceleration1 = " + (acceleration1 - acceleration2));
+            Console.WriteLine("    acceleration2 - acceleration1 = " + (acceleration2 - acceleration1));
             Console.WriteLine("    acceleration1 * 2 = " + (acceleration1 * 2));
             Console.WriteLine("    acceleration1 / 2 = " + (acceleration1 / 2));
             Console.WriteLine("    acceleration1 > acceleration2 = " + (acceleration1 > acceleration2));
@@ -182,6 +182,26 @@ namespace Measurements
             Console.WriteLine("    acceleration1 * 2 == acceleration2 = " + (acceleration1 * 2 == acceleration2));
             Console.WriteLine("    acceleration1 != acceleration2 = " + (acceleration1 != acceleration2));
             Console.WriteLine("    acceleration1 * time2 = " + (acceleration1 * time2));
+            Console.WriteLine();
+
+            #endregion
+
+            #region Force
+
+            Console.WriteLine("  Force--------------------------------------");
+            Console.WriteLine();
+            Force<double> force1 = new Force<double>(1d, Kilograms * Meters / Seconds / Seconds);
+            Console.WriteLine("    force1 = " + force1);
+            Force<double> force2 = new Force<double>(2d, Kilograms * Meters / Seconds / Seconds);
+            Console.WriteLine("    force2 = " + force2);
+            Console.WriteLine("    force1 + force2 = " + (force1 + force2));
+            Console.WriteLine("    force2 - force1 = " + (force2 - force1));
+            Console.WriteLine("    force1 * 2 = " + (force1 * 2));
+            Console.WriteLine("    force1 / 2 = " + (force1 / 2));
+            Console.WriteLine("    force1 > force2 = " + (force1 > force2));
+            Console.WriteLine("    force1 == force2 = " + (force1 == force2));
+            Console.WriteLine("    force1 * 2 == force2 = " + (force1 * 2 == force2));
+            Console.WriteLine("    force1 != force2 = " + (force1 != force2));
             Console.WriteLine();
 
             #endregion
@@ -195,7 +215,7 @@ namespace Measurements
             ElectricCurrent<double> electricCurrent2 = new ElectricCurrent<double>(4d, Amperes);
             Console.WriteLine("    electricCurrent2 = " + electricCurrent2);
             Console.WriteLine("    electricCurrent1 + electricCurrent2 = " + (electricCurrent1 + electricCurrent2));
-            Console.WriteLine("    acceleration2 - electricCurrent1 = " + (electricCurrent1 - electricCurrent2));
+            Console.WriteLine("    acceleration2 - electricCurrent1 = " + (electricCurrent2 - electricCurrent1));
             Console.WriteLine("    electricCurrent1 * 2 = " + (electricCurrent1 * 2));
             Console.WriteLine("    electricCurrent1 / 2 = " + (electricCurrent1 / 2));
             Console.WriteLine("    electricCurrent1 > electricCurrent2 = " + (electricCurrent1 > electricCurrent2));

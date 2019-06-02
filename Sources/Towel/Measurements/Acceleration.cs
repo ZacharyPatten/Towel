@@ -229,6 +229,17 @@ namespace Towel.Measurements
             return Multiply(a, b);
         }
 
+        public static Force<T> operator *(Mass<T> mass, Acceleration<T> acceleration)
+        {
+            T measurement = Compute.Multiply(mass._measurement, acceleration._measurement);
+            return new Force<T>(measurement, mass._units, acceleration._lengthUnits, acceleration._timeUnits1, acceleration._timeUnits2);
+        }
+
+        public static Force<T> operator *(Acceleration<T> acceleration, Mass<T> mass)
+        {
+            return mass * acceleration;
+        }
+
         #endregion
 
         #region Divide
