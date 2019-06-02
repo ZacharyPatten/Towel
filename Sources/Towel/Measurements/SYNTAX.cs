@@ -42,6 +42,44 @@ namespace Towel.Measurements
 
         #endregion
 
+        #region AngularSpeedUnits
+
+        public struct AngularSpeedUnits
+        {
+            public Angle.Units AngleUnits;
+            public Time.Units TimeUnits;
+
+            public static implicit operator AngularSpeedUnits(AngularSpeed.Units units)
+            {
+                AngularSpeedUnits angularSpeedUnits = new AngularSpeedUnits();
+                AngularSpeed.Map(units, out angularSpeedUnits.AngleUnits, out angularSpeedUnits.TimeUnits);
+                return angularSpeedUnits;
+            }
+        }
+
+        #endregion
+
+        #region AccelerationUnits
+
+        public struct AngularAccelerationUnits
+        {
+            public Angle.Units AngleUnits;
+            public Time.Units TimeUnits1;
+            public Time.Units TimeUnits2;
+
+            public static implicit operator AngularAccelerationUnits(AngularAcceleration.Units units)
+            {
+                AngularAccelerationUnits angularAccelerationUnits = new AngularAccelerationUnits();
+                AngularAcceleration.Map(units,
+                    out angularAccelerationUnits.AngleUnits,
+                    out angularAccelerationUnits.TimeUnits1,
+                    out angularAccelerationUnits.TimeUnits2);
+                return angularAccelerationUnits;
+            }
+        }
+
+        #endregion
+
         #region AreaUnits
 
         public struct AreaUnits
@@ -138,6 +176,11 @@ namespace Towel.Measurements
             public static VolumeUnits operator *(AreaUnits areaUnits, LengthUnits lengthUnits)
             {
                 return new VolumeUnits() { LengthUnits1 = areaUnits.LengthUnits1, LengthUnits2 = areaUnits.LengthUnits2, LengthUnits3 = lengthUnits.Units, };
+            }
+
+            public static VolumeUnits operator *(LengthUnits lengthUnits, AreaUnits areaUnits)
+            {
+                return areaUnits * lengthUnits;
             }
 
             public static LinearMassUnits operator *(MassUnits massUnits, LengthUnits lengthUnits)
@@ -255,6 +298,21 @@ namespace Towel.Measurements
                     TimeUnits2 = timeUnits.Units,
                 };
             }
+
+            public static AngularSpeedUnits operator /(AngleUnits angleUnits, TimeUnits timeUnits)
+            {
+                return new AngularSpeedUnits() { AngleUnits = angleUnits.Units, TimeUnits = timeUnits.Units, };
+            }
+
+            public static AngularAccelerationUnits operator /(AngularSpeedUnits angularSpeedUnits, TimeUnits timeUnits)
+            {
+                return new AngularAccelerationUnits()
+                {
+                    AngleUnits = angularSpeedUnits.AngleUnits,
+                    TimeUnits1 = angularSpeedUnits.TimeUnits,
+                    TimeUnits2 = timeUnits.Units,
+                };
+            }
         }
 
         #endregion
@@ -293,7 +351,7 @@ namespace Towel.Measurements
         /// <summary>Units of an angle measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.AngleUnits Radians = Angle.Units.Radians;
         /// <summary>Units of an angle measurement.</summary>
-        public static MeasurementUnitsSyntaxTypes.AngleUnits Turns = Angle.Units.Revolutions;
+        public static MeasurementUnitsSyntaxTypes.AngleUnits Revolutions = Angle.Units.Revolutions;
 
         #endregion
 

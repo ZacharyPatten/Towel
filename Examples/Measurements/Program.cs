@@ -23,7 +23,7 @@ namespace Measurements
             Console.WriteLine();
             Angle<double> angle1 = new Angle<double>(90, Degrees);
             Console.WriteLine("    angle1 = " + angle1);
-            Angle<double> angle2 = new Angle<double>(0.5, Turns);
+            Angle<double> angle2 = new Angle<double>(0.5, Revolutions);
             Console.WriteLine("    angle2 = " + angle2);
             Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
             Console.WriteLine("    angle2 - angle1 = " + (angle2 - angle1));
@@ -222,6 +222,48 @@ namespace Measurements
             Console.WriteLine("    electricCurrent1 == electricCurrent2 = " + (electricCurrent1 == electricCurrent2));
             Console.WriteLine("    electricCurrent1 * 2 == electricCurrent2 = " + (electricCurrent1 * 2 == electricCurrent2));
             Console.WriteLine("    electricCurrent1 != electricCurrent2 = " + (electricCurrent1 != electricCurrent2));
+            Console.WriteLine();
+
+            #endregion
+
+            #region AngularSpeed
+
+            Console.WriteLine("  AngularSpeed--------------------------------------");
+            Console.WriteLine();
+            AngularSpeed<double> angularSpeed1 = new AngularSpeed<double>(10d, Radians / Seconds);
+            Console.WriteLine("    angularSpeed1 = " + angularSpeed1);
+            AngularSpeed<double> angularSpeed2 = new AngularSpeed<double>(2200d, Degrees / Milliseconds);
+            Console.WriteLine("    angularSpeed2 = " + angularSpeed2);
+            Console.WriteLine("    angularSpeed1 + angularSpeed2 = " + (angularSpeed1 + angularSpeed2));
+            Console.WriteLine("    angularSpeed2 - angularSpeed1 = " + (angularSpeed2 - angularSpeed1));
+            Console.WriteLine("    angularSpeed1 * 2 = " + (angularSpeed1 * 2));
+            Console.WriteLine("    angularSpeed1 / 2 = " + (angularSpeed1 / 2));
+            Console.WriteLine("    angularSpeed1 > angularSpeed2 = " + (angularSpeed1 > angularSpeed2));
+            Console.WriteLine("    angularSpeed1 == angularSpeed2 = " + (angularSpeed1 == angularSpeed2));
+            Console.WriteLine("    angularSpeed1 * 2 == angularSpeed2 = " + (angularSpeed1 * 2 == angularSpeed2));
+            Console.WriteLine("    angularSpeed1 != angularSpeed2 = " + (angularSpeed1 != angularSpeed2));
+            Console.WriteLine("    angularSpeed1 * time2 = " + (angularSpeed1 * time2));
+            Console.WriteLine();
+
+            #endregion
+
+            #region AngularAcceleration
+
+            Console.WriteLine("  AngularAcceleration--------------------------------------");
+            Console.WriteLine();
+            AngularAcceleration<double> angularAcceleration1 = new AngularAcceleration<double>(5000d, Radians / Seconds / Seconds);
+            Console.WriteLine("    angularAcceleration1 = " + angularAcceleration1);
+            AngularAcceleration<double> angularAcceleration2 = new AngularAcceleration<double>(.4d, Degrees / Milliseconds / Milliseconds);
+            Console.WriteLine("    angularAcceleration2 = " + angularAcceleration2);
+            Console.WriteLine("    angularAcceleration1 + angularAcceleration2 = " + (angularAcceleration1 + angularAcceleration2));
+            Console.WriteLine("    angularAcceleration2 - angularAcceleration1 = " + (angularAcceleration2 - angularAcceleration1));
+            Console.WriteLine("    angularAcceleration1 * 2 = " + (angularAcceleration1 * 2));
+            Console.WriteLine("    angularAcceleration1 / 2 = " + (angularAcceleration1 / 2));
+            Console.WriteLine("    angularAcceleration1 > angularAcceleration2 = " + (angularAcceleration1 > angularAcceleration2));
+            Console.WriteLine("    angularAcceleration1 == angularAcceleration2 = " + (angularAcceleration1 == angularAcceleration2));
+            Console.WriteLine("    angularAcceleration1 * 2 == angularAcceleration2 = " + (angularAcceleration1 * 2 == angularAcceleration2));
+            Console.WriteLine("    angularAcceleration1 != angularAcceleration2 = " + (angularAcceleration1 != angularAcceleration2));
+            Console.WriteLine("    angularAcceleration1 * time2 = " + (angularAcceleration1 * time2));
             Console.WriteLine();
 
             #endregion
