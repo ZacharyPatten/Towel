@@ -132,6 +132,14 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.AreaDensityUnits units]
+        {
+            get
+            {
+                return this[units.MassUnits, units.LengthUnits1, units.LengthUnits2];
+            }
+        }
+
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
         /// <returns>The measurement in the specified units.</returns>

@@ -15,8 +15,8 @@ namespace Towel.Measurements
             // They need not be in any specific order as they are converted into the
             // relative base units.
 
-            [Units(Length.Units.NauticalMiles, Time.Units.Hours)]
             /// <summary>Units of an speed measurement.</summary>
+            [Units(Length.Units.NauticalMiles, Time.Units.Hours)]
             Knots = 0,
         }
 
@@ -113,6 +113,14 @@ namespace Towel.Measurements
                     _measurement = this[_lengthUnits, value];
                     _timeUnits = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.SpeedUnits units]
+        {
+            get
+            {
+                return this[units.LengthUnits, units.TimeUnits];
             }
         }
 

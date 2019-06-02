@@ -15,68 +15,68 @@ namespace Towel.Measurements
             // They need not be in any specific order as they are converted into the
             // relative base units.
 
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Yoctocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Yoctoampheres = 0,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Zeptocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Zeptoampheres = 1,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Attocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Attoampheres = 2,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Femtocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Femtoampheres = 3,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Picocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Picoampheres = 4,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Nanocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Nanoampheres = 5,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Microcoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Microampheres = 6,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Millicoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Milliampheres = 7,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Centicoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Centiampheres = 8,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Decicoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Deciampheres = 9,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Coulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Amperes = 10,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Dekacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Dekaampheres = 11,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Hectocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Hectoampheres = 12,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Kilocoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Kiloampheres = 13,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Megacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Megaampheres = 14,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Gigacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Gigaampheres = 15,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Teracoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Teraampheres = 16,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Petacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Petaampheres = 17,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Exacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Exaampheres = 18,
+            /// <summary>Units of an electric charge measurement.</summary>
             [Units(ElectricCharge.Units.Zettacoulombs, Time.Units.Seconds)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Zettaampheres = 19,
-            [Units(ElectricCharge.Units.Yottacoulombs, Time.Units.Seconds)]
             /// <summary>Units of an electric charge measurement.</summary>
+            [Units(ElectricCharge.Units.Yottacoulombs, Time.Units.Seconds)]
             Yottaampheres = 20,
         }
 
@@ -167,6 +167,14 @@ namespace Towel.Measurements
                     _measurement = this[_electricChargeUnits, value];
                     _timeUnits = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.ElectricCurrentUnits units]
+        {
+            get
+            {
+                return this[units.ElectricChargeUnits, units.TimeUnits];
             }
         }
 

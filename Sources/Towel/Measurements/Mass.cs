@@ -14,68 +14,68 @@ namespace Towel.Measurements
             // Their value is used as a priority when doing operations on measurements in
             // different units.
 
-            [MetricUnit(MetricUnits.Yocto)]
             /// <summary>Units of an mass measurement.</summary>
+            [MetricUnit(MetricUnits.Yocto)]            
             Yoctograms = 0,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Zepto)]
-            /// <summary>Units of an mass measurement.</summary>
             Zeptograms = 1,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Atto)]
-            /// <summary>Units of an mass measurement.</summary>
             Attograms = 2,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Femto)]
-            /// <summary>Units of an mass measurement.</summary>
             Femtograms = 3,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Pico)]
-            /// <summary>Units of an mass measurement.</summary>
             Picograms = 4,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Nano)]
-            /// <summary>Units of an mass measurement.</summary>
             Nanograms = 5,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Micro)]
-            /// <summary>Units of an mass measurement.</summary>
             Micrograms = 6,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Milli)]
-            /// <summary>Units of an mass measurement.</summary>
             Milligrams = 7,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Centi)]
-            /// <summary>Units of an mass measurement.</summary>
             Centigrams = 8,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Deci)]
-            /// <summary>Units of an mass measurement.</summary>
             Decigrams = 10,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.BASE)]
-            /// <summary>Units of an mass measurement.</summary>
             Grams = 13,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Deka)]
-            /// <summary>Units of an mass measurement.</summary>
             Dekagrams = 14,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Hecto)]
-            /// <summary>Units of an mass measurement.</summary>
             Hectograms = 15,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Kilo)]
-            /// <summary>Units of an mass measurement.</summary>
             Kilograms = 16,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Mega)]
-            /// <summary>Units of an mass measurement.</summary>
             Megagrams = 18,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Giga)]
-            /// <summary>Units of an mass measurement.</summary>
             Gigagrams = 19,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Tera)]
-            /// <summary>Units of an mass measurement.</summary>
             Teragrams = 20,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Peta)]
-            /// <summary>Units of an mass measurement.</summary>
             Petagrams = 21,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Exa)]
-            /// <summary>Units of an mass measurement.</summary>
             Exagrams = 22,
+            /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Zetta)]
-            /// <summary>Units of an mass measurement.</summary>
             Zettagrams = 23,
-            [MetricUnit(MetricUnits.Yotta)]
             /// <summary>Units of an mass measurement.</summary>
+            [MetricUnit(MetricUnits.Yotta)]
             Yottagrams = 24,
         }
     }
@@ -117,6 +117,14 @@ namespace Towel.Measurements
                     _measurement = this[value];
                     _units = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.MassUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

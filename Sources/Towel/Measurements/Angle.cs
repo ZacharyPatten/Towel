@@ -14,25 +14,25 @@ namespace Towel.Measurements
             // They also need to be in order of least to greatest so that the enum
             // value can be used for comparison checks.
 
+            /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Degrees, "9 / 10")]
             [ConversionFactor(Radians, "π / 200")]
             [ConversionFactor(Revolutions, "1 / 400")]
-            /// <summary>Units of an angle measurement.</summary>
             Gradians = 0,
+            /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Gradians, "10 / 9")]
             [ConversionFactor(Radians, "π / 180")]
             [ConversionFactor(Revolutions, "1 / 360")]
-            /// <summary>Units of an angle measurement.</summary>
             Degrees = 1,
+            /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Gradians, "200 / π")]
             [ConversionFactor(Degrees, "180 / π")]
             [ConversionFactor(Revolutions, "π / 2")]
-            /// <summary>Units of an angle measurement.</summary>
 			Radians = 2,
+            /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Gradians, "400")]
             [ConversionFactor(Degrees, "360")]
             [ConversionFactor(Radians, "2 / π")]
-            /// <summary>Units of an angle measurement.</summary>
 			Revolutions = 3,
         }
     }
@@ -74,6 +74,14 @@ namespace Towel.Measurements
                     _measurement = this[value];
                     _units = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.AngleUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

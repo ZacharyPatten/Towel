@@ -15596,20 +15596,20 @@
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.GetHashCode">
@@ -15621,25 +15621,142 @@
             <param name="right">The object to compare to.</param>
             <returns>True if the references are equal, false if not.</returns>
         </member>
+        <member name="T:Towel.Measurements.Acceleration">
+            <summary>Contains unit types and conversion factors for the generic Acceleration struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Acceleration.Units">
+            <summary>Units for acceleration measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration.Map(Towel.Measurements.Acceleration.Units,Towel.Measurements.Length.Units@,Towel.Measurements.Time.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Acceleration`1">
+            <summary>An Acceleration measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Acceleration measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.Acceleration.Units)">
+            <summary>Constructs an Acceleration with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Acceleration.</param>
+            <param name="units">The units of the Acceleration.</param>
+        </member>
         <member name="T:Towel.Measurements.Angle">
             <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
         </member>
         <member name="T:Towel.Measurements.Angle.Units">
             <summary>Units for angle measurements.</summary>
         </member>
+        <member name="F:Towel.Measurements.Angle.Units.Gradians">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Angle.Units.Degrees">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Angle.Units.Radians">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Angle.Units.Revolutions">
+            <summary>Units of an angle measurement.</summary>
+        </member>
         <member name="T:Towel.Measurements.Angle`1">
-            <summary>An angle measurement.</summary>
-            <typeparam name="T">The generic numeric type used to store the angle measurement.</typeparam>
+            <summary>An Angle measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Angle measurement.</typeparam>
         </member>
         <member name="M:Towel.Measurements.Angle`1.#ctor(`0,Towel.Measurements.Angle.Units)">
-            <summary>Constructs an angle with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the angle.</param>
-            <param name="units">The units of the angle.</param>
+            <summary>Constructs an Angle with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Angle.</param>
+            <param name="units">The units of the Angle.</param>
         </member>
         <member name="P:Towel.Measurements.Angle`1.Units">
-            <summary>The current units used to represent the angle.</summary>
+            <summary>The current units used to represent the Angle.</summary>
         </member>
         <member name="P:Towel.Measurements.Angle`1.Item(Towel.Measurements.Angle.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.AngularAcceleration">
+            <summary>Contains unit types and conversion factors for the generic AngularAcceleration struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AngularAcceleration.Units">
+            <summary>Units for angularAcceleration measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.AngularAcceleration.Map(Towel.Measurements.AngularAcceleration.Units,Towel.Measurements.Angle.Units@,Towel.Measurements.Time.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AngularAcceleration`1">
+            <summary>An AngularAcceleration measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the AngularAcceleration measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.AngularAcceleration`1.#ctor(`0,Towel.Measurements.AngularAcceleration.Units)">
+            <summary>Constructs an AngularAcceleration with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the AngularAcceleration.</param>
+            <param name="units">The units of the AngularAcceleration.</param>
+        </member>
+        <member name="T:Towel.Measurements.AngularSpeed">
+            <summary>Contains unit types and conversion factors for the generic AngularSpeed struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AngularSpeed.Units">
+            <summary>Units for AngularSpeed measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.AngularSpeed.Map(Towel.Measurements.AngularSpeed.Units,Towel.Measurements.Angle.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AngularSpeed`1">
+            <summary>An AngularSpeed measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the AngularSpeed measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.AngularSpeed`1.#ctor(`0,Towel.Measurements.AngularSpeed.Units)">
+            <summary>Constructs an AngularSpeed with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the AngularSpeed.</param>
+            <param name="units">The units of the AngularSpeed.</param>
+        </member>
+        <member name="P:Towel.Measurements.AngularSpeed`1.Item(Towel.Measurements.AngularSpeed.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.Area">
+            <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Area.Units">
+            <summary>Units for Volumne measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.Area.Map(Towel.Measurements.Area.Units,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Area`1">
+            <summary>An Area measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Area measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.#ctor(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Constructs an Area with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Area.</param>
+            <param name="units">The units of the Area.</param>
+        </member>
+        <member name="P:Towel.Measurements.Area`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.AreaDensity">
+            <summary>Contains unit types and conversion factors for the generic AreaDensity struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AreaDensity.Units">
+            <summary>Units for AreaDensity measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity.Map(Towel.Measurements.AreaDensity.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.AreaDensity`1">
+            <summary>An AreaDensity measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the AreaDensity measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.#ctor(`0,Towel.Measurements.AreaDensity.Units)">
+            <summary>Constructs an AreaDensity with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the AreaDensity.</param>
+            <param name="units">The units of the AreaDensity.</param>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.Item(Towel.Measurements.AreaDensity.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
@@ -15667,48 +15784,192 @@
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
         </member>
-        <member name="T:Towel.Measurements.Current">
-            <summary>Contains unit types and conversion factors for the generic Current struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Current.Units">
-            <summary>Units for Current measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Current`1">
-            <summary>An Current measurement.</summary>
-            <typeparam name="T">The generic numeric type used to store the Current measurement.</typeparam>
-        </member>
-        <member name="M:Towel.Measurements.Current`1.#ctor(`0,Towel.Measurements.Current.Units)">
-            <summary>Constructs an Current with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Current.</param>
-            <param name="units">The units of the Current.</param>
-        </member>
-        <member name="P:Towel.Measurements.Current`1.Units">
-            <summary>The current units used to represent the Current.</summary>
-        </member>
-        <member name="P:Towel.Measurements.Current`1.Item(Towel.Measurements.Current.Units)">
-            <summary>Gets the measurement in the desired units.</summary>
-            <param name="units">The units you want the measurement to be in.</param>
-            <returns>The measurement in the specified units.</returns>
-        </member>
         <member name="T:Towel.Measurements.Density">
             <summary>Contains unit types and conversion factors for the generic Desnity struct.</summary>
         </member>
         <member name="T:Towel.Measurements.Density.Units">
             <summary>Units for Desnity measurements.</summary>
         </member>
-        <member name="T:Towel.Measurements.Desnity`1">
-            <summary>An Desnity measurement.</summary>
-            <typeparam name="T">The generic numeric type used to store the Desnity measurement.</typeparam>
+        <member name="M:Towel.Measurements.Density.Map(Towel.Measurements.Density.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
         </member>
-        <member name="M:Towel.Measurements.Desnity`1.#ctor(`0,Towel.Measurements.Density.Units)">
-            <summary>Constructs an Desnity with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Desnity.</param>
-            <param name="units">The units of the Desnity.</param>
+        <member name="T:Towel.Measurements.Density`1">
+            <summary>An Density measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Density measurement.</typeparam>
         </member>
-        <member name="P:Towel.Measurements.Desnity`1.Units">
-            <summary>The current units used to represent the Desnity.</summary>
+        <member name="M:Towel.Measurements.Density`1.#ctor(`0,Towel.Measurements.Density.Units)">
+            <summary>Constructs an Density with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Density.</param>
+            <param name="units">The units of the Density.</param>
         </member>
-        <member name="P:Towel.Measurements.Desnity`1.Item(Towel.Measurements.Density.Units)">
+        <member name="T:Towel.Measurements.ElectricCharge">
+            <summary>Contains unit types and conversion factors for the generic ElectricCharge struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.ElectricCharge.Units">
+            <summary>Units for electric charge measurements.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Yoctocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Zeptocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Attocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Femtocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Picocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Nanocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Microcoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Millicoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Centicoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Decicoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Coulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Dekacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Hectocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Kilocoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Megacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Gigacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Teracoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Petacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Exacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Zettacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCharge.Units.Yottacoulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="T:Towel.Measurements.ElectricCharge`1">
+            <summary>An ElectricCharge measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the ElectricCharge measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCharge`1.#ctor(`0,Towel.Measurements.ElectricCharge.Units)">
+            <summary>Constructs an ElectricCharge with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the ElectricCharge.</param>
+            <param name="units">The units of the ElectricCharge.</param>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCharge`1.Units">
+            <summary>The current units used to represent the ElectricCharge.</summary>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCharge`1.Item(Towel.Measurements.ElectricCharge.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.ElectricCurrent">
+            <summary>Contains unit types and conversion factors for the generic ElectricCurrent struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.ElectricCurrent.Units">
+            <summary>Units for electric current measurements.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Yoctoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Zeptoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Attoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Femtoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Picoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Nanoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Microampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Milliampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Centiampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Deciampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Amperes">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Dekaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Hectoampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Kiloampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Megaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Gigaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Teraampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Petaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Exaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Zettaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.ElectricCurrent.Units.Yottaampheres">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCurrent.Map(Towel.Measurements.ElectricCurrent.Units,Towel.Measurements.ElectricCharge.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.ElectricCurrent`1">
+            <summary>An ElectricCurrent measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the ElectricCurrent measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCurrent`1.#ctor(`0,Towel.Measurements.ElectricCharge.Units,Towel.Measurements.Time.Units)">
+            <summary>Constructs an ElectricCurrent with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the ElectricCurrent.</param>
+            <param name="units">The units of the ElectricCurrent.</param>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCurrent`1.Item(Towel.Measurements.ElectricCurrent.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
@@ -15742,17 +16003,20 @@
         <member name="T:Towel.Measurements.Force.Units">
             <summary>Units for Force measurements.</summary>
         </member>
+        <member name="F:Towel.Measurements.Force.Units.Newtons">
+            <summary>Units of an Force measurement.</summary>
+        </member>
+        <member name="M:Towel.Measurements.Force.Map(Towel.Measurements.Force.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Time.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
         <member name="T:Towel.Measurements.Force`1">
             <summary>An Force measurement.</summary>
             <typeparam name="T">The generic numeric type used to store the Force measurement.</typeparam>
         </member>
         <member name="M:Towel.Measurements.Force`1.#ctor(`0,Towel.Measurements.Force.Units)">
-            <summary>Constructs an Force with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Force.</param>
-            <param name="units">The units of the Force.</param>
-        </member>
-        <member name="P:Towel.Measurements.Force`1.Units">
-            <summary>The current units used to represent the Force.</summary>
+            <summary>Constructs an speed with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the speed.</param>
+            <param name="units">The units of the Speed.</param>
         </member>
         <member name="P:Towel.Measurements.Force`1.Item(Towel.Measurements.Force.Units)">
             <summary>Gets the measurement in the desired units.</summary>
@@ -15765,19 +16029,166 @@
         <member name="T:Towel.Measurements.Length.Units">
             <summary>Units for length measurements.</summary>
         </member>
+        <member name="F:Towel.Measurements.Length.Units.Yoctometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Zeptometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Attometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Femtometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Picometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Nanometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Micrometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Millimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Centimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Inches">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Decimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Feet">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Yards">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Meters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Dekameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Hectometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Kilometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Miles">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.NauticalMiles">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Megameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Gigameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Terameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Petameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Exameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Zettameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Length.Units.Yottameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
         <member name="T:Towel.Measurements.Length`1">
-            <summary>An length measurement.</summary>
-            <typeparam name="T">The generic numeric type used to store the length measurement.</typeparam>
+            <summary>An Length measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Length measurement.</typeparam>
         </member>
         <member name="M:Towel.Measurements.Length`1.#ctor(`0,Towel.Measurements.Length.Units)">
-            <summary>Constructs an length with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the length.</param>
-            <param name="units">The units of the length.</param>
+            <summary>Constructs an Length with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Length.</param>
+            <param name="units">The units of the Length.</param>
         </member>
         <member name="P:Towel.Measurements.Length`1.Units">
-            <summary>The current units used to represent the length.</summary>
+            <summary>The current units used to represent the Length.</summary>
         </member>
         <member name="P:Towel.Measurements.Length`1.Item(Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.LinearDensity">
+            <summary>Contains unit types and conversion factors for the generic LinearDensity struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearDensity.Units">
+            <summary>Units for LinearDensity measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity.Map(Towel.Measurements.LinearDensity.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearDensity`1">
+            <summary>An LinearDensity measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the LinearDensity measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.#ctor(`0,Towel.Measurements.LinearDensity.Units)">
+            <summary>Constructs an LinearDensity with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the LinearDensity.</param>
+            <param name="units">The units of the LinearDensity.</param>
+        </member>
+        <member name="P:Towel.Measurements.LinearDensity`1.Item(Towel.Measurements.LinearDensity.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.LinearMass">
+            <summary>Contains unit types and conversion factors for the generic LinearMass struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearMass.Units">
+            <summary>Units for LinearMass measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass.Map(Towel.Measurements.LinearMass.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearMass`1">
+            <summary>An LinearMass measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the LinearMass measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.#ctor(`0,Towel.Measurements.LinearMass.Units)">
+            <summary>Constructs an LinearMass with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the LinearMass.</param>
+            <param name="units">The units of the LinearMass.</param>
+        </member>
+        <member name="P:Towel.Measurements.LinearMass`1.Item(Towel.Measurements.LinearMass.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.LinearMassFlow">
+            <summary>Contains unit types and conversion factors for the generic LinearMassFlow struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearMassFlow.Units">
+            <summary>Units for LinearMassFlow measurements.</summary>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow.Map(Towel.Measurements.LinearMassFlow.Units,Towel.Measurements.Mass.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
+        <member name="T:Towel.Measurements.LinearMassFlow`1">
+            <summary>An LinearMassFlow measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the LinearMassFlow measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.#ctor(`0,Towel.Measurements.LinearMassFlow.Units)">
+            <summary>Constructs an LinearMassFlow with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the LinearMassFlow.</param>
+            <param name="units">The units of the LinearMassFlow.</param>
+        </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.Item(Towel.Measurements.LinearMassFlow.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
@@ -15810,6 +16221,69 @@
         </member>
         <member name="T:Towel.Measurements.Mass.Units">
             <summary>Units for Mass measurements.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Yoctograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Zeptograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Attograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Femtograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Picograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Nanograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Micrograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Milligrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Centigrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Decigrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Grams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Dekagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Hectograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Kilograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Megagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Gigagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Teragrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Petagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Exagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Zettagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Mass.Units.Yottagrams">
+            <summary>Units of an mass measurement.</summary>
         </member>
         <member name="T:Towel.Measurements.Mass`1">
             <summary>An Mass measurement.</summary>
@@ -15880,22 +16354,211 @@
         <member name="T:Towel.Measurements.Speed.Units">
             <summary>Units for Speed measurements.</summary>
         </member>
+        <member name="F:Towel.Measurements.Speed.Units.Knots">
+            <summary>Units of an speed measurement.</summary>
+        </member>
+        <member name="M:Towel.Measurements.Speed.Map(Towel.Measurements.Speed.Units,Towel.Measurements.Length.Units@,Towel.Measurements.Time.Units@)">
+            <summary>Maps a units to relative base units.</summary>
+        </member>
         <member name="T:Towel.Measurements.Speed`1">
             <summary>An Speed measurement.</summary>
             <typeparam name="T">The generic numeric type used to store the Speed measurement.</typeparam>
         </member>
         <member name="M:Towel.Measurements.Speed`1.#ctor(`0,Towel.Measurements.Speed.Units)">
-            <summary>Constructs an Speed with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Speed.</param>
+            <summary>Constructs an speed with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the speed.</param>
             <param name="units">The units of the Speed.</param>
-        </member>
-        <member name="P:Towel.Measurements.Speed`1.Units">
-            <summary>The current units used to represent the Speed.</summary>
         </member>
         <member name="P:Towel.Measurements.Speed`1.Item(Towel.Measurements.Speed.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.MeasurementUnitsSyntaxTypes">
+            <summary>Provides the necessary type definitions for the measurement units syntax.</summary>
+        </member>
+        <member name="T:Towel.Measurements.MeasurementUnitsSyntax">
+            <summary>Provides syntax for measurement unit definition. Intended to be referenced via "using static" keyword in files.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gradians">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Degrees">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Radians">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Revolutions">
+            <summary>Units of an angle measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Coulombs">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Amperes">
+            <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Newtons">
+            <summary>Units of an force measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yoctometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zeptometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Attometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Femtometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Picometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Nanometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Micrometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Millimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Centimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Inches">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Decimeters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Feet">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yards">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Meters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Dekameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hectometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Kilometers">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Miles">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.NauticalMiles">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Megameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gigameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Terameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Petameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Exameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zettameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottameters">
+            <summary>Units of an length measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yoctograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zeptograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Attograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Femtograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Picograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Nanograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Micrograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Milligrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Centigrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Decigrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Grams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Dekagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hectograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Kilograms">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Megagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gigagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Teragrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Petagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Exagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zettagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottagrams">
+            <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Knots">
+            <summary>Units of an speed measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Milliseconds">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Seconds">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Minutes">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hours">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Days">
+            <summary>Units of an time measurement.</summary>
         </member>
         <member name="T:Towel.Measurements.Tempurature">
             <summary>Contains unit types and conversion factors for the generic Tempurature struct.</summary>
@@ -15916,6 +16579,49 @@
             <summary>The current units used to represent the Tempurature.</summary>
         </member>
         <member name="P:Towel.Measurements.Tempurature`1.Item(Towel.Measurements.Tempurature.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
+            <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="T:Towel.Measurements.Time">
+            <summary>Contains unit types and conversion factors for the generic Time struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Time.Units">
+            <summary>Units for time measurements.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Time.Units.Milliseconds">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Time.Units.Seconds">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Time.Units.Minutes">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Time.Units.Hours">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Time.Units.Days">
+            <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Time`1">
+            <summary>An Time measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Time measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits)">
+            <summary>Constructs an Time with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Time.</param>
+            <param name="units">The units of the Time.</param>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.#ctor(`0,Towel.Measurements.Time.Units)">
+            <summary>Constructs an Time with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Time.</param>
+            <param name="units">The units of the Time.</param>
+        </member>
+        <member name="P:Towel.Measurements.Time`1.Units">
+            <summary>The current units used to represent the Time.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Time`1.Item(Towel.Measurements.Time.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
@@ -15943,27 +16649,31 @@
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
         </member>
-        <member name="T:Towel.Measurements.Volumne">
+        <member name="T:Towel.Measurements.Volume">
             <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
         </member>
-        <member name="T:Towel.Measurements.Volumne.Units">
+        <member name="T:Towel.Measurements.Volume.Units">
             <summary>Units for Volumne measurements.</summary>
         </member>
-        <member name="T:Towel.Measurements.Volumne`1">
-            <summary>An Volumne measurement.</summary>
-            <typeparam name="T">The generic numeric type used to store the Volumne measurement.</typeparam>
+        <member name="M:Towel.Measurements.Volume.Map(Towel.Measurements.Volume.Units,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@,Towel.Measurements.Length.Units@)">
+            <summary>Maps a units to relative base units.</summary>
         </member>
-        <member name="M:Towel.Measurements.Volumne`1.#ctor(`0,Towel.Measurements.Volumne.Units)">
-            <summary>Constructs an Volumne with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Volumne.</param>
-            <param name="units">The units of the Volumne.</param>
+        <member name="T:Towel.Measurements.Volume`1">
+            <summary>An Volume measurement.</summary>
+            <typeparam name="T">The generic numeric type used to store the Volume measurement.</typeparam>
         </member>
-        <member name="P:Towel.Measurements.Volumne`1.Units">
-            <summary>The current units used to represent the Volumne.</summary>
+        <member name="M:Towel.Measurements.Volume`1.#ctor(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Constructs an Volume with the specified measurement and units.</summary>
+            <param name="measurement">The measurement of the Volume.</param>
+            <param name="units">The units of the Volume.</param>
         </member>
-        <member name="P:Towel.Measurements.Volumne`1.Item(Towel.Measurements.Volumne.Units)">
+        <member name="P:Towel.Measurements.Volume`1.Item(Towel.Measurements.Volume.Units)">
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
+            <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the desired units.</summary>
             <returns>The measurement in the specified units.</returns>
         </member>
         <member name="T:Towel.Parallels.Parallel">

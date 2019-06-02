@@ -116,6 +116,14 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.AngleUnits units]
+        {
+            get
+            {
+                return this[units.Units];
+            }
+        }
+
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
         /// <returns>The measurement in the specified units.</returns>

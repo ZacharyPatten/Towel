@@ -14,35 +14,35 @@ namespace Towel.Measurements
             // They also need to be in order of least to greatest so that the enum
             // value can be used for comparison checks.
 
+            /// <summary>Units of an time measurement.</summary>
             [ConversionFactor(Seconds, "1/1000")]
             [ConversionFactor(Minutes, "1/60000")]
             [ConversionFactor(Hours, "1/3600000")]
             [ConversionFactor(Days, "1/86400000")]
-            /// <summary>Units of an time measurement.</summary>
             Milliseconds = 0,
+            /// <summary>Units of an time measurement.</summary>
             [ConversionFactor(Milliseconds, "1000")]
             [ConversionFactor(Minutes, "1/60")]
             [ConversionFactor(Hours, "1/3600")]
             [ConversionFactor(Days, "1/86400")]
-            /// <summary>Units of an time measurement.</summary>
             Seconds = 1,
+            /// <summary>Units of an time measurement.</summary>
             [ConversionFactor(Milliseconds, "60000")]
             [ConversionFactor(Seconds, "60")]
             [ConversionFactor(Hours, "1/60")]
             [ConversionFactor(Days, "1/1440")]
-            /// <summary>Units of an time measurement.</summary>
             Minutes = 2,
+            /// <summary>Units of an time measurement.</summary>
             [ConversionFactor(Milliseconds, "3600000")]
             [ConversionFactor(Seconds, "3600")]
             [ConversionFactor(Minutes, "60")]
             [ConversionFactor(Days, "1/24")]
-            /// <summary>Units of an time measurement.</summary>
             Hours = 3,
+            /// <summary>Units of an time measurement.</summary>
             [ConversionFactor(Milliseconds, "86400000")]
             [ConversionFactor(Seconds, "86400")]
             [ConversionFactor(Minutes, "1440")]
             [ConversionFactor(Hours, "24")]
-            /// <summary>Units of an time measurement.</summary>
             Days = 4,
         }
     }
@@ -58,6 +58,9 @@ namespace Towel.Measurements
 
         #region Constructors
 
+        /// <summary>Constructs an Time with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the Time.</param>
+        /// <param name="units">The units of the Time.</param>
         public Time(T measurement, MeasurementUnitsSyntaxTypes.TimeUnits units) : this(measurement, units.Units) { }
 
         /// <summary>Constructs an Time with the specified measurement and units.</summary>
@@ -84,6 +87,14 @@ namespace Towel.Measurements
                     _measurement = this[value];
                     _units = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.TimeUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

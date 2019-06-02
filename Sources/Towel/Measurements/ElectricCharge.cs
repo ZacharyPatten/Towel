@@ -14,68 +14,68 @@ namespace Towel.Measurements
             // They also need to be in order of least to greatest so that the enum
             // value can be used for comparison checks.
 
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Yocto)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Yoctocoulombs = 0,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Zepto)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Zeptocoulombs = 1,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Atto)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Attocoulombs = 2,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Femto)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Femtocoulombs = 3,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Pico)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Picocoulombs = 4,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Nano)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Nanocoulombs = 5,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Micro)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Microcoulombs = 6,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Milli)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Millicoulombs = 7,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Centi)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Centicoulombs = 8,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Deci)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Decicoulombs = 9,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.BASE)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Coulombs = 10,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Deka)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Dekacoulombs = 11,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Hecto)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Hectocoulombs = 12,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Kilo)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Kilocoulombs = 13,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Mega)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Megacoulombs = 14,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Giga)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Gigacoulombs = 15,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Tera)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Teracoulombs = 16,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Peta)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Petacoulombs = 17,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Exa)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Exacoulombs = 18,
+            /// <summary>Units of an electric charge measurement.</summary>
             [MetricUnit(MetricUnits.Zetta)]
-            /// <summary>Units of an electric charge measurement.</summary>
             Zettacoulombs = 19,
-            [MetricUnit(MetricUnits.Yotta)]
             /// <summary>Units of an electric charge measurement.</summary>
+            [MetricUnit(MetricUnits.Yotta)]
             Yottacoulombs = 20,
         }
     }
@@ -117,6 +117,14 @@ namespace Towel.Measurements
                     _measurement = this[value];
                     _units = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.ElectricChargeUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

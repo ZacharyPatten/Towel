@@ -114,6 +114,14 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.LinearMassUnits units]
+        {
+            get
+            {
+                return this[units.MassUnits, units.LengthUnits];
+            }
+        }
+
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
         /// <returns>The measurement in the specified units.</returns>

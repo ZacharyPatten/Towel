@@ -98,8 +98,27 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.VolumeUnits units]
+        {
+            get
+            {
+                return this[units.LengthUnits1, units.LengthUnits2, units.LengthUnits3];
+            }
+        }
+
         /// <summary>Gets the measurement in the desired units.</summary>
         /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
+        public T this[Volume.Units units]
+        {
+            get
+            {
+                Volume.Map(units, out Length.Units lengthUnits1, out Length.Units lengthUnits2, out Length.Units lengthUnits3);
+                return this[lengthUnits1, lengthUnits2, lengthUnits3];
+            }
+        }
+
+        /// <summary>Gets the measurement in the desired units.</summary>
         /// <returns>The measurement in the specified units.</returns>
         public T this[
             Length.Units lengthUnits1,

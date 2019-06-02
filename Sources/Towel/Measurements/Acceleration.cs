@@ -75,6 +75,23 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.AccelerationUnits units]
+        {
+            get
+            {
+                return this[units.LengthUnits, units.TimeUnits1, units.TimeUnits2];
+            }
+        }
+
+        public T this[Acceleration.Units units]
+        {
+            get
+            {
+                Acceleration.Map(units, out Length.Units lengthUnits, out Time.Units timeUnits1, out Time.Units timeUnits2);
+                return this[lengthUnits, timeUnits1, timeUnits2];
+            }
+        }
+
         public T this[
             Length.Units lengthUnits,
             Time.Units timeUnits1,

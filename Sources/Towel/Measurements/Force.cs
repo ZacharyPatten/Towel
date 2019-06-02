@@ -15,8 +15,8 @@ namespace Towel.Measurements
             // They need not be in any specific order as they are converted into the
             // relative base units.
 
-            [Units(Mass.Units.Kilograms, Length.Units.Meters, Time.Units.Seconds, Time.Units.Seconds)]
             /// <summary>Units of an Force measurement.</summary>
+            [Units(Mass.Units.Kilograms, Length.Units.Meters, Time.Units.Seconds, Time.Units.Seconds)]
             Newtons = 0,
         }
 
@@ -150,6 +150,14 @@ namespace Towel.Measurements
                     _measurement = this[_massUnits, _lengthUnits, value, _timeUnits2];
                     _timeUnits2 = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.AngleUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

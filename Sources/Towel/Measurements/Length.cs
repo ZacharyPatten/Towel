@@ -14,33 +14,34 @@ namespace Towel.Measurements
             // They also need to be in order of least to greatest so that the enum
             // value can be used for comparison checks.
 
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Yocto)]
-            /// <summary>Units of an length measurement.</summary>
             Yoctometers = 0,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Zepto)]
-            /// <summary>Units of an length measurement.</summary>
             Zeptometers = 1,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Atto)]
-            /// <summary>Units of an length measurement.</summary>
             Attometers = 2,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Femto)]
-            /// <summary>Units of an length measurement.</summary>
             Femtometers = 3,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Pico)]
-            /// <summary>Units of an length measurement.</summary>
             Picometers = 4,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Nano)]
-            /// <summary>Units of an length measurement.</summary>
             Nanometers = 5,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Micro)]
-            /// <summary>Units of an length measurement.</summary>
             Micrometers = 6,
+            /// <summary>Units of an length measurement.</summary>
             [MetricUnit(MetricUnits.Milli)]
-            /// <summary>Units of an length measurement.</summary>
             Millimeters = 7,
-            [MetricUnit(MetricUnits.Centi)]
             /// <summary>Units of an length measurement.</summary>
+            [MetricUnit(MetricUnits.Centi)]
             Centimeters = 8,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Yoctometers, "2.54 * 10 ^ 22")]
             [ConversionFactor(Zeptometers, "2.54 * 10 ^ 19")]
             [ConversionFactor(Attometers, "2.54 * 10 ^ 16")]
@@ -50,12 +51,12 @@ namespace Towel.Measurements
             [ConversionFactor(Micrometers, "25400")]
             [ConversionFactor(Millimeters, "25.4")]
             [ConversionFactor(Centimeters, "2.54")]
-            /// <summary>Units of an length measurement.</summary>
             Inches = 9,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937")]
             [MetricUnit(MetricUnits.Deci)]
-            /// <summary>Units of an length measurement.</summary>
             Decimeters = 10,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Yoctometers, "3.048 * 10 ^ 23")]
             [ConversionFactor(Zeptometers, "3.048 * 10 ^ 20")]
             [ConversionFactor(Attometers, "3.048 * 10 ^ 17")]
@@ -67,8 +68,8 @@ namespace Towel.Measurements
             [ConversionFactor(Centimeters, "30.48")]
             [ConversionFactor(Inches, "12")]
             [ConversionFactor(Decimeters, "3.048")]
-            /// <summary>Units of an length measurement.</summary>
             Feet = 11,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Yoctometers, "9.144 * 10 ^ 23")]
             [ConversionFactor(Zeptometers, "9.144 * 10 ^ 20")]
             [ConversionFactor(Attometers, "9.144 * 10 ^ 17")]
@@ -81,32 +82,32 @@ namespace Towel.Measurements
             [ConversionFactor(Inches, "36")]
             [ConversionFactor(Decimeters, "9.144")]
             [ConversionFactor(Feet, "3")]
-            /// <summary>Units of an length measurement.</summary>
 			Yards = 12,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "39.37")]
             [ConversionFactor(Feet, "3.281")]
             [ConversionFactor(Yards, "1.094")]
             [MetricUnit(MetricUnits.BASE)]
-            /// <summary>Units of an length measurement.</summary>
             Meters = 13,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "393.7")]
             [ConversionFactor(Feet, "32.81")]
             [ConversionFactor(Yards, "10.94")]
             [MetricUnit(MetricUnits.Deka)]
-            /// <summary>Units of an length measurement.</summary>
             Dekameters = 14,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3937")]
             [ConversionFactor(Feet, "328.1")]
             [ConversionFactor(Yards, "109.4")]
             [MetricUnit(MetricUnits.Hecto)]
-            /// <summary>Units of an length measurement.</summary>
             Hectometers = 15,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "39370")]
             [ConversionFactor(Feet, "3281")]
             [ConversionFactor(Yards, "1094")]
             [MetricUnit(MetricUnits.Kilo)]
-            /// <summary>Units of an length measurement.</summary>
             Kilometers = 16,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Yoctometers, "1.609 * 10 ^ 27")]
             [ConversionFactor(Zeptometers, "1.609 * 10 ^ 24")]
             [ConversionFactor(Attometers, "1.609 * 10 ^ 21")]
@@ -124,8 +125,8 @@ namespace Towel.Measurements
             [ConversionFactor(Dekameters, "160.934")]
             [ConversionFactor(Hectometers, "16.0934")]
             [ConversionFactor(Kilometers, "1.60934")]
-            /// <summary>Units of an length measurement.</summary>
             Miles = 17,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Yoctometers, "1.852 * 10 ^ 27")]
             [ConversionFactor(Zeptometers, "1.852 * 10 ^ 24")]
             [ConversionFactor(Attometers, "1.852 * 10 ^ 21")]
@@ -145,61 +146,61 @@ namespace Towel.Measurements
             [ConversionFactor(Kilometers, "1.852")]
             [ConversionFactor(Miles, "1.15078")]
             NauticalMiles = 18,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "39370000")]
             [ConversionFactor(Feet, "3281000")]
             [ConversionFactor(Yards, "1094000")]
             [ConversionFactor(Miles, "621.371")]
             [ConversionFactor(NauticalMiles, "540")]
             [MetricUnit(MetricUnits.Mega)]
-            /// <summary>Units of an length measurement.</summary>
             Megameters = 19,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 10")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 9")]
             [ConversionFactor(Yards, "1094000000")]
             [ConversionFactor(Miles, "621371")]
             [ConversionFactor(NauticalMiles, "540000")]
             [MetricUnit(MetricUnits.Giga)]
-            /// <summary>Units of an length measurement.</summary>
             Gigameters = 20,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 13")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 12")]
             [ConversionFactor(Yards, "1.094 * 10 ^ 12")]
             [ConversionFactor(Miles, "621371000")]
             [ConversionFactor(NauticalMiles, "540000000")]
             [MetricUnit(MetricUnits.Tera)]
-            /// <summary>Units of an length measurement.</summary>
             Terameters = 21,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 16")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 15")]
             [ConversionFactor(Yards, "1.094 * 10 ^ 15")]
             [ConversionFactor(Miles, "6.21371 * 10 ^ 11")]
             [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 11")]
             [MetricUnit(MetricUnits.Peta)]
-            /// <summary>Units of an length measurement.</summary>
             Petameters = 22,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 19")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 18")]
             [ConversionFactor(Yards, "1.094 * 10 ^ 18")]
             [ConversionFactor(Miles, "6.21371 * 10 ^ 14")]
             [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 14")]
             [MetricUnit(MetricUnits.Exa)]
-            /// <summary>Units of an length measurement.</summary>
             Exameters = 23,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 22")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 21")]
             [ConversionFactor(Yards, "1.094 * 10 ^ 21")]
             [ConversionFactor(Miles, "6.21371 * 10 ^ 17")]
             [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 17")]
             [MetricUnit(MetricUnits.Zetta)]
-            /// <summary>Units of an length measurement.</summary>
             Zettameters = 24,
+            /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "3.937 * 10 ^ 25")]
             [ConversionFactor(Feet, "3.281 * 10 ^ 24")]
             [ConversionFactor(Yards, "1.094 * 10 ^ 24")]
             [ConversionFactor(Miles, "6.21371 * 10 ^ 20")]
             [ConversionFactor(NauticalMiles, "5.4 * 10 ^ 20")]
             [MetricUnit(MetricUnits.Yotta)]
-            /// <summary>Units of an length measurement.</summary>
             Yottameters = 25,
             /// <summary>Units of an length measurement.</summary>
             //LightYear = 26,
@@ -243,6 +244,14 @@ namespace Towel.Measurements
                     _measurement = this[value];
                     _units = value;
                 }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.LengthUnits units]
+        {
+            get
+            {
+                return this[units.Units];
             }
         }
 

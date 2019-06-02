@@ -76,6 +76,49 @@ namespace Towel.Measurements
             }
         }
 
+        public Time.Units TimeUnits1
+        {
+            get { return _timeUnits1; }
+            set
+            {
+                if (value != _timeUnits1)
+                {
+                    _measurement = this[_angleUnits, value, _timeUnits2];
+                    _timeUnits1 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits2
+        {
+            get { return _timeUnits2; }
+            set
+            {
+                if (value != _timeUnits2)
+                {
+                    _measurement = this[_angleUnits, _timeUnits1, value];
+                    _timeUnits2 = value;
+                }
+            }
+        }
+
+        public T this[MeasurementUnitsSyntaxTypes.AngularAccelerationUnits units]
+        {
+            get
+            {
+                return this[units.AngleUnits, units.TimeUnits1, units.TimeUnits2];
+            }
+        }
+
+        public T this[AngularAcceleration.Units units]
+        {
+            get
+            {
+                AngularAcceleration.Map(units, out Angle.Units angleUnits, out Time.Units timeUnits1, out Time.Units timeUnits2);
+                return this[angleUnits, timeUnits1, timeUnits2];
+            }
+        }
+
         public T this[
             Angle.Units angleUnits,
             Time.Units timeUnits1,

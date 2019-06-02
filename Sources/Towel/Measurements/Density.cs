@@ -159,6 +159,23 @@ namespace Towel.Measurements
             }
         }
 
+        public T this[MeasurementUnitsSyntaxTypes.DensityUnits units]
+        {
+            get
+            {
+                return this[units.MassUnits, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3];
+            }
+        }
+
+        public T this[Density.Units units]
+        {
+            get
+            {
+                Density.Map(units, out Mass.Units massUnits, out Length.Units lengthUnits1, out Length.Units lengthUnits2, out Length.Units lengthUnits3);
+                return this[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
+            }
+        }
+
         public T this[Mass.Units massUnits, Length.Units lengthUnits1, Length.Units lengthUnits2, Length.Units lengthUnits3]
         {
             get
