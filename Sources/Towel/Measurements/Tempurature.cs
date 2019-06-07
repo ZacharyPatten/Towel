@@ -10,13 +10,34 @@ namespace Towel.Measurements
         [Serializable]
         public enum Units
         {
-            // Note: It is critical that these enum values are in increasing order of size.
-            // Their value is used as a priority when doing operations on measurements in
-            // different units.
+            // Enum values must be 0, 1, 2, 3... as they are used for array look ups.
+            // They also need to be in order of preferred autoconversion.
 
-            //[ConversionFactor(XXXXX, XXXXX, "XXX")]
             /// <summary>Units of an Tempurature measurement.</summary>
-            //UNITS = X,
+            Kelvin = 0,
+            /// <summary>Units of an Tempurature measurement.</summary>
+            Celsius = 1,
+            /// <summary>Units of an Tempurature measurement.</summary>
+            Fahrenheit = 2,
+        }
+
+        public static Func<T, T>[][] BuildConversionTable<T>()
+        {
+            T A = (Symbolics.Parse<T>("273.15").Simplify() as Symbolics.Constant<T>).Value;
+
+            Func<T,T>[][] table = Extensions.ConstructSquareJagged<Func<T, T>>(3);
+
+            //table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
+            //table[(int)Units.Kelvin][(int)Units.Celsius] = x => Compute.Subtract(x, A);
+            //table[(int)Units.Kelvin][(int)Units.Fahrenheit] = x => ;
+
+            //table[(int)Units.Celsius][(int)Units.Celsius] = x => x;
+
+
+            //table[(int)Units.Fahrenheit][(int)Units.Fahrenheit] = x => x;
+
+
+            return table;
         }
     }
 

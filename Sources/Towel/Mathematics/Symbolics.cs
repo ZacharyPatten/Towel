@@ -171,6 +171,11 @@ namespace Towel.Mathematics
                 return base.GetHashCode();
             }
 
+            public static Expression operator -(Expression a)
+            {
+                return new Negate(a.Clone());
+            }
+
             public static Expression operator +(Expression a, Expression b)
             {
                 return new Add(a.Clone(), b.Clone());
@@ -832,14 +837,15 @@ namespace Towel.Mathematics
 
             public override Expression Simplify()
             {
+                Expression OPERAND = this.A.Simplify();
                 #region Computation
                 // Rule: [-A] => [B] where A is constant and B is -A
-                if (this.A is Constant constant)
+                if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, this.A);
+                    return constant.Simplify(this, OPERAND);
                 }
                 #endregion
-                return base.Simplify();
+                return -OPERAND;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -878,14 +884,15 @@ namespace Towel.Mathematics
 
             public override Expression Simplify()
             {
+                Expression OPERAND = this.A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is ln(A)
-                if (this.A is Constant constant)
+                if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, this.A);
+                    return constant.Simplify(this, OPERAND);
                 }
                 #endregion
-                return base.Simplify();
+                return new NaturalLog(OPERAND);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -924,14 +931,15 @@ namespace Towel.Mathematics
 
             public override Expression Simplify()
             {
+                Expression OPERAND = this.A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is sqrt(A)
-                if (this.A is Constant constant)
+                if (OPERAND is Constant constant)
                 {
                     return constant.Simplify(this, this.A);
                 }
                 #endregion
-                return base.Simplify();
+                return new SquareRoot(OPERAND);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -970,14 +978,15 @@ namespace Towel.Mathematics
 
             public override Expression Simplify()
             {
+                Expression OPERAND = this.A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is e ^ A
-                if (this.A is Constant constant)
+                if (OPERAND is Constant constant)
                 {
                     return constant.Simplify(this, this.A);
                 }
                 #endregion
-                return base.Simplify();
+                return new Exponential(OPERAND);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -1016,14 +1025,15 @@ namespace Towel.Mathematics
 
             public override Expression Simplify()
             {
+                Expression OPERAND = this.A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is 1 / A
-                if (this.A is Constant constant)
+                if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, this.A);
+                    return constant.Simplify(this, OPERAND);
                 }
                 #endregion
-                return base.Simplify();
+                return new Invert(OPERAND);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -1053,7 +1063,7 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region Trigonometry _ Inheriters
+        #region Trigonometry + Inheriters
 
         #region Trigonometry
 
@@ -1070,6 +1080,13 @@ namespace Towel.Mathematics
         public class Sine : Trigonometry, Operation.Mathematical
         {
             public Sine(Expression a) : base(a) { }
+
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Sine(OPERAND);
+            }
 
             protected override Expression Simplify<T>(params Expression[] operands)
             {
@@ -1105,6 +1122,13 @@ namespace Towel.Mathematics
         {
             public Cosine(Expression a) : base(a) { }
 
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Cosine(OPERAND);
+            }
+
             protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
@@ -1138,6 +1162,13 @@ namespace Towel.Mathematics
         public class Tangent : Trigonometry, Operation.Mathematical
         {
             public Tangent(Expression a) : base(a) { }
+
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Tangent(OPERAND);
+            }
 
             protected override Expression Simplify<T>(params Expression[] operands)
             {
@@ -1173,6 +1204,13 @@ namespace Towel.Mathematics
         {
             public Cosecant(Expression a) : base(a) { }
 
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Cosecant(OPERAND);
+            }
+
             protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
@@ -1207,6 +1245,13 @@ namespace Towel.Mathematics
         {
             public Secant(Expression a) : base(a) { }
 
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Secant(OPERAND);
+            }
+
             protected override Expression Simplify<T>(params Expression[] operands)
             {
                 if (this.A is Constant<T> a)
@@ -1240,6 +1285,13 @@ namespace Towel.Mathematics
         public class Cotangent : Trigonometry, Operation.Mathematical
         {
             public Cotangent(Expression a) : base(a) { }
+
+            public override Expression Simplify()
+            {
+                Expression OPERAND = this.A.Simplify();
+
+                return new Cotangent(OPERAND);
+            }
 
             protected override Expression Simplify<T>(params Expression[] operands)
             {
@@ -1413,7 +1465,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT + RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -1565,7 +1617,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT - RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -1767,7 +1819,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT * RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -1948,7 +2000,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT / RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2032,7 +2084,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT ^ RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2083,7 +2135,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new Root(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2135,7 +2187,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return LEFT == RIGHT;
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2187,7 +2239,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new NotEqual(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2239,7 +2291,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new LessThan(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2288,7 +2340,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new GreaterThan(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2337,7 +2389,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new LessThanOrEqual(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2386,7 +2438,7 @@ namespace Towel.Mathematics
                     }
                 }
                 #endregion
-                return base.Simplify();
+                return new GreaterThanOrEqual(LEFT, RIGHT);
             }
 
             protected override Expression Simplify<T>(params Expression[] operands)
@@ -2939,7 +2991,7 @@ namespace Towel.Mathematics
 
                             {
                                 // Unary-Left Operator
-                                if (@operator == null || priority < ParsableLeftUnaryOperators[currentMatch.Value].Item1)
+                                if (@operator == null || priority > ParsableLeftUnaryOperators[currentMatch.Value].Item1)
                                 {
                                     @operator = currentMatch;
                                     isUnaryLeftOperator = true;
@@ -2960,7 +3012,7 @@ namespace Towel.Mathematics
                                         ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
                             {
                                 // Unary Right Operator
-                                if (@operator == null || priority < ParsableRightUnaryOperators[currentMatch.Value].Item1)
+                                if (@operator == null || priority > ParsableRightUnaryOperators[currentMatch.Value].Item1)
                                 {
                                     @operator = currentMatch;
                                     isUnaryLeftOperator = false;
@@ -2974,7 +3026,7 @@ namespace Towel.Mathematics
                                 if (ParsableBinaryOperators.ContainsKey(currentMatch.Value))
                                 {
                                     // Binary Operator
-                                    if (@operator == null || priority < ParsableBinaryOperators[currentMatch.Value].Item1)
+                                    if (@operator == null || priority > ParsableBinaryOperators[currentMatch.Value].Item1)
                                     {
                                         @operator = currentMatch;
                                         isUnaryLeftOperator = false;

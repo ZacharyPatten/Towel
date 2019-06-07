@@ -885,5 +885,38 @@ namespace Towel_Testing.Mathematics
                 Assert.IsTrue(GreatestCommonFactor(-2m, -4m, -6m) == 2m);
             }
         }
+
+        [TestMethod]
+        public void Factorial_testing()
+        {
+            { // int
+                Assert.IsTrue(Factorial(1) == 1);
+                Assert.IsTrue(Factorial(2) == 2);
+                Assert.IsTrue(Factorial(3) == 6);
+                Assert.IsTrue(Factorial(4) == 24);
+                Assert.IsTrue(Factorial(5) == 120);
+            }
+            { // float
+                Assert.IsTrue(Factorial(1f) == 1);
+                Assert.IsTrue(Factorial(2f) == 2);
+                Assert.IsTrue(Factorial(3f) == 6);
+                Assert.IsTrue(Factorial(4f) == 24);
+                Assert.IsTrue(Factorial(5f) == 120);
+            }
+            { // double
+                Assert.IsTrue(Factorial(1d) == 1);
+                Assert.IsTrue(Factorial(2d) == 2);
+                Assert.IsTrue(Factorial(3d) == 6);
+                Assert.IsTrue(Factorial(4d) == 24);
+                Assert.IsTrue(Factorial(5d) == 120);
+            }
+            { // decimal
+                Assert.IsTrue(Factorial(1m) == 1);
+                Assert.IsTrue(Factorial(2m) == 2);
+                Assert.IsTrue(Factorial(3m) == 6);
+                Assert.IsTrue(Factorial(4m) == 24);
+                Assert.IsTrue(Factorial(5m) == 120);
+            }
+        }
     }
 }
