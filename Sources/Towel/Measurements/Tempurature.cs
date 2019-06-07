@@ -24,18 +24,23 @@ namespace Towel.Measurements
         public static Func<T, T>[][] BuildConversionTable<T>()
         {
             T A = (Symbolics.Parse<T>("273.15").Simplify() as Symbolics.Constant<T>).Value;
+            T B = (Symbolics.Parse<T>("9 / 5").Simplify() as Symbolics.Constant<T>).Value;
+            T C = (Symbolics.Parse<T>("459.67").Simplify() as Symbolics.Constant<T>).Value;
+            T D = (Symbolics.Parse<T>("32").Simplify() as Symbolics.Constant<T>).Value;
 
             Func<T,T>[][] table = Extensions.ConstructSquareJagged<Func<T, T>>(3);
 
-            //table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
-            //table[(int)Units.Kelvin][(int)Units.Celsius] = x => Compute.Subtract(x, A);
-            //table[(int)Units.Kelvin][(int)Units.Fahrenheit] = x => ;
+            table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
+            table[(int)Units.Kelvin][(int)Units.Celsius] = x => Compute.Subtract(x, A);
+            table[(int)Units.Kelvin][(int)Units.Fahrenheit] = x => Compute.Subtract(Compute.Multiply(x, B), C);
 
-            //table[(int)Units.Celsius][(int)Units.Celsius] = x => x;
+            table[(int)Units.Celsius][(int)Units.Celsius] = x => x;
+            table[(int)Units.Celsius][(int)Units.Kelvin] = x => Compute.Add(x, A);
+            table[(int)Units.Celsius][(int)Units.Fahrenheit] = x => Compute.Add(Compute.Multiply(x, B), D);
 
-
-            //table[(int)Units.Fahrenheit][(int)Units.Fahrenheit] = x => x;
-
+            table[(int)Units.Fahrenheit][(int)Units.Fahrenheit] = x => x;
+            table[(int)Units.Fahrenheit][(int)Units.Celsius] = x => Compute.Divide(Compute.Subtract(x, D), B);
+            table[(int)Units.Fahrenheit][(int)Units.Kelvin] = x => Compute.Divide(Compute.Add(x, C), B);
 
             return table;
         }
@@ -46,7 +51,7 @@ namespace Towel.Measurements
     [Serializable]
     public struct Tempurature<T>
     {
-        internal static Func<T, T>[][] Table = UnitConversionTable.Build<Tempurature.Units, T>();
+        internal static Func<T, T>[][] Table = Tempurature.BuildConversionTable<T>();
         internal T _measurement;
         internal Tempurature.Units _units;
 

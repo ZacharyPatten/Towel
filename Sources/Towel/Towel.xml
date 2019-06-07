@@ -16566,6 +16566,15 @@
         <member name="T:Towel.Measurements.Tempurature.Units">
             <summary>Units for Tempurature measurements.</summary>
         </member>
+        <member name="F:Towel.Measurements.Tempurature.Units.Kelvin">
+            <summary>Units of an Tempurature measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Tempurature.Units.Celsius">
+            <summary>Units of an Tempurature measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.Tempurature.Units.Fahrenheit">
+            <summary>Units of an Tempurature measurement.</summary>
+        </member>
         <member name="T:Towel.Measurements.Tempurature`1">
             <summary>An Tempurature measurement.</summary>
             <typeparam name="T">The generic numeric type used to store the Tempurature measurement.</typeparam>
