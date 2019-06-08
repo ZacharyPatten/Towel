@@ -94,7 +94,7 @@ namespace Towel.Physics.Shapes
 
             if (NearlyZero(minkowskiDifference.MagnitudeSquared))
                 minkowskiDifference = new Vector<T>(
-                    Compute.Divide(Constant<T>.One, Compute.FromInt32<T>(100000)),
+                    Compute.Divide(Constant<T>.One, Compute.Convert<int, T>(100000)),
                     Constant<T>.Zero,
                     Constant<T>.Zero);
             
@@ -298,7 +298,7 @@ namespace Towel.Physics.Shapes
         #region XenoDetection Helpers
 
         private const int DefaultMaxXenoIterations = 34;
-        private static T CollideEpsilon = Compute.Divide(Constant<T>.One, Compute.FromInt32<T>(10000));
+        private static T CollideEpsilon = Compute.Divide(Constant<T>.One, Compute.Convert<int, T>(10000));
 
         private static bool NearlyZero(T value)
         {

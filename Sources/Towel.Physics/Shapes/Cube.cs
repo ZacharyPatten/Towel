@@ -106,7 +106,7 @@ namespace Towel.Physics.Shapes
             get
             {
                 // volume of a cube = length ^ 3
-                return Compute.Power(Compute.Multiply(this._halfLength, Compute.FromInt32<T>(2)), Compute.FromInt32<T>(3));
+                return Compute.Power(Compute.Multiply(this._halfLength, Compute.Convert<int, T>(2)), Compute.Convert<int, T>(3));
             }
         }
 

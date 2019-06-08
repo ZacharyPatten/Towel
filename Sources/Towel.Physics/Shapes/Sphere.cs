@@ -83,7 +83,7 @@ namespace Towel.Physics.Shapes
             get
             {
                 // volume of a sphere = (4/3)pi * radius ^ 3
-                T radiusCubed = Compute.Power(this._radius, Compute.FromInt32<T>(3));
+                T radiusCubed = Compute.Power(this._radius, Compute.Convert<int, T>(3));
                 return Compute.Multiply(Sphere<T>.FourThirdsPi, radiusCubed);
             }
         }
@@ -106,7 +106,7 @@ namespace Towel.Physics.Shapes
             {
                 if (_fourThirdsPiComputed)
                     return _fourThirdsPi;
-                T fourThirds = Compute.Divide(Compute.FromInt32<T>(4), Compute.FromInt32<T>(3));
+                T fourThirds = Compute.Divide(Compute.Convert<int, T>(4), Compute.Convert<int, T>(3));
                 Sphere<T>._fourThirdsPi = Compute.Multiply(fourThirds, Constant<T>.Pi);
                 Sphere<T>._fourThirdsPiComputed = true;
                 return Sphere<T>.FourThirdsPi;

@@ -35,6 +35,10 @@ namespace Towel.Mathematics
 
         #region Pi
 
+        /// <summary>Computes the value of pi for the provided generic type.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="predicate">The cancellation token for cutting off computation.</param>
+        /// <returns>The computed value of pi.</returns>
         public static T Pi<T>(Predicate<T> predicate = null)
         {
             // Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
@@ -65,7 +69,7 @@ namespace Towel.Mathematics
 
                     #endregion
 
-                    pi = AddMultiplyDivideAddImplementation<T>.Function(FromInt32<T>(j), pi);
+                    pi = AddMultiplyDivideAddImplementation<T>.Function(Convert<int, T>(j), pi);
                 }
                 pi = Multiply(Constant<T>.Two, pi);
             }
@@ -110,80 +114,25 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region FromInt32
+        #region Convert
 
-        public static T FromInt32<T>(int a)
+        /// <summary>Converts a value from one type to another.</summary>
+        /// <typeparam name="A">The generic type to convert from.</typeparam>
+        /// <typeparam name="B">The generic type to convert to.</typeparam>
+        /// <param name="a">The value to convert.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static B Convert<A, B>(A a)
         {
-            return FromInt32Implementation<T>.Function(a);
+            return ConvertImplementation<A, B>.Function(a);
         }
 
-        internal static class FromInt32Implementation<T>
+        internal static class ConvertImplementation<A, B>
         {
-            internal static Func<int, T> Function = (int a) =>
+            internal static Func<A, B> Function = (A a) =>
             {
-                ParameterExpression A = Expression.Parameter(typeof(int));
-                Expression BODY = Expression.Convert(A, typeof(T));
-                Function = Expression.Lambda<Func<int, T>>(BODY, A).Compile();
-                return Function(a);
-            };
-        }
-
-        #endregion
-
-        #region ToInt32
-
-        internal static int ToInt32<T>(T a)
-        {
-            return ToInt32Implementation<T>.Function(a);
-        }
-
-        internal static class ToInt32Implementation<T>
-        {
-            internal static Func<T, int> Function = (T a) =>
-            {
-                ParameterExpression A = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.Convert(A, typeof(int));
-                Function = Expression.Lambda<Func<T, int>>(BODY, A).Compile();
-                return Function(a);
-            };
-        }
-
-        #endregion
-
-        #region FromDouble
-
-        public static T FromDouble<T>(double a)
-        {
-            return FromDoubleImplementation<T>.Function(a);
-        }
-
-        internal static class FromDoubleImplementation<T>
-        {
-            internal static Func<double, T> Function = (double a) =>
-            {
-                ParameterExpression A = Expression.Parameter(typeof(double));
-                Expression BODY = Expression.Convert(A, typeof(T));
-                Function = Expression.Lambda<Func<double, T>>(BODY, A).Compile();
-                return Function(a);
-            };
-        }
-
-        #endregion
-
-        #region ToDouble
-
-        internal static double ToDouble<T>(T a)
-        {
-            return ToDoubleImplementation<T>.Function(a);
-        }
-
-        internal static class ToDoubleImplementation<T>
-        {
-            internal static Func<T, double> Function = (T a) =>
-            {
-                ParameterExpression A = Expression.Parameter(typeof(T));
-                Expression BODY = Expression.Convert(A, typeof(double));
-                Function = Expression.Lambda<Func<T, double>>(BODY, A).Compile();
+                ParameterExpression A = Expression.Parameter(typeof(A));
+                Expression BODY = Expression.Convert(A, typeof(B));
+                Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
                 return Function(a);
             };
         }
@@ -192,7 +141,7 @@ namespace Towel.Mathematics
 
         #region Negate
 
-        /// <summary>Negates a numeric value.</summary>
+        /// <summary>Negates a numeric value [-a].</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The value to negate.</param>
         /// <returns>The result of the negation.</returns>
@@ -230,7 +179,7 @@ namespace Towel.Mathematics
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The first operand of the addition.</param>
         /// <param name="b">The second operand of the addition.</param>
-        /// <param name="b">The third operand of the addition.</param>
+        /// <param name="c">The third operand of the addition.</param>
         /// <param name="d">The remaining operands of the addition.</param>
         /// <returns>The result of the addition.</returns>
         public static T Add<T>(T a, T b, T c, params T[] d)
@@ -617,7 +566,7 @@ namespace Towel.Mathematics
                         if (IsInteger(B) && IsPositive(B))
                         {
                             T result = A;
-                            int power = ToInt32(B);
+                            int power = Convert<T, int>(B);
                             for (int i = 0; i < power; i++)
                             {
                                 result = Multiply(result, A);
@@ -1756,19 +1705,19 @@ namespace Towel.Mathematics
             T[] resultingQuantiles = new T[quantiles + 1];
             resultingQuantiles[0] = ordered[0];
             resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];
-            T QUANTILES_PLUS_1 = FromInt32<T>(quantiles + 1);
-            T ORDERED_LENGTH = FromInt32<T>(ordered.Length);
+            T QUANTILES_PLUS_1 = Convert<int, T>(quantiles + 1);
+            T ORDERED_LENGTH = Convert<int, T>(ordered.Length);
             for (int i = 1; i < quantiles; i++)
             {
-                T I = FromInt32<T>(i);
+                T I = Convert<int, T>(i);
                 T temp = Divide(ORDERED_LENGTH, Multiply<T>(QUANTILES_PLUS_1, I));
                 if (IsInteger(temp))
                 {
-                    resultingQuantiles[i] = ordered[ToInt32(temp)];
+                    resultingQuantiles[i] = ordered[Convert<T, int>(temp)];
                 }
                 else
                 {
-                    resultingQuantiles[i] = Divide(Add(ordered[ToInt32(temp)], ordered[ToInt32(temp) + 1]), Constant<T>.Two);
+                    resultingQuantiles[i] = Divide(Add(ordered[Convert<T, int>(temp)], ordered[Convert<T, int>(temp) + 1]), Constant<T>.Two);
                 }
             }
             return resultingQuantiles;
@@ -1910,7 +1859,7 @@ namespace Towel.Mathematics
         /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T SineSystem<T>(Angle<T> a)
         {
-            return FromDouble<T>(Math.Sin(ToDouble(a[Angle.Units.Radians])));
+            return Convert<double, T>(Math.Sin(Convert<T, double>(a[Angle.Units.Radians])));
         }
 
         /// <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -1992,7 +1941,7 @@ namespace Towel.Mathematics
         /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T CosineSystem<T>(Angle<T> a)
         {
-            return FromDouble<T>(Math.Cos(ToDouble(a)));
+            return Convert<double, T>(Math.Cos(Convert<T, double>(a[Angle.Units.Radians])));
         }
 
         /// <summary>Estimates the cosine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2025,7 +1974,7 @@ namespace Towel.Mathematics
         /// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         public static T TangentSystem<T>(Angle<T> a)
         {
-            return FromDouble<T>(Math.Tan(ToDouble(a)));
+            return Convert<double, T>(Math.Tan(Convert<T, double>(a[Angle.Units.Radians])));
         }
 
         /// <summary>Estimates the tangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2394,7 +2343,7 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count >= 2)");
             }
-            T COUNT = FromInt32<T>(count);
+            T COUNT = Convert<int, T>(count);
             T MEANX = Divide(SUMX, COUNT);
             T MEANY = Divide(SUMY, COUNT);
             T VARIANCEX = Constant<T>.Zero;
@@ -2423,7 +2372,7 @@ namespace Towel.Mathematics
             if (IsNegative(A))
             {
                 A = AbsoluteValue(A);
-                step(FromInt32<T>(-1));
+                step(Convert<int, T>(-1));
             }
             while (IsEven(A))
             {

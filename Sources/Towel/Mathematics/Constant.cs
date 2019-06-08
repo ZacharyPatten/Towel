@@ -3,19 +3,19 @@
     public static class Constant<T>
     {
         /// <summary>Zero [0]</summary>
-        public static readonly T Zero = Compute.FromInt32<T>(0);
+        public static readonly T Zero = Compute.Convert<int, T>(0);
         /// <summary>One [1]</summary>
-        public static readonly T One = Compute.FromInt32<T>(1);
+        public static readonly T One = Compute.Convert<int, T>(1);
         /// <summary>Two [2]</summary>
-        public static readonly T Two = Compute.FromInt32<T>(2);
+        public static readonly T Two = Compute.Convert<int, T>(2);
         /// <summary>Three [3]</summary>
-        public static readonly T Three = Compute.FromInt32<T>(3);
+        public static readonly T Three = Compute.Convert<int, T>(3);
         /// <summary>Four [4]</summary>
-        public static readonly T Four = Compute.FromInt32<T>(4);
+        public static readonly T Four = Compute.Convert<int, T>(4);
         /// <summary>Ten [10]</summary>
-        public static readonly T Ten = Compute.FromInt32<T>(10);
+        public static readonly T Ten = Compute.Convert<int, T>(10);
         /// <summary>Negative One [-1]</summary>
-        public static readonly T NegativeOne = Compute.FromInt32<T>(-1);
+        public static readonly T NegativeOne = Compute.Convert<int, T>(-1);
 
         /// <summary>π [3.14...]</summary>
         public static readonly T Pi = Compute.Pi<T>();

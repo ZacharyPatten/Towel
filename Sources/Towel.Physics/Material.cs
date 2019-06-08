@@ -5,8 +5,8 @@ namespace Towel.Physics
     public class Material<T>
     {
         private T _density = Constant<T>.One;
-        private T _kineticFriction = Compute.Divide(Compute.FromInt32<T>(3), Compute.FromInt32<T>(10));
-        private T _staticFriction = Compute.Divide(Compute.FromInt32<T>(6), Compute.FromInt32<T>(10));
+        private T _kineticFriction = Compute.Divide(Compute.Convert<int, T>(3), Compute.Convert<int, T>(10));
+        private T _staticFriction = Compute.Divide(Compute.Convert<int, T>(6), Compute.Convert<int, T>(10));
         private T _restitution = Constant<T>.Zero;
 
         public Material(

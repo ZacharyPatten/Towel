@@ -67,12 +67,12 @@ namespace Towel.Measurements
                         if (metricDifference < 0)
                         {
                             metricDifference = -metricDifference;
-                            T factor = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                            T factor = Compute.Power(Constant<T>.Ten, Compute.Convert<int, T>(metricDifference));
                             conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
                         }
                         else
                         {
-                            T factor = Compute.Power(Constant<T>.Ten, Compute.FromInt32<T>(metricDifference));
+                            T factor = Compute.Power(Constant<T>.Ten, Compute.Convert<int, T>(metricDifference));
                             conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
                         }
                     }
