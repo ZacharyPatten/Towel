@@ -168,7 +168,7 @@ namespace Towel.Measurements
         {
             get
             {
-                Force.Map(units, out Mass.Units massUnits,out Length.Units lengthUnits, out Time.Units timeUnits1, out Time.Units timeUnits2);
+                Force.Map(units, out Mass.Units massUnits, out Length.Units lengthUnits, out Time.Units timeUnits1, out Time.Units timeUnits2);
                 return this[massUnits, lengthUnits, timeUnits1, timeUnits2];
             }
         }

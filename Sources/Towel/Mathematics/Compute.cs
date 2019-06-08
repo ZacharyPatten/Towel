@@ -1,11 +1,9 @@
-﻿using Towel;
-using Towel.DataStructures;
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using Towel.Measurements;
+﻿using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using Towel.Algorithms;
+using Towel.DataStructures;
+using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
@@ -1153,7 +1151,7 @@ namespace Towel.Mathematics
                 {
                     if (!Equal(value, a))
                     {
-                        result = false; 
+                        result = false;
                     }
                 }
                 else

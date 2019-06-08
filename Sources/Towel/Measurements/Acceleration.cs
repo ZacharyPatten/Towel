@@ -39,7 +39,8 @@ namespace Towel.Measurements
         #region Constructors
 
         public Acceleration(T measurement, MeasurementUnitsSyntaxTypes.AccelerationUnits units) :
-            this(measurement, units.LengthUnits, units.TimeUnits1, units.TimeUnits2) { }
+            this(measurement, units.LengthUnits, units.TimeUnits1, units.TimeUnits2)
+        { }
 
         /// <summary>Constructs an Acceleration with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Acceleration.</param>
@@ -164,7 +165,7 @@ namespace Towel.Measurements
 
             T A = a[lengthUnits, timeUnits1, timeUnits2];
             T B = b[lengthUnits, timeUnits1, timeUnits2];
-            
+
             return func(A, B);
         }
 

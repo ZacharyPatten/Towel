@@ -15,7 +15,7 @@ namespace Towel.Measurements
             // different units.
 
             /// <summary>Units of an mass measurement.</summary>
-            [MetricUnit(MetricUnits.Yocto)]            
+            [MetricUnit(MetricUnits.Yocto)]
             Yoctograms = 0,
             /// <summary>Units of an mass measurement.</summary>
             [MetricUnit(MetricUnits.Zepto)]

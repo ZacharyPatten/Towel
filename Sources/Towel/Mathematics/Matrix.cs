@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using System.Text;
 using Towel.Measurements;
 
@@ -2251,7 +2250,7 @@ namespace Towel.Mathematics
         /// <summary>Converts a matrix into a T[,].</summary>
         /// <param name="a">The matrix toconvert to a T[,].</param>
         /// <returns>The resulting T[,] after conversion.</returns>
-        public static explicit operator T[,] (Matrix<T> matrix)
+        public static explicit operator T[,](Matrix<T> matrix)
         {
             int rows = matrix._rows;
             int columns = matrix._columns;

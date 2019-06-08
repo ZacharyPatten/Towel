@@ -37,7 +37,7 @@ namespace Towel.DataStructures
         {
             internal T Value;
             internal Node Next;
-            
+
             internal Node(T value, Node next)
             {
                 Value = value;

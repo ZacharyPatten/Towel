@@ -83,7 +83,8 @@ namespace Towel.Measurements
         #region Constructors
 
         public Density(T measurement, MeasurementUnitsSyntaxTypes.DensityUnits units) :
-            this(measurement, units.MassUnits, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3) { }
+            this(measurement, units.MassUnits, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3)
+        { }
 
         /// <summary>Constructs an Density with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Density.</param>

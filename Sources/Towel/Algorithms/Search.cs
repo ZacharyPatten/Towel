@@ -111,7 +111,7 @@ namespace Towel.Algorithms
                 this.Priority = priority;
                 this.Cost = cost;
             }
-        } 
+        }
 
         internal class PathNode<NODE>
         {

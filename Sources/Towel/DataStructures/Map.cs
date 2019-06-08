@@ -112,7 +112,7 @@ namespace Towel.DataStructures
             internal K Key;
             internal T Value;
             internal Node Next;
-            
+
             internal Node(K key, T value, Node next)
             {
                 Key = key;
@@ -398,7 +398,8 @@ namespace Towel.DataStructures
             {
                 if ((node = _table[i]) != null)
                 {
-                    do {
+                    do
+                    {
                         function(node.Key);
                     } while ((node = node.Next) != null);
                 }
@@ -440,7 +441,8 @@ namespace Towel.DataStructures
             {
                 if ((node = _table[i]) != null)
                 {
-                    do {
+                    do
+                    {
                         function(node.Value);
                     } while ((node = node.Next) != null);
                 }
@@ -525,7 +527,8 @@ namespace Towel.DataStructures
             {
                 if ((node = _table[i]) != null)
                 {
-                    do {
+                    do
+                    {
                         yield return node.Value;
                     } while ((node = node.Next) != null);
                 }
@@ -675,11 +678,11 @@ namespace Towel.DataStructures
         /// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
         public MapHashArray() : this(Towel.Equate.Default, Towel.Hash.Default) { }
 
-        #pragma warning disable CS1587
+#pragma warning disable CS1587
         /// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
         /// <param name="expectedCount">The expected count to initialize the size of the data structure to allow for.</param>
         //public MapHashArray(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default) { }
-        #pragma warning restore CS1587
+#pragma warning restore CS1587
 
         /// <summary>Constructs a new hash table instance.</summary>
         /// <runtime>O(1)</runtime>

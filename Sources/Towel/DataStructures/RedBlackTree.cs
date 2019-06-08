@@ -479,7 +479,7 @@ namespace Towel.DataStructures
         }
 
         #endregion
-        
+
         #region Stepper And IEnumerable
 
         #region Stepper
@@ -837,7 +837,7 @@ namespace Towel.DataStructures
 
             return StepperReverse(step, _root);
         }
-        
+
         #endregion
 
         #region StepperReverse (ranged)

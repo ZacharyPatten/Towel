@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Towel.DataStructures;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
+using Towel.DataStructures;
 
 namespace Towel.Mathematics
 {

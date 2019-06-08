@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using Towel.Mathematics;
 
 namespace Towel.Measurements

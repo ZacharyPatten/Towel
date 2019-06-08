@@ -1,5 +1,5 @@
-﻿using Towel.DataStructures;
-using System.Threading;
+﻿using System.Threading;
+using Towel.DataStructures;
 
 namespace Towel.Parallels
 {

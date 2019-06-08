@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using System.Text;
 using Towel.Measurements;
 
@@ -877,7 +876,7 @@ namespace Towel.Mathematics
         #endregion
 
         #region Projection
-        
+
         /// <summary>Computes teh cross product of two vectors.</summary>
         /// <param name="a">The first vector of the cross product operation.</param>
         /// <param name="b">The second vector of the cross product operation.</param>
@@ -1321,7 +1320,7 @@ namespace Towel.Mathematics
         /// <summary>Implicit conversions from Vector to T[].</summary>
         /// <param name="vector">The Vector to be converted to a T[].</param>
         /// <returns>The T[] of the vector.</returns>
-        public static implicit operator T[] (Vector<T> vector)
+        public static implicit operator T[](Vector<T> vector)
         {
             return vector._vector;
         }

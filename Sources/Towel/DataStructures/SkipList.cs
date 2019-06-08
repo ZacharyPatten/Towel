@@ -28,7 +28,7 @@ namespace Towel.DataStructures
         internal System.Random _random = new System.Random(); // Random number generator for generating random node levels.
         internal int _listLevel; // Current maximum list level.
         internal int _count; // Current number of elements in the skip list.
-                            // nested types
+                             // nested types
         #region private class Node
         [Serializable]
         internal class Node

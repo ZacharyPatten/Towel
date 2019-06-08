@@ -39,7 +39,8 @@ namespace Towel.Measurements
         #region Constructors
 
         public Volume(T measurement, MeasurementUnitsSyntaxTypes.VolumeUnits units) :
-            this(measurement, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3) { }
+            this(measurement, units.LengthUnits1, units.LengthUnits2, units.LengthUnits3)
+        { }
 
         /// <summary>Constructs an Volume with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Volume.</param>

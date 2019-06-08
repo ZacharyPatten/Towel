@@ -1222,7 +1222,7 @@ namespace Towel.Mathematics
             {
                 return false;
             }
-            return 
+            return
                 Compute.Equal(a._x, b._x) &&
                 Compute.Equal(a._y, b._y) &&
                 Compute.Equal(a._z, b._z) &&

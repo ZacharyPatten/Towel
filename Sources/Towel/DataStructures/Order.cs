@@ -34,7 +34,7 @@ namespace Towel.DataStructures
     {
         internal ListArray<T> _list;
         internal Compare<T> _compare;
-        
+
         #region Constructor
 
         /// <summary>Constructs a Order_ListArray.</summary>

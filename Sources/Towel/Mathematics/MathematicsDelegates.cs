@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Towel.Measurements;
+﻿using Towel.Measurements;
 
 namespace Towel.Mathematics
 {
@@ -18,7 +15,7 @@ namespace Towel.Mathematics
         /// <param name="angle">The angle to compute the cosine ratio of.</param>
         /// <returns>The cosine ratio of the angle.</returns>
         public delegate T Cosine<T>(Angle<T> angle);
-        
+
         /// <summary>Computes the cosine ratio of an angle.</summary>
         /// <typeparam name="T">The numeric type of the opertion.</typeparam>
         /// <param name="angle">The angle to compute the tangent ratio of.</param>
@@ -36,7 +33,7 @@ namespace Towel.Mathematics
         /// <param name="ratio">The cosine ratio to compute the angle of.</param>
         /// <returns>The angle of the cosine ratio.</returns>
         public delegate Angle<T> InverseCosine<T>(T ratio);
-        
+
         /// <summary>Computes the angle measurement from a tangent ratio.</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="ratio">The tangent ratio to compute the angle of.</param>

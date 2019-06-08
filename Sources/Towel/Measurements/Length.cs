@@ -82,7 +82,7 @@ namespace Towel.Measurements
             [ConversionFactor(Inches, "36")]
             [ConversionFactor(Decimeters, "9.144")]
             [ConversionFactor(Feet, "3")]
-			Yards = 12,
+            Yards = 12,
             /// <summary>Units of an length measurement.</summary>
             [ConversionFactor(Inches, "39.37")]
             [ConversionFactor(Feet, "3.281")]

@@ -92,7 +92,7 @@ namespace Towel.DataStructures
         }
 
         /// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        public static implicit operator T[] (Array<T> array)
+        public static implicit operator T[](Array<T> array)
         {
             return array.ToArray();
         }

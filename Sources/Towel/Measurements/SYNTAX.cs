@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Towel.Measurements
+﻿namespace Towel.Measurements
 {
     /// <summary>Provides the necessary type definitions for the measurement units syntax.</summary>
     public static class MeasurementUnitsSyntaxTypes

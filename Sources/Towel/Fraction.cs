@@ -77,7 +77,7 @@ namespace Towel
         /// <param name="rational">The double to represent as a fraction.</param>
         public Fraction32(double rational)
         {
-            Rounded:
+        Rounded:
             if (short.MinValue > rational || rational > short.MaxValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(rational), rational, "!(short." + nameof(short.MinValue) + " <= " + nameof(rational) + " <= short." + nameof(short.MaxValue) + ")");
@@ -562,7 +562,7 @@ namespace Towel
         /// <param name="rational">The double to represent as a fraction.</param>
         public Fraction64(double rational)
         {
-            Rounded:
+        Rounded:
             if (int.MinValue > rational || rational > int.MaxValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(rational), rational, "!(int." + nameof(int.MinValue) + " <= " + nameof(rational) + " <= int." + nameof(int.MaxValue) + ")");
@@ -1038,7 +1038,7 @@ namespace Towel
 
         public Fraction128(double rational)
         {
-            Rounded:
+        Rounded:
 
             if (long.MinValue > rational || rational > long.MaxValue)
             {

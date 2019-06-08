@@ -281,18 +281,18 @@ namespace Towel.DataStructures
             ref int _naturalLogUpper,
             ref int _load)
         {
-			if (count < _naturalLogLower || count > _naturalLogUpper)
-			{
-				int naturalLog = (int)Math.Log(count);
-				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
-				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
+            if (count < _naturalLogLower || count > _naturalLogUpper)
+            {
+                int naturalLog = (int)Math.Log(count);
+                _naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
+                _naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
 
-				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
-				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
-				naturalLog = Math.Max(2, naturalLog);
+                _naturalLogLower = Math.Min(count - 10, _naturalLogLower);
+                _naturalLogUpper = Math.Max(2, _naturalLogUpper);
+                naturalLog = Math.Max(2, naturalLog);
 
-				_load = Compute.Maximum(naturalLog, DefaultDepthLoad);
-			}
+                _load = Compute.Maximum(naturalLog, DefaultDepthLoad);
+            }
         }
 
         #endregion

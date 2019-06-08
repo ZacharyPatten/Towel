@@ -90,10 +90,10 @@ namespace Towel.DataStructures
         #endregion
 
         #region Properties
-        
+
         /// <summary>The head of the tree.</summary>
         public T Head { get { return _head; } }
-        
+
         /// <summary>The hash function being used (was passed into the constructor).</summary>
         public Hash<T> Hash { get { return _hash; } }
 
