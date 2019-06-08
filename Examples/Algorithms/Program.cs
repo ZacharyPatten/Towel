@@ -399,42 +399,6 @@ namespace Algorithms
             }
             #endregion
 
-            #region Random Generation
-            {
-                Console.WriteLine("  Random Generation---------------------");
-                Console.WriteLine();
-
-                int iterationsperrandom = 3;
-                void testrandom(Random random)
-                {
-                    for (int i = 0; i < iterationsperrandom; i++)
-                        Console.WriteLine("    " + i + ": " + random.Next());
-                    Console.WriteLine();
-                }
-                Arbitrary mcg_2pow59_13pow13 = new Arbitrary.Algorithms.MultiplicativeCongruent_A();
-                Console.WriteLine("    mcg_2pow59_13pow13 randoms:");
-                testrandom(mcg_2pow59_13pow13);
-                Arbitrary mcg_2pow31m1_1132489760 = new Arbitrary.Algorithms.MultiplicativeCongruent_B();
-                Console.WriteLine("    mcg_2pow31m1_1132489760 randoms:");
-                testrandom(mcg_2pow31m1_1132489760);
-                Arbitrary mersenneTwister = new Arbitrary.Algorithms.MersenneTwister();
-                Console.WriteLine("    mersenneTwister randoms:");
-                testrandom(mersenneTwister);
-                Arbitrary cmr32_c2_o3 = new Arbitrary.Algorithms.CombinedMultipleRecursive();
-                Console.WriteLine("    mersenneTwister randoms:");
-                testrandom(cmr32_c2_o3);
-                Arbitrary wh1982cmcg = new Arbitrary.Algorithms.WichmannHills1982();
-                Console.WriteLine("    mersenneTwister randoms:");
-                testrandom(wh1982cmcg);
-                Arbitrary wh2006cmcg = new Arbitrary.Algorithms.WichmannHills2006();
-                Console.WriteLine("    mersenneTwister randoms:");
-                testrandom(wh2006cmcg);
-                Arbitrary mwcxorsg = new Arbitrary.Algorithms.MultiplyWithCarryXorshift();
-                Console.WriteLine("    mwcxorsg randoms:");
-                testrandom(mwcxorsg);
-            }
-            #endregion
-
             Console.WriteLine();
             Console.WriteLine("============================================");
             Console.WriteLine("Example Complete...");
