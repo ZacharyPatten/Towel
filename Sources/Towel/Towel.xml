@@ -16003,10 +16003,318 @@
             <summary>An Acceleration measurement.</summary>
             <typeparam name="T">The generic numeric type used to store the Acceleration measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationUnits)">
+            <summary>Constructs an Acceleration with the specified measurement and units.</summary>
+            <param name="measurement">The value of the measurement.</param>
+            <param name="units">The units of the measurement.</param>
+        </member>
         <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.Acceleration.Units)">
             <summary>Constructs an Acceleration with the specified measurement and units.</summary>
-            <param name="measurement">The measurement of the Acceleration.</param>
-            <param name="units">The units of the Acceleration.</param>
+            <param name="measurement">The value of the measurement.</param>
+            <param name="units">The units of the measurement.</param>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Constructs an Acceleration with the specified measurement and units.</summary>
+            <param name="measurement">The value of the measurement.</param>
+            <param name="lengthUnits">The length [A] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+            <param name="timeUnits1">The first time [B] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+            <param name="timeUnits2">The second time [C] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.LengthUnits">
+            <summary>The length [A] component of the units: Length[A] / Time1[B] / Time2[C].</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.TimeUnits1">
+            <summary>The first time [B] component of the units: Length[A] / Time1[B] / Time2[C].</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.TimeUnits2">
+            <summary>The second time [C] component of the units: Length[A] / Time1[B] / Time2[C].</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationUnits)">
+            <summary>Gets the measurement value in the specified units.</summary>
+            <param name="units">The units to get the measurement value in.</param>
+            <returns>The measurment value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.Item(Towel.Measurements.Acceleration.Units)">
+            <summary>Gets the measurement value in the specified units.</summary>
+            <param name="units">The units to get the measurement value in.</param>
+            <returns>The measurment value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement value in the specified units.</summary>
+            <param name="lengthUnits">The length [A] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+            <param name="timeUnits1">The first time [B] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+            <param name="timeUnits2">The second time [C] component of the units: Length[A] / Time1[B] / Time2[C].</param>
+            <returns>The measurment value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Add(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Adds two acceleration measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Addition(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Adds two acceleration measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Add(Towel.Measurements.Acceleration{`0})">
+            <summary>Adds two acceleration measurements.</summary>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Subtract(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Subtracts two acceleration measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the addition subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Subtraction(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Subtracts two acceleration measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the addition subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Subtract(Towel.Measurements.Acceleration{`0})">
+            <summary>Subtracts two acceleration measurements.</summary>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the addition subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},`0)">
+            <summary>Multiplies an acceleration by a scalar numeric value.</summary>
+            <param name="a">The acceleration measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(`0,Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an acceleration by a scalar numeric value.</summary>
+            <param name="a">The acceleration measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},`0)">
+            <summary>Multiplies an acceleration by a scalar numeric value.</summary>
+            <param name="a">The acceleration measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(`0,Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an acceleration by a scalar numeric value.</summary>
+            <param name="a">The acceleration measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Add(`0)">
+            <summary>Multiplies an acceleration by a scalar numeric value.</summary>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.Time{`0})">
+            <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
+            <param name="a">The Acceleration measurement to multiply by a Time measurement.</param>
+            <param name="b">The Time measurement to multiply by an Acceleration measurement.</param>
+            <returns>The Speed measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Time{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
+            <param name="a">The Acceleration measurement to multiply by a Time measurement.</param>
+            <param name="b">The Time measurement to multiply by an Acceleration measurement.</param>
+            <returns>The Speed measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.Time{`0})">
+            <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
+            <param name="a">The Acceleration measurement to multiply by a Time measurement.</param>
+            <param name="b">The Time measurement to multiply by an Acceleration measurement.</param>
+            <returns>The Speed measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Time{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
+            <param name="a">The Acceleration measurement to multiply by a Time measurement.</param>
+            <param name="b">The Time measurement to multiply by an Acceleration measurement.</param>
+            <returns>The Speed measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Time{`0})">
+            <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
+            <param name="b">The Time measurement to multiply by an Acceleration measurement.</param>
+            <returns>The Speed measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Mass{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="mass">The Mass measurement to multiply the Acceleration measurement by.</param>
+            <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.Mass{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="mass">The Mass measurement to multiply the Acceleration measurement by.</param>
+            <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Mass{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="mass">The Mass measurement to multiply the Acceleration measurement by.</param>
+            <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.Mass{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="mass">The Mass measurement to multiply the Acceleration measurement by.</param>
+            <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Mass{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="mass">The Mass measurement to multiply the Acceleration measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Divide(Towel.Measurements.Acceleration{`0},`0)">
+            <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
+            <param name="a">The acceleration measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Division(Towel.Measurements.Acceleration{`0},`0)">
+            <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
+            <param name="a">The acceleration measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Divide(`0)">
+            <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Divide(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Division(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Divide(Towel.Measurements.Acceleration{`0})">
+            <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.LessThan(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_LessThan(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.LessThan(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.GreaterThan(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_GreaterThan(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.GreaterThan(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.LessThanOrEqual(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_LessThanOrEqual(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.LessThanOrEqual(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.GreaterThanOrEqual(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_GreaterThanOrEqual(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.GreaterThanOrEqual(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Equal(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Equality(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Equal(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.NotEqual(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Inequality(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.NotEqual(Towel.Measurements.Acceleration{`0})">
+            <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.ToString">
+            <summary>Converts the Acceleration measurement to a string represenation.</summary>
+            <returns>The string representation of the measurement.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Equals(System.Object)">
+            <summary>Base Equals override that performs a type and value equality check.</summary>
+            <param name="obj">The object to check for equality with.</param>
+            <returns>True if the types and values equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.GetHashCode">
+            <summary>Base hashing function for Acceleration measurements.</summary>
+            <returns>Computed hash code for this instance.</returns>
         </member>
         <member name="T:Towel.Measurements.Angle">
             <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
@@ -16670,6 +16978,11 @@
             <summary>Gets the measurement in the desired units.</summary>
             <param name="units">The units you want the measurement to be in.</param>
             <returns>The measurement in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Mass`1.Multiply(Towel.Measurements.Acceleration{`0})">
+            <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+            <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+            <returns>The Force measurement result from the multiplication.</returns>
         </member>
         <member name="T:Towel.Measurements.Power">
             <summary>Contains unit types and conversion factors for the generic Power struct.</summary>

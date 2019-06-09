@@ -202,6 +202,14 @@ namespace Towel.Measurements
             return Multiply(b, a);
         }
 
+        /// <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
+        /// <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
+        /// <returns>The Force measurement result from the multiplication.</returns>
+        public Force<T> Multiply(Acceleration<T> acceleration)
+        {
+            return this * acceleration;
+        }
+
         #endregion
 
         #region Divide
