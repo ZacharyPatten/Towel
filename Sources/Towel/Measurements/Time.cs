@@ -186,6 +186,11 @@ namespace Towel.Measurements
             return Divide(a, b);
         }
 
+        public static Speed<T> operator /(Length<T> a, Time<T> b)
+        {
+            return new Speed<T>(Compute.Divide(a._measurement, b._measurement), a._units, b._units);
+        }
+
         #endregion
 
         #region LessThan

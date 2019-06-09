@@ -27,12 +27,12 @@ namespace Towel.Measurements
             /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Gradians, "200 / π")]
             [ConversionFactor(Degrees, "180 / π")]
-            [ConversionFactor(Revolutions, "π / 2")]
+            [ConversionFactor(Revolutions, "1 / (2π)")]
             Radians = 2,
             /// <summary>Units of an angle measurement.</summary>
             [ConversionFactor(Gradians, "400")]
             [ConversionFactor(Degrees, "360")]
-            [ConversionFactor(Radians, "2 / π")]
+            [ConversionFactor(Radians, "2π")]
             Revolutions = 3,
         }
     }
