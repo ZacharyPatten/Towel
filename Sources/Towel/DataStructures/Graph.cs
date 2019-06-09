@@ -38,16 +38,13 @@ namespace Towel.DataStructures
         /// <param name="start">The starting point of the edge to remove.</param>
         /// <param name="end">The ending point of the edge to remove.</param>
         void Remove(T start, T end);
-
-
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         void Stepper(Step<T, T> step);
-
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        //StepStatus Stepper(StepBreak<T, T> step);
+        StepStatus Stepper(StepBreak<T, T> step);
 
         #endregion
     }
@@ -57,7 +54,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class GraphSetOmnitree<T> : IGraph<T>
     {
-        // Fields
         internal SetHashLinked<T> _nodes;
         internal OmnitreePointsLinked<Edge, T, T> _edges;
 
@@ -72,13 +68,13 @@ namespace Towel.DataStructures
             /// <summary>The ending node of hte edge.</summary>
 			public readonly T End;
 
-            /// <summary></summary>
-            /// <param name="start"></param>
-            /// <param name="end"></param>
+            /// <summary>Constructs a new Edge.</summary>
+            /// <param name="start">The starting point of the Edge.</param>
+            /// <param name="end">The ending point of the Edge.</param>
 			public Edge(T start, T end)
             {
-                this.Start = start;
-                this.End = end;
+                Start = start;
+                End = end;
             }
         }
 
@@ -86,42 +82,115 @@ namespace Towel.DataStructures
 
         #region Constructor
 
+        /// <summary>Constructs a new GraphSetOmnitree by cloning an existing instance.</summary>
+        /// <param name="graph">The graph to construct a clone of.</param>
         private GraphSetOmnitree(GraphSetOmnitree<T> graph)
         {
-            this._edges = graph._edges.Clone() as OmnitreePointsLinked<Edge, T, T>;
-            this._nodes = graph._nodes.Clone() as SetHashLinked<T>;
+            _edges = graph._edges.Clone() as OmnitreePointsLinked<Edge, T, T>;
+            _nodes = graph._nodes.Clone() as SetHashLinked<T>;
         }
 
+        /// <summary>Constructs a new GraphSetOmnitree.</summary>
+        /// <param name="equate">The equate delegate for the data structure to use.</param>
+        /// <param name="compare">The compare delegate for the data structure to use.</param>
+        /// <param name="hash">The hash delegate for the datastructure to use.</param>
         public GraphSetOmnitree(Equate<T> equate, Compare<T> compare, Hash<T> hash)
         {
-            this._nodes = new SetHashLinked<T>(equate, hash);
-            this._edges = new OmnitreePointsLinked<Edge, T, T>((Edge a, out T start, out T end) => { start = a.Start; end = a.End; });
+            _nodes = new SetHashLinked<T>(equate, hash);
+            _edges = new OmnitreePointsLinked<Edge, T, T>(
+                (Edge a, out T start, out T end) =>
+                {
+                    start = a.Start;
+                    end = a.End;
+                },
+                compare, compare);
         }
 
-        public GraphSetOmnitree() : this(Equate.Default, Compare.Default, Hash.Default) { }
+        /// <summary>Constructs a new GraphSetOmnitree.</summary>
+        public GraphSetOmnitree() :
+            this(Equate.Default, Compare.Default, Hash.Default) { }
 
         #endregion
 
         #region Properties
 
-        public int EdgeCount { get { return this._edges.Count; } }
-        public int NodeCount { get { return this._nodes.Count; } }
+        /// <summary>Gets the number of edges in the graph.</summary>
+        public int EdgeCount => _edges.Count;
+
+        /// <summary>Gets the number of nodes in the graph.</summary>
+        public int NodeCount => _nodes.Count;
 
         #endregion
 
         #region Methods
 
-        public IDataStructure<T> Clone()
+        /// <summary>Adds a node to the graph.</summary>
+        /// <param name="node">The node to add to the graph.</param>
+        public void Add(T node)
         {
-            return new GraphSetOmnitree<T>(this);
+            if (_nodes.Contains(node))
+            {
+                throw new InvalidOperationException("Adding an already-existing node to a graph");
+            }
+            _nodes.Add(node);
         }
 
-        public void Clear()
+        /// <summary>Adds an edge to the graph.</summary>
+        /// <param name="start">The starting point of the edge.</param>
+        /// <param name="end">The ending point of the edge.</param>
+        public void Add(T start, T end)
         {
-            this._nodes.Clear();
-            this._edges.Clear();
+            if (!_nodes.Contains(start))
+            {
+                throw new InvalidOperationException("Adding an edge to a graph from a node that does not exists");
+            }
+            if (!_nodes.Contains(end))
+            {
+                throw new InvalidOperationException("Adding an edge to a graph to a node that does not exists");
+            }
+            _edges.Stepper(
+                    (Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
+                    start, start, end, end);
+
+            _edges.Add(new Edge(start, end));
         }
 
+        /// <summary>Removes a node from the graph and all attached edges.</summary>
+        /// <param name="node">The edge to remove from the graph.</param>
+        public void Remove(T node)
+        {
+            if (_nodes.Contains(node))
+            {
+                throw new InvalidOperationException("Removing non-existing node from a graph");
+            }
+            _edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
+            _edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
+            _nodes.Add(node);
+        }
+
+        /// <summary>Removes an edge from the graph.</summary>
+        /// <param name="start">The starting point of the edge.</param>
+        /// <param name="end">The ending point of the edge.</param>
+        public void Remove(T start, T end)
+        {
+            if (!_nodes.Contains(start))
+            {
+                throw new InvalidOperationException("Removing an edge to a graph from a node that does not exists");
+            }
+            if (!_nodes.Contains(end))
+            {
+                throw new InvalidOperationException("Removing an edge to a graph to a node that does not exists");
+            }
+            _edges.Stepper(
+                (Edge e) => throw new InvalidOperationException("Removing a non-existing edge in a graph"),
+                start, start, end, end);
+            _edges.Remove(start, start, end, end);
+        }
+
+        /// <summary>Checks two nodes for adjacency (connected by an edge).</summary>
+        /// <param name="a">The first node of the adjacency check.</param>
+        /// <param name="b">The second node of the adjacency check.</param>
+        /// <returns>True if adjacent. False if not.</returns>
         public bool Adjacent(T a, T b)
         {
             bool exists = false;
@@ -133,100 +202,74 @@ namespace Towel.DataStructures
             return exists;
         }
 
-        public void Neighbors(T a, Step<T> step)
+        /// <summary>Gets the neighbors of a node.</summary>
+        /// <param name="node">The node to get the neighbors of.</param>
+        /// <param name="step">The step to perform on all the neighbors.</param>
+        public void Neighbors(T node, Step<T> step)
         {
-            if (!_nodes.Contains(a))
+            if (!_nodes.Contains(node))
             {
                 throw new InvalidOperationException("Attempting to look up the neighbors of a node that does not belong to a graph");
             }
             _edges.Stepper(e => step(e.End),
-                a, a,
+                node, node,
                 Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
         }
 
-        public void Add(T start, T end)
+        /// <summary>Clones this data structure.</summary>
+        /// <returns>A clone of this data structure.</returns>
+        public IDataStructure<T> Clone()
         {
-            if (!this._nodes.Contains(start))
-                throw new InvalidOperationException("Adding an edge to a graph from a node that does not exists");
-            if (!this._nodes.Contains(end))
-                throw new InvalidOperationException("Adding an edge to a graph to a node that does not exists");
-            this._edges.Stepper(
-                    (Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
-                    start, start, end, end);
-
-            this._edges.Add(new Edge(start, end));
+            return new GraphSetOmnitree<T>(this);
         }
 
-        public void Remove(T start, T end)
+        /// <summary>Returns this data structure to an empty state.</summary>
+        public void Clear()
         {
-            if (!this._nodes.Contains(start))
-            {
-                throw new InvalidOperationException("Removing an edge to a graph from a node that does not exists");
-            }
-            if (!this._nodes.Contains(end))
-            {
-                throw new InvalidOperationException("Removing an edge to a graph to a node that does not exists");
-            }
-            this._edges.Stepper(
-                (Edge e) => throw new InvalidOperationException("Removing a non-existing edge in a graph"),
-                start, start, end, end);
-
-            this._edges.Remove(start, start, end, end);
+            _nodes.Clear();
+            _edges.Clear();
         }
 
-        public void Add(T node)
+        /// <summary>Steps through all the nodes in the graph.</summary>
+        /// <param name="step">The action to perform on all the nodes in the graph.</param>
+        public void Stepper(Step<T> step)
         {
-            if (this._nodes.Contains(node))
-            {
-                throw new InvalidOperationException("Adding an already-existing node to a graph");
-            }
-
-            this._nodes.Add(node);
+            _nodes.Stepper(step);
         }
 
-        public void Remove(T node)
+        /// <summary>Steps through all the nodes in the graph.</summary>
+        /// <param name="step">The action to perform on all the nodes in the graph.</param>
+        /// <returns>The status of the stepper operation.</returns>
+        public StepStatus Stepper(StepBreak<T> step)
         {
-            if (this._nodes.Contains(node))
-            {
-                throw new InvalidOperationException("Removing non-existing node from a graph");
-            }
-
-            this._edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
-            this._edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
-
-            this._nodes.Add(node);
+            return _nodes.Stepper(step);
         }
 
-        public void Stepper(Step<T> function)
+        /// <summary>Steps through all the edges in the graph.</summary>
+        /// <param name="step">The action to perform on all the edges in the graph.</param>
+        public void Stepper(Step<T, T> step)
         {
-            this._nodes.Stepper(function);
+            _edges.Stepper(edge => step(edge.Start, edge.End));
         }
 
-        public StepStatus Stepper(StepBreak<T> function)
+        /// <summary>Steps through all the edges in the graph.</summary>
+        /// <param name="step">The action to perform on all the edges in the graph.</param>
+        /// <returns>The status of the stepper operation.</returns>
+        public StepStatus Stepper(StepBreak<T, T> step)
         {
-            return this._nodes.Stepper(function);
-        }
-
-        public void Stepper(Step<T, T> function)
-        {
-            this._edges.Stepper(edge => function(edge.Start, edge.End));
-        }
-
-        public StepStatus Stepper(StepBreak<T, T> function)
-        {
-            return this._edges.Stepper(edge => function(edge.Start, edge.End));
+            return _edges.Stepper(edge => step(edge.Start, edge.End));
         }
 
         System.Collections.IEnumerator
             System.Collections.IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (_nodes as System.Collections.Generic.IEnumerable<T>).GetEnumerator();
         }
 
         System.Collections.Generic.IEnumerator<T>
             System.Collections.Generic.IEnumerable<T>.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (_nodes as System.Collections.Generic.IEnumerable<T>).GetEnumerator();
         }
 
         #endregion
@@ -237,7 +280,6 @@ namespace Towel.DataStructures
     [Serializable]
     public class GraphMap<T> : IGraph<T>
     {
-        // Fields
         internal MapHashLinked<MapHashLinked<bool, T>, T> _map;
         internal int _edges;
 
@@ -247,16 +289,18 @@ namespace Towel.DataStructures
         [Serializable]
         public class Edge
         {
-            public T _start;
-            public T _end;
+            /// <summary>The starting point of the edge.</summary>
+            public readonly T Start;
+            /// <summary>The ending point of the edge.</summary>
+            public readonly T End;
 
-            public T Start { get { return this._start; } set { this._start = value; } }
-            public T End { get { return this._end; } set { this._end = value; } }
-
+            /// <summary>Constructs a new Edge.</summary>
+            /// <param name="start">The starting point of the edge.</param>
+            /// <param name="end">The ending point of the edge.</param>
             public Edge(T start, T end)
             {
-                this._start = start;
-                this._end = end;
+                Start = start;
+                End = end;
             }
         }
 
@@ -264,7 +308,13 @@ namespace Towel.DataStructures
 
         #region Constructors
 
-        private GraphMap(Equate<T> equate, Hash<T> hash, GraphSetOmnitree<T> graph)
+        /// <summary>Constructs a new GraphMap.</summary>
+        public GraphMap() : this(Equate.Default, Hash.Default) { }
+
+        /// <summary>Constructs a new GraphMap.</summary>
+        /// <param name="equate">The equate delegate for the data structure to use.</param>
+        /// <param name="hash">The hash function for the data structure to use.</param>
+        public GraphMap(Equate<T> equate, Hash<T> hash)
         {
             this._edges = 0;
             this._map = new MapHashLinked<MapHashLinked<bool, T>, T>(equate, hash);
@@ -274,31 +324,23 @@ namespace Towel.DataStructures
 
         #region Properties
 
-        public int EdgeCount { get { return this._edges; } }
-        public int NodeCount { get { return this._map.Count; } }
+        /// <summary>Gets the number of edges in the graph.</summary>
+        public int EdgeCount => _edges;
+
+        /// <summary>Gets the number of nodes in the graph.</summary>
+        public int NodeCount => _map.Count;
 
         #endregion
 
         #region Methods
 
-        public bool Adjacent(T a, T b)
+        /// <summary>Adds a node to the graph.</summary>
+        /// <param name="node">The node to add to the graph.</param>
+        public void Add(T node)
         {
-            if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
-            {
-                if (tryGetMap.TryGet(a, out bool tryGetBool))
-                {
-                    return tryGetBool;
-                }
-            }
-            return false;
-        }
-
-        public void Neighbors(T a, Step<T> function)
-        {
-            if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
-            {
-                tryGetMap.Keys(function);
-            }
+            if (this._map.Count == int.MaxValue)
+                throw new System.InvalidOperationException("This graph has reach its node capacity.");
+            this._map.Add(node, new MapHashLinked<bool, T>(this._map.Equate, this._map.Hash));
         }
 
         /// <summary>Adds an edge to the graph.</summary>
@@ -316,30 +358,50 @@ namespace Towel.DataStructures
             this._map[start].Add(end, true);
         }
 
+        /// <summary>Removes a node from the graph.</summary>
+        /// <param name="node">The node to remove from the graph.</param>
+        public void Remove(T node)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>Removes an edge from the graph.</summary>
         /// <param name="start">The starting point of the edge to remove.</param>
         /// <param name="end">The ending point of the edge to remove.</param>
         public void Remove(T start, T end)
         {
-            if (this._map[start] == null)
-                throw new System.InvalidOperationException("Removing a non-existing edge from the graph.");
-            if (!this._map[start].Contains(end))
-                throw new System.InvalidOperationException("Removing a non-existing edge from the graph.");
-            this._map[start].Remove(end);
+            if (_map.TryGet(start, out MapHashLinked<bool, T> foundValue) && foundValue.TryRemove(end))
+            {
+                return;
+            }
+            throw new InvalidOperationException("Removing a non-existing edge from the graph.");
         }
 
-        /// <summary>Adds a node to the graph.</summary>
-        /// <param name="node">The node to add to the graph.</param>
-        public void Add(T node)
+        /// <summary>Checks for adjacency between two nodes.</summary>
+        /// <param name="a">The first node of the adjacency check.</param>
+        /// <param name="b">The second node fo the adjacency check.</param>
+        /// <returns>True if ajacent. False if not.</returns>
+        public bool Adjacent(T a, T b)
         {
-            if (this._map.Count == int.MaxValue)
-                throw new System.InvalidOperationException("This graph has reach its node capacity.");
-            this._map.Add(node, new MapHashLinked<bool, T>(this._map.Equate, this._map.Hash));
+            if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+            {
+                if (tryGetMap.TryGet(a, out bool tryGetBool))
+                {
+                    return tryGetBool;
+                }
+            }
+            return false;
         }
 
-        public void Remove(T node)
+        /// <summary>Steps through all the neighbors of a node.</summary>
+        /// <param name="a">The node to step through the children of.</param>
+        /// <param name="step">The action to perform on all the neighbors of the provided node.</param>
+        public void Neighbors(T a, Step<T> step)
         {
-            throw new System.NotImplementedException();
+            if (_map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+            {
+                tryGetMap.Keys(step);
+            }
         }
 
         public void Stepper(Step<T> function)

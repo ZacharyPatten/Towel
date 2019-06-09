@@ -28,7 +28,6 @@ namespace Towel.DataStructures
 
     /// <summary>Implements a priority heap with static priorities using an array.</summary>
     /// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-    /// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
     /// <citation>
     /// This heap imlpementation was originally developed by 
     /// Rodney Howell of Kansas State University. However, it has 
@@ -77,42 +76,19 @@ namespace Towel.DataStructures
         #region Properties
 
         /// <summary>Delegate determining the comparison technique used for sorting.</summary>
-        public Compare<T> Compare
-        {
-            get
-            {
-                return _compare;
-            }
-        }
+        public Compare<T> Compare => _compare;
 
         /// <summary>The maximum items the queue can hold.</summary>
-        /// <remarks>Runtime: O(1).</remarks>
-        public int CurrentCapacity
-        {
-            get
-            {
-                return _heap.Length - 1;
-            }
-        }
+        /// <runtime>θ(1)</runtime>
+        public int CurrentCapacity => _heap.Length - 1;
 
         /// <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
-        public int MinimumCapacity
-        {
-            get
-            {
-                return _minimumCapacity;
-            }
-        }
+        /// <runtime>θ(1)</runtime>
+        public int MinimumCapacity => _minimumCapacity;
 
         /// <summary>The number of items in the queue.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public int Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
+        public int Count => _count;
 
         #endregion
 
@@ -144,7 +120,7 @@ namespace Towel.DataStructures
 
         /// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
         /// <param name="addition">The item to be added.</param>
-        /// <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
+        /// <runtime>Runtime: O(ln(n)), θ(1), EstAvg(ln(n)).</runtime>
         public void Enqueue(T addition)
         {
             if (!(_count + 1 < _heap.Length))

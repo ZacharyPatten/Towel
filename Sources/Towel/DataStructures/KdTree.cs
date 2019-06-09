@@ -331,7 +331,7 @@ namespace Towel.DataStructures
 
             var nearestNeighbours = new NearestNeighbourList<Node, K>(count, this._minValue, this._compareKey);
 
-            var rect = HyperRect<K>.Infinite(_dimensions, this._minValue, this._maxValue);
+            var rect = HyperRect<K>.Infinite(_dimensions, this._minValue, this._maxValue, this._compareKey);
 
             AddNearestNeighbours(_root, point, rect, 0, nearestNeighbours, this._maxValue);
 
@@ -469,7 +469,7 @@ namespace Towel.DataStructures
             AddNearestNeighbours(
                 _root,
                 center,
-                HyperRect<K>.Infinite(_dimensions, this._minValue, this._maxValue),
+                HyperRect<K>.Infinite(_dimensions, this._minValue, this._maxValue, this._compareKey),
                 0,
                 nearestNeighbours,
                 this._multiply(radius, radius));
@@ -706,10 +706,10 @@ namespace Towel.DataStructures
             }
         }
 
-        public static HyperRect<T> Infinite(int dimensions, T minValue, T maxValue)//, ITypeMath<T> math = null)
+        public static HyperRect<T> Infinite(int dimensions, T minValue, T maxValue, Compare<T> compare)//, ITypeMath<T> math = null)
         {
             var rect = new HyperRect<T>();
-
+            rect._compareT = compare;
             rect.MinPoint = new T[dimensions];
             rect.MaxPoint = new T[dimensions];
 

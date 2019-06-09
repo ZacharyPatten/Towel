@@ -1390,6 +1390,11 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
+        <member name="M:Towel.DataStructures.IGraph`1.Stepper(Towel.StepBreak{`0,`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
         <member name="T:Towel.DataStructures.GraphSetOmnitree`1">
             <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
@@ -1404,9 +1409,82 @@
             <summary>The ending node of hte edge.</summary>
         </member>
         <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Edge.#ctor(`0,`0)">
-            <summary></summary>
-            <param name="start"></param>
-            <param name="end"></param>
+            <summary>Constructs a new Edge.</summary>
+            <param name="start">The starting point of the Edge.</param>
+            <param name="end">The ending point of the Edge.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(Towel.DataStructures.GraphSetOmnitree{`0})">
+            <summary>Constructs a new GraphSetOmnitree by cloning an existing instance.</summary>
+            <param name="graph">The graph to construct a clone of.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(Towel.Equate{`0},Towel.Compare{`0},Towel.Hash{`0})">
+            <summary>Constructs a new GraphSetOmnitree.</summary>
+            <param name="equate">The equate delegate for the data structure to use.</param>
+            <param name="compare">The compare delegate for the data structure to use.</param>
+            <param name="hash">The hash delegate for the datastructure to use.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor">
+            <summary>Constructs a new GraphSetOmnitree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.EdgeCount">
+            <summary>Gets the number of edges in the graph.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.NodeCount">
+            <summary>Gets the number of nodes in the graph.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Add(`0)">
+            <summary>Adds a node to the graph.</summary>
+            <param name="node">The node to add to the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Add(`0,`0)">
+            <summary>Adds an edge to the graph.</summary>
+            <param name="start">The starting point of the edge.</param>
+            <param name="end">The ending point of the edge.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Remove(`0)">
+            <summary>Removes a node from the graph and all attached edges.</summary>
+            <param name="node">The edge to remove from the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Remove(`0,`0)">
+            <summary>Removes an edge from the graph.</summary>
+            <param name="start">The starting point of the edge.</param>
+            <param name="end">The ending point of the edge.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Adjacent(`0,`0)">
+            <summary>Checks two nodes for adjacency (connected by an edge).</summary>
+            <param name="a">The first node of the adjacency check.</param>
+            <param name="b">The second node of the adjacency check.</param>
+            <returns>True if adjacent. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Neighbors(`0,Towel.Step{`0})">
+            <summary>Gets the neighbors of a node.</summary>
+            <param name="node">The node to get the neighbors of.</param>
+            <param name="step">The step to perform on all the neighbors.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Clone">
+            <summary>Clones this data structure.</summary>
+            <returns>A clone of this data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Clear">
+            <summary>Returns this data structure to an empty state.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(Towel.Step{`0})">
+            <summary>Steps through all the nodes in the graph.</summary>
+            <param name="step">The action to perform on all the nodes in the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(Towel.StepBreak{`0})">
+            <summary>Steps through all the nodes in the graph.</summary>
+            <param name="step">The action to perform on all the nodes in the graph.</param>
+            <returns>The status of the stepper operation.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(Towel.Step{`0,`0})">
+            <summary>Steps through all the edges in the graph.</summary>
+            <param name="step">The action to perform on all the edges in the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(Towel.StepBreak{`0,`0})">
+            <summary>Steps through all the edges in the graph.</summary>
+            <param name="step">The action to perform on all the edges in the graph.</param>
+            <returns>The status of the stepper operation.</returns>
         </member>
         <member name="T:Towel.DataStructures.GraphMap`1">
             <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
@@ -1415,19 +1493,59 @@
         <member name="T:Towel.DataStructures.GraphMap`1.Edge">
             <summary>Represents an edge in a graph.</summary>
         </member>
+        <member name="F:Towel.DataStructures.GraphMap`1.Edge.Start">
+            <summary>The starting point of the edge.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.GraphMap`1.Edge.End">
+            <summary>The ending point of the edge.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Edge.#ctor(`0,`0)">
+            <summary>Constructs a new Edge.</summary>
+            <param name="start">The starting point of the edge.</param>
+            <param name="end">The ending point of the edge.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.#ctor">
+            <summary>Constructs a new GraphMap.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
+            <summary>Constructs a new GraphMap.</summary>
+            <param name="equate">The equate delegate for the data structure to use.</param>
+            <param name="hash">The hash function for the data structure to use.</param>
+        </member>
+        <member name="P:Towel.DataStructures.GraphMap`1.EdgeCount">
+            <summary>Gets the number of edges in the graph.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.GraphMap`1.NodeCount">
+            <summary>Gets the number of nodes in the graph.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Add(`0)">
+            <summary>Adds a node to the graph.</summary>
+            <param name="node">The node to add to the graph.</param>
+        </member>
         <member name="M:Towel.DataStructures.GraphMap`1.Add(`0,`0)">
             <summary>Adds an edge to the graph.</summary>
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Remove(`0)">
+            <summary>Removes a node from the graph.</summary>
+            <param name="node">The node to remove from the graph.</param>
         </member>
         <member name="M:Towel.DataStructures.GraphMap`1.Remove(`0,`0)">
             <summary>Removes an edge from the graph.</summary>
             <param name="start">The starting point of the edge to remove.</param>
             <param name="end">The ending point of the edge to remove.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Add(`0)">
-            <summary>Adds a node to the graph.</summary>
-            <param name="node">The node to add to the graph.</param>
+        <member name="M:Towel.DataStructures.GraphMap`1.Adjacent(`0,`0)">
+            <summary>Checks for adjacency between two nodes.</summary>
+            <param name="a">The first node of the adjacency check.</param>
+            <param name="b">The second node fo the adjacency check.</param>
+            <returns>True if ajacent. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Neighbors(`0,Towel.Step{`0})">
+            <summary>Steps through all the neighbors of a node.</summary>
+            <param name="a">The node to step through the children of.</param>
+            <param name="step">The action to perform on all the neighbors of the provided node.</param>
         </member>
         <member name="T:Towel.DataStructures.IHeap`1">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
@@ -1448,7 +1566,6 @@
         <member name="T:Towel.DataStructures.HeapArray`1">
             <summary>Implements a priority heap with static priorities using an array.</summary>
             <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-            <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
             <citation>
             This heap imlpementation was originally developed by 
             Rodney Howell of Kansas State University. However, it has 
@@ -1475,10 +1592,11 @@
         </member>
         <member name="P:Towel.DataStructures.HeapArray`1.CurrentCapacity">
             <summary>The maximum items the queue can hold.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>θ(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.HeapArray`1.MinimumCapacity">
             <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
+            <runtime>θ(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.HeapArray`1.Count">
             <summary>The number of items in the queue.</summary>
@@ -1502,7 +1620,7 @@
         <member name="M:Towel.DataStructures.HeapArray`1.Enqueue(`0)">
             <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
             <param name="addition">The item to be added.</param>
-            <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
+            <runtime>Runtime: O(ln(n)), θ(1), EstAvg(ln(n)).</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Dequeue">
             <summary>Dequeues the item with the highest priority.</summary>
@@ -14265,7 +14383,7 @@
         </member>
         <member name="T:Towel.Mathematics.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">The generic numeric type of the constants.</typeparam>
         </member>
         <member name="F:Towel.Mathematics.Constant`1.Zero">
             <summary>Zero [0]</summary>
@@ -16936,61 +17054,6 @@
             <summary>Gets the measurement in the desired units.</summary>
             <returns>The measurement in the specified units.</returns>
         </member>
-        <member name="T:Towel.Parallels.Parallel">
-            <summary>Contains static methods for running threads in the background.</summary>
-        </member>
-        <member name="T:Towel.Parallels.Parallel.Operation">
-            <summary>A delegate to be run in parallel on a seperate thread.</summary>
-        </member>
-        <member name="T:Towel.Parallels.Parallel.OperationReport">
-            <summary>A delegate to be run in parallel on a seperate thread with callback capabilities.</summary>
-            <param name="report">The delegate to report back to the thread that created the current thread.</param>
-        </member>
-        <member name="T:Towel.Parallels.Parallel.Callback">
-            <summary>A delegate for sending a message back to the thread that created the current thread.</summary>
-        </member>
-        <member name="T:Towel.Parallels.Parallel.OperationFactory">
-            <summary>Factory delegate for constructing delegates to be run in parallel of each other.</summary>
-            <param name="current">The current index out of the max number of delegates to create.</param>
-            <param name="max">The number of delegates that will be created.</param>
-            <returns>The "current" delegate to be run in parallel out of "max" delegates.</returns>
-        </member>
-        <member name="T:Towel.Parallels.Parallel.Resolve">
-            <summary>A delegate for resolving a multi-threaded event.</summary>
-        </member>
-        <member name="M:Towel.Parallels.Parallel.Thread(Towel.Parallels.Parallel.Operation)">
-            <summary>Runs a delegate in a seperate thread.</summary>
-            <param name="run">The delegate to run in the background.</param>
-        </member>
-        <member name="M:Towel.Parallels.Parallel.Thread(Towel.Parallels.Parallel.Operation,Towel.Parallels.Parallel.Resolve)">
-            <summary>Runs a delegate in a seperate thread.</summary>
-            <param name="run">The delegate to run in the background.</param>
-            <param name="resolve">The delegate for handling the completion of the background thread.</param>
-        </member>
-        <member name="M:Towel.Parallels.Parallel.Thread(Towel.Parallels.Parallel.OperationReport,Towel.Parallels.Parallel.Callback)">
-            <summary>Runs a delegate in a seperate thread.</summary>
-            <param name="run">The delegate to run in the background with reporting.</param>
-            <param name="report">The delegate for reporting</param>
-        </member>
-        <member name="M:Towel.Parallels.Parallel.Thread(Towel.Parallels.Parallel.OperationReport,Towel.Parallels.Parallel.Callback,Towel.Parallels.Parallel.Resolve)">
-            <summary>Runs a delegate in a seperate thread.</summary>
-            <param name="run">The delegate to run in the background with reporting.</param>
-            <param name="report">The delegate for reporting</param>
-            <param name="resolve">The delegate for handling the completion of the background thread.</param>
-        </member>
-        <member name="T:Towel.Parallels.PriorityLock`1">
-            <summary>A lock for multithreading </summary>
-            <typeparam name="T">The generic type representing a comparable priority.</typeparam>
-        </member>
-        <member name="M:Towel.Parallels.PriorityLock`1.#ctor(Towel.Compare{`0})">
-            <summary>Creates an instance of a ReaderWriterLock.</summary>
-        </member>
-        <member name="M:Towel.Parallels.PriorityLock`1.Lock(`0)">
-            <summary>Thread safe enterance at the given priority.</summary>
-        </member>
-        <member name="M:Towel.Parallels.PriorityLock`1.Unlock(`0)">
-            <summary>Thread safe exit at the given priority.</summary>
-        </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of data structure iteration.</summary>
         </member>
@@ -17199,7 +17262,7 @@
             <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
         </member>
         <member name="T:System.TowelSystemExtensions">
-            <summary>Contains Extension methods on common .Net Framework types.</summary>
+            <summary>Contains Extension methods on common System types.</summary>
         </member>
         <member name="M:System.TowelSystemExtensions.Repeat(System.Char,System.Int32)">
             <summary>Creates a string of a repreated character a provided number of times.</summary>
@@ -17302,7 +17365,7 @@
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-            <param name="str">The string to be padded.</param>
+            <param name="@string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
             <param name="start">The starting index of the string to search for new line sequences.</param>
             <param name="end">The ending index of the string to search for new line sequences.</param>
@@ -17310,7 +17373,7 @@
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-            <param name="str">The string to be padded.</param>
+            <param name="@string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
             <param name="startingLineNumber">The starting index of the string to search for new line sequences.</param>
             <param name="endingLineNumber">The ending index of the string to search for new line sequences.</param>
@@ -17318,12 +17381,12 @@
         </member>
         <member name="M:System.TowelSystemExtensions.Reverse(System.String)">
             <summary>Reverses the characters in a string.</summary>
-            <param name="str">The string to reverse the characters of.</param>
+            <param name="@string">The string to reverse the characters of.</param>
             <returns>The reversed character string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.Remove(System.String,System.Predicate{System.Char})">
             <summary>Removes all the characters from a string based on a predicate.</summary>
-            <param name="str">The string to remove characters from.</param>
+            <param name="@string">The string to remove characters from.</param>
             <param name="where">The predicate determining removal of each character.</param>
             <returns>The string after removing any predicated characters.</returns>
         </member>
@@ -17468,25 +17531,6 @@
             <param name="random">The random algorithm for index generation.</param>
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
-        </member>
-        <member name="M:System.TowelSystemExtensions.Choose``1(System.Random,Towel.DataStructures.Link{``0,System.Int32}[])">
-            <summary>Chooses an item at random (all equally weighted).</summary>
-            <typeparam name="T">The generic type of the items to choose from.</typeparam>
-            <param name="random">The random algorithm for index generation.</param>
-            <param name="values">The values to choose from.</param>
-            <returns>A randomly selected value from the supplied options.</returns>
-        </member>
-        <member name="M:System.TowelSystemExtensions.Equate(System.Delegate,System.Delegate)">
-            <summary>Compares delgates for equality (see source code for criteria).</summary>
-            <param name="a">One of the delegates to compare.</param>
-            <param name="b">One of the delegates to compare.</param>
-            <returns>True if deemed equal, False if not.</returns>
-            <remarks>FOR ADVANCED DEVELOPERS ONLY.</remarks>
-        </member>
-        <member name="M:System.TowelSystemExtensions.Truncate(System.Delegate)">
-            <summary>Removes the overhead caused by delegate assignment.</summary>
-            <param name="del">The delegate to truncate.</param>
-            <returns>The truncated delegate.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.ConvertToCsharpSource(System.Type)">
             <summary>Converts a System.Type into a string as it would appear in C# source code.</summary>
