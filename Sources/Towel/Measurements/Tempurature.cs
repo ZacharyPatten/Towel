@@ -28,7 +28,7 @@ namespace Towel.Measurements
             T C = (Symbolics.Parse<T>("459.67").Simplify() as Symbolics.Constant<T>).Value;
             T D = (Symbolics.Parse<T>("32").Simplify() as Symbolics.Constant<T>).Value;
 
-            Func<T, T>[][] table = Extensions.ConstructSquareJagged<Func<T, T>>(3);
+            Func<T, T>[][] table = TowelSystemExtensions.ConstructSquareJaggedArray<Func<T, T>>(3);
 
             table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
             table[(int)Units.Kelvin][(int)Units.Celsius] = x => Compute.Subtract(x, A);

@@ -2334,7 +2334,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -2343,7 +2343,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -2388,7 +2388,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -2397,7 +2397,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -2460,7 +2460,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -4447,7 +4447,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -4456,7 +4456,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -4469,7 +4469,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -4478,7 +4478,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -4526,7 +4526,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -4535,7 +4535,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -4548,7 +4548,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -4557,7 +4557,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -4630,7 +4630,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -6821,7 +6821,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6830,7 +6830,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -6843,7 +6843,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6852,7 +6852,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -6865,7 +6865,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6874,7 +6874,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -6925,7 +6925,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6934,7 +6934,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -6947,7 +6947,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6956,7 +6956,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -6969,7 +6969,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6978,7 +6978,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -7061,7 +7061,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -9456,7 +9456,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9465,7 +9465,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9478,7 +9478,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9487,7 +9487,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9500,7 +9500,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9509,7 +9509,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9522,7 +9522,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9531,7 +9531,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9585,7 +9585,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9594,7 +9594,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9607,7 +9607,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9616,7 +9616,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9629,7 +9629,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9638,7 +9638,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9651,7 +9651,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9660,7 +9660,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -9753,7 +9753,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -12352,7 +12352,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12361,7 +12361,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12374,7 +12374,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12383,7 +12383,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12396,7 +12396,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12405,7 +12405,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12418,7 +12418,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12427,7 +12427,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12440,7 +12440,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12449,7 +12449,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12506,7 +12506,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12515,7 +12515,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12528,7 +12528,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12537,7 +12537,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12550,7 +12550,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12559,7 +12559,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12572,7 +12572,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12581,7 +12581,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12594,7 +12594,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12603,7 +12603,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -12706,7 +12706,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -15509,7 +15509,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15518,7 +15518,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15531,7 +15531,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15540,7 +15540,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15553,7 +15553,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15562,7 +15562,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15575,7 +15575,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15584,7 +15584,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15597,7 +15597,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15606,7 +15606,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15619,7 +15619,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15628,7 +15628,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = Towel.Parallels.Parallel.Thread(operation);
+						result6 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15688,7 +15688,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15697,7 +15697,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15710,7 +15710,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15719,7 +15719,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15732,7 +15732,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15741,7 +15741,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15754,7 +15754,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15763,7 +15763,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15776,7 +15776,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15785,7 +15785,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15798,7 +15798,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15807,7 +15807,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = Towel.Parallels.Parallel.Thread(operation);
+						result6 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -15920,7 +15920,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -18927,7 +18927,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18936,7 +18936,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -18949,7 +18949,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18958,7 +18958,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -18971,7 +18971,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18980,7 +18980,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -18993,7 +18993,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19002,7 +19002,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19015,7 +19015,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19024,7 +19024,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19037,7 +19037,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19046,7 +19046,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = Towel.Parallels.Parallel.Thread(operation);
+						result6 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19059,7 +19059,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values7 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values7 = new ArrayJagged<Axis7>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19068,7 +19068,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result7 = Towel.Parallels.Parallel.Thread(operation);
+						result7 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19131,7 +19131,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19140,7 +19140,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = Towel.Parallels.Parallel.Thread(operation);
+						result1 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19153,7 +19153,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19162,7 +19162,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = Towel.Parallels.Parallel.Thread(operation);
+						result2 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19175,7 +19175,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19184,7 +19184,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = Towel.Parallels.Parallel.Thread(operation);
+						result3 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19197,7 +19197,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19206,7 +19206,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = Towel.Parallels.Parallel.Thread(operation);
+						result4 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19219,7 +19219,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19228,7 +19228,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = Towel.Parallels.Parallel.Thread(operation);
+						result5 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19241,7 +19241,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19250,7 +19250,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = Towel.Parallels.Parallel.Thread(operation);
+						result6 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19263,7 +19263,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values7 = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values7 = new ArrayJagged<Axis7>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19272,7 +19272,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result7 = Towel.Parallels.Parallel.Thread(operation);
+						result7 = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -19395,7 +19395,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, int> link) =>
@@ -21758,7 +21758,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -21772,7 +21772,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -21816,7 +21816,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -21825,7 +21825,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -21888,7 +21888,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -23862,7 +23862,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -23876,7 +23876,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -23889,7 +23889,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -23903,7 +23903,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -23949,7 +23949,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -23958,7 +23958,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -23971,7 +23971,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -23980,7 +23980,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -24053,7 +24053,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -26269,7 +26269,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -26283,7 +26283,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26296,7 +26296,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -26310,7 +26310,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26323,7 +26323,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -26337,7 +26337,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26385,7 +26385,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -26394,7 +26394,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26407,7 +26407,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -26416,7 +26416,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26429,7 +26429,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -26438,7 +26438,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -26521,7 +26521,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -28979,7 +28979,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -28993,7 +28993,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29006,7 +29006,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -29020,7 +29020,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29033,7 +29033,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -29047,7 +29047,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29060,7 +29060,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -29074,7 +29074,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29124,7 +29124,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -29133,7 +29133,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29146,7 +29146,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -29155,7 +29155,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29168,7 +29168,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -29177,7 +29177,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29190,7 +29190,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -29199,7 +29199,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -29292,7 +29292,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -31992,7 +31992,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -32006,7 +32006,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32019,7 +32019,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -32033,7 +32033,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32046,7 +32046,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -32060,7 +32060,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32073,7 +32073,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -32087,7 +32087,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32100,7 +32100,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -32114,7 +32114,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32166,7 +32166,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -32175,7 +32175,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32188,7 +32188,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -32197,7 +32197,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32210,7 +32210,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -32219,7 +32219,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32232,7 +32232,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -32241,7 +32241,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32254,7 +32254,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -32263,7 +32263,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -32366,7 +32366,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -35308,7 +35308,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35322,7 +35322,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35335,7 +35335,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35349,7 +35349,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35362,7 +35362,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35376,7 +35376,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35389,7 +35389,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35403,7 +35403,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35416,7 +35416,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35430,7 +35430,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35443,7 +35443,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values6 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values6 = new ArrayJagged<Axis6>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -35457,7 +35457,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result6 = Towel.Parallels.Parallel.Thread(operation);
+//						result6 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35511,7 +35511,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35520,7 +35520,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35533,7 +35533,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35542,7 +35542,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35555,7 +35555,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35564,7 +35564,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35577,7 +35577,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35586,7 +35586,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35599,7 +35599,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35608,7 +35608,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35621,7 +35621,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values6 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values6 = new ArrayJagged<Axis6>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -35630,7 +35630,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result6 = Towel.Parallels.Parallel.Thread(operation);
+//						result6 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -35743,7 +35743,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>
@@ -38927,7 +38927,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -38941,7 +38941,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -38954,7 +38954,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -38968,7 +38968,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -38981,7 +38981,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -38995,7 +38995,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39008,7 +39008,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -39022,7 +39022,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39035,7 +39035,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -39049,7 +39049,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39062,7 +39062,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values6 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values6 = new ArrayJagged<Axis6>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -39076,7 +39076,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result6 = Towel.Parallels.Parallel.Thread(operation);
+//						result6 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39089,7 +39089,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values7 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values7 = new ArrayJagged<Axis7>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -39103,7 +39103,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result7 = Towel.Parallels.Parallel.Thread(operation);
+//						result7 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39159,7 +39159,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values1 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values1 = new ArrayJagged<Axis1>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39168,7 +39168,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result1 = Towel.Parallels.Parallel.Thread(operation);
+//						result1 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39181,7 +39181,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values2 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values2 = new ArrayJagged<Axis2>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39190,7 +39190,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result2 = Towel.Parallels.Parallel.Thread(operation);
+//						result2 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39203,7 +39203,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values3 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values3 = new ArrayJagged<Axis3>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39212,7 +39212,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result3 = Towel.Parallels.Parallel.Thread(operation);
+//						result3 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39225,7 +39225,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values4 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values4 = new ArrayJagged<Axis4>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39234,7 +39234,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result4 = Towel.Parallels.Parallel.Thread(operation);
+//						result4 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39247,7 +39247,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values5 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values5 = new ArrayJagged<Axis5>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39256,7 +39256,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result5 = Towel.Parallels.Parallel.Thread(operation);
+//						result5 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39269,7 +39269,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values6 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values6 = new ArrayJagged<Axis6>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39278,7 +39278,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result6 = Towel.Parallels.Parallel.Thread(operation);
+//						result6 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39291,7 +39291,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values7 = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values7 = new ArrayJagged<Axis7>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -39300,7 +39300,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result7 = Towel.Parallels.Parallel.Thread(operation);
+//						result7 = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -39423,7 +39423,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, int> link) =>

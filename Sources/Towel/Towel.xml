@@ -622,6 +622,10 @@
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
         </member>
+        <member name="T:Towel.DataStructures.ArrayJagged`1">
+            <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
+            <typeparam name="T">The generic type of value to store in the array.</typeparam>
+        </member>
         <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -883,7 +887,7 @@
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
             <remarks>Runtime: O(n * step).</remarks>
@@ -1604,17 +1608,31 @@
             <summary>The #1 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.Link{`0}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.op_Explicit(Towel.DataStructures.Link{`0})~System.ValueTuple{`0}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.op_Explicit(System.Tuple{`0})~Towel.DataStructures.Link{`0}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.op_Explicit(Towel.DataStructures.Link{`0})~System.Tuple{`0}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`1.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`1.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`1.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1637,6 +1655,14 @@
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
         </member>
+        <member name="M:Towel.DataStructures.Link`1.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
+        </member>
         <member name="T:Towel.DataStructures.LinkStruct`1">
             <summary>Represents a link between objects.</summary>
             <typeparam name="T1">The type of #1 element in the link.</typeparam>
@@ -1653,11 +1679,25 @@
             <summary>The #1 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.LinkStruct{`0}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(Towel.DataStructures.LinkStruct{`0})~System.ValueTuple{`0}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(System.Tuple{`0})~Towel.DataStructures.LinkStruct{`0}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(Towel.DataStructures.LinkStruct{`0})~System.Tuple{`0}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -1670,12 +1710,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1697,6 +1731,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`1.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`2">
             <summary>Represents a link between objects.</summary>
@@ -1720,17 +1762,31 @@
             <summary>The #2 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.op_Explicit(Towel.DataStructures.Link{`0,`1})~System.ValueTuple{`0,`1}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.op_Explicit(System.Tuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.op_Explicit(Towel.DataStructures.Link{`0,`1})~System.Tuple{`0,`1}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`2.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`2.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`2.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1752,6 +1808,14 @@
         <member name="M:Towel.DataStructures.Link`2.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`2">
             <summary>Represents a link between objects.</summary>
@@ -1775,11 +1839,25 @@
             <summary>The #2 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1})~System.ValueTuple{`0,`1}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(System.Tuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1})~System.Tuple{`0,`1}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -1792,12 +1870,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1819,6 +1891,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`2.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`3">
             <summary>Represents a link between objects.</summary>
@@ -1848,17 +1928,31 @@
             <summary>The #3 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.op_Explicit(Towel.DataStructures.Link{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.op_Explicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.op_Explicit(Towel.DataStructures.Link{`0,`1,`2})~System.Tuple{`0,`1,`2}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`3.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`3.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`3.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1880,6 +1974,14 @@
         <member name="M:Towel.DataStructures.Link`3.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`3">
             <summary>Represents a link between objects.</summary>
@@ -1909,11 +2011,25 @@
             <summary>The #3 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.Tuple{`0,`1,`2}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -1926,12 +2042,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1953,6 +2063,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`3.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`4">
             <summary>Represents a link between objects.</summary>
@@ -1988,17 +2106,31 @@
             <summary>The #4 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.op_Explicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`4.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`4.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`4.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2020,6 +2152,14 @@
         <member name="M:Towel.DataStructures.Link`4.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`4">
             <summary>Represents a link between objects.</summary>
@@ -2055,11 +2195,25 @@
             <summary>The #4 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -2072,12 +2226,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2099,6 +2247,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`4.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`5">
             <summary>Represents a link between objects.</summary>
@@ -2140,17 +2296,31 @@
             <summary>The #5 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.op_Explicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`5.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`5.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`5.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2172,6 +2342,14 @@
         <member name="M:Towel.DataStructures.Link`5.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`5">
             <summary>Represents a link between objects.</summary>
@@ -2213,11 +2391,25 @@
             <summary>The #5 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -2230,12 +2422,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2257,6 +2443,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`5.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`6">
             <summary>Represents a link between objects.</summary>
@@ -2304,17 +2498,31 @@
             <summary>The #6 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`6.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`6.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2336,6 +2544,14 @@
         <member name="M:Towel.DataStructures.Link`6.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`6">
             <summary>Represents a link between objects.</summary>
@@ -2383,11 +2599,25 @@
             <summary>The #6 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -2400,12 +2630,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2427,6 +2651,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`6.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.Link`7">
             <summary>Represents a link between objects.</summary>
@@ -2480,17 +2712,31 @@
             <summary>The #7 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.Link`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
+            <returns>The resulting Towel.DataStructures.Link.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Link`7.Types">
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`7.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2512,6 +2758,14 @@
         <member name="M:Towel.DataStructures.Link`7.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.Link.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`7">
             <summary>Represents a link between objects.</summary>
@@ -2565,11 +2819,25 @@
             <summary>The #7 item in the link.</summary>
             <remarks>Runtime: O(1).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
+            <returns>The resulting System.ValueTuple.</returns>
+        </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
+            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
+            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
+            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
+            <returns>The resulting System.Tuple.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.System#Collections#IEnumerable#GetEnumerator">
             <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
@@ -2582,12 +2850,6 @@
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.Contains(System.Object,Towel.Compare{System.Object})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.Contains``1(``0,Towel.Compare{System.Object,``0})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2609,6 +2871,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`7.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.GetHashCode">
+            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.Equals(System.Object)">
+            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
+            <returns>Whether this object and the provided obj are value equal.</returns>
         </member>
         <member name="T:Towel.DataStructures.IList`1">
             <summary>A primitive dynamic sized data structure.</summary>
@@ -13993,6 +14263,10 @@
             <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
             <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
         </member>
+        <member name="T:Towel.Mathematics.Constant`1">
+            <summary>Contains generic static numerical constant values.</summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="F:Towel.Mathematics.Constant`1.Zero">
             <summary>Zero [0]</summary>
         </member>
@@ -14099,7 +14373,7 @@
         <member name="M:Towel.Mathematics.MathematicsException.#ctor(System.String,System.Exception)">
             <summary>Represents an exception in mathematical computation.</summary>
             <param name="message">The message of the exception.</param>
-            <param name="inner">The inner exception.</param>
+            <param name="innerException">The inner exception.</param>
         </member>
         <member name="T:Towel.Mathematics.Matrix`1">
             <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
@@ -16924,16 +17198,16 @@
             <returns>True if the data contains duplicates. False if not.</returns>
             <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
         </member>
-        <member name="T:System.Extensions">
+        <member name="T:System.TowelSystemExtensions">
             <summary>Contains Extension methods on common .Net Framework types.</summary>
         </member>
-        <member name="M:System.Extensions.Repeat(System.Char,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.Repeat(System.Char,System.Int32)">
             <summary>Creates a string of a repreated character a provided number of times.</summary>
             <param name="character">The character to repeat.</param>
             <param name="count">The number of repetitions of the charater (aka resulting string length).</param>
             <returns>The string of the repeated character.</returns>
         </member>
-        <member name="M:System.Extensions.ContainsAny(System.String,System.Char[])">
+        <member name="M:System.TowelSystemExtensions.ContainsAny(System.String,System.Char[])">
             <summary>
             Checks if a string contains any of a collections on characters
             </summary>
@@ -16941,41 +17215,41 @@
             <param name="chars"></param>
             <returns></returns>
         </member>
-        <member name="M:System.Extensions.StandardizeNewLines(System.String)">
+        <member name="M:System.TowelSystemExtensions.StandardizeNewLines(System.String)">
             <summary>Removes carriage returns and then replaces all new line characters with System.Environment.NewLine.</summary>
             <param name="@string">The string to standardize the new lines of.</param>
             <returns>The new line standardized string.</returns>
         </member>
-        <member name="M:System.Extensions.Repeat(System.String,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.Repeat(System.String,System.Int32)">
             <summary>Creates a string of a repreated string a provided number of times.</summary>
             <param name="str">The string to repeat.</param>
             <param name="count">The number of repetitions of the string to repeat.</param>
             <returns>The string of the repeated string to repeat.</returns>
         </member>
-        <member name="M:System.Extensions.SplitLines(System.String)">
+        <member name="M:System.TowelSystemExtensions.SplitLines(System.String)">
             <summary>Splits the string into the individual lines.</summary>
             <param name="@string">The string to get the lines of.</param>
             <returns>an array of the individual lines of the string.</returns>
         </member>
-        <member name="M:System.Extensions.IndentLines(System.String)">
+        <member name="M:System.TowelSystemExtensions.IndentLines(System.String)">
             <summary>Indents every line in a string with a single tab character.</summary>
             /// <param name="@string">The string to indent the lines of.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:System.Extensions.IndentLines(System.String,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.IndentLines(System.String,System.Int32)">
             <summary>Indents every line in a string with a given number of tab characters.</summary>
             <param name="@string">The string to indent the lines of.</param>
             <param name="count">The number of tabs of the indention.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:System.Extensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
             <param name="@string">The string to be indented.</param>
             <param name="start">The starting index to look for new line sequences to indent.</param>
             <param name="end">The starting index to look for new line sequences to indent.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:System.Extensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
             <param name="@string">The string to be indented.</param>
             <param name="count">The number of tabs of this indention.</param>
@@ -16983,14 +17257,14 @@
             <param name="end">The starting index to look for new line sequences to indent.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:System.Extensions.IndentLineNumbers(System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
             <param name="@string">The string to indent specified lines of.</param>
             <param name="startingLineNumber">The line number to start line indention on.</param>
             <param name="endingLineNumber">The line number to stop line indention on.</param>
             <returns>The string with the specified lines indented.</returns>
         </member>
-        <member name="M:System.Extensions.IndentLineNumbers(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
             <param name="@string">The string to indent specified lines of.</param>
             <param name="count">The number of tabs for the indention.</param>
@@ -16998,19 +17272,19 @@
             <param name="endingLineNumber">The line number to stop line indention on.</param>
             <returns>The string with the specified lines indented.</returns>
         </member>
-        <member name="M:System.Extensions.PadLinesLeft(System.String,System.String)">
+        <member name="M:System.TowelSystemExtensions.PadLinesLeft(System.String,System.String)">
             <summary>Adds a string onto the beginning of every line in a string.</summary>
             <param name="@string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.PadSubstringLinesRight(System.String,System.String)">
+        <member name="M:System.TowelSystemExtensions.PadSubstringLinesRight(System.String,System.String)">
             <summary>Adds a string onto the end of every line in a string.</summary>
             <param name="@string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.PadLinesLeftBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.PadLinesLeftBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
             <param name="@string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
@@ -17018,7 +17292,7 @@
             <param name="end">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.PadLinesRightBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.PadLinesRightBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
             <param name="@string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
@@ -17026,7 +17300,7 @@
             <param name="end">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
             <param name="str">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
@@ -17034,7 +17308,7 @@
             <param name="end">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
             <param name="str">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
@@ -17042,144 +17316,144 @@
             <param name="endingLineNumber">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:System.Extensions.Reverse(System.String)">
+        <member name="M:System.TowelSystemExtensions.Reverse(System.String)">
             <summary>Reverses the characters in a string.</summary>
             <param name="str">The string to reverse the characters of.</param>
             <returns>The reversed character string.</returns>
         </member>
-        <member name="M:System.Extensions.Remove(System.String,System.Predicate{System.Char})">
+        <member name="M:System.TowelSystemExtensions.Remove(System.String,System.Predicate{System.Char})">
             <summary>Removes all the characters from a string based on a predicate.</summary>
             <param name="str">The string to remove characters from.</param>
             <param name="where">The predicate determining removal of each character.</param>
             <returns>The string after removing any predicated characters.</returns>
         </member>
-        <member name="M:System.Extensions.CountLines(System.String)">
+        <member name="M:System.TowelSystemExtensions.CountLines(System.String)">
             <summary>Counts the number of lines in the string.</summary>
             <param name="str">The string to get the line count of.</param>
             <returns>The number of lines in the string.</returns>
         </member>
-        <member name="M:System.Extensions.NextString(System.Random,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.NextString(System.Random,System.Int32)">
             <summary>Generates a random string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized string to generate.</param>
             <returns>The generated randomized string.</returns>
         </member>
-        <member name="M:System.Extensions.NextString(System.Random,System.Int32,System.Char[])">
+        <member name="M:System.TowelSystemExtensions.NextString(System.Random,System.Int32,System.Char[])">
             <summary>Generates a random string of a given length using the System.Random generator with a specific set of characters.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized string to generate.</param>
             <param name="allowableChars">The set of allowable characters.</param>
             <returns>The generated randomized string.</returns>
         </member>
-        <member name="M:System.Extensions.NextAlphaNumericString(System.Random,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.NextAlphaNumericString(System.Random,System.Int32)">
             <summary>Generates a random alphanumeric string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized alphanumeric string to generate.</param>
             <returns>The generated randomized alphanumeric string.</returns>
         </member>
-        <member name="M:System.Extensions.NumericString(System.Random,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.NumericString(System.Random,System.Int32)">
             <summary>Generates a random numeric string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized numeric string to generate.</param>
             <returns>The generated randomized numeric string.</returns>
         </member>
-        <member name="M:System.Extensions.NextAlphabeticString(System.Random,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.NextAlphabeticString(System.Random,System.Int32)">
             <summary>Generates a random alhpabetical string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized alphabetical string to generate.</param>
             <returns>The generated randomized alphabetical string.</returns>
         </member>
-        <member name="M:System.Extensions.NextChar(System.Random)">
+        <member name="M:System.TowelSystemExtensions.NextChar(System.Random)">
             <summary>Generates a random char value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated char value.</returns>
         </member>
-        <member name="M:System.Extensions.NextChar(System.Random,System.Char,System.Char)">
+        <member name="M:System.TowelSystemExtensions.NextChar(System.Random,System.Char,System.Char)">
             <summary>Generates a random char value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">Minimum allowed value of the random generation.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated char value.</returns>
         </member>
-        <member name="M:System.Extensions.NextLong(System.Random)">
+        <member name="M:System.TowelSystemExtensions.NextLong(System.Random)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:System.Extensions.NextLong(System.Random,System.Int64)">
+        <member name="M:System.TowelSystemExtensions.NextLong(System.Random,System.Int64)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:System.Extensions.NextLong(System.Random,System.Int64,System.Int64)">
+        <member name="M:System.TowelSystemExtensions.NextLong(System.Random,System.Int64,System.Int64)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">Minimum allowed value of the random generation.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDecimal(System.Random)">
+        <member name="M:System.TowelSystemExtensions.NextDecimal(System.Random)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDecimal(System.Random,System.Decimal)">
+        <member name="M:System.TowelSystemExtensions.NextDecimal(System.Random,System.Decimal)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDecimal(System.Random,System.Decimal,System.Decimal)">
+        <member name="M:System.TowelSystemExtensions.NextDecimal(System.Random,System.Decimal,System.Decimal)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDateTime(System.Random)">
+        <member name="M:System.TowelSystemExtensions.NextDateTime(System.Random)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDateTime(System.Random,System.DateTime)">
+        <member name="M:System.TowelSystemExtensions.NextDateTime(System.Random,System.DateTime)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:System.Extensions.NextDateTime(System.Random,System.DateTime,System.DateTime)">
+        <member name="M:System.TowelSystemExtensions.NextDateTime(System.Random,System.DateTime,System.DateTime)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:System.Extensions.NextTimeSpan(System.Random)">
+        <member name="M:System.TowelSystemExtensions.NextTimeSpan(System.Random)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:System.Extensions.NextTimeSpan(System.Random,System.TimeSpan)">
+        <member name="M:System.TowelSystemExtensions.NextTimeSpan(System.Random,System.TimeSpan)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:System.Extensions.NextTimeSpan(System.Random,System.TimeSpan,System.TimeSpan)">
+        <member name="M:System.TowelSystemExtensions.NextTimeSpan(System.Random,System.TimeSpan,System.TimeSpan)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:System.Extensions.Shuffle``1(System.Random,System.Collections.Generic.IList{``0})">
+        <member name="M:System.TowelSystemExtensions.Shuffle``1(System.Random,System.Collections.Generic.IList{``0})">
             <summary>Shuffles the elements of an IList into random order.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
             <param name="iList">The structure to be shuffled.</param>
         </member>
-        <member name="M:System.Extensions.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
+        <member name="M:System.TowelSystemExtensions.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Shuffles the elements of an IList into random order.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
@@ -17188,120 +17462,143 @@
             <param name="start">The starting index of the shuffle.</param>
             <param name="end">The </param>
         </member>
-        <member name="M:System.Extensions.Choose``1(System.Random,``0[])">
+        <member name="M:System.TowelSystemExtensions.Choose``1(System.Random,``0[])">
             <summary>Chooses an item at random (all equally weighted).</summary>
             <typeparam name="T">The generic type of the items to choose from.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
-        <member name="M:System.Extensions.Choose``1(System.Random,Towel.DataStructures.Link{``0,System.Int32}[])">
+        <member name="M:System.TowelSystemExtensions.Choose``1(System.Random,Towel.DataStructures.Link{``0,System.Int32}[])">
             <summary>Chooses an item at random (all equally weighted).</summary>
             <typeparam name="T">The generic type of the items to choose from.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
-        <member name="M:System.Extensions.Equate(System.Delegate,System.Delegate)">
+        <member name="M:System.TowelSystemExtensions.Equate(System.Delegate,System.Delegate)">
             <summary>Compares delgates for equality (see source code for criteria).</summary>
             <param name="a">One of the delegates to compare.</param>
             <param name="b">One of the delegates to compare.</param>
             <returns>True if deemed equal, False if not.</returns>
             <remarks>FOR ADVANCED DEVELOPERS ONLY.</remarks>
         </member>
-        <member name="M:System.Extensions.Truncate(System.Delegate)">
+        <member name="M:System.TowelSystemExtensions.Truncate(System.Delegate)">
             <summary>Removes the overhead caused by delegate assignment.</summary>
             <param name="del">The delegate to truncate.</param>
             <returns>The truncated delegate.</returns>
         </member>
-        <member name="M:System.Extensions.ConvertToCsharpSource(System.Type)">
+        <member name="M:System.TowelSystemExtensions.ConvertToCsharpSource(System.Type)">
             <summary>Converts a System.Type into a string as it would appear in C# source code.</summary>
             <param name="type">The "System.Type" to convert to a string.</param>
             <returns>The string as the "System.Type" would appear in C# source code.</returns>
         </member>
-        <member name="M:System.Extensions.Remove``1(System.Collections.Generic.IList{``0},System.Predicate{``0})">
+        <member name="M:System.TowelSystemExtensions.Remove``1(System.Collections.Generic.IList{``0},System.Predicate{``0})">
             <summary>Removes all predicated elements from an IList.</summary>
             <typeparam name="T">The generic type of elements in the IList.</typeparam>
             <param name="iList">The IList to perform the predicated removal on.</param>
             <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
         </member>
-        <member name="M:System.Extensions.GetEnumAttribute``1(System.Enum)">
+        <member name="M:System.TowelSystemExtensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
+            <summary>Constructs a square jagged array of the desired dimensions.</summary>
+            <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+            <param name="length1">The length of the first dimension.</param>
+            <param name="length2">The length of the second dimension.</param>
+            <returns>The constructed jagged array.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.ConstructSquareJaggedArray``1(System.Int32)">
+            <summary>Constructs a square jagged array of the desired dimensions.</summary>
+            <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+            <param name="sideLength">The length of each dimension.</param>
+            <returns>The constructed jagged array.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.GetEnumAttribute``1(System.Enum)">
             <summary>Gets a custom attribute on an enum value by generic type.</summary>
             <typeparam name="AttributeType">The type of attribute to get.</typeparam>
             <param name="enumValue">The enum value to get the attribute of.</param>
             <returns>The attribute on the enum value of the provided type.</returns>
         </member>
-        <member name="M:System.Extensions.GetEnumAttributes``1(System.Enum)">
+        <member name="M:System.TowelSystemExtensions.GetEnumAttributes``1(System.Enum)">
             <summary>Gets custom attribus on an enum value by generic type.</summary>
             <typeparam name="AttributeType">The type of attribute to get.</typeparam>
             <param name="enumValue">The enum value to get the attribute of.</param>
             <returns>The attributes on the enum value of the provided type.</returns>
         </member>
-        <member name="M:System.Extensions.GetMaxEnumValue``1">
+        <member name="M:System.TowelSystemExtensions.GetLastEnumValue``1">
             <summary>Gets the maximum value of an enum.</summary>
             <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
             <returns>The maximum enum value of the provided type.</returns>
         </member>
-        <member name="M:System.Extensions.GetTypesWithAttribute``1(System.Reflection.Assembly)">
+        <member name="M:System.TowelSystemExtensions.GetTypesWithAttribute``1(System.Reflection.Assembly)">
             <summary>Enumerates through all the classes with a custom attribute.</summary>
             <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
             <param name="assembly">The assembly to iterate through the types of.</param>
             <returns>The IEnumerable of the types with the provided attribute type.</returns>
         </member>
-        <member name="M:System.Extensions.GetDerivedTypes``1(System.Reflection.Assembly)">
+        <member name="M:System.TowelSystemExtensions.GetDerivedTypes``1(System.Reflection.Assembly)">
             <summary>Gets all the types in an assembly that derive from a base.</summary>
             <typeparam name="Base">The base type to get the deriving types of.</typeparam>
             <param name="assembly">The assmebly to perform the search on.</param>
             <returns>The IEnumerable of the types that derive from the provided base.</returns>
         </member>
-        <member name="M:System.Extensions.LoadXmlDocumentation(System.String)">
+        <member name="M:System.TowelSystemExtensions.LoadXmlDocumentation(System.String)">
             <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
             <param name="xmlDocumentation">The content of the XML code documentation.</param>
         </member>
-        <member name="M:System.Extensions.ClearXmlDocumentation">
+        <member name="M:System.TowelSystemExtensions.ClearXmlDocumentation">
             <summary>Clears the currently loaded XML documentation.</summary>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Type)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Type)">
             <summary>Gets the XML documentation on a type.</summary>
             <param name="type">The type to get the XML documentation of.</param>
             <returns>The XML documentation on the type.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.MethodInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.MethodInfo)">
             <summary>Gets the XML documentation on a method.</summary>
             <param name="methodInfo">The method to get the XML documentation of.</param>
             <returns>The XML documentation on the method.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.ConstructorInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.ConstructorInfo)">
             <summary>Gets the XML documentation on a constructor.</summary>
             <param name="constructorInfo">The constructor to get the XML documentation of.</param>
             <returns>The XML documentation on the constructor.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.PropertyInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.PropertyInfo)">
             <summary>Gets the XML documentation on a property.</summary>
             <param name="propertyInfo">The property to get the XML documentation of.</param>
             <returns>The XML documentation on the property.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.FieldInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.FieldInfo)">
             <summary>Gets the XML documentation on a field.</summary>
             <param name="fieldInfo">The field to get the XML documentation of.</param>
             <returns>The XML documentation on the field.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.EventInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.EventInfo)">
             <summary>Gets the XML documentation on an event.</summary>
             <param name="eventInfo">The event to get the XML documentation of.</param>
             <returns>The XML documentation on the event.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
-        <member name="M:System.Extensions.GetDocumentation(System.Reflection.MemberInfo)">
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.MemberInfo)">
             <summary>Gets the XML documentation on a member.</summary>
             <param name="memberInfo">The member to get the XML documentation of.</param>
             <returns>The XML documentation on the member.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:System.TowelSystemExtensions.Time_DateTime(System.Action)">
+            <summary>Times an action using System.DateTime.</summary>
+            <param name="action">The action to time.</param>
+            <returns>The TimeSpan the action took to complete.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.Time_StopWatch(System.Action)">
+            <summary>Times an action using System.Diagnostics.Stopwatch.</summary>
+            <param name="action">The action to time.</param>
+            <returns>The TimeSpan the action took to complete.</returns>
         </member>
     </members>
 </doc>

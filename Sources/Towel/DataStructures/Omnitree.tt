@@ -983,7 +983,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values<#= j #> = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -992,7 +992,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result<#= j #> = Towel.Parallels.Parallel.Thread(operation);
+						result<#= j #> = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -1037,7 +1037,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values<#= j #> = null;
-					Towel.Parallels.Parallel.Operation operation = () =>
+					ParallelThread.Operation operation = () =>
 					{
 						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -1046,7 +1046,7 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result<#= j #> = Towel.Parallels.Parallel.Thread(operation);
+						result<#= j #> = ParallelThread.Run(operation);
 					else
 						operation();
 				}
@@ -1109,7 +1109,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i < handles.Length; i++)
 				{
 					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+					handles[i] = ParallelThread.Run(() =>
 					{
 						Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 						(Link<IList<T>, <#= child_index_type #>> link) =>
@@ -2950,7 +2950,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values<#= j #> = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length * 2);
 //						for (ulong i = 0; i < additions.Length; i++)
@@ -2964,7 +2964,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result<#= j #> = Towel.Parallels.Parallel.Thread(operation);
+//						result<#= j #> = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -3008,7 +3008,7 @@ namespace Towel.DataStructures
 //				else
 //				{
 //					values<#= j #> = null;
-//					Towel.Parallels.Parallel.Operation operation = () =>
+//					ParallelThread.Operation operation = () =>
 //					{
 //						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
@@ -3017,7 +3017,7 @@ namespace Towel.DataStructures
 //					};
 //
 //					if (allowMultithreading)
-//						result<#= j #> = Towel.Parallels.Parallel.Thread(operation);
+//						result<#= j #> = ParallelThread.Run(operation);
 //					else
 //						operation();
 //				}
@@ -3080,7 +3080,7 @@ namespace Towel.DataStructures
 //				for (int i = 0; i < handles.Length; i++)
 //				{
 //					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-//					handles[i] = Towel.Parallels.Parallel.Thread(() =>
+//					handles[i] = ParallelThread.Run(() =>
 //					{
 //						Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, <#= child_index_type #>> link) =>

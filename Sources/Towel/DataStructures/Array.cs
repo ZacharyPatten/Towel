@@ -192,7 +192,8 @@ namespace Towel.DataStructures
         #endregion
     }
 
-    // Goal: create an array that allows for a number of elements > Int.MaxValue
+    /// <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
+    /// <typeparam name="T">The generic type of value to store in the array.</typeparam>
     public class ArrayJagged<T> : IArray<T, ulong>
     {
         // BLOCK_SIZE must be a power of 2, and we want it to be big enough that we allocate

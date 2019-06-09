@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Towel;
@@ -10,8 +12,8 @@ using Towel.DataStructures;
 
 namespace System
 {
-    /// <summary>Contains Extension methods on common .Net Framework types.</summary>
-    public static class Extensions
+    /// <summary>Contains Extension methods on common System types.</summary>
+    public static class TowelSystemExtensions
     {
         #region char
 
@@ -223,11 +225,11 @@ namespace System
         /// <returns>The padded string.</returns>
         public static string PadLinesLeftBetweenIndeces(this string @string, string padding, int start, int end)
         {
-            if (object.ReferenceEquals(null, @string))
+            if (@string is null)
             {
                 throw new ArgumentNullException(nameof(@string));
             }
-            if (object.ReferenceEquals(null, padding))
+            if (padding is null)
             {
                 throw new ArgumentNullException(nameof(padding));
             }
@@ -253,11 +255,11 @@ namespace System
         /// <returns>The padded string.</returns>
         public static string PadLinesRightBetweenIndeces(this string @string, string padding, int start, int end)
         {
-            if (object.ReferenceEquals(null, @string))
+            if (@string is null)
             {
                 throw new ArgumentNullException(@string);
             }
-            if (object.ReferenceEquals(null, padding))
+            if (padding is null)
             {
                 throw new ArgumentNullException(padding);
             }
@@ -276,69 +278,93 @@ namespace System
         }
 
         /// <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-        /// <param name="str">The string to be padded.</param>
+        /// <param name="@string">The string to be padded.</param>
         /// <param name="padding">The padding to apply after every newline sequence found.</param>
         /// <param name="start">The starting index of the string to search for new line sequences.</param>
         /// <param name="end">The ending index of the string to search for new line sequences.</param>
         /// <returns>The padded string.</returns>
-        public static string PadLinesLeft(this string str, string padding, int startingLineNumber, int endingLineNumber)
+        public static string PadLinesLeft(this string @string, string padding, int startingLineNumber, int endingLineNumber)
         {
-            if (object.ReferenceEquals(null, str))
-                throw new System.ArgumentNullException(str);
-            if (object.ReferenceEquals(null, padding))
-                throw new System.ArgumentNullException(padding);
-            string[] lines = str.SplitLines();
+            if (@string is null)
+            {
+                throw new ArgumentNullException(@string);
+            }
+            if (padding is null)
+            {
+                throw new ArgumentNullException(padding);
+            }
+            string[] lines = @string.SplitLines();
             if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
-                throw new System.ArgumentOutOfRangeException("startingLineNumber");
+            {
+                throw new ArgumentOutOfRangeException("startingLineNumber");
+            }
             if (endingLineNumber >= lines.Length || endingLineNumber < startingLineNumber)
-                throw new System.ArgumentOutOfRangeException("endingLineNumber");
+            {
+                throw new ArgumentOutOfRangeException("endingLineNumber");
+            }
             for (int i = startingLineNumber; i <= endingLineNumber; i++)
+            {
                 lines[i] = padding + lines[i];
+            }
             return string.Concat(lines);
         }
 
         /// <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-        /// <param name="str">The string to be padded.</param>
+        /// <param name="@string">The string to be padded.</param>
         /// <param name="padding">The padding to apply before every newline sequence found.</param>
         /// <param name="startingLineNumber">The starting index of the string to search for new line sequences.</param>
         /// <param name="endingLineNumber">The ending index of the string to search for new line sequences.</param>
         /// <returns>The padded string.</returns>
-        public static string PadLinesRight(this string str, string padding, int startingLineNumber, int endingLineNumber)
+        public static string PadLinesRight(this string @string, string padding, int startingLineNumber, int endingLineNumber)
         {
-            if (object.ReferenceEquals(null, str))
-                throw new System.ArgumentNullException(str);
-            if (object.ReferenceEquals(null, padding))
-                throw new System.ArgumentNullException(padding);
-            string[] lines = str.SplitLines();
+            if (@string is null)
+            {
+                throw new ArgumentNullException(@string);
+            }
+            if (padding is null)
+            {
+                throw new ArgumentNullException(padding);
+            }
+            string[] lines = @string.SplitLines();
             if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
-                throw new System.ArgumentOutOfRangeException("startingLineNumber");
+            {
+                throw new ArgumentOutOfRangeException(nameof(startingLineNumber), startingLineNumber, "!(0 <= " + nameof(startingLineNumber) + " < [Line Count])");
+            }
             if (endingLineNumber >= lines.Length || endingLineNumber < startingLineNumber)
-                throw new System.ArgumentOutOfRangeException("endingLineNumber");
+            {
+                throw new ArgumentOutOfRangeException(nameof(endingLineNumber), endingLineNumber, "!(" + nameof(startingLineNumber) + " < " + nameof(endingLineNumber) + " < [Line Count])");
+            }
             for (int i = startingLineNumber; i <= endingLineNumber; i++)
+            {
                 lines[i] += padding;
+            }
             return string.Concat(lines);
         }
 
         /// <summary>Reverses the characters in a string.</summary>
-        /// <param name="str">The string to reverse the characters of.</param>
+        /// <param name="@string">The string to reverse the characters of.</param>
         /// <returns>The reversed character string.</returns>
-        public static string Reverse(this string str)
+        public static string Reverse(this string @string)
         {
-            char[] characters = str.ToCharArray();
-            System.Array.Reverse(characters);
+            char[] characters = @string.ToCharArray();
+            Array.Reverse(characters);
             return new string(characters);
         }
 
         /// <summary>Removes all the characters from a string based on a predicate.</summary>
-        /// <param name="str">The string to remove characters from.</param>
+        /// <param name="@string">The string to remove characters from.</param>
         /// <param name="where">The predicate determining removal of each character.</param>
         /// <returns>The string after removing any predicated characters.</returns>
-        public static string Remove(this string str, Predicate<char> where)
+        public static string Remove(this string @string, Predicate<char> where)
         {
-            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
-            foreach (char c in str)
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (char c in @string)
+            {
                 if (!where(c))
+                {
                     stringBuilder.Append(c);
+                }
+            }
             return stringBuilder.ToString();
         }
 
@@ -347,7 +373,7 @@ namespace System
         /// <returns>The number of lines in the string.</returns>
         public static int CountLines(this string str)
         {
-            return System.Text.RegularExpressions.Regex.Matches(str.StandardizeNewLines(), Environment.NewLine).Count + 1;
+            return Regex.Matches(str.StandardizeNewLines(), Environment.NewLine).Count + 1;
         }
 
         #endregion
@@ -362,7 +388,9 @@ namespace System
         {
             char[] randomstring = new char[length];
             for (int i = 0; i < randomstring.Length; i++)
+            {
                 randomstring[i] = (char)random.Next(char.MinValue, char.MaxValue);
+            }
             return new string(randomstring);
         }
 
@@ -375,7 +403,9 @@ namespace System
         {
             char[] randomstring = new char[length];
             for (int i = 0; i < randomstring.Length; i++)
+            {
                 randomstring[i] = allowableChars[random.Next(0, allowableChars.Length)];
+            }
             return new string(randomstring);
         }
 
@@ -459,7 +489,7 @@ namespace System
             byte[] buf = new byte[8];
             random.NextBytes(buf);
             long longRand = BitConverter.ToInt64(buf, 0);
-            return (Math.Abs(longRand % (max - min)) + min);
+            return Math.Abs(longRand % (max - min)) + min;
         }
 
         /// <summary>Generates a random decimal value.</summary>
@@ -604,84 +634,6 @@ namespace System
             return values[random.Next(values.Length)];
         }
 
-        /// <summary>Chooses an item at random (all equally weighted).</summary>
-        /// <typeparam name="T">The generic type of the items to choose from.</typeparam>
-        /// <param name="random">The random algorithm for index generation.</param>
-        /// <param name="values">The values to choose from.</param>
-        /// <returns>A randomly selected value from the supplied options.</returns>
-        public static T Choose<T>(this Random random, params Link<T, int>[] valuesWithWeights)
-        {
-            int total = 0;
-            foreach (Link<T, int> link in valuesWithWeights)
-            {
-                if (link._2 < 0)
-                    throw new System.InvalidOperationException("attempting to choose a random weighted value, but a weight is less than zero (weight < 0)");
-                total += link._2;
-            }
-            int number = random.Next(total);
-            total = 0;
-            foreach (Link<T, int> link in valuesWithWeights)
-            {
-                total += link._2;
-                if (number < total)
-                    return link._1;
-            }
-            throw new System.InvalidOperationException("there is a bug in the Towel Framework"); // this should never hit
-        }
-
-        #endregion
-
-        #region Delegate
-
-        /// <summary>Compares delgates for equality (see source code for criteria).</summary>
-        /// <param name="a">One of the delegates to compare.</param>
-        /// <param name="b">One of the delegates to compare.</param>
-        /// <returns>True if deemed equal, False if not.</returns>
-        /// <remarks>FOR ADVANCED DEVELOPERS ONLY.</remarks>
-        [Obsolete("For advanced developers only. Use at your own risk.", true)]
-        public static bool Equate(this Delegate a, Delegate b)
-        {
-            // remove delegate assignment overhead
-            a = a.Truncate();
-            b = b.Truncate();
-
-            // (1) method and target match
-            if (a == b)
-                return true;
-
-            // null
-            if (a == null || b == null)
-                return false;
-
-            // (2) if the target and member match
-            if (a.Target == b.Target && a.Method == b.Method)
-                return true;
-
-            // (3) compiled method bodies match
-            if (a.Target != b.Target)
-                return false;
-            byte[] a_body = a.Method.GetMethodBody().GetILAsByteArray();
-            byte[] b_body = b.Method.GetMethodBody().GetILAsByteArray();
-            if (a_body.Length != b_body.Length)
-                return false;
-            for (int i = 0; i < a_body.Length; i++)
-            {
-                if (a_body[i] != b_body[i])
-                    return false;
-            }
-            return true;
-        }
-
-        /// <summary>Removes the overhead caused by delegate assignment.</summary>
-        /// <param name="del">The delegate to truncate.</param>
-        /// <returns>The truncated delegate.</returns>
-        public static Delegate Truncate(this Delegate del)
-        {
-            while (del.Target is Delegate)
-                del = del.Target as Delegate;
-            return del;
-        }
-
         #endregion
 
         #region Type
@@ -758,7 +710,7 @@ namespace System
         /// <typeparam name="T">The generic type of elements in the IList.</typeparam>
         /// <param name="iList">The IList to perform the predicated removal on.</param>
         /// <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
-        public static void Remove<T>(this System.Collections.Generic.IList<T> iList, System.Predicate<T> predicate)
+        public static void Remove<T>(this Collections.Generic.IList<T> iList, Predicate<T> predicate)
         {
             int write_position = 0;
             {
@@ -793,21 +745,29 @@ namespace System
 
         public static bool ValuesAreEqual<T>(this T[] a1, T[] a2)
         {
-            return a1.ValuesAreEqual(a2, Towel.Equate.Default);
+            return a1.ValuesAreEqual(a2, Equate.Default);
         }
 
         public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Equate<T> equate)
         {
             if (ReferenceEquals(a1, a2))
+            {
                 return true;
+            }
             if (a1 == null || a2 == null)
+            {
                 return false;
+            }
             if (a1.Length != a2.Length)
+            {
                 return false;
+            }
             for (int i = 0; i < a1.Length; i++)
             {
                 if (!equate(a1[i], a2[i]))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -820,14 +780,28 @@ namespace System
             }
         }
 
-        public static T[][] ConstructSquareJagged<T>(int sideLength)
+        /// <summary>Constructs a square jagged array of the desired dimensions.</summary>
+        /// <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+        /// <param name="length1">The length of the first dimension.</param>
+        /// <param name="length2">The length of the second dimension.</param>
+        /// <returns>The constructed jagged array.</returns>
+        public static T[][] ConstructRectangularJaggedArray<T>(int length1, int length2)
         {
-            T[][] jaggedArray = new T[sideLength][];
-            for (int i = 0; i < sideLength; i++)
+            T[][] jaggedArray = new T[length1][];
+            for (int i = 0; i < length1; i++)
             {
-                jaggedArray[i] = new T[sideLength];
+                jaggedArray[i] = new T[length2];
             }
             return jaggedArray;
+        }
+
+        /// <summary>Constructs a square jagged array of the desired dimensions.</summary>
+        /// <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+        /// <param name="sideLength">The length of each dimension.</param>
+        /// <returns>The constructed jagged array.</returns>
+        public static T[][] ConstructSquareJaggedArray<T>(int sideLength)
+        {
+            return ConstructRectangularJaggedArray<T>(sideLength, sideLength);
         }
 
         #endregion
@@ -861,7 +835,7 @@ namespace System
         /// <summary>Gets the maximum value of an enum.</summary>
         /// <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
         /// <returns>The maximum enum value of the provided type.</returns>
-        public static ENUM GetMaxEnumValue<ENUM>()
+        public static ENUM GetLastEnumValue<ENUM>()
         {
             return Enum.GetValues(typeof(ENUM)).Cast<ENUM>().Last();
         }
@@ -1317,6 +1291,33 @@ namespace System
             {
                 return null;
             }
+        }
+
+        #endregion
+
+        #region Action
+
+        /// <summary>Times an action using System.DateTime.</summary>
+        /// <param name="action">The action to time.</param>
+        /// <returns>The TimeSpan the action took to complete.</returns>
+        public static TimeSpan Time_DateTime(this Action action)
+        {
+            DateTime a = DateTime.Now;
+            action();
+            DateTime b = DateTime.Now;
+            return b - a;
+        }
+
+        /// <summary>Times an action using System.Diagnostics.Stopwatch.</summary>
+        /// <param name="action">The action to time.</param>
+        /// <returns>The TimeSpan the action took to complete.</returns>
+        public static TimeSpan Time_StopWatch(this Action action)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Restart();
+            action();
+            watch.Stop();
+            return watch.Elapsed;
         }
 
         #endregion

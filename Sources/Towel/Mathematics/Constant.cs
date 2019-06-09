@@ -1,5 +1,7 @@
 ﻿namespace Towel.Mathematics
 {
+    /// <summary>Contains generic static numerical constant values.</summary>
+    /// <typeparam name="T">The generic numeric type of the constants.</typeparam>
     public static class Constant<T>
     {
         /// <summary>Zero [0]</summary>

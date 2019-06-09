@@ -44,8 +44,8 @@ namespace Towel.Measurements
     {
         internal static Func<T, T>[][] Build<UNITS, T>()
         {
-            int size = Convert.ToInt32(Extensions.GetMaxEnumValue<UNITS>());
-            Func<T, T>[][] conversionFactorTable = Extensions.ConstructSquareJagged<Func<T, T>>(size + 1);
+            int size = Convert.ToInt32(TowelSystemExtensions.GetLastEnumValue<UNITS>());
+            Func<T, T>[][] conversionFactorTable = TowelSystemExtensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
             foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
             {
                 int A = Convert.ToInt32(A_unit);

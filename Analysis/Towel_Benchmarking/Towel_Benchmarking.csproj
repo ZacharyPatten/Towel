@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,7 @@
   <ItemGroup>
     <Folder Include="Mathematics\" />
     <Folder Include="Algorithms\" />
-    <Folder Include="Diagnotics\" />
     <Folder Include="Measurements\" />
-    <Folder Include="Parallels\" />
   </ItemGroup>
 
   <ItemGroup>

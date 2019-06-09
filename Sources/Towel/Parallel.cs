@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-namespace Towel.Parallels
+namespace Towel
 {
     /// <summary>Contains static methods for running threads in the background.</summary>
-    public static class Parallel
+    public static class ParallelThread
     {
-        #region Delegates
-
         /// <summary>A delegate to be run in parallel on a seperate thread.</summary>
         public delegate void Operation();
 
@@ -18,22 +16,12 @@ namespace Towel.Parallels
         /// <summary>A delegate for sending a message back to the thread that created the current thread.</summary>
         public delegate void Callback();
 
-        /// <summary>Factory delegate for constructing delegates to be run in parallel of each other.</summary>
-        /// <param name="current">The current index out of the max number of delegates to create.</param>
-        /// <param name="max">The number of delegates that will be created.</param>
-        /// <returns>The "current" delegate to be run in parallel out of "max" delegates.</returns>
-        public delegate Operation OperationFactory(int current, int max);
-
         /// <summary>A delegate for resolving a multi-threaded event.</summary>
         public delegate void Resolve(IAsyncResult result);
 
-        #endregion
-
-        #region Thread
-
         /// <summary>Runs a delegate in a seperate thread.</summary>
         /// <param name="run">The delegate to run in the background.</param>
-        public static IAsyncResult Thread(
+        public static IAsyncResult Run(
             Operation run)
         {
             if (run is null)
@@ -42,14 +30,14 @@ namespace Towel.Parallels
             }
 
             return run.BeginInvoke(
-                (IAsyncResult ar) => { },
+                asyncResult => { },
                 null);
         }
 
         /// <summary>Runs a delegate in a seperate thread.</summary>
         /// <param name="run">The delegate to run in the background.</param>
         /// <param name="resolve">The delegate for handling the completion of the background thread.</param>
-        public static IAsyncResult Thread(
+        public static IAsyncResult Run(
             Operation run,
             Resolve resolve)
         {
@@ -65,14 +53,14 @@ namespace Towel.Parallels
             SynchronizationContext context = SynchronizationContext.Current;
 
             return run.BeginInvoke(
-                (IAsyncResult ar) => { context.Post((object state) => { resolve(ar); }, null); },
+                asyncResult => context.Post(x => resolve(asyncResult), null),
                 null);
         }
 
         /// <summary>Runs a delegate in a seperate thread.</summary>
         /// <param name="run">The delegate to run in the background with reporting.</param>
         /// <param name="report">The delegate for reporting</param>
-        public static IAsyncResult Thread(
+        public static IAsyncResult Run(
             OperationReport run,
             Callback report)
         {
@@ -92,7 +80,7 @@ namespace Towel.Parallels
                 {
                     context.Post((object state) => { report(); }, null);
                 },
-                (IAsyncResult ar) => { },
+                asyncResult => { },
                 null);
         }
 
@@ -100,7 +88,7 @@ namespace Towel.Parallels
         /// <param name="run">The delegate to run in the background with reporting.</param>
         /// <param name="report">The delegate for reporting</param>
         /// <param name="resolve">The delegate for handling the completion of the background thread.</param>
-        public static IAsyncResult Thread(
+        public static IAsyncResult Run(
             OperationReport run,
             Callback report,
             Resolve resolve)
@@ -121,11 +109,9 @@ namespace Towel.Parallels
             SynchronizationContext context = SynchronizationContext.Current;
 
             return run.BeginInvoke(
-                () => { context.Post((object state) => { report(); }, null); },
-                (IAsyncResult ar) => { context.Post((object state) => { resolve(ar); }, null); },
+                () => context.Post(x => report(), null),
+                asyncResult => context.Post(x => resolve(asyncResult), null),
                 null);
         }
-
-        #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace Towel_Testing
         {
             if (!loaded)
             {
-                Extensions.LoadXmlDocumentation(File.ReadAllText(@"Towel_Testing.xml"));
+                TowelSystemExtensions.LoadXmlDocumentation(File.ReadAllText(@"Towel_Testing.xml"));
                 loaded = true;
             }
         }

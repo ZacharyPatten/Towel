@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Towel;
 using Towel.DataStructures;
 using Towel.Mathematics;
 
@@ -77,7 +78,7 @@ namespace Extensions
             Console.WriteLine();
 
             // This function loads in XML documentation so you can access it via reflection.
-            System.Extensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
+            TowelSystemExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 
             Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
             Console.WriteLine(typeof(Compute).GetDocumentation());
