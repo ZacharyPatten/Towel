@@ -983,7 +983,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values<#= j #> = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -992,15 +992,20 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result<#= j #> = ParallelThread.Run(operation);
+					{
+						//result<#= j #> = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 <# } #>
 
 <# for (int j = 1; j <= i; j++) { #>
-				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
-					result<#= j #>.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+				//	result<#= j #>.AsyncWaitHandle.WaitOne();
 <# } #>
 
 				// build the tree
@@ -1037,7 +1042,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values<#= j #> = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -1046,9 +1051,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result<#= j #> = ParallelThread.Run(operation);
+					{
+						//result<#= j #> = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 <# } #>
 
@@ -1101,36 +1111,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((<#= child_index_type #> key) => { parent[key] = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, <#= child_index_type #>> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((<#= child_index_type #> key) => { parent[key] = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, <#= child_index_type #>> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, <#= child_index_type #>> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)

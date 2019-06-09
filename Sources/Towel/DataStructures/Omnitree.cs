@@ -2334,7 +2334,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -2343,15 +2343,20 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -2388,7 +2393,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -2397,9 +2402,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -2452,36 +2462,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -4447,7 +4457,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -4456,9 +4466,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -4469,7 +4484,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -4478,18 +4493,23 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -4526,7 +4546,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -4535,9 +4555,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -4548,7 +4573,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -4557,9 +4582,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -4622,36 +4652,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -6821,7 +6851,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6830,9 +6860,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -6843,7 +6878,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6852,9 +6887,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -6865,7 +6905,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -6874,21 +6914,26 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -6925,7 +6970,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6934,9 +6979,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -6947,7 +6997,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6956,9 +7006,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -6969,7 +7024,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -6978,9 +7033,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -7053,36 +7113,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -9456,7 +9516,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9465,9 +9525,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9478,7 +9543,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9487,9 +9552,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9500,7 +9570,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9509,9 +9579,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9522,7 +9597,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -9531,24 +9606,29 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -9585,7 +9665,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9594,9 +9674,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9607,7 +9692,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9616,9 +9701,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9629,7 +9719,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9638,9 +9728,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -9651,7 +9746,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -9660,9 +9755,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -9745,36 +9845,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -12352,7 +12452,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12361,9 +12461,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12374,7 +12479,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12383,9 +12488,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12396,7 +12506,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12405,9 +12515,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12418,7 +12533,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12427,9 +12542,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12440,7 +12560,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -12449,27 +12569,32 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -12506,7 +12631,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12515,9 +12640,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12528,7 +12658,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12537,9 +12667,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12550,7 +12685,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12559,9 +12694,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12572,7 +12712,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12581,9 +12721,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -12594,7 +12739,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -12603,9 +12748,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -12698,36 +12848,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -15509,7 +15659,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15518,9 +15668,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15531,7 +15686,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15540,9 +15695,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15553,7 +15713,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15562,9 +15722,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15575,7 +15740,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15584,9 +15749,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15597,7 +15767,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15606,9 +15776,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15619,7 +15794,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -15628,30 +15803,35 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = ParallelThread.Run(operation);
+					{
+						//result6 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride6 == null && allowMultithreading)
-					result6.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride6 == null && allowMultithreading)
+				//	result6.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -15688,7 +15868,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15697,9 +15877,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15710,7 +15895,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15719,9 +15904,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15732,7 +15922,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15741,9 +15931,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15754,7 +15949,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15763,9 +15958,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15776,7 +15976,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15785,9 +15985,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -15798,7 +16003,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -15807,9 +16012,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = ParallelThread.Run(operation);
+					{
+						//result6 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -15912,36 +16122,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)
@@ -18927,7 +19137,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18936,9 +19146,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -18949,7 +19164,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18958,9 +19173,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -18971,7 +19191,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -18980,9 +19200,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -18993,7 +19218,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19002,9 +19227,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19015,7 +19245,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19024,9 +19254,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19037,7 +19272,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19046,9 +19281,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = ParallelThread.Run(operation);
+					{
+						//result6 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19059,7 +19299,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values7 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values7 = new ArrayJagged<Axis7>(additions.Length);
 						for (ulong i = 0; i < additions.Length; i++)
@@ -19068,33 +19308,38 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result7 = ParallelThread.Run(operation);
+					{
+						//result7 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride6 == null && allowMultithreading)
-					result6.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride6 == null && allowMultithreading)
+				//	result6.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride7 == null && allowMultithreading)
-					result7.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride7 == null && allowMultithreading)
+				//	result7.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -19131,7 +19376,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values1 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values1 = new ArrayJagged<Axis1>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19140,9 +19385,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result1 = ParallelThread.Run(operation);
+					{
+						//result1 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19153,7 +19403,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values2 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values2 = new ArrayJagged<Axis2>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19162,9 +19412,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result2 = ParallelThread.Run(operation);
+					{
+						//result2 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19175,7 +19430,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values3 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values3 = new ArrayJagged<Axis3>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19184,9 +19439,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result3 = ParallelThread.Run(operation);
+					{
+						//result3 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19197,7 +19457,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values4 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values4 = new ArrayJagged<Axis4>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19206,9 +19466,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result4 = ParallelThread.Run(operation);
+					{
+						//result4 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19219,7 +19484,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values5 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values5 = new ArrayJagged<Axis5>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19228,9 +19493,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result5 = ParallelThread.Run(operation);
+					{
+						//result5 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19241,7 +19511,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values6 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values6 = new ArrayJagged<Axis6>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19250,9 +19520,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result6 = ParallelThread.Run(operation);
+					{
+						//result6 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 				// prepare data for median computations
@@ -19263,7 +19538,7 @@ namespace Towel.DataStructures
 				else
 				{
 					values7 = null;
-					ParallelThread.Operation operation = () =>
+					Action action = () =>
 					{
 						values7 = new ArrayJagged<Axis7>(additions.Length);
 						for (int i = 0; i < additions.Length; i++)
@@ -19272,9 +19547,14 @@ namespace Towel.DataStructures
 					};
 
 					if (allowMultithreading)
-						result7 = ParallelThread.Run(operation);
+					{
+						//result7 = ParallelThread.Run(operation);
+						throw new NotImplementedException();
+					}
 					else
-						operation();
+					{
+						action();
+					}
 				}
 
 
@@ -19387,36 +19667,36 @@ namespace Towel.DataStructures
 				}
 			});
 
-			if (depth == 1 && allowMultithreading)
-			{
-				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
-				collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, parent, key); });
-				IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
-				for (int i = 0; i < handles.Length; i++)
-				{
-					int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
-					handles[i] = ParallelThread.Run(() =>
-					{
-						Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
-						(Link<IList<T>, int> link) =>
-							{
-								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
-							});
-					});
-				}
-				
-				foreach (IAsyncResult handle in handles)
-				{
-					handle.AsyncWaitHandle.WaitOne();
-				}
-			}
-			else
-			{
+			//if (depth == 1 && allowMultithreading)
+			//{
+			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
+			//	collection_map.Keys((int key) => { parent[key] = new Leaf(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, parent, key); });
+			//	IAsyncResult[] handles = new IAsyncResult[Environment.ProcessorCount];
+			//	for (int i = 0; i < handles.Length; i++)
+			//	{
+			//		int multiTheadSafe_i = i; // used as catpure variable below making it multithread-safe
+			//		handles[i] = ParallelThread.Run(() =>
+			//		{
+			//			Step.EveryNth<Link<IList<T>, int>>(collection_map.Pairs, multiTheadSafe_i + 1)(
+			//			(Link<IList<T>, int> link) =>
+			//				{
+			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
+			//				});
+			//		});
+			//	}
+			//	
+			//	foreach (IAsyncResult handle in handles)
+			//	{
+			//		handle.AsyncWaitHandle.WaitOne();
+			//	}
+			//}
+			//else
+			//{
 				collection_map.Pairs((Link<IList<T>, int> link) =>
 				{ 
 					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 				});
-			}
+			//}
 
 			int count = 0;
 			foreach (Node node in parent.Children)

@@ -17,13 +17,6 @@ namespace Mathematics
 
         static void Main(string[] args)
         {
-            string test = string.Empty;
-            IAsyncResult asyncResult = ParallelThread.Run(() => test = "TESTING");
-            asyncResult.AsyncWaitHandle.WaitOne();
-            Console.WriteLine(test);
-            Console.WriteLine("Done");
-            Console.ReadLine();
-
             Console.WriteLine("You are runnning the Mathematics example.");
             Console.WriteLine("==========================================");
             Console.WriteLine();
