@@ -2328,7 +2328,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -2387,7 +2387,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -2414,8 +2414,8 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -4451,7 +4451,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -4478,7 +4478,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -4540,7 +4540,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -4567,7 +4567,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -4594,11 +4594,11 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -6845,7 +6845,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -6872,7 +6872,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -6899,7 +6899,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -6964,7 +6964,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -6991,7 +6991,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -7018,7 +7018,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -7045,14 +7045,14 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -9510,7 +9510,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -9537,7 +9537,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -9564,7 +9564,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -9591,7 +9591,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -9659,7 +9659,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -9686,7 +9686,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -9713,7 +9713,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -9740,7 +9740,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -9767,17 +9767,17 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -12446,7 +12446,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -12473,7 +12473,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -12500,7 +12500,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -12527,7 +12527,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -12554,7 +12554,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -12625,7 +12625,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -12652,7 +12652,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -12679,7 +12679,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -12706,7 +12706,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -12733,7 +12733,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -12760,20 +12760,20 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -15653,7 +15653,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -15680,7 +15680,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -15707,7 +15707,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -15734,7 +15734,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -15761,7 +15761,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -15788,7 +15788,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis6> values6;
-				IAsyncResult result6 = null;
+				//IAsyncResult result6 = null;
 				if (this._subdivisionOverride6 != null)
 					values6 = null;
 				else
@@ -15862,7 +15862,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -15889,7 +15889,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -15916,7 +15916,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -15943,7 +15943,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -15970,7 +15970,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -15997,7 +15997,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis6> values6;
-				IAsyncResult result6 = null;
+				//IAsyncResult result6 = null;
 				if (this._subdivisionOverride6 != null)
 					values6 = null;
 				else
@@ -16024,23 +16024,23 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride6 == null && allowMultithreading)
-					result6.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride6 == null && allowMultithreading)
+				//	result6.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree
@@ -19131,7 +19131,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -19158,7 +19158,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -19185,7 +19185,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -19212,7 +19212,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -19239,7 +19239,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -19266,7 +19266,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis6> values6;
-				IAsyncResult result6 = null;
+				//IAsyncResult result6 = null;
 				if (this._subdivisionOverride6 != null)
 					values6 = null;
 				else
@@ -19293,7 +19293,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis7> values7;
-				IAsyncResult result7 = null;
+				//IAsyncResult result7 = null;
 				if (this._subdivisionOverride7 != null)
 					values7 = null;
 				else
@@ -19370,7 +19370,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis1> values1;
-				IAsyncResult result1 = null;
+				//IAsyncResult result1 = null;
 				if (this._subdivisionOverride1 != null)
 					values1 = null;
 				else
@@ -19397,7 +19397,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis2> values2;
-				IAsyncResult result2 = null;
+				//IAsyncResult result2 = null;
 				if (this._subdivisionOverride2 != null)
 					values2 = null;
 				else
@@ -19424,7 +19424,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis3> values3;
-				IAsyncResult result3 = null;
+				//IAsyncResult result3 = null;
 				if (this._subdivisionOverride3 != null)
 					values3 = null;
 				else
@@ -19451,7 +19451,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis4> values4;
-				IAsyncResult result4 = null;
+				//IAsyncResult result4 = null;
 				if (this._subdivisionOverride4 != null)
 					values4 = null;
 				else
@@ -19478,7 +19478,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis5> values5;
-				IAsyncResult result5 = null;
+				//IAsyncResult result5 = null;
 				if (this._subdivisionOverride5 != null)
 					values5 = null;
 				else
@@ -19505,7 +19505,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis6> values6;
-				IAsyncResult result6 = null;
+				//IAsyncResult result6 = null;
 				if (this._subdivisionOverride6 != null)
 					values6 = null;
 				else
@@ -19532,7 +19532,7 @@ namespace Towel.DataStructures
 
 				// prepare data for median computations
 				ArrayJagged<Axis7> values7;
-				IAsyncResult result7 = null;
+				//IAsyncResult result7 = null;
 				if (this._subdivisionOverride7 != null)
 					values7 = null;
 				else
@@ -19559,26 +19559,26 @@ namespace Towel.DataStructures
 
 
 
-				if (this._subdivisionOverride1 == null && allowMultithreading)
-					result1.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride1 == null && allowMultithreading)
+				//	result1.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride2 == null && allowMultithreading)
-					result2.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride2 == null && allowMultithreading)
+				//	result2.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride3 == null && allowMultithreading)
-					result3.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride3 == null && allowMultithreading)
+				//	result3.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride4 == null && allowMultithreading)
-					result4.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride4 == null && allowMultithreading)
+				//	result4.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride5 == null && allowMultithreading)
-					result5.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride5 == null && allowMultithreading)
+				//	result5.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride6 == null && allowMultithreading)
-					result6.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride6 == null && allowMultithreading)
+				//	result6.AsyncWaitHandle.WaitOne();
 
-				if (this._subdivisionOverride7 == null && allowMultithreading)
-					result7.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride7 == null && allowMultithreading)
+				//	result7.AsyncWaitHandle.WaitOne();
 
 
 				// build the tree

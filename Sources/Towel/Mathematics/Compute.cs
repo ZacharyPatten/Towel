@@ -101,14 +101,16 @@ namespace Towel.Mathematics
 
         #region Epsilon
 
-        private static T ComputeEpsilon<T>()
-        {
-            if (typeof(T) == typeof(float))
-            {
-                return (T)(object)1.192092896e-012f;
-            }
-            throw new System.NotImplementedException();
-        }
+        // Note sure if this method will be necessary.
+
+        //private static T ComputeEpsilon<T>()
+        //{
+        //    if (typeof(T) == typeof(float))
+        //    {
+        //        return (T)(object)float.Epsilon;
+        //    }
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
 

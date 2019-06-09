@@ -32,7 +32,7 @@ namespace Towel.Measurements
 
             internal UnitsAttribute(Angle.Units angleUnits, Time.Units timeUnits)
             {
-                angleUnits = AngleUnits;
+                AngleUnits = angleUnits;
                 TimeUnits = timeUnits;
             }
         }

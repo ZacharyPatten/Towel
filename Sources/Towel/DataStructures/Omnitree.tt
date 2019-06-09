@@ -977,7 +977,7 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 				// prepare data for median computations
 				ArrayJagged<Axis<#= j #>> values<#= j #>;
-				IAsyncResult result<#= j #> = null;
+				//IAsyncResult result<#= j #> = null;
 				if (this._subdivisionOverride<#= j #> != null)
 					values<#= j #> = null;
 				else
@@ -1036,7 +1036,7 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 				// prepare data for median computations
 				ArrayJagged<Axis<#= j #>> values<#= j #>;
-				IAsyncResult result<#= j #> = null;
+				//IAsyncResult result<#= j #> = null;
 				if (this._subdivisionOverride<#= j #> != null)
 					values<#= j #> = null;
 				else
@@ -1063,8 +1063,8 @@ namespace Towel.DataStructures
 <# } #>
 
 <# for (int j = 1; j <= i; j++) { #>
-				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
-					result<#= j #>.AsyncWaitHandle.WaitOne();
+				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+				//	result<#= j #>.AsyncWaitHandle.WaitOne();
 <# } #>
 
 				// build the tree
