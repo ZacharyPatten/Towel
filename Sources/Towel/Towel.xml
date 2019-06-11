@@ -14221,8 +14221,8 @@
         <member name="M:Towel.Mathematics.Compute.Root``1(``0,``0)">
             <summary>Roots two numeric values [a ^ (1 / b)].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="base">The base of the root.</param>
-            <param name="root">The root of the operation.</param>
+            <param name="a">The base of the root.</param>
+            <param name="b">The root of the operation.</param>
             <returns>The result of the root.</returns>
         </member>
         <member name="M:Towel.Mathematics.Compute.IsInteger``1(``0)">
@@ -14267,8 +14267,199 @@
             <param name="a">The value to determine prime status of.</param>
             <returns>Whether or not the value is prime.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.OddNoDupesMedianImplementation``1(``0[],System.Int32,System.Int32@,Towel.Compare{``0})">
-            <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
+        <member name="M:Towel.Mathematics.Compute.AbsoluteValue``1(``0)">
+            <summary>Gets the absolute value of a value.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The value to get the absolute value of.</param>
+            <returns>The absolute value of the provided value.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Maximum``1(``0,``0)">
+            <summary>Computes the maximum of two numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the maximum operation.</param>
+            <param name="b">The second operand of the maximum operation.</param>
+            <returns>The computed maximum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Maximum``1(``0,``0,``0,``0[])">
+            <summary>Computes the maximum of multiple numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the maximum operation.</param>
+            <param name="b">The second operand of the maximum operation.</param>
+            <param name="c">The third operand of the maximum operation.</param>
+            <param name="d">The remaining operands of the maximum operation.</param>
+            <returns>The computed maximum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Maximum``1(Towel.Stepper{``0})">
+            <summary>Computes the maximum of multiple numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The set of data to compute the maximum of.</param>
+            <returns>The computed maximum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Minimum``1(``0,``0)">
+            <summary>Computes the minimum of two numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the minimum operation.</param>
+            <param name="b">The second operand of the minimum operation.</param>
+            <returns>The computed minimum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Minimum``1(``0,``0,``0,``0[])">
+            <summary>Computes the minimum of multiple numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the minimum operation.</param>
+            <param name="b">The second operand of the minimum operation.</param>
+            <param name="c">The third operand of the minimum operation.</param>
+            <param name="d">The remaining operands of the minimum operation.</param>
+            <returns>The computed minimum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Minimum``1(Towel.Stepper{``0})">
+            <summary>Computes the minimum of multiple numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The set of data to compute the minimum of.</param>
+            <returns>The computed minimum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Clamp``1(``0,``0,``0)">
+            <summary>Gets a value restricted to a minimum and maximum range.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="value">The value to clamp.</param>
+            <param name="minimum">The minimum of the range to clamp the value by.</param>
+            <param name="maximum">The maximum of the range to clamp the value by.</param>
+            <returns>The value restricted to the provided range.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.EqualLeniency``1(``0,``0,``0)">
+            <summary>Checks for equality between two numeric values with a range of possibly leniency.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the equality check.</param>
+            <param name="b">The second operand of the equality check.</param>
+            <param name="leniency">The allowed distance between the values to still be considered equal.</param>
+            <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Compare``1(``0,``0)">
+            <summary>Compares two numeric values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the comparison.</param>
+            <param name="b">The second operand of the comparison.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Equal``1(``0,``0)">
+            <summary>Checks two numeric values for equality [a == b].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the equality check.</param>
+            <param name="b">The second operand of the equality check.</param>
+            <returns>The result of the equality check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Equal``1(``0,``0,``0[])">
+            <summary>Checks for equality among multiple numeric operands.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the equality check.</param>
+            <param name="b">The second operand of the equality check.</param>
+            <param name="c">The remaining operands of the equality check.</param>
+            <returns>True if all operand are equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Equal``1(Towel.Stepper{``0})">
+            <summary>Checks for equality among multiple numeric operands.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The operands of the equality check.</param>
+            <returns>True if all operand are equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.NotEqual``1(``0,``0)">
+            <summary>Checks two numeric values for inequality [a != b].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the inequality check.</param>
+            <param name="b">The second operand of the inequality check.</param>
+            <returns>The result of the inequality check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.LessThan``1(``0,``0)">
+            <summary>Checks that a numeric value is less than another.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the less than check.</param>
+            <param name="b">The second operand of the less than check.</param>
+            <returns>The result of the less than check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.GreaterThan``1(``0,``0)">
+            <summary>Checks that a numeric value is greater than another [a > b].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the greater than check.</param>
+            <param name="b">The second operand of the greater than check.</param>
+            <returns>The result of the greater than check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.LessThanOrEqual``1(``0,``0)">
+            <summary>Checks that a numeric value is less than or equal to another.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the less than or equal to check.</param>
+            <param name="b">The second operand of the less than or equal to check.</param>
+            <returns>The result of the less than or equal to check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.GreaterThanOrEqual``1(``0,``0)">
+            <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first operand of the greater than or equal to check.</param>
+            <param name="b">The second operand of the greater than or equal to check.</param>
+            <returns>The result of the greater than or equal to check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Factorial``1(``0)">
+            <summary>Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The integer factorial to computer the value of.</param>
+            <returns>The computed factorial value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mean``1(``0,``0[])">
+            <summary>Computes the mean of a set of numerical values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The first value of the set of data to compute the mean of.</param>
+            <param name="b">The remaining values in the data set to compute the mean of.</param>
+            <returns>The computed mean of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mean``1(Towel.Stepper{``0})">
+            <summary>Computes the mean of a set of numerical values.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The set of data to compute the mean of.</param>
+            <returns>The computed mean of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Median``1(Towel.Compare{``0},``0[])">
+            <summary>Computes the median of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="compare">The comparison algorithm to sort the data by.</param>
+            <param name="values">The set of data to compute the median of.</param>
+            <returns>The computed median value of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Median``1(Towel.Compare{``0},Towel.Stepper{``0})">
+            <summary>Computes the median of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="compare">The comparison algorithm to sort the data by.</param>
+            <param name="stepper">The set of data to compute the median of.</param>
+            <returns>The computed median value of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Median``1(``0[])">
+            <summary>Computes the median of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="values">The set of data to compute the median of.</param>
+            <returns>The computed median value of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Median``1(Towel.Stepper{``0})">
+            <summary>Computes the median of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The set of data to compute the median of.</param>
+            <returns>The computed median value of the set of data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Range``1(``0@,``0@,Towel.Stepper{``0})">
+            <summary>Gets the range (minimum and maximum) of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            /// <param name="stepper">The set of data to get the range of.</param>
+            <param name="minimum">The minimum of the set of data.</param>
+            <param name="maximum">The maximum of the set of data.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
+            <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Range``1(Towel.Stepper{``0},``0@,``0@)">
+            <summary>Gets the range (minimum and maximum) of a set of data.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            /// <param name="stepper">The set of data to get the range of.</param>
+            <param name="minimum">The minimum of the set of data.</param>
+            <param name="maximum">The maximum of the set of data.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
+            <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
         <member name="M:Towel.Mathematics.Compute.Exponential``1(``0)">
             <summary>Computes: [ e ^ a ].</summary>
@@ -14380,6 +14571,12 @@
             <param name="points">The points to compute the best fit line of.</param>
             <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
             <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.FactorPrimes``1(``0,Towel.Step{``0})">
+            <summary>Factors the primes numbers of a numeric integer value.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The value to factor the prime numbers of.</param>
+            <param name="step">The action to perform on all the prime factors.</param>
         </member>
         <member name="T:Towel.Mathematics.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>

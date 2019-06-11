@@ -463,8 +463,12 @@ namespace Towel.Mathematics
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="stepper">The stepper containing the values.</param>
         /// <returns>The result of the modulation.</returns>
-        public static T Modulo<T>(Stepper<T> operands)
+        public static T Modulo<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T result = default(T);
             bool assigned = false;
             void step(T a)
@@ -479,7 +483,11 @@ namespace Towel.Mathematics
                     assigned = true;
                 }
             }
-            operands(step);
+            stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+            }
             return result;
         }
 
@@ -525,8 +533,12 @@ namespace Towel.Mathematics
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="stepper">The stepper containing the values.</param>
         /// <returns>The result of the power.</returns>
-        public static T Power<T>(Stepper<T> operands)
+        public static T Power<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T result = default(T);
             bool assigned = false;
             void step(T a)
@@ -541,7 +553,11 @@ namespace Towel.Mathematics
                     assigned = true;
                 }
             }
-            operands(step);
+            stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+            }
             return result;
         }
 
@@ -646,8 +662,8 @@ namespace Towel.Mathematics
 
         /// <summary>Roots two numeric values [a ^ (1 / b)].</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
-        /// <param name="base">The base of the root.</param>
-        /// <param name="root">The root of the operation.</param>
+        /// <param name="a">The base of the root.</param>
+        /// <param name="b">The root of the operation.</param>
         /// <returns>The result of the root.</returns>
         public static T Root<T>(T a, T b)
         {
@@ -895,6 +911,10 @@ namespace Towel.Mathematics
 
         #region AbsoluteValue
 
+        /// <summary>Gets the absolute value of a value.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to get the absolute value of.</param>
+        /// <returns>The absolute value of the provided value.</returns>
         public static T AbsoluteValue<T>(T a)
         {
             return AbsoluteValueImplementation<T>.Function(a);
@@ -921,18 +941,38 @@ namespace Towel.Mathematics
 
         #region Maximum
 
+        /// <summary>Computes the maximum of two numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the maximum operation.</param>
+        /// <param name="b">The second operand of the maximum operation.</param>
+        /// <returns>The computed maximum of the provided values.</returns>
         public static T Maximum<T>(T a, T b)
         {
             return MaximumImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Computes the maximum of multiple numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the maximum operation.</param>
+        /// <param name="b">The second operand of the maximum operation.</param>
+        /// <param name="c">The third operand of the maximum operation.</param>
+        /// <param name="d">The remaining operands of the maximum operation.</param>
+        /// <returns>The computed maximum of the provided values.</returns>
         public static T Maximum<T>(T a, T b, T c, params T[] d)
         {
             return Maximum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
+        /// <summary>Computes the maximum of multiple numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The set of data to compute the maximum of.</param>
+        /// <returns>The computed maximum of the provided values.</returns>
         public static T Maximum<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T result = default(T);
             bool assigned = false;
             void step(T a)
@@ -948,6 +988,10 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+            }
             return result;
         }
 
@@ -973,18 +1017,38 @@ namespace Towel.Mathematics
 
         #region Minimum
 
+        /// <summary>Computes the minimum of two numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the minimum operation.</param>
+        /// <param name="b">The second operand of the minimum operation.</param>
+        /// <returns>The computed minimum of the provided values.</returns>
         public static T Minimum<T>(T a, T b)
         {
             return MinimumImplementation<T>.Function(a, b);
         }
 
+        /// <summary>Computes the minimum of multiple numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the minimum operation.</param>
+        /// <param name="b">The second operand of the minimum operation.</param>
+        /// <param name="c">The third operand of the minimum operation.</param>
+        /// <param name="d">The remaining operands of the minimum operation.</param>
+        /// <returns>The computed minimum of the provided values.</returns>
         public static T Minimum<T>(T a, T b, T c, params T[] d)
         {
             return Minimum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
         }
 
+        /// <summary>Computes the minimum of multiple numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The set of data to compute the minimum of.</param>
+        /// <returns>The computed minimum of the provided values.</returns>
         public static T Minimum<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T result = default(T);
             bool assigned = false;
             void step(T a)
@@ -1000,6 +1064,10 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+            }
             return result;
         }
 
@@ -1025,6 +1093,12 @@ namespace Towel.Mathematics
 
         #region Clamp
 
+        /// <summary>Gets a value restricted to a minimum and maximum range.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="minimum">The minimum of the range to clamp the value by.</param>
+        /// <param name="maximum">The maximum of the range to clamp the value by.</param>
+        /// <returns>The value restricted to the provided range.</returns>
         public static T Clamp<T>(T value, T minimum, T maximum)
         {
             return ClampImplementation<T>.Function(value, minimum, maximum);
@@ -1056,8 +1130,16 @@ namespace Towel.Mathematics
 
         #region EqualLeniency
 
+        /// <summary>Checks for equality between two numeric values with a range of possibly leniency.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the equality check.</param>
+        /// <param name="b">The second operand of the equality check.</param>
+        /// <param name="leniency">The allowed distance between the values to still be considered equal.</param>
+        /// <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
         public static bool EqualLeniency<T>(T a, T b, T leniency)
         {
+            // TODO: add an ArgumentOutOfBounds check on leniency
+
             return EqualLeniencyImplementation<T>.Function(a, b, leniency);
         }
 
@@ -1087,6 +1169,11 @@ namespace Towel.Mathematics
 
         #region Compare
 
+        /// <summary>Compares two numeric values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the comparison.</param>
+        /// <param name="b">The second operand of the comparison.</param>
+        /// <returns>The result of the comparison.</returns>
         public static Comparison Compare<T>(T a, T b)
         {
             return CompareImplementation<T>.Function(a, b);
@@ -1125,25 +1212,55 @@ namespace Towel.Mathematics
 
         #region Equal
 
+        /// <summary>Checks two numeric values for equality [a == b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the equality check.</param>
+        /// <param name="b">The second operand of the equality check.</param>
+        /// <returns>The result of the equality check.</returns>
         public static bool Equal<T>(T a, T b)
         {
             return EqualImplementation<T>.Function(a, b);
         }
 
-        public static bool Equal<T>(params T[] operands)
+        /// <summary>Checks for equality among multiple numeric operands.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the equality check.</param>
+        /// <param name="b">The second operand of the equality check.</param>
+        /// <param name="c">The remaining operands of the equality check.</param>
+        /// <returns>True if all operand are equal. False if not.</returns>
+        public static bool Equal<T>(T a, T b, params T[] c)
         {
-            for (int i = 1; i < operands.Length; i++)
+            if (NotEqual(a, b))
             {
-                if (!Equal(operands[i - 1], operands[i]))
+                return false;
+            }
+            if (c.Length > 0)
+            {
+                if (NotEqual(a, c[0]))
                 {
                     return false;
+                }
+                for (int i = 1; i < c.Length; i++)
+                {
+                    if (NotEqual(c[i - 1], c[i]))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
         }
 
+        /// <summary>Checks for equality among multiple numeric operands.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The operands of the equality check.</param>
+        /// <returns>True if all operand are equal. False if not.</returns>
         public static bool Equal<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             bool result = true;
             T value = default(T);
             bool assigned = false;
@@ -1163,6 +1280,10 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+            }
             return result;
         }
 
@@ -1182,6 +1303,11 @@ namespace Towel.Mathematics
 
         #region NotEqual
 
+        /// <summary>Checks two numeric values for inequality [a != b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the inequality check.</param>
+        /// <param name="b">The second operand of the inequality check.</param>
+        /// <returns>The result of the inequality check.</returns>
         public static bool NotEqual<T>(T a, T b)
         {
             return NotEqualImplementation<T>.Function(a, b);
@@ -1203,6 +1329,11 @@ namespace Towel.Mathematics
 
         #region LessThan
 
+        /// <summary>Checks that a numeric value is less than another.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the less than check.</param>
+        /// <param name="b">The second operand of the less than check.</param>
+        /// <returns>The result of the less than check.</returns>
         public static bool LessThan<T>(T a, T b)
         {
             return LessThanImplementation<T>.Function(a, b);
@@ -1224,6 +1355,11 @@ namespace Towel.Mathematics
 
         #region GreaterThan
 
+        /// <summary>Checks that a numeric value is greater than another [a > b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the greater than check.</param>
+        /// <param name="b">The second operand of the greater than check.</param>
+        /// <returns>The result of the greater than check.</returns>
         public static bool GreaterThan<T>(T a, T b)
         {
             return GreaterThanImplementation<T>.Function(a, b);
@@ -1245,6 +1381,11 @@ namespace Towel.Mathematics
 
         #region LessThanOrEqual
 
+        /// <summary>Checks that a numeric value is less than or equal to another.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the less than or equal to check.</param>
+        /// <param name="b">The second operand of the less than or equal to check.</param>
+        /// <returns>The result of the less than or equal to check.</returns>
         public static bool LessThanOrEqual<T>(T a, T b)
         {
             return LessThanOrEqualImplementation<T>.Function(a, b);
@@ -1266,6 +1407,11 @@ namespace Towel.Mathematics
 
         #region GreaterThanOrEqual
 
+        /// <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the greater than or equal to check.</param>
+        /// <param name="b">The second operand of the greater than or equal to check.</param>
+        /// <returns>The result of the greater than or equal to check.</returns>
         public static bool GreaterThanOrEqual<T>(T a, T b)
         {
             return GreaterThanOrEqualImplementation<T>.Function(a, b);
@@ -1417,6 +1563,12 @@ namespace Towel.Mathematics
 
         #region Factorial
 
+        /// <summary>Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The integer factorial to computer the value of.</param>
+        /// <returns>The computed factorial value.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
         public static T Factorial<T>(T a)
         {
             if (!IsInteger(a))
@@ -1504,16 +1656,37 @@ namespace Towel.Mathematics
 
         #region Mean
 
+        /// <summary>Computes the mean of a set of numerical values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first value of the set of data to compute the mean of.</param>
+        /// <param name="b">The remaining values in the data set to compute the mean of.</param>
+        /// <returns>The computed mean of the set of data.</returns>
         public static T Mean<T>(T a, params T[] b)
         {
             return Mean((Step<T> step) => { step(a); b.ToStepper()(step); });
         }
 
+        /// <summary>Computes the mean of a set of numerical values.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The set of data to compute the mean of.</param>
+        /// <returns>The computed mean of the set of data.</returns>
         public static T Mean<T>(Stepper<T> stepper)
         {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T i = Constant<T>.Zero;
             T sum = Constant<T>.Zero;
-            stepper((T step) => { i = Add(i, Constant<T>.One); sum = Add(sum, step); });
+            stepper(step =>
+            {
+                i = Add(i, Constant<T>.One);
+                sum = Add(sum, step);
+            });
+            if (Equal(i, Constant<T>.Zero))
+            {
+                throw new ArgumentException("The argument is empty.", nameof(stepper));
+            }
             return Divide(sum, i);
         }
 
@@ -1521,16 +1694,13 @@ namespace Towel.Mathematics
 
         #region Median
 
-        public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, params T[] values)
+        /// <summary>Computes the median of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="compare">The comparison algorithm to sort the data by.</param>
+        /// <param name="values">The set of data to compute the median of.</param>
+        /// <returns>The computed median value of the set of data.</returns>
+        public static T Median<T>(Compare<T> compare, params T[] values)
         {
-            //// this is an optimized median algorithm, but it only works on odd sets without duplicates
-            //if (hash != null && equate != null && values.Length % 2 == 1 && !values.Stepper().ContainsDuplicates(equate, hash))
-            //{
-            //    int medianIndex = 0;
-            //    OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
-            //    return values[medianIndex];
-            //}
-
             // standard algorithm (sort and grab middle value)
             Sort.Merge(compare, values);
             if (values.Length % 2 == 1) // odd... just grab middle value
@@ -1545,59 +1715,94 @@ namespace Towel.Mathematics
             }
         }
 
-        public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, Stepper<T> stepper)
-        {
-            return Median(compare, hash, equate, stepper.ToArray());
-        }
-
-        public static T Median<T>(Compare<T> compare, params T[] values)
-        {
-            return Median(compare, Hash.Default, Equate.Default, values);
-        }
-
+        /// <summary>Computes the median of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="compare">The comparison algorithm to sort the data by.</param>
+        /// <param name="stepper">The set of data to compute the median of.</param>
+        /// <returns>The computed median value of the set of data.</returns>
         public static T Median<T>(Compare<T> compare, Stepper<T> stepper)
         {
-            return Median<T>(compare, Hash.Default, Equate.Default, stepper.ToArray());
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
+            return Median<T>(compare, stepper.ToArray());
         }
 
+        /// <summary>Computes the median of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="values">The set of data to compute the median of.</param>
+        /// <returns>The computed median value of the set of data.</returns>
         public static T Median<T>(params T[] values)
         {
-            return Median(Towel.Compare.Default, Hash.Default, Equate.Default, values);
+            return Median(Towel.Compare.Default, values);
         }
 
+        /// <summary>Computes the median of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The set of data to compute the median of.</param>
+        /// <returns>The computed median value of the set of data.</returns>
         public static T Median<T>(Stepper<T> stepper)
         {
-            return Median(Towel.Compare.Default, Hash.Default, Equate.Default, stepper.ToArray());
-        }
-
-        /// <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
-        private static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Compare<T> compare)
-        {
-            int L = 0;
-            int R = n - 1;
-            k = n / 2;
-            int i; int j;
-            while (L < R)
+            if (stepper is null)
             {
-                T x = a[k];
-                i = L; j = R;
-                OddNoDupesMedianImplementation_Split(a, n, x, ref i, ref j, compare);
-                if (j <= k) L = i;
-                if (i >= k) R = j;
+                throw new ArgumentNullException(nameof(stepper));
             }
+            return Median(Towel.Compare.Default, stepper.ToArray());
         }
 
-        private static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Compare<T> compare)
-        {
-            do
-            {
-                while (compare(a[i], x) == Comparison.Less) i++;
-                while (compare(a[j], x) == Comparison.Greater) j--;
-                T t = a[i];
-                a[i] = a[j];
-                a[j] = t;
-            } while (i < j);
-        }
+        #region Possible Optimization (Still in Development)
+
+        //public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, params T[] values)
+        //{
+        //    // this is an optimized median algorithm, but it only works on odd sets without duplicates
+        //    if (hash != null && equate != null && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+        //    {
+        //        int medianIndex = 0;
+        //        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
+        //        return values[medianIndex];
+        //    }
+        //    else
+        //    {
+        //        return Median(compare, values);
+        //    }
+        //}
+
+        //public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, Stepper<T> stepper)
+        //{
+        //    return Median(compare, hash, equate, stepper.ToArray());
+        //}
+
+        ///// <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
+        //private static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Compare<T> compare)
+        //{
+        //    int L = 0;
+        //    int R = n - 1;
+        //    k = n / 2;
+        //    int i; int j;
+        //    while (L < R)
+        //    {
+        //        T x = a[k];
+        //        i = L; j = R;
+        //        OddNoDupesMedianImplementation_Split(a, n, x, ref i, ref j, compare);
+        //        if (j <= k) L = i;
+        //        if (i >= k) R = j;
+        //    }
+        //}
+
+        //private static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Compare<T> compare)
+        //{
+        //    do
+        //    {
+        //        while (compare(a[i], x) == Comparison.Less) i++;
+        //        while (compare(a[j], x) == Comparison.Greater) j--;
+        //        T t = a[i];
+        //        a[i] = a[j];
+        //        a[j] = t;
+        //    } while (i < j);
+        //}
+
+        #endregion
 
         #endregion
 
@@ -1663,8 +1868,31 @@ namespace Towel.Mathematics
 
         #region Range
 
+        /// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// /// <param name="stepper">The set of data to get the range of.</param>
+        /// <param name="minimum">The minimum of the set of data.</param>
+        /// <param name="maximum">The maximum of the set of data.</param>
+        /// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
+        /// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
         public static void Range<T>(out T minimum, out T maximum, Stepper<T> stepper)
         {
+            Range(stepper, out minimum, out maximum);
+        }
+
+        /// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// /// <param name="stepper">The set of data to get the range of.</param>
+        /// <param name="minimum">The minimum of the set of data.</param>
+        /// <param name="maximum">The maximum of the set of data.</param>
+        /// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
+        /// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
+        public static void Range<T>(Stepper<T> stepper, out T minimum, out T maximum)
+        {
+            if (stepper is null)
+            {
+                throw new ArgumentNullException(nameof(stepper));
+            }
             T MINIMUM = default(T);
             T MAXIMUM = default(T);
             bool assigned = false;
@@ -1683,6 +1911,10 @@ namespace Towel.Mathematics
                 }
             };
             stepper(step);
+            if (!assigned)
+            {
+                throw new ArgumentException("The argument is empty.", nameof(stepper));
+            }
             minimum = MINIMUM;
             maximum = MAXIMUM;
         }
@@ -2362,8 +2594,16 @@ namespace Towel.Mathematics
 
         #region FactorPrimes
 
+        /// <summary>Factors the primes numbers of a numeric integer value.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The value to factor the prime numbers of.</param>
+        /// <param name="step">The action to perform on all the prime factors.</param>
         public static void FactorPrimes<T>(T a, Step<T> step)
         {
+            if (step is null)
+            {
+                throw new ArgumentNullException(nameof(step));
+            }
             T A = a;
             if (!IsInteger(A))
             {
