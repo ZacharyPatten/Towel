@@ -29,6 +29,14 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Measurements\MEMBERGENERATOR.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MEMBERGENERATOR.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="DataStructures\Link.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Link.cs</LastGenOutput>
@@ -36,6 +44,10 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
     <None Update="DataStructures\Omnitree.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Omnitree.cs</LastGenOutput>
+    </None>
+    <None Update="Measurements\MEMBERGENERATOR.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MEMBERGENERATOR.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -53,6 +65,11 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Omnitree.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Measurements\MEMBERGENERATOR.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MEMBERGENERATOR.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

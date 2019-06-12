@@ -29,7 +29,7 @@ namespace Towel.Measurements
     /// <summary>An Area measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Area measurement.</typeparam>
     [Serializable]
-    public struct Area<T>
+    public partial struct Area<T>
     {
         internal T _measurement;
         internal Length.Units _lengthUnits1;
@@ -136,9 +136,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Area<T> MathBase(Area<T> a, T b, Func<T, T, T> func)
+        {
+            return new Area<T>(func(a._measurement, b), a._lengthUnits1, a._lengthUnits2);
+        }
 
         internal static Area<T> MathBase(Area<T> a, Area<T> b, Func<T, T, T> func)
         {
@@ -165,148 +170,21 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static Area<T> Add(Area<T> a, Area<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static Area<T> operator +(Area<T> a, Area<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static Area<T> Subtract(Area<T> a, Area<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static Area<T> operator -(Area<T> a, Area<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static Area<T> Multiply(Area<T> a, T b)
-        {
-            return new Area<T>(Compute.Multiply(a._measurement, b), a._lengthUnits1, a._lengthUnits2);
-        }
-
-        public static Area<T> Multiply(T b, Area<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Area<T> operator *(Area<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Area<T> operator *(T b, Area<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static Area<T> Divide(Area<T> a, T b)
+        /// <summary>Divides an Area measurement by another Area measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Area<T> a, Area<T> b)
         {
-            return new Area<T>(Compute.Divide(a._measurement, b), a._lengthUnits1, a._lengthUnits2);
-        }
+            Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
+            Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
 
-        public static Area<T> operator /(Area<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[lengthUnits1, lengthUnits2];
+            T B = b[lengthUnits1, lengthUnits2];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(Area<T> a, Area<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(Area<T> a, Area<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(Area<T> a, Area<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(Area<T> left, Area<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(Area<T> a, Area<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Area<T> a, Area<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(Area<T> a, Area<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

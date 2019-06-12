@@ -210,7 +210,7 @@ namespace Towel.Measurements
     /// <summary>An Length measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Length measurement.</typeparam>
     [Serializable]
-    public struct Length<T>
+    public partial struct Length<T>
     {
         internal static Func<T, T>[][] Table = UnitConversionTable.Build<Length.Units, T>();
         internal T _measurement;
@@ -275,87 +275,52 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
-        #region Add
+        #region Bases
 
-        public static Length<T> Add(Length<T> a, Length<T> b)
+        internal static Length<T> MathBase(Length<T> a, T b, Func<T, T, T> func)
         {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Length<T>(Compute.Add(a[units], b[units]), units);
+            return new Length<T>(func(a._measurement, b), a._units);
         }
 
-        public static Length<T> operator +(Length<T> a, Length<T> b)
+        internal static Length<T> MathBase(Length<T> a, Length<T> b, Func<T, T, T> func)
         {
-            return Add(a, b);
+            Length.Units units = a._units <= b._units ? a._units : b._units;
+
+            T A = a[units];
+            T B = b[units];
+            T C = func(A, B);
+
+            return new Length<T>(C, units);
         }
 
-        #endregion
-
-        #region Subtract
-
-        public static Length<T> Subtract(Length<T> a, Length<T> b)
+        internal static bool LogicBase(Length<T> a, Length<T> b, Func<T, T, bool> func)
         {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Length<T>(Compute.Subtract(a[units], b[units]), units);
-        }
+            Length.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Length<T> operator -(Length<T> a, Length<T> b)
-        {
-            return Subtract(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region Multiply
-
-        public static Length<T> Multiply(Length<T> a, T b)
-        {
-            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Length<T> Multiply(T b, Length<T> a)
-        {
-            return new Length<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Length<T> operator *(Length<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Length<T> operator *(T b, Length<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        public static Area<T> operator *(Length<T> a, Length<T> b)
-        {
-            return new Area<T>(Compute.Multiply(a._measurement, b._measurement), a.Units, b.Units);
-        }
-
-        public static Volume<T> operator *(Area<T> a, Length<T> b)
-        {
-            return new Volume<T>(Compute.Multiply(a._measurement, b._measurement), a.LengthUnits1, a.LengthUnits2, b.Units);
-        }
-
-        public static Volume<T> operator *(Length<T> a, Area<T> b)
-        {
-            return new Volume<T>(Compute.Multiply(a._measurement, b._measurement), a.Units, b.LengthUnits1, b.LengthUnits2);
+            return func(A, B);
         }
 
         #endregion
 
         #region Divide
 
-        public static Length<T> Divide(Length<T> a, T b)
+        /// <summary>Divides an Length measurement by another Length measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Length<T> a, Length<T> b)
         {
-            return new Length<T>(Compute.Divide(a._measurement, b), a._units);
-        }
+            Length.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Length<T> operator /(Length<T> a, T b)
-        {
-            return Divide(a, b);
+            T A = a[units];
+            T B = b[units];
+
+            return Compute.Divide(A, B);
         }
 
         public static Length<T> operator /(Area<T> a, Length<T> b)
@@ -376,92 +341,6 @@ namespace Towel.Measurements
             T B = b[units];
 
             return new Area<T>(Compute.Divide(A, B), a.LengthUnits2, a.LengthUnits3);
-        }
-
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThan(a[units], b[units]);
-        }
-
-        public static bool operator <(Length<T> a, Length<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThan(a[units], b[units]);
-        }
-
-        public static bool operator >(Length<T> a, Length<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator <=(Length<T> a, Length<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator >=(Length<T> left, Length<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.Equal(a[units], b[units]);
-        }
-
-        public static bool operator ==(Length<T> a, Length<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Length<T> a, Length<T> b)
-        {
-            Length.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.NotEqual(a[units], b[units]);
-        }
-
-        public static bool operator !=(Length<T> a, Length<T> b)
-        {
-            return NotEqual(a, b);
         }
 
         #endregion

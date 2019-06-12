@@ -61,7 +61,7 @@ namespace Towel.Measurements
     /// <summary>An LinearMassFlow measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the LinearMassFlow measurement.</typeparam>
     [Serializable]
-    public struct LinearMassFlow<T>
+    public partial struct LinearMassFlow<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
@@ -196,9 +196,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static LinearMassFlow<T> MathBase(LinearMassFlow<T> a, T b, Func<T, T, T> func)
+        {
+            return new LinearMassFlow<T>(func(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits);
+        }
 
         internal static LinearMassFlow<T> MathBase(LinearMassFlow<T> a, LinearMassFlow<T> b, Func<T, T, T> func)
         {
@@ -227,153 +232,27 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static LinearMassFlow<T> Add(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static LinearMassFlow<T> operator +(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static LinearMassFlow<T> Subtract(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static LinearMassFlow<T> operator -(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static LinearMassFlow<T> Multiply(LinearMassFlow<T> a, T b)
-        {
-            return new LinearMassFlow<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits);
-        }
-
-        public static LinearMassFlow<T> Multiply(T b, LinearMassFlow<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static LinearMassFlow<T> operator *(LinearMassFlow<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static LinearMassFlow<T> operator *(T b, LinearMassFlow<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static LinearMassFlow<T> Divide(LinearMassFlow<T> a, T b)
+        /// <summary>Divides an LinearMassFlow measurement by another LinearMassFlow measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return new LinearMassFlow<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits);
-        }
+            Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
+            Length.Units lengthUnits = a._lengthUnits <= b._lengthUnits ? a._lengthUnits : b._lengthUnits;
+            Time.Units timeUnits = a._timeUnits <= b._timeUnits ? a._timeUnits : b._timeUnits;
 
-        public static LinearMassFlow<T> operator /(LinearMassFlow<T> a, T b)
-        {
-            return Divide(a, b);
+            T A = a[massUnits, lengthUnits, timeUnits];
+            T B = b[massUnits, lengthUnits, timeUnits];
+
+            return Compute.Divide(A, B);
         }
 
         public static Force<T> operator /(LinearMassFlow<T> a, Time<T> b)
         {
             return new Force<T>(Compute.Divide(a._measurement, b._measurement), a._massUnits, a._lengthUnits, a._timeUnits, b._units);
-        }
-
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(LinearMassFlow<T> left, LinearMassFlow<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(LinearMassFlow<T> a, LinearMassFlow<T> b)
-        {
-            return NotEqual(a, b);
         }
 
         #endregion

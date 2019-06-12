@@ -72,7 +72,7 @@ namespace Towel.Measurements
     /// <summary>An Density measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Density measurement.</typeparam>
     [Serializable]
-    public struct Density<T>
+    public partial struct Density<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
@@ -232,10 +232,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
-
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Density<T> MathBase(Density<T> a, T b, Func<T, T, T> func)
+        {
+            return new Density<T>(func(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
+        }
 
         internal static Density<T> MathBase(Density<T> a, Density<T> b, Func<T, T, T> func)
         {
@@ -266,149 +270,23 @@ namespace Towel.Measurements
 
         #endregion
 
-
-        #region Add
-
-        public static Density<T> Add(Density<T> a, Density<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static Density<T> operator +(Density<T> a, Density<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static Density<T> Subtract(Density<T> a, Density<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static Density<T> operator -(Density<T> a, Density<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static Density<T> Multiply(Density<T> a, T b)
-        {
-            return new Density<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
-        }
-
-        public static Density<T> Multiply(T b, Density<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Density<T> operator *(Density<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Density<T> operator *(T b, Density<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static Density<T> Divide(Density<T> a, T b)
+        /// <summary>Divides an Density measurement by another Density measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Density<T> a, Density<T> b)
         {
-            return new Density<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
-        }
+            Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
+            Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
+            Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
+            Length.Units lengthUnits3 = a._lengthUnits3 <= b._lengthUnits3 ? a._lengthUnits3 : b._lengthUnits3;
 
-        public static Density<T> operator /(Density<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
+            T B = b[massUnits, lengthUnits1, lengthUnits2, lengthUnits3];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(Density<T> a, Density<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(Density<T> a, Density<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(Density<T> a, Density<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(Density<T> left, Density<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(Density<T> a, Density<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Density<T> a, Density<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(Density<T> a, Density<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

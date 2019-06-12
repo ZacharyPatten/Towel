@@ -40,7 +40,7 @@ namespace Towel.Measurements
     /// <summary>An Angle measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Angle measurement.</typeparam>
     [Serializable]
-    public struct Angle<T>
+    public partial struct Angle<T>
     {
         internal static Func<T, T>[][] Table = UnitConversionTable.Build<Angle.Units, T>();
         internal T _measurement;
@@ -48,7 +48,11 @@ namespace Towel.Measurements
 
         #region Constructors
 
-        public Angle(T measurement, MeasurementUnitsSyntaxTypes.AngleUnits units) : this(measurement, units.Units) { }
+        /// <summary>Constructs an Angle with the specified measurement and units.</summary>
+        /// <param name="measurement">The measurement of the Angle.</param>
+        /// <param name="units">The units of the Angle.</param>
+        public Angle(T measurement, MeasurementUnitsSyntaxTypes.AngleUnits units) :
+            this(measurement, units.Units) { }
 
         /// <summary>Constructs an Angle with the specified measurement and units.</summary>
         /// <param name="measurement">The measurement of the Angle.</param>
@@ -77,6 +81,9 @@ namespace Towel.Measurements
             }
         }
 
+        /// <summary>Gets the measurement in the desired units.</summary>
+        /// <param name="units">The units you want the measurement to be in.</param>
+        /// <returns>The measurement in the specified units.</returns>
         public T this[MeasurementUnitsSyntaxTypes.AngleUnits units]
         {
             get
@@ -105,158 +112,52 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
-        #region Add
+        #region Bases
 
-        public static Angle<T> Add(Angle<T> a, Angle<T> b)
+        internal static Angle<T> MathBase(Angle<T> a, T b, Func<T, T, T> func)
         {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Angle<T>(Compute.Add(a[units], b[units]), units);
+            return new Angle<T>(func(a._measurement, b), a._units);
         }
 
-        public static Angle<T> operator +(Angle<T> a, Angle<T> b)
+        internal static Angle<T> MathBase(Angle<T> a, Angle<T> b, Func<T, T, T> func)
         {
-            return Add(a, b);
+            Angle.Units units = a._units <= b._units ? a._units : b._units;
+
+            T A = a[units];
+            T B = b[units];
+            T C = func(A, B);
+
+            return new Angle<T>(C, units);
         }
 
-        #endregion
-
-        #region Subtract
-
-        public static Angle<T> Subtract(Angle<T> a, Angle<T> b)
+        internal static bool LogicBase(Angle<T> a, Angle<T> b, Func<T, T, bool> func)
         {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Angle<T>(Compute.Subtract(a[units], b[units]), units);
-        }
+            Angle.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Angle<T> operator -(Angle<T> a, Angle<T> b)
-        {
-            return Subtract(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region Multiply
-
-        public static Angle<T> Multiply(Angle<T> a, T b)
-        {
-            return new Angle<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Angle<T> Multiply(T b, Angle<T> a)
-        {
-            return new Angle<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Angle<T> operator *(Angle<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Angle<T> operator *(T b, Angle<T> a)
-        {
-            return Multiply(b, a);
+            return func(A, B);
         }
 
         #endregion
 
         #region Divide
 
-        public static Angle<T> Divide(Angle<T> a, T b)
+        /// <summary>Divides an Angle measurement by another Angle measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Angle<T> a, Angle<T> b)
         {
-            return new Angle<T>(Compute.Divide(a._measurement, b), a._units);
-        }
+            Angle.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Angle<T> operator /(Angle<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThan(a[units], b[units]);
-        }
-
-        public static bool operator <(Angle<T> a, Angle<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThan(a[units], b[units]);
-        }
-
-        public static bool operator >(Angle<T> a, Angle<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator <=(Angle<T> a, Angle<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator >=(Angle<T> left, Angle<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.Equal(a[units], b[units]);
-        }
-
-        public static bool operator ==(Angle<T> a, Angle<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Angle<T> a, Angle<T> b)
-        {
-            Angle.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.NotEqual(a[units], b[units]);
-        }
-
-        public static bool operator !=(Angle<T> a, Angle<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

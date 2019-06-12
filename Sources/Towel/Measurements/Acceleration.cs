@@ -64,7 +64,7 @@ namespace Towel.Measurements
     /// <summary>An Acceleration measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Acceleration measurement.</typeparam>
     [Serializable]
-    public struct Acceleration<T>
+    public partial struct Acceleration<T>
     {
         internal T _measurement;
         internal Length.Units _lengthUnits;
@@ -223,9 +223,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Acceleration<T> MathBase(Acceleration<T> a, T b, Func<T, T, T> func)
+        {
+            return new Acceleration<T>(func(a._measurement, b), a._lengthUnits, a._timeUnits1, a._timeUnits2);
+        }
 
         internal static Acceleration<T> MathBase(Acceleration<T> a, Acceleration<T> b, Func<T, T, T> func)
         {
@@ -254,111 +259,7 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        /// <summary>Adds two acceleration measurements.</summary>
-        /// <param name="a">The first operand of the addition.</param>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public static Acceleration<T> Add(Acceleration<T> a, Acceleration<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        /// <summary>Adds two acceleration measurements.</summary>
-        /// <param name="a">The first operand of the addition.</param>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public static Acceleration<T> operator +(Acceleration<T> a, Acceleration<T> b)
-        {
-            return Add(a, b);
-        }
-
-        /// <summary>Adds two acceleration measurements.</summary>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public Acceleration<T> Add(Acceleration<T> b)
-        {
-            return this + b;
-        }
-
-        #endregion
-
-        #region Subtract
-
-        /// <summary>Subtracts two acceleration measurements.</summary>
-        /// <param name="a">The first operand of the subtraction.</param>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the addition subtraction.</returns>
-        public static Acceleration<T> Subtract(Acceleration<T> a, Acceleration<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        /// <summary>Subtracts two acceleration measurements.</summary>
-        /// <param name="a">The first operand of the subtraction.</param>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the addition subtraction.</returns>
-        public static Acceleration<T> operator -(Acceleration<T> a, Acceleration<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        /// <summary>Subtracts two acceleration measurements.</summary>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the addition subtraction.</returns>
-        public Acceleration<T> Subtract(Acceleration<T> b)
-        {
-            return this - b;
-        }
-
-        #endregion
-
         #region Multiply
-
-        /// <summary>Multiplies an acceleration by a scalar numeric value.</summary>
-        /// <param name="a">The acceleration measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static Acceleration<T> Multiply(Acceleration<T> a, T b)
-        {
-            return new Acceleration<T>(Compute.Multiply(a._measurement, b), a._lengthUnits, a._timeUnits1, a._timeUnits2);
-        }
-
-        /// <summary>Multiplies an acceleration by a scalar numeric value.</summary>
-        /// <param name="a">The acceleration measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static Acceleration<T> Multiply(T b, Acceleration<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        /// <summary>Multiplies an acceleration by a scalar numeric value.</summary>
-        /// <param name="a">The acceleration measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static Acceleration<T> operator *(Acceleration<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        /// <summary>Multiplies an acceleration by a scalar numeric value.</summary>
-        /// <param name="a">The acceleration measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static Acceleration<T> operator *(T b, Acceleration<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        /// <summary>Multiplies an acceleration by a scalar numeric value.</summary>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public Acceleration<T> Add(T b)
-        {
-            return this * b;
-        }
 
         /// <summary>Multiplies an Accleration measurement by a Time measurement resulting in a Speed measurement.</summary>
         /// <param name="a">The Acceleration measurement to multiply by a Time measurement.</param>
@@ -459,32 +360,6 @@ namespace Towel.Measurements
 
         #region Divide
 
-        /// <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
-        /// <param name="a">The acceleration measurement to divide.</param>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public static Acceleration<T> Divide(Acceleration<T> a, T b)
-        {
-            return new Acceleration<T>(Compute.Divide(a._measurement, b), a._lengthUnits, a._timeUnits1, a._timeUnits2);
-        }
-
-        /// <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
-        /// <param name="a">The acceleration measurement to divide.</param>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public static Acceleration<T> operator /(Acceleration<T> a, T b)
-        {
-            return Divide(a, b);
-        }
-
-        /// <summary>Divides this acceleration measurement by a numaric scalar value.</summary>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public Acceleration<T> Divide(T b)
-        {
-            return this / b;
-        }
-
         /// <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
         /// <param name="a">The first operand of the division operation.</param>
         /// <param name="b">The second operand of the division operation.</param>
@@ -499,203 +374,6 @@ namespace Towel.Measurements
             T B = b[lengthUnits, timeUnits1, timeUnits2];
 
             return Compute.Divide(A, B);
-        }
-
-        /// <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
-        /// <param name="a">The first operand of the division operation.</param>
-        /// <param name="b">The second operand of the division operation.</param>
-        /// <returns>The scalar numeric value result from the division.</returns>
-        public static T operator /(Acceleration<T> a, Acceleration<T> b)
-        {
-            return Divide(a, b);
-        }
-
-        /// <summary>Divides an Acceleration measurement by another Acceleration measurement resulting in a scalar numeric value.</summary>
-        /// <param name="b">The second operand of the division operation.</param>
-        /// <returns>The scalar numeric value result from the division.</returns>
-        public T Divide(Acceleration<T> b)
-        {
-            return this / b;
-        }
-
-        #endregion
-
-        #region LessThan
-
-        /// <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the less than operation.</param>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public static bool LessThan(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the less than operation.</param>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public static bool operator <(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public bool LessThan(Acceleration<T> b)
-        {
-            return this < b;
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        /// <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the greater than operation.</param>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public static bool GreaterThan(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the greater than operation.</param>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public static bool operator >(Acceleration<T> a, Acceleration<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public bool GreaterThan(Acceleration<T> b)
-        {
-            return this > b;
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        /// <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the less than or equal to operation.</param>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public static bool LessThanOrEqual(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the less than or equal to operation.</param>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public static bool operator <=(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public bool LessThanOrEqual(Acceleration<T> b)
-        {
-            return this <= b;
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        /// <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the greater than or equal to operation.</param>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public static bool GreaterThanOrEqual(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the greater than or equal to operation.</param>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public static bool operator >=(Acceleration<T> a, Acceleration<T> b)
-        {
-            return GreaterThanOrEqual(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public bool GreaterThanOrEqual(Acceleration<T> b)
-        {
-            return this >= b;
-        }
-
-        #endregion
-
-        #region Equal
-
-        /// <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the equal to operation.</param>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public static bool Equal(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the equal to operation.</param>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public static bool operator ==(Acceleration<T> a, Acceleration<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public bool Equal(Acceleration<T> b)
-        {
-            return this == b;
-        }
-
-        #endregion
-
-        #region NotEqual
-
-        /// <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the not equal to operation.</param>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public static bool NotEqual(Acceleration<T> a, Acceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
-        /// <param name="a">The first operand of the not equal to operation.</param>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public static bool operator !=(Acceleration<T> a, Acceleration<T> b)
-        {
-            return NotEqual(a, b);
-        }
-
-        /// <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public bool NotEqual(Acceleration<T> b)
-        {
-            return this != b;
         }
 
         #endregion

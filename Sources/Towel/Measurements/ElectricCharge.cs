@@ -83,7 +83,7 @@ namespace Towel.Measurements
     /// <summary>An ElectricCharge measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the ElectricCharge measurement.</typeparam>
     [Serializable]
-    public struct ElectricCharge<T>
+    public partial struct ElectricCharge<T>
     {
         internal static Func<T, T>[][] Table = UnitConversionTable.Build<ElectricCharge.Units, T>();
         internal T _measurement;
@@ -148,158 +148,52 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
-        #region Add
+        #region Bases
 
-        public static ElectricCharge<T> Add(ElectricCharge<T> a, ElectricCharge<T> b)
+        internal static ElectricCharge<T> MathBase(ElectricCharge<T> a, T b, Func<T, T, T> func)
         {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new ElectricCharge<T>(Compute.Add(a[units], b[units]), units);
+            return new ElectricCharge<T>(func(a._measurement, b), a._units);
         }
 
-        public static ElectricCharge<T> operator +(ElectricCharge<T> a, ElectricCharge<T> b)
+        internal static ElectricCharge<T> MathBase(ElectricCharge<T> a, ElectricCharge<T> b, Func<T, T, T> func)
         {
-            return Add(a, b);
+            ElectricCharge.Units units = a._units <= b._units ? a._units : b._units;
+
+            T A = a[units];
+            T B = b[units];
+            T C = func(A, B);
+
+            return new ElectricCharge<T>(C, units);
         }
 
-        #endregion
-
-        #region Subtract
-
-        public static ElectricCharge<T> Subtract(ElectricCharge<T> a, ElectricCharge<T> b)
+        internal static bool LogicBase(ElectricCharge<T> a, ElectricCharge<T> b, Func<T, T, bool> func)
         {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new ElectricCharge<T>(Compute.Subtract(a[units], b[units]), units);
-        }
+            ElectricCharge.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static ElectricCharge<T> operator -(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return Subtract(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region Multiply
-
-        public static ElectricCharge<T> Multiply(ElectricCharge<T> a, T b)
-        {
-            return new ElectricCharge<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static ElectricCharge<T> Multiply(T b, ElectricCharge<T> a)
-        {
-            return new ElectricCharge<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static ElectricCharge<T> operator *(ElectricCharge<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static ElectricCharge<T> operator *(T b, ElectricCharge<T> a)
-        {
-            return Multiply(b, a);
+            return func(A, B);
         }
 
         #endregion
 
         #region Divide
 
-        public static ElectricCharge<T> Divide(ElectricCharge<T> a, T b)
+        /// <summary>Divides an ElectricCharge measurement by another ElectricCharge measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return new ElectricCharge<T>(Compute.Divide(a._measurement, b), a._units);
-        }
+            ElectricCharge.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static ElectricCharge<T> operator /(ElectricCharge<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThan(a[units], b[units]);
-        }
-
-        public static bool operator <(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThan(a[units], b[units]);
-        }
-
-        public static bool operator >(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator <=(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator >=(ElectricCharge<T> left, ElectricCharge<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.Equal(a[units], b[units]);
-        }
-
-        public static bool operator ==(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            ElectricCharge.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.NotEqual(a[units], b[units]);
-        }
-
-        public static bool operator !=(ElectricCharge<T> a, ElectricCharge<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

@@ -29,7 +29,7 @@ namespace Towel.Measurements
     /// <summary>An AngularAcceleration measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the AngularAcceleration measurement.</typeparam>
     [Serializable]
-    public struct AngularAcceleration<T>
+    public partial struct AngularAcceleration<T>
     {
         internal T _measurement;
         internal Angle.Units _angleUnits;
@@ -166,9 +166,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static AngularAcceleration<T> MathBase(AngularAcceleration<T> a, T b, Func<T, T, T> func)
+        {
+            return new AngularAcceleration<T>(func(a._measurement, b), a._angleUnits, a._timeUnits1, a._timeUnits2);
+        }
 
         internal static AngularAcceleration<T> MathBase(AngularAcceleration<T> a, AngularAcceleration<T> b, Func<T, T, T> func)
         {
@@ -197,55 +202,7 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static AngularAcceleration<T> Add(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static AngularAcceleration<T> operator +(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static AngularAcceleration<T> Subtract(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static AngularAcceleration<T> operator -(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
         #region Multiply
-
-        public static AngularAcceleration<T> Multiply(AngularAcceleration<T> a, T b)
-        {
-            return new AngularAcceleration<T>(Compute.Multiply(a._measurement, b), a._angleUnits, a._timeUnits1, a._timeUnits2);
-        }
-
-        public static AngularAcceleration<T> Multiply(T b, AngularAcceleration<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AngularAcceleration<T> operator *(AngularAcceleration<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AngularAcceleration<T> operator *(T b, AngularAcceleration<T> a)
-        {
-            return Multiply(b, a);
-        }
 
         public static AngularSpeed<T> Multiply(AngularAcceleration<T> a, Time<T> b)
         {
@@ -277,94 +234,20 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static AngularAcceleration<T> Divide(AngularAcceleration<T> a, T b)
+        /// <summary>Divides an AngularAcceleration measurement by another AngularAcceleration measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return new AngularAcceleration<T>(Compute.Divide(a._measurement, b), a._angleUnits, a._timeUnits1, a._timeUnits2);
-        }
+            Angle.Units angleUnits = a._angleUnits <= b._angleUnits ? a._angleUnits : b._angleUnits;
+            Time.Units timeUnits1 = a._timeUnits1 <= b._timeUnits1 ? a._timeUnits1 : b._timeUnits1;
+            Time.Units timeUnits2 = a._timeUnits2 <= b._timeUnits2 ? a._timeUnits2 : b._timeUnits2;
 
-        public static AngularAcceleration<T> operator /(AngularAcceleration<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[angleUnits, timeUnits1, timeUnits2];
+            T B = b[angleUnits, timeUnits1, timeUnits2];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(AngularAcceleration<T> left, AngularAcceleration<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(AngularAcceleration<T> a, AngularAcceleration<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

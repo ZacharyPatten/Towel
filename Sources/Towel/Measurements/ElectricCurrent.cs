@@ -120,7 +120,7 @@ namespace Towel.Measurements
     /// <summary>An ElectricCurrent measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the ElectricCurrent measurement.</typeparam>
     [Serializable]
-    public struct ElectricCurrent<T>
+    public partial struct ElectricCurrent<T>
     {
         internal T _measurement;
         internal ElectricCharge.Units _electricChargeUnits;
@@ -223,9 +223,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static ElectricCurrent<T> MathBase(ElectricCurrent<T> a, T b, Func<T, T, T> func)
+        {
+            return new ElectricCurrent<T>(func(a._measurement, b), a._electricChargeUnits, a._timeUnits);
+        }
 
         internal static ElectricCurrent<T> MathBase(ElectricCurrent<T> a, ElectricCurrent<T> b, Func<T, T, T> func)
         {
@@ -252,148 +257,21 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static ElectricCurrent<T> Add(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static ElectricCurrent<T> operator +(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static ElectricCurrent<T> Subtract(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static ElectricCurrent<T> operator -(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static ElectricCurrent<T> Multiply(ElectricCurrent<T> a, T b)
-        {
-            return new ElectricCurrent<T>(Compute.Multiply(a._measurement, b), a._electricChargeUnits, a._timeUnits);
-        }
-
-        public static ElectricCurrent<T> Multiply(T b, ElectricCurrent<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static ElectricCurrent<T> operator *(ElectricCurrent<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static ElectricCurrent<T> operator *(T b, ElectricCurrent<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static ElectricCurrent<T> Divide(ElectricCurrent<T> a, T b)
+        /// <summary>Divides an ElectricCurrent measurement by another ElectricCurrent measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return new ElectricCurrent<T>(Compute.Divide(a._measurement, b), a._electricChargeUnits, a._timeUnits);
-        }
+            ElectricCharge.Units electricChargeUnits = a._electricChargeUnits <= b._electricChargeUnits ? a._electricChargeUnits : b._electricChargeUnits;
+            Time.Units timeUnits = a._timeUnits <= b._timeUnits ? a._timeUnits : b._timeUnits;
 
-        public static ElectricCurrent<T> operator /(ElectricCurrent<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[electricChargeUnits, timeUnits];
+            T B = b[electricChargeUnits, timeUnits];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(ElectricCurrent<T> left, ElectricCurrent<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(ElectricCurrent<T> a, ElectricCurrent<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

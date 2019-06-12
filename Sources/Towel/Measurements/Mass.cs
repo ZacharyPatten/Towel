@@ -83,7 +83,7 @@ namespace Towel.Measurements
     /// <summary>An Mass measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Mass measurement.</typeparam>
     [Serializable]
-    public struct Mass<T>
+    public partial struct Mass<T>
     {
         internal static Func<T, T>[][] Table = UnitConversionTable.Build<Mass.Units, T>();
         internal T _measurement;
@@ -148,59 +148,39 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
-        #region Add
+        #region Bases
 
-        public static Mass<T> Add(Mass<T> a, Mass<T> b)
+        internal static Mass<T> MathBase(Mass<T> a, T b, Func<T, T, T> func)
         {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Mass<T>(Compute.Add(a[units], b[units]), units);
+            return new Mass<T>(func(a._measurement, b), a._units);
         }
 
-        public static Mass<T> operator +(Mass<T> a, Mass<T> b)
+        internal static Mass<T> MathBase(Mass<T> a, Mass<T> b, Func<T, T, T> func)
         {
-            return Add(a, b);
+            Mass.Units units = a._units <= b._units ? a._units : b._units;
+
+            T A = a[units];
+            T B = b[units];
+            T C = func(A, B);
+
+            return new Mass<T>(C, units);
         }
 
-        #endregion
-
-        #region Subtract
-
-        public static Mass<T> Subtract(Mass<T> a, Mass<T> b)
+        internal static bool LogicBase(Mass<T> a, Mass<T> b, Func<T, T, bool> func)
         {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return new Mass<T>(Compute.Subtract(a[units], b[units]), units);
-        }
+            Mass.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Mass<T> operator -(Mass<T> a, Mass<T> b)
-        {
-            return Subtract(a, b);
+            T A = a[units];
+            T B = b[units];
+
+            return func(A, B);
         }
 
         #endregion
 
         #region Multiply
-
-        public static Mass<T> Multiply(Mass<T> a, T b)
-        {
-            return new Mass<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Mass<T> Multiply(T b, Mass<T> a)
-        {
-            return new Mass<T>(Compute.Multiply(a._measurement, b), a._units);
-        }
-
-        public static Mass<T> operator *(Mass<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Mass<T> operator *(T b, Mass<T> a)
-        {
-            return Multiply(b, a);
-        }
 
         /// <summary>Multiplies an Accleration measurement by a Mass measurement resulting in a Force measurement.</summary>
         /// <param name="acceleration">The Acceleration measurement to multiply the Mass measurement by.</param>
@@ -214,100 +194,18 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static Mass<T> Divide(Mass<T> a, T b)
+        /// <summary>Divides an Mass measurement by another Mass measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Mass<T> a, Mass<T> b)
         {
-            return new Mass<T>(Compute.Divide(a._measurement, b), a._units);
-        }
+            Mass.Units units = a._units <= b._units ? a._units : b._units;
 
-        public static Mass<T> operator /(Mass<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[units];
+            T B = b[units];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThan(a[units], b[units]);
-        }
-
-        public static bool operator <(Mass<T> a, Mass<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThan(a[units], b[units]);
-        }
-
-        public static bool operator >(Mass<T> a, Mass<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.LessThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator <=(Mass<T> a, Mass<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.GreaterThanOrEqual(a[units], b[units]);
-        }
-
-        public static bool operator >=(Mass<T> left, Mass<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.Equal(a[units], b[units]);
-        }
-
-        public static bool operator ==(Mass<T> a, Mass<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Mass<T> a, Mass<T> b)
-        {
-            Mass.Units units = a.Units <= b.Units ? a.Units : b.Units;
-            return Compute.NotEqual(a[units], b[units]);
-        }
-
-        public static bool operator !=(Mass<T> a, Mass<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

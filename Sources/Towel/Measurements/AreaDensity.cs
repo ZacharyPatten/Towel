@@ -61,7 +61,7 @@ namespace Towel.Measurements
     /// <summary>An AreaDensity measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the AreaDensity measurement.</typeparam>
     [Serializable]
-    public struct AreaDensity<T>
+    public partial struct AreaDensity<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
@@ -196,9 +196,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static AreaDensity<T> MathBase(AreaDensity<T> a, T b, Func<T, T, T> func)
+        {
+            return new AreaDensity<T>(func(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2);
+        }
 
         internal static AreaDensity<T> MathBase(AreaDensity<T> a, AreaDensity<T> b, Func<T, T, T> func)
         {
@@ -227,148 +232,22 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static AreaDensity<T> Add(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static AreaDensity<T> operator +(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static AreaDensity<T> Subtract(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static AreaDensity<T> operator -(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static AreaDensity<T> Multiply(AreaDensity<T> a, T b)
-        {
-            return new AreaDensity<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2);
-        }
-
-        public static AreaDensity<T> Multiply(T b, AreaDensity<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AreaDensity<T> operator *(AreaDensity<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AreaDensity<T> operator *(T b, AreaDensity<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static AreaDensity<T> Divide(AreaDensity<T> a, T b)
+        /// <summary>Divides an AreaDensity measurement by another AreaDensity measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return new AreaDensity<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits1, a._lengthUnits2);
-        }
+            Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
+            Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
+            Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
 
-        public static AreaDensity<T> operator /(AreaDensity<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[massUnits, lengthUnits1, lengthUnits2];
+            T B = b[massUnits, lengthUnits1, lengthUnits2];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(AreaDensity<T> left, AreaDensity<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(AreaDensity<T> a, AreaDensity<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

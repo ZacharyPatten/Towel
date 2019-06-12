@@ -60,7 +60,7 @@ namespace Towel.Measurements
     /// <summary>An AngularSpeed measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the AngularSpeed measurement.</typeparam>
     [Serializable]
-    public struct AngularSpeed<T>
+    public partial struct AngularSpeed<T>
     {
         internal T _measurement;
         internal Angle.Units _angleUnits;
@@ -169,9 +169,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static AngularSpeed<T> MathBase(AngularSpeed<T> a, T b, Func<T, T, T> func)
+        {
+            return new AngularSpeed<T>(func(a._measurement, b), a._angleUnits, a._timeUnits);
+        }
 
         internal static AngularSpeed<T> MathBase(AngularSpeed<T> a, AngularSpeed<T> b, Func<T, T, T> func)
         {
@@ -198,55 +203,7 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static AngularSpeed<T> Add(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static AngularSpeed<T> operator +(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static AngularSpeed<T> Subtract(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static AngularSpeed<T> operator -(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
         #region Multiply
-
-        public static AngularSpeed<T> Multiply(AngularSpeed<T> a, T b)
-        {
-            return new AngularSpeed<T>(Compute.Multiply(a._measurement, b), a._angleUnits, a._timeUnits);
-        }
-
-        public static AngularSpeed<T> Multiply(T b, AngularSpeed<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AngularSpeed<T> operator *(AngularSpeed<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static AngularSpeed<T> operator *(T b, AngularSpeed<T> a)
-        {
-            return Multiply(b, a);
-        }
 
         public static Angle<T> Multiply(AngularSpeed<T> a, Time<T> b)
         {
@@ -278,94 +235,19 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static AngularSpeed<T> Divide(AngularSpeed<T> a, T b)
+        /// <summary>Divides an AngularSpeed measurement by another AngularSpeed measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return new AngularSpeed<T>(Compute.Divide(a._measurement, b), a._angleUnits, a._timeUnits);
-        }
+            Angle.Units angleUnits = a._angleUnits <= b._angleUnits ? a._angleUnits : b._angleUnits;
+            Time.Units timeUnits = a._timeUnits <= b._timeUnits ? a._timeUnits : b._timeUnits;
 
-        public static AngularSpeed<T> operator /(AngularSpeed<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[angleUnits, timeUnits];
+            T B = b[angleUnits, timeUnits];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(AngularSpeed<T> left, AngularSpeed<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(AngularSpeed<T> a, AngularSpeed<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

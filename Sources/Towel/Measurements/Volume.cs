@@ -29,7 +29,7 @@ namespace Towel.Measurements
     /// <summary>An Volume measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Volume measurement.</typeparam>
     [Serializable]
-    public struct Volume<T>
+    public partial struct Volume<T>
     {
         internal T _measurement;
         internal Length.Units _lengthUnits1;
@@ -168,9 +168,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Volume<T> MathBase(Volume<T> a, T b, Func<T, T, T> func)
+        {
+            return new Volume<T>(func(a._measurement, b), a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
+        }
 
         internal static Volume<T> MathBase(Volume<T> a, Volume<T> b, Func<T, T, T> func)
         {
@@ -199,148 +204,22 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static Volume<T> Add(Volume<T> a, Volume<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static Volume<T> operator +(Volume<T> a, Volume<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static Volume<T> Subtract(Volume<T> a, Volume<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static Volume<T> operator -(Volume<T> a, Volume<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static Volume<T> Multiply(Volume<T> a, T b)
-        {
-            return new Volume<T>(Compute.Multiply(a._measurement, b), a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
-        }
-
-        public static Volume<T> Multiply(T b, Volume<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Volume<T> operator *(Volume<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Volume<T> operator *(T b, Volume<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static Volume<T> Divide(Volume<T> a, T b)
+        /// <summary>Divides an Volume measurement by another Volume measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Volume<T> a, Volume<T> b)
         {
-            return new Volume<T>(Compute.Divide(a._measurement, b), a._lengthUnits1, a._lengthUnits2, a._lengthUnits3);
-        }
+            Length.Units lengthUnits1 = a._lengthUnits1 <= b._lengthUnits1 ? a._lengthUnits1 : b._lengthUnits1;
+            Length.Units lengthUnits2 = a._lengthUnits2 <= b._lengthUnits2 ? a._lengthUnits2 : b._lengthUnits2;
+            Length.Units lengthUnits3 = a._lengthUnits3 <= b._lengthUnits3 ? a._lengthUnits3 : b._lengthUnits3;
 
-        public static Volume<T> operator /(Volume<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[lengthUnits1, lengthUnits2, lengthUnits3];
+            T B = b[lengthUnits1, lengthUnits2, lengthUnits3];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(Volume<T> a, Volume<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(Volume<T> a, Volume<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(Volume<T> a, Volume<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(Volume<T> left, Volume<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(Volume<T> a, Volume<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Volume<T> a, Volume<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(Volume<T> a, Volume<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

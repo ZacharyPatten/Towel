@@ -60,7 +60,7 @@ namespace Towel.Measurements
     /// <summary>An Speed measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Speed measurement.</typeparam>
     [Serializable]
-    public struct Speed<T>
+    public partial struct Speed<T>
     {
         internal T _measurement;
         internal Length.Units _lengthUnits;
@@ -169,9 +169,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Speed<T> MathBase(Speed<T> a, T b, Func<T, T, T> func)
+        {
+            return new Speed<T>(func(a._measurement, b), a._lengthUnits, a._timeUnits);
+        }
 
         internal static Speed<T> MathBase(Speed<T> a, Speed<T> b, Func<T, T, T> func)
         {
@@ -198,55 +203,7 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static Speed<T> Add(Speed<T> a, Speed<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static Speed<T> operator +(Speed<T> a, Speed<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static Speed<T> Subtract(Speed<T> a, Speed<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static Speed<T> operator -(Speed<T> a, Speed<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
         #region Multiply
-
-        public static Speed<T> Multiply(Speed<T> a, T b)
-        {
-            return new Speed<T>(Compute.Multiply(a._measurement, b), a._lengthUnits, a._timeUnits);
-        }
-
-        public static Speed<T> Multiply(T b, Speed<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Speed<T> operator *(Speed<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Speed<T> operator *(T b, Speed<T> a)
-        {
-            return Multiply(b, a);
-        }
 
         public static Length<T> Multiply(Speed<T> a, Time<T> b)
         {
@@ -278,94 +235,19 @@ namespace Towel.Measurements
 
         #region Divide
 
-        public static Speed<T> Divide(Speed<T> a, T b)
+        /// <summary>Divides an Speed measurement by another Speed measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Speed<T> a, Speed<T> b)
         {
-            return new Speed<T>(Compute.Divide(a._measurement, b), a._lengthUnits, a._timeUnits);
-        }
+            Length.Units lengthUnits = a._lengthUnits <= b._lengthUnits ? a._lengthUnits : b._lengthUnits;
+            Time.Units timeUnits = a._timeUnits <= b._timeUnits ? a._timeUnits : b._timeUnits;
 
-        public static Speed<T> operator /(Speed<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[lengthUnits, timeUnits];
+            T B = b[lengthUnits, timeUnits];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(Speed<T> a, Speed<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(Speed<T> a, Speed<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(Speed<T> a, Speed<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(Speed<T> left, Speed<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(Speed<T> a, Speed<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Speed<T> a, Speed<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(Speed<T> a, Speed<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion

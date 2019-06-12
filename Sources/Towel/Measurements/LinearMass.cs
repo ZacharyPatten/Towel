@@ -58,7 +58,7 @@ namespace Towel.Measurements
     /// <summary>An LinearMass measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the LinearMass measurement.</typeparam>
     [Serializable]
-    public struct LinearMass<T>
+    public partial struct LinearMass<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
@@ -167,9 +167,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static LinearMass<T> MathBase(LinearMass<T> a, T b, Func<T, T, T> func)
+        {
+            return new LinearMass<T>(func(a._measurement, b), a._massUnits, a._lengthUnits);
+        }
 
         internal static LinearMass<T> MathBase(LinearMass<T> a, LinearMass<T> b, Func<T, T, T> func)
         {
@@ -196,153 +201,26 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static LinearMass<T> Add(LinearMass<T> a, LinearMass<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static LinearMass<T> operator +(LinearMass<T> a, LinearMass<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static LinearMass<T> Subtract(LinearMass<T> a, LinearMass<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static LinearMass<T> operator -(LinearMass<T> a, LinearMass<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static LinearMass<T> Multiply(LinearMass<T> a, T b)
-        {
-            return new LinearMass<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits);
-        }
-
-        public static LinearMass<T> Multiply(T b, LinearMass<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static LinearMass<T> operator *(LinearMass<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static LinearMass<T> operator *(T b, LinearMass<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static LinearMass<T> Divide(LinearMass<T> a, T b)
+        /// <summary>Divides an LinearMass measurement by another LinearMass measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(LinearMass<T> a, LinearMass<T> b)
         {
-            return new LinearMass<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits);
-        }
+            Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
+            Length.Units lengthUnits = a._lengthUnits <= b._lengthUnits ? a._lengthUnits : b._lengthUnits;
 
-        public static LinearMass<T> operator /(LinearMass<T> a, T b)
-        {
-            return Divide(a, b);
+            T A = a[massUnits, lengthUnits];
+            T B = b[massUnits, lengthUnits];
+
+            return Compute.Divide(A, B);
         }
 
         public static LinearMassFlow<T> operator /(LinearMass<T> a, Time<T> b)
         {
             return new LinearMassFlow<T>(Compute.Divide(a._measurement, b._measurement), a._massUnits, a._lengthUnits, b._units);
-        }
-
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(LinearMass<T> a, LinearMass<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(LinearMass<T> left, LinearMass<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(LinearMass<T> a, LinearMass<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(LinearMass<T> a, LinearMass<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(LinearMass<T> a, LinearMass<T> b)
-        {
-            return NotEqual(a, b);
         }
 
         #endregion

@@ -66,7 +66,7 @@ namespace Towel.Measurements
     /// <summary>An Force measurement.</summary>
     /// <typeparam name="T">The generic numeric type used to store the Force measurement.</typeparam>
     [Serializable]
-    public struct Force<T>
+    public partial struct Force<T>
     {
         internal T _measurement;
         internal Mass.Units _massUnits;
@@ -229,9 +229,14 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Mathematics
+        #region Custom Mathematics
 
         #region Bases
+
+        internal static Force<T> MathBase(Force<T> a, T b, Func<T, T, T> func)
+        {
+            return new Force<T>(func(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits1, a._timeUnits2);
+        }
 
         internal static Force<T> MathBase(Force<T> a, Force<T> b, Func<T, T, T> func)
         {
@@ -262,148 +267,23 @@ namespace Towel.Measurements
 
         #endregion
 
-        #region Add
-
-        public static Force<T> Add(Force<T> a, Force<T> b)
-        {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
-        }
-
-        public static Force<T> operator +(Force<T> a, Force<T> b)
-        {
-            return Add(a, b);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        public static Force<T> Subtract(Force<T> a, Force<T> b)
-        {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
-        }
-
-        public static Force<T> operator -(Force<T> a, Force<T> b)
-        {
-            return Subtract(a, b);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        public static Force<T> Multiply(Force<T> a, T b)
-        {
-            return new Force<T>(Compute.Multiply(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits1, a._timeUnits2);
-        }
-
-        public static Force<T> Multiply(T b, Force<T> a)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Force<T> operator *(Force<T> a, T b)
-        {
-            return Multiply(a, b);
-        }
-
-        public static Force<T> operator *(T b, Force<T> a)
-        {
-            return Multiply(b, a);
-        }
-
-        #endregion
-
         #region Divide
 
-        public static Force<T> Divide(Force<T> a, T b)
+        /// <summary>Divides an Force measurement by another Force measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Force<T> a, Force<T> b)
         {
-            return new Force<T>(Compute.Divide(a._measurement, b), a._massUnits, a._lengthUnits, a._timeUnits1, a._timeUnits2);
-        }
+            Mass.Units massUnits = a._massUnits <= b._massUnits ? a._massUnits : b._massUnits;
+            Length.Units lengthUnits = a._lengthUnits <= b._lengthUnits ? a._lengthUnits : b._lengthUnits;
+            Time.Units timeUnits1 = a._timeUnits1 <= b._timeUnits1 ? a._timeUnits1 : b._timeUnits1;
+            Time.Units timeUnits2 = a._timeUnits2 <= b._timeUnits2 ? a._timeUnits2 : b._timeUnits2;
 
-        public static Force<T> operator /(Force<T> a, T b)
-        {
-            return Divide(a, b);
-        }
+            T A = a[massUnits, lengthUnits, timeUnits1, timeUnits2];
+            T B = b[massUnits, lengthUnits, timeUnits1, timeUnits2];
 
-        #endregion
-
-        #region LessThan
-
-        public static bool LessThan(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
-        }
-
-        public static bool operator <(Force<T> a, Force<T> b)
-        {
-            return LessThan(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThan
-
-        public static bool GreaterThan(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
-        }
-
-        public static bool operator >(Force<T> a, Force<T> b)
-        {
-            return GreaterThan(a, b);
-        }
-
-        #endregion
-
-        #region LessThanOrEqual
-
-        public static bool LessThanOrEqual(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator <=(Force<T> a, Force<T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
-
-        #endregion
-
-        #region GreaterThanOrEqual
-
-        public static bool GreaterThanOrEqual(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
-        }
-
-        public static bool operator >=(Force<T> left, Force<T> right)
-        {
-            return GreaterThanOrEqual(left, right);
-        }
-
-        #endregion
-
-        #region Equal
-
-        public static bool Equal(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
-        }
-
-        public static bool operator ==(Force<T> a, Force<T> b)
-        {
-            return Equal(a, b);
-        }
-
-        public static bool NotEqual(Force<T> a, Force<T> b)
-        {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
-        }
-
-        public static bool operator !=(Force<T> a, Force<T> b)
-        {
-            return NotEqual(a, b);
+            return Compute.Divide(A, B);
         }
 
         #endregion
