@@ -918,5 +918,38 @@ namespace Towel_Testing.Mathematics
                 Assert.IsTrue(Factorial(5m) == 120);
             }
         }
+
+        [TestMethod]
+        public void BinomialCoefficient_testing()
+        {
+            { // int
+                Assert.IsTrue(BinomialCoefficient(1, 1) == 1);
+                Assert.IsTrue(BinomialCoefficient(7, 2) == 21);
+                Assert.IsTrue(BinomialCoefficient(8, 4) == 70);
+                Assert.IsTrue(BinomialCoefficient(10, 3) == 120);
+                Assert.IsTrue(BinomialCoefficient(11, 5) == 462);
+            }
+            { // float
+                Assert.IsTrue(BinomialCoefficient(1f, 1f) == 1f);
+                Assert.IsTrue(BinomialCoefficient(7f, 2f) == 21f);
+                Assert.IsTrue(BinomialCoefficient(8f, 4f) == 70f);
+                Assert.IsTrue(BinomialCoefficient(10f, 3f) == 120f);
+                Assert.IsTrue(BinomialCoefficient(11f, 5f) == 462f);
+            }
+            { // double
+                Assert.IsTrue(BinomialCoefficient(1d, 1d) == 1d);
+                Assert.IsTrue(BinomialCoefficient(7d, 2d) == 21d);
+                Assert.IsTrue(BinomialCoefficient(8d, 4d) == 70d);
+                Assert.IsTrue(BinomialCoefficient(10d, 3d) == 120d);
+                Assert.IsTrue(BinomialCoefficient(11d, 5d) == 462d);
+            }
+            { // decimal
+                Assert.IsTrue(BinomialCoefficient(1m, 1m) == 1m);
+                Assert.IsTrue(BinomialCoefficient(7m, 2m) == 21m);
+                Assert.IsTrue(BinomialCoefficient(8m, 4m) == 70m);
+                Assert.IsTrue(BinomialCoefficient(10m, 3m) == 120m);
+                Assert.IsTrue(BinomialCoefficient(11m, 5m) == 462m);
+            }
+        }
     }
 }
