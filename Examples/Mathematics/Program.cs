@@ -116,7 +116,7 @@ namespace Mathematics
             Console.WriteLine();
             Console.WriteLine("    7!: " + Factorial(7));
             Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
-            Console.WriteLine("    7 choose 2: " + Choose(7, 2));
+            Console.WriteLine("    7 choose 2: " + BinomialCoefficient(7, 2));
 
             Console.WriteLine();
 

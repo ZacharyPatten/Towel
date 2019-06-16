@@ -1433,11 +1433,21 @@ namespace Towel.Mathematics
 
         #region GreatestCommonFactor
 
+        /// <summary>Computes the greatest common factor of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="a">The first operand of the greatest common factor computation.</param>
+        /// <param name="b">The second operand of the greatest common factor computation.</param>
+        /// <param name="c">The remaining operands of the greatest common factor computation.</param>
+        /// <returns>The computed greatest common factor of the set of numbers.</returns>
         public static T GreatestCommonFactor<T>(T a, T b, params T[] c)
         {
             return GreatestCommonFactor<T>((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
         }
 
+        /// <summary>Computes the greatest common factor of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="stepper">The set of numbers to compute the greatest common factor of.</param>
+        /// <returns>The computed greatest common factor of the set of numbers.</returns>
         public static T GreatestCommonFactor<T>(Stepper<T> stepper)
         {
             if (stepper == null)
@@ -1492,11 +1502,21 @@ namespace Towel.Mathematics
 
         #region LeastCommonMultiple
 
+        /// <summary>Computes the least common multiple of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="a">The first operand of the least common muiltiple computation.</param>
+        /// <param name="b">The second operand of the least common muiltiple computation.</param>
+        /// <param name="c">The remaining operands of the least common muiltiple computation.</param>
+        /// <returns>The computed least common least common multiple of the set of numbers.</returns>
         public static T LeastCommonMultiple<T>(T a, T b, params T[] c)
         {
             return LeastCommonMultiple((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
         }
 
+        /// <summary>Computes the least common multiple of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the operation.</typeparam>
+        /// <param name="stepper">The set of numbers to compute the least common multiple of.</param>
+        /// <returns>The computed least common least common multiple of the set of numbers.</returns>
         public static T LeastCommonMultiple<T>(Stepper<T> stepper)
         {
             if (stepper == null)
@@ -1615,9 +1635,14 @@ namespace Towel.Mathematics
 
         #endregion
 
-        #region Choose
+        #region BinomialCoefficient
 
-        public static T Choose<T>(T N, T n)
+        /// <summary>Computes the Binomial coefficient (N choose n).</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="N">The size of the entire set (N choose n).</param>
+        /// <param name="n">The size of the subset (N choose n).</param>
+        /// <returns>The computed binomial coefficient (N choose n).</returns>
+        public static T BinomialCoefficient<T>(T N, T n)
         {
             if (LessThan(N, Constant<T>.Zero))
             {
@@ -1635,7 +1660,7 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
             }
-            return Divide(Factorial(N), Factorial(Subtract(N, n)));
+            return Divide(Factorial(N), Multiply(Factorial(n), Factorial(Subtract(N, n))));
         }
 
         #endregion
@@ -1808,6 +1833,10 @@ namespace Towel.Mathematics
 
         #region GeometricMean
 
+        /// <summary>Computes the geometric mean of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="stepper">The set of numbres to compute the geometric mean of.</param>
+        /// <returns>The computed geometric mean of the set of numbers.</returns>
         public static T GeometricMean<T>(Stepper<T> stepper)
         {
             T multiple = Constant<T>.One;
@@ -1824,6 +1853,10 @@ namespace Towel.Mathematics
 
         #region Variance
 
+        /// <summary>Computes the variance of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="stepper">The set of numbers to compute the variance of.</param>
+        /// <returns>The computed variance of the set of numbers.</returns>
         public static T Variance<T>(Stepper<T> stepper)
         {
             T mean = Mean(stepper);
@@ -1842,6 +1875,10 @@ namespace Towel.Mathematics
 
         #region StandardDeviation
 
+        /// <summary>Computes the standard deviation of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="stepper">The set of numbers to compute the standard deviation of.</param>
+        /// <returns>The computed standard deviation of the set of numbers.</returns>
         public static T StandardDeviation<T>(Stepper<T> stepper)
         {
             return SquareRoot(Variance(stepper));
@@ -1851,6 +1888,10 @@ namespace Towel.Mathematics
 
         #region MeanDeviation
 
+        /// <summary>The mean deviation of a set of numbers.</summary>
+        /// <typeparam name="T">The numeric type of the computation.</typeparam>
+        /// <param name="stepper">The set of numbers to compute the mean deviation of.</param>
+        /// <returns>The computed mean deviation of the set of numbers.</returns>
         public static T MeanDeviation<T>(Stepper<T> stepper)
         {
             T mean = Mean(stepper);
