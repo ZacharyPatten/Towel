@@ -951,5 +951,36 @@ namespace Towel_Testing.Mathematics
                 Assert.IsTrue(BinomialCoefficient(11m, 5m) == 462m);
             }
         }
+
+        [TestMethod]
+        public void Median_testing()
+        {
+            { // int
+                Assert.IsTrue(Median(1, 2, 3, 4, 5) == 3);
+                Assert.IsTrue(Median(3, 1, 2, 4, 5) == 3);
+                Assert.IsTrue(Median(1, 2, 4, 5, 3) == 3);
+            }
+            { // float
+                Assert.IsTrue(Median(1f, 2f, 3f, 4f, 5f) == 3f);
+                Assert.IsTrue(Median(3f, 1f, 2f, 4f, 5f) == 3f);
+                Assert.IsTrue(Median(1f, 2f, 4f, 5f, 3f) == 3f);
+
+                Assert.IsTrue(Median(1f, 2f, 3f, 4f, 5f, 6f) == 3.5f);
+            }
+            { // double
+                Assert.IsTrue(Median(1d, 2d, 3d, 4d, 5d) == 3d);
+                Assert.IsTrue(Median(3d, 1d, 2d, 4d, 5d) == 3d);
+                Assert.IsTrue(Median(1d, 2d, 4d, 5d, 3d) == 3d);
+
+                Assert.IsTrue(Median(1d, 2d, 3d, 4d, 5d, 6d) == 3.5d);
+            }
+            { // decimal
+                Assert.IsTrue(Median(1m, 2m, 3m, 4m, 5m) == 3m);
+                Assert.IsTrue(Median(3m, 1m, 2m, 4m, 5m) == 3m);
+                Assert.IsTrue(Median(1m, 2m, 4m, 5m, 3m) == 3m);
+
+                Assert.IsTrue(Median(1m, 2m, 3m, 4m, 5m, 6m) == 3.5m);
+            }
+        }
     }
 }
