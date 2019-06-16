@@ -29,10 +29,17 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Measurements\MEMBERGENERATOR.cs">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Measurements\MeasurementGeneration.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Measurements\MeasurementTypes.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MEMBERGENERATOR.tt</DependentUpon>
+      <DependentUpon>MeasurementTypes.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -45,9 +52,9 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Omnitree.cs</LastGenOutput>
     </None>
-    <None Update="Measurements\MEMBERGENERATOR.tt">
+    <None Update="Measurements\MeasurementTypes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MEMBERGENERATOR.cs</LastGenOutput>
+      <LastGenOutput>MeasurementTypes.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -66,10 +73,10 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
       <AutoGen>True</AutoGen>
       <DependentUpon>Omnitree.tt</DependentUpon>
     </Compile>
-    <Compile Update="Measurements\MEMBERGENERATOR.cs">
+    <Compile Update="Measurements\MeasurementTypes.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MEMBERGENERATOR.tt</DependentUpon>
+      <DependentUpon>MeasurementTypes.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
