@@ -121,6 +121,40 @@ symExp1.Substitute("x", 5);
 
 ## Measurement Mathematics
 
+<details>
+ <summary><strong>Supported Measurements</strong></summary>
+<p>
+
+Here are the currently supported measurement types:
+
+```csharp
+//    Acceleration: Length/Time/Time
+//    AngularAcceleration: Angle/Time/Time
+//    Angle: Angle
+//    AngularSpeed: Angle/Time
+//    Area: Length*Length
+//    AreaDensity: Mass/Length/Length
+//    Density: Mass/Length/Length/Length
+//    ElectricCharge: ElectricCharge
+//    ElectricCurrent: ElectricCharge/Time
+//    Force: Mass*Length/Time/Time
+//    Length: Length
+//    LinearDensity: Mass/Length
+//    LinearMass: Mass*Length
+//    LinearMassFlow: Mass*Length/Time
+//    Mass: Mass
+//    Speed: Length/Time
+//    Tempurature: Tempurature
+//    Time: Time
+//    TimeArea: Time*Time
+//    Volume: Length*Length*Length
+```
+
+The measurement types are generated in the *Towel/Measurements/MeasurementTypes.tt* T4 text template file. The unit (enum) definitions are in the *Towel/Measurements/MeasurementUnitDefinitions.cs* file. Both measurment types and unit definitions can be easily added. If you think a measurement type or unit type should be added, please [submit an enhancement issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
+ 
+</p>
+</details>
+
 ```csharp
 // Towel has measurement types to help write scientific code: Acceleration<T>, Angle<T>, Area<T>, 
 // Density<T>, Length<T>, Mass<T>, Speed<T>, Time<T>, Volume<T>, etc.
