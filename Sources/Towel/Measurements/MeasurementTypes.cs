@@ -23,6 +23,7 @@
 //    LinearMassFlow: Mass*Length/Time
 //    Mass: Mass
 //    Power: Mass*Length*Length/Time/Time/Time
+//    Pressure: Mass/Length/Time/Time
 //    Speed: Length/Time
 //    Tempurature: Tempurature
 //    Time: Time
@@ -33,6 +34,7 @@
 
 // Operators:
 //
+//    Acceleration * AreaDensity = Pressure
 //    Acceleration * LinearMass = Energy
 //    Acceleration * LinearMassFlow = Power
 //    Acceleration * Mass = Force
@@ -45,6 +47,8 @@
 //    Area * Density = LinearDensity
 //    Area * Length = Volume
 //    Area * LinearDensity = LinearMass
+//    Area * Pressure = Force
+//    AreaDensity * Acceleration = Pressure
 //    AreaDensity * Area = Mass
 //    AreaDensity * Length = LinearDensity
 //    AreaDensity * Volume = LinearMass
@@ -73,6 +77,9 @@
 //    Mass * Length = LinearMass
 //    Mass * Speed = LinearMassFlow
 //    Power * Time = Energy
+//    Pressure * Area = Force
+//    Pressure * TimeArea = LinearDensity
+//    Pressure * Volume = Energy
 //    Speed * Force = Power
 //    Speed * LinearMassFlow = Energy
 //    Speed * Mass = LinearMassFlow
@@ -89,8 +96,10 @@
 //    TimeArea * Acceleration = Length
 //    TimeArea * AngularAcceleration = Angle
 //    TimeArea * Force = LinearMass
+//    TimeArea * Pressure = LinearDensity
 //    Volume * AreaDensity = LinearMass
 //    Volume * Density = Mass
+//    Volume * Pressure = Energy
 //    Angle / AngularAcceleration = TimeArea
 //    Angle / AngularSpeed = Time
 //    Angle / Time = AngularSpeed
@@ -108,10 +117,14 @@
 //    Energy / LinearMass = Acceleration
 //    Energy / LinearMassFlow = Speed
 //    Energy / Power = Time
+//    Energy / Pressure = Volume
 //    Energy / Speed = LinearMassFlow
 //    Energy / Time = Power
+//    Energy / Volume = Pressure
 //    Force / Acceleration = Mass
+//    Force / Area = Pressure
 //    Force / Mass = Acceleration
+//    Force / Pressure = Area
 //    Length / Acceleration = TimeArea
 //    Length / Speed = Time
 //    Length / Time = Speed
@@ -120,6 +133,8 @@
 //    LinearDensity / AreaDensity = Length
 //    LinearDensity / Density = Area
 //    LinearDensity / Length = AreaDensity
+//    LinearDensity / Pressure = TimeArea
+//    LinearDensity / TimeArea = Pressure
 //    LinearMass / Area = LinearDensity
 //    LinearMass / AreaDensity = Volume
 //    LinearMass / Force = TimeArea
@@ -144,6 +159,8 @@
 //    Power / Force = Speed
 //    Power / LinearMassFlow = Acceleration
 //    Power / Speed = Force
+//    Pressure / Acceleration = AreaDensity
+//    Pressure / AreaDensity = Acceleration
 //    Speed / Acceleration = Time
 //    Speed / Time = Acceleration
 //    TimeArea / Time = Time
@@ -437,6 +454,47 @@ namespace Towel.Measurements
         {
             return this * b;
         }
+
+		#region Acceleration<T> * AreaDensity<T> = Pressure<T>
+
+		/// <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+		/// <param name="a">The Acceleration to be multiplied.</param>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public static Pressure<T> Multiply(Acceleration<T> a, AreaDensity<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, a._TimeUnits2, a._TimeUnits3];
+			T B = b[b._MassUnits1, LengthUnits1, b._LengthUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new Pressure<T>(C
+				, b._MassUnits1
+				, b._LengthUnits3
+				, a._TimeUnits2
+				, a._TimeUnits3
+				);
+        }
+
+		/// <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+		/// <param name="a">The Acceleration to be multiplied.</param>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public static Pressure<T> operator *(Acceleration<T> a, AreaDensity<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public Pressure<T> Multiply(AreaDensity<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
 
 		#region Acceleration<T> * LinearMass<T> = Energy<T>
 
@@ -3281,6 +3339,47 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Area<T> * Pressure<T> = Force<T>
+
+		/// <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+		/// <param name="a">The Area to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> Multiply(Area<T> a, Pressure<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, a._LengthUnits2];
+			T B = b[b._MassUnits1, LengthUnits1, b._TimeUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new Force<T>(C
+				, b._MassUnits1
+				, a._LengthUnits2
+				, b._TimeUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+		/// <param name="a">The Area to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> operator *(Area<T> a, Pressure<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public Force<T> Multiply(Pressure<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -3884,6 +3983,47 @@ namespace Towel.Measurements
         {
             return this * b;
         }
+
+		#region AreaDensity<T> * Acceleration<T> = Pressure<T>
+
+		/// <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+		/// <param name="a">The AreaDensity to be multiplied.</param>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public static Pressure<T> Multiply(AreaDensity<T> a, Acceleration<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._LengthUnits3];
+			T B = b[LengthUnits1, b._TimeUnits2, b._TimeUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new Pressure<T>(C
+				, a._MassUnits1
+				, a._LengthUnits3
+				, b._TimeUnits2
+				, b._TimeUnits3
+				);
+        }
+
+		/// <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+		/// <param name="a">The AreaDensity to be multiplied.</param>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public static Pressure<T> operator *(AreaDensity<T> a, Acceleration<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Pressure result of the multiplication.</returns>
+		public Pressure<T> Multiply(Acceleration<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
 
 		#region AreaDensity<T> * Area<T> = Mass<T>
 
@@ -6899,6 +7039,49 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Energy<T> / Pressure<T> = Volume<T>
+
+		/// <summary>Divides Energy by Pressure resulting in Volume.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Volume result of the division.</returns>
+		public static Volume<T> Divide(Energy<T> a, Pressure<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits3 ? a._TimeUnits4 : b._TimeUnits3;
+			Time.Units TimeUnits3 = a._TimeUnits5 <= b._TimeUnits4 ? a._TimeUnits5 : b._TimeUnits4;
+
+			T A = a[MassUnits1, a._LengthUnits2, a._LengthUnits3, TimeUnits2, TimeUnits3];
+			T B = b[MassUnits1, b._LengthUnits2, TimeUnits2, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Volume<T>(C
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, b._LengthUnits2
+				);
+        }
+
+		/// <summary>Divides Energy by Pressure resulting in Volume.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Volume result of the division.</returns>
+		public static Volume<T> operator /(Energy<T> a, Pressure<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Energy by Pressure resulting in Volume.</summary>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Volume result of the division.</returns>
+		public Volume<T> Divide(Pressure<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Energy<T> / Speed<T> = LinearMassFlow<T>
 
 		/// <summary>Divides Energy by Speed resulting in LinearMassFlow.</summary>
@@ -6977,6 +7160,49 @@ namespace Towel.Measurements
 		/// <param name="b">The Time to divide by.</param>
 		/// <returns>The Power result of the division.</returns>
 		public Power<T> Divide(Time<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Energy<T> / Volume<T> = Pressure<T>
+
+		/// <summary>Divides Energy by Volume resulting in Pressure.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Volume to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> Divide(Energy<T> a, Volume<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits3 <= b._LengthUnits2 ? a._LengthUnits3 : b._LengthUnits2;
+
+			T A = a[a._MassUnits1, LengthUnits1, LengthUnits2, a._TimeUnits4, a._TimeUnits5];
+			T B = b[LengthUnits1, LengthUnits2, b._LengthUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Pressure<T>(C
+				, a._MassUnits1
+				, b._LengthUnits3
+				, a._TimeUnits4
+				, a._TimeUnits5
+				);
+        }
+
+		/// <summary>Divides Energy by Volume resulting in Pressure.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Volume to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> operator /(Energy<T> a, Volume<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Energy by Volume resulting in Pressure.</summary>
+		/// <param name="b">The Volume to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public Pressure<T> Divide(Volume<T> b)
         {
 			return this / b;
         }
@@ -7791,6 +8017,48 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Force<T> / Area<T> = Pressure<T>
+
+		/// <summary>Divides Force by Area resulting in Pressure.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> Divide(Force<T> a, Area<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._TimeUnits3, a._TimeUnits4];
+			T B = b[LengthUnits1, b._LengthUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Pressure<T>(C
+				, a._MassUnits1
+				, b._LengthUnits2
+				, a._TimeUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides Force by Area resulting in Pressure.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> operator /(Force<T> a, Area<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Force by Area resulting in Pressure.</summary>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public Pressure<T> Divide(Area<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Force<T> / Mass<T> = Acceleration<T>
 
 		/// <summary>Divides Force by Mass resulting in Acceleration.</summary>
@@ -7825,6 +8093,48 @@ namespace Towel.Measurements
 		/// <param name="b">The Mass to divide by.</param>
 		/// <returns>The Acceleration result of the division.</returns>
 		public Acceleration<T> Divide(Mass<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Force<T> / Pressure<T> = Area<T>
+
+		/// <summary>Divides Force by Pressure resulting in Area.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public static Area<T> Divide(Force<T> a, Pressure<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits3 <= b._TimeUnits3 ? a._TimeUnits3 : b._TimeUnits3;
+			Time.Units TimeUnits3 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+
+			T A = a[MassUnits1, a._LengthUnits2, TimeUnits2, TimeUnits3];
+			T B = b[MassUnits1, b._LengthUnits2, TimeUnits2, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Area<T>(C
+				, a._LengthUnits2
+				, b._LengthUnits2
+				);
+        }
+
+		/// <summary>Divides Force by Pressure resulting in Area.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public static Area<T> operator /(Force<T> a, Pressure<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Force by Pressure resulting in Area.</summary>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public Area<T> Divide(Pressure<T> b)
         {
 			return this / b;
         }
@@ -9524,6 +9834,88 @@ namespace Towel.Measurements
 		/// <param name="b">The Length to divide by.</param>
 		/// <returns>The AreaDensity result of the division.</returns>
 		public AreaDensity<T> Divide(Length<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region LinearDensity<T> / Pressure<T> = TimeArea<T>
+
+		/// <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+		/// <param name="a">The LinearDensity to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The TimeArea result of the division.</returns>
+		public static TimeArea<T> Divide(LinearDensity<T> a, Pressure<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+
+			T A = a[MassUnits1, LengthUnits2];
+			T B = b[MassUnits1, LengthUnits2, b._TimeUnits3, b._TimeUnits4];
+			T C = Compute.Divide(A, B);
+
+			return new TimeArea<T>(C
+				, b._TimeUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+		/// <param name="a">The LinearDensity to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The TimeArea result of the division.</returns>
+		public static TimeArea<T> operator /(LinearDensity<T> a, Pressure<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The TimeArea result of the division.</returns>
+		public TimeArea<T> Divide(Pressure<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region LinearDensity<T> / TimeArea<T> = Pressure<T>
+
+		/// <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+		/// <param name="a">The LinearDensity to be divided.</param>
+		/// <param name="b">The TimeArea to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> Divide(LinearDensity<T> a, TimeArea<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._LengthUnits2];
+			T B = b[b._TimeUnits1, b._TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Pressure<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, b._TimeUnits1
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+		/// <param name="a">The LinearDensity to be divided.</param>
+		/// <param name="b">The TimeArea to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> operator /(LinearDensity<T> a, TimeArea<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+		/// <param name="b">The TimeArea to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public Pressure<T> Divide(TimeArea<T> b)
         {
 			return this / b;
         }
@@ -13317,6 +13709,815 @@ namespace Towel.Measurements
 
 	#endregion
 
+	#region Pressure
+
+	/// <summary>Pressure measurement with a value and the units.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	public struct Pressure<T>
+	{
+		internal T _measurement;
+		internal Mass.Units _MassUnits1;
+		internal Length.Units _LengthUnits2;
+		internal Time.Units _TimeUnits3;
+		internal Time.Units _TimeUnits4;
+
+		#region Constructors
+
+		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Pressure.</param>
+		/// <param name="units">The units of the Pressure.</param>
+		public Pressure(T measurement, MeasurementUnitsSyntaxTypes.PressureBaseUnits units) : this(measurement
+			, units._MassUnits1
+			, units._LengthUnits2
+			, units._TimeUnits3
+			, units._TimeUnits4
+			) { }
+
+		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Pressure.</param>
+        /// <param name="units">The units of the Pressure.</param>
+		public Pressure(T measurement, Pressure.Units units)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Pressure.</param>
+		/// <param name="MassUnits1">The units of the Pressure.</param>
+		/// <param name="LengthUnits2">The units of the Pressure.</param>
+		/// <param name="TimeUnits3">The units of the Pressure.</param>
+		/// <param name="TimeUnits4">The units of the Pressure.</param>
+		public Pressure(T measurement
+			, Mass.Units MassUnits1
+			, Length.Units LengthUnits2
+			, Time.Units TimeUnits3
+			, Time.Units TimeUnits4
+			)
+		{
+			_measurement = measurement;
+			_MassUnits1 = MassUnits1;
+			_LengthUnits2 = LengthUnits2;
+			_TimeUnits3 = TimeUnits3;
+			_TimeUnits4 = TimeUnits4;
+		}
+
+		#endregion
+
+		#region Properties
+
+        public Mass.Units MassUnits1
+        {
+            get { return _MassUnits1; }
+            set
+            {
+                if (value != _MassUnits1)
+                {
+                    _measurement = this[value, _LengthUnits2, _TimeUnits3, _TimeUnits4];
+                    _MassUnits1 = value;
+                }
+            }
+        }
+
+        public Length.Units LengthUnits2
+        {
+            get { return _LengthUnits2; }
+            set
+            {
+                if (value != _LengthUnits2)
+                {
+                    _measurement = this[_MassUnits1, value, _TimeUnits3, _TimeUnits4];
+                    _LengthUnits2 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits3
+        {
+            get { return _TimeUnits3; }
+            set
+            {
+                if (value != _TimeUnits3)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, value, _TimeUnits4];
+                    _TimeUnits3 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits4
+        {
+            get { return _TimeUnits4; }
+            set
+            {
+                if (value != _TimeUnits4)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, _TimeUnits3, value];
+                    _TimeUnits4 = value;
+                }
+            }
+        }
+
+		public T this[MeasurementUnitsSyntaxTypes.PressureBaseUnits units]
+		{
+			get { return this[units._MassUnits1, units._LengthUnits2, units._TimeUnits3, units._TimeUnits4]; }
+		}
+
+		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Time.Units TimeUnits3, Time.Units TimeUnits4]
+        {
+            get
+            {
+                T measurement = _measurement;
+                if (MassUnits1 != _MassUnits1)
+                {
+                    if (MassUnits1 < _MassUnits1)
+                    {
+                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    }
+                    else
+                    {
+                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    }
+                }
+                if (LengthUnits2 != _LengthUnits2)
+                {
+                    if (LengthUnits2 > _LengthUnits2)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    }
+                }
+                if (TimeUnits3 != _TimeUnits3)
+                {
+                    if (TimeUnits3 > _TimeUnits3)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits3][(int)TimeUnits3](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits3][(int)_TimeUnits3](measurement);
+                    }
+                }
+                if (TimeUnits4 != _TimeUnits4)
+                {
+                    if (TimeUnits4 > _TimeUnits4)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits4][(int)TimeUnits4](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits4][(int)_TimeUnits4](measurement);
+                    }
+                }
+                return measurement;
+            }
+        }
+
+		#endregion
+
+		#region Mathematics
+
+		#region Bases
+
+		internal static Pressure<T> MathBase(Pressure<T> a, T b, Func<T, T, T> func)
+        {
+            return new Pressure<T>(func(a._measurement, b)
+				, a._MassUnits1
+				, a._LengthUnits2
+				, a._TimeUnits3
+				, a._TimeUnits4
+			);
+        }
+
+        internal static Pressure<T> MathBase(Pressure<T> a, Pressure<T> b, Func<T, T, T> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits3 <= b._TimeUnits3 ? a._TimeUnits3 : b._TimeUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+			T B = b[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+            T C = func(A, B);
+			return new Pressure<T>(C, MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4);
+        }
+
+        internal static bool LogicBase(Pressure<T> a, Pressure<T> b, Func<T, T, bool> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits3 <= b._TimeUnits3 ? a._TimeUnits3 : b._TimeUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+			T B = b[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+            return func(A, B);
+        }
+
+		#endregion
+
+		#region Add
+
+        /// <summary>Adds two Pressure measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static Pressure<T> Add(Pressure<T> a, Pressure<T> b)
+        {
+            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+        }
+
+        /// <summary>Adds two Pressure measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static Pressure<T> operator +(Pressure<T> a, Pressure<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Adds two Pressure measurements.</summary>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public Pressure<T> Add(Pressure<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Subtracts two Pressure measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Pressure<T> Subtract(Pressure<T> a, Pressure<T> b)
+        {
+            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+        }
+
+        /// <summary>Subtracts two Pressure measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Pressure<T> operator -(Pressure<T> a, Pressure<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Subtracts two Pressure measurements.</summary>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public Pressure<T> Subtract(Pressure<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply
+
+        /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+        /// <param name="a">The Pressure measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Pressure<T> Multiply(Pressure<T> a, T b)
+        {
+            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+        }
+
+        /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+        /// <param name="a">The Pressure measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Pressure<T> Multiply(T b, Pressure<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+        /// <param name="a">The Pressure measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Pressure<T> operator *(Pressure<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+        /// <param name="a">The Pressure measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Pressure<T> operator *(T b, Pressure<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public Pressure<T> Add(T b)
+        {
+            return this * b;
+        }
+
+		#region Pressure<T> * Area<T> = Force<T>
+
+		/// <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> Multiply(Pressure<T> a, Area<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._TimeUnits3, a._TimeUnits4];
+			T B = b[LengthUnits1, b._LengthUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new Force<T>(C
+				, a._MassUnits1
+				, b._LengthUnits2
+				, a._TimeUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> operator *(Pressure<T> a, Area<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public Force<T> Multiply(Area<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Pressure<T> * TimeArea<T> = LinearDensity<T>
+
+		/// <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The TimeArea to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public static LinearDensity<T> Multiply(Pressure<T> a, TimeArea<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits3 <= b._TimeUnits1 ? a._TimeUnits3 : b._TimeUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits2 ? a._TimeUnits4 : b._TimeUnits2;
+
+			T A = a[a._MassUnits1, a._LengthUnits2, TimeUnits1, TimeUnits2];
+			T B = b[TimeUnits1, TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearDensity<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The TimeArea to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public static LinearDensity<T> operator *(Pressure<T> a, TimeArea<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+		/// <param name="b">The TimeArea to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public LinearDensity<T> Multiply(TimeArea<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Pressure<T> * Volume<T> = Energy<T>
+
+		/// <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The Volume to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> Multiply(Pressure<T> a, Volume<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._TimeUnits3, a._TimeUnits4];
+			T B = b[LengthUnits1, b._LengthUnits2, b._LengthUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new Energy<T>(C
+				, a._MassUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				, a._TimeUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The Volume to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> operator *(Pressure<T> a, Volume<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+		/// <param name="b">The Volume to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public Energy<T> Multiply(Volume<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region Divide
+
+		/// <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Pressure<T> a, Pressure<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits3 <= b._TimeUnits3 ? a._TimeUnits3 : b._TimeUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+			T B = b[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+            return Compute.Divide(A, B);
+        }
+
+        /// <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+        /// <param name="a">The Pressure measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static Pressure<T> Divide(Pressure<T> a, T b)
+        {
+            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+        }
+
+        /// <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+        /// <param name="a">The Pressure measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static Pressure<T> operator /(Pressure<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public Pressure<T> Divide(T b)
+        {
+            return this / b;
+        }
+
+        /// <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T operator /(Pressure<T> a, Pressure<T> b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public T Divide(Pressure<T> b)
+        {
+            return this / b;
+        }
+
+
+		#region Pressure<T> / Acceleration<T> = AreaDensity<T>
+
+		/// <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+		/// <param name="a">The Pressure to be divided.</param>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public static AreaDensity<T> Divide(Pressure<T> a, Acceleration<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits3 <= b._TimeUnits2 ? a._TimeUnits3 : b._TimeUnits2;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits3 ? a._TimeUnits4 : b._TimeUnits3;
+
+			T A = a[a._MassUnits1, a._LengthUnits2, TimeUnits1, TimeUnits2];
+			T B = b[b._LengthUnits1, TimeUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new AreaDensity<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, b._LengthUnits1
+				);
+        }
+
+		/// <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+		/// <param name="a">The Pressure to be divided.</param>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public static AreaDensity<T> operator /(Pressure<T> a, Acceleration<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public AreaDensity<T> Divide(Acceleration<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Pressure<T> / AreaDensity<T> = Acceleration<T>
+
+		/// <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+		/// <param name="a">The Pressure to be divided.</param>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public static Acceleration<T> Divide(Pressure<T> a, AreaDensity<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+
+			T A = a[MassUnits1, LengthUnits2, a._TimeUnits3, a._TimeUnits4];
+			T B = b[MassUnits1, LengthUnits2, b._LengthUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Acceleration<T>(C
+				, b._LengthUnits3
+				, a._TimeUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+		/// <param name="a">The Pressure to be divided.</param>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public static Acceleration<T> operator /(Pressure<T> a, AreaDensity<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public Acceleration<T> Divide(AreaDensity<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region LessThan
+
+        /// <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool LessThan(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool operator <(Pressure<T> a, Pressure<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public bool LessThan(Pressure<T> b)
+        {
+            return this < b;
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        /// <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool GreaterThan(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool operator >(Pressure<T> a, Pressure<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public bool GreaterThan(Pressure<T> b)
+        {
+            return this > b;
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        /// <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool LessThanOrEqual(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool operator <=(Pressure<T> a, Pressure<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public bool LessThanOrEqual(Pressure<T> b)
+        {
+            return this <= b;
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        /// <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool GreaterThanOrEqual(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool operator >=(Pressure<T> a, Pressure<T> b)
+        {
+            return GreaterThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public bool GreaterThanOrEqual(Pressure<T> b)
+        {
+            return this >= b;
+        }
+
+        #endregion
+
+        #region Equal
+
+        /// <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool Equal(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool operator ==(Pressure<T> a, Pressure<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public bool Equal(Pressure<T> b)
+        {
+            return this == b;
+        }
+
+        #endregion
+
+        #region NotEqual
+
+        /// <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool NotEqual(Pressure<T> a, Pressure<T> b)
+        {
+            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool operator !=(Pressure<T> a, Pressure<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        /// <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public bool NotEqual(Pressure<T> b)
+        {
+            return this != b;
+        }
+
+        #endregion
+
+		#endregion
+
+		#region Overrides
+
+		/// <summary>Base Equals override that performs a type and value equality check.</summary>
+        /// <param name="obj">The object to check for equality with.</param>
+        /// <returns>True if the types and values equal. False if not.</returns>
+		public override bool Equals(object obj)
+        {
+            if (obj is Pressure<T>)
+            {
+                return this == (Pressure<T>)obj;
+            }
+            return false;
+        }
+
+		/// <summary>Converts the Pressure measurement to a string represenation.</summary>
+        /// <returns>The string representation of the measurement.</returns>
+		public override string ToString()
+        {
+            return _measurement + " " +
+				_MassUnits1
+				+ "/" +
+				_LengthUnits2 + "/" + _TimeUnits3 + "/" + _TimeUnits4
+				;
+        }
+
+		/// <summary>Base hashing function for Pressure measurements.</summary>
+        /// <returns>Computed hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            return
+                _measurement.GetHashCode()
+				^ _MassUnits1.GetHashCode()
+				^ _LengthUnits2.GetHashCode()
+				^ _TimeUnits3.GetHashCode()
+				^ _TimeUnits4.GetHashCode()
+				;
+        }
+
+		#endregion
+	}
+
+	#endregion
+
 	#region Speed
 
 	/// <summary>Speed measurement with a value and the units.</summary>
@@ -15795,6 +16996,46 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region TimeArea<T> * Pressure<T> = LinearDensity<T>
+
+		/// <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+		/// <param name="a">The TimeArea to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public static LinearDensity<T> Multiply(TimeArea<T> a, Pressure<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits1 <= b._TimeUnits3 ? a._TimeUnits1 : b._TimeUnits3;
+			Time.Units TimeUnits2 = a._TimeUnits2 <= b._TimeUnits4 ? a._TimeUnits2 : b._TimeUnits4;
+
+			T A = a[TimeUnits1, TimeUnits2];
+			T B = b[b._MassUnits1, b._LengthUnits2, TimeUnits1, TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearDensity<T>(C
+				, b._MassUnits1
+				, b._LengthUnits2
+				);
+        }
+
+		/// <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+		/// <param name="a">The TimeArea to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public static LinearDensity<T> operator *(TimeArea<T> a, Pressure<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The LinearDensity result of the multiplication.</returns>
+		public LinearDensity<T> Multiply(Pressure<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -16479,6 +17720,48 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Volume<T> * Pressure<T> = Energy<T>
+
+		/// <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+		/// <param name="a">The Volume to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> Multiply(Volume<T> a, Pressure<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, a._LengthUnits2, a._LengthUnits3];
+			T B = b[b._MassUnits1, LengthUnits1, b._TimeUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new Energy<T>(C
+				, b._MassUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, b._TimeUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+		/// <param name="a">The Volume to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> operator *(Volume<T> a, Pressure<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public Energy<T> Multiply(Pressure<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -16863,6 +18146,7 @@ namespace Towel.Measurements
 				_TimeUnits3 = TimeUnits3;
 			}
 		
+		
 			public static EnergyBaseUnits operator *(AccelerationBaseUnits a, LinearMassBaseUnits b)
 			{
 				return new EnergyBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, a._TimeUnits3);
@@ -16972,6 +18256,7 @@ namespace Towel.Measurements
 			}
 		
 		
+		
 		}
 
 		public struct AreaUnits
@@ -16991,6 +18276,7 @@ namespace Towel.Measurements
 				_LengthUnits2 = LengthUnits2;
 				_LengthUnits3 = LengthUnits3;
 			}
+		
 		
 		
 		
@@ -17089,10 +18375,12 @@ namespace Towel.Measurements
 		
 		
 		
+		
 			public static PowerBaseUnits operator /(EnergyBaseUnits a, TimeUnits b)
 			{
 				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, a._LengthUnits3, a._TimeUnits4, a._TimeUnits5, b._TimeUnits1);
 			}
+		
 		}
 
 		public struct EnergyUnits
@@ -17124,6 +18412,8 @@ namespace Towel.Measurements
 			{
 				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1, a._TimeUnits3, a._TimeUnits4, b._TimeUnits2);
 			}
+		
+		
 		
 		
 		
@@ -17203,6 +18493,12 @@ namespace Towel.Measurements
 			public static AreaDensityBaseUnits operator /(LinearDensityBaseUnits a, LengthUnits b)
 			{
 				return new AreaDensityBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1);
+			}
+		
+		
+			public static PressureBaseUnits operator /(LinearDensityBaseUnits a, TimeAreaBaseUnits b)
+			{
+				return new PressureBaseUnits(a._MassUnits1, a._LengthUnits2, b._TimeUnits1, b._TimeUnits2);
 			}
 		}
 
@@ -17362,6 +18658,32 @@ namespace Towel.Measurements
 			public Power.Units _PowerUnits;
 		}
 
+		public struct PressureBaseUnits
+		{
+			public Mass.Units _MassUnits1;
+			public Length.Units _LengthUnits2;
+			public Time.Units _TimeUnits3;
+			public Time.Units _TimeUnits4;
+
+			public PressureBaseUnits(Mass.Units MassUnits1, Length.Units LengthUnits2, Time.Units TimeUnits3, Time.Units TimeUnits4)
+			{
+				_MassUnits1 = MassUnits1;
+				_LengthUnits2 = LengthUnits2;
+				_TimeUnits3 = TimeUnits3;
+				_TimeUnits4 = TimeUnits4;
+			}
+		
+		
+		
+		
+		
+		}
+
+		public struct PressureUnits
+		{
+			public Pressure.Units _PressureUnits;
+		}
+
 		public struct SpeedBaseUnits
 		{
 			public Length.Units _LengthUnits1;
@@ -17448,6 +18770,7 @@ namespace Towel.Measurements
 		
 		
 		
+		
 		}
 
 		public struct TimeAreaUnits
@@ -17467,6 +18790,7 @@ namespace Towel.Measurements
 				_LengthUnits2 = LengthUnits2;
 				_LengthUnits3 = LengthUnits3;
 			}
+		
 		
 		
 		

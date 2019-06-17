@@ -474,16 +474,16 @@
             <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         </member>
-        <member name="T:Towel.Comparison">
-            <summary>Comparison operator between two operands in a logical expression.</summary>
+        <member name="T:Towel.CompareResult">
+            <summary>The result of a comparison between two values.</summary>
         </member>
-        <member name="F:Towel.Comparison.Less">
+        <member name="F:Towel.CompareResult.Less">
             <summary>The left operand is less than the right operand.</summary>
         </member>
-        <member name="F:Towel.Comparison.Equal">
+        <member name="F:Towel.CompareResult.Equal">
             <summary>The left operand is equal to the right operand.</summary>
         </member>
-        <member name="F:Towel.Comparison.Greater">
+        <member name="F:Towel.CompareResult.Greater">
             <summary>The left operand is greater than the right operand.</summary>
         </member>
         <member name="T:Towel.Compare`1">
@@ -530,7 +530,7 @@
             <summary>Inverts a comparison delegate.</summary>
             <returns>The invert of the compare delegate.</returns>
         </member>
-        <member name="M:Towel.Compare.Invert(Towel.Comparison)">
+        <member name="M:Towel.Compare.Invert(Towel.CompareResult)">
             <summary>Inverts a comparison value.</summary>
             <returns>The invert of the comparison value.</returns>
         </member>
@@ -16330,6 +16330,57 @@
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
         </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.AreaDensity{`0})">
+            <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The AreaDensity to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.AreaDensity{`0})">
+            <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The AreaDensity to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.AreaDensity{`0})">
+            <summary>Mulitplies Acceleration by AreaDensity resulting in Pressure.</summary>
+            <param name="b">The AreaDensity to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.LinearMass{`0})">
+            <summary>Mulitplies Acceleration by LinearMass resulting in Energy.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The LinearMass to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.LinearMass{`0})">
+            <summary>Mulitplies Acceleration by LinearMass resulting in Energy.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The LinearMass to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.LinearMass{`0})">
+            <summary>Mulitplies Acceleration by LinearMass resulting in Energy.</summary>
+            <param name="b">The LinearMass to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+            <param name="a">The Acceleration to be multiplied.</param>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
         <member name="M:Towel.Measurements.Acceleration`1.Multiply(Towel.Measurements.Acceleration{`0},Towel.Measurements.Mass{`0})">
             <summary>Mulitplies Acceleration by Mass resulting in Force.</summary>
             <param name="a">The Acceleration to be multiplied.</param>
@@ -17525,6 +17576,23 @@
             <param name="b">The LinearDensity to multiply by.</param>
             <returns>The LinearMass result of the multiplication.</returns>
         </member>
+        <member name="M:Towel.Measurements.Area`1.Multiply(Towel.Measurements.Area{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+            <param name="a">The Area to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.op_Multiply(Towel.Measurements.Area{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+            <param name="a">The Area to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.Multiply(Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Area by Pressure resulting in Force.</summary>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
         <member name="M:Towel.Measurements.Area`1.Divide(Towel.Measurements.Area{`0},Towel.Measurements.Area{`0})">
             <summary>Divides an Area measurement by another Area measurement resulting in a scalar numeric value.</summary>
             <param name="a">The first operand of the division operation.</param>
@@ -17774,6 +17842,23 @@
             <summary>Multiplies an AreaDensity by a scalar numeric value.</summary>
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.Multiply(Towel.Measurements.AreaDensity{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+            <param name="a">The AreaDensity to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.op_Multiply(Towel.Measurements.AreaDensity{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+            <param name="a">The AreaDensity to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.Multiply(Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies AreaDensity by Acceleration resulting in Pressure.</summary>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Pressure result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.AreaDensity`1.Multiply(Towel.Measurements.AreaDensity{`0},Towel.Measurements.Area{`0})">
             <summary>Mulitplies AreaDensity by Area resulting in Mass.</summary>
@@ -18803,6 +18888,411 @@
             <summary>Base hashing function for ElectricCurrent measurements.</summary>
             <returns>Computed hash code for this instance.</returns>
         </member>
+        <member name="T:Towel.Measurements.Energy`1">
+            <summary>Energy measurement with a value and the units.</summary>
+            <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits)">
+            <summary>Constructs an Energy with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Energy.</param>
+            <param name="units">The units of the Energy.</param>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.Energy.Units)">
+            <summary>Constructs an Energy with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Energy.</param>
+            <param name="units">The units of the Energy.</param>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Constructs an Energy with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Energy.</param>
+            <param name="MassUnits1">The units of the Energy.</param>
+            <param name="LengthUnits2">The units of the Energy.</param>
+            <param name="LengthUnits3">The units of the Energy.</param>
+            <param name="TimeUnits4">The units of the Energy.</param>
+            <param name="TimeUnits5">The units of the Energy.</param>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Add(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Adds two Energy measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Addition(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Adds two Energy measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Add(Towel.Measurements.Energy{`0})">
+            <summary>Adds two Energy measurements.</summary>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Subtract(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Subtracts two Energy measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Subtraction(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Subtracts two Energy measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Subtract(Towel.Measurements.Energy{`0})">
+            <summary>Subtracts two Energy measurements.</summary>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Multiply(Towel.Measurements.Energy{`0},`0)">
+            <summary>Multiplies an Energy by a scalar numeric value.</summary>
+            <param name="a">The Energy measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Multiply(`0,Towel.Measurements.Energy{`0})">
+            <summary>Multiplies an Energy by a scalar numeric value.</summary>
+            <param name="a">The Energy measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Multiply(Towel.Measurements.Energy{`0},`0)">
+            <summary>Multiplies an Energy by a scalar numeric value.</summary>
+            <param name="a">The Energy measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Multiply(`0,Towel.Measurements.Energy{`0})">
+            <summary>Multiplies an Energy by a scalar numeric value.</summary>
+            <param name="a">The Energy measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Add(`0)">
+            <summary>Multiplies an Energy by a scalar numeric value.</summary>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Divides an Energy measurement by another Energy measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},`0)">
+            <summary>Divides this Energy measurement by a numaric scalar value.</summary>
+            <param name="a">The Energy measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},`0)">
+            <summary>Divides this Energy measurement by a numaric scalar value.</summary>
+            <param name="a">The Energy measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(`0)">
+            <summary>Divides this Energy measurement by a numaric scalar value.</summary>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Divides an Energy measurement by another Energy measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0})">
+            <summary>Divides an Energy measurement by another Energy measurement resulting in a scalar numeric value.</summary>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Energy by Acceleration resulting in LinearMass.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMass result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Energy by Acceleration resulting in LinearMass.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMass result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Energy by Acceleration resulting in LinearMass.</summary>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMass result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Force{`0})">
+            <summary>Divides Energy by Force resulting in Length.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Length result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Force{`0})">
+            <summary>Divides Energy by Force resulting in Length.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Length result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Force{`0})">
+            <summary>Divides Energy by Force resulting in Length.</summary>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Length result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Length{`0})">
+            <summary>Divides Energy by Length resulting in Force.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Length to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Length{`0})">
+            <summary>Divides Energy by Length resulting in Force.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Length to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Length{`0})">
+            <summary>Divides Energy by Length resulting in Force.</summary>
+            <param name="b">The Length to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.LinearMass{`0})">
+            <summary>Divides Energy by LinearMass resulting in Acceleration.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The LinearMass to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.LinearMass{`0})">
+            <summary>Divides Energy by LinearMass resulting in Acceleration.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The LinearMass to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.LinearMass{`0})">
+            <summary>Divides Energy by LinearMass resulting in Acceleration.</summary>
+            <param name="b">The LinearMass to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Energy by LinearMassFlow resulting in Speed.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Energy by LinearMassFlow resulting in Speed.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Energy by LinearMassFlow resulting in Speed.</summary>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Power{`0})">
+            <summary>Divides Energy by Power resulting in Time.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Power to divide by.</param>
+            <returns>The Time result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Power{`0})">
+            <summary>Divides Energy by Power resulting in Time.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Power to divide by.</param>
+            <returns>The Time result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Power{`0})">
+            <summary>Divides Energy by Power resulting in Time.</summary>
+            <param name="b">The Power to divide by.</param>
+            <returns>The Time result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides Energy by Pressure resulting in Volume.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Volume result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides Energy by Pressure resulting in Volume.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Volume result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Pressure{`0})">
+            <summary>Divides Energy by Pressure resulting in Volume.</summary>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Volume result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Speed{`0})">
+            <summary>Divides Energy by Speed resulting in LinearMassFlow.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Speed{`0})">
+            <summary>Divides Energy by Speed resulting in LinearMassFlow.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Speed{`0})">
+            <summary>Divides Energy by Speed resulting in LinearMassFlow.</summary>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Time{`0})">
+            <summary>Divides Energy by Time resulting in Power.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Time to divide by.</param>
+            <returns>The Power result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Time{`0})">
+            <summary>Divides Energy by Time resulting in Power.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Time to divide by.</param>
+            <returns>The Power result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Time{`0})">
+            <summary>Divides Energy by Time resulting in Power.</summary>
+            <param name="b">The Time to divide by.</param>
+            <returns>The Power result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Energy{`0},Towel.Measurements.Volume{`0})">
+            <summary>Divides Energy by Volume resulting in Pressure.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Volume to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Division(Towel.Measurements.Energy{`0},Towel.Measurements.Volume{`0})">
+            <summary>Divides Energy by Volume resulting in Pressure.</summary>
+            <param name="a">The Energy to be divided.</param>
+            <param name="b">The Volume to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Divide(Towel.Measurements.Volume{`0})">
+            <summary>Divides Energy by Volume resulting in Pressure.</summary>
+            <param name="b">The Volume to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.LessThan(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than another Energy measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_LessThan(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than another Energy measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.LessThan(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than another Energy measurement.</summary>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.GreaterThan(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than another Energy measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_GreaterThan(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than another Energy measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.GreaterThan(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than another Energy measurement.</summary>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.LessThanOrEqual(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than or equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_LessThanOrEqual(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than or equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.LessThanOrEqual(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is less than or equal to another Energy measurement.</summary>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.GreaterThanOrEqual(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than or equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_GreaterThanOrEqual(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than or equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.GreaterThanOrEqual(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is greater than or equal to another Energy measurement.</summary>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Equal(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Equality(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Equal(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is equal to another Energy measurement.</summary>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.NotEqual(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is not equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Inequality(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is not equal to another Energy measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.NotEqual(Towel.Measurements.Energy{`0})">
+            <summary>Determines if an Energy measurement is not equal to another Energy measurement.</summary>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Equals(System.Object)">
+            <summary>Base Equals override that performs a type and value equality check.</summary>
+            <param name="obj">The object to check for equality with.</param>
+            <returns>True if the types and values equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.ToString">
+            <summary>Converts the Energy measurement to a string represenation.</summary>
+            <returns>The string representation of the measurement.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.GetHashCode">
+            <summary>Base hashing function for Energy measurements.</summary>
+            <returns>Computed hash code for this instance.</returns>
+        </member>
         <member name="T:Towel.Measurements.Force`1">
             <summary>Force measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
@@ -18887,6 +19377,40 @@
             <summary>Multiplies an Force by a scalar numeric value.</summary>
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Multiply(Towel.Measurements.Force{`0},Towel.Measurements.Length{`0})">
+            <summary>Mulitplies Force by Length resulting in Energy.</summary>
+            <param name="a">The Force to be multiplied.</param>
+            <param name="b">The Length to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.op_Multiply(Towel.Measurements.Force{`0},Towel.Measurements.Length{`0})">
+            <summary>Mulitplies Force by Length resulting in Energy.</summary>
+            <param name="a">The Force to be multiplied.</param>
+            <param name="b">The Length to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Multiply(Towel.Measurements.Length{`0})">
+            <summary>Mulitplies Force by Length resulting in Energy.</summary>
+            <param name="b">The Length to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Multiply(Towel.Measurements.Force{`0},Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies Force by Speed resulting in Power.</summary>
+            <param name="a">The Force to be multiplied.</param>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.op_Multiply(Towel.Measurements.Force{`0},Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies Force by Speed resulting in Power.</summary>
+            <param name="a">The Force to be multiplied.</param>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Multiply(Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies Force by Speed resulting in Power.</summary>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.Force`1.Multiply(Towel.Measurements.Force{`0},Towel.Measurements.Time{`0})">
             <summary>Mulitplies Force by Time resulting in LinearMassFlow.</summary>
@@ -18973,6 +19497,23 @@
             <param name="b">The Acceleration to divide by.</param>
             <returns>The Mass result of the division.</returns>
         </member>
+        <member name="M:Towel.Measurements.Force`1.Divide(Towel.Measurements.Force{`0},Towel.Measurements.Area{`0})">
+            <summary>Divides Force by Area resulting in Pressure.</summary>
+            <param name="a">The Force to be divided.</param>
+            <param name="b">The Area to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.op_Division(Towel.Measurements.Force{`0},Towel.Measurements.Area{`0})">
+            <summary>Divides Force by Area resulting in Pressure.</summary>
+            <param name="a">The Force to be divided.</param>
+            <param name="b">The Area to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Divide(Towel.Measurements.Area{`0})">
+            <summary>Divides Force by Area resulting in Pressure.</summary>
+            <param name="b">The Area to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
         <member name="M:Towel.Measurements.Force`1.Divide(Towel.Measurements.Force{`0},Towel.Measurements.Mass{`0})">
             <summary>Divides Force by Mass resulting in Acceleration.</summary>
             <param name="a">The Force to be divided.</param>
@@ -18989,6 +19530,23 @@
             <summary>Divides Force by Mass resulting in Acceleration.</summary>
             <param name="b">The Mass to divide by.</param>
             <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Divide(Towel.Measurements.Force{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides Force by Pressure resulting in Area.</summary>
+            <param name="a">The Force to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Area result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.op_Division(Towel.Measurements.Force{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides Force by Pressure resulting in Area.</summary>
+            <param name="a">The Force to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Area result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Divide(Towel.Measurements.Pressure{`0})">
+            <summary>Divides Force by Pressure resulting in Area.</summary>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The Area result of the division.</returns>
         </member>
         <member name="M:Towel.Measurements.Force`1.LessThan(Towel.Measurements.Force{`0},Towel.Measurements.Force{`0})">
             <summary>Determines if an Force measurement is less than another Force measurement.</summary>
@@ -19232,6 +19790,23 @@
             <summary>Mulitplies Length by Density resulting in AreaDensity.</summary>
             <param name="b">The Density to multiply by.</param>
             <returns>The AreaDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.Multiply(Towel.Measurements.Length{`0},Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Length by Force resulting in Energy.</summary>
+            <param name="a">The Length to be multiplied.</param>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.op_Multiply(Towel.Measurements.Length{`0},Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Length by Force resulting in Energy.</summary>
+            <param name="a">The Length to be multiplied.</param>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.Multiply(Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Length by Force resulting in Energy.</summary>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.Length`1.Multiply(Towel.Measurements.Length{`0},Towel.Measurements.Length{`0})">
             <summary>Mulitplies Length by Length resulting in Area.</summary>
@@ -19720,6 +20295,40 @@
             <param name="b">The Length to divide by.</param>
             <returns>The AreaDensity result of the division.</returns>
         </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Divide(Towel.Measurements.LinearDensity{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+            <param name="a">The LinearDensity to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The TimeArea result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.op_Division(Towel.Measurements.LinearDensity{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+            <param name="a">The LinearDensity to be divided.</param>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The TimeArea result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Divide(Towel.Measurements.Pressure{`0})">
+            <summary>Divides LinearDensity by Pressure resulting in TimeArea.</summary>
+            <param name="b">The Pressure to divide by.</param>
+            <returns>The TimeArea result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Divide(Towel.Measurements.LinearDensity{`0},Towel.Measurements.TimeArea{`0})">
+            <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+            <param name="a">The LinearDensity to be divided.</param>
+            <param name="b">The TimeArea to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.op_Division(Towel.Measurements.LinearDensity{`0},Towel.Measurements.TimeArea{`0})">
+            <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+            <param name="a">The LinearDensity to be divided.</param>
+            <param name="b">The TimeArea to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Divide(Towel.Measurements.TimeArea{`0})">
+            <summary>Divides LinearDensity by TimeArea resulting in Pressure.</summary>
+            <param name="b">The TimeArea to divide by.</param>
+            <returns>The Pressure result of the division.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearDensity`1.LessThan(Towel.Measurements.LinearDensity{`0},Towel.Measurements.LinearDensity{`0})">
             <summary>Determines if an LinearDensity measurement is less than another LinearDensity measurement.</summary>
             <param name="a">The first operand of the less than operation.</param>
@@ -19917,6 +20526,23 @@
             <summary>Multiplies an LinearMass by a scalar numeric value.</summary>
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.Multiply(Towel.Measurements.LinearMass{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMass by Acceleration resulting in Energy.</summary>
+            <param name="a">The LinearMass to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.op_Multiply(Towel.Measurements.LinearMass{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMass by Acceleration resulting in Energy.</summary>
+            <param name="a">The LinearMass to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.Multiply(Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMass by Acceleration resulting in Energy.</summary>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.LinearMass`1.Divide(Towel.Measurements.LinearMass{`0},Towel.Measurements.LinearMass{`0})">
             <summary>Divides an LinearMass measurement by another LinearMass measurement resulting in a scalar numeric value.</summary>
@@ -20320,6 +20946,40 @@
             <summary>Multiplies an LinearMassFlow by a scalar numeric value.</summary>
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Multiply(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+            <param name="a">The LinearMassFlow to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.op_Multiply(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+            <param name="a">The LinearMassFlow to be multiplied.</param>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Multiply(Towel.Measurements.Acceleration{`0})">
+            <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+            <param name="b">The Acceleration to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Multiply(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies LinearMassFlow by Speed resulting in Energy.</summary>
+            <param name="a">The LinearMassFlow to be multiplied.</param>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.op_Multiply(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies LinearMassFlow by Speed resulting in Energy.</summary>
+            <param name="a">The LinearMassFlow to be multiplied.</param>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Multiply(Towel.Measurements.Speed{`0})">
+            <summary>Mulitplies LinearMassFlow by Speed resulting in Energy.</summary>
+            <param name="b">The Speed to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.LinearMassFlow`1.Multiply(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.Time{`0})">
             <summary>Mulitplies LinearMassFlow by Time resulting in LinearMass.</summary>
@@ -20934,6 +21594,646 @@
             <summary>Base hashing function for Mass measurements.</summary>
             <returns>Computed hash code for this instance.</returns>
         </member>
+        <member name="T:Towel.Measurements.Power`1">
+            <summary>Power measurement with a value and the units.</summary>
+            <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits)">
+            <summary>Constructs an Power with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Power.</param>
+            <param name="units">The units of the Power.</param>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.Power.Units)">
+            <summary>Constructs an Power with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Power.</param>
+            <param name="units">The units of the Power.</param>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Constructs an Power with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Power.</param>
+            <param name="MassUnits1">The units of the Power.</param>
+            <param name="LengthUnits2">The units of the Power.</param>
+            <param name="LengthUnits3">The units of the Power.</param>
+            <param name="TimeUnits4">The units of the Power.</param>
+            <param name="TimeUnits5">The units of the Power.</param>
+            <param name="TimeUnits6">The units of the Power.</param>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Add(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Adds two Power measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Addition(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Adds two Power measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Add(Towel.Measurements.Power{`0})">
+            <summary>Adds two Power measurements.</summary>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Subtract(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Subtracts two Power measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Subtraction(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Subtracts two Power measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Subtract(Towel.Measurements.Power{`0})">
+            <summary>Subtracts two Power measurements.</summary>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Multiply(Towel.Measurements.Power{`0},`0)">
+            <summary>Multiplies an Power by a scalar numeric value.</summary>
+            <param name="a">The Power measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Multiply(`0,Towel.Measurements.Power{`0})">
+            <summary>Multiplies an Power by a scalar numeric value.</summary>
+            <param name="a">The Power measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Multiply(Towel.Measurements.Power{`0},`0)">
+            <summary>Multiplies an Power by a scalar numeric value.</summary>
+            <param name="a">The Power measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Multiply(`0,Towel.Measurements.Power{`0})">
+            <summary>Multiplies an Power by a scalar numeric value.</summary>
+            <param name="a">The Power measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Add(`0)">
+            <summary>Multiplies an Power by a scalar numeric value.</summary>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Multiply(Towel.Measurements.Power{`0},Towel.Measurements.Time{`0})">
+            <summary>Mulitplies Power by Time resulting in Energy.</summary>
+            <param name="a">The Power to be multiplied.</param>
+            <param name="b">The Time to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Multiply(Towel.Measurements.Power{`0},Towel.Measurements.Time{`0})">
+            <summary>Mulitplies Power by Time resulting in Energy.</summary>
+            <param name="a">The Power to be multiplied.</param>
+            <param name="b">The Time to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Multiply(Towel.Measurements.Time{`0})">
+            <summary>Mulitplies Power by Time resulting in Energy.</summary>
+            <param name="b">The Time to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},`0)">
+            <summary>Divides this Power measurement by a numaric scalar value.</summary>
+            <param name="a">The Power measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},`0)">
+            <summary>Divides this Power measurement by a numaric scalar value.</summary>
+            <param name="a">The Power measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(`0)">
+            <summary>Divides this Power measurement by a numaric scalar value.</summary>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0})">
+            <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The LinearMassFlow result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},Towel.Measurements.Force{`0})">
+            <summary>Divides Power by Force resulting in Speed.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},Towel.Measurements.Force{`0})">
+            <summary>Divides Power by Force resulting in Speed.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Force{`0})">
+            <summary>Divides Power by Force resulting in Speed.</summary>
+            <param name="b">The Force to divide by.</param>
+            <returns>The Speed result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+            <param name="b">The LinearMassFlow to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Power{`0},Towel.Measurements.Speed{`0})">
+            <summary>Divides Power by Speed resulting in Force.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Division(Towel.Measurements.Power{`0},Towel.Measurements.Speed{`0})">
+            <summary>Divides Power by Speed resulting in Force.</summary>
+            <param name="a">The Power to be divided.</param>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Divide(Towel.Measurements.Speed{`0})">
+            <summary>Divides Power by Speed resulting in Force.</summary>
+            <param name="b">The Speed to divide by.</param>
+            <returns>The Force result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.LessThan(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_LessThan(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.LessThan(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.GreaterThan(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_GreaterThan(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.GreaterThan(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.LessThanOrEqual(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_LessThanOrEqual(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.LessThanOrEqual(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.GreaterThanOrEqual(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_GreaterThanOrEqual(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.GreaterThanOrEqual(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Equal(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Equality(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Equal(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.NotEqual(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Inequality(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.NotEqual(Towel.Measurements.Power{`0})">
+            <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Equals(System.Object)">
+            <summary>Base Equals override that performs a type and value equality check.</summary>
+            <param name="obj">The object to check for equality with.</param>
+            <returns>True if the types and values equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.ToString">
+            <summary>Converts the Power measurement to a string represenation.</summary>
+            <returns>The string representation of the measurement.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.GetHashCode">
+            <summary>Base hashing function for Power measurements.</summary>
+            <returns>Computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Measurements.Pressure`1">
+            <summary>Pressure measurement with a value and the units.</summary>
+            <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits)">
+            <summary>Constructs an Pressure with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Pressure.</param>
+            <param name="units">The units of the Pressure.</param>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.Pressure.Units)">
+            <summary>Constructs an Pressure with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Pressure.</param>
+            <param name="units">The units of the Pressure.</param>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Constructs an Pressure with the measurement value and units.</summary>
+            <param name="measurement">The measurement value of the Pressure.</param>
+            <param name="MassUnits1">The units of the Pressure.</param>
+            <param name="LengthUnits2">The units of the Pressure.</param>
+            <param name="TimeUnits3">The units of the Pressure.</param>
+            <param name="TimeUnits4">The units of the Pressure.</param>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Add(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Adds two Pressure measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Addition(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Adds two Pressure measurements.</summary>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Add(Towel.Measurements.Pressure{`0})">
+            <summary>Adds two Pressure measurements.</summary>
+            <param name="b">The second operand of the addition.</param>
+            <returns>The result of the addition operation.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Subtract(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Subtracts two Pressure measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Subtraction(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Subtracts two Pressure measurements.</summary>
+            <param name="a">The first operand of the subtraction.</param>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Subtract(Towel.Measurements.Pressure{`0})">
+            <summary>Subtracts two Pressure measurements.</summary>
+            <param name="b">The second operand of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Pressure{`0},`0)">
+            <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+            <param name="a">The Pressure measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(`0,Towel.Measurements.Pressure{`0})">
+            <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+            <param name="a">The Pressure measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Multiply(Towel.Measurements.Pressure{`0},`0)">
+            <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+            <param name="a">The Pressure measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Multiply(`0,Towel.Measurements.Pressure{`0})">
+            <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+            <param name="a">The Pressure measurement to multiply.</param>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Add(`0)">
+            <summary>Multiplies an Pressure by a scalar numeric value.</summary>
+            <param name="b">The scalar numeric value to multiply the measurement by.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.Area{`0})">
+            <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The Area to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.Area{`0})">
+            <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The Area to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Area{`0})">
+            <summary>Mulitplies Pressure by Area resulting in Force.</summary>
+            <param name="b">The Area to multiply by.</param>
+            <returns>The Force result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.TimeArea{`0})">
+            <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The TimeArea to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.TimeArea{`0})">
+            <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The TimeArea to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.TimeArea{`0})">
+            <summary>Mulitplies Pressure by TimeArea resulting in LinearDensity.</summary>
+            <param name="b">The TimeArea to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.Volume{`0})">
+            <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The Volume to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Multiply(Towel.Measurements.Pressure{`0},Towel.Measurements.Volume{`0})">
+            <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+            <param name="a">The Pressure to be multiplied.</param>
+            <param name="b">The Volume to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Multiply(Towel.Measurements.Volume{`0})">
+            <summary>Mulitplies Pressure by Volume resulting in Energy.</summary>
+            <param name="b">The Volume to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Pressure{`0},`0)">
+            <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+            <param name="a">The Pressure measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Division(Towel.Measurements.Pressure{`0},`0)">
+            <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+            <param name="a">The Pressure measurement to divide.</param>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(`0)">
+            <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
+            <param name="b">The numeric scalar to divide by.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Division(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+            <param name="a">The first operand of the division operation.</param>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Pressure{`0})">
+            <summary>Divides an Pressure measurement by another Pressure measurement resulting in a scalar numeric value.</summary>
+            <param name="b">The second operand of the division operation.</param>
+            <returns>The scalar numeric value result from the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Pressure{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+            <param name="a">The Pressure to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The AreaDensity result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Division(Towel.Measurements.Pressure{`0},Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+            <param name="a">The Pressure to be divided.</param>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The AreaDensity result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Acceleration{`0})">
+            <summary>Divides Pressure by Acceleration resulting in AreaDensity.</summary>
+            <param name="b">The Acceleration to divide by.</param>
+            <returns>The AreaDensity result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.Pressure{`0},Towel.Measurements.AreaDensity{`0})">
+            <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+            <param name="a">The Pressure to be divided.</param>
+            <param name="b">The AreaDensity to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Division(Towel.Measurements.Pressure{`0},Towel.Measurements.AreaDensity{`0})">
+            <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+            <param name="a">The Pressure to be divided.</param>
+            <param name="b">The AreaDensity to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Divide(Towel.Measurements.AreaDensity{`0})">
+            <summary>Divides Pressure by AreaDensity resulting in Acceleration.</summary>
+            <param name="b">The AreaDensity to divide by.</param>
+            <returns>The Acceleration result of the division.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.LessThan(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_LessThan(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+            <param name="a">The first operand of the less than operation.</param>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.LessThan(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
+            <param name="b">The second operand of the less than operation.</param>
+            <returns>True if the first operand is less than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.GreaterThan(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_GreaterThan(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+            <param name="a">The first operand of the greater than operation.</param>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.GreaterThan(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
+            <param name="b">The second operand of the greater than operation.</param>
+            <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.LessThanOrEqual(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_LessThanOrEqual(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the less than or equal to operation.</param>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.LessThanOrEqual(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
+            <param name="b">The second operand of the less than or equal to operation.</param>
+            <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.GreaterThanOrEqual(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_GreaterThanOrEqual(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the greater than or equal to operation.</param>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.GreaterThanOrEqual(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
+            <param name="b">The second operand of the greater than or equal to operation.</param>
+            <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Equal(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Equality(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the equal to operation.</param>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Equal(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
+            <param name="b">The second operand of the equal to operation.</param>
+            <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.NotEqual(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Inequality(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+            <param name="a">The first operand of the not equal to operation.</param>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.NotEqual(Towel.Measurements.Pressure{`0})">
+            <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
+            <param name="b">The second operand of the not equal to operation.</param>
+            <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Equals(System.Object)">
+            <summary>Base Equals override that performs a type and value equality check.</summary>
+            <param name="obj">The object to check for equality with.</param>
+            <returns>True if the types and values equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.ToString">
+            <summary>Converts the Pressure measurement to a string represenation.</summary>
+            <returns>The string representation of the measurement.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.GetHashCode">
+            <summary>Base hashing function for Pressure measurements.</summary>
+            <returns>Computed hash code for this instance.</returns>
+        </member>
         <member name="T:Towel.Measurements.Speed`1">
             <summary>Speed measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
@@ -21016,6 +22316,40 @@
             <summary>Multiplies an Speed by a scalar numeric value.</summary>
             <param name="b">The scalar numeric value to multiply the measurement by.</param>
             <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.Multiply(Towel.Measurements.Speed{`0},Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Speed by Force resulting in Power.</summary>
+            <param name="a">The Speed to be multiplied.</param>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.op_Multiply(Towel.Measurements.Speed{`0},Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Speed by Force resulting in Power.</summary>
+            <param name="a">The Speed to be multiplied.</param>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.Multiply(Towel.Measurements.Force{`0})">
+            <summary>Mulitplies Speed by Force resulting in Power.</summary>
+            <param name="b">The Force to multiply by.</param>
+            <returns>The Power result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.Multiply(Towel.Measurements.Speed{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Speed by LinearMassFlow resulting in Energy.</summary>
+            <param name="a">The Speed to be multiplied.</param>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.op_Multiply(Towel.Measurements.Speed{`0},Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Speed by LinearMassFlow resulting in Energy.</summary>
+            <param name="a">The Speed to be multiplied.</param>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.Multiply(Towel.Measurements.LinearMassFlow{`0})">
+            <summary>Mulitplies Speed by LinearMassFlow resulting in Energy.</summary>
+            <param name="b">The LinearMassFlow to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.Speed`1.Multiply(Towel.Measurements.Speed{`0},Towel.Measurements.Mass{`0})">
             <summary>Mulitplies Speed by Mass resulting in LinearMassFlow.</summary>
@@ -21639,6 +22973,23 @@
             <param name="b">The LinearMassFlow to multiply by.</param>
             <returns>The LinearMass result of the multiplication.</returns>
         </member>
+        <member name="M:Towel.Measurements.Time`1.Multiply(Towel.Measurements.Time{`0},Towel.Measurements.Power{`0})">
+            <summary>Mulitplies Time by Power resulting in Energy.</summary>
+            <param name="a">The Time to be multiplied.</param>
+            <param name="b">The Power to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.op_Multiply(Towel.Measurements.Time{`0},Towel.Measurements.Power{`0})">
+            <summary>Mulitplies Time by Power resulting in Energy.</summary>
+            <param name="a">The Time to be multiplied.</param>
+            <param name="b">The Power to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.Multiply(Towel.Measurements.Power{`0})">
+            <summary>Mulitplies Time by Power resulting in Energy.</summary>
+            <param name="b">The Power to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
         <member name="M:Towel.Measurements.Time`1.Multiply(Towel.Measurements.Time{`0},Towel.Measurements.Speed{`0})">
             <summary>Mulitplies Time by Speed resulting in Length.</summary>
             <param name="a">The Time to be multiplied.</param>
@@ -21956,6 +23307,23 @@
             <param name="b">The Force to multiply by.</param>
             <returns>The LinearMass result of the multiplication.</returns>
         </member>
+        <member name="M:Towel.Measurements.TimeArea`1.Multiply(Towel.Measurements.TimeArea{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+            <param name="a">The TimeArea to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.TimeArea`1.op_Multiply(Towel.Measurements.TimeArea{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+            <param name="a">The TimeArea to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.TimeArea`1.Multiply(Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies TimeArea by Pressure resulting in LinearDensity.</summary>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The LinearDensity result of the multiplication.</returns>
+        </member>
         <member name="M:Towel.Measurements.TimeArea`1.Divide(Towel.Measurements.TimeArea{`0},Towel.Measurements.TimeArea{`0})">
             <summary>Divides an TimeArea measurement by another TimeArea measurement resulting in a scalar numeric value.</summary>
             <param name="a">The first operand of the division operation.</param>
@@ -22239,6 +23607,23 @@
             <summary>Mulitplies Volume by Density resulting in Mass.</summary>
             <param name="b">The Density to multiply by.</param>
             <returns>The Mass result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.Multiply(Towel.Measurements.Volume{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+            <param name="a">The Volume to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.op_Multiply(Towel.Measurements.Volume{`0},Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+            <param name="a">The Volume to be multiplied.</param>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.Multiply(Towel.Measurements.Pressure{`0})">
+            <summary>Mulitplies Volume by Pressure resulting in Energy.</summary>
+            <param name="b">The Pressure to multiply by.</param>
+            <returns>The Energy result of the multiplication.</returns>
         </member>
         <member name="M:Towel.Measurements.Volume`1.Divide(Towel.Measurements.Volume{`0},Towel.Measurements.Volume{`0})">
             <summary>Divides an Volume measurement by another Volume measurement resulting in a scalar numeric value.</summary>
@@ -22552,6 +23937,12 @@
         <member name="T:Towel.Measurements.ElectricCurrent.Units">
             <summary>Units for electric current measurements.</summary>
         </member>
+        <member name="T:Towel.Measurements.Energy">
+            <summary>Contains unit types and conversion factors for the generic Energy struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Energy.Units">
+            <summary>Units for Energy measurements.</summary>
+        </member>
         <member name="T:Towel.Measurements.Force">
             <summary>Contains unit types and conversion factors for the generic Force struct.</summary>
         </member>
@@ -22729,6 +24120,18 @@
         <member name="F:Towel.Measurements.Mass.Units.Yottagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
+        <member name="T:Towel.Measurements.Power">
+            <summary>Contains unit types and conversion factors for the generic Power struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Power.Units">
+            <summary>Units for Power measurements.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Pressure">
+            <summary>Contains unit types and conversion factors for the generic Pressure struct.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Pressure.Units">
+            <summary>Units for Pressure measurements.</summary>
+        </member>
         <member name="T:Towel.Measurements.Speed">
             <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
         </member>
@@ -22863,6 +24266,9 @@
         </member>
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottaampheres">
             <summary>Units of an electric charge measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Joules">
+            <summary>Units of an Energy measurement.</summary>
         </member>
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Newtons">
             <summary>Units of an force measurement.</summary>
@@ -23007,6 +24413,12 @@
         </member>
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottagrams">
             <summary>Units of an mass measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Watts">
+            <summary>Units of an Power measurement.</summary>
+        </member>
+        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Pascals">
+            <summary>Units of an Pressure measurement.</summary>
         </member>
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Knots">
             <summary>Units of an speed measurement.</summary>

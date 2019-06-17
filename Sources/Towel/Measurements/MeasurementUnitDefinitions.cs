@@ -611,6 +611,21 @@ namespace Towel.Measurements
 
     #endregion
 
+    #region Pressure
+
+    /// <summary>Contains unit types and conversion factors for the generic Pressure struct.</summary>
+    public static class Pressure
+    {
+        /// <summary>Units for Pressure measurements.</summary>
+        [Serializable]
+        public enum Units
+        {
+            // no custom units currently
+        }
+    }
+
+    #endregion
+
     #region Speed
 
     /// <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
@@ -1127,6 +1142,13 @@ namespace Towel.Measurements
 
         /// <summary>Units of an Power measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.PowerBaseUnits Watts = new MeasurementUnitsSyntaxTypes.PowerBaseUnits() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds, _TimeUnits6 = Time.Units.Seconds };
+
+        #endregion
+
+        #region Pressure Units
+
+        /// <summary>Units of an Pressure measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.PressureBaseUnits Pascals = new MeasurementUnitsSyntaxTypes.PressureBaseUnits() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _TimeUnits3 = Time.Units.Seconds, _TimeUnits4 = Time.Units.Seconds };
 
         #endregion
 
