@@ -1129,5 +1129,101 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(LessThan(333m, 777m));
             Assert.IsFalse(LessThan(777m, 777m));
         }
+
+        [TestMethod]
+        public void GreaterThan_Testing()
+        {
+            Assert.IsFalse(GreaterThan(0, 0));
+            Assert.IsFalse(GreaterThan(-1, 0));
+            Assert.IsTrue(GreaterThan(1, 0));
+            Assert.IsTrue(GreaterThan(777, 333));
+            Assert.IsFalse(GreaterThan(333, 777));
+            Assert.IsFalse(GreaterThan(777, 777));
+
+            Assert.IsFalse(GreaterThan(0f, 0f));
+            Assert.IsFalse(GreaterThan(-1f, 0f));
+            Assert.IsTrue(GreaterThan(1f, 0f));
+            Assert.IsTrue(GreaterThan(777f, 333f));
+            Assert.IsFalse(GreaterThan(333f, 777f));
+            Assert.IsFalse(GreaterThan(777f, 777f));
+
+            Assert.IsFalse(GreaterThan(0d, 0d));
+            Assert.IsFalse(GreaterThan(-1d, 0d));
+            Assert.IsTrue(GreaterThan(1d, 0d));
+            Assert.IsTrue(GreaterThan(777d, 333d));
+            Assert.IsFalse(GreaterThan(333d, 777d));
+            Assert.IsFalse(GreaterThan(777d, 777d));
+
+            Assert.IsFalse(GreaterThan(0m, 0m));
+            Assert.IsFalse(GreaterThan(-1m, 0m));
+            Assert.IsTrue(GreaterThan(1m, 0m));
+            Assert.IsTrue(GreaterThan(777m, 333m));
+            Assert.IsFalse(GreaterThan(333m, 777m));
+            Assert.IsFalse(GreaterThan(777m, 777m));
+        }
+
+        [TestMethod]
+        public void LessThanOrEqual_Testing()
+        {
+            Assert.IsTrue(LessThanOrEqual(0, 0));
+            Assert.IsTrue(LessThanOrEqual(-1, 0));
+            Assert.IsFalse(LessThanOrEqual(1, 0));
+            Assert.IsFalse(LessThanOrEqual(777, 333));
+            Assert.IsTrue(LessThanOrEqual(333, 777));
+            Assert.IsTrue(LessThanOrEqual(777, 777));
+
+            Assert.IsTrue(LessThanOrEqual(0f, 0f));
+            Assert.IsTrue(LessThanOrEqual(-1f, 0f));
+            Assert.IsFalse(LessThanOrEqual(1f, 0f));
+            Assert.IsFalse(LessThanOrEqual(777f, 333f));
+            Assert.IsTrue(LessThanOrEqual(333f, 777f));
+            Assert.IsTrue(LessThanOrEqual(777f, 777f));
+
+            Assert.IsTrue(LessThanOrEqual(0d, 0d));
+            Assert.IsTrue(LessThanOrEqual(-1d, 0d));
+            Assert.IsFalse(LessThanOrEqual(1d, 0d));
+            Assert.IsFalse(LessThanOrEqual(777d, 333d));
+            Assert.IsTrue(LessThanOrEqual(333d, 777d));
+            Assert.IsTrue(LessThanOrEqual(777d, 777d));
+
+            Assert.IsTrue(LessThanOrEqual(0m, 0m));
+            Assert.IsTrue(LessThanOrEqual(-1m, 0m));
+            Assert.IsFalse(LessThanOrEqual(1m, 0m));
+            Assert.IsFalse(LessThanOrEqual(777m, 333m));
+            Assert.IsTrue(LessThanOrEqual(333m, 777m));
+            Assert.IsTrue(LessThanOrEqual(777m, 777m));
+        }
+
+        [TestMethod]
+        public void GreaterThanOrEqual_Testing()
+        {
+            Assert.IsTrue(GreaterThanOrEqual(0, 0));
+            Assert.IsFalse(GreaterThanOrEqual(-1, 0));
+            Assert.IsTrue(GreaterThanOrEqual(1, 0));
+            Assert.IsTrue(GreaterThanOrEqual(777, 333));
+            Assert.IsFalse(GreaterThanOrEqual(333, 777));
+            Assert.IsTrue(GreaterThanOrEqual(777, 777));
+
+            Assert.IsTrue(GreaterThanOrEqual(0f, 0f));
+            Assert.IsFalse(GreaterThanOrEqual(-1f, 0f));
+            Assert.IsTrue(GreaterThanOrEqual(1f, 0f));
+            Assert.IsTrue(GreaterThanOrEqual(777f, 333f));
+            Assert.IsFalse(GreaterThanOrEqual(333f, 777f));
+            Assert.IsTrue(GreaterThanOrEqual(777f, 777f));
+
+            Assert.IsTrue(GreaterThanOrEqual(0d, 0d));
+            Assert.IsFalse(GreaterThanOrEqual(-1d, 0d));
+            Assert.IsTrue(GreaterThanOrEqual(1d, 0d));
+            Assert.IsTrue(GreaterThanOrEqual(777d, 333d));
+            Assert.IsFalse(GreaterThanOrEqual(333d, 777d));
+            Assert.IsTrue(GreaterThanOrEqual(777d, 777d));
+
+            Assert.IsTrue(GreaterThanOrEqual(0m, 0m));
+            Assert.IsFalse(GreaterThanOrEqual(-1m, 0m));
+            Assert.IsTrue(GreaterThanOrEqual(1m, 0m));
+            Assert.IsTrue(GreaterThanOrEqual(777m, 333m));
+            Assert.IsFalse(GreaterThanOrEqual(333m, 777m));
+            Assert.IsTrue(GreaterThanOrEqual(777m, 777m));
+        }
     }
 }
