@@ -22,6 +22,7 @@
 //    LinearMass: Mass*Length
 //    LinearMassFlow: Mass*Length/Time
 //    Mass: Mass
+//    Power: Mass*Length*Length/Time/Time/Time
 //    Speed: Length/Time
 //    Tempurature: Tempurature
 //    Time: Time
@@ -33,6 +34,7 @@
 // Operators:
 //
 //    Acceleration * LinearMass = Energy
+//    Acceleration * LinearMassFlow = Power
 //    Acceleration * Mass = Force
 //    Acceleration * Time = Speed
 //    Acceleration * TimeArea = Length
@@ -51,6 +53,7 @@
 //    Density * Volume = Mass
 //    ElectricCurrent * Time = ElectricCharge
 //    Force * Length = Energy
+//    Force * Speed = Power
 //    Force * Time = LinearMassFlow
 //    Force * TimeArea = LinearMass
 //    Length * Area = Volume
@@ -63,11 +66,14 @@
 //    LinearDensity * Area = LinearMass
 //    LinearDensity * Length = Mass
 //    LinearMass * Acceleration = Energy
+//    LinearMassFlow * Acceleration = Power
 //    LinearMassFlow * Speed = Energy
 //    LinearMassFlow * Time = LinearMass
 //    Mass * Acceleration = Force
 //    Mass * Length = LinearMass
 //    Mass * Speed = LinearMassFlow
+//    Power * Time = Energy
+//    Speed * Force = Power
 //    Speed * LinearMassFlow = Energy
 //    Speed * Mass = LinearMassFlow
 //    Speed * Time = Length
@@ -77,6 +83,7 @@
 //    Time * ElectricCurrent = ElectricCharge
 //    Time * Force = LinearMassFlow
 //    Time * LinearMassFlow = LinearMass
+//    Time * Power = Energy
 //    Time * Speed = Length
 //    Time * Time = TimeArea
 //    TimeArea * Acceleration = Length
@@ -100,7 +107,9 @@
 //    Energy / Length = Force
 //    Energy / LinearMass = Acceleration
 //    Energy / LinearMassFlow = Speed
+//    Energy / Power = Time
 //    Energy / Speed = LinearMassFlow
+//    Energy / Time = Power
 //    Force / Acceleration = Mass
 //    Force / Mass = Acceleration
 //    Length / Acceleration = TimeArea
@@ -131,6 +140,10 @@
 //    Mass / Length = LinearDensity
 //    Mass / LinearDensity = Length
 //    Mass / Volume = Density
+//    Power / Acceleration = LinearMassFlow
+//    Power / Force = Speed
+//    Power / LinearMassFlow = Acceleration
+//    Power / Speed = Force
 //    Speed / Acceleration = Time
 //    Speed / Time = Acceleration
 //    TimeArea / Time = Time
@@ -460,6 +473,48 @@ namespace Towel.Measurements
 		/// <param name="b">The LinearMass to multiply by.</param>
 		/// <returns>The Energy result of the multiplication.</returns>
 		public Energy<T> Multiply(LinearMass<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Acceleration<T> * LinearMassFlow<T> = Power<T>
+
+		/// <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+		/// <param name="a">The Acceleration to be multiplied.</param>
+		/// <param name="b">The LinearMassFlow to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(Acceleration<T> a, LinearMassFlow<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._TimeUnits2, a._TimeUnits3];
+			T B = b[b._MassUnits1, b._LengthUnits2, b._TimeUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, b._MassUnits1
+				, a._LengthUnits1
+				, b._LengthUnits2
+				, a._TimeUnits2
+				, a._TimeUnits3
+				, b._TimeUnits3
+				);
+        }
+
+		/// <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+		/// <param name="a">The Acceleration to be multiplied.</param>
+		/// <param name="b">The LinearMassFlow to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(Acceleration<T> a, LinearMassFlow<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Acceleration by LinearMassFlow resulting in Power.</summary>
+		/// <param name="b">The LinearMassFlow to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(LinearMassFlow<T> b)
         {
 			return this * b;
         }
@@ -6801,6 +6856,49 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Energy<T> / Power<T> = Time<T>
+
+		/// <summary>Divides Energy by Power resulting in Time.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Power to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> Divide(Energy<T> a, Power<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			Time.Units TimeUnits5 = a._TimeUnits5 <= b._TimeUnits5 ? a._TimeUnits5 : b._TimeUnits5;
+
+			T A = a[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5];
+			T B = b[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, b._TimeUnits6];
+			T C = Compute.Divide(A, B);
+
+			return new Time<T>(C
+				, b._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Energy by Power resulting in Time.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Power to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> operator /(Energy<T> a, Power<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Energy by Power resulting in Time.</summary>
+		/// <param name="b">The Power to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public Time<T> Divide(Power<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Energy<T> / Speed<T> = LinearMassFlow<T>
 
 		/// <summary>Divides Energy by Speed resulting in LinearMassFlow.</summary>
@@ -6836,6 +6934,49 @@ namespace Towel.Measurements
 		/// <param name="b">The Speed to divide by.</param>
 		/// <returns>The LinearMassFlow result of the division.</returns>
 		public LinearMassFlow<T> Divide(Speed<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Energy<T> / Time<T> = Power<T>
+
+		/// <summary>Divides Energy by Time resulting in Power.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The Power result of the division.</returns>
+		public static Power<T> Divide(Energy<T> a, Time<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._LengthUnits2, a._LengthUnits3, a._TimeUnits4, a._TimeUnits5];
+			T B = b[b._TimeUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new Power<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, a._TimeUnits4
+				, a._TimeUnits5
+				, b._TimeUnits1
+				);
+        }
+
+		/// <summary>Divides Energy by Time resulting in Power.</summary>
+		/// <param name="a">The Energy to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The Power result of the division.</returns>
+		public static Power<T> operator /(Energy<T> a, Time<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Energy by Time resulting in Power.</summary>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The Power result of the division.</returns>
+		public Power<T> Divide(Time<T> b)
         {
 			return this / b;
         }
@@ -7418,6 +7559,48 @@ namespace Towel.Measurements
 		/// <param name="b">The Length to multiply by.</param>
 		/// <returns>The Energy result of the multiplication.</returns>
 		public Energy<T> Multiply(Length<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Force<T> * Speed<T> = Power<T>
+
+		/// <summary>Mulitplies Force by Speed resulting in Power.</summary>
+		/// <param name="a">The Force to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(Force<T> a, Speed<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._LengthUnits2, a._TimeUnits3, a._TimeUnits4];
+			T B = b[b._LengthUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, b._LengthUnits1
+				, a._TimeUnits3
+				, a._TimeUnits4
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Force by Speed resulting in Power.</summary>
+		/// <param name="a">The Force to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(Force<T> a, Speed<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Force by Speed resulting in Power.</summary>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(Speed<T> b)
         {
 			return this * b;
         }
@@ -10829,6 +11012,48 @@ namespace Towel.Measurements
             return this * b;
         }
 
+		#region LinearMassFlow<T> * Acceleration<T> = Power<T>
+
+		/// <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+		/// <param name="a">The LinearMassFlow to be multiplied.</param>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(LinearMassFlow<T> a, Acceleration<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._LengthUnits2, a._TimeUnits3];
+			T B = b[b._LengthUnits1, b._TimeUnits2, b._TimeUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, b._LengthUnits1
+				, a._TimeUnits3
+				, b._TimeUnits2
+				, b._TimeUnits3
+				);
+        }
+
+		/// <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+		/// <param name="a">The LinearMassFlow to be multiplied.</param>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(LinearMassFlow<T> a, Acceleration<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies LinearMassFlow by Acceleration resulting in Power.</summary>
+		/// <param name="b">The Acceleration to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(Acceleration<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
 		#region LinearMassFlow<T> * Speed<T> = Energy<T>
 
 		/// <summary>Mulitplies LinearMassFlow by Speed resulting in Energy.</summary>
@@ -12208,6 +12433,890 @@ namespace Towel.Measurements
 
 	#endregion
 
+	#region Power
+
+	/// <summary>Power measurement with a value and the units.</summary>
+    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	public struct Power<T>
+	{
+		internal T _measurement;
+		internal Mass.Units _MassUnits1;
+		internal Length.Units _LengthUnits2;
+		internal Length.Units _LengthUnits3;
+		internal Time.Units _TimeUnits4;
+		internal Time.Units _TimeUnits5;
+		internal Time.Units _TimeUnits6;
+
+		#region Constructors
+
+		/// <summary>Constructs an Power with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Power.</param>
+		/// <param name="units">The units of the Power.</param>
+		public Power(T measurement, MeasurementUnitsSyntaxTypes.PowerBaseUnits units) : this(measurement
+			, units._MassUnits1
+			, units._LengthUnits2
+			, units._LengthUnits3
+			, units._TimeUnits4
+			, units._TimeUnits5
+			, units._TimeUnits6
+			) { }
+
+		/// <summary>Constructs an Power with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Power.</param>
+        /// <param name="units">The units of the Power.</param>
+		public Power(T measurement, Power.Units units)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Constructs an Power with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the Power.</param>
+		/// <param name="MassUnits1">The units of the Power.</param>
+		/// <param name="LengthUnits2">The units of the Power.</param>
+		/// <param name="LengthUnits3">The units of the Power.</param>
+		/// <param name="TimeUnits4">The units of the Power.</param>
+		/// <param name="TimeUnits5">The units of the Power.</param>
+		/// <param name="TimeUnits6">The units of the Power.</param>
+		public Power(T measurement
+			, Mass.Units MassUnits1
+			, Length.Units LengthUnits2
+			, Length.Units LengthUnits3
+			, Time.Units TimeUnits4
+			, Time.Units TimeUnits5
+			, Time.Units TimeUnits6
+			)
+		{
+			_measurement = measurement;
+			_MassUnits1 = MassUnits1;
+			_LengthUnits2 = LengthUnits2;
+			_LengthUnits3 = LengthUnits3;
+			_TimeUnits4 = TimeUnits4;
+			_TimeUnits5 = TimeUnits5;
+			_TimeUnits6 = TimeUnits6;
+		}
+
+		#endregion
+
+		#region Properties
+
+        public Mass.Units MassUnits1
+        {
+            get { return _MassUnits1; }
+            set
+            {
+                if (value != _MassUnits1)
+                {
+                    _measurement = this[value, _LengthUnits2, _LengthUnits3, _TimeUnits4, _TimeUnits5, _TimeUnits6];
+                    _MassUnits1 = value;
+                }
+            }
+        }
+
+        public Length.Units LengthUnits2
+        {
+            get { return _LengthUnits2; }
+            set
+            {
+                if (value != _LengthUnits2)
+                {
+                    _measurement = this[_MassUnits1, value, _LengthUnits3, _TimeUnits4, _TimeUnits5, _TimeUnits6];
+                    _LengthUnits2 = value;
+                }
+            }
+        }
+
+        public Length.Units LengthUnits3
+        {
+            get { return _LengthUnits3; }
+            set
+            {
+                if (value != _LengthUnits3)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, value, _TimeUnits4, _TimeUnits5, _TimeUnits6];
+                    _LengthUnits3 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits4
+        {
+            get { return _TimeUnits4; }
+            set
+            {
+                if (value != _TimeUnits4)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, _LengthUnits3, value, _TimeUnits5, _TimeUnits6];
+                    _TimeUnits4 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits5
+        {
+            get { return _TimeUnits5; }
+            set
+            {
+                if (value != _TimeUnits5)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, _LengthUnits3, _TimeUnits4, value, _TimeUnits6];
+                    _TimeUnits5 = value;
+                }
+            }
+        }
+
+        public Time.Units TimeUnits6
+        {
+            get { return _TimeUnits6; }
+            set
+            {
+                if (value != _TimeUnits6)
+                {
+                    _measurement = this[_MassUnits1, _LengthUnits2, _LengthUnits3, _TimeUnits4, _TimeUnits5, value];
+                    _TimeUnits6 = value;
+                }
+            }
+        }
+
+		public T this[MeasurementUnitsSyntaxTypes.PowerBaseUnits units]
+		{
+			get { return this[units._MassUnits1, units._LengthUnits2, units._LengthUnits3, units._TimeUnits4, units._TimeUnits5, units._TimeUnits6]; }
+		}
+
+		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4, Time.Units TimeUnits5, Time.Units TimeUnits6]
+        {
+            get
+            {
+                T measurement = _measurement;
+                if (MassUnits1 != _MassUnits1)
+                {
+                    if (MassUnits1 < _MassUnits1)
+                    {
+                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    }
+                    else
+                    {
+                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    }
+                }
+                if (LengthUnits2 != _LengthUnits2)
+                {
+                    if (LengthUnits2 < _LengthUnits2)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    }
+                }
+                if (LengthUnits3 != _LengthUnits3)
+                {
+                    if (LengthUnits3 < _LengthUnits3)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    }
+                }
+                if (TimeUnits4 != _TimeUnits4)
+                {
+                    if (TimeUnits4 > _TimeUnits4)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits4][(int)TimeUnits4](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits4][(int)_TimeUnits4](measurement);
+                    }
+                }
+                if (TimeUnits5 != _TimeUnits5)
+                {
+                    if (TimeUnits5 > _TimeUnits5)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits5][(int)TimeUnits5](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits5][(int)_TimeUnits5](measurement);
+                    }
+                }
+                if (TimeUnits6 != _TimeUnits6)
+                {
+                    if (TimeUnits6 > _TimeUnits6)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits6][(int)TimeUnits6](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits6][(int)_TimeUnits6](measurement);
+                    }
+                }
+                return measurement;
+            }
+        }
+
+		#endregion
+
+		#region Mathematics
+
+		#region Bases
+
+		internal static Power<T> MathBase(Power<T> a, T b, Func<T, T, T> func)
+        {
+            return new Power<T>(func(a._measurement, b)
+				, a._MassUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, a._TimeUnits4
+				, a._TimeUnits5
+				, a._TimeUnits6
+			);
+        }
+
+        internal static Power<T> MathBase(Power<T> a, Power<T> b, Func<T, T, T> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			Time.Units TimeUnits5 = a._TimeUnits5 <= b._TimeUnits5 ? a._TimeUnits5 : b._TimeUnits5;
+			Time.Units TimeUnits6 = a._TimeUnits6 <= b._TimeUnits6 ? a._TimeUnits6 : b._TimeUnits6;
+			T A = a[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+			T B = b[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+            T C = func(A, B);
+			return new Power<T>(C, MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6);
+        }
+
+        internal static bool LogicBase(Power<T> a, Power<T> b, Func<T, T, bool> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			Time.Units TimeUnits5 = a._TimeUnits5 <= b._TimeUnits5 ? a._TimeUnits5 : b._TimeUnits5;
+			Time.Units TimeUnits6 = a._TimeUnits6 <= b._TimeUnits6 ? a._TimeUnits6 : b._TimeUnits6;
+			T A = a[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+			T B = b[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+            return func(A, B);
+        }
+
+		#endregion
+
+		#region Add
+
+        /// <summary>Adds two Power measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static Power<T> Add(Power<T> a, Power<T> b)
+        {
+            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+        }
+
+        /// <summary>Adds two Power measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static Power<T> operator +(Power<T> a, Power<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Adds two Power measurements.</summary>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public Power<T> Add(Power<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Subtracts two Power measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Power<T> Subtract(Power<T> a, Power<T> b)
+        {
+            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+        }
+
+        /// <summary>Subtracts two Power measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static Power<T> operator -(Power<T> a, Power<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Subtracts two Power measurements.</summary>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public Power<T> Subtract(Power<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply
+
+        /// <summary>Multiplies an Power by a scalar numeric value.</summary>
+        /// <param name="a">The Power measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Power<T> Multiply(Power<T> a, T b)
+        {
+            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+        }
+
+        /// <summary>Multiplies an Power by a scalar numeric value.</summary>
+        /// <param name="a">The Power measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Power<T> Multiply(T b, Power<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an Power by a scalar numeric value.</summary>
+        /// <param name="a">The Power measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Power<T> operator *(Power<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an Power by a scalar numeric value.</summary>
+        /// <param name="a">The Power measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static Power<T> operator *(T b, Power<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies an Power by a scalar numeric value.</summary>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public Power<T> Add(T b)
+        {
+            return this * b;
+        }
+
+		#region Power<T> * Time<T> = Energy<T>
+
+		/// <summary>Mulitplies Power by Time resulting in Energy.</summary>
+		/// <param name="a">The Power to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> Multiply(Power<T> a, Time<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits4 <= b._TimeUnits1 ? a._TimeUnits4 : b._TimeUnits1;
+
+			T A = a[a._MassUnits1, a._LengthUnits2, a._LengthUnits3, TimeUnits1, a._TimeUnits5, a._TimeUnits6];
+			T B = b[TimeUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new Energy<T>(C
+				, a._MassUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, a._TimeUnits5
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Mulitplies Power by Time resulting in Energy.</summary>
+		/// <param name="a">The Power to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> operator *(Power<T> a, Time<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Power by Time resulting in Energy.</summary>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public Energy<T> Multiply(Time<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region Divide
+
+		/// <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(Power<T> a, Power<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			Time.Units TimeUnits5 = a._TimeUnits5 <= b._TimeUnits5 ? a._TimeUnits5 : b._TimeUnits5;
+			Time.Units TimeUnits6 = a._TimeUnits6 <= b._TimeUnits6 ? a._TimeUnits6 : b._TimeUnits6;
+			T A = a[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+			T B = b[MassUnits1, LengthUnits2, LengthUnits3, TimeUnits4, TimeUnits5, TimeUnits6];
+            return Compute.Divide(A, B);
+        }
+
+        /// <summary>Divides this Power measurement by a numaric scalar value.</summary>
+        /// <param name="a">The Power measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static Power<T> Divide(Power<T> a, T b)
+        {
+            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+        }
+
+        /// <summary>Divides this Power measurement by a numaric scalar value.</summary>
+        /// <param name="a">The Power measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static Power<T> operator /(Power<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides this Power measurement by a numaric scalar value.</summary>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public Power<T> Divide(T b)
+        {
+            return this / b;
+        }
+
+        /// <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T operator /(Power<T> a, Power<T> b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides an Power measurement by another Power measurement resulting in a scalar numeric value.</summary>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public T Divide(Power<T> b)
+        {
+            return this / b;
+        }
+
+
+		#region Power<T> / Acceleration<T> = LinearMassFlow<T>
+
+		/// <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The LinearMassFlow result of the division.</returns>
+		public static LinearMassFlow<T> Divide(Power<T> a, Acceleration<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits2 ? a._TimeUnits4 : b._TimeUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits5 <= b._TimeUnits3 ? a._TimeUnits5 : b._TimeUnits3;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._LengthUnits3, TimeUnits2, TimeUnits3, a._TimeUnits6];
+			T B = b[LengthUnits1, TimeUnits2, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new LinearMassFlow<T>(C
+				, a._MassUnits1
+				, a._LengthUnits3
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The LinearMassFlow result of the division.</returns>
+		public static LinearMassFlow<T> operator /(Power<T> a, Acceleration<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by Acceleration resulting in LinearMassFlow.</summary>
+		/// <param name="b">The Acceleration to divide by.</param>
+		/// <returns>The LinearMassFlow result of the division.</returns>
+		public LinearMassFlow<T> Divide(Acceleration<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Power<T> / Force<T> = Speed<T>
+
+		/// <summary>Divides Power by Force resulting in Speed.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Force to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> Divide(Power<T> a, Force<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits4 <= b._TimeUnits3 ? a._TimeUnits4 : b._TimeUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits5 <= b._TimeUnits4 ? a._TimeUnits5 : b._TimeUnits4;
+
+			T A = a[MassUnits1, LengthUnits2, a._LengthUnits3, TimeUnits3, TimeUnits4, a._TimeUnits6];
+			T B = b[MassUnits1, LengthUnits2, TimeUnits3, TimeUnits4];
+			T C = Compute.Divide(A, B);
+
+			return new Speed<T>(C
+				, a._LengthUnits3
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by Force resulting in Speed.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Force to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> operator /(Power<T> a, Force<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by Force resulting in Speed.</summary>
+		/// <param name="b">The Force to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public Speed<T> Divide(Force<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Power<T> / LinearMassFlow<T> = Acceleration<T>
+
+		/// <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The LinearMassFlow to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public static Acceleration<T> Divide(Power<T> a, LinearMassFlow<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits4 <= b._TimeUnits3 ? a._TimeUnits4 : b._TimeUnits3;
+
+			T A = a[MassUnits1, LengthUnits2, a._LengthUnits3, TimeUnits3, a._TimeUnits5, a._TimeUnits6];
+			T B = b[MassUnits1, LengthUnits2, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Acceleration<T>(C
+				, a._LengthUnits3
+				, a._TimeUnits5
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The LinearMassFlow to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public static Acceleration<T> operator /(Power<T> a, LinearMassFlow<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by LinearMassFlow resulting in Acceleration.</summary>
+		/// <param name="b">The LinearMassFlow to divide by.</param>
+		/// <returns>The Acceleration result of the division.</returns>
+		public Acceleration<T> Divide(LinearMassFlow<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Power<T> / Speed<T> = Force<T>
+
+		/// <summary>Divides Power by Speed resulting in Force.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Force result of the division.</returns>
+		public static Force<T> Divide(Power<T> a, Speed<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits2 ? a._TimeUnits4 : b._TimeUnits2;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._LengthUnits3, TimeUnits2, a._TimeUnits5, a._TimeUnits6];
+			T B = b[LengthUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Force<T>(C
+				, a._MassUnits1
+				, a._LengthUnits3
+				, a._TimeUnits5
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by Speed resulting in Force.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Force result of the division.</returns>
+		public static Force<T> operator /(Power<T> a, Speed<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by Speed resulting in Force.</summary>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Force result of the division.</returns>
+		public Force<T> Divide(Speed<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region LessThan
+
+        /// <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool LessThan(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool operator <(Power<T> a, Power<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is less than another Power measurement.</summary>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public bool LessThan(Power<T> b)
+        {
+            return this < b;
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        /// <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool GreaterThan(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool operator >(Power<T> a, Power<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public bool GreaterThan(Power<T> b)
+        {
+            return this > b;
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        /// <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool LessThanOrEqual(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool operator <=(Power<T> a, Power<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public bool LessThanOrEqual(Power<T> b)
+        {
+            return this <= b;
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        /// <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool GreaterThanOrEqual(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool operator >=(Power<T> a, Power<T> b)
+        {
+            return GreaterThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public bool GreaterThanOrEqual(Power<T> b)
+        {
+            return this >= b;
+        }
+
+        #endregion
+
+        #region Equal
+
+        /// <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool Equal(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool operator ==(Power<T> a, Power<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public bool Equal(Power<T> b)
+        {
+            return this == b;
+        }
+
+        #endregion
+
+        #region NotEqual
+
+        /// <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool NotEqual(Power<T> a, Power<T> b)
+        {
+            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool operator !=(Power<T> a, Power<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        /// <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public bool NotEqual(Power<T> b)
+        {
+            return this != b;
+        }
+
+        #endregion
+
+		#endregion
+
+		#region Overrides
+
+		/// <summary>Base Equals override that performs a type and value equality check.</summary>
+        /// <param name="obj">The object to check for equality with.</param>
+        /// <returns>True if the types and values equal. False if not.</returns>
+		public override bool Equals(object obj)
+        {
+            if (obj is Power<T>)
+            {
+                return this == (Power<T>)obj;
+            }
+            return false;
+        }
+
+		/// <summary>Converts the Power measurement to a string represenation.</summary>
+        /// <returns>The string representation of the measurement.</returns>
+		public override string ToString()
+        {
+            return _measurement + " " +
+				_MassUnits1 + "*" + _LengthUnits2 + "*" + _LengthUnits3
+				+ "/" +
+				_TimeUnits4 + "/" + _TimeUnits5 + "/" + _TimeUnits6
+				;
+        }
+
+		/// <summary>Base hashing function for Power measurements.</summary>
+        /// <returns>Computed hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            return
+                _measurement.GetHashCode()
+				^ _MassUnits1.GetHashCode()
+				^ _LengthUnits2.GetHashCode()
+				^ _LengthUnits3.GetHashCode()
+				^ _TimeUnits4.GetHashCode()
+				^ _TimeUnits5.GetHashCode()
+				^ _TimeUnits6.GetHashCode()
+				;
+        }
+
+		#endregion
+	}
+
+	#endregion
+
 	#region Speed
 
 	/// <summary>Speed measurement with a value and the units.</summary>
@@ -12456,6 +13565,48 @@ namespace Towel.Measurements
         {
             return this * b;
         }
+
+		#region Speed<T> * Force<T> = Power<T>
+
+		/// <summary>Mulitplies Speed by Force resulting in Power.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The Force to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(Speed<T> a, Force<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._TimeUnits2];
+			T B = b[b._MassUnits1, b._LengthUnits2, b._TimeUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, b._MassUnits1
+				, a._LengthUnits1
+				, b._LengthUnits2
+				, a._TimeUnits2
+				, b._TimeUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Speed by Force resulting in Power.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The Force to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(Speed<T> a, Force<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Speed by Force resulting in Power.</summary>
+		/// <param name="b">The Force to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(Force<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
 
 		#region Speed<T> * LinearMassFlow<T> = Energy<T>
 
@@ -13871,6 +15022,48 @@ namespace Towel.Measurements
 		/// <param name="b">The LinearMassFlow to multiply by.</param>
 		/// <returns>The LinearMass result of the multiplication.</returns>
 		public LinearMass<T> Multiply(LinearMassFlow<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Time<T> * Power<T> = Energy<T>
+
+		/// <summary>Mulitplies Time by Power resulting in Energy.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The Power to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> Multiply(Time<T> a, Power<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits1 <= b._TimeUnits4 ? a._TimeUnits1 : b._TimeUnits4;
+
+			T A = a[TimeUnits1];
+			T B = b[b._MassUnits1, b._LengthUnits2, b._LengthUnits3, TimeUnits1, b._TimeUnits5, b._TimeUnits6];
+			T C = Compute.Multiply(A, B);
+
+			return new Energy<T>(C
+				, b._MassUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				, b._TimeUnits5
+				, b._TimeUnits6
+				);
+        }
+
+		/// <summary>Mulitplies Time by Power resulting in Energy.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The Power to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public static Energy<T> operator *(Time<T> a, Power<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Time by Power resulting in Energy.</summary>
+		/// <param name="b">The Power to multiply by.</param>
+		/// <returns>The Energy result of the multiplication.</returns>
+		public Energy<T> Multiply(Power<T> b)
         {
 			return this * b;
         }
@@ -15675,6 +16868,11 @@ namespace Towel.Measurements
 				return new EnergyBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, a._TimeUnits3);
 			}
 		
+			public static PowerBaseUnits operator *(AccelerationBaseUnits a, LinearMassFlowBaseUnits b)
+			{
+				return new PowerBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, a._TimeUnits3, b._TimeUnits3);
+			}
+		
 			public static ForceBaseUnits operator *(AccelerationBaseUnits a, MassUnits b)
 			{
 				return new ForceBaseUnits(b._MassUnits1, a._LengthUnits1, a._TimeUnits2, a._TimeUnits3);
@@ -15889,6 +17087,12 @@ namespace Towel.Measurements
 		
 		
 		
+		
+		
+			public static PowerBaseUnits operator /(EnergyBaseUnits a, TimeUnits b)
+			{
+				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, a._LengthUnits3, a._TimeUnits4, a._TimeUnits5, b._TimeUnits1);
+			}
 		}
 
 		public struct EnergyUnits
@@ -15914,6 +17118,11 @@ namespace Towel.Measurements
 			public static EnergyBaseUnits operator *(ForceBaseUnits a, LengthUnits b)
 			{
 				return new EnergyBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1, a._TimeUnits3, a._TimeUnits4);
+			}
+		
+			public static PowerBaseUnits operator *(ForceBaseUnits a, SpeedBaseUnits b)
+			{
+				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1, a._TimeUnits3, a._TimeUnits4, b._TimeUnits2);
 			}
 		
 		
@@ -16055,6 +17264,11 @@ namespace Towel.Measurements
 				_TimeUnits3 = TimeUnits3;
 			}
 		
+			public static PowerBaseUnits operator *(LinearMassFlowBaseUnits a, AccelerationBaseUnits b)
+			{
+				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1, a._TimeUnits3, b._TimeUnits2, b._TimeUnits3);
+			}
+		
 			public static EnergyBaseUnits operator *(LinearMassFlowBaseUnits a, SpeedBaseUnits b)
 			{
 				return new EnergyBaseUnits(a._MassUnits1, a._LengthUnits2, b._LengthUnits1, a._TimeUnits3, b._TimeUnits2);
@@ -16118,6 +17332,36 @@ namespace Towel.Measurements
 			}
 		}
 
+		public struct PowerBaseUnits
+		{
+			public Mass.Units _MassUnits1;
+			public Length.Units _LengthUnits2;
+			public Length.Units _LengthUnits3;
+			public Time.Units _TimeUnits4;
+			public Time.Units _TimeUnits5;
+			public Time.Units _TimeUnits6;
+
+			public PowerBaseUnits(Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4, Time.Units TimeUnits5, Time.Units TimeUnits6)
+			{
+				_MassUnits1 = MassUnits1;
+				_LengthUnits2 = LengthUnits2;
+				_LengthUnits3 = LengthUnits3;
+				_TimeUnits4 = TimeUnits4;
+				_TimeUnits5 = TimeUnits5;
+				_TimeUnits6 = TimeUnits6;
+			}
+		
+		
+		
+		
+		
+		}
+
+		public struct PowerUnits
+		{
+			public Power.Units _PowerUnits;
+		}
+
 		public struct SpeedBaseUnits
 		{
 			public Length.Units _LengthUnits1;
@@ -16127,6 +17371,11 @@ namespace Towel.Measurements
 			{
 				_LengthUnits1 = LengthUnits1;
 				_TimeUnits2 = TimeUnits2;
+			}
+		
+			public static PowerBaseUnits operator *(SpeedBaseUnits a, ForceBaseUnits b)
+			{
+				return new PowerBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, b._TimeUnits3, b._TimeUnits4);
 			}
 		
 			public static EnergyBaseUnits operator *(SpeedBaseUnits a, LinearMassFlowBaseUnits b)
@@ -16170,6 +17419,7 @@ namespace Towel.Measurements
 			{
 				_TimeUnits1 = TimeUnits1;
 			}
+		
 		
 		
 		

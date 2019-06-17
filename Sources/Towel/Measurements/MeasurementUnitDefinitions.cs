@@ -596,6 +596,21 @@ namespace Towel.Measurements
 
     #endregion
 
+    #region Power
+
+    /// <summary>Contains unit types and conversion factors for the generic Power struct.</summary>
+    public static class Power
+    {
+        /// <summary>Units for Power measurements.</summary>
+        [Serializable]
+        public enum Units
+        {
+            // no custom units currently
+        }
+    }
+
+    #endregion
+
     #region Speed
 
     /// <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
@@ -1105,6 +1120,13 @@ namespace Towel.Measurements
         public static MeasurementUnitsSyntaxTypes.MassUnits Zettagrams = new MeasurementUnitsSyntaxTypes.MassUnits() { _MassUnits1 = Mass.Units.Zettagrams };
         /// <summary>Units of an mass measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.MassUnits Yottagrams = new MeasurementUnitsSyntaxTypes.MassUnits() { _MassUnits1 = Mass.Units.Yottagrams };
+
+        #endregion
+
+        #region Power Units
+
+        /// <summary>Units of an Power measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.PowerBaseUnits Watts = new MeasurementUnitsSyntaxTypes.PowerBaseUnits() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds, _TimeUnits6 = Time.Units.Seconds };
 
         #endregion
 
