@@ -120,11 +120,11 @@ namespace Towel.DataStructures
                     }
                     else if (!b.Exists)
                     {
-                        return Comparison.Equal;
+                        return CompareResult.Equal;
                     }
                     else
                     {
-                        return Comparison.Greater;
+                        return CompareResult.Greater;
                     }
                 };
             }

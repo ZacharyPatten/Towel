@@ -258,11 +258,11 @@ namespace DataStructures
 
                 Console.WriteLine("    Let's say the priority is how close a number is to \"5\".");
                 Console.WriteLine("    So \"Dequeue\" will give us the next closest value to \"5\".");
-                Comparison Priority(int a, int b)
+                CompareResult Priority(int a, int b)
                 {
                     int _a = Compute.AbsoluteValue(a - 5);
                     int _b = Compute.AbsoluteValue(b - 5);
-                    Comparison comparison = Compare.Wrap(_b.CompareTo(_a));
+                    CompareResult comparison = Compare.Wrap(_b.CompareTo(_a));
                     return comparison;
                 }
                 Console.WriteLine();

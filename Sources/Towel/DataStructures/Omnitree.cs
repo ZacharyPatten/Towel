@@ -163,9 +163,9 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1>(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b, Compare<Axis1> compare1)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -177,9 +177,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -194,9 +194,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -298,14 +298,14 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b, Compare<Axis1> compare1, Compare<Axis2> compare2)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -317,14 +317,14 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -339,14 +339,14 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -465,19 +465,19 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -489,19 +489,19 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -516,19 +516,19 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
+				return false;
+			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -664,24 +664,24 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -693,24 +693,24 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -725,24 +725,24 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -895,29 +895,29 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -929,29 +929,29 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -966,29 +966,29 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1158,34 +1158,34 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1197,34 +1197,34 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1239,34 +1239,34 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1453,39 +1453,39 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b, Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6, Compare<Axis7> compare7)
 		{
-			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
-				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max7.Exists && b.Min7.Exists && compare7(a.Max7.Value, b.Min7.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min7.Exists && b.Max7.Exists && compare7(a.Min7.Value, b.Max7.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max7.Exists && b.Min7.Exists && compare7(a.Max7.Value, b.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min7.Exists && b.Max7.Exists && compare7(a.Min7.Value, b.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1497,39 +1497,39 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min7.Exists && compare7(vector.Axis7, bounds.Min7.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max7.Exists && compare7(vector.Axis7, bounds.Max7.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min7.Exists && compare7(vector.Axis7, bounds.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max7.Exists && compare7(vector.Axis7, bounds.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -1544,39 +1544,39 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) || (a.Max7.Exists && !b.Max7.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
-				return false;
-			if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min7.Exists && a.Min7.Exists && compare7(a.Min7.Value, b.Min7.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max7.Exists && a.Max7.Exists && compare7(a.Max7.Value, b.Max7.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min7.Exists && a.Min7.Exists && compare7(a.Min7.Value, b.Min7.Value) != CompareResult.Less)
+				return false;
+			if (b.Max7.Exists && a.Max7.Exists && compare7(a.Max7.Value, b.Max7.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -3483,8 +3483,8 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -3496,7 +3496,7 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1> pointOfDivision, Omnitree.Vector<Axis1> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
 			return child;
 		}
@@ -3550,9 +3550,9 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -3564,9 +3564,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -3581,9 +3581,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -5738,11 +5738,11 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -5754,9 +5754,9 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2> pointOfDivision, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
 			return child;
 		}
@@ -5810,14 +5810,14 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -5829,14 +5829,14 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -5851,14 +5851,14 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -8264,14 +8264,14 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -8283,11 +8283,11 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == Comparison.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
 			return child;
 		}
@@ -8341,19 +8341,19 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -8365,19 +8365,19 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -8392,19 +8392,19 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
+				return false;
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -11061,17 +11061,17 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -11083,13 +11083,13 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == Comparison.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == Comparison.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
 			return child;
 		}
@@ -11143,24 +11143,24 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -11172,24 +11172,24 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -11204,24 +11204,24 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -14129,20 +14129,20 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -14154,15 +14154,15 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == Comparison.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == Comparison.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == Comparison.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
 			return child;
 		}
@@ -14216,29 +14216,29 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -14250,29 +14250,29 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -14287,29 +14287,29 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -17468,23 +17468,23 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min6.Exists || (bounds.Min6.Exists && this._compare6(bounds.Min6.Value, vector.Axis6) != Comparison.Greater)) &&
-				(!bounds.Max6.Exists || (bounds.Max6.Exists && this._compare6(bounds.Max6.Value, vector.Axis6) != Comparison.Less)))
+			if ((!bounds.Min6.Exists || (bounds.Min6.Exists && this._compare6(bounds.Min6.Value, vector.Axis6) != CompareResult.Greater)) &&
+				(!bounds.Max6.Exists || (bounds.Max6.Exists && this._compare6(bounds.Max6.Value, vector.Axis6) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -17496,17 +17496,17 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == Comparison.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == Comparison.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == Comparison.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
-			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == Comparison.Less))
+			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == CompareResult.Less))
 				child += 1 << 5;
 			return child;
 		}
@@ -17560,34 +17560,34 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -17599,34 +17599,34 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -17641,34 +17641,34 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -21078,26 +21078,26 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
-			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (bounds.Min1.Exists && this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (bounds.Max1.Exists && this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (bounds.Min2.Exists && this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (bounds.Max2.Exists && this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (bounds.Min3.Exists && this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (bounds.Max3.Exists && this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (bounds.Min4.Exists && this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (bounds.Max4.Exists && this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (bounds.Min5.Exists && this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (bounds.Max5.Exists && this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min6.Exists || (bounds.Min6.Exists && this._compare6(bounds.Min6.Value, vector.Axis6) != Comparison.Greater)) &&
-				(!bounds.Max6.Exists || (bounds.Max6.Exists && this._compare6(bounds.Max6.Value, vector.Axis6) != Comparison.Less)))
+			if ((!bounds.Min6.Exists || (bounds.Min6.Exists && this._compare6(bounds.Min6.Value, vector.Axis6) != CompareResult.Greater)) &&
+				(!bounds.Max6.Exists || (bounds.Max6.Exists && this._compare6(bounds.Max6.Value, vector.Axis6) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min7.Exists || (bounds.Min7.Exists && this._compare7(bounds.Min7.Value, vector.Axis7) != Comparison.Greater)) &&
-				(!bounds.Max7.Exists || (bounds.Max7.Exists && this._compare7(bounds.Max7.Value, vector.Axis7) != Comparison.Less)))
+			if ((!bounds.Min7.Exists || (bounds.Min7.Exists && this._compare7(bounds.Min7.Value, vector.Axis7) != CompareResult.Greater)) &&
+				(!bounds.Max7.Exists || (bounds.Max7.Exists && this._compare7(bounds.Max7.Value, vector.Axis7) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -21109,19 +21109,19 @@ namespace Towel.DataStructures
 		private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == Comparison.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == Comparison.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == Comparison.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == Comparison.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
-			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == Comparison.Less))
+			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == CompareResult.Less))
 				child += 1 << 5;
-			if (!(this._compare7(vector.Axis7, pointOfDivision.Axis7) == Comparison.Less))
+			if (!(this._compare7(vector.Axis7, pointOfDivision.Axis7) == CompareResult.Less))
 				child += 1 << 6;
 			return child;
 		}
@@ -21175,39 +21175,39 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
-				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max7.Exists && b.Min7.Exists && this._compare7(a.Max7.Value, b.Min7.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min7.Exists && b.Max7.Exists && this._compare7(a.Min7.Value, b.Max7.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max7.Exists && b.Min7.Exists && this._compare7(a.Max7.Value, b.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min7.Exists && b.Max7.Exists && this._compare7(a.Min7.Value, b.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -21219,39 +21219,39 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min7.Exists && this._compare7(vector.Axis7, bounds.Min7.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max7.Exists && this._compare7(vector.Axis7, bounds.Max7.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min7.Exists && this._compare7(vector.Axis7, bounds.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max7.Exists && this._compare7(vector.Axis7, bounds.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -21266,39 +21266,39 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) || (a.Max7.Exists && !b.Max7.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
-				return false;
-			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min7.Exists && a.Min7.Exists && this._compare7(a.Min7.Value, b.Min7.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max7.Exists && a.Max7.Exists && this._compare7(a.Max7.Value, b.Max7.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min7.Exists && a.Min7.Exists && this._compare7(a.Min7.Value, b.Min7.Value) != CompareResult.Less)
+				return false;
+			if (b.Max7.Exists && a.Max7.Exists && this._compare7(a.Max7.Value, b.Max7.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -23200,8 +23200,8 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -23217,7 +23217,7 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
 			return child;
 		}
@@ -23271,9 +23271,9 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -23285,9 +23285,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -23302,9 +23302,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -25453,11 +25453,11 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -25473,9 +25473,9 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
 			return child;
 		}
@@ -25529,14 +25529,14 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -25548,14 +25548,14 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -25570,14 +25570,14 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -28009,14 +28009,14 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -28032,11 +28032,11 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == Comparison.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
 			return child;
 		}
@@ -28090,19 +28090,19 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -28114,19 +28114,19 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -28141,19 +28141,19 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
+				return false;
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -30868,17 +30868,17 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -30894,13 +30894,13 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == Comparison.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == Comparison.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
 			return child;
 		}
@@ -30954,24 +30954,24 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -30983,24 +30983,24 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -31015,24 +31015,24 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -34030,20 +34030,20 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -34059,15 +34059,15 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == Comparison.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == Comparison.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == Comparison.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
 			return child;
 		}
@@ -34121,29 +34121,29 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -34155,29 +34155,29 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -34192,29 +34192,29 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
+				return false;
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -37495,23 +37495,23 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min6.Exists || (this._compare6(bounds.Min6.Value, vector.Axis6) != Comparison.Greater)) &&
-				(!bounds.Max6.Exists || (this._compare6(bounds.Max6.Value, vector.Axis6) != Comparison.Less)))
+			if ((!bounds.Min6.Exists || (this._compare6(bounds.Min6.Value, vector.Axis6) != CompareResult.Greater)) &&
+				(!bounds.Max6.Exists || (this._compare6(bounds.Max6.Value, vector.Axis6) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -37527,17 +37527,17 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == Comparison.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == Comparison.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == Comparison.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
-			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == Comparison.Less))
+			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == CompareResult.Less))
 				child += 1 << 5;
 			return child;
 		}
@@ -37591,34 +37591,34 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -37630,34 +37630,34 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -37672,34 +37672,34 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
 				return false;
 
 			return true;
@@ -41263,26 +41263,26 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
-			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != Comparison.Greater)) &&
-				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != Comparison.Less)))
+			if ((!bounds.Min1.Exists || (this._compare1(bounds.Min1.Value, vector.Axis1) != CompareResult.Greater)) &&
+				(!bounds.Max1.Exists || (this._compare1(bounds.Max1.Value, vector.Axis1) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != Comparison.Greater)) &&
-				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != Comparison.Less)))
+			if ((!bounds.Min2.Exists || (this._compare2(bounds.Min2.Value, vector.Axis2) != CompareResult.Greater)) &&
+				(!bounds.Max2.Exists || (this._compare2(bounds.Max2.Value, vector.Axis2) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != Comparison.Greater)) &&
-				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != Comparison.Less)))
+			if ((!bounds.Min3.Exists || (this._compare3(bounds.Min3.Value, vector.Axis3) != CompareResult.Greater)) &&
+				(!bounds.Max3.Exists || (this._compare3(bounds.Max3.Value, vector.Axis3) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != Comparison.Greater)) &&
-				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != Comparison.Less)))
+			if ((!bounds.Min4.Exists || (this._compare4(bounds.Min4.Value, vector.Axis4) != CompareResult.Greater)) &&
+				(!bounds.Max4.Exists || (this._compare4(bounds.Max4.Value, vector.Axis4) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != Comparison.Greater)) &&
-				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != Comparison.Less)))
+			if ((!bounds.Min5.Exists || (this._compare5(bounds.Min5.Value, vector.Axis5) != CompareResult.Greater)) &&
+				(!bounds.Max5.Exists || (this._compare5(bounds.Max5.Value, vector.Axis5) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min6.Exists || (this._compare6(bounds.Min6.Value, vector.Axis6) != Comparison.Greater)) &&
-				(!bounds.Max6.Exists || (this._compare6(bounds.Max6.Value, vector.Axis6) != Comparison.Less)))
+			if ((!bounds.Min6.Exists || (this._compare6(bounds.Min6.Value, vector.Axis6) != CompareResult.Greater)) &&
+				(!bounds.Max6.Exists || (this._compare6(bounds.Max6.Value, vector.Axis6) != CompareResult.Less)))
 				return true;
-			if ((!bounds.Min7.Exists || (this._compare7(bounds.Min7.Value, vector.Axis7) != Comparison.Greater)) &&
-				(!bounds.Max7.Exists || (this._compare7(bounds.Max7.Value, vector.Axis7) != Comparison.Less)))
+			if ((!bounds.Min7.Exists || (this._compare7(bounds.Min7.Value, vector.Axis7) != CompareResult.Greater)) &&
+				(!bounds.Max7.Exists || (this._compare7(bounds.Max7.Value, vector.Axis7) != CompareResult.Less)))
 				return true;
 			return false;
 		}
@@ -41298,19 +41298,19 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == Comparison.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == Comparison.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == Comparison.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == Comparison.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == Comparison.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
 				child += 1 << 4;
-			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == Comparison.Less))
+			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == CompareResult.Less))
 				child += 1 << 5;
-			if (!bounds.Min7.Exists || !(this._compare7(bounds.Min7.Value, pointOfDivision.Axis7) == Comparison.Less))
+			if (!bounds.Min7.Exists || !(this._compare7(bounds.Min7.Value, pointOfDivision.Axis7) == CompareResult.Less))
 				child += 1 << 6;
 			return child;
 		}
@@ -41364,39 +41364,39 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b)
 		{
 
-			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
+			if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == Comparison.Less)
-				return false;
-			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == Comparison.Greater)
+			else if (a.Min1.Exists && b.Max1.Exists && this._compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == Comparison.Less)
+			if (a.Max2.Exists && b.Min2.Exists && this._compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == Comparison.Less)
-				return false;
-			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == Comparison.Greater)
+			else if (a.Min2.Exists && b.Max2.Exists && this._compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == Comparison.Less)
+			if (a.Max3.Exists && b.Min3.Exists && this._compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == Comparison.Less)
-				return false;
-			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == Comparison.Greater)
+			else if (a.Min3.Exists && b.Max3.Exists && this._compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (a.Max7.Exists && b.Min7.Exists && this._compare7(a.Max7.Value, b.Min7.Value) == Comparison.Less)
+			if (a.Max4.Exists && b.Min4.Exists && this._compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min7.Exists && b.Max7.Exists && this._compare7(a.Min7.Value, b.Max7.Value) == Comparison.Greater)
+			else if (a.Min4.Exists && b.Max4.Exists && this._compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max5.Exists && b.Min5.Exists && this._compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min5.Exists && b.Max5.Exists && this._compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max6.Exists && b.Min6.Exists && this._compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min6.Exists && b.Max6.Exists && this._compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (a.Max7.Exists && b.Min7.Exists && this._compare7(a.Max7.Value, b.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (a.Min7.Exists && b.Max7.Exists && this._compare7(a.Min7.Value, b.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -41408,39 +41408,39 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 
-			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
+			if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == Comparison.Greater)
+			else if (bounds.Max1.Exists && this._compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == Comparison.Less)
+			if (bounds.Min2.Exists && this._compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == Comparison.Greater)
+			else if (bounds.Max2.Exists && this._compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == Comparison.Less)
+			if (bounds.Min3.Exists && this._compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == Comparison.Greater)
-				return false;
-
-			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == Comparison.Less)
-				return false;
-			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == Comparison.Greater)
+			else if (bounds.Max3.Exists && this._compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater)
 				return false;
 
-			if (bounds.Min7.Exists && this._compare7(vector.Axis7, bounds.Min7.Value) == Comparison.Less)
+			if (bounds.Min4.Exists && this._compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max7.Exists && this._compare7(vector.Axis7, bounds.Max7.Value) == Comparison.Greater)
+			else if (bounds.Max4.Exists && this._compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min5.Exists && this._compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max5.Exists && this._compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min6.Exists && this._compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max6.Exists && this._compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater)
+				return false;
+
+			if (bounds.Min7.Exists && this._compare7(vector.Axis7, bounds.Min7.Value) == CompareResult.Less)
+				return false;
+			else if (bounds.Max7.Exists && this._compare7(vector.Axis7, bounds.Max7.Value) == CompareResult.Greater)
 				return false;
 
 			return true;
@@ -41455,39 +41455,39 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) || (a.Max7.Exists && !b.Max7.Exists))
 				return false;
 
-			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != Comparison.Less)
+			if (b.Min1.Exists && a.Min1.Exists && this._compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less)
 				return false;
-			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != Comparison.Less)
-				return false;
-			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != Comparison.Greater)
+			if (b.Max1.Exists && a.Max1.Exists && this._compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != Comparison.Less)
+			if (b.Min2.Exists && a.Min2.Exists && this._compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less)
 				return false;
-			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != Comparison.Less)
-				return false;
-			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != Comparison.Greater)
+			if (b.Max2.Exists && a.Max2.Exists && this._compare2(a.Max2.Value, b.Max2.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != Comparison.Less)
+			if (b.Min3.Exists && a.Min3.Exists && this._compare3(a.Min3.Value, b.Min3.Value) != CompareResult.Less)
 				return false;
-			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != Comparison.Greater)
-				return false;
-
-			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != Comparison.Less)
-				return false;
-			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != Comparison.Greater)
+			if (b.Max3.Exists && a.Max3.Exists && this._compare3(a.Max3.Value, b.Max3.Value) != CompareResult.Greater)
 				return false;
 
-			if (b.Min7.Exists && a.Min7.Exists && this._compare7(a.Min7.Value, b.Min7.Value) != Comparison.Less)
+			if (b.Min4.Exists && a.Min4.Exists && this._compare4(a.Min4.Value, b.Min4.Value) != CompareResult.Less)
 				return false;
-			if (b.Max7.Exists && a.Max7.Exists && this._compare7(a.Max7.Value, b.Max7.Value) != Comparison.Greater)
+			if (b.Max4.Exists && a.Max4.Exists && this._compare4(a.Max4.Value, b.Max4.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min5.Exists && a.Min5.Exists && this._compare5(a.Min5.Value, b.Min5.Value) != CompareResult.Less)
+				return false;
+			if (b.Max5.Exists && a.Max5.Exists && this._compare5(a.Max5.Value, b.Max5.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min6.Exists && a.Min6.Exists && this._compare6(a.Min6.Value, b.Min6.Value) != CompareResult.Less)
+				return false;
+			if (b.Max6.Exists && a.Max6.Exists && this._compare6(a.Max6.Value, b.Max6.Value) != CompareResult.Greater)
+				return false;
+
+			if (b.Min7.Exists && a.Min7.Exists && this._compare7(a.Min7.Value, b.Min7.Value) != CompareResult.Less)
+				return false;
+			if (b.Max7.Exists && a.Max7.Exists && this._compare7(a.Max7.Value, b.Max7.Value) != CompareResult.Greater)
 				return false;
 
 			return true;

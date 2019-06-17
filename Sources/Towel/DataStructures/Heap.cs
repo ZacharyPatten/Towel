@@ -165,7 +165,7 @@ namespace Towel.DataStructures
             int i;
             for (i = 1; i <= _count; i++)
             {
-                if (_compare(item, _heap[i]) == Comparison.Equal)
+                if (_compare(item, _heap[i]) == CompareResult.Equal)
                 {
                     break;
                 }
@@ -195,7 +195,7 @@ namespace Towel.DataStructures
         internal void ShiftUp(int index)
         {
             int parent;
-            while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) == Comparison.Greater)
+            while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) == CompareResult.Greater)
             {
                 ArraySwap(index, parent);
                 index = parent;
@@ -211,11 +211,11 @@ namespace Towel.DataStructures
             while ((leftChild = LeftChild(index)) <= _count)
             {
                 int down = leftChild;
-                if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) == Comparison.Greater)
+                if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) == CompareResult.Greater)
                 {
                     down = rightChild;
                 }
-                if (_compare(_heap[down], _heap[index]) == Comparison.Less)
+                if (_compare(_heap[down], _heap[index]) == CompareResult.Less)
                 {
                     break;
                 }

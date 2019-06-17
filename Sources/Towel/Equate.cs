@@ -38,7 +38,7 @@ namespace Towel
 
         public static Equate<T> FromCompare<T>(Compare<T> compare)
         {
-            return (T a, T b) => { return compare(a, b) == Comparison.Equal; };
+            return (T a, T b) => { return compare(a, b) == CompareResult.Equal; };
         }
     }
 

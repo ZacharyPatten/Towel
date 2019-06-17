@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Towel
 {
-    /// <summary>Comparison operator between two operands in a logical expression.</summary>
+    /// <summary>The result of a comparison between two values.</summary>
     [Serializable]
-    public enum Comparison
+    public enum CompareResult
     {
         /// <summary>The left operand is less than the right operand.</summary>
         Less = -1,
@@ -21,7 +21,7 @@ namespace Towel
     /// <param name="right">The right operand of the comparison.</param>
     /// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
     [Serializable]
-    public delegate Comparison Compare<T>(T left, T right);
+    public delegate CompareResult Compare<T>(T left, T right);
 
     /// <summary>Delegate for comparing two instances of different types.</summary>
     /// <typeparam name="Left">The type of the left istance to compare.</typeparam>
@@ -30,14 +30,14 @@ namespace Towel
     /// <param name="right">The right operand of the comparison.</param>
     /// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
     [Serializable]
-    public delegate Comparison Compare<Left, Right>(Left left, Right right);
+    public delegate CompareResult Compare<Left, Right>(Left left, Right right);
 
     /// <summary>Delegate for comparing a value to a known value.</summary>
     /// <typeparam name="T">The generic types to compare.</typeparam>
     /// <param name="value">The value to compare to the known value.</param>
     /// <returns>The result of the comparison.</returns>
     [Serializable]
-    public delegate Comparison CompareToKnownValue<T>(T value);
+    public delegate CompareResult CompareToKnownValue<T>(T value);
 
     /// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
     public static class Compare
@@ -45,19 +45,19 @@ namespace Towel
         /// <summary>Converts an int into a comparison.</summary>
         /// <param name="comparison">The integer comparison result to convert into a Comparison.</param>
         /// <returns>The converted Comparison value.</returns>
-        public static Comparison Wrap(int comparison)
+        public static CompareResult Wrap(int comparison)
         {
             if (comparison < 0)
             {
-                return Comparison.Less;
+                return CompareResult.Less;
             }
             else if (comparison > 0)
             {
-                return Comparison.Greater;
+                return CompareResult.Greater;
             }
             else
             {
-                return Comparison.Equal;
+                return CompareResult.Equal;
             }
         }
 
@@ -78,15 +78,15 @@ namespace Towel
                             int comparison = comparer.Compare(_a, _b);
                             if (comparison < 0)
                             {
-                                return Comparison.Less;
+                                return CompareResult.Less;
                             }
                             else if (comparison > 0)
                             {
-                                return Comparison.Greater;
+                                return CompareResult.Greater;
                             }
                             else
                             {
-                                return Comparison.Equal;
+                                return CompareResult.Equal;
                             }
                         };
                     return DefaultWrapper<T>.Compare(a, b);
@@ -99,7 +99,7 @@ namespace Towel
         /// <param name="a">Left operand of the comparison.</param>
         /// <param name="b">Right operand of the comparison.</param>
         /// <returns>The result of the comparison.</returns>
-        public static Comparison Default<T>(T a, T b)
+        public static CompareResult Default<T>(T a, T b)
         {
             return DefaultWrapper<T>.Compare(a, b);
         }
@@ -126,13 +126,13 @@ namespace Towel
 
         /// <summary>Inverts a comparison value.</summary>
         /// <returns>The invert of the comparison value.</returns>
-        public static Comparison Invert(this Comparison comparison)
+        public static CompareResult Invert(this CompareResult comparison)
         {
             switch (comparison)
             {
-                case Comparison.Greater: return Comparison.Less;
-                case Comparison.Less: return Comparison.Greater;
-                case Comparison.Equal: return Comparison.Equal;
+                case CompareResult.Greater: return CompareResult.Less;
+                case CompareResult.Less: return CompareResult.Greater;
+                case CompareResult.Equal: return CompareResult.Equal;
                 default: throw new NotImplementedException();
             }
         }
@@ -148,15 +148,15 @@ namespace Towel
                 int result = comparer.Compare(a, b);
                 if (result == 0)
                 {
-                    return Comparison.Equal;
+                    return CompareResult.Equal;
                 }
                 else if (result < 0)
                 {
-                    return Comparison.Less;
+                    return CompareResult.Less;
                 }
                 else if (result > 0)
                 {
-                    return Comparison.Greater;
+                    return CompareResult.Greater;
                 }
                 else
                 {

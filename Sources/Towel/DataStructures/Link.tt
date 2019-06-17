@@ -114,7 +114,7 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if (compare(this._<#= j #>, item) == Comparison.Equal)
+			if (compare(this._<#= j #>, item) == CompareResult.Equal)
 				return true;<# } #>
 			return false;
 		}
@@ -274,7 +274,7 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if (compare(this._<#= j #>, item) == Comparison.Equal)
+			if (compare(this._<#= j #>, item) == CompareResult.Equal)
 				return true;<# } #>
 			return false;
 		}

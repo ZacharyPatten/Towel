@@ -464,18 +464,18 @@ namespace Towel.DataStructures
             for (int i = 0; i < node.ItemCount; i++)
                 switch (compare(node.Items[i], key))
                 {
-                    case Comparison.Less:
+                    case CompareResult.Less:
                         loc++;
                         continue;
-                    case Comparison.Equal:
+                    case CompareResult.Equal:
                         goto break_for;
-                    case Comparison.Greater:
+                    case CompareResult.Greater:
                         goto break_for;
                     default:
                         throw new System.NotImplementedException();
                 }
             break_for:
-            if (loc < node.ItemCount && compare(node.Items[loc], key) == Comparison.Equal)
+            if (loc < node.ItemCount && compare(node.Items[loc], key) == CompareResult.Equal)
                 return true;
             if (node.ChildCount == 0)
                 return false;
@@ -489,18 +489,18 @@ namespace Towel.DataStructures
             for (int i = 0; i < node.ItemCount; i++)
                 switch (compare(node.Items[i], key))
                 {
-                    case Comparison.Less:
+                    case CompareResult.Less:
                         loc++;
                         continue;
-                    case Comparison.Equal:
+                    case CompareResult.Equal:
                         goto break_for;
-                    case Comparison.Greater:
+                    case CompareResult.Greater:
                         goto break_for;
                     default:
                         throw new System.NotImplementedException();
                 }
             break_for:
-            if (loc < node.ItemCount && compare(node.Items[loc], key) == Comparison.Equal)
+            if (loc < node.ItemCount && compare(node.Items[loc], key) == CompareResult.Equal)
                 return node.Items[loc];
             if (node.ChildCount == 0)
                 throw new System.InvalidOperationException("getting a non-existing item");
@@ -514,18 +514,18 @@ namespace Towel.DataStructures
             for (int i = 0; i < node.ItemCount; i++)
                 switch (compare(node.Items[i], key))
                 {
-                    case Comparison.Less:
+                    case CompareResult.Less:
                         loc++;
                         continue;
-                    case Comparison.Equal:
+                    case CompareResult.Equal:
                         goto break_for;
-                    case Comparison.Greater:
+                    case CompareResult.Greater:
                         goto break_for;
                     default:
                         throw new System.NotImplementedException();
                 }
             break_for:
-            if (loc < node.ItemCount && compare(node.Items[loc], key) == Comparison.Equal)
+            if (loc < node.ItemCount && compare(node.Items[loc], key) == CompareResult.Equal)
             {
                 this.RemoveKeyFromNode(node, key, compare, loc);
                 return;
@@ -762,12 +762,12 @@ namespace Towel.DataStructures
             for (int i = 0; i < node.ItemCount; i++)
                 switch (this._compare(addition, node.Items[i]))
                 {
-                    case Comparison.Less:
+                    case CompareResult.Less:
                         goto break_for;
-                    case Comparison.Equal:
+                    case CompareResult.Equal:
                         positionToInsert++;
                         continue;
-                    case Comparison.Greater:
+                    case CompareResult.Greater:
                         positionToInsert++;
                         continue;
                     default:
@@ -786,7 +786,7 @@ namespace Towel.DataStructures
             if (child.ItemCount == this._node_size)// (2 * this._node_size) - 1) // non-leaf
             {
                 this.Add_SplitChild(node, positionToInsert, child);
-                if (this._compare(addition, node.Items[positionToInsert]) == Comparison.Greater)
+                if (this._compare(addition, node.Items[positionToInsert]) == CompareResult.Greater)
                 {
                     positionToInsert++;
                 }

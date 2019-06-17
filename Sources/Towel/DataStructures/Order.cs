@@ -85,7 +85,7 @@ namespace Towel.DataStructures
             int index;
             for (index = this._list.Count; index > 0; index--)
             {
-                if (this._compare(addition, this._list[index - 1]) == Comparison.Greater)
+                if (this._compare(addition, this._list[index - 1]) == CompareResult.Greater)
                     break;
             }
             this._list.Add(addition, index);

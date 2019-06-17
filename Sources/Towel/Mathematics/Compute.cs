@@ -1174,27 +1174,27 @@ namespace Towel.Mathematics
         /// <param name="a">The first operand of the comparison.</param>
         /// <param name="b">The second operand of the comparison.</param>
         /// <returns>The result of the comparison.</returns>
-        public static Comparison Compare<T>(T a, T b)
+        public static CompareResult Compare<T>(T a, T b)
         {
             return CompareImplementation<T>.Function(a, b);
         }
 
         internal static class CompareImplementation<T>
         {
-            internal static Func<T, T, Comparison> Function = (T a, T b) =>
+            internal static Func<T, T, CompareResult> Function = (T a, T b) =>
             {
                 ParameterExpression A = Expression.Parameter(typeof(T));
                 ParameterExpression B = Expression.Parameter(typeof(T));
-                LabelTarget RETURN = Expression.Label(typeof(Comparison));
+                LabelTarget RETURN = Expression.Label(typeof(CompareResult));
                 Expression BODY = Expression.Block(
                     Expression.IfThen(
                             Expression.LessThan(A, B),
-                            Expression.Return(RETURN, Expression.Constant(Comparison.Less))),
+                            Expression.Return(RETURN, Expression.Constant(CompareResult.Less))),
                         Expression.IfThen(
                             Expression.GreaterThan(A, B),
-                            Expression.Return(RETURN, Expression.Constant(Comparison.Greater))),
-                        Expression.Return(RETURN, Expression.Constant(Comparison.Equal)),
-                        Expression.Label(RETURN, Expression.Constant(default(Comparison), typeof(Comparison))));
+                            Expression.Return(RETURN, Expression.Constant(CompareResult.Greater))),
+                        Expression.Return(RETURN, Expression.Constant(CompareResult.Equal)),
+                        Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
                 //Expression.IfThenElse(
                 //    Expression.LessThan(A, B),
                 //    Expression.Return(RETURN, Expression.Constant(Comparison.Less)),
@@ -1203,7 +1203,7 @@ namespace Towel.Mathematics
                 //        Expression.Return(RETURN, Expression.Constant(Comparison.Greater)),
                 //        Expression.Return(RETURN, Expression.Constant(Comparison.Equal)))),
                 //Expression.Label(RETURN, Expression.Constant(default(Comparison), typeof(Comparison))));
-                Function = Expression.Lambda<Func<T, T, Comparison>>(BODY, A, B).Compile();
+                Function = Expression.Lambda<Func<T, T, CompareResult>>(BODY, A, B).Compile();
                 return Function(a, b);
             };
         }

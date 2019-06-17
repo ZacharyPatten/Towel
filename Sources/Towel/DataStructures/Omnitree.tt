@@ -182,9 +182,9 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b, <#= chain_Compare_AxisX_compareX #>)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == Comparison.Less)
+			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == Comparison.Greater)
+			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -196,9 +196,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 <# for (int j = 1; j <= i; j++) { #>
-			if (bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == Comparison.Less)
+			if (bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == Comparison.Greater)
+			else if (bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -213,9 +213,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #>)
 				return false;
 <# for (int j = 1; j <= i; j++) { #>
-			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != Comparison.Less)
+			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less)
 				return false;
-			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != Comparison.Greater)
+			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -2120,8 +2120,8 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if ((!bounds.Min<#= j #>.Exists || (bounds.Min<#= j #>.Exists && this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != Comparison.Greater)) &&
-				(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != Comparison.Less)))
+			if ((!bounds.Min<#= j #>.Exists || (bounds.Min<#= j #>.Exists && this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
+				(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)))
 				return true;<# } #>
 			return false;
 		}
@@ -2133,7 +2133,7 @@ namespace Towel.DataStructures
 		private <#= child_index_type #> DetermineChildIndex(Omnitree.Vector<<#= chain_AxisX #>> pointOfDivision, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
 			<#= child_index_type #> child = 0;<# for (int j = 1; j <= i; j++) { #>
-			if (!(this._compare<#= j #>(vector.Axis<#= j #>, pointOfDivision.Axis<#= j #>) == Comparison.Less))
+			if (!(this._compare<#= j #>(vector.Axis<#= j #>, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
 				child += 1 << <#= j - 1 #>;<# } #>
 			return child;
 		}
@@ -2187,9 +2187,9 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b)
 		{
 <# for (int j = 1; j <= i; j++) { #>
-			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == Comparison.Less)
+			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == Comparison.Greater)
+			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -2201,9 +2201,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 <# for (int j = 1; j <= i; j++) { #>
-			if (bounds.Min<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == Comparison.Less)
+			if (bounds.Min<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == Comparison.Greater)
+			else if (bounds.Max<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -2218,9 +2218,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #>)
 				return false;
 <# for (int j = 1; j <= i; j++) { #>
-			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != Comparison.Less)
+			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less)
 				return false;
-			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != Comparison.Greater)
+			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -4104,8 +4104,8 @@ namespace Towel.DataStructures
 
 		private bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if ((!bounds.Min<#= j #>.Exists || (this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != Comparison.Greater)) &&
-				(!bounds.Max<#= j #>.Exists || (this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != Comparison.Less)))
+			if ((!bounds.Min<#= j #>.Exists || (this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
+				(!bounds.Max<#= j #>.Exists || (this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)))
 				return true;<# } #>
 			return false;
 		}
@@ -4121,7 +4121,7 @@ namespace Towel.DataStructures
 				return -1;
 
 			<#= child_index_type #> child = 0;<# for (int j = 1; j <= i; j++) { #>
-			if (!bounds.Min<#= j #>.Exists || !(this._compare<#= j #>(bounds.Min<#= j #>.Value, pointOfDivision.Axis<#= j #>) == Comparison.Less))
+			if (!bounds.Min<#= j #>.Exists || !(this._compare<#= j #>(bounds.Min<#= j #>.Value, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
 				child += 1 << <#= j - 1 #>;<# } #>
 			return child;
 		}
@@ -4175,9 +4175,9 @@ namespace Towel.DataStructures
 		private bool InclusionCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b)
 		{
 <# for (int j = 1; j <= i; j++) { #>
-			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == Comparison.Less)
+			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == Comparison.Greater)
+			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -4189,9 +4189,9 @@ namespace Towel.DataStructures
 		{
 			// if the location is not outside the bounds, it must be inside
 <# for (int j = 1; j <= i; j++) { #>
-			if (bounds.Min<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == Comparison.Less)
+			if (bounds.Min<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less)
 				return false;
-			else if (bounds.Max<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == Comparison.Greater)
+			else if (bounds.Max<#= j #>.Exists && this._compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater)
 				return false;
 <# } #>
 			return true;
@@ -4206,9 +4206,9 @@ namespace Towel.DataStructures
 			if ((a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #>)
 				return false;
 <# for (int j = 1; j <= i; j++) { #>
-			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != Comparison.Less)
+			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && this._compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less)
 				return false;
-			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != Comparison.Greater)
+			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && this._compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater)
 				return false;
 <# } #>
 			return true;

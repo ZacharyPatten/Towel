@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
 using static Towel.Mathematics.Compute;
@@ -1041,7 +1042,6 @@ namespace Towel_Testing.Mathematics
             }
         }
 
-
         [TestMethod]
         public void NotEqual_Testing()
         {
@@ -1066,5 +1066,36 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(NotEqual(6m, 7m));
         }
 
+        [TestMethod]
+        public void Compare_Testing()
+        {
+            Assert.IsTrue(Compare(0, 0) == CompareResult.Equal);
+            Assert.IsTrue(Compare(-1, 0) == CompareResult.Less);
+            Assert.IsTrue(Compare(1, 0) == CompareResult.Greater);
+            Assert.IsTrue(Compare(777, 333) == CompareResult.Greater);
+            Assert.IsTrue(Compare(333, 777) == CompareResult.Less);
+            Assert.IsTrue(Compare(777, 777) == CompareResult.Equal);
+
+            Assert.IsTrue(Compare(0f, 0f) == CompareResult.Equal);
+            Assert.IsTrue(Compare(-1f, 0f) == CompareResult.Less);
+            Assert.IsTrue(Compare(1f, 0f) == CompareResult.Greater);
+            Assert.IsTrue(Compare(777f, 333f) == CompareResult.Greater);
+            Assert.IsTrue(Compare(333f, 777f) == CompareResult.Less);
+            Assert.IsTrue(Compare(777f, 777f) == CompareResult.Equal);
+
+            Assert.IsTrue(Compare(0d, 0d) == CompareResult.Equal);
+            Assert.IsTrue(Compare(-1d, 0d) == CompareResult.Less);
+            Assert.IsTrue(Compare(1d, 0d) == CompareResult.Greater);
+            Assert.IsTrue(Compare(777d, 333d) == CompareResult.Greater);
+            Assert.IsTrue(Compare(333d, 777d) == CompareResult.Less);
+            Assert.IsTrue(Compare(777d, 777d) == CompareResult.Equal);
+
+            Assert.IsTrue(Compare(0m, 0m) == CompareResult.Equal);
+            Assert.IsTrue(Compare(-1m, 0m) == CompareResult.Less);
+            Assert.IsTrue(Compare(1m, 0m) == CompareResult.Greater);
+            Assert.IsTrue(Compare(777m, 333m) == CompareResult.Greater);
+            Assert.IsTrue(Compare(333m, 777m) == CompareResult.Less);
+            Assert.IsTrue(Compare(777m, 777m) == CompareResult.Equal);
+        }
     }
 }

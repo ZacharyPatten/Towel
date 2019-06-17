@@ -40,12 +40,12 @@ namespace Towel.Algorithms
                 int median = low + (hi - low >> 1);
                 switch (compare(get(median)))
                 {
-                    case Comparison.Equal:
+                    case CompareResult.Equal:
                         return median;
-                    case Comparison.Less:
+                    case CompareResult.Less:
                         low = median + 1;
                         break;
-                    case Comparison.Greater:
+                    case CompareResult.Greater:
                         hi = median - 1;
                         break;
                     default:

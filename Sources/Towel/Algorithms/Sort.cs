@@ -52,7 +52,7 @@
             {
                 for (int j = start; j <= end - 1; j++)
                 {
-                    if (compare(get(j), get(j + 1)) == Comparison.Greater)
+                    if (compare(get(j), get(j + 1)) == CompareResult.Greater)
                     {
                         T temp = get(j + 1);
                         set(j + 1, get(j));
@@ -114,7 +114,7 @@
                 int min_idx = i;
                 for (int j = i + 1; j <= end; j++)
                 {
-                    if (compare(get(j), get(min_idx)) == Comparison.Less)
+                    if (compare(get(j), get(min_idx)) == CompareResult.Less)
                     {
                         min_idx = j;
                     }
@@ -176,7 +176,7 @@
             {
                 T temp = get(i);
                 int j = i;
-                for (; j > start && compare(get(j - 1), temp) == Comparison.Greater; j--)
+                for (; j > start && compare(get(j - 1), temp) == CompareResult.Greater; j--)
                 {
                     set(j, get(j - 1));
                 }
@@ -244,13 +244,13 @@
                 int k = j;
                 while (i <= j)
                 {
-                    if (compare(get(j), pivot) == Comparison.Less)
+                    if (compare(get(j), pivot) == CompareResult.Less)
                     {
                         T temp = get(i);
                         set(i++, get(j));
                         set(j, temp);
                     }
-                    else if (compare(get(j), pivot) == Comparison.Equal)
+                    else if (compare(get(j), pivot) == CompareResult.Equal)
                     {
                         j--;
                     }
@@ -329,7 +329,7 @@
                 int k = 0;
                 while (i < start + half && j < start + len)
                 {
-                    if (compare(get(i), get(j)) == Comparison.Greater)
+                    if (compare(get(i), get(j)) == CompareResult.Greater)
                     {
                         sorted[k++] = get(j++);
                     }
@@ -414,7 +414,7 @@
             int left = (index + 1) * 2 - 1;
             int right = (index + 1) * 2;
             int largest;
-            if (left < heapSize && compare(get(left), get(index)) == Comparison.Greater)
+            if (left < heapSize && compare(get(left), get(index)) == CompareResult.Greater)
             {
                 largest = left;
             }
@@ -422,7 +422,7 @@
             {
                 largest = index;
             }
-            if (right < heapSize && compare(get(right), get(largest)) == Comparison.Greater)
+            if (right < heapSize && compare(get(right), get(largest)) == CompareResult.Greater)
             {
                 largest = right;
             }
@@ -488,7 +488,7 @@
                 sorted = true;
                 for (var i = start + 1; i < end - 1; i += 2)
                 {
-                    if (compare(get(i), get(i + 1)) == Comparison.Greater)
+                    if (compare(get(i), get(i + 1)) == CompareResult.Greater)
                     {
                         T temp = get(i);
                         set(i, get(i + 1));
@@ -498,7 +498,7 @@
                 }
                 for (var i = start; i < end - 1; i += 2)
                 {
-                    if (compare(get(i), get(i + 1)) == Comparison.Greater)
+                    if (compare(get(i), get(i + 1)) == CompareResult.Greater)
                     {
                         T temp = get(i);
                         set(i, get(i + 1));
@@ -714,7 +714,7 @@
         {
             for (int i = start; i <= end - 1; i++)
             {
-                if (compare(get(i), get(i + 1)) == Comparison.Greater)
+                if (compare(get(i), get(i + 1)) == CompareResult.Greater)
                 {
                     return false;
                 }

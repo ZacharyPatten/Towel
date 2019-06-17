@@ -113,7 +113,7 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -270,7 +270,7 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -440,9 +440,9 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -616,9 +616,9 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -805,11 +805,11 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -1000,11 +1000,11 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -1208,13 +1208,13 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -1422,13 +1422,13 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -1649,15 +1649,15 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -1882,15 +1882,15 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -2128,17 +2128,17 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._6, item) == Comparison.Equal)
+			if (compare(this._6, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -2380,17 +2380,17 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._6, item) == Comparison.Equal)
+			if (compare(this._6, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -2645,19 +2645,19 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._6, item) == Comparison.Equal)
+			if (compare(this._6, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._7, item) == Comparison.Equal)
+			if (compare(this._7, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
@@ -2916,19 +2916,19 @@ namespace Towel.DataStructures
 		/// <returns>true if the item is in this structure; false if not.</returns>
 		public	bool Contains(object item, Compare<object> compare)
 		{
-			if (compare(this._1, item) == Comparison.Equal)
+			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._2, item) == Comparison.Equal)
+			if (compare(this._2, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._3, item) == Comparison.Equal)
+			if (compare(this._3, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._4, item) == Comparison.Equal)
+			if (compare(this._4, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._5, item) == Comparison.Equal)
+			if (compare(this._5, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._6, item) == Comparison.Equal)
+			if (compare(this._6, item) == CompareResult.Equal)
 				return true;
-			if (compare(this._7, item) == Comparison.Equal)
+			if (compare(this._7, item) == CompareResult.Equal)
 				return true;
 			return false;
 		}
