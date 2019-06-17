@@ -19,6 +19,7 @@ var measurements = new (string, string[], string[])[]
 	("Density", new string[] { "Mass" }, new string[] { "Length", "Length", "Length" }),
 	("ElectricCharge", new string[] { "ElectricCharge" }, new string[] { }),
 	("ElectricCurrent", new string[] { "ElectricCharge" }, new string[] { "Time" }),
+	("Energy", new string[] { "Mass", "Length", "Length", }, new string[] { "Time", "Time", }),
 	("Force", new string[] { "Mass", "Length" }, new string[] { "Time", "Time" }),
 	("Length", new string[] { "Length" }, new string[] { }),
 	("LinearDensity", new string[] { "Mass" }, new string[] { "Length" }),

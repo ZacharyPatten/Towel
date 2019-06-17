@@ -232,6 +232,21 @@ namespace Towel.Measurements
 
     #endregion
 
+    #region Energy
+
+    /// <summary>Contains unit types and conversion factors for the generic Energy struct.</summary>
+    public static class Energy
+    {
+        /// <summary>Units for Energy measurements.</summary>
+        [Serializable]
+        public enum Units
+        {
+            // no custom units currently
+        }
+    }
+
+    #endregion
+
     #region Force
 
     /// <summary>Contains unit types and conversion factors for the generic Force struct.</summary>
@@ -972,6 +987,13 @@ namespace Towel.Measurements
         /// <summary>Units of an electric charge measurement.</summary>
         public static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yottaampheres = new MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits() { _ElectricChargeUnits1 = ElectricCharge.Units.Yottacoulombs, _TimeUnits2 = Time.Units.Seconds };
 
+
+        #endregion
+
+        #region Energy Units
+
+        /// <summary>Units of an Energy measurement.</summary>
+        public static MeasurementUnitsSyntaxTypes.EnergyBaseUnits Joules = new MeasurementUnitsSyntaxTypes.EnergyBaseUnits() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds };
 
         #endregion
 
