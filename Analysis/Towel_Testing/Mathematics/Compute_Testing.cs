@@ -1097,5 +1097,37 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Compare(333m, 777m) == CompareResult.Less);
             Assert.IsTrue(Compare(777m, 777m) == CompareResult.Equal);
         }
+
+        [TestMethod]
+        public void LessThan_Testing()
+        {
+            Assert.IsFalse(LessThan(0, 0));
+            Assert.IsTrue(LessThan(-1, 0));
+            Assert.IsFalse(LessThan(1, 0));
+            Assert.IsFalse(LessThan(777, 333));
+            Assert.IsTrue(LessThan(333, 777));
+            Assert.IsFalse(LessThan(777, 777));
+
+            Assert.IsFalse(LessThan(0f, 0f));
+            Assert.IsTrue(LessThan(-1f, 0f));
+            Assert.IsFalse(LessThan(1f, 0f));
+            Assert.IsFalse(LessThan(777f, 333f));
+            Assert.IsTrue(LessThan(333f, 777f));
+            Assert.IsFalse(LessThan(777f, 777f));
+
+            Assert.IsFalse(LessThan(0d, 0d));
+            Assert.IsTrue(LessThan(-1d, 0d));
+            Assert.IsFalse(LessThan(1d, 0d));
+            Assert.IsFalse(LessThan(777d, 333d));
+            Assert.IsTrue(LessThan(333d, 777d));
+            Assert.IsFalse(LessThan(777d, 777d));
+
+            Assert.IsFalse(LessThan(0m, 0m));
+            Assert.IsTrue(LessThan(-1m, 0m));
+            Assert.IsFalse(LessThan(1m, 0m));
+            Assert.IsFalse(LessThan(777m, 333m));
+            Assert.IsTrue(LessThan(333m, 777m));
+            Assert.IsFalse(LessThan(777m, 777m));
+        }
     }
 }
