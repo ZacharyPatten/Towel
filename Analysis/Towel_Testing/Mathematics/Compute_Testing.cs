@@ -419,18 +419,22 @@ namespace Towel_Testing.Mathematics
             Assert.IsTrue(Equal(0, 0));
             Assert.IsTrue(Equal(1, 1));
             Assert.IsTrue(Equal(2, 2));
+            Assert.IsFalse(Equal(0, 1));
 
             Assert.IsTrue(Equal(0f, 0f));
             Assert.IsTrue(Equal(1f, 1f));
             Assert.IsTrue(Equal(2f, 2f));
+            Assert.IsFalse(Equal(0f, 1f));
 
             Assert.IsTrue(Equal(0d, 0d));
             Assert.IsTrue(Equal(1d, 1d));
             Assert.IsTrue(Equal(2d, 2d));
+            Assert.IsFalse(Equal(0d, 1d));
 
             Assert.IsTrue(Equal(0m, 0m));
             Assert.IsTrue(Equal(1m, 1m));
             Assert.IsTrue(Equal(2m, 2m));
+            Assert.IsFalse(Equal(0m, 1m));
 
             // More than 2 operands
 
@@ -1011,5 +1015,56 @@ namespace Towel_Testing.Mathematics
                 Assert.IsTrue(Convert<decimal, decimal>(7m) == 7m);
             }
         }
+
+        [TestMethod]
+        public void Clamp_Testing()
+        {
+            { // int
+                Assert.IsTrue(Clamp(5, 3, 7) == 5);
+                Assert.IsTrue(Clamp(3, 5, 7) == 5);
+                Assert.IsTrue(Clamp(9, 3, 7) == 7);
+            }
+            { // float
+                Assert.IsTrue(Clamp(5f, 3f, 7f) == 5f);
+                Assert.IsTrue(Clamp(3f, 5f, 7f) == 5f);
+                Assert.IsTrue(Clamp(9f, 3f, 7f) == 7f);
+            }
+            { // double
+                Assert.IsTrue(Clamp(5d, 3d, 7d) == 5d);
+                Assert.IsTrue(Clamp(3d, 5d, 7d) == 5d);
+                Assert.IsTrue(Clamp(9d, 3d, 7d) == 7d);
+            }
+            { // decimal
+                Assert.IsTrue(Clamp(5m, 3m, 7m) == 5m);
+                Assert.IsTrue(Clamp(3m, 5m, 7m) == 5m);
+                Assert.IsTrue(Clamp(9m, 3m, 7m) == 7m);
+            }
+        }
+
+
+        [TestMethod]
+        public void NotEqual_Testing()
+        {
+            Assert.IsTrue(NotEqual(0, 1));
+            Assert.IsTrue(NotEqual(-1, 1));
+            Assert.IsFalse(NotEqual(1, 1));
+            Assert.IsTrue(NotEqual(6, 7));
+
+            Assert.IsTrue(NotEqual(0f, 1f));
+            Assert.IsTrue(NotEqual(-1f, 1f));
+            Assert.IsFalse(NotEqual(1f, 1f));
+            Assert.IsTrue(NotEqual(6f, 7f));
+
+            Assert.IsTrue(NotEqual(0d, 1d));
+            Assert.IsTrue(NotEqual(-1d, 1d));
+            Assert.IsFalse(NotEqual(1d, 1d));
+            Assert.IsTrue(NotEqual(6d, 7d));
+
+            Assert.IsTrue(NotEqual(0m, 1m));
+            Assert.IsTrue(NotEqual(-1m, 1m));
+            Assert.IsFalse(NotEqual(1m, 1m));
+            Assert.IsTrue(NotEqual(6m, 7m));
+        }
+
     }
 }
