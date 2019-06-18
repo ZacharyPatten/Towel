@@ -1454,12 +1454,13 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(a));
             }
+            int Rows = a.Rows;
+            int Columns = a.Columns;
             if (object.ReferenceEquals(a, b))
             {
-                a = a.Clone();
+                b = a.Clone();
             }
-            int Rows = a.Rows;
-            if (b != null && b._matrix.Length == a._matrix.Length)
+            else if (b != null && b._matrix.Length == a._matrix.Length)
             {
                 b._rows = Rows;
                 b._columns = a._columns;
@@ -1469,45 +1470,115 @@ namespace Towel.Mathematics
             {
                 b = a.Clone();
             }
-            for (int i = 0; i < Rows; i++)
+            int lead = 0;
+            for (int r = 0; r < Rows; r++)
             {
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+                if (Columns <= lead) break;
+                int i = r;
+                while (Compute.Equal(b.Get(i, lead), Constant<T>.Zero))
                 {
-                    for (int j = i + 1; j < Rows; j++)
+                    i++;
+                    if (i == Rows)
                     {
-                        if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+                        i = r;
+                        lead++;
+                        if (Columns == lead)
                         {
-                            SwapRows(b, i, j);
+                            lead--;
+                            break;
                         }
                     }
                 }
-                if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+                for (int j = 0; j < Columns; j++)
                 {
-                    continue;
+                    T temp = b.Get(r, j);
+                    b.Set(r, j, b.Get(i, j));
+                    b.Set(i, j, temp);
                 }
-                if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+                T div = b.Get(r, lead);
+                if (Compute.NotEqual(div, Constant<T>.Zero))
                 {
-                    for (int j = i + 1; j < Rows; j++)
+                    for (int j = 0; j < Columns; j++)
                     {
-                        if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+                        b.Set(r, j, Compute.Divide(b.Get(r, j), div));
+                    }
+                }
+                for (int j = 0; j < Rows; j++)
+                {
+                    if (j != r)
+                    {
+                        T sub = b.Get(j, lead);
+                        for (int k = 0; k < Columns; k++)
                         {
-                            SwapRows(b, i, j);
+                            b.Set(j, k, Compute.Subtract(b.Get(j, k), Compute.Multiply(sub, b.Get(r, k))));
                         }
                     }
                 }
-                T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
-                RowMultiplication(b, i, rowMiltiplier);
-                for (int j = i + 1; j < Rows; j++)
-                {
-                    T rowAddend = Compute.Negate(b.Get(j, i));
-                    RowAddition(b, j, i, rowAddend);
-                }
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    T rowAddend = Compute.Negate(b.Get(j, i));
-                    RowAddition(b, j, i, rowAddend);
-                }
+                lead++;
             }
+
+            #region Old Version
+
+            //if (a is null)
+            //{
+            //    throw new ArgumentNullException(nameof(a));
+            //}
+            //if (object.ReferenceEquals(a, b))
+            //{
+            //    a = a.Clone();
+            //}
+            //int Rows = a.Rows;
+            //if (b != null && b._matrix.Length == a._matrix.Length)
+            //{
+            //    b._rows = Rows;
+            //    b._columns = a._columns;
+            //    CloneContents(a, b);
+            //}
+            //else
+            //{
+            //    b = a.Clone();
+            //}
+            //for (int i = 0; i < Rows; i++)
+            //{
+            //    if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+            //    {
+            //        for (int j = i + 1; j < Rows; j++)
+            //        {
+            //            if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+            //            {
+            //                SwapRows(b, i, j);
+            //            }
+            //        }
+            //    }
+            //    if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+            //    {
+            //        continue;
+            //    }
+            //    if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+            //    {
+            //        for (int j = i + 1; j < Rows; j++)
+            //        {
+            //            if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+            //            {
+            //                SwapRows(b, i, j);
+            //            }
+            //        }
+            //    }
+            //    T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
+            //    RowMultiplication(b, i, rowMiltiplier);
+            //    for (int j = i + 1; j < Rows; j++)
+            //    {
+            //        T rowAddend = Compute.Negate(b.Get(j, i));
+            //        RowAddition(b, j, i, rowAddend);
+            //    }
+            //    for (int j = i - 1; j >= 0; j--)
+            //    {
+            //        T rowAddend = Compute.Negate(b.Get(j, i));
+            //        RowAddition(b, j, i, rowAddend);
+            //    }
+            //}
+
+            #endregion
         }
 
         /// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>

@@ -1113,6 +1113,23 @@ namespace Towel_Testing.Mathematics
         [TestMethod]
         public void ReducedEchelon()
         {
+            { // int
+                Matrix<int> A = new Matrix<int>(3, 3)
+                {
+                    [0] = 1, [1] = 2, [2] = 3,
+                    [3] = 4, [4] = 5, [5] = 6,
+                    [6] = 7, [7] = 8, [8] = 9,
+                };
+
+                Matrix<int> B = new Matrix<int>(3, 3)
+                {
+                    [0] = 1, [1] = 0, [2] = -1,
+                    [3] = 0, [4] = 1, [5] =  2,
+                    [6] = 0, [7] = 0, [8] =  0,
+                };
+
+                Assert.IsTrue(A.ReducedEchelon() == B);
+            }
             { // float
                 Matrix<float> A = new Matrix<float>(3, 3)
                 {
@@ -1147,6 +1164,24 @@ namespace Towel_Testing.Mathematics
 
                 Assert.IsTrue(A.ReducedEchelon() == B);
             }
+            { // decimal
+                Matrix<decimal> A = new Matrix<decimal>(3, 3)
+                {
+                    [0] = 1m, [1] = 2m, [2] = 3m,
+                    [3] = 4m, [4] = 5m, [5] = 6m,
+                    [6] = 7m, [7] = 8m, [8] = 9m,
+                };
+
+                Matrix<decimal> B = new Matrix<decimal>(3, 3)
+                {
+                    [0] = 1m, [1] = 0m, [2] = -1m,
+                    [3] = 0m, [4] = 1m, [5] =  2m,
+                    [6] = 0m, [7] = 0m, [8] =  0m,
+                };
+
+                Assert.IsTrue(A.ReducedEchelon() == B);
+            }
+
         }
 
         [TestMethod]

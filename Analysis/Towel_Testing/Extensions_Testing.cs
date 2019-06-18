@@ -9,6 +9,8 @@ using System.Text;
 
 namespace Towel_Testing
 {
+    #region XML Documentation From Method
+
     [TestClass]
     public class Extensions_Testing
     {
@@ -165,6 +167,8 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         public void DocumentedMethod<A>(NestedGenericType<A> a) { }
     }
+
+    #endregion
 
     #endregion
 }
