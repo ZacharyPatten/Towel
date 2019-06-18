@@ -96,11 +96,11 @@ namespace Mathematics
             Console.WriteLine();
 
             // Variables
-            int prime_check = random.Next(0, 100000);
-            int[] gcf = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
-            int[] lcm = new int[] { random.Next(0, 500) * 2, random.Next(0, 500) * 2, random.Next(0, 500) * 2 };
-            int prime_factors = random.Next(0, 100000);
-            int check = random.Next(0, 1000);
+            int prime_check = random.Next(1, 100000);
+            int[] gcf = new int[] { random.Next(1, 500) * 2, random.Next(1, 500) * 2, random.Next(1, 500) * 2 };
+            int[] lcm = new int[] { random.Next(1, 500) * 2, random.Next(1, 500) * 2, random.Next(1, 500) * 2 };
+            int prime_factors = random.Next(1, 100000);
+            int check = random.Next(1, 1000);
 
             // Examples
             Console.WriteLine("    IsPrime(" + prime_check + "): " + IsPrime(prime_check));
