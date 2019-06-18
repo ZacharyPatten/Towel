@@ -1191,58 +1191,58 @@ namespace Towel_Testing.Mathematics
                 Matrix<float> A = new Matrix<float>(3, 3)
                 {
                     [0] = 1f, [1] = 2f, [2] = 3f,
-                    [3] = 4f, [4] = 5f, [5] = 6f,
-                    [6] = 7f, [7] = 8f, [8] = 9f,
+                    [3] = 0f, [4] = 4f, [5] = 5f,
+                    [6] = 1f, [7] = 0f, [8] = 6f,
                 };
 
                 Matrix<float> B = new Matrix<float>(3, 3)
                 {
-                    [0] = -11f/12f, [1] =  1f/3f, [2] = 1f/12f,
-                    [3] =   -1f/6f, [4] =  1f/3f, [5] = -1f/6f,
-                    [6] =    3f/4f, [7] = -1f/3f, [8] = 1f/12f,
+                    [0] = 12f/11f, [1] = -6f/11f, [2] = -1f/11f,
+                    [3] =  5f/22f, [4] =  3f/22f, [5] = -5f/22f,
+                    [6] = -2f/11f, [7] =  1f/11f, [8] =  2f/11f,
                 };
 
-                Assert.IsTrue(A.Inverse().Equal(B, 0.1f));
+                Assert.IsTrue(A.Inverse() == B);
             }
             { // double
                 Matrix<double> A = new Matrix<double>(3, 3)
                 {
                     [0] = 1d, [1] = 2d, [2] = 3d,
-                    [3] = 4d, [4] = 5d, [5] = 6d,
-                    [6] = 7d, [7] = 8d, [8] = 9d,
+                    [3] = 0d, [4] = 4d, [5] = 5d,
+                    [6] = 1d, [7] = 0d, [8] = 6d,
                 };
 
                 Matrix<double> B = new Matrix<double>(3, 3)
                 {
-                    [0] = -11d/12d, [1] =  1d/3d, [2] = 1d/12d,
-                    [3] =   -1d/6d, [4] =  1d/3d, [5] = -1d/6d,
-                    [6] =    3d/4d, [7] = -1d/3d, [8] = 1d/12d,
+                    [0] = 12d/11d, [1] = -6d/11d, [2] = -1d/11d,
+                    [3] =  5d/22d, [4] =  3d/22d, [5] = -5d/22d,
+                    [6] = -2d/11d, [7] =  1d/11d, [8] =  2d/11d,
                 };
 
-                Assert.IsTrue(A.Inverse().Equal(B, 0.1d));
+                Assert.IsTrue(A.Inverse() == B);
             }
         }
 
         [TestMethod]
         public void Ajoint()
         {
-            //{ // int
-            //    Matrix<int> A = new Matrix<int>(3, 3)
-            //    {
-            //        [0] = 1, [1] = 2, [2] = 3,
-            //        [3] = 4, [4] = 5, [5] = 6,
-            //        [6] = 7, [7] = 8, [8] = 9,
-            //    };
+            {   // int
+                Matrix<int> A = new Matrix<int>(3, 3)
+                {
+                    [0] = 1, [1] = 2, [2] = 3,
+                    [3] = 4, [4] = 5, [5] = 6,
+                    [6] = 7, [7] = 8, [8] = 9,
+                };
 
-            //    Matrix<int> B = new Matrix<int>(3, 3)
-            //    {
-            //        [0] = -3, [1] =   6, [2] = -3,
-            //        [3] =  6, [4] = -12, [5] =  6,
-            //        [6] = -3, [7] =   6, [8] = -3,
-            //    };
+                Matrix<int> B = new Matrix<int>(3, 3)
+                {
+                    [0] = -3, [1] =   6, [2] = -3,
+                    [3] =  6, [4] = -12, [5] =  6,
+                    [6] = -3, [7] =   6, [8] = -3,
+                };
 
-            //    Assert.IsTrue(A.Adjoint() == B);
-            //}
+                Assert.IsTrue(A.Adjoint() == B);
+            }
             { // float
                 Matrix<float> A = new Matrix<float>(3, 3)
                 {
@@ -1277,23 +1277,23 @@ namespace Towel_Testing.Mathematics
 
                 Assert.IsTrue(A.Adjoint().Equal(B, 0.01d));
             }
-            //{ // decimal
-            //    Matrix<decimal> A = new Matrix<decimal>(3, 3)
-            //    {
-            //        [0] = 1m, [1] = 2m, [2] = 3m,
-            //        [3] = 4m, [4] = 5m, [5] = 6m,
-            //        [6] = 7m, [7] = 8m, [8] = 9m,
-            //    };
+            { // decimal
+                Matrix<decimal> A = new Matrix<decimal>(3, 3)
+                {
+                    [0] = 1m, [1] = 2m, [2] = 3m,
+                    [3] = 4m, [4] = 5m, [5] = 6m,
+                    [6] = 7m, [7] = 8m, [8] = 9m,
+                };
 
-            //    Matrix<decimal> B = new Matrix<decimal>(3, 3)
-            //    {
-            //        [0] = -3m, [1] =   6m, [2] = -3m,
-            //        [3] =  6m, [4] = -12m, [5] =  6m,
-            //        [6] = -3m, [7] =   6m, [8] = -3m,
-            //    };
+                Matrix<decimal> B = new Matrix<decimal>(3, 3)
+                {
+                    [0] = -3m, [1] =   6m, [2] = -3m,
+                    [3] =  6m, [4] = -12m, [5] =  6m,
+                    [6] = -3m, [7] =   6m, [8] = -3m,
+                };
 
-            //    Assert.IsTrue(A.Adjoint() == B);
-            //}
+                Assert.IsTrue(A.Adjoint() == B);
+            }
         }
 
         [TestMethod]

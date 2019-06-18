@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Algorithms\" />
     <Folder Include="DataStructures\" />
-    <Folder Include="Parallels\" />
   </ItemGroup>
 
 </Project>

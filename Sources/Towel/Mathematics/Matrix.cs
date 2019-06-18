@@ -351,6 +351,56 @@ namespace Towel.Mathematics
 
         #endregion
 
+        #region GetCofactor
+
+        private static void GetCofactor(Matrix<T> a, Matrix<T> temp, int p, int q, int n)
+        {
+            int i = 0, j = 0;
+            for (int row = 0; row < n; row++)
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    if (row != p && col != q)
+                    {
+                        temp.Set(i, j++, a.Get(row, col));
+                        if (j == n - 1)
+                        {
+                            j = 0;
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region GetDeterminant
+
+        private static T GetDeterminant(Matrix<T> a, int n) 
+        { 
+            T determinent = Constant<T>.Zero;
+            if (n == 1)
+            {
+                return a.Get(0, 0);
+            }
+            Matrix<T> temp = new Matrix<T>(n, n);
+            T sign = Constant<T>.One;
+            for (int f = 0; f < n; f++) 
+            { 
+                GetCofactor(a, temp, 0, f, n);
+                determinent =
+                    Compute.Add(determinent,
+                        Compute.Multiply(sign,
+                            Compute.Multiply(a.Get(0, f),
+                                GetDeterminant(temp, n - 1))));
+                sign = Compute.Negate(sign);
+            }
+            return determinent;
+        } 
+
+        #endregion
+
         #region IsSymetric
 
         /// <summary>Determines if the matrix is symetric.</summary>
@@ -1082,39 +1132,53 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
             }
-            T determinant = Constant<T>.One;
-            Matrix<T> rref = a.Clone();
-            int a_rows = a._rows;
-            for (int i = 0; i < a_rows; i++)
-            {
-                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
-                {
-                    for (int j = i + 1; j < rref.Rows; j++)
-                    {
-                        if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
-                        {
-                            SwapRows(rref, i, j);
-                            determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
-                        }
-                    }
-                }
-                determinant = Compute.Multiply(determinant, rref.Get(i, i));
-                T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
-                RowMultiplication(rref, i, temp_rowMultiplication);
-                for (int j = i + 1; j < rref.Rows; j++)
-                {
-                    T scalar = Compute.Negate(rref.Get(j, i));
-                    RowAddition(rref, j, i, scalar);
+            return GetDeterminant(a, a.Rows);
 
-                }
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    T scalar = Compute.Negate(rref.Get(j, i));
-                    RowAddition(rref, j, i, scalar);
+            #region Old Version
 
-                }
-            }
-            return determinant;
+            //if (a is null)
+            //{
+            //    throw new ArgumentNullException(nameof(a));
+            //}
+            //if (!a.IsSquare)
+            //{
+            //    throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            //}
+            //T determinant = Constant<T>.One;
+            //Matrix<T> rref = a.Clone();
+            //int a_rows = a._rows;
+            //for (int i = 0; i < a_rows; i++)
+            //{
+            //    if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+            //    {
+            //        for (int j = i + 1; j < rref.Rows; j++)
+            //        {
+            //            if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
+            //            {
+            //                SwapRows(rref, i, j);
+            //                determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
+            //            }
+            //        }
+            //    }
+            //    determinant = Compute.Multiply(determinant, rref.Get(i, i));
+            //    T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
+            //    RowMultiplication(rref, i, temp_rowMultiplication);
+            //    for (int j = i + 1; j < rref.Rows; j++)
+            //    {
+            //        T scalar = Compute.Negate(rref.Get(j, i));
+            //        RowAddition(rref, j, i, scalar);
+
+            //    }
+            //    for (int j = i - 1; j >= 0; j--)
+            //    {
+            //        T scalar = Compute.Negate(rref.Get(j, i));
+            //        RowAddition(rref, j, i, scalar);
+
+            //    }
+            //}
+            //return determinant;
+
+            #endregion
         }
 
         /// <summary>Computes the determinent of a square matrix.</summary>
@@ -1614,48 +1678,89 @@ namespace Towel.Mathematics
         /// <param name="b">The inverse of the matrix.</param>
         private static void Inverse(Matrix<T> a, ref Matrix<T> b)
         {
-            // Note: this method can be optimized...
-
             if (a is null)
             {
                 throw new ArgumentNullException(nameof(a));
             }
-            if (Compute.Equal(Determinent(a), Constant<T>.Zero))
+            if (!a.IsSquare)
             {
-                throw new MathematicsException("inverse calculation failed.");
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
             }
-            Matrix<T> identity = FactoryIdentity(a.Rows, a.Columns);
-            Matrix<T> rref = a.Clone();
-            for (int i = 0; i < a.Rows; i++)
+            T determinent = Determinent(a);
+            if (Compute.Equal(determinent, Constant<T>.Zero))
             {
-                if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+                throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
+            }
+            Matrix<T> adjoint = a.Adjoint();
+            int dimension = a.Rows;
+            int Length = a.Length;
+            if (object.ReferenceEquals(a, b))
+            {
+                b = a.Clone();
+            }
+            else if (b != null && b.Length == Length)
+            {
+                b._rows = dimension;
+                b._columns = dimension;
+            }
+            else
+            {
+                b = new Matrix<T>(dimension, dimension, Length);
+            }
+            for (int i = 0; i < dimension; i++)
+            {
+                for (int j = 0; j < dimension; j++)
                 {
-                    for (int j = i + 1; j < rref.Rows; j++)
-                    {
-                        if (Compute.NotEqual(rref[j, i], Constant<T>.Zero))
-                        {
-                            SwapRows(rref, i, j);
-                            SwapRows(identity, i, j);
-                        }
-                    }
-                }
-                T identityRowMultiplier = Compute.Divide(Constant<T>.One, rref[i, i]);
-                RowMultiplication(identity, i, identityRowMultiplier);
-                RowMultiplication(rref, i, identityRowMultiplier);
-                for (int j = i + 1; j < rref.Rows; j++)
-                {
-                    T rowAdder = Compute.Negate(rref[j, i]);
-                    RowAddition(identity, j, i, rowAdder);
-                    RowAddition(rref, j, i, rowAdder);
-                }
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    T rowAdder = Compute.Negate(rref[j, i]);
-                    RowAddition(identity, j, i, rowAdder);
-                    RowAddition(rref, j, i, rowAdder);
+                    b.Set(i, j, Compute.Divide(adjoint.Get(i, j), determinent));
                 }
             }
-            b = identity;
+
+            #region Old Version
+
+            //// Note: this method can be optimized...
+
+            //if (a is null)
+            //{
+            //    throw new ArgumentNullException(nameof(a));
+            //}
+            //if (Compute.Equal(Determinent(a), Constant<T>.Zero))
+            //{
+            //    throw new MathematicsException("inverse calculation failed.");
+            //}
+            //Matrix<T> identity = FactoryIdentity(a.Rows, a.Columns);
+            //Matrix<T> rref = a.Clone();
+            //for (int i = 0; i < a.Rows; i++)
+            //{
+            //    if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+            //    {
+            //        for (int j = i + 1; j < rref.Rows; j++)
+            //        {
+            //            if (Compute.NotEqual(rref[j, i], Constant<T>.Zero))
+            //            {
+            //                SwapRows(rref, i, j);
+            //                SwapRows(identity, i, j);
+            //            }
+            //        }
+            //    }
+            //    T identityRowMultiplier = Compute.Divide(Constant<T>.One, rref[i, i]);
+            //    RowMultiplication(identity, i, identityRowMultiplier);
+            //    RowMultiplication(rref, i, identityRowMultiplier);
+            //    for (int j = i + 1; j < rref.Rows; j++)
+            //    {
+            //        T rowAdder = Compute.Negate(rref[j, i]);
+            //        RowAddition(identity, j, i, rowAdder);
+            //        RowAddition(rref, j, i, rowAdder);
+            //    }
+            //    for (int j = i - 1; j >= 0; j--)
+            //    {
+            //        T rowAdder = Compute.Negate(rref[j, i]);
+            //        RowAddition(identity, j, i, rowAdder);
+            //        RowAddition(rref, j, i, rowAdder);
+            //    }
+            //}
+            //b = identity;
+
+            #endregion
 
             #region Alternate Version
             //Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
@@ -1720,36 +1825,81 @@ namespace Towel.Mathematics
             {
                 throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
             }
+            int dimension = a.Rows;
+            int Length = a.Length;
             if (object.ReferenceEquals(a, b))
             {
-                a = a.Clone();
+                b = a.Clone();
             }
-            int Length = a.Length;
-            int Rows = a.Rows;
-            int Columns = a.Columns;
-            if (b != null && b.Length == Length)
+            else if (b != null && b.Length == Length)
             {
-                b._rows = Rows;
-                b._columns = Columns;
+                b._rows = dimension;
+                b._columns = dimension;
             }
             else
             {
-                b = new Matrix<T>(Rows, Columns, Length);
+                b = new Matrix<T>(dimension, dimension, Length);
             }
-            for (int i = 0; i < Rows; i++)
+
+            if (dimension == 1)
             {
-                for (int j = 0; j < Columns; j++)
-                {
-                    if (Compute.IsEven(a.Get(i, j)))
-                    {
-                        b[i, j] = Determinent(Minor(a, i, j));
-                    }
-                    else
-                    {
-                        b[i, j] = Compute.Negate(Determinent(Minor(a, i, j)));
-                    }
-                }
+                b.Set(0, 0, Constant<T>.One);
+                return;
             }
+            T sign = Constant<T>.One;
+            Matrix<T> temp = new Matrix<T>(dimension, dimension, Length);
+            for (int i=0; i<dimension; i++) 
+            { 
+                for (int j = 0; j < dimension; j++) 
+                {
+                    GetCofactor(a, temp, i, j, dimension);
+                    sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
+                    b.Set(j, i, Compute.Multiply(sign, GetDeterminant(temp, dimension - 1)));
+                }
+            } 
+
+            #region Old Version
+
+            //if (a is null)
+            //{
+            //    throw new ArgumentNullException(nameof(a));
+            //}
+            //if (!a.IsSquare)
+            //{
+            //    throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            //}
+            //if (object.ReferenceEquals(a, b))
+            //{
+            //    a = a.Clone();
+            //}
+            //int Length = a.Length;
+            //int Rows = a.Rows;
+            //int Columns = a.Columns;
+            //if (b != null && b.Length == Length)
+            //{
+            //    b._rows = Rows;
+            //    b._columns = Columns;
+            //}
+            //else
+            //{
+            //    b = new Matrix<T>(Rows, Columns, Length);
+            //}
+            //for (int i = 0; i < Rows; i++)
+            //{
+            //    for (int j = 0; j < Columns; j++)
+            //    {
+            //        if (Compute.IsEven(a.Get(i, j)))
+            //        {
+            //            b[i, j] = Determinent(Minor(a, i, j));
+            //        }
+            //        else
+            //        {
+            //            b[i, j] = Compute.Negate(Determinent(Minor(a, i, j)));
+            //        }
+            //    }
+            //}
+
+            #endregion
         }
 
         /// <summary>Calculates the adjoint of a matrix.</summary>
