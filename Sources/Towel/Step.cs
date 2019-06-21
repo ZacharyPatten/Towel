@@ -137,118 +137,37 @@ namespace Towel
     #endregion
 
     /// <summary>Extension methods.</summary>
-    public static class Step
+    public static class Stepper
     {
+        /// <summary>Creates a stepper from an iteration pattern.</summary>
+        /// <typeparam name="T">The generic type of the stepper.</typeparam>
+        /// <param name="iterations">The number of times to iterate.</param>
+        /// <param name="func">The generation pattern for the iteration.</param>
+        /// <returns>A stepper build from the iteration pattern.</returns>
+        public static Stepper<T> Iterate<T>(int iterations, Func<int, T> func)
+        {
+            return step =>
+            {
+                for (int i = 0; i < iterations; i++)
+                {
+                    step(func(i));
+                }
+            };
+        }
+
         /// <summary>Converts an IEnumerable into a stepper delegate./></summary>
         /// <typeparam name="T">The generic type being iterated.</typeparam>
         /// <param name="enumerable">The Ienumerable to convert.</param>
         /// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
         public static Stepper<T> ToStepper<T>(this IEnumerable<T> enumerable)
         {
-            return (Step<T> step) =>
+            return step =>
             {
-                foreach (T _step in enumerable)
+                foreach (T x in enumerable)
                 {
-                    step(_step);
+                    step(x);
                 }
             };
-        }
-
-        /// <summary>Checks to see if a given object is in this data structure.</summary>
-        /// <typeparam name="T">The generic type stored in the structure.</typeparam>
-        /// <param name="stepper">The structure to check against.</param>
-        /// <param name="check">The item to check for.</param>
-        /// <param name="equate">Delegate for equating two instances of the same type.</param>
-        /// <returns>true if the item is in this structure; false if not.</returns>
-        public static bool Contains<T>(this StepperBreak<T> stepper, T check, Equate<T> equate)
-        {
-            bool contains = false;
-            stepper((T step) =>
-            {
-                if (equate(step, check))
-                {
-                    contains = true;
-                    return StepStatus.Break;
-                }
-                return StepStatus.Continue;
-            });
-            return contains;
-        }
-
-        /// <summary>Checks to see if a given object is in this data structure.</summary>
-        /// <typeparam name="T">The generic type stored in the structure.</typeparam>
-        /// <typeparam name="K">The type of the key to look up.</typeparam>
-        /// <param name="stepper">The structure to check against.</param>
-        /// <param name="key">The key to check for.</param>
-        /// <param name="equate">Delegate for equating two instances of different types.</param>
-        /// <returns>true if the item is in this structure; false if not.</returns>
-        public static bool Contains<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate)
-        {
-            bool contains = false;
-            stepper((T step) =>
-            {
-                if (equate(step, key))
-                {
-                    contains = true;
-                    return StepStatus.Break;
-                }
-                return StepStatus.Continue;
-            });
-            return contains;
-        }
-
-        /// <summary>Looks up an item this structure by a given key.</summary>
-        /// <typeparam name="T">The generic type stored in the structure.</typeparam>
-        /// <typeparam name="K">The type of the key to look up.</typeparam>
-        /// <param name="stepper">The structure to check against.</param>
-        /// <param name="key">The key to look up.</param>
-        /// <param name="equate">Delegate for equating two instances of different types.</param>
-        /// <returns>The item with the corresponding to the given key.</returns>
-        public static T Get<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate)
-        {
-            bool contains = false;
-            T value = default(T);
-            stepper((T step) =>
-            {
-                if (equate(step, key))
-                {
-                    contains = true;
-                    value = step;
-                    return StepStatus.Break;
-                }
-                return StepStatus.Continue;
-            });
-            if (contains == false)
-            {
-                throw new InvalidOperationException("item not found in structure");
-            }
-            return value;
-        }
-
-        /// <summary>Trys to look up an item this structure by a given key.</summary>
-        /// <typeparam name="T">The generic type stored in the structure.</typeparam>
-        /// <typeparam name="K">The type of the key to look up.</typeparam>
-        /// <param name="stepper">The structure to check against.</param>
-        /// <param name="key">The key to look up.</param>
-        /// <param name="equate">Delegate for equating two instances of different types.</param>
-        /// <param name="value">The item if it was found or null if not the default(Type) value.</param>
-        /// <returns>true if the key was found; false if the key was not found.</returns>
-        public static bool TryGet<T, K>(this StepperBreak<T> stepper, K key, Equate<T, K> equate, out T value)
-        {
-            bool contains = false;
-            T temp = default(T);
-            stepper((T step) =>
-            {
-                if (equate(step, key))
-                {
-                    contains = true;
-                    temp = step;
-                    return StepStatus.Break;
-                }
-                return StepStatus.Continue;
-            });
-            value = temp;
-            return contains;
         }
 
         /// <summary>Converts the stepper into an array.</summary>
@@ -260,7 +179,7 @@ namespace Towel
             int count = stepper.Count();
             T[] elements = new T[count];
             int i = 0;
-            stepper((T step) => { elements[i++] = step; });
+            stepper(x => elements[i++] = x);
             return elements;
         }
 
@@ -271,7 +190,7 @@ namespace Towel
         public static int Count<T>(this Stepper<T> stepper)
         {
             int count = 0;
-            stepper((T step) => { count++; });
+            stepper(step => count++);
             return count;
         }
 
@@ -292,21 +211,21 @@ namespace Towel
             }
 
             int i = 1;
-            return (Step<T> step) =>
+            return step =>
+            {
+                stepper((T item) =>
                 {
-                    stepper((T item) =>
-                        {
-                            if (i == nth)
-                            {
-                                step(item);
-                                i = 1;
-                            }
-                            else
-                            {
-                                i++;
-                            }
-                        });
-                };
+                    if (i == nth)
+                    {
+                        step(item);
+                        i = 1;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                });
+            };
         }
 
         /// <summary>
@@ -321,16 +240,16 @@ namespace Towel
         {
             bool duplicateFound = false;
             SetHashArray<T> set = new SetHashArray<T>(equate, hash);
-            stepper((T item) =>
+            stepper(x =>
             {
-                if (set.Contains(item))
+                if (set.Contains(x))
                 {
                     duplicateFound = true;
                     return StepStatus.Break;
                 }
                 else
                 {
-                    set.Add(item);
+                    set.Add(x);
                     return StepStatus.Continue;
                 }
             });
@@ -350,23 +269,21 @@ namespace Towel
         {
             bool duplicateFound = false;
             SetHashArray<T> set = new SetHashArray<T>(equate, hash);
-            stepper((T item) =>
+            stepper(x =>
             {
-                if (set.Contains(item))
+                if (set.Contains(x))
                 {
                     duplicateFound = true;
                 }
                 else
                 {
-                    set.Add(item);
+                    set.Add(x);
                 }
             });
             return duplicateFound;
         }
 
-        /// <summary>
-        /// Determines if the data contains any duplicates.
-        /// </summary>
+        /// <summary>Determines if the data contains any duplicates.</summary>
         /// <typeparam name="T">The generic type of the data.</typeparam>
         /// <param name="stepper">The stepper function for the data.</param>
         /// <returns>True if the data contains duplicates. False if not.</returns>
@@ -375,9 +292,7 @@ namespace Towel
             return ContainsDuplicates(stepper, Equate.Default, Hash.Default);
         }
 
-        /// <summary>
-        /// Determines if the data contains any duplicates.
-        /// </summary>
+        /// <summary>Determines if the data contains any duplicates.</summary>
         /// <typeparam name="T">The generic type of the data.</typeparam>
         /// <param name="stepper">The stepper function for the data.</param>
         /// <returns>True if the data contains duplicates. False if not.</returns>

@@ -21,7 +21,7 @@ namespace Towel_Documentation
             // This program generates HTML from the XML documentation of the code in the Towel project.
 
             TowelSystemExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
-            Assembly assembly = typeof(Towel.Step).Assembly;
+            Assembly assembly = typeof(Towel.Stepper).Assembly;
             Type[] exportedTypes = assembly.GetExportedTypes();
 
             // First Pass: Build Namespace Hierarchy

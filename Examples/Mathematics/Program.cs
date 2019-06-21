@@ -112,7 +112,7 @@ namespace Mathematics
             Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.ToStepper()));
             Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.ToStepper()));
             Console.Write("    Prime Factors(" + prime_factors + "): ");
-            FactorPrimes(prime_factors, (int i) => { Console.Write(i + " "); });
+            FactorPrimes(prime_factors)(i => Console.Write(i + " "));
             Console.WriteLine();
             Console.WriteLine("    7!: " + Factorial(7));
             Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));

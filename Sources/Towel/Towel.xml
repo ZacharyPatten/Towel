@@ -14631,11 +14631,11 @@
             <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
             <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
         </member>
-        <member name="M:Towel.Mathematics.Compute.FactorPrimes``1(``0,Towel.Step{``0})">
+        <member name="M:Towel.Mathematics.Compute.FactorPrimes``1(``0)">
             <summary>Factors the primes numbers of a numeric integer value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to factor the prime numbers of.</param>
-            <param name="step">The action to perform on all the prime factors.</param>
+            <returns>A stepper of all the prime factors.</returns>
         </member>
         <member name="T:Towel.Mathematics.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
@@ -15731,6 +15731,776 @@
         <member name="T:Towel.Mathematics.Symbolics">
             <summary>Contains definitions necessary for the generic Symbolics class.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Clone">
+            <summary>Creates a copy of the expression.</summary>
+            <returns>A copy of the expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_UnaryNegation(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Negates an expression.</summary>
+            <param name="a">The expression to negate.</param>
+            <returns>The result of the negation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Addition(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Adds two expressions.</summary>
+            <param name="a">The first expression of the addition.</param>
+            <param name="b">The second expression of the addition.</param>
+            <returns>The result of the addition.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Subtraction(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Subtracts two expressions.</summary>
+            <param name="a">The first expression of the subtraction.</param>
+            <param name="b">The second expression of the subtraction.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Multiply(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Multiplies two expressions.</summary>
+            <param name="a">The first expression of the multiplication.</param>
+            <param name="b">The second expression of the multiplication.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Division(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Divides two expressions.</summary>
+            <param name="a">The first expression of the division.</param>
+            <param name="b">The second expression of the division.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Variable">
+            <summary>A variable in a symbolic mathematics expression.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Variable.Name">
+            <summary>The name of the variable.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.#ctor(System.String)">
+            <summary>Constructs a new variable.</summary>
+            <param name="name">The name of the vairable.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Variable.GetHashCode">
+            <summary>Standard hash function.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Constant">
+            <summary>Represents a constant numerical value.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Pi.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Zero.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.One.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Two.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Three.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsNegative">
+            <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Constant`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Constant`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Constant`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three`1.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three`1.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three`1.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.True.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.True.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.True.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.False.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.False.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.False.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Unary.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Simplification.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Simplification.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Simplification.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Simplification.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Negate.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Negate.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Negate.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Negate.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NaturalLog.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NaturalLog.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NaturalLog.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NaturalLog.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.SquareRoot.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.SquareRoot.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.SquareRoot.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.SquareRoot.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Exponential.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Exponential.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Exponential.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Exponential.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Factorial.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Factorial.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Factorial.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Factorial.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Invert.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Invert.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Invert.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Invert.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Trigonometry">
+            <summary>Represents one of the trigonometry functions.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Sine">
+            <summary>Represents the sine trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Sine.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Sine.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Sine.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Sine.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Cosine">
+            <summary>Represents the cosine trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosine.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosine.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosine.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosine.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Tangent">
+            <summary>Represents the tanget trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Tangent.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Tangent.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Tangent.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Tangent.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Cosecant">
+            <summary>Represents the cosecant trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosecant.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosecant.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosecant.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosecant.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Secant">
+            <summary>Represents the secant trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Secant.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Secant.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Secant.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Secant.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Cotangent">
+            <summary>Represents the cotangent trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cotangent.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cotangent.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cotangent.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cotangent.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Binary.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.AddOrSubtract">
+            <summary>Represents an addition or a subtraction operation.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Add">
+            <summary>Represents an addition operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Add.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Add.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Add.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Add.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Subtract">
+            <summary>Represents a subtraction operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Subtract.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Subtract.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Subtract.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Subtract.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Multiply">
+            <summary>Represents a multiplication operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multiply.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multiply.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multiply.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multiply.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Divide">
+            <summary>Represents a division operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Divide.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Divide.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Divide.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Divide.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Power.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Power.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Power.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Power.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Root.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Root.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Root.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Root.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Equal.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Equal.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Equal.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Equal.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NotEqual.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NotEqual.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NotEqual.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NotEqual.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThan.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThan.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThan.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThan.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThan.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThan.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThan.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThan.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.Simplify">
+            <summary>Simplifies the mathematical expression.</summary>
+            <returns>The simplified mathematical expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.Clone">
+            <summary>Clones this expression.</summary>
+            <returns>A clone of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.Substitute(System.String,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.ToString">
+            <summary>Standard conversion to a string representation.</summary>
+            <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Ternary.Equals(System.Object)">
+            <summary>Standard equality check.</summary>
+            <param name="b">The object to check for equality with.</param>
+            <returns>True if equal. False if not.</returns>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.ParseAndSimplifyToConstant``1(System.String,Towel.Mathematics.Symbolics.TryParseNumeric{``0})">
             <summary>Parses a symbolic methematics expression with the assumption that it will simplify to a constant.</summary>
             <typeparam name="T">The generic numerical type to recieve as the outputted type.</typeparam>
@@ -15749,7 +16519,7 @@
             <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
             <typeparam name="T">The type to convert any constants into (ex: float, double, etc).</typeparam>
             <param name="string">The expression string to parse.</param>
-            <param name="parsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
+            <param name="tryParsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
             <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
         </member>
         <member name="T:Towel.Mathematics.Vector`1">
@@ -24543,71 +25313,42 @@
             <typeparam name="T2">The type of the object to step on.</typeparam>
             <param name="step">The action to perform on every step.</param>
         </member>
-        <member name="T:Towel.Step">
+        <member name="T:Towel.Stepper">
             <summary>Extension methods.</summary>
         </member>
-        <member name="M:Towel.Step.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:Towel.Stepper.Iterate``1(System.Int32,System.Func{System.Int32,``0})">
+            <summary>Creates a stepper from an iteration pattern.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="iterations">The number of times to iterate.</param>
+            <param name="func">The generation pattern for the iteration.</param>
+            <returns>A stepper build from the iteration pattern.</returns>
+        </member>
+        <member name="M:Towel.Stepper.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an IEnumerable into a stepper delegate./></summary>
             <typeparam name="T">The generic type being iterated.</typeparam>
             <param name="enumerable">The Ienumerable to convert.</param>
             <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
         </member>
-        <member name="M:Towel.Step.Contains``1(Towel.StepperBreak{``0},``0,Towel.Equate{``0})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <typeparam name="T">The generic type stored in the structure.</typeparam>
-            <param name="stepper">The structure to check against.</param>
-            <param name="check">The item to check for.</param>
-            <param name="equate">Delegate for equating two instances of the same type.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.Step.Contains``2(Towel.StepperBreak{``0},``1,Towel.Equate{``0,``1})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <typeparam name="T">The generic type stored in the structure.</typeparam>
-            <typeparam name="K">The type of the key to look up.</typeparam>
-            <param name="stepper">The structure to check against.</param>
-            <param name="key">The key to check for.</param>
-            <param name="equate">Delegate for equating two instances of different types.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.Step.Get``2(Towel.StepperBreak{``0},``1,Towel.Equate{``0,``1})">
-            <summary>Looks up an item this structure by a given key.</summary>
-            <typeparam name="T">The generic type stored in the structure.</typeparam>
-            <typeparam name="K">The type of the key to look up.</typeparam>
-            <param name="stepper">The structure to check against.</param>
-            <param name="key">The key to look up.</param>
-            <param name="equate">Delegate for equating two instances of different types.</param>
-            <returns>The item with the corresponding to the given key.</returns>
-        </member>
-        <member name="M:Towel.Step.TryGet``2(Towel.StepperBreak{``0},``1,Towel.Equate{``0,``1},``0@)">
-            <summary>Trys to look up an item this structure by a given key.</summary>
-            <typeparam name="T">The generic type stored in the structure.</typeparam>
-            <typeparam name="K">The type of the key to look up.</typeparam>
-            <param name="stepper">The structure to check against.</param>
-            <param name="key">The key to look up.</param>
-            <param name="equate">Delegate for equating two instances of different types.</param>
-            <param name="value">The item if it was found or null if not the default(Type) value.</param>
-            <returns>true if the key was found; false if the key was not found.</returns>
-        </member>
-        <member name="M:Towel.Step.ToArray``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Stepper.ToArray``1(Towel.Stepper{``0})">
             <summary>Converts the stepper into an array.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to convert.</param>
             <returns>The array created from the stepper.</returns>
         </member>
-        <member name="M:Towel.Step.Count``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Stepper.Count``1(Towel.Stepper{``0})">
             <summary>Counts the number of items in the stepper.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to count the items of.</param>
             <returns>The number of items in the stepper.</returns>
         </member>
-        <member name="M:Towel.Step.EveryNth``1(Towel.Stepper{``0},System.Int32)">
+        <member name="M:Towel.Stepper.EveryNth``1(Towel.Stepper{``0},System.Int32)">
             <summary>Reduces the stepper to be every nth value.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to reduce.</param>
             <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
             <returns>The reduced stepper function.</returns>
         </member>
-        <member name="M:Towel.Step.ContainsDuplicates``1(Towel.StepperBreak{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},Towel.Equate{``0},Towel.Hash{``0})">
             <summary>
             Determines if the data contains any duplicates.
             </summary>
@@ -24617,7 +25358,7 @@
             <param name="hash">A hashing function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Step.ContainsDuplicates``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
             <summary>
             Determines if the data contains any duplicates.
             </summary>
@@ -24628,18 +25369,14 @@
             <returns>True if the data contains duplicates. False if not.</returns>
             <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
         </member>
-        <member name="M:Towel.Step.ContainsDuplicates``1(Towel.StepperBreak{``0})">
-            <summary>
-            Determines if the data contains any duplicates.
-            </summary>
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0})">
+            <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Step.ContainsDuplicates``1(Towel.Stepper{``0})">
-            <summary>
-            Determines if the data contains any duplicates.
-            </summary>
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0})">
+            <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
@@ -24926,6 +25663,13 @@
             <typeparam name="T">The generic type of elements in the IList.</typeparam>
             <param name="iList">The IList to perform the predicated removal on.</param>
             <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
+        </member>
+        <member name="M:System.TowelSystemExtensions.BuildArray``1(System.Int32,System.Func{System.Int32,``0})">
+            <summary>Builds an array from a size and initialization delegate.</summary>
+            <typeparam name="T">The generic type of the array.</typeparam>
+            <param name="size">The size of the array to build.</param>
+            <param name="func">The initialization pattern.</param>
+            <returns>The built array.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
             <summary>Constructs a square jagged array of the desired dimensions.</summary>

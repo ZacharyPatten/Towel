@@ -52,11 +52,11 @@ namespace Towel.Mathematics
                             nameof(Symbolics) + "." + nameof(RepresentationAttribute) + " representation is invalid.");
                     }
                 }
-                this._representations = new string[b.Length + 1];
-                this._representations[0] = a;
+                _representations = new string[b.Length + 1];
+                _representations[0] = a;
                 for (int i = 1, j = 0; j < b.Length; i++, j++)
                 {
-                    this._representations[i] = b[j];
+                    _representations[i] = b[j];
                 }
             }
 
@@ -64,7 +64,7 @@ namespace Towel.Mathematics
             {
                 get
                 {
-                    return this._representations;
+                    return _representations;
                 }
             }
         }
@@ -83,8 +83,8 @@ namespace Towel.Mathematics
 
             internal LeftUnaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
             {
-                this.Representation = representation;
-                this.Priority = operatorPriority;
+                Representation = representation;
+                Priority = operatorPriority;
             }
         }
 
@@ -96,8 +96,8 @@ namespace Towel.Mathematics
 
             internal RightUnaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
             {
-                this.Representation = representation;
-                this.Priority = operatorPriority;
+                Representation = representation;
+                Priority = operatorPriority;
             }
         }
 
@@ -109,8 +109,8 @@ namespace Towel.Mathematics
 
             internal BinaryOperatorAttribute(string representation, OperatorPriority operatorPriority) : base()
             {
-                this.Representation = representation;
-                this.Priority = operatorPriority;
+                Representation = representation;
+                Priority = operatorPriority;
             }
         }
 
@@ -128,155 +128,106 @@ namespace Towel.Mathematics
 
         public abstract class Expression
         {
-            public virtual Expression Simplify()
-            {
-                return this.Clone();
-            }
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
+            public virtual Expression Simplify() => Clone();
 
-            public virtual Expression Substitute(string variable, Expression value)
-            {
-                return this.Clone();
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public virtual Expression Substitute(string variable, Expression expression) => Clone();
 
-            public Expression Substitute<T>(string variable, T value)
-            {
-                return SubstitutionHack(variable, new Constant<T>(value));
-            }
+            public Expression Substitute<T>(string variable, T value) => SubstitutionHack(variable, new Constant<T>(value));
 
-            internal Expression SubstitutionHack(string variable, Expression value)
-            {
-                return Substitute(variable, value);
-            }
+            internal Expression SubstitutionHack(string variable, Expression expression) => Substitute(variable, expression);
 
-            public virtual Expression Derive(string variable)
-            {
-                return this.Clone();
-            }
+            public virtual Expression Derive(string variable) => Clone();
 
-            public virtual Expression Integrate(string variable)
-            {
-                return this.Clone();
-            }
+            public virtual Expression Integrate(string variable) => Clone();
 
+            /// <summary>Creates a copy of the expression.</summary>
+            /// <returns>A copy of the expression.</returns>
             public abstract Expression Clone();
 
-            public override bool Equals(object obj)
-            {
-                return base.Equals(obj);
-            }
+            /// <summary>Negates an expression.</summary>
+            /// <param name="a">The expression to negate.</param>
+            /// <returns>The result of the negation.</returns>
+            public static Expression operator -(Expression a) => new Negate(a);
+            /// <summary>Adds two expressions.</summary>
+            /// <param name="a">The first expression of the addition.</param>
+            /// <param name="b">The second expression of the addition.</param>
+            /// <returns>The result of the addition.</returns>
+            public static Expression operator +(Expression a, Expression b) => new Add(a, b);
+            /// <summary>Subtracts two expressions.</summary>
+            /// <param name="a">The first expression of the subtraction.</param>
+            /// <param name="b">The second expression of the subtraction.</param>
+            /// <returns>The result of the subtraction.</returns>
+            public static Expression operator -(Expression a, Expression b) => new Subtract(a, b);
+            /// <summary>Multiplies two expressions.</summary>
+            /// <param name="a">The first expression of the multiplication.</param>
+            /// <param name="b">The second expression of the multiplication.</param>
+            /// <returns>The result of the multiplication.</returns>
+            public static Expression operator *(Expression a, Expression b) => new Multiply(a, b);
+            /// <summary>Divides two expressions.</summary>
+            /// <param name="a">The first expression of the division.</param>
+            /// <param name="b">The second expression of the division.</param>
+            /// <returns>The result of the division.</returns>
+            public static Expression operator /(Expression a, Expression b) => new Divide(a, b);
 
-            public override int GetHashCode()
-            {
-                return base.GetHashCode();
-            }
+            public static Expression operator ==(Expression a, Expression b) => new Equal(a, b);
 
-            public static Expression operator -(Expression a)
-            {
-                return new Negate(a.Clone());
-            }
+            public static Expression operator !=(Expression a, Expression b) => new NotEqual(a, b);
 
-            public static Expression operator +(Expression a, Expression b)
-            {
-                return new Add(a.Clone(), b.Clone());
-            }
+            public static Expression operator <(Expression a, Expression b) => new LessThan(a, b);
 
-            public static Expression operator -(Expression a, Expression b)
-            {
-                return new Subtract(a.Clone(), b.Clone());
-            }
+            public static Expression operator >(Expression a, Expression b) => new GreaterThan(a, b);
 
-            public static Expression operator *(Expression a, Expression b)
-            {
-                return new Multiply(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator /(Expression a, Expression b)
-            {
-                return new Divide(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator ==(Expression a, Expression b)
-            {
-                return new Equal(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator !=(Expression a, Expression b)
-            {
-                return new NotEqual(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator <(Expression a, Expression b)
-            {
-                return new LessThan(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator >(Expression a, Expression b)
-            {
-                return new GreaterThan(a.Clone(), b.Clone());
-            }
-
-            public static Expression operator ^(Expression a, Expression b)
-            {
-                return new Power(a.Clone(), b.Clone());
-            }
+            public static Expression operator ^(Expression a, Expression b) => new Power(a, b);
         }
 
         #endregion
 
         #region Variable
 
+        /// <summary>A variable in a symbolic mathematics expression.</summary>
         [Serializable]
         public class Variable : Expression
         {
-            public string _name;
+            /// <summary>The name of the variable.</summary>
+            public string Name { get; }
 
-            public string Name { get { return this._name; } }
+            /// <summary>Constructs a new variable.</summary>
+            /// <param name="name">The name of the vairable.</param>
+            public Variable(string name) { Name = name; }
 
-            public Variable(string name)
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Variable(Name);
+
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression)
             {
-                this._name = name;
-            }
-
-            public override Expression Clone()
-            {
-                return new Variable(this.Name);
-            }
-
-            public override Expression Substitute(string variable, Expression value)
-            {
-                if (this.Name == variable)
+                if (Name == variable)
                 {
-                    return value.Clone();
+                    return expression.Clone();
                 }
                 else
                 {
-                    return base.Substitute(variable, value);
+                    return base.Substitute(variable, expression);
                 }
             }
 
-            public override string ToString()
-            {
-                return "[" + this.Name + "]";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "[" + Name + "]";
 
-            public static bool operator ==(Variable a, Variable b)
-            {
-                if (a == null)
-                {
-                    throw new ArgumentNullException(nameof(a));
-                }
-                if (b == null)
-                {
-                    throw new ArgumentNullException(nameof(b));
-                }
-                return a._name.Equals(b.Name);
-            }
-
-            public static bool operator !=(Variable a, Variable b)
-            {
-                return !(a == b);
-            }
-
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
             public override bool Equals(object b)
             {
                 if (b == null)
@@ -285,15 +236,14 @@ namespace Towel.Mathematics
                 }
                 if (b is Variable)
                 {
-                    return this._name.Equals(b as Variable);
+                    return Name.Equals(b as Variable);
                 }
                 return false;
             }
 
-            public override int GetHashCode()
-            {
-                return this._name.GetHashCode();
-            }
+            /// <summary>Standard hash function.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => Name.GetHashCode();
         }
 
         #endregion
@@ -302,6 +252,7 @@ namespace Towel.Mathematics
 
         #region Constant
 
+        /// <summary>Represents a constant numerical value.</summary>
         [Serializable]
         public abstract class Constant : Expression
         {
@@ -317,6 +268,7 @@ namespace Towel.Mathematics
 
             public virtual bool IsPi => false;
 
+            /// <summary>Determines if the constant is negative.</summary>
             public abstract bool IsNegative { get; }
 
             public virtual Expression Simplify(Operation operation, params Expression[] operands)
@@ -374,27 +326,33 @@ namespace Towel.Mathematics
 
             public override bool IsPi => true;
 
-            public override bool IsNegative
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => false;
+
+            public override Constant<T> ApplyType<T>() => new Pi<T>();
+
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Pi();
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "π";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                get
+                if (b == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(b));
                 }
-            }
-
-            public override Constant<T> ApplyType<T>()
-            {
-                return new Constant<T>(Mathematics.Constant<T>.Pi);
-            }
-
-            public override Expression Clone()
-            {
-                return new Pi();
-            }
-
-            public override string ToString()
-            {
-                return "π";
+                if (b is Pi)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -409,27 +367,33 @@ namespace Towel.Mathematics
 
             public override bool IsZero => true;
 
-            public override bool IsNegative
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => false;
+
+            public override Constant<T> ApplyType<T>() => new Zero<T>();
+
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Zero();
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "0";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                get
+                if (b == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(b));
                 }
-            }
-
-            public override Constant<T> ApplyType<T>()
-            {
-                return new Constant<T>(Mathematics.Constant<T>.Zero);
-            }
-
-            public override Expression Clone()
-            {
-                return new Zero();
-            }
-
-            public override string ToString()
-            {
-                return "0";
+                if (b is Zero)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -444,27 +408,33 @@ namespace Towel.Mathematics
 
             public override bool IsOne => true;
 
-            public override bool IsNegative
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => false;
+
+            public override Constant<T> ApplyType<T>() => new One<T>();
+
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new One();
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "1";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                get
+                if (b == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(b));
                 }
-            }
-
-            public override Constant<T> ApplyType<T>()
-            {
-                return new Constant<T>(Mathematics.Constant<T>.One);
-            }
-
-            public override Expression Clone()
-            {
-                return new One();
-            }
-
-            public override string ToString()
-            {
-                return "1";
+                if (b is One)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -479,27 +449,33 @@ namespace Towel.Mathematics
 
             public override bool IsTwo => true;
 
-            public override bool IsNegative
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => false;
+
+            public override Constant<T> ApplyType<T>() => new Two<T>();
+
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Two();
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "2";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                get
+                if (b == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(b));
                 }
-            }
-
-            public override Constant<T> ApplyType<T>()
-            {
-                return new Constant<T>(Mathematics.Constant<T>.Two);
-            }
-
-            public override Expression Clone()
-            {
-                return new Two();
-            }
-
-            public override string ToString()
-            {
-                return "2";
+                if (b is Two)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -514,27 +490,33 @@ namespace Towel.Mathematics
 
             public override bool IsThree => true;
 
-            public override bool IsNegative
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => false;
+
+            public override Constant<T> ApplyType<T>() => new Three<T>();
+
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Three();
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "3";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                get
+                if (b == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(b));
                 }
-            }
-
-            public override Constant<T> ApplyType<T>()
-            {
-                return new Constant<T>(Mathematics.Constant<T>.Three);
-            }
-
-            public override Expression Clone()
-            {
-                return new Three();
-            }
-
-            public override string ToString()
-            {
-                return "3";
+                if (b is Three)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -559,32 +541,38 @@ namespace Towel.Mathematics
 
             public override bool IsThree => Compute.Equal(Value, Mathematics.Constant<T>.Three);
 
-            public override bool IsNegative
-            {
-                get
-                {
-                    return Compute.IsNegative(this.Value);
-                }
-            }
+            /// <summary>Determines if the constant is negative.</summary>
+            public override bool IsNegative => Compute.IsNegative(Value);
 
-            public Constant(T constant)
-            {
-                this.Value = constant;
-            }
+            public Constant(T constant) { Value = constant;  }
 
             public override Expression Simplify(Operation operation, params Expression[] operands)
             {
                 return operation.SimplifyHack<T>(operands);
             }
 
-            public override Expression Clone()
-            {
-                return new Constant<T>(this.Value);
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Constant<T>(Value);
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => Value.ToString();
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return this.Value.ToString();
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is Constant<T> B)
+                {
+                    return Compute.Equal(Value, B.Value);
+                }
+                return false;
             }
         }
 
@@ -599,14 +587,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new Pi<T>();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Pi<T>();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "π";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "π";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is Pi<T>)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -621,14 +623,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new Zero<T>();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Zero<T>();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "0";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "0";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is Zero<T>)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -643,14 +659,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new One<T>();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new One<T>();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "1";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "1";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is One<T>)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -667,14 +697,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new Two<T>();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Two<T>();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "2";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "2";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is Two<T>)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -689,14 +733,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new Three<T>();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Three<T>();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "3";
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "3";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is Three<T>)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -711,14 +769,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new True();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new True();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => true.ToString();
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "TRUE";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is True)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -733,14 +805,28 @@ namespace Towel.Mathematics
 
             public override bool IsKnownConstant => true;
 
-            public override Expression Clone()
-            {
-                return new False();
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new False();
 
-            public override string ToString()
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => false.ToString();
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
             {
-                return "FALSE";
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (b is False)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -760,14 +846,14 @@ namespace Towel.Mathematics
 
             public interface Logical { }
 
-            protected virtual Expression Simplify<T>(params Expression[] operands)
+            internal virtual Expression Simplify<T>(params Expression[] operands)
             {
                 return this;
             }
 
             internal Expression SimplifyHack<T>(params Expression[] operands)
             {
-                return this.Simplify<T>(operands);
+                return Simplify<T>(operands);
             }
         }
 
@@ -783,13 +869,29 @@ namespace Towel.Mathematics
 
             public Expression A
             {
-                get { return this._a; }
-                set { this._a = value; }
+                get { return _a; }
+                set { _a = value; }
             }
 
             public Unary(Expression a) : base()
             {
-                this._a = a;
+                _a = a;
+            }
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
+            {
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (GetType() == b.GetType())
+                {
+                    return A.Equals(((Unary)b).A);
+                }
+                return false;
             }
         }
 
@@ -803,25 +905,24 @@ namespace Towel.Mathematics
         {
             public Simplification(Expression a) : base(a) { }
 
-            public override Expression Simplify()
-            {
-                return this.A.Simplify();
-            }
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
+            public override Expression Simplify() => A.Simplify();
 
-            public override Expression Clone()
-            {
-                return new Simplification(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Simplification(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Simplification(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Simplification(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return "Simplify(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "Simplify(" + A + ")";
         }
 
         #endregion
@@ -834,9 +935,11 @@ namespace Towel.Mathematics
         {
             public Negate(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
                 #region Computation
                 // Rule: [-A] => [B] where A is constant and B is -A
                 if (OPERAND is Constant constant)
@@ -847,28 +950,35 @@ namespace Towel.Mathematics
                 return -OPERAND;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.Negate(((Constant<T>)operands[0]).Value));
+                    return new Constant<T>(Compute.Negate(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Negate(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Negate(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Negate(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Negate(A.Substitute(variable, expression));
 
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
             public override string ToString()
             {
-                return "-" + this.A;
+                if (!(A is Constant) && !(A is Variable))
+                {
+                    return "-(" + A + ")";
+                }
+                return "-" + A;
             }
         }
 
@@ -881,9 +991,11 @@ namespace Towel.Mathematics
         {
             public NaturalLog(Expression operand) : base(operand) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is ln(A)
                 if (OPERAND is Constant constant)
@@ -894,29 +1006,29 @@ namespace Towel.Mathematics
                 return new NaturalLog(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.NaturalLogarithm(((Constant<T>)operands[0]).Value));
+                    return new Constant<T>(Compute.NaturalLogarithm(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new NaturalLog(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new NaturalLog(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new NaturalLog(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new NaturalLog(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return "ln(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "ln(" + A + ")";
         }
 
         #endregion
@@ -928,42 +1040,44 @@ namespace Towel.Mathematics
         {
             public SquareRoot(Expression operand) : base(operand) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is sqrt(A)
                 if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, this.A);
+                    return constant.Simplify(this, OPERAND);
                 }
                 #endregion
                 return new SquareRoot(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.SquareRoot(((Constant<T>)operands[0]).Value));
+                    return new Constant<T>(Compute.SquareRoot(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new SquareRoot(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new SquareRoot(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new SquareRoot(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new SquareRoot(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return "√(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "√(" + A + ")";
         }
 
         #endregion
@@ -975,42 +1089,94 @@ namespace Towel.Mathematics
         {
             public Exponential(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is e ^ A
                 if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, this.A);
+                    return constant.Simplify(this, constant);
                 }
                 #endregion
                 return new Exponential(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.Exponential(((Constant<T>)operands[0]).Value));
+                    return new Constant<T>(Compute.Exponential(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Exponential(A.Clone());
+
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Exponential(A.Substitute(variable, expression));
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "e^(" + A + ")";
+        }
+
+        #endregion
+
+        #region Factorial
+
+        [RightUnaryOperator("!", OperatorPriority.Factorial)]
+        [Serializable]
+        public class Factorial : Unary, Operation.Mathematical
+        {
+            public Factorial(Expression a) : base(a) { }
+
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
+            public override Expression Simplify()
             {
-                return new Exponential(this.A.Clone());
+                Expression OPERAND = A.Simplify();
+                #region Computation
+                // Rule: [A!] => [B] where A is constant and B is A!
+                if (OPERAND is Constant constant)
+                {
+                    return constant.Simplify(this, OPERAND);
+                }
+                #endregion
+                return new Factorial(OPERAND);
             }
 
-            public override Expression Substitute(string variable, Expression value)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                return new Exponential(this.A.Substitute(variable, value));
+                if (operands[0] is Constant<T> a)
+                {
+                    return new Constant<T>(Compute.Factorial(a.Value));
+                }
+                return base.Simplify<T>();
             }
 
-            public override string ToString()
-            {
-                return "e^(" + this.A + ")";
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Factorial(A.Clone());
+
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Factorial(A.Substitute(variable, expression));
+
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + "!";
         }
 
         #endregion
@@ -1022,9 +1188,11 @@ namespace Towel.Mathematics
         {
             public Invert(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
                 #region Computation
                 // Rule: [A] => [B] where A is constant and B is 1 / A
                 if (OPERAND is Constant constant)
@@ -1035,7 +1203,7 @@ namespace Towel.Mathematics
                 return new Invert(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a)
                 {
@@ -1044,20 +1212,20 @@ namespace Towel.Mathematics
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Invert(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Invert(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Invert(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Invert(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return "(1 / " + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => "(1 / " + A + ")";
         }
 
         #endregion
@@ -1066,6 +1234,7 @@ namespace Towel.Mathematics
 
         #region Trigonometry
 
+        /// <summary>Represents one of the trigonometry functions.</summary>
         public abstract class Trigonometry : Unary, Operation.Mathematical
         {
             public Trigonometry(Expression a) : base(a) { }
@@ -1075,246 +1244,264 @@ namespace Towel.Mathematics
 
         #region Sine
 
+        /// <summary>Represents the sine trigonometric function.</summary>
         [Serializable]
         public class Sine : Trigonometry, Operation.Mathematical
         {
             public Sine(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Sine(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Sine(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Sine(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Sine(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Sine(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Sine(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Sine) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Sine) + "(" + A + ")";
         }
 
         #endregion
 
         #region Cosine
 
+        /// <summary>Represents the cosine trigonometric function.</summary>
         [Serializable]
         public class Cosine : Trigonometry, Operation.Mathematical
         {
             public Cosine(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Cosine(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Cosine(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Cosine(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Cosine(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Cosine(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Cosine(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Cosine) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Cosine) + "(" + A + ")";
         }
 
         #endregion
 
         #region Tangent
 
+        /// <summary>Represents the tanget trigonometric function.</summary>
         [Serializable]
         public class Tangent : Trigonometry, Operation.Mathematical
         {
             public Tangent(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Tangent(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Tanget(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Tangent(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Tangent(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Tangent(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Tangent(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Tangent) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Tangent) + "(" + A + ")";
         }
 
         #endregion
 
         #region Cosecant
 
+        /// <summary>Represents the cosecant trigonometric function.</summary>
         [Serializable]
         public class Cosecant : Trigonometry, Operation.Mathematical
         {
             public Cosecant(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Cosecant(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Cosecant(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Cosecant(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Cosecant(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Cosecant(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Cosecant(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Cosecant) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Cosecant) + "(" + A + ")";
         }
 
         #endregion
 
         #region Secant
 
+        /// <summary>Represents the secant trigonometric function.</summary>
         [Serializable]
         public class Secant : Trigonometry, Operation.Mathematical
         {
             public Secant(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Secant(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Secant(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Secant(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Secant(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Secant(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Secant(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Secant) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Secant) + "(" + A + ")";
         }
 
         #endregion
 
         #region Cotangent
 
+        /// <summary>Represents the cotangent trigonometric function.</summary>
         [Serializable]
         public class Cotangent : Trigonometry, Operation.Mathematical
         {
             public Cotangent(Expression a) : base(a) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression OPERAND = this.A.Simplify();
+                Expression OPERAND = A.Simplify();
 
                 return new Cotangent(OPERAND);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
-                if (this.A is Constant<T> a)
+                if (A is Constant<T> a)
                 {
                     //return new Constant<T>(Compute.Cotangent(a.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Cotangent(this.A.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Cotangent(A.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Cotangent(this.A.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Cotangent(A.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return nameof(Cotangent) + "(" + this.A + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => nameof(Cotangent) + "(" + A + ")";
         }
 
         #endregion
@@ -1329,25 +1516,29 @@ namespace Towel.Mathematics
 
         public abstract class Binary : Operation
         {
-            protected Expression _a;
-            protected Expression _b;
-
-            public Expression A
-            {
-                get { return this._a; }
-                set { this._a = value; }
-            }
-
-            public Expression B
-            {
-                get { return this._b; }
-                set { this._b = value; }
-            }
+            public Expression A { get; set; }
+            public Expression B { get; set; }
 
             public Binary(Expression a, Expression b)
             {
-                this._a = a;
-                this._b = b;
+                A = a;
+                B = b;
+            }
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
+            {
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (GetType() == b.GetType())
+                {
+                    return A.Equals(((Binary)b).A) && B.Equals(((Binary)b).B);
+                }
+                return false;
             }
         }
 
@@ -1357,6 +1548,7 @@ namespace Towel.Mathematics
 
         #region AddOrSubtract
 
+        /// <summary>Represents an addition or a subtraction operation.</summary>
         public abstract class AddOrSubtract : Binary, Operation.Mathematical
         {
             public AddOrSubtract(Expression a, Expression b) : base(a, b) { }
@@ -1366,16 +1558,19 @@ namespace Towel.Mathematics
 
         #region Add
 
+        /// <summary>Represents an addition operation.</summary>
         [BinaryOperator("+", OperatorPriority.Addition)]
         [Serializable]
         public class Add : AddOrSubtract
         {
             public Add(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A + B] => [C] where A is constant, B is constant, and C is A + B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -1467,47 +1662,48 @@ namespace Towel.Mathematics
                 return LEFT + RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Add(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Add(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Add(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Add(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Add(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Add(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
             public override string ToString()
             {
-                string a = this.A.ToString();
-                string b = this.B.ToString();
+                string a = A.ToString();
+                string b = B.ToString();
                 {
-                    if ((this.A is Multiply MULTIPLY || this.A is Divide DIVIDE) && this.A is Constant CONSTANT && CONSTANT.IsNegative)
+                    if ((A is Multiply || A is Divide) && A is Constant CONSTANT && CONSTANT.IsNegative)
                     {
                         a = "(" + a + ")";
                     }
                 }
                 {
-                    if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
+                    if (B is Add || B is Subtract || A is Multiply || A is Divide)
                     {
                         b = "(" + b + ")";
                     }
                 }
                 {
-                    if (this.B is Constant CONSTANT && CONSTANT.IsNegative)
+                    if (B is Constant CONSTANT && CONSTANT.IsNegative)
                     {
-                        return a + " - " + Compute.Negate(this.B as Constant);
+                        return a + " - " + Compute.Negate(B as Constant);
                     }
                 }
                 return a + " + " + b;
@@ -1518,16 +1714,19 @@ namespace Towel.Mathematics
 
         #region Subtract
 
+        /// <summary>Represents a subtraction operation.</summary>
         [BinaryOperator("-", OperatorPriority.Subtraction)]
         [Serializable]
         public class Subtract : AddOrSubtract
         {
             public Subtract(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A - B] => [C] where A is constant, B is constant, and C is A - B
                     if (LEFT is Constant left && RIGHT is Constant right)
@@ -1619,7 +1818,7 @@ namespace Towel.Mathematics
                 return LEFT - RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
@@ -1630,25 +1829,28 @@ namespace Towel.Mathematics
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Subtract(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Subtract(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Subtract(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Subtract(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
             public override string ToString()
             {
-                string a = this.A.ToString();
-                if (this.A is Multiply || this.A is Divide)
+                string a = A.ToString();
+                if (A is Multiply || A is Divide)
                 {
                     a = "(" + a + ")";
                 }
-                string b = this.B.ToString();
-                if (this.B is Add || this.B is Subtract || this.A is Multiply || this.A is Divide)
+                string b = B.ToString();
+                if (B is Add || B is Subtract || A is Multiply || A is Divide)
                 {
                     b = "(" + b + ")";
                 }
@@ -1673,16 +1875,19 @@ namespace Towel.Mathematics
 
         #region Multiply
 
+        /// <summary>Represents a multiplication operation.</summary>
         [BinaryOperator("*", OperatorPriority.Multiplication)]
         [Serializable]
         public class Multiply : MultiplyOrDivide
         {
             public Multiply(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A * B] => [C] where A is constant, B is constant, and C is A * B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -1821,40 +2026,41 @@ namespace Towel.Mathematics
                 return LEFT * RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Multiply(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Multiply(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Multiply(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Multiply(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Multiply(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Multiply(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
             public override string ToString()
             {
-                string a = this.A.ToString();
-                string b = this.B.ToString();
-                if (this.B is Multiply || this.B is Divide)
+                string a = A.ToString();
+                string b = B.ToString();
+                if (B is Multiply || B is Divide)
                 {
                     b = "(" + b + ")";
                 }
-                else if (this.A is Constant a_const && a_const.IsKnownConstant && this.B is Constant)
+                else if (A is Constant a_const && a_const.IsKnownConstant && B is Constant)
                 {
                     return b + a;
                 }
-                else if (this.A is Constant && this.B is Constant b_const && b_const.IsKnownConstant)
+                else if (A is Constant && B is Constant b_const && b_const.IsKnownConstant)
                 {
                     return a + b;
                 }
@@ -1866,16 +2072,19 @@ namespace Towel.Mathematics
 
         #region Divide
 
+        /// <summary>Represents a division operation.</summary>
         [BinaryOperator("/", OperatorPriority.Division)]
         [Serializable]
         public class Divide : MultiplyOrDivide
         {
             public Divide(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Error Handling
                 {   // Rule: [X / 0] => Error
                     if (RIGHT is Constant CONSTANT && CONSTANT.IsZero)
@@ -2002,32 +2211,33 @@ namespace Towel.Mathematics
                 return LEFT / RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Divide(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Divide(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Divide(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Divide(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Divide(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Divide(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
             public override string ToString()
             {
-                string a = this.A.ToString();
-                string b = this.B.ToString();
-                if (this.B is Multiply || this.B is Divide)
+                string a = A.ToString();
+                string b = B.ToString();
+                if (B is Multiply || B is Divide)
                 {
                     b = "(" + b + ")";
                 }
@@ -2047,10 +2257,12 @@ namespace Towel.Mathematics
         {
             public Power(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A ^ B] => [C] where A is constant, B is constant, and C is A ^ B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2086,31 +2298,29 @@ namespace Towel.Mathematics
                 return LEFT ^ RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Power(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Power(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Power(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Power(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Power(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Power(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return this.A + " ^ " + this.B;
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " ^ " + B;
         }
 
         #endregion
@@ -2122,10 +2332,12 @@ namespace Towel.Mathematics
         {
             public Root(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A ^ (1 / B)] => [C] where A is constant, B is constant, and C is A ^ (1 / B)
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2137,7 +2349,7 @@ namespace Towel.Mathematics
                 return new Root(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
@@ -2148,20 +2360,20 @@ namespace Towel.Mathematics
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Root(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Root(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Root(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Root(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return this.A + " ^ (1 / " + this.B + ")";
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " ^ (1 / " + B + ")";
         }
 
         #endregion
@@ -2174,10 +2386,12 @@ namespace Towel.Mathematics
         {
             public Equal(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A == B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2189,31 +2403,29 @@ namespace Towel.Mathematics
                 return LEFT == RIGHT;
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.Equal(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.Equal(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new Equal(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new Equal(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new Equal(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new Equal(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return this.A + " = " + this.B;
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " = " + B;
         }
 
         #endregion
@@ -2226,10 +2438,12 @@ namespace Towel.Mathematics
         {
             public NotEqual(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A != B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2241,31 +2455,29 @@ namespace Towel.Mathematics
                 return new NotEqual(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.NotEqual(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.NotEqual(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new NotEqual(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new NotEqual(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new NotEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) => 
+                new NotEqual(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString()
-            {
-                return this.A + " ≠ " + this.B;
-            }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " ≠ " + B;
         }
 
         #endregion
@@ -2278,10 +2490,12 @@ namespace Towel.Mathematics
         {
             public LessThan(Expression a, Expression b) : base(a, b) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A < B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2293,28 +2507,29 @@ namespace Towel.Mathematics
                 return new LessThan(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.LessThan(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.LessThan(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new LessThan(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new LessThan(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new LessThan(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new LessThan(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString() { return this.A + " < " + this.B; }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " < " + B;
         }
 
         #endregion
@@ -2327,10 +2542,12 @@ namespace Towel.Mathematics
         {
             public GreaterThan(Expression left, Expression right) : base(left, right) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A > B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2342,7 +2559,7 @@ namespace Towel.Mathematics
                 return new GreaterThan(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
@@ -2353,17 +2570,20 @@ namespace Towel.Mathematics
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new GreaterThan(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new GreaterThan(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new GreaterThan(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new GreaterThan(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString() { return this.A + " < " + this.B; }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " < " + B;
         }
 
         #endregion
@@ -2376,10 +2596,12 @@ namespace Towel.Mathematics
         {
             public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A <= B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2391,28 +2613,29 @@ namespace Towel.Mathematics
                 return new LessThanOrEqual(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.LessThanOrEqual(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.LessThanOrEqual(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new LessThanOrEqual(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new LessThanOrEqual(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new LessThanOrEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new LessThanOrEqual(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString() { return this.A + " < " + this.B; }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " < " + B;
         }
 
         #endregion
@@ -2425,10 +2648,12 @@ namespace Towel.Mathematics
         {
             public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }
 
+            /// <summary>Simplifies the mathematical expression.</summary>
+            /// <returns>The simplified mathematical expression.</returns>
             public override Expression Simplify()
             {
-                Expression LEFT = this.A.Simplify();
-                Expression RIGHT = this.B.Simplify();
+                Expression LEFT = A.Simplify();
+                Expression RIGHT = B.Simplify();
                 #region Computation
                 {   // Rule: [A == B] => [C] where A is constant, B is constant, and C is A >= B
                     if (LEFT is Constant A && RIGHT is Constant B)
@@ -2440,28 +2665,29 @@ namespace Towel.Mathematics
                 return new GreaterThanOrEqual(LEFT, RIGHT);
             }
 
-            protected override Expression Simplify<T>(params Expression[] operands)
+            internal override Expression Simplify<T>(params Expression[] operands)
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.GreaterThanOrEqual(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.GreaterThanOrEqual(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
 
-            public override Expression Clone()
-            {
-                return new GreaterThanOrEqual(this.A.Clone(), this.B.Clone());
-            }
+            /// <summary>Clones this expression.</summary>
+            /// <returns>A clone of this expression.</returns>
+            public override Expression Clone() => new GreaterThanOrEqual(A.Clone(), B.Clone());
 
-            public override Expression Substitute(string variable, Expression value)
-            {
-                return new GreaterThanOrEqual(this.A.Substitute(variable, value), this.B.Substitute(variable, value));
-            }
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
+            public override Expression Substitute(string variable, Expression expression) =>
+                new GreaterThanOrEqual(A.Substitute(variable, expression), B.Substitute(variable, expression));
 
-            public override string ToString() { return this.A + " < " + this.B; }
+            /// <summary>Standard conversion to a string representation.</summary>
+            /// <returns>The string represnetation of this expression.</returns>
+            public override string ToString() => A + " < " + B;
         }
 
         #endregion
@@ -2474,35 +2700,33 @@ namespace Towel.Mathematics
 
         public abstract class Ternary : Operation
         {
-            protected Expression _a;
-            protected Expression _b;
-            protected Expression _c;
-
-            public Expression A
-            {
-                get { return this._a; }
-                set { this._a = value; }
-            }
-
-            public Expression B
-            {
-                get { return this._b; }
-                set { this._b = value; }
-            }
-
-            public Expression C
-            {
-                get { return this._c; }
-                set { this._c = value; }
-            }
+            public Expression A { get; set; }
+            public Expression B { get; set; }
+            public Expression C { get; set; }
 
             public Ternary() { }
 
             public Ternary(Expression a, Expression b, Expression c)
             {
-                this._a = a;
-                this._b = b;
-                this._c = c;
+                A = a;
+                B = b;
+                C = c;
+            }
+
+            /// <summary>Standard equality check.</summary>
+            /// <param name="b">The object to check for equality with.</param>
+            /// <returns>True if equal. False if not.</returns>
+            public override bool Equals(object b)
+            {
+                if (b == null)
+                {
+                    throw new ArgumentNullException(nameof(b));
+                }
+                if (GetType() == b.GetType())
+                {
+                    return A.Equals(((Ternary)b).A) && B.Equals(((Ternary)b).B) && C.Equals(((Ternary)b).C);
+                }
+                return false;
             }
         }
 
@@ -2516,19 +2740,13 @@ namespace Towel.Mathematics
 
         public abstract class Multinary : Operation
         {
-            protected Expression[] _operands;
-
-            public Expression[] Operands
-            {
-                get { return this._operands; }
-                set { this._operands = value; }
-            }
+            public Expression[] Operands { get; set; }
 
             public Multinary() { }
 
             public Multinary(Expression[] operands)
             {
-                this._operands = operands;
+                Operands = operands;
             }
         }
 
@@ -2889,7 +3107,7 @@ namespace Towel.Mathematics
         /// <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
         /// <typeparam name="T">The type to convert any constants into (ex: float, double, etc).</typeparam>
         /// <param name="string">The expression string to parse.</param>
-        /// <param name="parsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
+        /// <param name="tryParsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
         /// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
         public static Expression Parse<T>(string @string, TryParseNumeric<T> tryParsingFunction = null)
         {

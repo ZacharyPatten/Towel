@@ -1591,18 +1591,30 @@ namespace Towel.Mathematics
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
         public static T Factorial<T>(T a)
         {
-            if (!IsInteger(a))
+            return FactorialImplementation<T>.Function(a);
+        }
+
+        internal static class FactorialImplementation<T>
+        {
+            internal static Func<T, T> Function = (T a) =>
             {
-                throw new ArgumentOutOfRangeException(nameof(a), a, "!" + nameof(a) + "." + nameof(IsInteger));
-            }
-            if (LessThan(a, Constant<T>.Zero))
-            {
-                throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + " >= 0)");
-            }
-            T result = Constant<T>.One;
-            for (; GreaterThan(a, Constant<T>.One); a = Subtract(a, Constant<T>.One))
-                result = Multiply(a, result);
-            return result;
+                Function = A =>
+                {
+                    if (!IsInteger(A))
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(A), A, "!" + nameof(A) + "." + nameof(IsInteger));
+                    }
+                    if (LessThan(A, Constant<T>.Zero))
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + " >= 0)");
+                    }
+                    T result = Constant<T>.One;
+                    for (; GreaterThan(A, Constant<T>.One); A = Subtract(A, Constant<T>.One))
+                        result = Multiply(A, result);
+                    return result;
+                };
+                return Function(a);
+            };
         }
 
         #endregion
@@ -2638,40 +2650,50 @@ namespace Towel.Mathematics
         /// <summary>Factors the primes numbers of a numeric integer value.</summary>
         /// <typeparam name="T">The numeric type of the operation.</typeparam>
         /// <param name="a">The value to factor the prime numbers of.</param>
-        /// <param name="step">The action to perform on all the prime factors.</param>
-        public static void FactorPrimes<T>(T a, Step<T> step)
+        /// <returns>A stepper of all the prime factors.</returns>
+        public static Stepper<T> FactorPrimes<T>(T a)
         {
-            if (step is null)
+            return FactorPrimesImplementation<T>.Function(a);
+        }
+
+        internal static class FactorPrimesImplementation<T>
+        {
+            internal static Func<T, Stepper<T>> Function = (T a) =>
             {
-                throw new ArgumentNullException(nameof(step));
-            }
-            T A = a;
-            if (!IsInteger(A))
-            {
-                throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + "." + nameof(IsInteger) + ")");
-            }
-            if (IsNegative(A))
-            {
-                A = AbsoluteValue(A);
-                step(Convert<int, T>(-1));
-            }
-            while (IsEven(A))
-            {
-                step(Constant<T>.Two);
-                A = Divide(A, Constant<T>.Two);
-            }
-            for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Add(i, Constant<T>.Two))
-            {
-                while (Equal(Modulo(A, i), Constant<T>.Zero))
+                Function = A =>
                 {
-                    step(i);
-                    A = Divide(A, i);
-                }
-            }
-            if (GreaterThan(A, Constant<T>.Two))
-            {
-                step(A);
-            }
+                    if (!IsInteger(A))
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + "." + nameof(IsInteger) + ")");
+                    }
+                    return (Step<T> step) =>
+                    {
+                        if (IsNegative(A))
+                        {
+                            A = AbsoluteValue(A);
+                            step(Convert<int, T>(-1));
+                        }
+                        while (IsEven(A))
+                        {
+                            step(Constant<T>.Two);
+                            A = Divide(A, Constant<T>.Two);
+                        }
+                        for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Add(i, Constant<T>.Two))
+                        {
+                            while (Equal(Modulo(A, i), Constant<T>.Zero))
+                            {
+                                step(i);
+                                A = Divide(A, i);
+                            }
+                        }
+                        if (GreaterThan(A, Constant<T>.Two))
+                        {
+                            step(A);
+                        }
+                    };
+                };
+                return Function(a);
+            };
         }
 
         #endregion

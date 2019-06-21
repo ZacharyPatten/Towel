@@ -743,6 +743,21 @@ namespace System
 
         #region Array
 
+        /// <summary>Builds an array from a size and initialization delegate.</summary>
+        /// <typeparam name="T">The generic type of the array.</typeparam>
+        /// <param name="size">The size of the array to build.</param>
+        /// <param name="func">The initialization pattern.</param>
+        /// <returns>The built array.</returns>
+        public static T[] BuildArray<T>(int size, Func<int, T> func)
+        {
+            T[] array = new T[size];
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = func(i);
+            }
+            return array;
+        }
+
         public static bool ValuesAreEqual<T>(this T[] a1, T[] a2)
         {
             return a1.ValuesAreEqual(a2, Equate.Default);
