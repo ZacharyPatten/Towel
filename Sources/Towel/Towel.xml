@@ -25316,6 +25316,20 @@
         <member name="T:Towel.Stepper">
             <summary>Extension methods.</summary>
         </member>
+        <member name="M:Towel.Stepper.Concat``1(Towel.Stepper{``0},Towel.Stepper{``0}[])">
+            <summary>Concatenates steppers.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The first stepper of the contactenation.</param>
+            <param name="otherSteppers">The other steppers of the concatenation.</param>
+            <returns>The concatenated steppers as a single stepper.</returns>
+        </member>
+        <member name="M:Towel.Stepper.Where``1(Towel.Stepper{``0},System.Predicate{``0})">
+            <summary>Filters a stepper using a where predicate.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to filter.</param>
+            <param name="predicate">The predicate of the where filter.</param>
+            <returns>The filtered stepper.</returns>
+        </member>
         <member name="M:Towel.Stepper.Iterate``1(System.Int32,System.Func{System.Int32,``0})">
             <summary>Creates a stepper from an iteration pattern.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
@@ -25349,9 +25363,7 @@
             <returns>The reduced stepper function.</returns>
         </member>
         <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},Towel.Equate{``0},Towel.Hash{``0})">
-            <summary>
-            Determines if the data contains any duplicates.
-            </summary>
+            <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
             <param name="equate">An equality function for the data</param>
@@ -25359,9 +25371,7 @@
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
         <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
-            <summary>
-            Determines if the data contains any duplicates.
-            </summary>
+            <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
             <param name="equate">An equality function for the data</param>

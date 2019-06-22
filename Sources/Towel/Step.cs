@@ -139,6 +139,42 @@ namespace Towel
     /// <summary>Extension methods.</summary>
     public static class Stepper
     {
+        /// <summary>Concatenates steppers.</summary>
+        /// <typeparam name="T">The generic type of the stepper.</typeparam>
+        /// <param name="stepper">The first stepper of the contactenation.</param>
+        /// <param name="otherSteppers">The other steppers of the concatenation.</param>
+        /// <returns>The concatenated steppers as a single stepper.</returns>
+        public static Stepper<T> Concat<T>(this Stepper<T> stepper, params Stepper<T>[] otherSteppers)
+        {
+            return step =>
+            {
+                stepper(step);
+                foreach (Stepper<T> otherStepper in otherSteppers)
+                {
+                    otherStepper(step);
+                }
+            };
+        }
+
+        /// <summary>Filters a stepper using a where predicate.</summary>
+        /// <typeparam name="T">The generic type of the stepper.</typeparam>
+        /// <param name="stepper">The stepper to filter.</param>
+        /// <param name="predicate">The predicate of the where filter.</param>
+        /// <returns>The filtered stepper.</returns>
+        public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate)
+        {
+            return step =>
+            {
+                stepper(x =>
+                {
+                    if (predicate(x))
+                    {
+                        step(x);
+                    }
+                });
+            };
+        }
+
         /// <summary>Creates a stepper from an iteration pattern.</summary>
         /// <typeparam name="T">The generic type of the stepper.</typeparam>
         /// <param name="iterations">The number of times to iterate.</param>
@@ -209,7 +245,6 @@ namespace Towel
             {
                 throw new ArgumentOutOfRangeException(nameof(nth), nth, "!(" + nameof(nth) + " > 0)");
             }
-
             int i = 1;
             return step =>
             {
@@ -228,9 +263,7 @@ namespace Towel
             };
         }
 
-        /// <summary>
-        /// Determines if the data contains any duplicates.
-        /// </summary>
+        /// <summary>Determines if the data contains any duplicates.</summary>
         /// <typeparam name="T">The generic type of the data.</typeparam>
         /// <param name="stepper">The stepper function for the data.</param>
         /// <param name="equate">An equality function for the data</param>
@@ -256,9 +289,7 @@ namespace Towel
             return duplicateFound;
         }
 
-        /// <summary>
-        /// Determines if the data contains any duplicates.
-        /// </summary>
+        /// <summary>Determines if the data contains any duplicates.</summary>
         /// <typeparam name="T">The generic type of the data.</typeparam>
         /// <param name="stepper">The stepper function for the data.</param>
         /// <param name="equate">An equality function for the data</param>
