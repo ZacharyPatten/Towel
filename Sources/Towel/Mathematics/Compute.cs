@@ -193,7 +193,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the addition.</returns>
         public static T Add<T>(Stepper<T> stepper)
         {
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
