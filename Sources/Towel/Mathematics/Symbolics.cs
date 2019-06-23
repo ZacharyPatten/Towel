@@ -15,15 +15,15 @@ namespace Towel.Mathematics
         [Serializable]
         internal enum OperatorPriority
         {
-            Negation = 1,
-            Factorial = 1,
-            Addition = 2,
-            Subtraction = 2,
-            Multiplication = 3,
-            Division = 3,
-            Exponents = 4,
-            Roots = 4,
-            Logical = 5,
+            Addition = 1,
+            Subtraction = 1,
+            Multiplication = 2,
+            Division = 2,
+            Exponents = 3,
+            Roots = 3,
+            Logical = 4,
+            Negation = 5,
+            Factorial = 6,
         }
 
         #endregion
@@ -318,10 +318,12 @@ namespace Towel.Mathematics
 
         #region Pi
 
+        /// <summary>Represents the π (pi).</summary>
         [Serializable]
         [KnownConstant("π")]
         public class Pi : KnownConstantOfUknownType
         {
+            /// <summary>Constructs a new instance of pi.</summary>
             public Pi() : base() { }
 
             public override bool IsPi => true;
@@ -354,6 +356,11 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            /// <summary>The default hash code for this instance.</summary>
+            /// <returns>The computed hash code.</returns>
+            public override int GetHashCode() => HashCode;
+            private static readonly int HashCode = nameof(Pi).GetHashCode();
         }
 
         #endregion
@@ -2776,6 +2783,7 @@ namespace Towel.Mathematics
         private static string ParsableOperationsRegexPattern;
         private static string ParsableOperatorsRegexPattern;
         private static string ParsableKnownConstantsRegexPattern;
+        private static string SpecialStringsPattern;
         // Operation Refrences
         private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
         private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
@@ -2965,6 +2973,8 @@ namespace Towel.Mathematics
                 System.Collections.Generic.IEnumerable<string> knownConstants =
                     ParsableKnownConstants.Keys.Select(x => Regex.Escape(x));
                 ParsableKnownConstantsRegexPattern = string.Join("|", knownConstants);
+
+                SpecialStringsPattern = string.Join("|", operators.Append(Regex.Escape("(")).Append(Regex.Escape(")")));
 
                 ParseableLibraryBuilt = true;
             }
@@ -3160,7 +3170,8 @@ namespace Towel.Mathematics
         internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
         {
             // Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
-            MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern);
+            MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern, RegexOptions.RightToLeft);
+            MatchCollection specialStringMatches = Regex.Matches(@string, SpecialStringsPattern, RegexOptions.RightToLeft);
             if (operatorMatches.Count > 0)
             {
                 // Find the first operator with the highest available priority
@@ -3171,12 +3182,12 @@ namespace Towel.Mathematics
                 bool isUnaryLeftOperator = false;
                 bool isUnaryRightOperator = false;
                 bool isBinaryOperator = false;
-                for (int i = 0; i < @string.Length; i++)
+                for (int i = @string.Length - 1; i >= 0; i--)
                 {
                     switch (@string[i])
                     {
-                        case '(': scope++; break;
-                        case ')': scope--; break;
+                        case ')': scope++; break;
+                        case '(': scope--; break;
                     }
 
                     // Handle Input Errors
@@ -3196,15 +3207,89 @@ namespace Towel.Mathematics
                             // We found an operator in the current scope
                             // Now we need to determine if it is a unary-left, unary-right, or binary operator
 
-                            if (// first character in the expression
-                                currentMatch.Index == 0 ||
-                                // nothing but white space since the previous operator
-                                (previousMatch != null &&
-                                string.IsNullOrWhiteSpace(
-                                    @string.Substring(
-                                        previousMatch.Index + previousMatch.Length,
-                                        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
-                                        ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value)))
+                            bool IsUnaryLeftOperator()
+                            {
+                                if (!ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value))
+                                {
+                                    return false;
+                                }
+
+                                int rightIndex = currentMatch.Index - currentMatch.Length + 1;
+                                if (rightIndex <= 0)
+                                {
+                                    return true;
+                                }
+                                Match leftSpecialMatch = null;
+                                foreach (Match match in specialStringMatches)
+                                {
+                                    if (match.Index < currentMatch.Index)
+                                    {
+                                        leftSpecialMatch = match;
+                                        break;
+                                    }
+                                }
+                                if (leftSpecialMatch == null)
+                                {
+                                    string substring = @string.Substring(0, rightIndex);
+                                    return string.IsNullOrWhiteSpace(substring);
+                                }
+                                else if (ParsableRightUnaryOperators.ContainsKey(leftSpecialMatch.Value)) // This will need to be fixed in the future
+                                {
+                                    return false;
+                                }
+                                else
+                                {
+                                    int leftIndex = leftSpecialMatch.Index + 1;
+                                    string substring = @string.Substring(leftIndex, rightIndex - leftIndex);
+                                    return string.IsNullOrWhiteSpace(substring);
+                                }
+                            }
+
+                            bool IsUnaryRightOperator()
+                            {
+                                if (!ParsableRightUnaryOperators.ContainsKey(currentMatch.Value))
+                                {
+                                    return false;
+                                }
+
+                                int leftIndex = currentMatch.Index;
+                                if (leftIndex >= @string.Length - 1)
+                                {
+                                    return true;
+                                }
+                                Match rightSpecialMatch = null;
+                                foreach (Match match in specialStringMatches)
+                                {
+                                    if (match.Index <= currentMatch.Index)
+                                    {
+                                        break;
+                                    }
+                                    rightSpecialMatch = match;
+                                }
+                                if (rightSpecialMatch == null)
+                                {
+                                    return string.IsNullOrWhiteSpace(@string.Substring(leftIndex + 1));
+                                }
+                                else
+                                {
+                                    int rightIndex = rightSpecialMatch.Index - rightSpecialMatch.Length;
+                                    return string.IsNullOrWhiteSpace(@string.Substring(leftIndex, rightIndex - leftIndex));
+                                }
+                            }
+
+                            if (IsUnaryLeftOperator())// first character in the expression
+                                //currentMatch.Index == 0 ||
+                                //// nothing but white space to the left
+                                //(previousMatch != null &&
+
+                                //string.IsNullOrWhiteSpace(
+                                //    @string.Substring(
+                                //        0
+                                //        currentMatch.Index + 
+
+                                //        previousMatch.Index + previousMatch.Length,
+                                //        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
+                                //        ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value)))
 
                             {
                                 // Unary-Left Operator
@@ -3217,16 +3302,16 @@ namespace Towel.Mathematics
                                     priority = ParsableLeftUnaryOperators[currentMatch.Value].Item1;
                                 }
                             }
-                            else if (
-                                // last character(s) in the expression
-                                (currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
-                                // nothing but white space until the next operator
-                                (nextMatch != null &&
-                                string.IsNullOrWhiteSpace(
-                                    @string.Substring(
-                                        currentMatch.Index + currentMatch.Length,
-                                        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1)) &&
-                                        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
+                            else if (IsUnaryRightOperator())
+                                //// last character(s) in the expression
+                                //(currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
+                                //// nothing but white space until the next operator
+                                //(nextMatch != null &&
+                                //string.IsNullOrWhiteSpace(
+                                //    @string.Substring(
+                                //        currentMatch.Index + currentMatch.Length,
+                                //        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1)) &&
+                                //        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
                             {
                                 // Unary Right Operator
                                 if (@operator == null || priority > ParsableRightUnaryOperators[currentMatch.Value].Item1)
@@ -3550,12 +3635,22 @@ namespace Towel.Mathematics
                 }
                 string decimalPlacesString = @string.Substring(decimalIndex + 1);
 
+                int zeroCount = 0;
+                while (decimalPlacesString[zeroCount] == '0')
+                {
+                    zeroCount++;
+                }
+
                 if (int.TryParse(wholeNumberString, out int wholeNumberInt) &&
                     int.TryParse(decimalPlacesString, out int decimalPlacesInt))
                 {
                     T wholeNumber = Compute.Convert<int, T>(wholeNumberInt);
                     T decimalPlaces = Compute.Convert<int, T>(decimalPlacesInt);
                     while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.One))
+                    {
+                        decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
+                    }
+                    for (; zeroCount > 0; zeroCount--)
                     {
                         decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
                     }

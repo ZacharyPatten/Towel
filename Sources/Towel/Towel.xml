@@ -15813,6 +15813,12 @@
         <member name="P:Towel.Mathematics.Symbolics.Constant.IsNegative">
             <summary>Determines if the constant is negative.</summary>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Pi">
+            <summary>Represents the π (pi).</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi.#ctor">
+            <summary>Constructs a new instance of pi.</summary>
+        </member>
         <member name="P:Towel.Mathematics.Symbolics.Pi.IsNegative">
             <summary>Determines if the constant is negative.</summary>
         </member>
@@ -15828,6 +15834,10 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi.GetHashCode">
+            <summary>The default hash code for this instance.</summary>
+            <returns>The computed hash code.</returns>
         </member>
         <member name="P:Towel.Mathematics.Symbolics.Zero.IsNegative">
             <summary>Determines if the constant is negative.</summary>
