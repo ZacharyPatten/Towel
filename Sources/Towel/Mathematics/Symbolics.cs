@@ -126,7 +126,12 @@ namespace Towel.Mathematics
 
         #region Expression
 
+#pragma warning disable CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
+#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+        /// <summary>Abstract base class for mathematical expressions.</summary>
         public abstract class Expression
+#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
         {
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -137,14 +142,21 @@ namespace Towel.Mathematics
             /// <param name="expression">The expression to substitute for each occurence of a variable.</param>
             /// <returns>The resulting expression of the substitution.</returns>
             public virtual Expression Substitute(string variable, Expression expression) => Clone();
-
+            /// <summary>Substitutes an expression for all occurences of a variable.</summary>
+            /// <param name="variable">The variable to be substititued.</param>
+            /// <param name="value">The value to substitute for each occurence of a variable.</param>
+            /// <returns>The resulting expression of the substitution.</returns>
             public Expression Substitute<T>(string variable, T value) => SubstitutionHack(variable, new Constant<T>(value));
 
             internal Expression SubstitutionHack(string variable, Expression expression) => Substitute(variable, expression);
-
-            public virtual Expression Derive(string variable) => Clone();
-
-            public virtual Expression Integrate(string variable) => Clone();
+            /// <summary>Derives this expression.</summary>
+            /// <param name="variable">The variable to derive in relation to.</param>
+            /// <returns>The result of the derivation.</returns>
+            public virtual Expression Derive(string variable) => throw new NotImplementedException("This feature is still in development");
+            /// <summary>Integrates this expression.</summary>
+            /// <param name="variable">The variable to integrate in relation to.</param>
+            /// <returns>The result of the integration.</returns>
+            public virtual Expression Integrate(string variable) => throw new NotImplementedException("This feature is still in development");
 
             /// <summary>Creates a copy of the expression.</summary>
             /// <returns>A copy of the expression.</returns>
@@ -174,15 +186,30 @@ namespace Towel.Mathematics
             /// <param name="b">The second expression of the division.</param>
             /// <returns>The result of the division.</returns>
             public static Expression operator /(Expression a, Expression b) => new Divide(a, b);
-
+            /// <summary>Wraps two expressions in an equality check.</summary>
+            /// <param name="a">The left side of the equality.</param>
+            /// <param name="b">The right side of the equality.</param>
+            /// <returns>The expressions wrapped in an equality check.</returns>
             public static Expression operator ==(Expression a, Expression b) => new Equal(a, b);
-
+            /// <summary>Wraps two expressions in an inequality check.</summary>
+            /// <param name="a">The left side of the inequality.</param>
+            /// <param name="b">The right side of the inequality.</param>
+            /// <returns>The expressions wrapped in an inequality check.</returns>
             public static Expression operator !=(Expression a, Expression b) => new NotEqual(a, b);
-
+            /// <summary>Wraps two expressions in a less than check.</summary>
+            /// <param name="a">The left side of the less than.</param>
+            /// <param name="b">The right side of the less than.</param>
+            /// <returns>The expressions wrapped in an less than check.</returns>
             public static Expression operator <(Expression a, Expression b) => new LessThan(a, b);
-
+            /// <summary>Wraps two expressions in a greater than check.</summary>
+            /// <param name="a">The left side of the greater than.</param>
+            /// <param name="b">The right side of the greater than.</param>
+            /// <returns>The expressions wrapped in an greater than check.</returns>
             public static Expression operator >(Expression a, Expression b) => new GreaterThan(a, b);
-
+            /// <summary>Takes one expression to the power of another.</summary>
+            /// <param name="a">The first expression of the power operation.</param>
+            /// <param name="b">The second expression of the power operation.</param>
+            /// <returns>The result of the power operation.</returns>
             public static Expression operator ^(Expression a, Expression b) => new Power(a, b);
         }
 
@@ -256,22 +283,23 @@ namespace Towel.Mathematics
         [Serializable]
         public abstract class Constant : Expression
         {
+            /// <summary>True if this is a known constant value.</summary>
             public virtual bool IsKnownConstant => false;
-
+            /// <summary>True if this numeric value is zero (0).</summary>
             public virtual bool IsZero => false;
-
+            /// <summary>True if this numeric value is one (1).</summary>
             public virtual bool IsOne => false;
-
+            /// <summary>True if this numeric value is two (2).</summary>
             public virtual bool IsTwo => false;
-
+            /// <summary>True if this numeric value is three (3).</summary>
             public virtual bool IsThree => false;
-
+            /// <summary>True if this numeric value is π (pi).</summary>
             public virtual bool IsPi => false;
 
             /// <summary>Determines if the constant is negative.</summary>
             public abstract bool IsNegative { get; }
 
-            public virtual Expression Simplify(Operation operation, params Expression[] operands)
+            internal virtual Expression Simplify(Operation operation, params Expression[] operands)
             {
                 return this;
             }
@@ -282,8 +310,7 @@ namespace Towel.Mathematics
             internal static Expression BuildGeneric(object value)
             {
                 Type valueType = value.GetType();
-                Func<object, Expression> preCompiledConstructor;
-                if (preCompiledConstructors.TryGetValue(valueType, out preCompiledConstructor))
+                if (preCompiledConstructors.TryGetValue(valueType, out Func<object, Expression> preCompiledConstructor))
                 {
                     return preCompiledConstructor(value);
                 }
@@ -306,12 +333,14 @@ namespace Towel.Mathematics
 
         #region KnownConstantOfUknownType
 
+        /// <summary>Abstract base class for known constants of unknown types.</summary>
         [Serializable]
         public abstract class KnownConstantOfUknownType : Constant
         {
+            /// <summary>True if this numeric value is a known value.</summary>
             public override bool IsKnownConstant => true;
 
-            public abstract Constant<T> ApplyType<T>();
+            internal abstract Constant<T> ApplyType<T>();
         }
 
         #endregion
@@ -326,12 +355,13 @@ namespace Towel.Mathematics
             /// <summary>Constructs a new instance of pi.</summary>
             public Pi() : base() { }
 
+            /// <summary>True if this numeric value is π (pi).</summary>
             public override bool IsPi => true;
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => false;
 
-            public override Constant<T> ApplyType<T>() => new Pi<T>();
+            internal override Constant<T> ApplyType<T>() => new Pi<T>();
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -367,17 +397,20 @@ namespace Towel.Mathematics
 
         #region Zero
 
+        /// <summary>Represents zero (0).</summary>
         [Serializable]
         public class Zero : KnownConstantOfUknownType
         {
+            /// <summary>Constructs a new zero (0) value.</summary>
             public Zero() : base() { }
 
+            /// <summary>True if this numeric value is zero (0).</summary>
             public override bool IsZero => true;
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => false;
 
-            public override Constant<T> ApplyType<T>() => new Zero<T>();
+            internal override Constant<T> ApplyType<T>() => new Zero<T>();
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -402,23 +435,32 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Zero).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region One
 
+        /// <summary>Represents the value of one (1).</summary>
         [Serializable]
         public class One : KnownConstantOfUknownType
         {
+            /// <summary>Constructs a new one (1) constant.</summary>
             public One() : base() { }
 
+            /// <summary>True if this numeric value is one (1).</summary>
             public override bool IsOne => true;
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => false;
 
-            public override Constant<T> ApplyType<T>() => new One<T>();
+            internal override Constant<T> ApplyType<T>() => new One<T>();
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -443,23 +485,32 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(One).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region Two
 
+        /// <summary>Represents the value of two (2).</summary>
         [Serializable]
         public class Two : KnownConstantOfUknownType
         {
+            /// <summary>Constructs a new value of two (2).</summary>
             public Two() : base() { }
 
+            /// <summary>True if this numeric value is two (2).</summary>
             public override bool IsTwo => true;
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => false;
 
-            public override Constant<T> ApplyType<T>() => new Two<T>();
+            internal override Constant<T> ApplyType<T>() => new Two<T>();
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -484,23 +535,32 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Two).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region Three
 
+        /// <summary>Represents the value of three (3).</summary>
         [Serializable]
         public class Three : KnownConstantOfUknownType
         {
+            /// <summary>Constructs a new value of three (3).</summary>
             public Three() : base() { }
 
+            /// <summary>True if this numeric value is three (3).</summary>
             public override bool IsThree => true;
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => false;
 
-            public override Constant<T> ApplyType<T>() => new Three<T>();
+            internal override Constant<T> ApplyType<T>() => new Three<T>();
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -525,6 +585,12 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Three).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
@@ -535,25 +601,31 @@ namespace Towel.Mathematics
 
         #region Constant<T>
 
+        /// <summary>Represents a numeric constant.</summary>
+        /// <typeparam name="T">The generic type of the numeric value.</typeparam>
         [Serializable]
         public class Constant<T> : Constant
         {
+            /// <summary>The value of this numeric constant.</summary>
             public readonly T Value;
 
+            /// <summary>True if this numeric value is zero (0).</summary>
             public override bool IsZero => Compute.Equal(Value, Mathematics.Constant<T>.Zero);
-
+            /// <summary>True if this numeric value is one (1).</summary>
             public override bool IsOne => Compute.Equal(Value, Mathematics.Constant<T>.One);
-
+            /// <summary>True if this numeric value is two (2).</summary>
             public override bool IsTwo => Compute.Equal(Value, Mathematics.Constant<T>.Two);
-
+            /// <summary>True if this numeric value is three (3).</summary>
             public override bool IsThree => Compute.Equal(Value, Mathematics.Constant<T>.Three);
 
             /// <summary>Determines if the constant is negative.</summary>
             public override bool IsNegative => Compute.IsNegative(Value);
 
+            /// <summary>Constructs a new numeric constant.</summary>
+            /// <param name="constant">The value of the numeric constant.</param>
             public Constant(T constant) { Value = constant;  }
 
-            public override Expression Simplify(Operation operation, params Expression[] operands)
+            internal override Expression Simplify(Operation operation, params Expression[] operands)
             {
                 return operation.SimplifyHack<T>(operands);
             }
@@ -581,18 +653,44 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Constant<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
+        }
+
+        #endregion
+
+        #region KnownConstantOfUknownType
+
+        /// <summary>Abstract base class for known constants of unknown types.</summary>
+        [Serializable]
+        public abstract class KnownConstantOfKnownType<T> : Constant<T>
+        {
+            /// <summary>True if this numeric value is a known value.</summary>
+            public override bool IsKnownConstant => true;
+
+            /// <summary>Constructs a new constant of a known type.</summary>
+            /// <param name="constant">The value of the known constant.</param>
+            public KnownConstantOfKnownType(T constant) : base(constant) { }
         }
 
         #endregion
 
         #region Pi<T>
 
+        /// <summary>Represents the value of π (pi).</summary>
+        /// <typeparam name="T">The generic type of the numeric.</typeparam>
         [Serializable]
-        public class Pi<T> : Constant<T>
+        public class Pi<T> : KnownConstantOfKnownType<T>
         {
+            /// <summary>Constructs a new value of π (pi).</summary>
             public Pi() : base(Towel.Mathematics.Constant<T>.Pi) { }
 
-            public override bool IsKnownConstant => true;
+            /// <summary>True if the value is π (pi).</summary>
+            public override bool IsPi => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -617,18 +715,28 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Pi<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region Zero<T>
 
+        /// <summary>Represents the value of zero (0).</summary>
+        /// <typeparam name="T">The generic type of the numeric value.</typeparam>
         [Serializable]
-        public class Zero<T> : Constant<T>
+        public class Zero<T> : KnownConstantOfKnownType<T>
         {
+            /// <summary>Constructs a new zero (0) value.</summary>
             public Zero() : base(Towel.Mathematics.Constant<T>.Zero) { }
 
-            public override bool IsKnownConstant => true;
+            /// <summary>True if the value is zero (0).</summary>
+            public override bool IsZero => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -653,18 +761,28 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Zero<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region One<T>
 
+        /// <summary>Represents the value of one (1).</summary>
+        /// <typeparam name="T">The generic type of the numeric value.</typeparam>
         [Serializable]
-        public class One<T> : Constant<T>
+        public class One<T> : KnownConstantOfKnownType<T>
         {
+            /// <summary>Constructs a new one (1) value.</summary>
             public One() : base(Towel.Mathematics.Constant<T>.One) { }
 
-            public override bool IsKnownConstant => true;
+            /// <summary>True if the value is one (1).</summary>
+            public override bool IsOne => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -689,20 +807,28 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(One<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region Two<T>
 
+        /// <summary>Represents the value of two (2).</summary>
+        /// <typeparam name="T">The generic type of the numeric value.</typeparam>
         [Serializable]
-        public class Two<T> : Constant<T>
+        public class Two<T> : KnownConstantOfKnownType<T>
         {
+            /// <summary>Constructs a new value of two (2).</summary>
             public Two() : base(Towel.Mathematics.Constant<T>.Two) { }
 
+            /// <summary>True if the value is two (2).</summary>
             public override bool IsTwo => true;
-
-            public override bool IsKnownConstant => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -727,18 +853,28 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Two<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region Three<T>
 
+        /// <summary>Represents the value of three (3).</summary>
+        /// <typeparam name="T">The generic type of the numeric value.</typeparam>
         [Serializable]
-        public class Three<T> : Constant<T>
+        public class Three<T> : KnownConstantOfKnownType<T>
         {
+            /// <summary>Constructs a new value of three.</summary>
             public Three() : base(Towel.Mathematics.Constant<T>.Three) { }
 
-            public override bool IsKnownConstant => true;
+            /// <summary>True if the value is three (3).</summary>
+            public override bool IsThree => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -763,18 +899,24 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(Three<T>).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region True
 
+        /// <summary>Represents the value of true.</summary>
         [Serializable]
-        public class True : Constant<bool>
+        public class True : KnownConstantOfKnownType<bool>
         {
+            /// <summary>Constructs a new value of true.</summary>
             public True() : base(true) { }
-
-            public override bool IsKnownConstant => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -799,18 +941,24 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(True).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
 
         #region False
 
+        /// <summary>Represents the value of false.</summary>
         [Serializable]
-        public class False : Constant<bool>
+        public class False : KnownConstantOfKnownType<bool>
         {
+            /// <summary>Constructs a new false value.</summary>
             public False() : base(true) { }
-
-            public override bool IsKnownConstant => true;
 
             /// <summary>Clones this expression.</summary>
             /// <returns>A clone of this expression.</returns>
@@ -835,6 +983,12 @@ namespace Towel.Mathematics
                 }
                 return false;
             }
+
+            private static readonly int HashCode = nameof(False).GetHashCode();
+
+            /// <summary>The default hash code computation.</summary>
+            /// <returns>The computed hash code for this instance.</returns>
+            public override int GetHashCode() => HashCode;
         }
 
         #endregion
@@ -847,11 +1001,13 @@ namespace Towel.Mathematics
 
         #region Operation
 
+        /// <summary>Abstract base class for all symbolic mathematics operations.</summary>
         public abstract class Operation : Expression
         {
-            public interface Mathematical { }
-
-            public interface Logical { }
+            /// <summary>Interface for symbolic mathematics operations that involve numeric computation.</summary>
+            public interface IMathematical { }
+            /// <summary>Interface for symbolic mathematics operations that involve logical computation.</summary>
+            public interface ILogical { }
 
             internal virtual Expression Simplify<T>(params Expression[] operands)
             {
@@ -870,20 +1026,17 @@ namespace Towel.Mathematics
 
         #region Unary
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+        /// <summary>Abstract base class for all symbolic mathematics unary operations.</summary>
         public abstract class Unary : Operation
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
         {
-            protected Expression _a;
+            /// <summary>The operand of th unary operation.</summary>
+            public Expression A { get; set; }
 
-            public Expression A
-            {
-                get { return _a; }
-                set { _a = value; }
-            }
-
-            public Unary(Expression a) : base()
-            {
-                _a = a;
-            }
+            /// <summary>Constructs a new unary operation.</summary>
+            /// <param name="a">The operand of the unary operation.</param>
+            public Unary(Expression a) : base() { A = a; }
 
             /// <summary>Standard equality check.</summary>
             /// <param name="b">The object to check for equality with.</param>
@@ -906,10 +1059,13 @@ namespace Towel.Mathematics
 
         #region Simplification
 
+        /// <summary>Represents a mathematical simplification operation.</summary>
         [Operation("Simplify")]
         [Serializable]
         public class Simplification : Unary
         {
+            /// <summary>Constructs a new simplification operation.</summary>
+            /// <param name="a">The expression to simplify.</param>
             public Simplification(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -936,10 +1092,13 @@ namespace Towel.Mathematics
 
         #region Negate
 
+        /// <summary>Represents a negation operation.</summary>
         [LeftUnaryOperator("-", OperatorPriority.Negation)]
         [Serializable]
-        public class Negate : Unary, Operation.Mathematical
+        public class Negate : Unary, Operation.IMathematical
         {
+            /// <summary>Constructs a new negation operation.</summary>
+            /// <param name="a">The expression to negate.</param>
             public Negate(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -993,10 +1152,13 @@ namespace Towel.Mathematics
 
         #region NaturalLog
 
+        /// <summary>Represents a natural log operation.</summary>
         [Serializable]
-        public class NaturalLog : Unary, Operation.Mathematical
+        public class NaturalLog : Unary, Operation.IMathematical
         {
-            public NaturalLog(Expression operand) : base(operand) { }
+            /// <summary>Constructs a new natural log operation.</summary>
+            /// <param name="a">The expression to compute the natrual log of.</param>
+            public NaturalLog(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -1042,10 +1204,13 @@ namespace Towel.Mathematics
 
         #region SquareRoot
 
+        /// <summary>Represents a square root operation </summary>
         [Serializable]
-        public class SquareRoot : Unary, Operation.Mathematical
+        public class SquareRoot : Unary, Operation.IMathematical
         {
-            public SquareRoot(Expression operand) : base(operand) { }
+            /// <summary>Constructs a new square root operation.</summary>
+            /// <param name="a">The expression to compute the square root of.</param>
+            public SquareRoot(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -1091,9 +1256,12 @@ namespace Towel.Mathematics
 
         #region Exponential
 
+        /// <summary>Represents an exponential operation.</summary>
         [Serializable]
-        public class Exponential : Unary, Operation.Mathematical
+        public class Exponential : Unary, Operation.IMathematical
         {
+            /// <summary>Constructs a new exponential operation.</summary>
+            /// <param name="a">The expression to compute the exponetial function of.</param>
             public Exponential(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1140,10 +1308,13 @@ namespace Towel.Mathematics
 
         #region Factorial
 
+        /// <summary>Represents a factorial operation.</summary>
         [RightUnaryOperator("!", OperatorPriority.Factorial)]
         [Serializable]
-        public class Factorial : Unary, Operation.Mathematical
+        public class Factorial : Unary, Operation.IMathematical
         {
+            /// <summary>Constructs a new factorial operation.</summary>
+            /// <param name="a">The operand of the factorial operation.</param>
             public Factorial(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1155,7 +1326,7 @@ namespace Towel.Mathematics
                 // Rule: [A!] => [B] where A is constant and B is A!
                 if (OPERAND is Constant constant)
                 {
-                    return constant.Simplify(this, OPERAND);
+                    return constant.Simplify(this, constant);
                 }
                 #endregion
                 return new Factorial(OPERAND);
@@ -1190,9 +1361,12 @@ namespace Towel.Mathematics
 
         #region Invert
 
+        /// <summary>Represents a reciprical/invert operation.</summary>
         [Serializable]
-        public class Invert : Unary, Operation.Mathematical
+        public class Invert : Unary, Operation.IMathematical
         {
+            /// <summary>Constructs a new reciprical/invert operation.</summary>
+            /// <param name="a">Teh expression to recipricate/invert.</param>
             public Invert(Expression a) : base(a) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1214,7 +1388,7 @@ namespace Towel.Mathematics
             {
                 if (operands[0] is Constant<T> a)
                 {
-                    return new Constant<T>(Compute.Invert(((Constant<T>)operands[0]).Value));
+                    return new Constant<T>(Compute.Invert(a.Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1242,7 +1416,7 @@ namespace Towel.Mathematics
         #region Trigonometry
 
         /// <summary>Represents one of the trigonometry functions.</summary>
-        public abstract class Trigonometry : Unary, Operation.Mathematical
+        public abstract class Trigonometry : Unary, Operation.IMathematical
         {
             public Trigonometry(Expression a) : base(a) { }
         }
@@ -1253,7 +1427,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the sine trigonometric function.</summary>
         [Serializable]
-        public class Sine : Trigonometry, Operation.Mathematical
+        public class Sine : Trigonometry, Operation.IMathematical
         {
             public Sine(Expression a) : base(a) { }
 
@@ -1297,7 +1471,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the cosine trigonometric function.</summary>
         [Serializable]
-        public class Cosine : Trigonometry, Operation.Mathematical
+        public class Cosine : Trigonometry, Operation.IMathematical
         {
             public Cosine(Expression a) : base(a) { }
 
@@ -1341,7 +1515,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the tanget trigonometric function.</summary>
         [Serializable]
-        public class Tangent : Trigonometry, Operation.Mathematical
+        public class Tangent : Trigonometry, Operation.IMathematical
         {
             public Tangent(Expression a) : base(a) { }
 
@@ -1385,7 +1559,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the cosecant trigonometric function.</summary>
         [Serializable]
-        public class Cosecant : Trigonometry, Operation.Mathematical
+        public class Cosecant : Trigonometry, Operation.IMathematical
         {
             public Cosecant(Expression a) : base(a) { }
 
@@ -1429,7 +1603,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the secant trigonometric function.</summary>
         [Serializable]
-        public class Secant : Trigonometry, Operation.Mathematical
+        public class Secant : Trigonometry, Operation.IMathematical
         {
             public Secant(Expression a) : base(a) { }
 
@@ -1473,7 +1647,7 @@ namespace Towel.Mathematics
 
         /// <summary>Represents the cotangent trigonometric function.</summary>
         [Serializable]
-        public class Cotangent : Trigonometry, Operation.Mathematical
+        public class Cotangent : Trigonometry, Operation.IMathematical
         {
             public Cotangent(Expression a) : base(a) { }
 
@@ -1521,11 +1695,19 @@ namespace Towel.Mathematics
 
         #region Binary
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+                              /// <summary>Abstract base class for all symbolic mathematics binary operations.</summary>
         public abstract class Binary : Operation
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
         {
+            /// <summary>The first operand of the binary operation.</summary>
             public Expression A { get; set; }
+            /// <summary>The second operand of the binary operation.</summary>
             public Expression B { get; set; }
 
+            /// <summary>Constructs a new binary operation.</summary>
+            /// <param name="a">The left operand of the binary operation.</param>
+            /// <param name="b">The right operand of the binary operation.</param>
             public Binary(Expression a, Expression b)
             {
                 A = a;
@@ -1556,8 +1738,11 @@ namespace Towel.Mathematics
         #region AddOrSubtract
 
         /// <summary>Represents an addition or a subtraction operation.</summary>
-        public abstract class AddOrSubtract : Binary, Operation.Mathematical
+        public abstract class AddOrSubtract : Binary, Operation.IMathematical
         {
+            /// <summary>Constructs a new addition or subtraction operation.</summary>
+            /// <param name="a">The left operand of the operation.</param>
+            /// <param name="b">The right operand of the operation.</param>
             public AddOrSubtract(Expression a, Expression b) : base(a, b) { }
         }
 
@@ -1570,6 +1755,9 @@ namespace Towel.Mathematics
         [Serializable]
         public class Add : AddOrSubtract
         {
+            /// <summary>Constructs a new addition operation.</summary>
+            /// <param name="a">The left operand of the addition operation.</param>
+            /// <param name="b">The right operand of the addition operation.</param>
             public Add(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1726,6 +1914,9 @@ namespace Towel.Mathematics
         [Serializable]
         public class Subtract : AddOrSubtract
         {
+            /// <summary>Constructs a new subtraction operation.</summary>
+            /// <param name="a">The left operand of the subtraction operation.</param>
+            /// <param name="b">The right operand of the subtraction operation.</param>
             public Subtract(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1738,7 +1929,7 @@ namespace Towel.Mathematics
                 {   // Rule: [A - B] => [C] where A is constant, B is constant, and C is A - B
                     if (LEFT is Constant left && RIGHT is Constant right)
                     {
-                        return left.Simplify(this, A, B);
+                        return left.Simplify(this, left, right);
                     }
                 }
                 #endregion
@@ -1829,9 +2020,7 @@ namespace Towel.Mathematics
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Subtract(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Subtract(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
@@ -1873,8 +2062,12 @@ namespace Towel.Mathematics
 
         #region MultiplyOrDivide
 
-        public abstract class MultiplyOrDivide : Binary, Operation.Mathematical
+        /// <summary>Abstract base class for multiplication and division operations.</summary>
+        public abstract class MultiplyOrDivide : Binary, Operation.IMathematical
         {
+            /// <summary>Constructs a new multiplication or division operation.</summary>
+            /// <param name="a">The left operand of the operation.</param>
+            /// <param name="b">The right operand of the operation.</param>
             public MultiplyOrDivide(Expression a, Expression b) : base(a, b) { }
         }
 
@@ -1887,6 +2080,9 @@ namespace Towel.Mathematics
         [Serializable]
         public class Multiply : MultiplyOrDivide
         {
+            /// <summary>Constructs a new multiplication operation.</summary>
+            /// <param name="a">The left operand of the multiplication operation.</param>
+            /// <param name="b">The right operand of the multiplication operation.</param>
             public Multiply(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -1998,18 +2194,18 @@ namespace Towel.Mathematics
                 }
                 #endregion
                 #region Distributive Property
-                {   // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
-                    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
-                    {
-                        // This might not be necessary
-                    }
-                }
-                {   // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
-                    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
-                    {
-                        // This might not be necessary
-                    }
-                }
+                //{   // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
+                //    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+                //    {
+                //        // This might not be necessary
+                //    }
+                //}
+                //{   // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
+                //    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+                //    {
+                //        // This might not be necessary
+                //    }
+                //}
                 #endregion
                 #region Duplicate Variable Multiplications
                 {   // Rule: [X * X] => [X ^ 2] where X is Variable
@@ -2084,6 +2280,9 @@ namespace Towel.Mathematics
         [Serializable]
         public class Divide : MultiplyOrDivide
         {
+            /// <summary>Constructs a new division operation.</summary>
+            /// <param name="a">The left operand of the division operation.</param>
+            /// <param name="b">The right operand of the division operation.</param>
             public Divide(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2191,18 +2390,18 @@ namespace Towel.Mathematics
                 }
                 #endregion
                 #region Distributive Property
-                {   // Rule: [X / (A +/- B)] => [X / A + X / B] where where A is constant, B is constant, and X is Variable
-                    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
-                    {
-                        // This might not be necessary
-                    }
-                }
-                {   // Rule: [(A +/- B) / X] => [(A / X) + (B / X)] where where A is constant, B is constant, and X is Variable
-                    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
-                    {
-                        // This might not be necessary
-                    }
-                }
+                //{   // Rule: [X / (A +/- B)] => [X / A + X / B] where where A is constant, B is constant, and X is Variable
+                //    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+                //    {
+                //        // This might not be necessary
+                //    }
+                //}
+                //{   // Rule: [(A +/- B) / X] => [(A / X) + (B / X)] where where A is constant, B is constant, and X is Variable
+                //    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+                //    {
+                //        // This might not be necessary
+                //    }
+                //}
                 #endregion
                 #region Division With Powered Variables
                 {   // Rule: [(V ^ A) / (V ^ B)] => [V ^ C] where A is constant, B is constant, V is a variable, and C is A - B
@@ -2258,10 +2457,14 @@ namespace Towel.Mathematics
 
         #region Power
 
+        /// <summary>Represents a power operation.</summary>
         [BinaryOperator("^", OperatorPriority.Exponents)]
         [Serializable]
-        public class Power : Binary, Operation.Mathematical
+        public class Power : Binary, Operation.IMathematical
         {
+            /// <summary>Constructs a new power operation.</summary>
+            /// <param name="a">The left operand of the power operation.</param>
+            /// <param name="b">The right operand of the power operation.</param>
             public Power(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2334,9 +2537,13 @@ namespace Towel.Mathematics
 
         #region Root
 
+        /// <summary>Represents a root operation.</summary>
         [Serializable]
-        public class Root : Binary, Operation.Mathematical
+        public class Root : Binary, Operation.IMathematical
         {
+            /// <summary>Constructs a new root operation.</summary>
+            /// <param name="a">The base of the root operation.</param>
+            /// <param name="b">The root (inverted exponent) value of the operation.</param>
             public Root(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2360,9 +2567,7 @@ namespace Towel.Mathematics
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<T>(Compute.Root(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<T>(Compute.Root(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2387,10 +2592,14 @@ namespace Towel.Mathematics
 
         #region Equal
 
+        /// <summary>Represents an equality operation between two expressions.</summary>
         [BinaryOperator("=", OperatorPriority.Logical)]
         [Serializable]
-        public class Equal : Binary, Operation.Logical
+        public class Equal : Binary, Operation.ILogical
         {
+            /// <summary>Constructs a new equality operation between two expressions.</summary>
+            /// <param name="a">The left expression of the equality.</param>
+            /// <param name="b">The right expression of the equality.</param>
             public Equal(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2439,10 +2648,14 @@ namespace Towel.Mathematics
 
         #region NotEqual
 
+        /// <summary>Represents an equality operation between two expressions.</summary>
         [BinaryOperator("≠", OperatorPriority.Logical)]
         [Serializable]
-        public class NotEqual : Binary, Operation.Logical
+        public class NotEqual : Binary, Operation.ILogical
         {
+            /// <summary>Constructs a new inequality operation between two expressions.</summary>
+            /// <param name="a">The left expression of the inequality.</param>
+            /// <param name="b">The right expression of the inequality.</param>
             public NotEqual(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2491,10 +2704,14 @@ namespace Towel.Mathematics
 
         #region LessThan
 
+        /// <summary>Represents a less than operation.</summary>
         [BinaryOperator("<", OperatorPriority.Logical)]
         [Serializable]
-        public class LessThan : Binary, Operation.Logical
+        public class LessThan : Binary, Operation.ILogical
         {
+            /// <summary>Constructs a new less than operation.</summary>
+            /// <param name="a">The left expression of the less than operation.</param>
+            /// <param name="b">The right expression of the less than operation.</param>
             public LessThan(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
@@ -2543,11 +2760,15 @@ namespace Towel.Mathematics
 
         #region GreaterThan
 
+        /// <summary>Represents a greater than operation.</summary>
         [BinaryOperator(">", OperatorPriority.Logical)]
         [Serializable]
-        public class GreaterThan : Binary, Operation.Logical
+        public class GreaterThan : Binary, Operation.ILogical
         {
-            public GreaterThan(Expression left, Expression right) : base(left, right) { }
+            /// <summary>Constructs a new greater than operation.</summary>
+            /// <param name="a">The left expression of the greater than operation.</param>
+            /// <param name="b">The right expression of the greater than operation.</param>
+            public GreaterThan(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -2570,9 +2791,7 @@ namespace Towel.Mathematics
             {
                 if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
                 {
-                    return new Constant<bool>(Compute.GreaterThan(
-                        ((Constant<T>)operands[0]).Value,
-                        ((Constant<T>)operands[1]).Value));
+                    return new Constant<bool>(Compute.GreaterThan(a.Value, b.Value));
                 }
                 return base.Simplify<T>();
             }
@@ -2597,11 +2816,15 @@ namespace Towel.Mathematics
 
         #region LessThanOrEqual
 
+        /// <summary>Represents a less than or equal to operation.</summary>
         [BinaryOperator("<=", OperatorPriority.Logical)]
         [Serializable]
-        public class LessThanOrEqual : Binary, Operation.Logical
+        public class LessThanOrEqual : Binary, Operation.ILogical
         {
-            public LessThanOrEqual(Expression left, Expression right) : base(left, right) { }
+            /// <summary>Constructs a new less than or equal to operation.</summary>
+            /// <param name="a">The left expression of the less than or equal to operation.</param>
+            /// <param name="b">The right expression of the less than or equal to operation.</param>
+            public LessThanOrEqual(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -2649,11 +2872,15 @@ namespace Towel.Mathematics
 
         #region GreaterThanOrEqual
 
+        /// <summary>Represents a greater than or equal to operation.</summary>
         [BinaryOperator(">=", OperatorPriority.Logical)]
         [Serializable]
-        public class GreaterThanOrEqual : Binary, Operation.Logical
+        public class GreaterThanOrEqual : Binary, Operation.ILogical
         {
-            public GreaterThanOrEqual(Expression left, Expression right) : base(left, right) { }
+            /// <summary>Constructs a new greater than or equal to operation.</summary>
+            /// <param name="a">The left expression of the greater than or equal to operation.</param>
+            /// <param name="b">The right expression of the greater than or equal to operation.</param>
+            public GreaterThanOrEqual(Expression a, Expression b) : base(a, b) { }
 
             /// <summary>Simplifies the mathematical expression.</summary>
             /// <returns>The simplified mathematical expression.</returns>
@@ -2705,14 +2932,22 @@ namespace Towel.Mathematics
 
         #region Ternary
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+        /// <summary>Abstract base class for ternary operations.</summary>
         public abstract class Ternary : Operation
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
         {
+            /// <summary>The first operand of the ternary operation.</summary>
             public Expression A { get; set; }
+            /// <summary>The second operand of the ternary operation.</summary>
             public Expression B { get; set; }
+            /// <summary>The third operand of the ternary operation.</summary>
             public Expression C { get; set; }
 
-            public Ternary() { }
-
+            /// <summary>Constructs a new ternary operation.</summary>
+            /// <param name="a">The first operand of the ternary operation.</param>
+            /// <param name="b">The second operand of the ternary operation.</param>
+            /// <param name="c">The third operand of the ternary operation.</param>
             public Ternary(Expression a, Expression b, Expression c)
             {
                 A = a;
@@ -2745,12 +2980,14 @@ namespace Towel.Mathematics
 
         #region Multinary
 
+        /// <summary>Abstract base class for multinary operations.</summary>
         public abstract class Multinary : Operation
         {
+            /// <summary>The operands of the multinary operation.</summary>
             public Expression[] Operands { get; set; }
 
-            public Multinary() { }
-
+            /// <summary>Constructs a new multinary operation.</summary>
+            /// <param name="operands">The operands of the multinary operation.</param>
             public Multinary(Expression[] operands)
             {
                 Operands = operands;
@@ -2777,7 +3014,7 @@ namespace Towel.Mathematics
 
         // Library Building Fields
         private static bool ParseableLibraryBuilt = false;
-        private static object ParseableLibraryLock = new object();
+        private static readonly object ParseableLibraryLock = new object();
         // Regex Expressions
         internal const string ParenthesisPattern = @"\(.*\)";
         private static string ParsableOperationsRegexPattern;
@@ -2986,6 +3223,9 @@ namespace Towel.Mathematics
 
         #region System.Linq.Expression
 
+        /// <summary>Parses a mathematical expression from a linq expression.</summary>
+        /// <param name="e">The linq expression to parse.</param>
+        /// <returns>The parsed symbolic mathematics linq expression.</returns>
         public static Expression Parse(System.Linq.Expressions.Expression e)
         {
             try
@@ -3076,8 +3316,7 @@ namespace Towel.Mathematics
                                 break;
                         }
 
-                        Func<Expression[], Multinary> newMultinaryFunction;
-                        if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
+                        if (ParsableMultinaryOperations.TryGetValue(operation, out Func<Expression[], Multinary> newMultinaryFunction))
                         {
                             return newMultinaryFunction(arguments);
                         }
@@ -3176,7 +3415,7 @@ namespace Towel.Mathematics
             {
                 // Find the first operator with the highest available priority
                 Match @operator = null;
-                OperatorPriority priority = default(OperatorPriority);
+                OperatorPriority priority = default;
                 int currentOperatorMatch = 0;
                 int scope = 0;
                 bool isUnaryLeftOperator = false;
@@ -3441,29 +3680,25 @@ namespace Towel.Mathematics
                 switch (operandSplits.Count)
                 {
                     case 1:
-                        Func<Expression, Unary> newUnaryFunction;
-                        if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
+                        if (ParsableUnaryOperations.TryGetValue(operation, out Func<Expression, Unary> newUnaryFunction))
                         {
                             expression = newUnaryFunction(Parse<T>(operandSplits[0]));
                         }
                         break;
                     case 2:
-                        Func<Expression, Expression, Binary> newBinaryFunction;
-                        if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
+                        if (ParsableBinaryOperations.TryGetValue(operation, out Func<Expression, Expression, Binary> newBinaryFunction))
                         {
                             expression = newBinaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[1]));
                         }
                         break;
                     case 3:
-                        Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
-                        if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
+                        if (ParsableTernaryOperations.TryGetValue(operation, out Func<Expression, Expression, Expression, Ternary> newTernaryFunction))
                         {
                             expression = newTernaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[2]), Parse<T>(operandSplits[2]));
                         }
                         break;
                 }
-                Func<Expression[], Multinary> newMultinaryFunction;
-                if (ParsableMultinaryOperations.TryGetValue(operation, out newMultinaryFunction))
+                if (ParsableMultinaryOperations.TryGetValue(operation, out Func<Expression[], Multinary> newMultinaryFunction))
                 {
                     expression = newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
                 }
@@ -3544,8 +3779,7 @@ namespace Towel.Mathematics
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x =>
                 {
-                    Expression exp;
-                    TryParseConstantExpression(x, tryParsingFunction, out exp);
+                    TryParseConstantExpression(x, tryParsingFunction, out Expression exp);
                     return exp;
                 });
 

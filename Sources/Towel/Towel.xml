@@ -15731,6 +15731,9 @@
         <member name="T:Towel.Mathematics.Symbolics">
             <summary>Contains definitions necessary for the generic Symbolics class.</summary>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Expression">
+            <summary>Abstract base class for mathematical expressions.</summary>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Expression.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -15740,6 +15743,22 @@
             <param name="variable">The variable to be substititued.</param>
             <param name="expression">The expression to substitute for each occurence of a variable.</param>
             <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Substitute``1(System.String,``0)">
+            <summary>Substitutes an expression for all occurences of a variable.</summary>
+            <param name="variable">The variable to be substititued.</param>
+            <param name="value">The value to substitute for each occurence of a variable.</param>
+            <returns>The resulting expression of the substitution.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Derive(System.String)">
+            <summary>Derives this expression.</summary>
+            <param name="variable">The variable to derive in relation to.</param>
+            <returns>The result of the derivation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.Integrate(System.String)">
+            <summary>Integrates this expression.</summary>
+            <param name="variable">The variable to integrate in relation to.</param>
+            <returns>The result of the integration.</returns>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Expression.Clone">
             <summary>Creates a copy of the expression.</summary>
@@ -15773,6 +15792,36 @@
             <param name="a">The first expression of the division.</param>
             <param name="b">The second expression of the division.</param>
             <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Equality(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Wraps two expressions in an equality check.</summary>
+            <param name="a">The left side of the equality.</param>
+            <param name="b">The right side of the equality.</param>
+            <returns>The expressions wrapped in an equality check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_Inequality(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Wraps two expressions in an inequality check.</summary>
+            <param name="a">The left side of the inequality.</param>
+            <param name="b">The right side of the inequality.</param>
+            <returns>The expressions wrapped in an inequality check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_LessThan(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Wraps two expressions in a less than check.</summary>
+            <param name="a">The left side of the less than.</param>
+            <param name="b">The right side of the less than.</param>
+            <returns>The expressions wrapped in an less than check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_GreaterThan(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Wraps two expressions in a greater than check.</summary>
+            <param name="a">The left side of the greater than.</param>
+            <param name="b">The right side of the greater than.</param>
+            <returns>The expressions wrapped in an greater than check.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Expression.op_ExclusiveOr(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Takes one expression to the power of another.</summary>
+            <param name="a">The first expression of the power operation.</param>
+            <param name="b">The second expression of the power operation.</param>
+            <returns>The result of the power operation.</returns>
         </member>
         <member name="T:Towel.Mathematics.Symbolics.Variable">
             <summary>A variable in a symbolic mathematics expression.</summary>
@@ -15810,14 +15859,41 @@
         <member name="T:Towel.Mathematics.Symbolics.Constant">
             <summary>Represents a constant numerical value.</summary>
         </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsKnownConstant">
+            <summary>True if this is a known constant value.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsZero">
+            <summary>True if this numeric value is zero (0).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsOne">
+            <summary>True if this numeric value is one (1).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsTwo">
+            <summary>True if this numeric value is two (2).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsThree">
+            <summary>True if this numeric value is three (3).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant.IsPi">
+            <summary>True if this numeric value is π (pi).</summary>
+        </member>
         <member name="P:Towel.Mathematics.Symbolics.Constant.IsNegative">
             <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.KnownConstantOfUknownType">
+            <summary>Abstract base class for known constants of unknown types.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.KnownConstantOfUknownType.IsKnownConstant">
+            <summary>True if this numeric value is a known value.</summary>
         </member>
         <member name="T:Towel.Mathematics.Symbolics.Pi">
             <summary>Represents the π (pi).</summary>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Pi.#ctor">
             <summary>Constructs a new instance of pi.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Pi.IsPi">
+            <summary>True if this numeric value is π (pi).</summary>
         </member>
         <member name="P:Towel.Mathematics.Symbolics.Pi.IsNegative">
             <summary>Determines if the constant is negative.</summary>
@@ -15839,6 +15915,15 @@
             <summary>The default hash code for this instance.</summary>
             <returns>The computed hash code.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Zero">
+            <summary>Represents zero (0).</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero.#ctor">
+            <summary>Constructs a new zero (0) value.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Zero.IsZero">
+            <summary>True if this numeric value is zero (0).</summary>
+        </member>
         <member name="P:Towel.Mathematics.Symbolics.Zero.IsNegative">
             <summary>Determines if the constant is negative.</summary>
         </member>
@@ -15854,6 +15939,19 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.One">
+            <summary>Represents the value of one (1).</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One.#ctor">
+            <summary>Constructs a new one (1) constant.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.One.IsOne">
+            <summary>True if this numeric value is one (1).</summary>
         </member>
         <member name="P:Towel.Mathematics.Symbolics.One.IsNegative">
             <summary>Determines if the constant is negative.</summary>
@@ -15871,6 +15969,19 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.One.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Two">
+            <summary>Represents the value of two (2).</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two.#ctor">
+            <summary>Constructs a new value of two (2).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Two.IsTwo">
+            <summary>True if this numeric value is two (2).</summary>
+        </member>
         <member name="P:Towel.Mathematics.Symbolics.Two.IsNegative">
             <summary>Determines if the constant is negative.</summary>
         </member>
@@ -15886,6 +15997,19 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Three">
+            <summary>Represents the value of three (3).</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three.#ctor">
+            <summary>Constructs a new value of three (3).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Three.IsThree">
+            <summary>True if this numeric value is three (3).</summary>
         </member>
         <member name="P:Towel.Mathematics.Symbolics.Three.IsNegative">
             <summary>Determines if the constant is negative.</summary>
@@ -15903,8 +16027,35 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Constant`1">
+            <summary>Represents a numeric constant.</summary>
+            <typeparam name="T">The generic type of the numeric value.</typeparam>
+        </member>
+        <member name="F:Towel.Mathematics.Symbolics.Constant`1.Value">
+            <summary>The value of this numeric constant.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsZero">
+            <summary>True if this numeric value is zero (0).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsOne">
+            <summary>True if this numeric value is one (1).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsTwo">
+            <summary>True if this numeric value is two (2).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsThree">
+            <summary>True if this numeric value is three (3).</summary>
+        </member>
         <member name="P:Towel.Mathematics.Symbolics.Constant`1.IsNegative">
             <summary>Determines if the constant is negative.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Constant`1.#ctor(`0)">
+            <summary>Constructs a new numeric constant.</summary>
+            <param name="constant">The value of the numeric constant.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Constant`1.Clone">
             <summary>Clones this expression.</summary>
@@ -15919,6 +16070,30 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Constant`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.KnownConstantOfKnownType`1">
+            <summary>Abstract base class for known constants of unknown types.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.KnownConstantOfKnownType`1.IsKnownConstant">
+            <summary>True if this numeric value is a known value.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.KnownConstantOfKnownType`1.#ctor(`0)">
+            <summary>Constructs a new constant of a known type.</summary>
+            <param name="constant">The value of the known constant.</param>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Pi`1">
+            <summary>Represents the value of π (pi).</summary>
+            <typeparam name="T">The generic type of the numeric.</typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi`1.#ctor">
+            <summary>Constructs a new value of π (pi).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Pi`1.IsPi">
+            <summary>True if the value is π (pi).</summary>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Pi`1.Clone">
             <summary>Clones this expression.</summary>
             <returns>A clone of this expression.</returns>
@@ -15931,6 +16106,20 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Pi`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Zero`1">
+            <summary>Represents the value of zero (0).</summary>
+            <typeparam name="T">The generic type of the numeric value.</typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero`1.#ctor">
+            <summary>Constructs a new zero (0) value.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Zero`1.IsZero">
+            <summary>True if the value is zero (0).</summary>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Zero`1.Clone">
             <summary>Clones this expression.</summary>
@@ -15945,6 +16134,20 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Zero`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.One`1">
+            <summary>Represents the value of one (1).</summary>
+            <typeparam name="T">The generic type of the numeric value.</typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One`1.#ctor">
+            <summary>Constructs a new one (1) value.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.One`1.IsOne">
+            <summary>True if the value is one (1).</summary>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.One`1.Clone">
             <summary>Clones this expression.</summary>
             <returns>A clone of this expression.</returns>
@@ -15957,6 +16160,20 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.One`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Two`1">
+            <summary>Represents the value of two (2).</summary>
+            <typeparam name="T">The generic type of the numeric value.</typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two`1.#ctor">
+            <summary>Constructs a new value of two (2).</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Two`1.IsTwo">
+            <summary>True if the value is two (2).</summary>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Two`1.Clone">
             <summary>Clones this expression.</summary>
@@ -15971,6 +16188,20 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Two`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Three`1">
+            <summary>Represents the value of three (3).</summary>
+            <typeparam name="T">The generic type of the numeric value.</typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three`1.#ctor">
+            <summary>Constructs a new value of three.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Three`1.IsThree">
+            <summary>True if the value is three (3).</summary>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Three`1.Clone">
             <summary>Clones this expression.</summary>
             <returns>A clone of this expression.</returns>
@@ -15983,6 +16214,16 @@
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Three`1.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.True">
+            <summary>Represents the value of true.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.True.#ctor">
+            <summary>Constructs a new value of true.</summary>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.True.Clone">
             <summary>Clones this expression.</summary>
@@ -15997,6 +16238,16 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.True.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.False">
+            <summary>Represents the value of false.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.False.#ctor">
+            <summary>Constructs a new false value.</summary>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.False.Clone">
             <summary>Clones this expression.</summary>
             <returns>A clone of this expression.</returns>
@@ -16010,10 +16261,40 @@
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.False.GetHashCode">
+            <summary>The default hash code computation.</summary>
+            <returns>The computed hash code for this instance.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Operation">
+            <summary>Abstract base class for all symbolic mathematics operations.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Operation.IMathematical">
+            <summary>Interface for symbolic mathematics operations that involve numeric computation.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Operation.ILogical">
+            <summary>Interface for symbolic mathematics operations that involve logical computation.</summary>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Unary">
+            <summary>Abstract base class for all symbolic mathematics unary operations.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Unary.A">
+            <summary>The operand of th unary operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Unary.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new unary operation.</summary>
+            <param name="a">The operand of the unary operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Unary.Equals(System.Object)">
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Simplification">
+            <summary>Represents a mathematical simplification operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Simplification.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new simplification operation.</summary>
+            <param name="a">The expression to simplify.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Simplification.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16033,6 +16314,13 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Negate">
+            <summary>Represents a negation operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Negate.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new negation operation.</summary>
+            <param name="a">The expression to negate.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Negate.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16050,6 +16338,13 @@
         <member name="M:Towel.Mathematics.Symbolics.Negate.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.NaturalLog">
+            <summary>Represents a natural log operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NaturalLog.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new natural log operation.</summary>
+            <param name="a">The expression to compute the natrual log of.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.NaturalLog.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16069,6 +16364,13 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.SquareRoot">
+            <summary>Represents a square root operation </summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.SquareRoot.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new square root operation.</summary>
+            <param name="a">The expression to compute the square root of.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.SquareRoot.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16086,6 +16388,13 @@
         <member name="M:Towel.Mathematics.Symbolics.SquareRoot.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Exponential">
+            <summary>Represents an exponential operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Exponential.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new exponential operation.</summary>
+            <param name="a">The expression to compute the exponetial function of.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Exponential.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16105,6 +16414,13 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Factorial">
+            <summary>Represents a factorial operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Factorial.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new factorial operation.</summary>
+            <param name="a">The operand of the factorial operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Factorial.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16122,6 +16438,13 @@
         <member name="M:Towel.Mathematics.Symbolics.Factorial.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Invert">
+            <summary>Represents a reciprical/invert operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Invert.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new reciprical/invert operation.</summary>
+            <param name="a">Teh expression to recipricate/invert.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Invert.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16270,6 +16593,20 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Binary">
+            <summary>Abstract base class for all symbolic mathematics binary operations.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Binary.A">
+            <summary>The first operand of the binary operation.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Binary.B">
+            <summary>The second operand of the binary operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Binary.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new binary operation.</summary>
+            <param name="a">The left operand of the binary operation.</param>
+            <param name="b">The right operand of the binary operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Binary.Equals(System.Object)">
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
@@ -16278,8 +16615,18 @@
         <member name="T:Towel.Mathematics.Symbolics.AddOrSubtract">
             <summary>Represents an addition or a subtraction operation.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.AddOrSubtract.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new addition or subtraction operation.</summary>
+            <param name="a">The left operand of the operation.</param>
+            <param name="b">The right operand of the operation.</param>
+        </member>
         <member name="T:Towel.Mathematics.Symbolics.Add">
             <summary>Represents an addition operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Add.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new addition operation.</summary>
+            <param name="a">The left operand of the addition operation.</param>
+            <param name="b">The right operand of the addition operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Add.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16302,6 +16649,11 @@
         <member name="T:Towel.Mathematics.Symbolics.Subtract">
             <summary>Represents a subtraction operation.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Subtract.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new subtraction operation.</summary>
+            <param name="a">The left operand of the subtraction operation.</param>
+            <param name="b">The right operand of the subtraction operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Subtract.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16320,8 +16672,21 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.MultiplyOrDivide">
+            <summary>Abstract base class for multiplication and division operations.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.MultiplyOrDivide.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new multiplication or division operation.</summary>
+            <param name="a">The left operand of the operation.</param>
+            <param name="b">The right operand of the operation.</param>
+        </member>
         <member name="T:Towel.Mathematics.Symbolics.Multiply">
             <summary>Represents a multiplication operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multiply.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new multiplication operation.</summary>
+            <param name="a">The left operand of the multiplication operation.</param>
+            <param name="b">The right operand of the multiplication operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Multiply.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16344,6 +16709,11 @@
         <member name="T:Towel.Mathematics.Symbolics.Divide">
             <summary>Represents a division operation.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Divide.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new division operation.</summary>
+            <param name="a">The left operand of the division operation.</param>
+            <param name="b">The right operand of the division operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Divide.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16361,6 +16731,14 @@
         <member name="M:Towel.Mathematics.Symbolics.Divide.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Power">
+            <summary>Represents a power operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Power.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new power operation.</summary>
+            <param name="a">The left operand of the power operation.</param>
+            <param name="b">The right operand of the power operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Power.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16380,6 +16758,14 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Root">
+            <summary>Represents a root operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Root.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new root operation.</summary>
+            <param name="a">The base of the root operation.</param>
+            <param name="b">The root (inverted exponent) value of the operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Root.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16397,6 +16783,14 @@
         <member name="M:Towel.Mathematics.Symbolics.Root.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Equal">
+            <summary>Represents an equality operation between two expressions.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Equal.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new equality operation between two expressions.</summary>
+            <param name="a">The left expression of the equality.</param>
+            <param name="b">The right expression of the equality.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Equal.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16416,6 +16810,14 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.NotEqual">
+            <summary>Represents an equality operation between two expressions.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.NotEqual.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new inequality operation between two expressions.</summary>
+            <param name="a">The left expression of the inequality.</param>
+            <param name="b">The right expression of the inequality.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.NotEqual.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16433,6 +16835,14 @@
         <member name="M:Towel.Mathematics.Symbolics.NotEqual.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.LessThan">
+            <summary>Represents a less than operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThan.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new less than operation.</summary>
+            <param name="a">The left expression of the less than operation.</param>
+            <param name="b">The right expression of the less than operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.LessThan.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16452,6 +16862,14 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.GreaterThan">
+            <summary>Represents a greater than operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThan.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new greater than operation.</summary>
+            <param name="a">The left expression of the greater than operation.</param>
+            <param name="b">The right expression of the greater than operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.GreaterThan.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16469,6 +16887,14 @@
         <member name="M:Towel.Mathematics.Symbolics.GreaterThan.ToString">
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.LessThanOrEqual">
+            <summary>Represents a less than or equal to operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new less than or equal to operation.</summary>
+            <param name="a">The left expression of the less than or equal to operation.</param>
+            <param name="b">The right expression of the less than or equal to operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.LessThanOrEqual.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -16488,6 +16914,14 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.GreaterThanOrEqual">
+            <summary>Represents a greater than or equal to operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new greater than or equal to operation.</summary>
+            <param name="a">The left expression of the greater than or equal to operation.</param>
+            <param name="b">The right expression of the greater than or equal to operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.GreaterThanOrEqual.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -16506,10 +16940,43 @@
             <summary>Standard conversion to a string representation.</summary>
             <returns>The string represnetation of this expression.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Symbolics.Ternary">
+            <summary>Abstract base class for ternary operations.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Ternary.A">
+            <summary>The first operand of the ternary operation.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Ternary.B">
+            <summary>The second operand of the ternary operation.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Ternary.C">
+            <summary>The third operand of the ternary operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Ternary.#ctor(Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression,Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new ternary operation.</summary>
+            <param name="a">The first operand of the ternary operation.</param>
+            <param name="b">The second operand of the ternary operation.</param>
+            <param name="c">The third operand of the ternary operation.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Ternary.Equals(System.Object)">
             <summary>Standard equality check.</summary>
             <param name="b">The object to check for equality with.</param>
             <returns>True if equal. False if not.</returns>
+        </member>
+        <member name="T:Towel.Mathematics.Symbolics.Multinary">
+            <summary>Abstract base class for multinary operations.</summary>
+        </member>
+        <member name="P:Towel.Mathematics.Symbolics.Multinary.Operands">
+            <summary>The operands of the multinary operation.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Multinary.#ctor(Towel.Mathematics.Symbolics.Expression[])">
+            <summary>Constructs a new multinary operation.</summary>
+            <param name="operands">The operands of the multinary operation.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Parse(System.Linq.Expressions.Expression)">
+            <summary>Parses a mathematical expression from a linq expression.</summary>
+            <param name="e">The linq expression to parse.</param>
+            <returns>The parsed symbolic mathematics linq expression.</returns>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.ParseAndSimplifyToConstant``1(System.String,Towel.Mathematics.Symbolics.TryParseNumeric{``0})">
             <summary>Parses a symbolic methematics expression with the assumption that it will simplify to a constant.</summary>
@@ -25412,50 +25879,48 @@
             <returns>The string of the repeated character.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.ContainsAny(System.String,System.Char[])">
-            <summary>
-            Checks if a string contains any of a collections on characters
-            </summary>
-            <param name="@string"></param>
-            <param name="chars"></param>
-            <returns></returns>
+            <summary>Checks if a string contains any of a collections on characters.</summary>
+            <param name="string">The string to see if it contains any of the specified characters.</param>
+            <param name="chars">The characters to check if the string contains any of them.</param>
+            <returns>True if the string contains any of the provided characters. False if not.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.StandardizeNewLines(System.String)">
             <summary>Removes carriage returns and then replaces all new line characters with System.Environment.NewLine.</summary>
-            <param name="@string">The string to standardize the new lines of.</param>
+            <param name="string">The string to standardize the new lines of.</param>
             <returns>The new line standardized string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.Repeat(System.String,System.Int32)">
             <summary>Creates a string of a repreated string a provided number of times.</summary>
-            <param name="str">The string to repeat.</param>
+            <param name="string">The string to repeat.</param>
             <param name="count">The number of repetitions of the string to repeat.</param>
             <returns>The string of the repeated string to repeat.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.SplitLines(System.String)">
             <summary>Splits the string into the individual lines.</summary>
-            <param name="@string">The string to get the lines of.</param>
+            <param name="string">The string to get the lines of.</param>
             <returns>an array of the individual lines of the string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.IndentLines(System.String)">
             <summary>Indents every line in a string with a single tab character.</summary>
-            /// <param name="@string">The string to indent the lines of.</param>
+            /// <param name="string">The string to indent the lines of.</param>
             <returns>The indented string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.IndentLines(System.String,System.Int32)">
             <summary>Indents every line in a string with a given number of tab characters.</summary>
-            <param name="@string">The string to indent the lines of.</param>
+            <param name="string">The string to indent the lines of.</param>
             <param name="count">The number of tabs of the indention.</param>
             <returns>The indented string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
-            <param name="@string">The string to be indented.</param>
+            <param name="string">The string to be indented.</param>
             <param name="start">The starting index to look for new line sequences to indent.</param>
             <param name="end">The starting index to look for new line sequences to indent.</param>
             <returns>The indented string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
-            <param name="@string">The string to be indented.</param>
+            <param name="string">The string to be indented.</param>
             <param name="count">The number of tabs of this indention.</param>
             <param name="start">The starting index to look for new line sequences to indent.</param>
             <param name="end">The starting index to look for new line sequences to indent.</param>
@@ -25463,14 +25928,14 @@
         </member>
         <member name="M:System.TowelSystemExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
-            <param name="@string">The string to indent specified lines of.</param>
+            <param name="string">The string to indent specified lines of.</param>
             <param name="startingLineNumber">The line number to start line indention on.</param>
             <param name="endingLineNumber">The line number to stop line indention on.</param>
             <returns>The string with the specified lines indented.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
-            <param name="@string">The string to indent specified lines of.</param>
+            <param name="string">The string to indent specified lines of.</param>
             <param name="count">The number of tabs for the indention.</param>
             <param name="startingLineNumber">The line number to start line indention on.</param>
             <param name="endingLineNumber">The line number to stop line indention on.</param>
@@ -25478,19 +25943,19 @@
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesLeft(System.String,System.String)">
             <summary>Adds a string onto the beginning of every line in a string.</summary>
-            <param name="@string">The string to pad.</param>
+            <param name="string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.PadSubstringLinesRight(System.String,System.String)">
             <summary>Adds a string onto the end of every line in a string.</summary>
-            <param name="@string">The string to pad.</param>
+            <param name="string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesLeftBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-            <param name="@string">The string to be padded.</param>
+            <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
             <param name="start">The starting index of the string to search for new line sequences.</param>
             <param name="end">The ending index of the string to search for new line sequences.</param>
@@ -25498,7 +25963,7 @@
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesRightBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-            <param name="@string">The string to be padded.</param>
+            <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
             <param name="start">The starting index of the string to search for new line sequences.</param>
             <param name="end">The ending index of the string to search for new line sequences.</param>
@@ -25506,28 +25971,28 @@
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-            <param name="@string">The string to be padded.</param>
+            <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
-            <param name="start">The starting index of the string to search for new line sequences.</param>
-            <param name="end">The ending index of the string to search for new line sequences.</param>
+            <param name="startingLineNumber">The starting index of the line in the string to pad.</param>
+            <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
             <returns>The padded string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-            <param name="@string">The string to be padded.</param>
+            <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
-            <param name="startingLineNumber">The starting index of the string to search for new line sequences.</param>
-            <param name="endingLineNumber">The ending index of the string to search for new line sequences.</param>
+            <param name="startingLineNumber">The starting index of the line in the string to pad.</param>
+            <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
             <returns>The padded string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.Reverse(System.String)">
             <summary>Reverses the characters in a string.</summary>
-            <param name="@string">The string to reverse the characters of.</param>
+            <param name="string">The string to reverse the characters of.</param>
             <returns>The reversed character string.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.Remove(System.String,System.Predicate{System.Char})">
             <summary>Removes all the characters from a string based on a predicate.</summary>
-            <param name="@string">The string to remove characters from.</param>
+            <param name="string">The string to remove characters from.</param>
             <param name="where">The predicate determining removal of each character.</param>
             <returns>The string after removing any predicated characters.</returns>
         </member>
@@ -25691,6 +26156,27 @@
             <param name="func">The initialization pattern.</param>
             <returns>The built array.</returns>
         </member>
+        <member name="M:System.TowelSystemExtensions.ValuesAreEqual``1(``0[],``0[])">
+            <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
+            <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
+            <param name="a1">The first array of the deep equality check.</param>
+            <param name="a2">The second array of the deep equality check.</param>
+            <returns>True if the array are determined to be deeply equal. False if not.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.ValuesAreEqual``1(``0[],``0[],Towel.Equate{``0})">
+            <summary>Performs a deep equality check of two arrays.</summary>
+            <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
+            <param name="a1">The first array of the deep equality check.</param>
+            <param name="a2">The second array of the deep equality check.</param>
+            /// <param name="equate">The delegate for checking two values for equality.</param>
+            <returns>True if the array are determined to be deeply equal. False if not.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.Fill``1(``0[],``0)">
+            <summary>Formats an array so that all values are the same.</summary>
+            <typeparam name="T">The generic type of the array to format.</typeparam>
+            <param name="array">The array to format.</param>
+            <param name="value">The value to format all entries in the array with.</param>
+        </member>
         <member name="M:System.TowelSystemExtensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
             <summary>Constructs a square jagged array of the desired dimensions.</summary>
             <typeparam name="T">The generic type to store in the jagged array.</typeparam>
@@ -25707,13 +26193,13 @@
         <member name="M:System.TowelSystemExtensions.GetEnumAttribute``1(System.Enum)">
             <summary>Gets a custom attribute on an enum value by generic type.</summary>
             <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-            <param name="enumValue">The enum value to get the attribute of.</param>
+            <param name="enum">The enum value to get the attribute of.</param>
             <returns>The attribute on the enum value of the provided type.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.GetEnumAttributes``1(System.Enum)">
             <summary>Gets custom attribus on an enum value by generic type.</summary>
             <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-            <param name="enumValue">The enum value to get the attribute of.</param>
+            <param name="enum">The enum value to get the attribute of.</param>
             <returns>The attributes on the enum value of the provided type.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.GetLastEnumValue``1">
@@ -25732,6 +26218,11 @@
             <typeparam name="Base">The base type to get the deriving types of.</typeparam>
             <param name="assembly">The assmebly to perform the search on.</param>
             <returns>The IEnumerable of the types that derive from the provided base.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.ToEnglishWords(System.Decimal)">
+            <summary>Converts a decimal to the English word representation of that value.</summary>
+            <param name="decimal">The decimal value to convert to English words.</param>
+            <returns>The English word representation of the decimal value.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.LoadXmlDocumentation(System.String)">
             <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>

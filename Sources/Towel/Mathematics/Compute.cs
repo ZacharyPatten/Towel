@@ -255,7 +255,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the subtraction.</returns>
         public static T Subtract<T>(Stepper<T> stepper)
         {
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -317,7 +317,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the multiplication.</returns>
         public static T Multiply<T>(Stepper<T> stepper)
         {
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -379,7 +379,7 @@ namespace Towel.Mathematics
         /// <returns>The result of the division.</returns>
         public static T Divide<T>(Stepper<T> stepper)
         {
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -469,7 +469,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(stepper));
             }
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -539,7 +539,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(stepper));
             }
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -973,7 +973,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(stepper));
             }
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -1049,7 +1049,7 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(stepper));
             }
-            T result = default(T);
+            T result = default;
             bool assigned = false;
             void step(T a)
             {
@@ -1262,7 +1262,7 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(stepper));
             }
             bool result = true;
-            T value = default(T);
+            T value = default;
             bool assigned = false;
             void step(T a)
             {
@@ -1524,7 +1524,7 @@ namespace Towel.Mathematics
                 throw new ArgumentNullException(nameof(stepper));
             }
             bool assigned = false;
-            T answer = default(T);
+            T answer = default;
             stepper(parameter =>
             {
                 if (Equal(parameter, Constant<T>.Zero))
@@ -1946,10 +1946,10 @@ namespace Towel.Mathematics
             {
                 throw new ArgumentNullException(nameof(stepper));
             }
-            T MINIMUM = default(T);
-            T MAXIMUM = default(T);
+            T MINIMUM = default;
+            T MAXIMUM = default;
             bool assigned = false;
-            Step<T> step = i =>
+            void step(T i)
             {
                 if (assigned)
                 {
@@ -1962,7 +1962,7 @@ namespace Towel.Mathematics
                     MAXIMUM = i;
                     assigned = true;
                 }
-            };
+            }
             stepper(step);
             if (!assigned)
             {

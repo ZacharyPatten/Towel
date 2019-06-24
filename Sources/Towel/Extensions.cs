@@ -39,12 +39,10 @@ namespace System
 
         #region string
 
-        /// <summary>
-        /// Checks if a string contains any of a collections on characters
-        /// </summary>
-        /// <param name="@string"></param>
-        /// <param name="chars"></param>
-        /// <returns></returns>
+        /// <summary>Checks if a string contains any of a collections on characters.</summary>
+        /// <param name="string">The string to see if it contains any of the specified characters.</param>
+        /// <param name="chars">The characters to check if the string contains any of them.</param>
+        /// <returns>True if the string contains any of the provided characters. False if not.</returns>
         public static bool ContainsAny(this string @string, params char[] chars)
         {
             if (chars == null)
@@ -81,7 +79,7 @@ namespace System
         }
 
         /// <summary>Removes carriage returns and then replaces all new line characters with System.Environment.NewLine.</summary>
-        /// <param name="@string">The string to standardize the new lines of.</param>
+        /// <param name="string">The string to standardize the new lines of.</param>
         /// <returns>The new line standardized string.</returns>
         internal static string StandardizeNewLines(this string @string)
         {
@@ -89,7 +87,7 @@ namespace System
         }
 
         /// <summary>Creates a string of a repreated string a provided number of times.</summary>
-        /// <param name="str">The string to repeat.</param>
+        /// <param name="string">The string to repeat.</param>
         /// <param name="count">The number of repetitions of the string to repeat.</param>
         /// <returns>The string of the repeated string to repeat.</returns>
         public static string Repeat(this string @string, int count)
@@ -109,7 +107,7 @@ namespace System
         }
 
         /// <summary>Splits the string into the individual lines.</summary>
-        /// <param name="@string">The string to get the lines of.</param>
+        /// <param name="string">The string to get the lines of.</param>
         /// <returns>an array of the individual lines of the string.</returns>
         public static string[] SplitLines(this string @string)
         {
@@ -117,7 +115,7 @@ namespace System
         }
 
         /// <summary>Indents every line in a string with a single tab character.</summary>
-        /// /// <param name="@string">The string to indent the lines of.</param>
+        /// /// <param name="string">The string to indent the lines of.</param>
         /// <returns>The indented string.</returns>
         public static string IndentLines(this string @string)
         {
@@ -125,7 +123,7 @@ namespace System
         }
 
         /// <summary>Indents every line in a string with a given number of tab characters.</summary>
-        /// <param name="@string">The string to indent the lines of.</param>
+        /// <param name="string">The string to indent the lines of.</param>
         /// <param name="count">The number of tabs of the indention.</param>
         /// <returns>The indented string.</returns>
         public static string IndentLines(this string @string, int count)
@@ -134,7 +132,7 @@ namespace System
         }
 
         /// <summary>Indents after every new line sequence found between two string indeces.</summary>
-        /// <param name="@string">The string to be indented.</param>
+        /// <param name="string">The string to be indented.</param>
         /// <param name="start">The starting index to look for new line sequences to indent.</param>
         /// <param name="end">The starting index to look for new line sequences to indent.</param>
         /// <returns>The indented string.</returns>
@@ -144,7 +142,7 @@ namespace System
         }
 
         /// <summary>Indents after every new line sequence found between two string indeces.</summary>
-        /// <param name="@string">The string to be indented.</param>
+        /// <param name="string">The string to be indented.</param>
         /// <param name="count">The number of tabs of this indention.</param>
         /// <param name="start">The starting index to look for new line sequences to indent.</param>
         /// <param name="end">The starting index to look for new line sequences to indent.</param>
@@ -155,7 +153,7 @@ namespace System
         }
 
         /// <summary>Indents a range of line numbers in a string.</summary>
-        /// <param name="@string">The string to indent specified lines of.</param>
+        /// <param name="string">The string to indent specified lines of.</param>
         /// <param name="startingLineNumber">The line number to start line indention on.</param>
         /// <param name="endingLineNumber">The line number to stop line indention on.</param>
         /// <returns>The string with the specified lines indented.</returns>
@@ -165,7 +163,7 @@ namespace System
         }
 
         /// <summary>Indents a range of line numbers in a string.</summary>
-        /// <param name="@string">The string to indent specified lines of.</param>
+        /// <param name="string">The string to indent specified lines of.</param>
         /// <param name="count">The number of tabs for the indention.</param>
         /// <param name="startingLineNumber">The line number to start line indention on.</param>
         /// <param name="endingLineNumber">The line number to stop line indention on.</param>
@@ -176,7 +174,7 @@ namespace System
         }
 
         /// <summary>Adds a string onto the beginning of every line in a string.</summary>
-        /// <param name="@string">The string to pad.</param>
+        /// <param name="string">The string to pad.</param>
         /// <param name="padding">The padding to add to the front of every line.</param>
         /// <returns>The padded string.</returns>
         public static string PadLinesLeft(this string @string, string padding)
@@ -197,7 +195,7 @@ namespace System
         }
 
         /// <summary>Adds a string onto the end of every line in a string.</summary>
-        /// <param name="@string">The string to pad.</param>
+        /// <param name="string">The string to pad.</param>
         /// <param name="padding">The padding to add to the front of every line.</param>
         /// <returns>The padded string.</returns>
         public static string PadSubstringLinesRight(this string @string, string padding)
@@ -218,7 +216,7 @@ namespace System
         }
 
         /// <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-        /// <param name="@string">The string to be padded.</param>
+        /// <param name="string">The string to be padded.</param>
         /// <param name="padding">The padding to apply after every newline sequence found.</param>
         /// <param name="start">The starting index of the string to search for new line sequences.</param>
         /// <param name="end">The ending index of the string to search for new line sequences.</param>
@@ -248,7 +246,7 @@ namespace System
         }
 
         /// <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-        /// <param name="@string">The string to be padded.</param>
+        /// <param name="string">The string to be padded.</param>
         /// <param name="padding">The padding to apply before every newline sequence found.</param>
         /// <param name="start">The starting index of the string to search for new line sequences.</param>
         /// <param name="end">The ending index of the string to search for new line sequences.</param>
@@ -278,10 +276,10 @@ namespace System
         }
 
         /// <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
-        /// <param name="@string">The string to be padded.</param>
+        /// <param name="string">The string to be padded.</param>
         /// <param name="padding">The padding to apply after every newline sequence found.</param>
-        /// <param name="start">The starting index of the string to search for new line sequences.</param>
-        /// <param name="end">The ending index of the string to search for new line sequences.</param>
+        /// <param name="startingLineNumber">The starting index of the line in the string to pad.</param>
+        /// <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
         /// <returns>The padded string.</returns>
         public static string PadLinesLeft(this string @string, string padding, int startingLineNumber, int endingLineNumber)
         {
@@ -310,10 +308,10 @@ namespace System
         }
 
         /// <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
-        /// <param name="@string">The string to be padded.</param>
+        /// <param name="string">The string to be padded.</param>
         /// <param name="padding">The padding to apply before every newline sequence found.</param>
-        /// <param name="startingLineNumber">The starting index of the string to search for new line sequences.</param>
-        /// <param name="endingLineNumber">The ending index of the string to search for new line sequences.</param>
+        /// <param name="startingLineNumber">The starting index of the line in the string to pad.</param>
+        /// <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
         /// <returns>The padded string.</returns>
         public static string PadLinesRight(this string @string, string padding, int startingLineNumber, int endingLineNumber)
         {
@@ -342,7 +340,7 @@ namespace System
         }
 
         /// <summary>Reverses the characters in a string.</summary>
-        /// <param name="@string">The string to reverse the characters of.</param>
+        /// <param name="string">The string to reverse the characters of.</param>
         /// <returns>The reversed character string.</returns>
         public static string Reverse(this string @string)
         {
@@ -352,7 +350,7 @@ namespace System
         }
 
         /// <summary>Removes all the characters from a string based on a predicate.</summary>
-        /// <param name="@string">The string to remove characters from.</param>
+        /// <param name="string">The string to remove characters from.</param>
         /// <param name="where">The predicate determining removal of each character.</param>
         /// <returns>The string after removing any predicated characters.</returns>
         public static string Remove(this string @string, Predicate<char> where)
@@ -758,11 +756,22 @@ namespace System
             return array;
         }
 
+        /// <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
+        /// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
+        /// <param name="a1">The first array of the deep equality check.</param>
+        /// <param name="a2">The second array of the deep equality check.</param>
+        /// <returns>True if the array are determined to be deeply equal. False if not.</returns>
         public static bool ValuesAreEqual<T>(this T[] a1, T[] a2)
         {
             return a1.ValuesAreEqual(a2, Equate.Default);
         }
 
+        /// <summary>Performs a deep equality check of two arrays.</summary>
+        /// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
+        /// <param name="a1">The first array of the deep equality check.</param>
+        /// <param name="a2">The second array of the deep equality check.</param>
+        /// /// <param name="equate">The delegate for checking two values for equality.</param>
+        /// <returns>True if the array are determined to be deeply equal. False if not.</returns>
         public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Equate<T> equate)
         {
             if (ReferenceEquals(a1, a2))
@@ -787,6 +796,10 @@ namespace System
             return true;
         }
 
+        /// <summary>Formats an array so that all values are the same.</summary>
+        /// <typeparam name="T">The generic type of the array to format.</typeparam>
+        /// <param name="array">The array to format.</param>
+        /// <param name="value">The value to format all entries in the array with.</param>
         public static void Fill<T>(this T[] array, T value)
         {
             for (int i = 0; i < array.Length; i++)
@@ -825,7 +838,7 @@ namespace System
 
         /// <summary>Gets a custom attribute on an enum value by generic type.</summary>
         /// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-        /// <param name="enumValue">The enum value to get the attribute of.</param>
+        /// <param name="enum">The enum value to get the attribute of.</param>
         /// <returns>The attribute on the enum value of the provided type.</returns>
         public static AttributeType GetEnumAttribute<AttributeType>(this Enum @enum)
             where AttributeType : Attribute
@@ -837,7 +850,7 @@ namespace System
 
         /// <summary>Gets custom attribus on an enum value by generic type.</summary>
         /// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-        /// <param name="enumValue">The enum value to get the attribute of.</param>
+        /// <param name="enum">The enum value to get the attribute of.</param>
         /// <returns>The attributes on the enum value of the provided type.</returns>
         public static IEnumerable<AttributeType> GetEnumAttributes<AttributeType>(this Enum @enum)
             where AttributeType : Attribute
@@ -1069,6 +1082,9 @@ namespace System
             return result;
         }
 
+        /// <summary>Converts a decimal to the English word representation of that value.</summary>
+        /// <param name="decimal">The decimal value to convert to English words.</param>
+        /// <returns>The English word representation of the decimal value.</returns>
         public static string ToEnglishWords(this decimal @decimal)
         {
             if (@decimal == 0m)
