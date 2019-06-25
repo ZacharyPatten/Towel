@@ -1139,7 +1139,6 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Interpolates between three vectors using barycentric coordinates.</summary>
-        /// <param name="a">The first vector of the interpolation.</param>
         /// <param name="b">The second vector of the interpolation.</param>
         /// <param name="c">The thrid vector of the interpolation.</param>
         /// <param name="u">The "U" value of the barycentric interpolation equation.</param>

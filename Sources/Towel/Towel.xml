@@ -3002,11 +3002,20 @@
             <summary>A primitive dynamic sized data structure.</summary>
             <typeparam name="T">The type of items to store in the list.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IList`1.Remove(System.Predicate{`0})">
+        <member name="M:Towel.DataStructures.IList`1.RemoveFirst(`0)">
+            <summary>Removes the first occurence of an item in the list.</summary>
+            <param name="value">The value to remove the first occurence of.</param>
+        </member>
+        <member name="M:Towel.DataStructures.IList`1.TryRemoveFirst(`0)">
+            <summary>Removes the first occurence of an item in the list or returns false.</summary>
+            <param name="value">The value to remove the first occurence of.</param>
+            <returns>True if the item was found and removed; False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IList`1.RemoveFirst(System.Predicate{`0})">
             <summary>Removes the first occurence of an item in the list.</summary>
             <param name="predicate">The function to determine equality.</param>
         </member>
-        <member name="M:Towel.DataStructures.IList`1.TryRemove(System.Predicate{`0})">
+        <member name="M:Towel.DataStructures.IList`1.TryRemoveFirst(System.Predicate{`0})">
             <summary>Removes the first occurence of an item in the list or returns false.</summary>
             <param name="predicate">The function to determine equality.</param>
             <returns>True if the item was found and removed; False if not.</returns>
@@ -3022,7 +3031,6 @@
         <member name="T:Towel.DataStructures.ListLinked`1">
             <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
             <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-            <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
         </member>
         <member name="T:Towel.DataStructures.ListLinked`1.Node">
             <summary>This class just holds the data for each individual node of the list.</summary>
@@ -3047,35 +3055,42 @@
         <member name="M:Towel.DataStructures.ListLinked`1.Add(`0)">
             <summary>Adds an item to the list.</summary>
             <param name="addition">The item to add to the list.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>θ(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Clear">
-            <summary>Resets the list to an empty state. WARNING could cause excessive garbage collection.</summary>
+            <summary>Resets the list to an empty state.</summary>
+            <runtime>θ(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
+            <runtime>θ(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListLinked`1.Remove(`0)">
+        <member name="M:Towel.DataStructures.ListLinked`1.RemoveFirst(`0)">
             <summary>Removes the first equality by object reference.</summary>
             <param name="removal">The reference to the item to remove.</param>
         </member>
-        <member name="M:Towel.DataStructures.ListLinked`1.Remove(System.Predicate{`0})">
+        <member name="M:Towel.DataStructures.ListLinked`1.RemoveFirst(System.Predicate{`0})">
             <summary>Removes the first equality by object reference.</summary>
-            <param name="removal">The reference to the item to remove.</param>
+            <param name="predicate">The predicate to determine removal.</param>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.RemoveAll(System.Predicate{`0})">
-            <summary>Removes the first equality by object reference.</summary>
-            <param name="removal">The reference to the item to remove.</param>
+            <summary>Removes all predicated items from the list.</summary>
+            <param name="predicate">The predicate to determine removal.</param>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.RemoveAll(`0)">
             <summary>Removes the first equality by object reference.</summary>
             <param name="value">The item to remove.</param>
         </member>
-        <member name="M:Towel.DataStructures.ListLinked`1.TryRemove(System.Predicate{`0})">
-            <summary>Removes the first equality by object reference.</summary>
-            <param name="removal">The reference to the item to remove.</param>
-            <returns>True if the item was removed; false if not.</returns>
+        <member name="M:Towel.DataStructures.ListLinked`1.TryRemoveFirst(`0)">
+            <summary>Trys to remove the first occurence of a value if the value exists.</summary>
+            <param name="value">The value to remove.</param>
+            <returns>True if the value was removed. False if the value did not exist.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.TryRemoveFirst(System.Predicate{`0})">
+            <summary>Trys to remove the first predicated value if the value exists.</summary>
+            <param name="predicate">The predicate to determine removal.</param>
+            <returns>True if the value was removed. False if the value did not exist.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -3095,12 +3110,6 @@
             <param name="function">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ListLinked`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.ListLinked`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
         <member name="M:Towel.DataStructures.ListLinked`1.ToArray">
             <summary>Converts the list into a standard array.</summary>
             <returns>A standard array of all the items.</returns>
@@ -3109,21 +3118,21 @@
         <member name="T:Towel.DataStructures.ListArray`1">
             <summary>A list implemented as a growing array.</summary>
             <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-            <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.#ctor">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.#ctor(System.Int32)">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-            <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.#ctor(System.Int32,Towel.Equate{`0})">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
             <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <param name="equate">The equate delegate to be used by the list.</param>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.ListArray`1.Item(System.Int32)">
             <summary>Look-up and set an indexed item in the list.</summary>
@@ -3136,7 +3145,11 @@
         </member>
         <member name="P:Towel.DataStructures.ListArray`1.CurrentCapacity">
             <summary>Gets the current capacity of the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.ListArray`1.Equate">
+            <summary>Gets the equate delegate of the list.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Add(`0)">
             <summary>Adds an item to the end of the list.</summary>
@@ -3167,45 +3180,49 @@
             <remarks>Runtime: Towel(n - index).</remarks>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAll(System.Predicate{`0})">
-            <summary>Removes all occurences of a given item.</summary>
-            <param name="item">The itme to genocide.</param>
+            <summary>Removes all predicated items from the list.</summary>
+            <param name="predicate">The predicate to determine removals.</param>
             <remarks>Runtime: Towel(n).</remarks>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAll(`0)">
             <summary>Removes all occurences of a given item.</summary>
-            <param name="item">The itme to genocide.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+            <param name="value">The item to remove.</param>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAllWithoutShrink(System.Predicate{`0})">
-            <summary>Removes all occurences of a given item.</summary>
-            <param name="item">The itme to genocide.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+            <summary>Removes all predicated items from the list.</summary>
+            <param name="predicate">The predicate to determine removals.</param>
+            <runtime>Θ(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.Remove(`0)">
-            <summary>Removes the item at a specific index.</summary>
-            <param name="compare">The technique of determining equality.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirst(`0)">
+            <summary>Removes the first occurence of a value from the list.</summary>
+            <param name="removal">The value to remove.</param>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.RemoveWithoutShrink(`0)">
-            <summary>Removes the item at a specific index.</summary>
-            <param name="compare">The technique of determining equality.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirst(System.Predicate{`0})">
+            <summary>Removes the first predicated value from the list.</summary>
+            <param name="predicate">The predicate to determine removals.</param>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.Remove(System.Predicate{`0})">
-            <summary>Removes the item at a specific index.</summary>
-            <param name="compare">The technique of determining equality.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(`0)">
+            <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
+            <param name="removal">The value to remove.</param>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.RemoveWithoutShrink(System.Predicate{`0})">
-            <summary>Removes the item at a specific index.</summary>
-            <param name="compare">The technique of determining equality.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(System.Predicate{`0})">
+            <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
+            <param name="predicate">The predicate to determine removals.</param>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.TryRemove(System.Predicate{`0})">
-            <summary>Removes the item at a specific index.</summary>
-            <param name="compare">The technique of determining equality.</param>
-            <returns>True if the item was found and removed; false if not.</returns>
-            <remarks>Runtime: Towel(n).</remarks>
+        <member name="M:Towel.DataStructures.ListArray`1.TryRemoveFirst(`0)">
+            <summary>Tries to remove the first value if the value exists.</summary>
+            <param name="value">The value to remove.</param>
+            <returns>True if the item was found and removed. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ListArray`1.TryRemoveFirst(System.Predicate{`0})">
+            <summary>Tries to remove the first predicated value if the value exists.</summary>
+            <param name="predicate">The predicate to determine removals.</param>
+            <returns>True if the item was found and removed. False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Remove_private(System.Int32)">
             <summary>Removes the item at a specific index.</summary>
@@ -3214,27 +3231,21 @@
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.ListArray`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.ListArray`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.ToArray">
             <summary>Converts the list array into a standard array.</summary>
@@ -17383,7 +17394,6 @@
         </member>
         <member name="M:Towel.Mathematics.Vector`1.BarycentricInterpolation(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},`0,`0)">
             <summary>Interpolates between three vectors using barycentric coordinates.</summary>
-            <param name="a">The first vector of the interpolation.</param>
             <param name="b">The second vector of the interpolation.</param>
             <param name="c">The thrid vector of the interpolation.</param>
             <param name="u">The "U" value of the barycentric interpolation equation.</param>
