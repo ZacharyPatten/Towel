@@ -225,6 +225,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Length.Units LengthUnits1
         {
             get { return _LengthUnits1; }
@@ -238,6 +239,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -251,6 +253,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Time.Units TimeUnits3
         {
             get { return _TimeUnits3; }
@@ -264,11 +267,19 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AccelerationBaseUnits units]
 		{
 			get { return this[units._LengthUnits1, units._TimeUnits2, units._TimeUnits3]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <param name="TimeUnits3">The #3 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Length.Units LengthUnits1, Time.Units TimeUnits2, Time.Units TimeUnits3]
         {
             get
@@ -1035,6 +1046,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Angle.Units AngleUnits1
         {
             get { return _AngleUnits1; }
@@ -1048,6 +1060,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -1061,6 +1074,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Time.Units TimeUnits3
         {
             get { return _TimeUnits3; }
@@ -1074,11 +1088,19 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits units]
 		{
 			get { return this[units._AngleUnits1, units._TimeUnits2, units._TimeUnits3]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="AngleUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <param name="TimeUnits3">The #3 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Angle.Units AngleUnits1, Time.Units TimeUnits2, Time.Units TimeUnits3]
         {
             get
@@ -1665,6 +1687,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Angle.Units AngleUnits1
         {
             get { return _AngleUnits1; }
@@ -1678,11 +1701,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AngleUnits units]
 		{
 			get { return this[units._AngleUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="AngleUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Angle.Units AngleUnits1]
         {
             get
@@ -2327,6 +2356,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Angle.Units AngleUnits1
         {
             get { return _AngleUnits1; }
@@ -2340,6 +2370,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -2353,11 +2384,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits units]
 		{
 			get { return this[units._AngleUnits1, units._TimeUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="AngleUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Angle.Units AngleUnits1, Time.Units TimeUnits2]
         {
             get
@@ -2979,6 +3017,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Length.Units LengthUnits1
         {
             get { return _LengthUnits1; }
@@ -2992,6 +3031,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -3005,11 +3045,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AreaBaseUnits units]
 		{
 			get { return this[units._LengthUnits1, units._LengthUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Length.Units LengthUnits1, Length.Units LengthUnits2]
         {
             get
@@ -3754,6 +3801,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -3767,6 +3815,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -3780,6 +3829,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Length.Units LengthUnits3
         {
             get { return _LengthUnits3; }
@@ -3793,11 +3843,19 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._LengthUnits3]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3]
         {
             get
@@ -4568,6 +4626,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -4581,6 +4640,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -4594,6 +4654,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Length.Units LengthUnits3
         {
             get { return _LengthUnits3; }
@@ -4607,6 +4668,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #4 component of this measurements units.</summary>
         public Length.Units LengthUnits4
         {
             get { return _LengthUnits4; }
@@ -4620,11 +4682,20 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.DensityBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._LengthUnits3, units._LengthUnits4]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <param name="LengthUnits4">The #4 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Length.Units LengthUnits4]
         {
             get
@@ -5269,6 +5340,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public ElectricCharge.Units ElectricChargeUnits1
         {
             get { return _ElectricChargeUnits1; }
@@ -5282,11 +5354,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.ElectricChargeUnits units]
 		{
 			get { return this[units._ElectricChargeUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[ElectricCharge.Units ElectricChargeUnits1]
         {
             get
@@ -5851,6 +5929,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public ElectricCharge.Units ElectricChargeUnits1
         {
             get { return _ElectricChargeUnits1; }
@@ -5864,6 +5943,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -5877,11 +5957,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits units]
 		{
 			get { return this[units._ElectricChargeUnits1, units._TimeUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[ElectricCharge.Units ElectricChargeUnits1, Time.Units TimeUnits2]
         {
             get
@@ -6438,6 +6525,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -6451,6 +6539,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -6464,6 +6553,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Length.Units LengthUnits3
         {
             get { return _LengthUnits3; }
@@ -6477,6 +6567,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #4 component of this measurements units.</summary>
         public Time.Units TimeUnits4
         {
             get { return _TimeUnits4; }
@@ -6490,6 +6581,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #5 component of this measurements units.</summary>
         public Time.Units TimeUnits5
         {
             get { return _TimeUnits5; }
@@ -6503,11 +6595,21 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.EnergyBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._LengthUnits3, units._TimeUnits4, units._TimeUnits5]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <param name="TimeUnits4">The #4 component of this measurements units.</param>
+		/// <param name="TimeUnits5">The #5 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4, Time.Units TimeUnits5]
         {
             get
@@ -7493,6 +7595,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -7506,6 +7609,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -7519,6 +7623,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Time.Units TimeUnits3
         {
             get { return _TimeUnits3; }
@@ -7532,6 +7637,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #4 component of this measurements units.</summary>
         public Time.Units TimeUnits4
         {
             get { return _TimeUnits4; }
@@ -7545,11 +7651,20 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.ForceBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._TimeUnits3, units._TimeUnits4]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="TimeUnits3">The #3 component of this measurements units.</param>
+		/// <param name="TimeUnits4">The #4 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Time.Units TimeUnits3, Time.Units TimeUnits4]
         {
             get
@@ -8403,6 +8518,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Length.Units LengthUnits1
         {
             get { return _LengthUnits1; }
@@ -8416,11 +8532,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.LengthUnits units]
 		{
 			get { return this[units._LengthUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Length.Units LengthUnits1]
         {
             get
@@ -9338,6 +9460,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -9351,6 +9474,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -9364,11 +9488,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2]
         {
             get
@@ -10193,6 +10324,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -10206,6 +10338,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -10219,11 +10352,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.LinearMassBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2]
         {
             get
@@ -11174,6 +11314,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -11187,6 +11328,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -11200,6 +11342,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Time.Units TimeUnits3
         {
             get { return _TimeUnits3; }
@@ -11213,11 +11356,19 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._TimeUnits3]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="TimeUnits3">The #3 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Time.Units TimeUnits3]
         {
             get
@@ -12010,6 +12161,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -12023,11 +12175,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.MassUnits units]
 		{
 			get { return this[units._MassUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1]
         {
             get
@@ -12891,6 +13049,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -12904,6 +13063,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -12917,6 +13077,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Length.Units LengthUnits3
         {
             get { return _LengthUnits3; }
@@ -12930,6 +13091,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #4 component of this measurements units.</summary>
         public Time.Units TimeUnits4
         {
             get { return _TimeUnits4; }
@@ -12943,6 +13105,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #5 component of this measurements units.</summary>
         public Time.Units TimeUnits5
         {
             get { return _TimeUnits5; }
@@ -12956,6 +13119,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #6 component of this measurements units.</summary>
         public Time.Units TimeUnits6
         {
             get { return _TimeUnits6; }
@@ -12969,11 +13133,22 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.PowerBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._LengthUnits3, units._TimeUnits4, units._TimeUnits5, units._TimeUnits6]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <param name="TimeUnits4">The #4 component of this measurements units.</param>
+		/// <param name="TimeUnits5">The #5 component of this measurements units.</param>
+		/// <param name="TimeUnits6">The #6 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4, Time.Units TimeUnits5, Time.Units TimeUnits6]
         {
             get
@@ -13765,6 +13940,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Mass.Units MassUnits1
         {
             get { return _MassUnits1; }
@@ -13778,6 +13954,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -13791,6 +13968,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Time.Units TimeUnits3
         {
             get { return _TimeUnits3; }
@@ -13804,6 +13982,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #4 component of this measurements units.</summary>
         public Time.Units TimeUnits4
         {
             get { return _TimeUnits4; }
@@ -13817,11 +13996,20 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.PressureBaseUnits units]
 		{
 			get { return this[units._MassUnits1, units._LengthUnits2, units._TimeUnits3, units._TimeUnits4]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="TimeUnits3">The #3 component of this measurements units.</param>
+		/// <param name="TimeUnits4">The #4 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Mass.Units MassUnits1, Length.Units LengthUnits2, Time.Units TimeUnits3, Time.Units TimeUnits4]
         {
             get
@@ -14564,6 +14752,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Length.Units LengthUnits1
         {
             get { return _LengthUnits1; }
@@ -14577,6 +14766,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -14590,11 +14780,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.SpeedBaseUnits units]
 		{
 			get { return this[units._LengthUnits1, units._TimeUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Length.Units LengthUnits1, Time.Units TimeUnits2]
         {
             get
@@ -15327,6 +15524,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Tempurature.Units TempuratureUnits1
         {
             get { return _TempuratureUnits1; }
@@ -15340,11 +15538,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.TempuratureUnits units]
 		{
 			get { return this[units._TempuratureUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="TempuratureUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Tempurature.Units TempuratureUnits1]
         {
             get
@@ -15820,6 +16024,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Time.Units TimeUnits1
         {
             get { return _TimeUnits1; }
@@ -15833,11 +16038,17 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.TimeUnits units]
 		{
 			get { return this[units._TimeUnits1]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="TimeUnits1">The #1 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Time.Units TimeUnits1]
         {
             get
@@ -16675,6 +16886,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Time.Units TimeUnits1
         {
             get { return _TimeUnits1; }
@@ -16688,6 +16900,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Time.Units TimeUnits2
         {
             get { return _TimeUnits2; }
@@ -16701,11 +16914,18 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits units]
 		{
 			get { return this[units._TimeUnits1, units._TimeUnits2]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="TimeUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Time.Units TimeUnits1, Time.Units TimeUnits2]
         {
             get
@@ -17410,6 +17630,7 @@ namespace Towel.Measurements
 
 		#region Properties
 
+		/// <summary>The #1 component of this measurements units.</summary>
         public Length.Units LengthUnits1
         {
             get { return _LengthUnits1; }
@@ -17423,6 +17644,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #2 component of this measurements units.</summary>
         public Length.Units LengthUnits2
         {
             get { return _LengthUnits2; }
@@ -17436,6 +17658,7 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>The #3 component of this measurements units.</summary>
         public Length.Units LengthUnits3
         {
             get { return _LengthUnits3; }
@@ -17449,11 +17672,19 @@ namespace Towel.Measurements
             }
         }
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.VolumeBaseUnits units]
 		{
 			get { return this[units._LengthUnits1, units._LengthUnits2, units._LengthUnits3]; }
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[Length.Units LengthUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3]
         {
             get
@@ -18131,6 +18362,8 @@ namespace Towel.Measurements
 
 	#region MeasurementUnitsSyntaxTypes
 
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 	public static class MeasurementUnitsSyntaxTypes
 	{
 		public struct AccelerationBaseUnits
@@ -18804,6 +19037,9 @@ namespace Towel.Measurements
 
 	}
 
+	#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
 	#endregion
+
 
 }

@@ -17524,6 +17524,27 @@
             <param name="TimeUnits2">The units of the Acceleration.</param>
             <param name="TimeUnits3">The units of the Acceleration.</param>
         </member>
+        <member name="P:Towel.Measurements.Acceleration`1.LengthUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.TimeUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Acceleration`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="LengthUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <param name="TimeUnits3">The #3 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Acceleration`1.Add(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
             <summary>Adds two Acceleration measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -17859,6 +17880,27 @@
             <param name="TimeUnits2">The units of the AngularAcceleration.</param>
             <param name="TimeUnits3">The units of the AngularAcceleration.</param>
         </member>
+        <member name="P:Towel.Measurements.AngularAcceleration`1.AngleUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AngularAcceleration`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AngularAcceleration`1.TimeUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AngularAcceleration`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.AngularAcceleration`1.Item(Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="AngleUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <param name="TimeUnits3">The #3 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.AngularAcceleration`1.Add(Towel.Measurements.AngularAcceleration{`0},Towel.Measurements.AngularAcceleration{`0})">
             <summary>Adds two AngularAcceleration measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -18118,6 +18160,19 @@
             <summary>Constructs an Angle with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Angle.</param>
             <param name="AngleUnits1">The units of the Angle.</param>
+        </member>
+        <member name="P:Towel.Measurements.Angle`1.AngleUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Angle`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Angle`1.Item(Towel.Measurements.Angle.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="AngleUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Angle`1.Add(Towel.Measurements.Angle{`0},Towel.Measurements.Angle{`0})">
             <summary>Adds two Angle measurements.</summary>
@@ -18419,6 +18474,23 @@
             <param name="AngleUnits1">The units of the AngularSpeed.</param>
             <param name="TimeUnits2">The units of the AngularSpeed.</param>
         </member>
+        <member name="P:Towel.Measurements.AngularSpeed`1.AngleUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AngularSpeed`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AngularSpeed`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.AngularSpeed`1.Item(Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="AngleUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.AngularSpeed`1.Add(Towel.Measurements.AngularSpeed{`0},Towel.Measurements.AngularSpeed{`0})">
             <summary>Adds two AngularSpeed measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -18701,6 +18773,23 @@
             <param name="measurement">The measurement value of the Area.</param>
             <param name="LengthUnits1">The units of the Area.</param>
             <param name="LengthUnits2">The units of the Area.</param>
+        </member>
+        <member name="P:Towel.Measurements.Area`1.LengthUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Area`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Area`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Area`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="LengthUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Area`1.Add(Towel.Measurements.Area{`0},Towel.Measurements.Area{`0})">
             <summary>Adds two Area measurements.</summary>
@@ -19036,6 +19125,27 @@
             <param name="MassUnits1">The units of the AreaDensity.</param>
             <param name="LengthUnits2">The units of the AreaDensity.</param>
             <param name="LengthUnits3">The units of the AreaDensity.</param>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.LengthUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.AreaDensity`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="LengthUnits3">The #3 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.AreaDensity`1.Add(Towel.Measurements.AreaDensity{`0},Towel.Measurements.AreaDensity{`0})">
             <summary>Adds two AreaDensity measurements.</summary>
@@ -19373,6 +19483,31 @@
             <param name="LengthUnits3">The units of the Density.</param>
             <param name="LengthUnits4">The units of the Density.</param>
         </member>
+        <member name="P:Towel.Measurements.Density`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Density`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Density`1.LengthUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Density`1.LengthUnits4">
+            <summary>The #4 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Density`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Density`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="LengthUnits3">The #3 component of this measurements units.</param>
+            <param name="LengthUnits4">The #4 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Density`1.Add(Towel.Measurements.Density{`0},Towel.Measurements.Density{`0})">
             <summary>Adds two Density measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -19650,6 +19785,19 @@
             <param name="measurement">The measurement value of the ElectricCharge.</param>
             <param name="ElectricChargeUnits1">The units of the ElectricCharge.</param>
         </member>
+        <member name="P:Towel.Measurements.ElectricCharge`1.ElectricChargeUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCharge`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCharge`1.Item(Towel.Measurements.ElectricCharge.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.ElectricCharge`1.Add(Towel.Measurements.ElectricCharge{`0},Towel.Measurements.ElectricCharge{`0})">
             <summary>Adds two ElectricCharge measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -19916,6 +20064,23 @@
             <param name="ElectricChargeUnits1">The units of the ElectricCurrent.</param>
             <param name="TimeUnits2">The units of the ElectricCurrent.</param>
         </member>
+        <member name="P:Towel.Measurements.ElectricCurrent`1.ElectricChargeUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCurrent`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCurrent`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.ElectricCurrent`1.Item(Towel.Measurements.ElectricCharge.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.ElectricCurrent`1.Add(Towel.Measurements.ElectricCurrent{`0},Towel.Measurements.ElectricCurrent{`0})">
             <summary>Adds two ElectricCurrent measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -20167,6 +20332,35 @@
             <param name="LengthUnits3">The units of the Energy.</param>
             <param name="TimeUnits4">The units of the Energy.</param>
             <param name="TimeUnits5">The units of the Energy.</param>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.LengthUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.TimeUnits4">
+            <summary>The #4 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.TimeUnits5">
+            <summary>The #5 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Energy`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="LengthUnits3">The #3 component of this measurements units.</param>
+            <param name="TimeUnits4">The #4 component of this measurements units.</param>
+            <param name="TimeUnits5">The #5 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Energy`1.Add(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
             <summary>Adds two Energy measurements.</summary>
@@ -20572,6 +20766,31 @@
             <param name="TimeUnits3">The units of the Force.</param>
             <param name="TimeUnits4">The units of the Force.</param>
         </member>
+        <member name="P:Towel.Measurements.Force`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Force`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Force`1.TimeUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Force`1.TimeUnits4">
+            <summary>The #4 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Force`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Force`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="TimeUnits3">The #3 component of this measurements units.</param>
+            <param name="TimeUnits4">The #4 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Force`1.Add(Towel.Measurements.Force{`0},Towel.Measurements.Force{`0})">
             <summary>Adds two Force measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -20933,6 +21152,19 @@
             <summary>Constructs an Length with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Length.</param>
             <param name="LengthUnits1">The units of the Length.</param>
+        </member>
+        <member name="P:Towel.Measurements.Length`1.LengthUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Length`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Length`1.Item(Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="LengthUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Length`1.Add(Towel.Measurements.Length{`0},Towel.Measurements.Length{`0})">
             <summary>Adds two Length measurements.</summary>
@@ -21353,6 +21585,23 @@
             <param name="MassUnits1">The units of the LinearDensity.</param>
             <param name="LengthUnits2">The units of the LinearDensity.</param>
         </member>
+        <member name="P:Towel.Measurements.LinearDensity`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearDensity`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearDensity`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.LinearDensity`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearDensity`1.Add(Towel.Measurements.LinearDensity{`0},Towel.Measurements.LinearDensity{`0})">
             <summary>Adds two LinearDensity measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -21720,6 +21969,23 @@
             <param name="measurement">The measurement value of the LinearMass.</param>
             <param name="MassUnits1">The units of the LinearMass.</param>
             <param name="LengthUnits2">The units of the LinearMass.</param>
+        </member>
+        <member name="P:Towel.Measurements.LinearMass`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearMass`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearMass`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.LinearMass`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.LinearMass`1.Add(Towel.Measurements.LinearMass{`0},Towel.Measurements.LinearMass{`0})">
             <summary>Adds two LinearMass measurements.</summary>
@@ -22141,6 +22407,27 @@
             <param name="LengthUnits2">The units of the LinearMassFlow.</param>
             <param name="TimeUnits3">The units of the LinearMassFlow.</param>
         </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.TimeUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.LinearMassFlow`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="TimeUnits3">The #3 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearMassFlow`1.Add(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.LinearMassFlow{`0})">
             <summary>Adds two LinearMassFlow measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -22485,6 +22772,19 @@
             <summary>Constructs an Mass with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Mass.</param>
             <param name="MassUnits1">The units of the Mass.</param>
+        </member>
+        <member name="P:Towel.Measurements.Mass`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Mass`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Mass`1.Item(Towel.Measurements.Mass.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Mass`1.Add(Towel.Measurements.Mass{`0},Towel.Measurements.Mass{`0})">
             <summary>Adds two Mass measurements.</summary>
@@ -22875,6 +23175,39 @@
             <param name="TimeUnits5">The units of the Power.</param>
             <param name="TimeUnits6">The units of the Power.</param>
         </member>
+        <member name="P:Towel.Measurements.Power`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.LengthUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.TimeUnits4">
+            <summary>The #4 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.TimeUnits5">
+            <summary>The #5 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.TimeUnits6">
+            <summary>The #6 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Power`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="LengthUnits3">The #3 component of this measurements units.</param>
+            <param name="TimeUnits4">The #4 component of this measurements units.</param>
+            <param name="TimeUnits5">The #5 component of this measurements units.</param>
+            <param name="TimeUnits6">The #6 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Power`1.Add(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
             <summary>Adds two Power measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -23194,6 +23527,31 @@
             <param name="TimeUnits3">The units of the Pressure.</param>
             <param name="TimeUnits4">The units of the Pressure.</param>
         </member>
+        <member name="P:Towel.Measurements.Pressure`1.MassUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Pressure`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Pressure`1.TimeUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Pressure`1.TimeUnits4">
+            <summary>The #4 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Pressure`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Pressure`1.Item(Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="MassUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="TimeUnits3">The #3 component of this measurements units.</param>
+            <param name="TimeUnits4">The #4 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Pressure`1.Add(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
             <summary>Adds two Pressure measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -23510,6 +23868,23 @@
             <param name="measurement">The measurement value of the Speed.</param>
             <param name="LengthUnits1">The units of the Speed.</param>
             <param name="TimeUnits2">The units of the Speed.</param>
+        </member>
+        <member name="P:Towel.Measurements.Speed`1.LengthUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Speed`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Speed`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Speed`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="LengthUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Speed`1.Add(Towel.Measurements.Speed{`0},Towel.Measurements.Speed{`0})">
             <summary>Adds two Speed measurements.</summary>
@@ -23839,6 +24214,19 @@
             <param name="measurement">The measurement value of the Tempurature.</param>
             <param name="TempuratureUnits1">The units of the Tempurature.</param>
         </member>
+        <member name="P:Towel.Measurements.Tempurature`1.TempuratureUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Tempurature`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Tempurature`1.Item(Towel.Measurements.Tempurature.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="TempuratureUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.Tempurature`1.Add(Towel.Measurements.Tempurature{`0},Towel.Measurements.Tempurature{`0})">
             <summary>Adds two Tempurature measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -24064,6 +24452,19 @@
             <summary>Constructs an Time with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Time.</param>
             <param name="TimeUnits1">The units of the Time.</param>
+        </member>
+        <member name="P:Towel.Measurements.Time`1.TimeUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Time`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Time`1.Item(Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="TimeUnits1">The #1 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Time`1.Add(Towel.Measurements.Time{`0},Towel.Measurements.Time{`0})">
             <summary>Adds two Time measurements.</summary>
@@ -24450,6 +24851,23 @@
             <param name="TimeUnits1">The units of the TimeArea.</param>
             <param name="TimeUnits2">The units of the TimeArea.</param>
         </member>
+        <member name="P:Towel.Measurements.TimeArea`1.TimeUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.TimeArea`1.TimeUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.TimeArea`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.TimeArea`1.Item(Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="TimeUnits1">The #1 component of this measurements units.</param>
+            <param name="TimeUnits2">The #2 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
         <member name="M:Towel.Measurements.TimeArea`1.Add(Towel.Measurements.TimeArea{`0},Towel.Measurements.TimeArea{`0})">
             <summary>Adds two TimeArea measurements.</summary>
             <param name="a">The first operand of the addition.</param>
@@ -24767,6 +25185,27 @@
             <param name="LengthUnits1">The units of the Volume.</param>
             <param name="LengthUnits2">The units of the Volume.</param>
             <param name="LengthUnits3">The units of the Volume.</param>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.LengthUnits1">
+            <summary>The #1 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.LengthUnits2">
+            <summary>The #2 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.LengthUnits3">
+            <summary>The #3 component of this measurements units.</summary>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.Item(Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="units">The units to get the measurement in.</param>
+            <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="P:Towel.Measurements.Volume`1.Item(Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Gets the measurement in the specified units.</summary>
+            <param name="LengthUnits1">The #1 component of this measurements units.</param>
+            <param name="LengthUnits2">The #2 component of this measurements units.</param>
+            <param name="LengthUnits3">The #3 component of this measurements units.</param>
+            <returns>The measurement value in the specified units.</returns>
         </member>
         <member name="M:Towel.Measurements.Volume`1.Add(Towel.Measurements.Volume{`0},Towel.Measurements.Volume{`0})">
             <summary>Adds two Volume measurements.</summary>

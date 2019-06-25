@@ -190,6 +190,7 @@ namespace Towel.Measurements
 		#region Properties
 
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+		/// <summary>The #<#= baseUnitIndex + 1 #> component of this measurements units.</summary>
         public <#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #>
         {
             get { return _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>; }
@@ -206,6 +207,9 @@ namespace Towel.Measurements
         }
 
 <# baseUnitIndex++; } } #>
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units units]
 		{
 <# { int temp = 0; #>
@@ -213,6 +217,11 @@ namespace Towel.Measurements
 <# } #>
 		}
 
+		/// <summary>Gets the measurement in the specified units.</summary>
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+		/// <param name="<#= baseUnit #>Units<#= baseUnitIndex + 1 #>">The #<#= baseUnitIndex + 1 #> component of this measurements units.</param>
+<# baseUnitIndex++; } } #>
+		/// <returns>The measurement value in the specified units.</returns>
 <# { int temp = 0; #>
 		public T this[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + ".Units" + " " + x + "Units" + ++temp)) #>]
 <# } #>
@@ -1069,6 +1078,8 @@ string bIndexString = null;
 <# //------------------------------------------------------------------------------------------- #>
 	#region MeasurementUnitsSyntaxTypes
 
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 	public static class MeasurementUnitsSyntaxTypes
 	{
 <# { int measurementIndex = 0; foreach (var measurement in measurements) { #>
@@ -1276,7 +1287,10 @@ if (unitCollisions.Count > 0)
 <# measurementIndex++; } } #>
 	}
 
+	#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
 	#endregion
+
 
 <# //------------------------------------------------------------------------------------------- #>
 <# if (false) { #>
