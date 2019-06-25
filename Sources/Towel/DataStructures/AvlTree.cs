@@ -1060,6 +1060,8 @@ namespace Towel.DataStructures
             return GetEnumerator();
         }
 
+        /// <summary>Gets the enumerator for this instance.</summary>
+        /// <returns>An enumerator to iterate through the data structure.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             IStack<Node> forks = new StackLinked<Node>();
@@ -1079,8 +1081,6 @@ namespace Towel.DataStructures
                 }
             }
         }
-
-
 
         #endregion
 

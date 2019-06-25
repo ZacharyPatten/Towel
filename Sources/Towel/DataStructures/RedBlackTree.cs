@@ -195,14 +195,16 @@ namespace Towel.DataStructures
 
         #region Constructors
 
+        /// <summary>Constructs a new Red Black Tree using the default comparison method for the generic type.</summary>
         public RedBlackTreeLinked() : this(Towel.Compare.Default) { }
 
+        /// <summary>Constructs a new Red Black Tree.</summary>
+        /// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
         public RedBlackTreeLinked(Compare<T> compare)
         {
-            _sentinelNode = new Node();
-            _sentinelNode.Color = Black;
-            this._root = _sentinelNode;
-            this._compare = compare;
+            _sentinelNode = new Node() { Color = Black };
+            _root = _sentinelNode;
+            _compare = compare;
         }
 
         #endregion
@@ -251,18 +253,20 @@ namespace Towel.DataStructures
 
         #region Add
 
-        public void Add(T data)
+        /// <summary>Adds a value to the tree.</summary>
+        /// <param name="value">The value to be added to the tree.</param>
+        public void Add(T value)
         {
-            RedBlackTreeLinked<T>.Node addition = new RedBlackTreeLinked<T>.Node();
-            RedBlackTreeLinked<T>.Node temp = _root;
+            Node addition = new Node();
+            Node temp = _root;
             while (temp != _sentinelNode)
             {
                 addition.Parent = temp;
 
-                switch (this._compare(data, temp.Value))
+                switch (_compare(value, temp.Value))
                 {
                     case CompareResult.Equal:
-                        throw (new System.InvalidOperationException("A Node with the same key already exists"));
+                        throw (new InvalidOperationException("A Node with the same key already exists"));
                     case CompareResult.Greater:
                         temp = temp.RightChild;
                         break;
@@ -270,15 +274,15 @@ namespace Towel.DataStructures
                         temp = temp.LeftChild;
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
             }
-            addition.Value = data;
+            addition.Value = value;
             addition.LeftChild = _sentinelNode;
             addition.RightChild = _sentinelNode;
             if (addition.Parent != null)
             {
-                switch (this._compare(addition.Value, addition.Parent.Value))
+                switch (_compare(addition.Value, addition.Parent.Value))
                 {
                     case CompareResult.Greater:
                         addition.Parent.RightChild = addition;
@@ -287,19 +291,20 @@ namespace Towel.DataStructures
                         addition.Parent.LeftChild = addition;
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
             }
             else
                 _root = addition;
             BalanceAddition(addition);
-            _count = _count + 1;
+            _count += 1;
         }
 
         #endregion
 
         #region Clear
 
+        /// <summary>Returns the tree to an empty state.</summary>
         public void Clear()
         {
             _root = _sentinelNode;
@@ -321,12 +326,15 @@ namespace Towel.DataStructures
 
         #region Contains
 
-        public bool Contains(T item)
+        /// <summary>Determines if the tree contains a given value;</summary>
+        /// <param name="value">The value to see if the tree contains.</param>
+        /// <returns>True if the tree contains the value. False if not.</returns>
+        public bool Contains(T value)
         {
             Node treeNode = _root;
             while (treeNode != _sentinelNode)
             {
-                switch (_compare(treeNode.Value, item))
+                switch (_compare(treeNode.Value, value))
                 {
                     case CompareResult.Equal:
                         return true;
@@ -395,9 +403,11 @@ namespace Towel.DataStructures
 
         #region Remove
 
+        /// <summary>Removes a value from the tree.</summary>
+        /// <param name="value">The value to be removed.</param>
         public void Remove(T value)
         {
-            RedBlackTreeLinked<T>.Node node;
+            Node node;
             node = _root;
             while (node != _sentinelNode)
             {
@@ -408,8 +418,8 @@ namespace Towel.DataStructures
                         {
                             return;
                         }
-                        this.Remove(node);
-                        this._count = _count - 1;
+                        Remove(node);
+                        _count -= 1;
                         return;
                     case CompareResult.Greater:
                         node = node.LeftChild;
@@ -418,14 +428,14 @@ namespace Towel.DataStructures
                         node = node.RightChild;
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
             }
         }
 
         public void Remove<Key>(Key key, Compare<T, Key> compare)
         {
-            RedBlackTreeLinked<T>.Node node;
+            Node node;
             node = _root;
             while (node != _sentinelNode)
             {
@@ -451,7 +461,7 @@ namespace Towel.DataStructures
 
         private void Remove(Node removal)
         {
-            Node x = new Node();
+            Node x;
             Node temp;
             if (removal.LeftChild == _sentinelNode || removal.RightChild == _sentinelNode)
                 temp = removal;

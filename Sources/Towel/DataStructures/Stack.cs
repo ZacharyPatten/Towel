@@ -221,7 +221,7 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
         public StepStatus Stepper(StepRefBreak<T> step)
         {

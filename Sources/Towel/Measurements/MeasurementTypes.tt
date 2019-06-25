@@ -1290,28 +1290,4 @@ if (unitCollisions.Count > 0)
 	#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	#endregion
-
-
-<# //------------------------------------------------------------------------------------------- #>
-<# if (false) { #>
-	#region Units
-
-<# { int measurementIndex = 0; foreach (var measurement in measurements) { #>
-<# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
-	#region <#= measurement.Item1 #> Units
-
-	public static class <#= measurement.Item1 #>
-	{
-		public enum Units
-		{
-			// none
-		}
-	}
-
-	#endregion
-
-<# measurementIndex++; } } #>
-
-	#endregion
-<# } #>
 }

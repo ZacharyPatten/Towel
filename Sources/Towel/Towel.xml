@@ -949,6 +949,10 @@
             <param name="maximum">The maximum value of the optimized stepper function.</param>
             <remarks>Runtime: O(n * step_function).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for this instance.</summary>
+            <returns>An enumerator to iterate through the data structure.</returns>
+        </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Balance(Towel.DataStructures.AvlTreeLinked{`0}.Node)">
             <summary>Standard balancing algorithm for an AVL Tree.</summary>
             <param name="node">The tree to check the balancing of.</param>
@@ -12575,6 +12579,13 @@
             http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
             </citation>
         </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor">
+            <summary>Constructs a new Red Black Tree using the default comparison method for the generic type.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(Towel.Compare{`0})">
+            <summary>Constructs a new Red Black Tree.</summary>
+            <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
+        </member>
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.CurrentLeast">
             <summary>Gets the current least item in the avl tree.</summary>
         </member>
@@ -12587,9 +12598,25 @@
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.Compare">
             <summary>The sorting technique.</summary>
         </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Add(`0)">
+            <summary>Adds a value to the tree.</summary>
+            <param name="value">The value to be added to the tree.</param>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clear">
+            <summary>Returns the tree to an empty state.</summary>
+        </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Contains(`0)">
+            <summary>Determines if the tree contains a given value;</summary>
+            <param name="value">The value to see if the tree contains.</param>
+            <returns>True if the tree contains the value. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Remove(`0)">
+            <summary>Removes a value from the tree.</summary>
+            <param name="value">The value to be removed.</param>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -13217,7 +13244,7 @@
         </member>
         <member name="M:Towel.DataStructures.StackLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="T:Towel.DataStructures.StackArray`1">
@@ -17316,13 +17343,13 @@
         </member>
         <member name="M:Towel.Mathematics.Vector`1.RotateBy(Towel.Mathematics.Vector{`0},Towel.Mathematics.Quaternion{`0},Towel.Mathematics.Vector{`0}@)">
             <summary>Rotates a vector by a quaternion.</summary>
-            <param name="vector">The vector to rotate.</param>
-            <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+            <param name="a">The vector to rotate.</param>
+            <param name="b">The quaternion to rotate the 3-component vector by.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.RotateBy(Towel.Mathematics.Vector{`0},Towel.Mathematics.Quaternion{`0})">
             <summary>Rotates a vector by a quaternion.</summary>
-            <param name="vector">The vector to rotate.</param>
-            <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+            <param name="a">The vector to rotate.</param>
+            <param name="b">The quaternion to rotate the 3-component vector by.</param>
             <returns>The result of the rotation.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.RotateBy(Towel.Mathematics.Quaternion{`0})">
@@ -17382,6 +17409,7 @@
             <param name="c">The thrid vector of the interpolation.</param>
             <param name="u">The "U" value of the barycentric interpolation equation.</param>
             <param name="v">The "V" value of the barycentric interpolation equation.</param>
+            <param name="d">The result of the interpolation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.BarycentricInterpolation(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},`0,`0)">
             <summary>Interpolates between three vectors using barycentric coordinates.</summary>

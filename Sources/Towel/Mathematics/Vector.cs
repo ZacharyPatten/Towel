@@ -965,16 +965,16 @@ namespace Towel.Mathematics
         }
 
         /// <summary>Rotates a vector by a quaternion.</summary>
-        /// <param name="vector">The vector to rotate.</param>
-        /// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+        /// <param name="a">The vector to rotate.</param>
+        /// <param name="b">The quaternion to rotate the 3-component vector by.</param>
         public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T> c)
         {
             Quaternion<T>.Rotate(b, a, ref c);
         }
 
         /// <summary>Rotates a vector by a quaternion.</summary>
-        /// <param name="vector">The vector to rotate.</param>
-        /// <param name="rotation">The quaternion to rotate the 3-component vector by.</param>
+        /// <param name="a">The vector to rotate.</param>
+        /// <param name="b">The quaternion to rotate the 3-component vector by.</param>
         /// <returns>The result of the rotation.</returns>
         public static Vector<T> RotateBy(Vector<T> a, Quaternion<T> b)
         {
@@ -1098,6 +1098,7 @@ namespace Towel.Mathematics
         /// <param name="c">The thrid vector of the interpolation.</param>
         /// <param name="u">The "U" value of the barycentric interpolation equation.</param>
         /// <param name="v">The "V" value of the barycentric interpolation equation.</param>
+        /// <param name="d">The result of the interpolation.</param>
         public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d)
         {
             if (a is null)

@@ -12,8 +12,6 @@ namespace Towel
         Continue = 0,
         /// <summary>Iteration cancelation.</summary>
         Break = 1,
-        /// <summary>Restart the iteration.</summary>
-        //Restart = 2
     };
 
     #region <T>
