@@ -1096,7 +1096,7 @@ namespace System
                 string result = string.Empty;
                 if (@decimal < 0m)
                 {
-                    result += "Negative";
+                    result += "Negative ";
                     @decimal = @decimal *= -1m;
                 }
                 result += ConvertWholeNumber(decimal.Truncate(@decimal));

@@ -1354,7 +1354,27 @@ namespace Towel.Mathematics
 
             /// <summary>Standard conversion to a string representation.</summary>
             /// <returns>The string represnetation of this expression.</returns>
-            public override string ToString() => A + "!";
+            public override string ToString()
+            {
+                bool RequiresParentheses(string expressionString)
+                {
+                    foreach (char c in expressionString)
+                    {
+                        if (!char.IsDigit(c) && c != '.')
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                string a = A.ToString();
+                if (RequiresParentheses(a))
+                {
+                    a = "(" + a + ")";
+                }
+                return a + "!";
+            }
         }
 
         #endregion
@@ -2530,7 +2550,32 @@ namespace Towel.Mathematics
 
             /// <summary>Standard conversion to a string representation.</summary>
             /// <returns>The string represnetation of this expression.</returns>
-            public override string ToString() => A + " ^ " + B;
+            public override string ToString()
+            {
+                bool RequiresParentheses(string expressionString)
+                {
+                    foreach (char c in expressionString)
+                    {
+                        if (!char.IsDigit(c) && c != '.')
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                string a = A.ToString();
+                string b = B.ToString();
+                if (RequiresParentheses(a))
+                {
+                    a = "(" + a + ")";
+                }
+                if (RequiresParentheses(b))
+                {
+                    b = "(" + b + ")";
+                }
+                return a + " ^ " + b;
+            }
         }
 
         #endregion

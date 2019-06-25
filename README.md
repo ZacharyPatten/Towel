@@ -23,7 +23,7 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
  <summary><strong>How It Works</strong></summary>
 <p>
 
-You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate. Here is an en example for basic addition:
+You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate. Here is an example for basic addition:
 
 ```csharp
 public static T Add<T>(T a, T b)
@@ -165,12 +165,15 @@ Here are the currently supported measurement types:
 //    Density: Mass/Length/Length/Length
 //    ElectricCharge: ElectricCharge
 //    ElectricCurrent: ElectricCharge/Time
+//    Energy: Mass*Length*Length/Time/Time
 //    Force: Mass*Length/Time/Time
 //    Length: Length
 //    LinearDensity: Mass/Length
 //    LinearMass: Mass*Length
 //    LinearMassFlow: Mass*Length/Time
 //    Mass: Mass
+//    Power: Mass*Length*Length/Time/Time/Time
+//    Pressure: Mass/Length/Time/Time
 //    Speed: Length/Time
 //    Tempurature: Tempurature
 //    Time: Time
@@ -292,6 +295,8 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
         out A2 min2, out A2 max2,
         out A3 min3, out A3 max3...) => { ... });
 ```
+
+Further Reading: http://towelcode.com/omnitree/
  
 </p>
 </details>
