@@ -26,22 +26,16 @@ namespace Towel.DataStructures
         #region Methods
 
         /// <summary>Determines if this structure contains a given item.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to check.</param>
         /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>True if contained, False if not.</returns>
-        bool Contains<Key>(Key key, Compare<T, Key> compare);
+        bool Contains(CompareToKnownValue<T> compare);
         /// <summary>Gets an item based on a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to get.</param>
         /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>The found item.</returns>
-        T Get<Key>(Key key, Compare<T, Key> compare);
+        T Get(CompareToKnownValue<T> compare);
         /// <summary>Removes and item based on a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to be removed.</param>
         /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-        void Remove<Key>(Key key, Compare<T, Key> compare);
+        void Remove(CompareToKnownValue<T> compare);
         /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         void StepperReverse(Step<T> step);
@@ -111,17 +105,15 @@ namespace Towel.DataStructures
 
         /// <summary>Wrapper for the get function to handle exceptions.</summary>
         /// <typeparam name="T">The generic type of this data structure.</typeparam>
-        /// <typeparam name="Key">The type of the key.</typeparam>
         /// <param name="avlTree">This structure.</param>
-        /// <param name="key">The key to get.</param>
         /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <param name="item">The item if found.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T, Key>(this IAvlTree<T> avlTree, Key key, Compare<T, Key> compare, out T item)
+        public static bool TryGet<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare, out T item)
         {
             try
             {
-                item = avlTree.Get<Key>(key, compare);
+                item = avlTree.Get(compare);
                 return true;
             }
             catch
@@ -133,16 +125,14 @@ namespace Towel.DataStructures
 
         /// <summary>Wrapper for the remove function to handle exceptions.</summary>
         /// <typeparam name="T">The generic type of this data structure.</typeparam>
-        /// <typeparam name="Key">The type of the key.</typeparam>
         /// <param name="avlTree">This structure.</param>
-        /// <param name="key">The key.</param>
         /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T, Key>(this IAvlTree<T> avlTree, Key key, Compare<T, Key> compare)
+        public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
         {
             try
             {
-                avlTree.Remove(key, compare);
+                avlTree.Remove(compare);
                 return true;
             }
             catch
@@ -358,17 +348,15 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Determines if this structure contains an item by a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key.</param>
         /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>True of contained, False if not.</returns>
         /// <runtime>O(ln(Count)) Ω(1)</runtime>
-        public bool Contains<Key>(Key key, Compare<T, Key> comparison)
+        public bool Contains(CompareToKnownValue<T> comparison)
         {
             Node node = _root;
             while (node != null)
             {
-                CompareResult compareResult = comparison(node.Value, key);
+                CompareResult compareResult = comparison(node.Value);
                 if (compareResult == CompareResult.Equal)
                 {
                     return true;
@@ -387,19 +375,18 @@ namespace Towel.DataStructures
 
         #endregion
 
-        #region Get (Key)
+        #region Get (Known Value)
 
         /// <summary>Gets the item with the designated by the string.</summary>
-        /// <param name="key">The string ID to look for.</param>
         /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
         /// <returns>The object with the desired string ID if it exists.</returns>
         /// <runtime>O(ln(Count)) Ω(1)</runtime>
-        public T Get<Key>(Key key, Compare<T, Key> compare)
+        public T Get(CompareToKnownValue<T> compare)
         {
             Node node = _root;
             while (node != null)
             {
-                CompareResult comparison = compare(node.Value, key);
+                CompareResult comparison = compare(node.Value);
                 if (comparison == CompareResult.Equal)
                 {
                     return node.Value;
@@ -473,20 +460,18 @@ namespace Towel.DataStructures
 
         #endregion
 
-        #region Remove (Key)
+        #region Remove (Known Value)
 
         /// <summary>Removes an item from this structure by a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="comparison">The sorting technique (must synchronize with the structure's sorting).</param>
+        /// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
         /// <runtime>O(ln(n))</runtime>
-        public void Remove<Key>(Key key, Compare<T, Key> comparison)
+        public void Remove(CompareToKnownValue<T> compare)
         {
-            Node REMOVE(Key KEY, Compare<T, Key> COMPARE, Node NODE)
+            Node REMOVE(CompareToKnownValue<T> COMPARE, Node NODE)
             {
                 if (NODE != null)
                 {
-                    CompareResult compareResult = COMPARE(NODE.Value, KEY);
+                    CompareResult compareResult = COMPARE(NODE.Value);
                     if (compareResult == CompareResult.Equal)
                     {
                         if (NODE.RightChild != null)
@@ -512,11 +497,11 @@ namespace Towel.DataStructures
                     }
                     else if (compareResult == CompareResult.Greater)
                     {
-                        NODE.LeftChild = REMOVE(KEY, COMPARE, NODE.LeftChild);
+                        NODE.LeftChild = REMOVE(COMPARE, NODE.LeftChild);
                     }
                     else // (compareResult == Comparison.Less)
                     {
-                        NODE.RightChild = REMOVE(KEY, COMPARE, NODE.RightChild);
+                        NODE.RightChild = REMOVE(COMPARE, NODE.RightChild);
                     }
                     SetHeight(NODE);
                     return Balance(NODE);
@@ -524,7 +509,7 @@ namespace Towel.DataStructures
                 throw new InvalidOperationException("Attempting to remove a non-existing entry.");
             }
 
-            _root = REMOVE(key, comparison, _root);
+            _root = REMOVE(compare, _root);
             _count--;
         }
 

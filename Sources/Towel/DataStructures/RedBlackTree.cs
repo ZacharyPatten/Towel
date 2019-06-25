@@ -26,22 +26,16 @@ namespace Towel.DataStructures
         #region Methods
 
         /// <summary>Determines if this structure contains a given item.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to check.</param>
-        /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
+        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>True if contained, False if not.</returns>
-        bool Contains<Key>(Key key, Compare<T, Key> comparison);
+        bool Contains(CompareToKnownValue<T> compare);
         /// <summary>Gets an item based on a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to get.</param>
-        /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
+        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>The found item.</returns>
-        T Get<Key>(Key key, Compare<T, Key> comparison);
+        T Get(CompareToKnownValue<T> compare);
         /// <summary>Removes and item based on a given key.</summary>
-        /// <typeparam name="Key">The type of the key.</typeparam>
-        /// <param name="key">The key of the item to be removed.</param>
-        /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
-        void Remove<Key>(Key key, Compare<T, Key> comparison);
+        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+        void Remove(CompareToKnownValue<T> compare);
         /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         void StepperReverse(Step<T> step);
@@ -111,38 +105,34 @@ namespace Towel.DataStructures
 
         /// <summary>Wrapper for the "Add" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
-        /// <typeparam name="Key">The type of the key.</typeparam>
         /// <param name="redBlackTree">The structure.</param>
-        /// <param name="get">The key of the item to get.</param>
-        /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
+        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <param name="item">The item if it was found.</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T, Key>(this IRedBlackTree<T> redBlackTree, Key get, Compare<T, Key> comparison, out T item)
+        public static bool TryGet<T, Key>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare, out T item)
         {
             try
             {
-                item = redBlackTree.Get(get, comparison);
+                item = redBlackTree.Get(compare);
                 return true;
             }
             catch
             {
-                item = default(T);
+                item = default;
                 return false;
             }
         }
 
         /// <summary>Wrapper for the "Remove" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
-        /// <typeparam name="Key">The type of the key.</typeparam>
         /// <param name="redBlackTree">The structure.</param>
-        /// <param name="removal">The key of the item to remove.</param>
-        /// <param name="comparison">Comparison technique (must match the sorting technique of the structure).</param>
+        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
         /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T, Key>(this IRedBlackTree<T> redBlackTree, Key removal, Compare<T, Key> comparison)
+        public static bool TryRemove<T, Key>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare)
         {
             try
             {
-                redBlackTree.Remove(removal, comparison);
+                redBlackTree.Remove(compare);
                 return true;
             }
             catch
@@ -351,12 +341,12 @@ namespace Towel.DataStructures
             return false;
         }
 
-        public bool Contains<Key>(Key key, Compare<T, Key> comparison)
+        public bool Contains(CompareToKnownValue<T> compare)
         {
             Node treeNode = _root;
             while (treeNode != _sentinelNode)
             {
-                switch (comparison(treeNode.Value, key))
+                switch (compare(treeNode.Value))
                 {
                     case CompareResult.Equal:
                         return true;
@@ -377,12 +367,12 @@ namespace Towel.DataStructures
 
         #region Get
 
-        public T Get<Key>(Key key, Compare<T, Key> comparison)
+        public T Get(CompareToKnownValue<T> compare)
         {
             RedBlackTreeLinked<T>.Node treeNode = _root;
             while (treeNode != _sentinelNode)
             {
-                switch (comparison(treeNode.Value, key))
+                switch (compare(treeNode.Value))
                 {
                     case CompareResult.Equal:
                         return treeNode.Value;
@@ -433,13 +423,13 @@ namespace Towel.DataStructures
             }
         }
 
-        public void Remove<Key>(Key key, Compare<T, Key> compare)
+        public void Remove(CompareToKnownValue<T> compare)
         {
             Node node;
             node = _root;
             while (node != _sentinelNode)
             {
-                switch (compare(node.Value, key))
+                switch (compare(node.Value))
                 {
                     case CompareResult.Equal:
                         if (node == _sentinelNode)

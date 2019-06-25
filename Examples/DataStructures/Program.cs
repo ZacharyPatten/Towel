@@ -807,7 +807,7 @@ namespace DataStructures
                 Console.WriteLine("    such that when you traverse the tree to a leaf, you have read the contents");
                 Console.WriteLine("    of that leaf along the way. Because of this, a Trie allows for its values");
                 Console.WriteLine("    to share data, which is a form of compression. So a Trie may be used to save");
-                Console.WriteLine("    memory. A trie may also be a very useful tool in pattern matching, because it");
+                Console.WriteLine("    memory. A trie may also be a very useful tool in pattern matching, because");
                 Console.WriteLine("    it allows for culling based are portions of the data.");
                 Console.WriteLine();
 
