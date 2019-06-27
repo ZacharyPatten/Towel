@@ -58,13 +58,13 @@ namespace Towel
     /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
     /// <param name="step">The foreach function to perform on each iteration.</param>
     [Serializable]
-    public delegate void StepperBreak<T>(StepBreak<T> step);
+    public delegate StepStatus StepperBreak<T>(StepBreak<T> step);
 
     /// <summary>Delegate for a traversal function on a data structure.</summary>
     /// <typeparam name="T">The type of instances the will be traversed.</typeparam>
     /// <param name="step">The foreach function to perform on each iteration.</param>
     [Serializable]
-    public delegate void StepperRefBreak<T>(StepRefBreak<T> step);
+    public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
 
     #endregion
 
@@ -137,6 +137,25 @@ namespace Towel
     /// <summary>Extension methods.</summary>
     public static class Stepper
     {
+        /// <summary>Appends values to the stepper.</summary>
+        /// <typeparam name="T">The generic type of the stepper.</typeparam>
+        /// <param name="stepper">The stepper to append to.</param>
+        /// <param name="values">The values to append to the stepper.</param>
+        /// <returns>The resulting stepper with the appended values.</returns>
+        public static Stepper<T> Append<T>(this Stepper<T> stepper, params T[] values)
+        {
+            return stepper.Concat(values.ToStepper());
+        }
+
+        /// <summary>Builds a stepper from values.</summary>
+        /// <typeparam name="T">The generic type of the stepper to build.</typeparam>
+        /// <param name="values">The values to build the stepper from.</param>
+        /// <returns>The resulting stepper function for the provided values.</returns>
+        public static Stepper<T> Build<T>(params T[] values)
+        {
+            return values.ToStepper();
+        }
+
         /// <summary>Concatenates steppers.</summary>
         /// <typeparam name="T">The generic type of the stepper.</typeparam>
         /// <param name="stepper">The first stepper of the contactenation.</param>

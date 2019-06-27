@@ -89,6 +89,14 @@ namespace Towel.DataStructures
 
         #region Extension Methods
 
+        /// <summary>Gets the stepper for this data structure.</summary>
+        /// <returns>The stepper for this data structure.</returns>
+        public static Stepper<T> Stepper<T>(this IDataStructure<T> dataStructure) => dataStructure.Stepper;
+
+        /// <summary>Gets the stepper for this data structure.</summary>
+        /// <returns>The stepper for this data structure.</returns>
+        public static StepperBreak<T> StepperBreak<T>(this IDataStructure<T> dataStructure) => dataStructure.Stepper;
+
         /// <summary>Wrapper for the "Add" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
         /// <param name="structure">The data structure.</param>

@@ -39,18 +39,22 @@ namespace Towel.DataStructures
         /// <param name="key">The key to use as the look-up reference in the hash table.</param>
         /// <param name="value">The value to store in the hash table.</param>
         void Add(K key, T value);
+        /// <summary>Tries to remove a key-value pair from the map.</summary>
+        /// <param name="key">The key of the key-value pair to remove.</param>
+        /// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
+        bool TryRemove(K key);
         /// <summary>Steps through all the keys.</summary>
-        /// <param name="step_function">The step function.</param>
-        void Keys(Step<K> step_function);
+        /// <param name="step">The step function.</param>
+        void Keys(Step<K> step);
         /// <summary>Steps through all the keys.</summary>
-        /// <param name="step_function">The step function.</param>
-        StepStatus Keys(StepBreak<K> step_function);
+        /// <param name="step">The step function.</param>
+        StepStatus Keys(StepBreak<K> step);
         /// <summary>Steps through all the pairs.</summary>
-        /// <param name="step_function">The step function.</param>
-        void Pairs(Step<Link<T, K>> step_function);
+        /// <param name="step">The step function.</param>
+        void Pairs(Step<T, K> step);
         /// <summary>Steps through all the pairs.</summary>
-        /// <param name="step_function">The step function.</param>
-        StepStatus Pairs(StepBreak<Link<T, K>> step_function);
+        /// <param name="step">The step function.</param>
+        StepStatus Pairs(StepBreak<T, K> step);
 
         #endregion
     }
@@ -59,6 +63,14 @@ namespace Towel.DataStructures
     public static class Map
     {
         #region Extensions
+
+        /// <summary>Gets the stepper for this data structure.</summary>
+        /// <returns>The stepper for this data structure.</returns>
+        public static Stepper<K> Keys<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+
+        /// <summary>Gets the stepper for this data structure.</summary>
+        /// <returns>The stepper for this data structure.</returns>
+        public static StepperBreak<K> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
 
         /// <summary>Wrapper for the "Get" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic value type of the structure.</typeparam>
@@ -148,11 +160,11 @@ namespace Towel.DataStructures
                 {
                     prime++;
                 }
-                this._table = new Node[prime];
+                _table = new Node[prime];
             }
             else
             {
-                this._table = new Node[Towel.Hash.TableSizes[0]];
+                _table = new Node[Towel.Hash.TableSizes[0]];
             }
             _equate = equate;
             _hash = hash;
@@ -183,17 +195,17 @@ namespace Towel.DataStructures
         /// <summary>Returns the current size of the actual table. You will want this if you 
         /// wish to multithread structure traversals.</summary>
         /// <remarks>Runtime: O(1).</remarks>
-        public int TableSize { get { return _table.Length; } }
+        public int TableSize => _table.Length;
 
         /// <summary>Returns the current number of items in the structure.</summary>
         /// <remarks>Runetime: O(1).</remarks>
-        public int Count { get { return _count; } }
+        public int Count => _count;
 
         /// <summary>The function for calculating hash codes for this table.</summary>
-        public Hash<K> Hash { get { return _hash; } }
+        public Hash<K> Hash => _hash;
 
         /// <summary>The function for equating keys in this table.</summary>
-        public Equate<K> Equate { get { return _equate; } }
+        public Equate<K> Equate => _equate;
 
         #endregion
 
@@ -332,10 +344,9 @@ namespace Towel.DataStructures
 
         /// <summary>Removes a value from the hash table.</summary>
         /// <param name="key">The key of the value to remove.</param>
-        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
         public void Remove(K key)
         {
-            Remove_private(key);
+            RemoveWithoutTrim(key);
             if (_count > Towel.Hash.TableSizes[0] && _count < _table.Length * _minLoadFactor)
             {
                 Resize(GetSmallerSize());
@@ -344,18 +355,39 @@ namespace Towel.DataStructures
 
         /// <summary>Removes a value from the hash table.</summary>
         /// <param name="key">The key of the value to remove.</param>
-        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
         public void RemoveWithoutTrim(K key)
         {
-            Remove_private(key);
+            if (!TryRemoveWithoutTrim(key))
+            {
+                throw new InvalidOperationException("attempting to remove a non-existing value.");
+            }
         }
 
-        /// <summary>Removes a value from the hash table.</summary>
-        /// <param name="key">The key of the value to remove.</param>
-        /// <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-        internal void Remove_private(K key)
+        /// <summary>Tries to remove a key-value pair from the map.</summary>
+        /// <param name="key">The key of the key-value pair to remove.</param>
+        /// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
+        public bool TryRemove(K key)
         {
-            if (object.ReferenceEquals(key, null))
+            if (TryRemoveWithoutTrim(key))
+            {
+                if (_count > Towel.Hash.TableSizes[0] && _count < _table.Length * _minLoadFactor)
+                {
+                    Resize(GetSmallerSize());
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>Tries to remove a key-value pair from the map.</summary>
+        /// <param name="key">The key of the key-value pair to remove.</param>
+        /// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
+        public bool TryRemoveWithoutTrim(K key)
+        {
+            if (key == null)
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -368,7 +400,7 @@ namespace Towel.DataStructures
             {
                 if (bucket.Next == null)
                 {
-                    throw new InvalidOperationException("attempting to remove a non-existing value.");
+                    return false;
                 }
                 else if (_equate(bucket.Next.Key, key))
                 {
@@ -376,8 +408,9 @@ namespace Towel.DataStructures
                 }
             }
             _count--;
+            return true;
         }
-
+        
         internal Node RemoveFirst(Node[] t, int i)
         {
             Node first = t[i];
@@ -407,8 +440,8 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Steps through all the keys.</summary>
-        /// <param name="function">The step function.</param>
-        public StepStatus Keys(StepBreak<K> function)
+        /// <param name="step">The step function.</param>
+        public StepStatus Keys(StepBreak<K> step)
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
@@ -417,14 +450,9 @@ namespace Towel.DataStructures
                 {
                     do
                     {
-                        switch (function(node.Key))
+                        if (step(node.Key) == StepStatus.Break)
                         {
-                            case StepStatus.Break:
-                                return StepStatus.Break;
-                            case StepStatus.Continue:
-                                continue;
-                            default:
-                                throw new NotImplementedException();
+                            return StepStatus.Break;
                         }
                     } while ((node = node.Next) != null);
                 }
@@ -450,31 +478,26 @@ namespace Towel.DataStructures
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> function)
+        public StepStatus Stepper(StepBreak<T> step)
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
                 if ((node = _table[i]) != null)
                     do
                     {
-                        switch (function(node.Value))
+                        if (step(node.Value) == StepStatus.Break)
                         {
-                            case StepStatus.Break:
-                                return StepStatus.Break;
-                            case StepStatus.Continue:
-                                continue;
-                            default:
-                                throw new NotImplementedException();
+                            return StepStatus.Break;
                         }
                     } while ((node = node.Next) != null);
             return StepStatus.Continue;
         }
 
         /// <summary>Steps through all the pairs.</summary>
-        /// <param name="function">The step function.</param>
-        public void Pairs(Step<Link<T, K>> function)
+        /// <param name="step">The step function.</param>
+        public void Pairs(Step<T, K> step)
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
@@ -483,15 +506,15 @@ namespace Towel.DataStructures
                 {
                     do
                     {
-                        function(new Link<T, K>(node.Value, node.Key));
+                        step(node.Value, node.Key);
                     } while ((node = node.Next) != null);
                 }
             }
         }
 
         /// <summary>Steps through all the pairs.</summary>
-        /// <param name="function">The step function.</param>
-        public StepStatus Pairs(StepBreak<Link<T, K>> function)
+        /// <param name="step">The step function.</param>
+        public StepStatus Pairs(StepBreak<T, K> step)
         {
             Node node;
             for (int i = 0; i < _table.Length; i++)
@@ -499,14 +522,9 @@ namespace Towel.DataStructures
                 if ((node = _table[i]) != null)
                     do
                     {
-                        switch (function(new Link<T, K>(node.Value, node.Key)))
+                        if (step(node.Value, node.Key) == StepStatus.Break)
                         {
-                            case StepStatus.Break:
-                                return StepStatus.Break;
-                            case StepStatus.Continue:
-                                continue;
-                            default:
-                                throw new NotImplementedException();
+                            return StepStatus.Break;
                         }
                     } while ((node = node.Next) != null);
             }
@@ -587,9 +605,13 @@ namespace Towel.DataStructures
 
         internal Node Find(K key, int loc)
         {
-            for (Node bucket = _table[loc]; bucket != null; bucket = bucket.Next)
-                if (this._equate(bucket.Key, key))
-                    return bucket;
+            for (Node node = _table[loc]; node != null; node = node.Next)
+            {
+                if (_equate(node.Key, key))
+                {
+                    return node;
+                }
+            }
             return null;
         }
 
@@ -664,10 +686,10 @@ namespace Towel.DataStructures
 
             internal Node(int hash, K key, T value, int next)
             {
-                this.Hash = hash;
-                this.Key = key;
-                this.Value = value;
-                this.Next = next;
+                Hash = hash;
+                Key = key;
+                Value = value;
+                Next = next;
             }
         }
 
@@ -712,18 +734,20 @@ namespace Towel.DataStructures
 
         /// <summary>Returns the current size of the actual table. You will want this if you 
         /// wish to multithread structure traversals.</summary>
-        /// <remarks>Runtime: O(1).</remarks>
-        public int TableSize { get { return _table.Length; } }
+        /// <runtime>O(1)</runtime>
+        public int TableSize => _table.Length;
 
         /// <summary>Returns the current number of items in the structure.</summary>
-        /// <remarks>Runetime: O(1).</remarks>
-        public int Count { get { return _count; } }
+        /// <runtime>O(1)</runtime>
+        public int Count => _count;
 
         /// <summary>The function for calculating hash codes for this table.</summary>
-        public Hash<K> Hash { get { return _hash; } }
+        /// <runtime>O(1)</runtime>
+        public Hash<K> Hash => _hash;
 
         /// <summary>The function for equating keys in this table.</summary>
-        public Equate<K> Equate { get { return _equate; } }
+        /// <runtime>O(1)</runtime>
+        public Equate<K> Equate => _equate;
 
         #endregion
 
@@ -736,8 +760,17 @@ namespace Towel.DataStructures
         /// <param name="value">The value of the pair to add.</param>
         public void Add(K key, T value)
         {
-            //if (this._buckets == null)
-            //	this.Initialize(0);
+            if (!TryAdd(key, value))
+            {
+                throw new InvalidOperationException("attempting to add an already existing value in the MapHashArray.");
+            }
+        }
+
+        /// <summary>Adds a key value pair to the map.</summary>
+        /// <param name="key">The key of the pair to add.</param>
+        /// <param name="value">The value of the pair to add.</param>
+        public bool TryAdd(K key, T value)
+        {
             int hashCode = _hash(key);
             int index1 = hashCode % _table.Length;
             int num = 0;
@@ -745,7 +778,7 @@ namespace Towel.DataStructures
             {
                 if (_nodes[index2].Hash == hashCode && _equate(_nodes[index2].Key, key))
                 {
-                    throw new InvalidOperationException("attempting to add an already existing value in the SetHash");
+                    return false;
                 }
                 ++num;
             }
@@ -771,6 +804,7 @@ namespace Towel.DataStructures
             _nodes[index3].Next = _table[index1] - 1;
             _table[index1] = index3 + 1;
             _count += 1;
+            return true;
         }
 
         #endregion
@@ -812,11 +846,13 @@ namespace Towel.DataStructures
         /// <returns>True if the key exists in the map. False if not.</returns>
         public bool Contains(K key)
         {
-            int hashCode = this._hash(key);
-            for (int index = this._table[hashCode % this._table.Length] - 1; index >= 0; index = this._nodes[index].Next)
+            int hashCode = _hash(key);
+            for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
             {
-                if (this._nodes[index].Hash == hashCode && this._equate(this._nodes[index].Key, key))
+                if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -873,7 +909,7 @@ namespace Towel.DataStructures
         /// <param name="removal">The key of the pair to remove from the map.</param>
         public void Remove(K removal)
         {
-            Remove_private(removal);
+            RemoveWithoutShrink(removal);
             int smallerSize = GetSmallerSize();
             if (_count < smallerSize)
             {
@@ -885,17 +921,23 @@ namespace Towel.DataStructures
         /// <param name="removal">The key of the pair to remove from the map.</param>
         public void RemoveWithoutShrink(K removal)
         {
-            Remove_private(removal);
+            if (!TryRemove(removal))
+            {
+                throw new InvalidOperationException("attempting to remove a non-existing value in a MapHashArray");
+            }
         }
 
-        internal void Remove_private(K removal)
+        /// <summary>Tries to remove a key-value pair from the map.</summary>
+        /// <param name="key">The key of the key-value pair to remove.</param>
+        /// <returns>True if the item was removed. False if the item was not found.</returns>
+        public bool TryRemove(K key)
         {
-            int hashCode = _hash(removal);
+            int hashCode = _hash(key);
             int index1 = hashCode % _table.Length;
             int index2 = -1;
             for (int index3 = _table[index1] - 1; index3 >= 0; index3 = _nodes[index3].Next)
             {
-                if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Key, removal))
+                if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Key, key))
                 {
                     if (index2 < 0)
                     {
@@ -918,14 +960,14 @@ namespace Towel.DataStructures
                     {
                         _freeList = index3;
                     }
-                    return;
+                    return true;
                 }
                 else
                 {
                     index2 = index3;
                 }
             }
-            throw new InvalidOperationException("attempting to remove a non-existing value in a SetHash");
+            return false;
         }
 
         #endregion
@@ -972,16 +1014,16 @@ namespace Towel.DataStructures
         #region Stepper And IEnumerable
 
         /// <summary>Steps through all the keys.</summary>
-        /// <param name="function">The step function.</param>
-        public void Keys(Step<K> function)
+        /// <param name="step">The step function.</param>
+        public void Keys(Step<K> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    function(this._nodes[index].Key);
+                    step(_nodes[index].Key);
                 }
             }
         }
@@ -993,17 +1035,12 @@ namespace Towel.DataStructures
             int num = 0;
             for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    switch (step(_nodes[index].Key))
+                    if (step(_nodes[index].Key) == StepStatus.Break)
                     {
-                        case StepStatus.Break:
-                            return StepStatus.Break;
-                        case StepStatus.Continue:
-                            continue;
-                        default:
-                            throw new NotImplementedException();
+                        return StepStatus.Break;
                     }
                 }
             }
@@ -1015,35 +1052,30 @@ namespace Towel.DataStructures
         public void Stepper(Step<T> function)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    function(this._nodes[index].Value);
+                    function(_nodes[index].Value);
                 }
             }
         }
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
+        /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> function)
+        public StepStatus Stepper(StepBreak<T> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
-                if (this._nodes[index].Hash >= 0)
+                if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    switch (function(this._nodes[index].Value))
+                    if (step(_nodes[index].Value) == StepStatus.Break)
                     {
-                        case StepStatus.Break:
-                            return StepStatus.Break;
-                        case StepStatus.Continue:
-                            continue;
-                        default:
-                            throw new System.NotImplementedException();
+                        return StepStatus.Break;
                     }
                 }
             }
@@ -1052,7 +1084,7 @@ namespace Towel.DataStructures
 
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        public void Pairs(Step<Link<T, K>> step)
+        public void Pairs(Step<T, K> step)
         {
             int num = 0;
             for (int index = 0; index < _lastIndex && num < _count; ++index)
@@ -1060,7 +1092,7 @@ namespace Towel.DataStructures
                 if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    step(new Link<T, K>(_nodes[index].Value, _nodes[index].Key));
+                    step(_nodes[index].Value, _nodes[index].Key);
                 }
             }
         }
@@ -1068,22 +1100,17 @@ namespace Towel.DataStructures
         /// <summary>Invokes a delegate for each entry in the data structure.</summary>
         /// <param name="step">The delegate to invoke on each item in the structure.</param>
         /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Pairs(StepBreak<Link<T, K>> step)
+        public StepStatus Pairs(StepBreak<T, K> step)
         {
             int num = 0;
-            for (int index = 0; index < this._lastIndex && num < _count; ++index)
+            for (int index = 0; index < _lastIndex && num < _count; ++index)
             {
                 if (_nodes[index].Hash >= 0)
                 {
                     ++num;
-                    switch (step(new Link<T, K>(_nodes[index].Value, _nodes[index].Key)))
+                    if (step(_nodes[index].Value, _nodes[index].Key) == StepStatus.Break)
                     {
-                        case StepStatus.Break:
-                            return StepStatus.Break;
-                        case StepStatus.Continue:
-                            continue;
-                        default:
-                            throw new System.NotImplementedException();
+                        return StepStatus.Break;
                     }
                 }
             }

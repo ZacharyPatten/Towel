@@ -170,36 +170,10 @@ namespace Towel.DataStructures
         /// <param name="predicate">The predicate to determine removal.</param>
         public void RemoveFirst(Predicate<T> predicate)
         {
-            if (_head == null)
+            if (!TryRemoveFirst(predicate))
             {
-                throw new InvalidOperationException("Attempting to remove a value from an empty list.");
+                throw new InvalidOperationException("Attempting to remove a non-existing value from a list.");
             }
-            if (predicate(_head.Value))
-            {
-                _head = _head.Next;
-                _count--;
-                return;
-            }
-            Node listNode = _head;
-            while (listNode != null)
-            {
-                if (listNode.Next == null)
-                {
-                    throw new InvalidOperationException("Attempting to remove a non-existing value from a list.");
-                }
-                else if (predicate(_head.Value))
-                {
-                    if (listNode.Next.Equals(_tail))
-                    {
-                        _tail = listNode;
-                    }
-                    listNode.Next = listNode.Next.Next;
-                    return;
-                }
-                else
-                    listNode = listNode.Next;
-            }
-            throw new InvalidOperationException("Attempting to remove a non-existing id value.");
         }
 
         /// <summary>Removes all predicated items from the list.</summary>
@@ -564,7 +538,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: Towel(n - index).</remarks>
         public void Remove(int index)
         {
-            Remove_private(index);
+            RemoveWithoutShrink(index);
             if (_count < _list.Length / 2)
             {
                 T[] newList = new T[_list.Length / 2];
@@ -581,7 +555,24 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: Towel(n - index).</remarks>
         public void RemoveWithoutShrink(int index)
         {
-            Remove_private(index);
+            if (index < 0 || index >= _count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(ListArray<T>) + "." + nameof(Count) + ")");
+            }
+            if (_count < _list.Length / 2)
+            {
+                T[] newList = new T[_list.Length / 2];
+                for (int i = 0; i < _count; i++)
+                {
+                    newList[i] = _list[i];
+                }
+                _list = newList;
+            }
+            for (int i = index; i < _count - 1; i++)
+            {
+                _list[i] = _list[i + 1];
+            }
+            _count--;
         }
 
         /// <summary>Removes all predicated items from the list.</summary>
@@ -589,23 +580,7 @@ namespace Towel.DataStructures
         /// <remarks>Runtime: Towel(n).</remarks>
         public void RemoveAll(Predicate<T> predicate)
         {
-            if (_count == 0)
-            {
-                return;
-            }
-            int removed = 0;
-            for (int i = 0; i < _count; i++)
-            {
-                if (predicate(_list[i]))
-                {
-                    removed++;
-                }
-                else
-                {
-                    _list[i - removed] = _list[i];
-                }
-            }
-            _count -= removed;
+            RemoveAllWithoutShrink(predicate);
             if (_count < _list.Length / 2)
             {
                 T[] newList = new T[_list.Length / 2];
@@ -662,19 +637,10 @@ namespace Towel.DataStructures
         /// <runtime>O(n), Ω(1)</runtime>
         public void RemoveFirst(Predicate<T> predicate)
         {
-            int i;
-            for (i = 0; i < _count; i++)
-            {
-                if (predicate(_list[i]))
-                {
-                    break;
-                }
-            }
-            if (i == _count)
+            if (!TryRemoveFirst(predicate))
             {
                 throw new InvalidOperationException("Attempting to remove a non-existing item from this list.");
             }
-            Remove(i);
         }
 
         /// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
@@ -723,31 +689,6 @@ namespace Towel.DataStructures
             }
             Remove(i);
             return true;
-        }
-
-        /// <summary>Removes the item at a specific index.</summary>
-        /// <param name="index">The index of the item to be removed.</param>
-        /// <remarks>Runtime: Towel(n - index).</remarks>
-        internal void Remove_private(int index)
-        {
-            if (index < 0 || index >= _count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(ListArray<T>) + "." + nameof(Count) + ")");
-            }
-            if (_count < _list.Length / 2)
-            {
-                T[] newList = new T[_list.Length / 2];
-                for (int i = 0; i < _count; i++)
-                {
-                    newList[i] = _list[i];
-                }
-                _list = newList;
-            }
-            for (int i = index; i < _count - 1; i++)
-            {
-                _list[i] = _list[i + 1];
-            }
-            _count--;
         }
 
         #endregion

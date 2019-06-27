@@ -1136,9 +1136,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, <#= child_index_type #>> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
 				});
 			//}
 

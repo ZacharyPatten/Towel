@@ -2487,9 +2487,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, initial_count, values1, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, initial_count, values1, allowMultithreading);
 				});
 			//}
 
@@ -4677,9 +4677,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, initial_count, values1, values2, allowMultithreading);
 				});
 			//}
 
@@ -7138,9 +7138,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, median_axis3, initial_count, values1, values2, values3, allowMultithreading);
 				});
 			//}
 
@@ -9870,9 +9870,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, median_axis3, median_axis4, initial_count, values1, values2, values3, values4, allowMultithreading);
 				});
 			//}
 
@@ -12873,9 +12873,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, initial_count, values1, values2, values3, values4, values5, allowMultithreading);
 				});
 			//}
 
@@ -16147,9 +16147,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, initial_count, values1, values2, values3, values4, values5, values6, allowMultithreading);
 				});
 			//}
 
@@ -19692,9 +19692,9 @@ namespace Towel.DataStructures
 			//}
 			//else
 			//{
-				collection_map.Pairs((Link<IList<T>, int> link) =>
+				collection_map.Pairs((v, k) =>
 				{ 
-					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
+					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, median_axis1, median_axis2, median_axis3, median_axis4, median_axis5, median_axis6, median_axis7, initial_count, values1, values2, values3, values4, values5, values6, values7, allowMultithreading);
 				});
 			//}
 
