@@ -103,6 +103,19 @@ namespace Towel.DataStructures
     {
         #region Extensions
 
+        public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+        public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+        public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+        public static Stepper<T> Stepper<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
+        public static StepperRef<T> StepperRef<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
+        public static StepperBreak<T> StepperBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
+        public static StepperRefBreak<T> StepperRefBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
+        public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
+        public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
+        public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
+        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
+
         /// <summary>Wrapper for the get function to handle exceptions.</summary>
         /// <typeparam name="T">The generic type of this data structure.</typeparam>
         /// <param name="avlTree">This structure.</param>

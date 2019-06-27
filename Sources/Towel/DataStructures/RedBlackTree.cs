@@ -103,6 +103,19 @@ namespace Towel.DataStructures
     {
         #region Extensions
 
+        public static Stepper<T> StepperReverse<T>(this IRedBlackTree<T> redBlackTree) => redBlackTree.StepperReverse;
+        public static StepperRef<T> StepperRefReverse<T>(this IRedBlackTree<T> redBlackTree) => redBlackTree.StepperReverse;
+        public static StepperBreak<T> StepperBreakReverse<T>(this IRedBlackTree<T> redBlackTree) => redBlackTree.StepperReverse;
+        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IRedBlackTree<T> redBlackTree) => redBlackTree.StepperReverse;
+        public static Stepper<T> Stepper<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.Stepper(y => x(y), minimum, maximum);
+        public static StepperRef<T> StepperRef<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.Stepper(y => x(ref y), minimum, maximum);
+        public static StepperBreak<T> StepperBreak<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.Stepper(y => x(y), minimum, maximum);
+        public static StepperRefBreak<T> StepperRefBreak<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.Stepper(y => x(ref y), minimum, maximum);
+        public static Stepper<T> StepperReverse<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.StepperReverse(y => x(y), minimum, maximum);
+        public static StepperRef<T> StepperRefReverse<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.StepperReverse(y => x(ref y), minimum, maximum);
+        public static StepperBreak<T> StepperBreakReverse<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.StepperReverse(y => x(y), minimum, maximum);
+        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IRedBlackTree<T> redBlackTree, T minimum, T maximum) => x => redBlackTree.StepperReverse(y => x(ref y), minimum, maximum);
+
         /// <summary>Wrapper for the "Add" method to help with exceptions.</summary>
         /// <typeparam name="T">The generic type of the structure.</typeparam>
         /// <param name="redBlackTree">The structure.</param>
