@@ -15,21 +15,9 @@ namespace Towel_Testing
     [TestClass]
     public class Extensions_Testing
     {
-        public bool loaded = false;
-        public void LoadXmlDocumentation()
-        {
-            if (!loaded)
-            {
-                TowelSystemExtensions.LoadXmlDocumentation(File.ReadAllText(@"Towel_Testing.xml"));
-                loaded = true;
-            }
-        }
-
         [TestMethod]
         public void GetDocumentation_Method()
         {
-            LoadXmlDocumentation();
-
             string[] tests = new string[]
             {
                 "Test A",

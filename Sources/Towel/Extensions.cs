@@ -900,6 +900,17 @@ namespace System
                 @base.IsAssignableFrom(type));
         }
 
+        /// <summary>Gets the file path of an assembly.</summary>
+        /// <param name="assembly">The assembly to get the file path of.</param>
+        /// <returns>The file path of the assembly.</returns>
+        public static string GetDirectoryPath(this Assembly assembly)
+        {
+            string codeBase = assembly.CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            return Path.GetDirectoryName(path);
+        }
+
         #endregion
 
         #region Decimal
@@ -1115,7 +1126,30 @@ namespace System
 
         #region XML Code Documentation
 
+        internal static HashSet<Assembly> loadedAssemblies = new HashSet<Assembly>();
         internal static Dictionary<string, string> loadedXmlDocumentation = new Dictionary<string, string>();
+
+        internal static void LoadXmlDocumentation(Assembly assembly)
+        {
+            try
+            {
+                if (loadedAssemblies.Contains(assembly))
+                {
+                    return;
+                }
+                string directoryPath = assembly.GetDirectoryPath();
+                string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
+                if (File.Exists(xmlFilePath))
+                {
+                    LoadXmlDocumentation(File.ReadAllText(xmlFilePath));
+                    loadedAssemblies.Add(assembly);
+                }
+            }
+            catch
+            {
+                Debugger.Break();
+            }
+        }
 
         /// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
         /// <param name="xmlDocumentation">The content of the XML code documentation.</param>
@@ -1137,6 +1171,7 @@ namespace System
         /// <summary>Clears the currently loaded XML documentation.</summary>
         public static void ClearXmlDocumentation()
         {
+            loadedAssemblies.Clear();
             loadedXmlDocumentation.Clear();
         }
 
@@ -1146,6 +1181,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this Type type)
         {
+            LoadXmlDocumentation(type.Assembly);
+
             string key = "T:" + Regex.Replace(type.FullName, @"\[.*\]", string.Empty).Replace('+', '.');
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
@@ -1158,6 +1195,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this MethodInfo methodInfo)
         {
+            LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
+
             // build the generic index mappings
             IMap<int, Type> genericMap = new MapHashArray<int, Type>();
             int tempGeneric = 0;
@@ -1286,6 +1325,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this ConstructorInfo constructorInfo)
         {
+            LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
+
             ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
 
             string key = "M:" +
@@ -1302,6 +1343,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this PropertyInfo propertyInfo)
         {
+            LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
+
             string key = "P:" + Regex.Replace(propertyInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + propertyInfo.Name;
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
@@ -1314,6 +1357,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this FieldInfo fieldInfo)
         {
+            LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
+
             string key = "F:" + Regex.Replace(fieldInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + fieldInfo.Name;
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
@@ -1326,6 +1371,8 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this EventInfo eventInfo)
         {
+            LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
+
             string key = "E:" + Regex.Replace(eventInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + eventInfo.Name;
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);

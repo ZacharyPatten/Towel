@@ -26684,6 +26684,11 @@
             <param name="assembly">The assmebly to perform the search on.</param>
             <returns>The IEnumerable of the types that derive from the provided base.</returns>
         </member>
+        <member name="M:System.TowelSystemExtensions.GetDirectoryPath(System.Reflection.Assembly)">
+            <summary>Gets the file path of an assembly.</summary>
+            <param name="assembly">The assembly to get the file path of.</param>
+            <returns>The file path of the assembly.</returns>
+        </member>
         <member name="M:System.TowelSystemExtensions.ToEnglishWords(System.Decimal)">
             <summary>Converts a decimal to the English word representation of that value.</summary>
             <param name="decimal">The decimal value to convert to English words.</param>
