@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Linq;
 
 #pragma warning disable IDE0060 // Suppress Compiler Messages (they are intentional for testing)
 
@@ -39,7 +40,7 @@ namespace Towel_Testing
                 "Test F",
                 "Test G",
                 "Test H",
-                //"Test I",
+                "Test I",
                 "Test J",
                 "Test K",
                 "Test L",
@@ -49,18 +50,17 @@ namespace Towel_Testing
                 "Test P",
                 "Test Q",
                 "Test R",
+                "Test S",
+                "Test T",
+                "Test U",
             };
 
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (MethodInfo methodInfo in typeof(XmlDocumentationMethod).GetMethods())
-            {
-                stringBuilder.AppendLine(methodInfo.GetDocumentation());
-            }
-            foreach (MethodInfo methodInfo in typeof(XmlDocumentationMethod.NestedType).GetMethods())
-            {
-                stringBuilder.AppendLine(methodInfo.GetDocumentation());
-            }
-            foreach (MethodInfo methodInfo in typeof(XmlDocumentationMethod.NestedGenericType<int>).GetMethods())
+            foreach (MethodInfo methodInfo in
+                typeof(XmlDocumentationMethod).GetMethods().Concat(
+                typeof(XmlDocumentationMethod.NestedType).GetMethods()).Concat(
+                typeof(XmlDocumentationMethod.NestedGenericType<int>).GetMethods()).Where(
+                    x => x.DeclaringType.Assembly == typeof(XmlDocumentationMethod).Assembly))
             {
                 stringBuilder.AppendLine(methodInfo.GetDocumentation());
             }
@@ -113,9 +113,9 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         public void DocumentedMethodRef(ref object a) { }
 
-        ///// <summary>Test I</summary>
-        ///// <param name="a">a</param>
-        //public void DocumentedMethodIn(in object a) { }
+        /// <summary>Test I</summary>
+        /// <param name="a">a</param>
+        public void DocumentedMethodIn(in object a) { }
 
         /// <summary>Test J</summary>
         /// <typeparam name="A">A</typeparam>
@@ -146,6 +146,10 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         public void DocumentedMethod<A, B>(B b, A a) { }
 
+        /// <summary>Test U</summary>
+        /// <param name="a">a</param>
+        public unsafe void DocumentedMethod(int* a) { }
+
         public class NestedType
         {
             /// <summary>Test O</summary>
@@ -166,6 +170,21 @@ namespace Towel_Testing
         /// <typeparam name="A">A</typeparam>
         /// <param name="a">a</param>
         public void DocumentedMethod<A>(NestedGenericType<A> a) { }
+
+        /// <summary>Test S</summary>
+        /// <typeparam name="A">A</typeparam>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        /// <param name="c">c</param>
+        public void DocumentedMethod<A>(A a, List<A> b, A[] c) { }
+
+        /// <summary>Test T</summary>
+        /// <typeparam name="A">A</typeparam>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        /// <param name="c">c</param>
+        /// <param name="d">d</param>
+        public void DocumentedMethod<A>(A a, List<A> b, A[] c, A[,] d) { }
     }
 
     #endregion

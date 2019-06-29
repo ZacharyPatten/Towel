@@ -1158,80 +1158,125 @@ namespace System
         /// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         public static string GetDocumentation(this MethodInfo methodInfo)
         {
-            // Note: This method still needs more work
+            // build the generic index mappings
+            IMap<int, Type> genericMap = new MapHashArray<int, Type>();
+            int tempGeneric = 0;
+            Array.ForEach(methodInfo.GetGenericArguments(), (Type x) => genericMap.Add(x, tempGeneric++));
 
-            // Get The Full Name Of A Type Without The Assembly
-            string GetFormattedFullName(Type type)
+            // convert types to strings as they appear as keys in the XML documentation files
+            string GetFormattedString(Type type, bool isMethodParameter)
             {
-                string formattedFullName =
-                    type.FullName is null ?
-                    type.ToString() :
-                    Regex.Replace(type.FullName, @"\[.*\]", string.Empty);
-                return formattedFullName.Replace('+', '.');
-            }
+                string result;
 
-            // Process Parameters (Which In Turn Can Have Generic Parameters)
-            string ProcessParameterType(Type type, string genericParametersOnType)
-            {
-                //string parameter = Regex.Replace(GetFormattedFullName(type), @"`\d+|\[.*\]", string.Empty);
-                string parameter = Regex.Replace(GetFormattedFullName(type), @"`\d+", string.Empty);
-                Match genericParametersMatch = Regex.Match(genericParametersOnType, @"\[.*?\]");
-                if (genericParametersMatch.Success)
+                if (type.IsGenericParameter)
                 {
-                    parameter += genericParametersMatch.Value;
+                    result = "``" + genericMap[type];
+                    goto FormatComplete;
                 }
-                parameter.Replace('[', '{');
-                parameter.Replace(']', '}');
-                return parameter;
+
+                // ref types
+                string refTypeString = string.Empty;
+                if (type.IsByRef)
+                {
+                    refTypeString = "@";
+                }
+
+                // element type
+                Type elementType = null;
+                string elementTypeString = string.Empty;
+                if (type.HasElementType)
+                {
+                    elementType = type.GetElementType();
+                    elementTypeString = GetFormattedString(elementType, isMethodParameter);
+                }
+
+                // pointer types
+                if (type.IsPointer)
+                {
+                    result = elementTypeString + "*" + refTypeString;
+                    goto FormatComplete;
+                }
+
+                // array types
+                if (type.IsArray)
+                {
+                    int rank = type.GetArrayRank();
+                    string arrayDimensionsString =
+                        rank > 1 && genericMap.TryGet(elementType, out int index) ?
+                        arrayDimensionsString = "[" + string.Join(",", Enumerable.Repeat(index + ":", rank)) + "]" :
+                        arrayDimensionsString = "[" + ",".Repeat(rank - 1) + "]";
+                    result = elementTypeString + arrayDimensionsString + refTypeString;
+                    goto FormatComplete;
+                }
+
+                // generic types
+                string genericArgumentsString = string.Empty;
+                if (type.IsGenericType && isMethodParameter)
+                {
+                    IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
+                        genericMap.TryGet(x, out int index) ?
+                        "``" + index :
+                        GetFormattedString(x, isMethodParameter));
+                    genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";
+                }
+
+                // preface string
+                string prefaceString;
+                if (type.IsNested)
+                {
+                    prefaceString = GetFormattedString(type.DeclaringType, isMethodParameter) + ".";
+                }
+                else
+                {
+                    prefaceString = type.Namespace + ".";
+                }
+
+                if (type.IsByRef)
+                {
+                    result = elementTypeString + genericArgumentsString + "@";
+                }
+                else
+                {
+                    string typeNameString =
+                        isMethodParameter ?
+                        typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty) :
+                        typeNameString = type.Name;
+                    result = prefaceString + typeNameString + genericArgumentsString;
+                }
+
+            FormatComplete:
+                return result;
             }
 
-            string key;
-            key = methodInfo.ToString();
-            key = key.Substring(key.IndexOf(' ') + 1);
-            key = GetFormattedFullName(methodInfo.DeclaringType) + "." + key;
-
-            // Convert All Parameters To Full Name Of Type
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
-            if (parameterInfos.Length > 0)
-            {
-                string parametersFull = Regex.Match(key, @"\(.*?\)").Value;
-                int genericParameterIndex = 0;
-                string[] genericParameters = parametersFull.Substring(1, parametersFull.Length - 2).Split(',');
-                string parametersFormated = "(" + string.Join(",", parameterInfos.Select(x =>
-                    ProcessParameterType(x.ParameterType, genericParameters[genericParameterIndex++]))) + ")";
-                parametersFormated = Regex.Replace(parametersFormated, @"``\d+", string.Empty);
-                key = key.Replace(parametersFull, parametersFormated); // NOTE BUG
-                key = key.Replace("&", "@");
-            }
-            else
-            {
-                key = key.Replace("()", string.Empty);
-            }
 
-            // Handle Generic Parameters
-            if (methodInfo.IsGenericMethod)
-            {
-                key = Regex.Replace(key, @"`\d+", string.Empty);
-                string genericsFull = Regex.Match(key, @"\[.*?\]").Value;
-                string[] generics = genericsFull.Substring(1, genericsFull.Length - 2).Split(',');
-                key = new Regex(Regex.Escape(genericsFull)).Replace(key, "``" + generics.Length, 1);
-                for (int i = 0; i < generics.Length; i++)
-                {
-                    string G = generics[i].Trim();
-                    key = Regex.Replace(key, @"\(\s*" + G, "(``" + i);
-                    key = Regex.Replace(key, @"\,\s*" + G, ",``" + i);
-                    key = Regex.Replace(key, @"\[\s*" + G, "[``" + i);
-                    key = Regex.Replace(key, @"\{\s*" + G, "{``" + i);
-                }
-                key = key.Replace("[", "{");
-                key = key.Replace("]", "}");
-            }
+            string memberTypePrefix = "M:";
+            string declarationTypeString = GetFormattedString(methodInfo.DeclaringType, false);
+            string memberNameString = methodInfo.Name;
+            string methodGenericArgumentsString =
+                genericMap.Count > 0 ?
+                "``" + genericMap.Count :
+                string.Empty;
+            string parametersString =
+                parameterInfos.Length > 0 ?
+                "(" + string.Join(",", methodInfo.GetParameters().Select(x => GetFormattedString(x.ParameterType, true))) + ")" :
+                string.Empty;
 
-            // Add The XML Prefix And Trim
-            key = "M:" + key;
-            key = Regex.Replace(key, @"\s+", string.Empty);
+            string key =
+                memberTypePrefix +
+                declarationTypeString +
+                "." +
+                memberNameString +
+                methodGenericArgumentsString +
+                parametersString;
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
+
+            if (string.IsNullOrWhiteSpace(documentation))
+            {
+                Debugger.Break();
+            }
+
             return documentation;
         }
 

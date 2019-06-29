@@ -38,6 +38,10 @@
             <summary>Test H</summary>
             <param name="a">a</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethodIn(System.Object@)">
+            <summary>Test I</summary>
+            <param name="a">a</param>
+        </member>
         <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1">
             <summary>Test J</summary>
             <typeparam name="A">A</typeparam>
@@ -67,6 +71,10 @@
             <param name="b">b</param>
             <param name="a">a</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod(System.Int32*)">
+            <summary>Test U</summary>
+            <param name="a">a</param>
+        </member>
         <member name="M:Towel_Testing.XmlDocumentationMethod.NestedType.DocumentedMethod">
             <summary>Test O</summary>
         </member>
@@ -81,6 +89,21 @@
             <summary>Test R</summary>
             <typeparam name="A">A</typeparam>
             <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1(``0,System.Collections.Generic.List{``0},``0[])">
+            <summary>Test S</summary>
+            <typeparam name="A">A</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationMethod.DocumentedMethod``1(``0,System.Collections.Generic.List{``0},``0[],``0[0:,0:])">
+            <summary>Test T</summary>
+            <typeparam name="A">A</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+            <param name="d">d</param>
         </member>
     </members>
 </doc>
