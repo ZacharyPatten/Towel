@@ -10,11 +10,11 @@ using System.Linq;
 
 namespace Towel_Testing
 {
-    #region XML Documentation From Method
-
     [TestClass]
     public class Extensions_Testing
     {
+        #region XML Documentation From Method
+
         [TestMethod]
         public void GetDocumentation_Method()
         {
@@ -61,9 +61,56 @@ namespace Towel_Testing
                 }
             }
         }
+
+        #endregion
+
+        #region XML Documentation From Type
+
+        [TestMethod]
+        public void GetDocumentation_Type()
+        {
+            string[] tests = new string[]
+            {
+                "Test A",
+                "Test B",
+                "Test C",
+                "Test D",
+                "Test E",
+                "Test F",
+                "Test G",
+                "Test H",
+                "Test I",
+                "Test J",
+                "Test K",
+                "Test L",
+                "Test M",
+                "Test N",
+                "Test O",
+                "Test P",
+                "Test Q",
+                "Test R",
+                "Test S",
+            };
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
+            {
+                stringBuilder.AppendLine(type.GetDocumentation());
+            }
+            string documentationFromReflection = stringBuilder.ToString();
+            foreach (string test in tests)
+            {
+                if (!documentationFromReflection.Contains(test))
+                {
+                    Assert.Fail(test);
+                }
+            }
+        }
+
+        #endregion
     }
 
-    #region Method XML Testing
+    #region XML Documentation From Method Types
 
     public class XmlDocumentationMethod
     {
@@ -176,6 +223,110 @@ namespace Towel_Testing
     }
 
     #endregion
+
+    #region XML Documentation From Type Types
+
+    public class XmlDocumentationFromTypeAttribute : Attribute { }
+
+    /// <summary>Test A</summary>
+    [XmlDocumentationFromType]
+    public class XmlDocumentationFromTypeA { }
+
+    /// <summary>Test B</summary>
+    /// <typeparam name="A">A</typeparam>
+    [XmlDocumentationFromType]
+    public class XmlDocumentationFromTypeB<A> { }
+
+    /// <summary>Test C</summary>
+    /// <typeparam name="A">A</typeparam>
+    /// <typeparam name="B">B</typeparam>
+    [XmlDocumentationFromType]
+    public class XmlDocumentationFromTypeC<A, B> { }
+
+    /// <summary>Test D</summary>
+    [XmlDocumentationFromType]
+    public struct XmlDocumentationFromTypeD { }
+
+    /// <summary>Test E</summary>
+    /// <typeparam name="A">A</typeparam>
+    [XmlDocumentationFromType]
+    public struct XmlDocumentationFromTypeE<A> { }
+
+    /// <summary>Test F</summary>
+    /// <typeparam name="A">A</typeparam>
+    /// <typeparam name="B">B</typeparam>
+    [XmlDocumentationFromType]
+    public struct XmlDocumentationFromTypeF<A, B> { }
+
+    /// <summary>Test G</summary>
+    [XmlDocumentationFromType]
+    public ref struct XmlDocumentationFromTypeG { }
+
+    /// <summary>Test H</summary>
+    /// <typeparam name="A">A</typeparam>
+    [XmlDocumentationFromType]
+    public ref struct XmlDocumentationFromTypeH<A> { }
+
+    /// <summary>Test I</summary>
+    /// <typeparam name="A">A</typeparam>
+    /// <typeparam name="B">B</typeparam>
+    [XmlDocumentationFromType]
+    public ref struct XmlDocumentationFromTypeI<A, B> { }
+
+    /// <summary>Test J</summary>
+    [XmlDocumentationFromType]
+    public delegate void XmlDocumentationFromTypeJ();
+
+    /// <summary>Test K</summary>
+    /// <typeparam name="A">A</typeparam>
+    [XmlDocumentationFromType]
+    public delegate void XmlDocumentationFromTypeK<A>();
+
+    /// <summary>Test L</summary>
+    /// <typeparam name="A">A</typeparam>
+    /// <typeparam name="B">B</typeparam>
+    [XmlDocumentationFromType]
+    public delegate void XmlDocumentationFromTypeL<A, B>();
+
+    /// <summary>Test M</summary>
+    [XmlDocumentationFromType]
+    public enum XmlDocumentationFromTypeM { }
+
+    public class XmlDocumentationFromTypeBase
+    {
+        /// <summary>Test N</summary>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeN { }
+
+        /// <summary>Test O</summary>
+        /// <typeparam name="A">A</typeparam>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeO<A> { }
+
+        /// <summary>Test P</summary>
+        /// <typeparam name="A">A</typeparam>
+        /// <typeparam name="B">B</typeparam>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeP<A, B> { }
+    }
+
+    public class XmlDocumentationFromTypeBase<A>
+    {
+        /// <summary>Test Q</summary>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeQ { }
+
+        /// <summary>Test R</summary>
+        /// <typeparam name="B">B</typeparam>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeR<B> { }
+
+        /// <summary>Test S</summary>
+        /// <typeparam name="B">B</typeparam>
+        /// <typeparam name="C">C</typeparam>
+        [XmlDocumentationFromType]
+        public class XmlDocumentationFromTypeS<B, C> { }
+    }
 
     #endregion
 }

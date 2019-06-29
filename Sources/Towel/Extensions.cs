@@ -1184,7 +1184,6 @@ namespace System
             LoadXmlDocumentation(type.Assembly);
 
             string key = "T:" + Regex.Replace(type.FullName, @"\[.*\]", string.Empty).Replace('+', '.');
-
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
         }
@@ -1310,12 +1309,6 @@ namespace System
                 parametersString;
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
-
-            if (string.IsNullOrWhiteSpace(documentation))
-            {
-                Debugger.Break();
-            }
-
             return documentation;
         }
 

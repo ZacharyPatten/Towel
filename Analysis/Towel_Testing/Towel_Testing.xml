@@ -105,5 +105,80 @@
             <param name="c">c</param>
             <param name="d">d</param>
         </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
+            <summary>Test A</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeB`1">
+            <summary>Test B</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeC`2">
+            <summary>Test C</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeD">
+            <summary>Test D</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeE`1">
+            <summary>Test E</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeF`2">
+            <summary>Test F</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeG">
+            <summary>Test G</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeH`1">
+            <summary>Test H</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeI`2">
+            <summary>Test I</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeJ">
+            <summary>Test J</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeK`1">
+            <summary>Test K</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeL`2">
+            <summary>Test L</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeM">
+            <summary>Test M</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase.XmlDocumentationFromTypeN">
+            <summary>Test N</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase.XmlDocumentationFromTypeO`1">
+            <summary>Test O</summary>
+            <typeparam name="A">A</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase.XmlDocumentationFromTypeP`2">
+            <summary>Test P</summary>
+            <typeparam name="A">A</typeparam>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase`1.XmlDocumentationFromTypeQ">
+            <summary>Test Q</summary>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase`1.XmlDocumentationFromTypeR`1">
+            <summary>Test R</summary>
+            <typeparam name="B">B</typeparam>
+        </member>
+        <member name="T:Towel_Testing.XmlDocumentationFromTypeBase`1.XmlDocumentationFromTypeS`2">
+            <summary>Test S</summary>
+            <typeparam name="B">B</typeparam>
+            <typeparam name="C">C</typeparam>
+        </member>
     </members>
 </doc>
