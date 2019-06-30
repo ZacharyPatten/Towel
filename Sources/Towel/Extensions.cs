@@ -872,7 +872,102 @@ namespace System
 
         #region Assembly
 
-        /// <summary>Enumerates through all the classes with a custom attribute.</summary>
+        /// <summary>Enumerates through all the events with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the events of.</param>
+        /// <returns>The IEnumerable of the events with the provided attribute type.</returns>
+        public static IEnumerable<EventInfo> GetEventInfosWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (EventInfo eventInfo in type.GetEvents())
+                {
+                    if (eventInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return eventInfo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Enumerates through all the constructors with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the constructors of.</param>
+        /// <returns>The IEnumerable of the constructors with the provided attribute type.</returns>
+        public static IEnumerable<ConstructorInfo> GetConstructorInfosWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (ConstructorInfo constructorInfo in type.GetConstructors())
+                {
+                    if (constructorInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return constructorInfo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Enumerates through all the properties with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the properties of.</param>
+        /// <returns>The IEnumerable of the properties with the provided attribute type.</returns>
+        public static IEnumerable<PropertyInfo> GetPropertyInfosWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (PropertyInfo propertyInfo in type.GetProperties())
+                {
+                    if (propertyInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return propertyInfo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Enumerates through all the fields with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the fields of.</param>
+        /// <returns>The IEnumerable of the fields with the provided attribute type.</returns>
+        public static IEnumerable<FieldInfo> GetFieldInfosWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (FieldInfo fieldInfo in type.GetFields())
+                {
+                    if (fieldInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return fieldInfo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Enumerates through all the methods with a custom attribute.</summary>
+        /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+        /// <param name="assembly">The assembly to iterate through the methods of.</param>
+        /// <returns>The IEnumerable of the methods with the provided attribute type.</returns>
+        public static IEnumerable<MethodInfo> GetMethodInfosWithAttribute<AttributeType>(this Assembly assembly)
+            where AttributeType : Attribute
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (MethodInfo methodInfo in type.GetMethods())
+                {
+                    if (methodInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return methodInfo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Enumerates through all the types with a custom attribute.</summary>
         /// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
         /// <param name="assembly">The assembly to iterate through the types of.</param>
         /// <returns>The IEnumerable of the types with the provided attribute type.</returns>
