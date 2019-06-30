@@ -3273,15 +3273,6 @@
             <summary>Gets the stepper for this data structure.</summary>
             <returns>The stepper for this data structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0@)">
-            <summary>Wrapper for the "Get" method to help with exceptions.</summary>
-            <typeparam name="T">The generic value type of the structure.</typeparam>
-            <typeparam name="K">The generic key type of the structure.</typeparam>
-            <param name="map">The map data structure.</param>
-            <param name="key">The key to get the value of.</param>
-            <param name="item">The value relative to the key if exists.</param>
-            <returns>True if the value was found. False if not.</returns>
-        </member>
         <member name="T:Towel.DataStructures.MapHashLinked`2">
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
@@ -3463,7 +3454,7 @@
         <member name="M:Towel.DataStructures.MapHashArray`2.Get(`1)">
             <summary>Gets an item by key.</summary>
             <param name="key">The key of the item to get.</param>
-            <returns>The by the provided key.</returns>
+            <returns>The value of the provided key.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Set(`1,`0)">
             <summary>Sets the value of a given key in the map.</summary>
@@ -26672,8 +26663,38 @@
             <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
             <returns>The maximum enum value of the provided type.</returns>
         </member>
+        <member name="M:System.TowelSystemExtensions.GetEventInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the events with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the events of.</param>
+            <returns>The IEnumerable of the events with the provided attribute type.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.GetConstructorInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the constructors with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the constructors of.</param>
+            <returns>The IEnumerable of the constructors with the provided attribute type.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.GetPropertyInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the properties with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the properties of.</param>
+            <returns>The IEnumerable of the properties with the provided attribute type.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.GetFieldInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the fields with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the fields of.</param>
+            <returns>The IEnumerable of the fields with the provided attribute type.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.GetMethodInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the methods with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the methods of.</param>
+            <returns>The IEnumerable of the methods with the provided attribute type.</returns>
+        </member>
         <member name="M:System.TowelSystemExtensions.GetTypesWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the classes with a custom attribute.</summary>
+            <summary>Enumerates through all the types with a custom attribute.</summary>
             <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
             <param name="assembly">The assembly to iterate through the types of.</param>
             <returns>The IEnumerable of the types with the provided attribute type.</returns>
