@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Linq;
+using System.Diagnostics;
 
 #pragma warning disable IDE0060 // Suppress Compiler Messages (they are intentional for testing)
 
@@ -18,8 +19,17 @@ namespace Towel_Testing
         {
             foreach (MethodInfo methodInfo in Assembly.GetExecutingAssembly().GetMethodInfosWithAttribute<XmlDocumentationFromMethodAttribute>())
             {
-                string xmlDocumentation = methodInfo.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = methodInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = methodInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
 
@@ -28,8 +38,17 @@ namespace Towel_Testing
         {
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
             {
-                string xmlDocumentation = type.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = type.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = type.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
 
@@ -38,19 +57,36 @@ namespace Towel_Testing
         {
             foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
             {
-                string xmlDocumentation = fieldInfo.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = fieldInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = fieldInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
 
         [TestMethod]
         public void GetDocumentation_Constructor()
         {
-            Assert.Inconclusive("Test method still in development.");
             foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
             {
-                string xmlDocumentation = constructorInfo.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = constructorInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = constructorInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
 
@@ -59,19 +95,36 @@ namespace Towel_Testing
         {
             foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
             {
-                string xmlDocumentation = propertyInfo.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = propertyInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = propertyInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
 
         [TestMethod]
         public void GetDocumentation_Event()
         {
-            Assert.Inconclusive("Test method still in development.");
             foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
             {
-                string xmlDocumentation = eventInfo.GetDocumentation();
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                try
+                {
+                    string xmlDocumentation = eventInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
+                catch
+                {
+                    Debugger.Break();
+                    string xmlDocumentation = eventInfo.GetDocumentation();
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+                }
             }
         }
     }
@@ -179,6 +232,17 @@ namespace Towel_Testing
             /// <summary>Test P</summary>
             [XmlDocumentationFromMethod]
             public void DocumentedMethod() { }
+
+            /// <summary>Test W</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromMethod]
+            public void DocumentedMethod(A a) { }
+
+            /// <summary>Test X</summary>
+            /// <param name="a">a</param>
+            /// <param name="b">b</param>
+            [XmlDocumentationFromMethod]
+            public void DocumentedMethod<B>(A a, B b) { }
         }
 
         /// <summary>Test Q</summary>
@@ -213,6 +277,35 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         [XmlDocumentationFromMethod]
         public unsafe void DocumentedMethod(ref int* a) { }
+
+        public class NestedGenericType2<A, B, C>
+        {
+            /// <summary>Test W</summary>
+            /// <typeparam name="D">D</typeparam>
+            /// <typeparam name="E">E</typeparam>
+            /// <typeparam name="F">F</typeparam>
+            /// <param name="a">a</param>
+            /// <param name="b">b</param>
+            /// <param name="c">c</param>
+            /// <param name="d">d</param>
+            /// <param name="e">e</param>
+            /// <param name="f">f</param>
+            [XmlDocumentationFromMethod]
+            public void DocumentedMethod<D, E, F>(A a, B b, C c, D d, E e, F f) { }
+
+            /// <summary>Test X</summary>
+            /// <typeparam name="D">D</typeparam>
+            /// <typeparam name="E">E</typeparam>
+            /// <typeparam name="F">F</typeparam>
+            /// <param name="a">a</param>
+            /// <param name="b">b</param>
+            /// <param name="c">c</param>
+            /// <param name="d">d</param>
+            /// <param name="e">e</param>
+            /// <param name="f">f</param>
+            [XmlDocumentationFromMethod]
+            public void DocumentedMethod<D, E, F>(A[] a, B[,] b, C[,,] c, D[] d, E[,] e, F[,,] f) { }
+        }
     }
 
     #endregion
@@ -501,15 +594,146 @@ namespace Towel_Testing
 
     #endregion
 
-    #region XML Documentation From Property
+    #region XML Documentation From Constructor
 
     public class XmlDocumentationFromConstructorAttribute : Attribute { }
+
+    public class XmlDocumentationFromConstructor
+    {
+        /// <summary>Test A</summary>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor() { }
+
+        /// <summary>Test B</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(object a) { }
+
+        /// <summary>Test C</summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(object a, object b) { }
+
+        /// <summary>Test D</summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        /// <param name="c">c</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(object a, object b, object c) { }
+
+        /// <summary>Test E</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(params object[] a) { }
+
+        /// <summary>Test F</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(out object a) { a = null; }
+
+        /// <summary>Test G</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public unsafe XmlDocumentationFromConstructor(int* a) { }
+
+        public class NestedType
+        {
+            /// <summary>Test H</summary>
+            [XmlDocumentationFromConstructor]
+            public NestedType() { }
+        }
+
+        public class NestedGenericType<A>
+        {
+            /// <summary>Test I</summary>
+            [XmlDocumentationFromConstructor]
+            public NestedGenericType() { }
+
+            /// <summary>Test L</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromConstructor]
+            public NestedGenericType(A a) { }
+        }
+
+        /// <summary>Test J</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public XmlDocumentationFromConstructor(NestedType a) { }
+
+        /// <summary>Test K</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromConstructor]
+        public unsafe XmlDocumentationFromConstructor(ref int* a) { }
+
+        public class NestedGenericType2<A, B, C>
+        {
+            /// <summary>Test L</summary>
+            /// <param name="a">a</param>
+            /// <param name="b">b</param>
+            /// <param name="c">c</param>
+            [XmlDocumentationFromConstructor]
+            public NestedGenericType2(A a, B b, C c) { }
+
+            /// <summary>Test M</summary>
+            /// <param name="a">a</param>
+            /// <param name="b">b</param>
+            /// <param name="c">c</param>
+            [XmlDocumentationFromConstructor]
+            public NestedGenericType2(A[] a, B[,] b, C[,,] c) { }
+        }
+    }
 
     #endregion
 
     #region XML Documentation From Event
 
     public class XmlDocumentationFromEventAttribute : Attribute { }
+
+    public class XmlDocumentationFromEvent
+    {
+        /// <summary>Test A</summary>
+        [XmlDocumentationFromEvent]
+        public event Action EventA;
+
+        /// <summary>Test B</summary>
+        [XmlDocumentationFromEvent]
+        public event Action<int> EventB;
+
+        /// <summary>Test C</summary>
+        [XmlDocumentationFromEvent]
+        public event Func<int> EventC;
+
+        public class NestedType
+        {
+            /// <summary>Test A</summary>
+            [XmlDocumentationFromEvent]
+            public event Action EventA;
+
+            /// <summary>Test B</summary>
+            [XmlDocumentationFromEvent]
+            public event Action<int> EventB;
+
+            /// <summary>Test C</summary>
+            [XmlDocumentationFromEvent]
+            public event Func<int> EventC;
+        }
+
+        public class NestedTypeGeneric<A>
+        {
+            /// <summary>Test A</summary>
+            [XmlDocumentationFromEvent]
+            public event Action EventA;
+
+            /// <summary>Test B</summary>
+            [XmlDocumentationFromEvent]
+            public event Action<A> EventB;
+
+            /// <summary>Test C</summary>
+            [XmlDocumentationFromEvent]
+            public event Func<A> EventC;
+        }
+    }
 
     #endregion
 }

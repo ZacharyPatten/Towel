@@ -81,6 +81,15 @@
         <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType`1.DocumentedMethod">
             <summary>Test P</summary>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType`1.DocumentedMethod(`0)">
+            <summary>Test W</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType`1.DocumentedMethod``1(`0,``0)">
+            <summary>Test X</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
         <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod(Towel_Testing.XmlDocumentationFromMethod.NestedType)">
             <summary>Test Q</summary>
             <param name="a">a</param>
@@ -108,6 +117,30 @@
         <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod(System.Int32*@)">
             <summary>Test V</summary>
             <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.DocumentedMethod``3(`0,`1,`2,``0,``1,``2)">
+            <summary>Test W</summary>
+            <typeparam name="D">D</typeparam>
+            <typeparam name="E">E</typeparam>
+            <typeparam name="F">F</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+            <param name="d">d</param>
+            <param name="e">e</param>
+            <param name="f">f</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.DocumentedMethod``3(`0[],`1[0:,0:],`2[0:,0:,0:],``0[],``1[0:,0:],``2[0:,0:,0:])">
+            <summary>Test X</summary>
+            <typeparam name="D">D</typeparam>
+            <typeparam name="E">E</typeparam>
+            <typeparam name="F">F</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+            <param name="d">d</param>
+            <param name="e">e</param>
+            <param name="f">f</param>
         </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
             <summary>Test A</summary>
@@ -294,6 +327,93 @@
         </member>
         <member name="P:Towel_Testing.XmlDocumentationFromProperty.NestedTypeGeneric`1.FieldR">
             <summary>Test R</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor">
+            <summary>Test A</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Object)">
+            <summary>Test B</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Object,System.Object)">
+            <summary>Test C</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Object,System.Object,System.Object)">
+            <summary>Test D</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Object[])">
+            <summary>Test E</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Object@)">
+            <summary>Test F</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Int32*)">
+            <summary>Test G</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.NestedType.#ctor">
+            <summary>Test H</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.NestedGenericType`1.#ctor">
+            <summary>Test I</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.NestedGenericType`1.#ctor(`0)">
+            <summary>Test L</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(Towel_Testing.XmlDocumentationFromConstructor.NestedType)">
+            <summary>Test J</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.#ctor(System.Int32*@)">
+            <summary>Test K</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.NestedGenericType2`3.#ctor(`0,`1,`2)">
+            <summary>Test L</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromConstructor.NestedGenericType2`3.#ctor(`0[],`1[0:,0:],`2[0:,0:,0:])">
+            <summary>Test M</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.EventA">
+            <summary>Test A</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.EventB">
+            <summary>Test B</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.EventC">
+            <summary>Test C</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedType.EventA">
+            <summary>Test A</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedType.EventB">
+            <summary>Test B</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedType.EventC">
+            <summary>Test C</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedTypeGeneric`1.EventA">
+            <summary>Test A</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedTypeGeneric`1.EventB">
+            <summary>Test B</summary>
+        </member>
+        <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedTypeGeneric`1.EventC">
+            <summary>Test C</summary>
         </member>
     </members>
 </doc>

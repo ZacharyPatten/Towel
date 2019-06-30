@@ -26,6 +26,7 @@ namespace Towel.DataStructures
 
         #region Methods
 
+        bool TryGet(K key, out T item);
         /// <summary>Gets an item by key.</summary>
         /// <param name="key">The key of the pair to get.</param>
         /// <returns>The by the provided key.</returns>
@@ -71,31 +72,6 @@ namespace Towel.DataStructures
         /// <summary>Gets the stepper for this data structure.</summary>
         /// <returns>The stepper for this data structure.</returns>
         public static StepperBreak<K> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
-
-        /// <summary>Wrapper for the "Get" method to help with exceptions.</summary>
-        /// <typeparam name="T">The generic value type of the structure.</typeparam>
-        /// <typeparam name="K">The generic key type of the structure.</typeparam>
-        /// <param name="map">The map data structure.</param>
-        /// <param name="key">The key to get the value of.</param>
-        /// <param name="item">The value relative to the key if exists.</param>
-        /// <returns>True if the value was found. False if not.</returns>
-        public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T item)
-        {
-            // Note: This is most likely a bad practice. try-catch-ing should
-            // not be used for control flow like this. I will likely be moving this
-            // method into the "IMap<T>" interface in the future.
-
-            try
-            {
-                item = map.Get(key);
-                return true;
-            }
-            catch
-            {
-                item = default(T);
-                return false;
-            }
-        }
 
         #endregion
     }
@@ -301,16 +277,27 @@ namespace Towel.DataStructures
         /// <returns>The by the provided key.</returns>
         public T Get(K key)
         {
+            if (TryGet(key, out T value))
+            {
+                return value;
+            }
+            throw new InvalidOperationException("attempting to get a non-existing key from a map");
+        }
+
+        public bool TryGet(K key, out T value)
+        {
             int hashCode = ComputeHash(key);
-            int table_index = hashCode % this._table.Length;
-            for (Node bucket = this._table[table_index]; bucket != null; bucket = bucket.Next)
+            int table_index = hashCode % _table.Length;
+            for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
             {
                 if (_equate(bucket.Key, key))
                 {
-                    return bucket.Value;
+                    value = bucket.Value;
+                    return true;
                 }
             }
-            throw new InvalidOperationException("attempting to get a non-existing key from a map");
+            value = default;
+            return false;
         }
 
         #endregion
@@ -710,13 +697,13 @@ namespace Towel.DataStructures
         /// <runtime>O(1)</runtime>
         public MapHashArray(Equate<K> equate, Hash<K> hash)
         {
-            this._nodes = new Node[Towel.Hash.TableSizes[0]];
-            this._table = new int[Towel.Hash.TableSizes[0]];
-            this._equate = equate;
-            this._hash = hash;
-            this._lastIndex = 0;
-            this._count = 0;
-            this._freeList = -1;
+            _nodes = new Node[Towel.Hash.TableSizes[0]];
+            _table = new int[Towel.Hash.TableSizes[0]];
+            _equate = equate;
+            _hash = hash;
+            _lastIndex = 0;
+            _count = 0;
+            _freeList = -1;
         }
 
         #endregion
@@ -863,16 +850,29 @@ namespace Towel.DataStructures
 
         /// <summary>Gets an item by key.</summary>
         /// <param name="key">The key of the item to get.</param>
-        /// <returns>The by the provided key.</returns>
+        /// <returns>The value of the provided key.</returns>
         public T Get(K key)
         {
-            int hashCode = this._hash(key);
-            for (int index = this._table[hashCode % this._table.Length] - 1; index >= 0; index = this._nodes[index].Next)
+            if (TryGet(key, out T value))
             {
-                if (this._nodes[index].Hash == hashCode && this._equate(this._nodes[index].Key, key))
-                    return this._nodes[index].Value;
+                return value;
             }
-            throw new System.InvalidOperationException("attempting to get a non-existing key from a map");
+            throw new InvalidOperationException("attempting to get a non-existing key from a map");
+        }
+
+        public bool TryGet(K key, out T value)
+        {
+            int hashCode = _hash(key);
+            for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
+            {
+                if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
+                {
+                    value = _nodes[index].Value;
+                    return true;
+                }
+            }
+            value = default;
+            return false;
         }
 
         #endregion
