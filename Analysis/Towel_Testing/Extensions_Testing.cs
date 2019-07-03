@@ -22,6 +22,12 @@ namespace Towel_Testing
                 try
                 {
                     string xmlDocumentation = methodInfo.GetDocumentation();
+
+                    if (xmlDocumentation.Contains("Test Y"))
+                    {
+                        Debugger.Break();
+                    }
+
                     Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
                 }
                 catch
@@ -34,7 +40,7 @@ namespace Towel_Testing
         }
 
         [TestMethod]
-        public void GetDocumentation_Type()
+        public void GetDocumentation_TypeInfo()
         {
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
             {
@@ -53,7 +59,7 @@ namespace Towel_Testing
         }
 
         [TestMethod]
-        public void GetDocumentation_Field()
+        public void GetDocumentation_FieldInfo()
         {
             foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
             {
@@ -72,7 +78,7 @@ namespace Towel_Testing
         }
 
         [TestMethod]
-        public void GetDocumentation_Constructor()
+        public void GetDocumentation_ConstructorInfo()
         {
             foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
             {
@@ -91,7 +97,7 @@ namespace Towel_Testing
         }
 
         [TestMethod]
-        public void GetDocumentation_Property()
+        public void GetDocumentation_PropertyInfo()
         {
             foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
             {
@@ -110,7 +116,7 @@ namespace Towel_Testing
         }
 
         [TestMethod]
-        public void GetDocumentation_Event()
+        public void GetDocumentation_EventInfo()
         {
             foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
             {
@@ -127,9 +133,16 @@ namespace Towel_Testing
                 }
             }
         }
+
+        [TestMethod]
+        public void GetDocumentation_ParameterInfo()
+        {
+            string Test1_a = typeof(XmlDocumentationFromParameter).GetMethod("Test1").GetParameters()[0].GetDocumentation();
+            Assert.IsTrue(Test1_a.Equals("<param name=\"a\">TEST a</param>"));
+        }
     }
 
-    #region XML Documentation From Method Types
+    #region XML Documentation From MethodInfo
 
     public class XmlDocumentationFromMethodAttribute : Attribute { }
 
@@ -305,6 +318,29 @@ namespace Towel_Testing
             /// <param name="f">f</param>
             [XmlDocumentationFromMethod]
             public void DocumentedMethod<D, E, F>(A[] a, B[,] b, C[,,] c, D[] d, E[,] e, F[,,] f) { }
+
+            public class NestedNestedGenericType3<D, E, F>
+            {
+                /// <summary>Test Y</summary>
+                /// <typeparam name="G">G</typeparam>
+                /// <typeparam name="H">H</typeparam>
+                /// <typeparam name="I">I</typeparam>
+                /// <param name="a">a</param>
+                /// <param name="b">b</param>
+                /// <param name="c">c</param>
+                /// <param name="d">d</param>
+                /// <param name="e">e</param>
+                /// <param name="f">f</param>
+                /// <param name="g">g</param>
+                /// <param name="h">h</param>
+                /// <param name="i">i</param>
+                [XmlDocumentationFromMethod]
+                public void DocumentedMethod<G, H, I>(
+                    A[] a, B[,] b, C[,,] c,
+                    D[] d, E[,] e, F[,,] f,
+                    G[] g, H[,] h, I[,,] i)
+                { }
+            }
         }
     }
 
@@ -420,7 +456,7 @@ namespace Towel_Testing
 
     #endregion
 
-    #region XML Documentation From Field
+    #region XML Documentation From FieldInfo
 
     public class XmlDocumentationFromFieldAttribute : Attribute { }
 
@@ -507,7 +543,7 @@ namespace Towel_Testing
 
     #endregion
 
-    #region XML Documentation From Property
+    #region XML Documentation From PropertyInfo
 
     public class XmlDocumentationFromPropertyAttribute : Attribute { }
 
@@ -594,7 +630,7 @@ namespace Towel_Testing
 
     #endregion
 
-    #region XML Documentation From Constructor
+    #region XML Documentation From ConstructorInfo
 
     public class XmlDocumentationFromConstructorAttribute : Attribute { }
 
@@ -686,7 +722,7 @@ namespace Towel_Testing
 
     #endregion
 
-    #region XML Documentation From Event
+    #region XML Documentation From EventInfo
 
     public class XmlDocumentationFromEventAttribute : Attribute { }
 
@@ -733,6 +769,19 @@ namespace Towel_Testing
             [XmlDocumentationFromEvent]
             public event Func<A> EventC;
         }
+    }
+
+    #endregion
+
+    #region XML Documentation From ParameterInfo
+
+    public class XmlDocumentationFromParameterAttribute : Attribute { }
+
+    public class XmlDocumentationFromParameter
+    {
+        /// <summary>Test1</summary>
+        /// <param name="a">TEST a</param>
+        public void Test1(object a) { }
     }
 
     #endregion

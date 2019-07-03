@@ -26764,6 +26764,11 @@
             <returns>The XML documentation on the member.</returns>
             <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
         </member>
+        <member name="M:System.TowelSystemExtensions.GetDocumentation(System.Reflection.ParameterInfo)">
+            <summary>Gets the XML documentation for a parameter.</summary>
+            <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+            <returns>The XML documenation of the parameter.</returns>
+        </member>
         <member name="M:System.TowelSystemExtensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
             <param name="action">The action to time.</param>

@@ -360,6 +360,15 @@ string ConvertToCsharpSource(this Type type);
 
 string ToEnglishWords(this decimal @decimal);
 // Example: 12 -> "Twelve"
+
+// Reflection Extensions To Access XML Documentation
+string GetDocumentation(this Type type);
+string GetDocumentation(this FieldInfo fieldInfo);
+string GetDocumentation(this PropertyInfo propertyInfo);
+string GetDocumentation(this EventInfo eventInfo);
+string GetDocumentation(this ConstructorInfo constructorInfo);
+string GetDocumentation(this MethodInfo methodInfo);
+string GetDocumentation(this ParameterInfo parameterInfo);
 ```
 
 ## Developer(s)

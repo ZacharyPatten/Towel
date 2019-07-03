@@ -142,6 +142,21 @@
             <param name="e">e</param>
             <param name="f">f</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.NestedNestedGenericType3`3.DocumentedMethod``3(`0[],`1[0:,0:],`2[0:,0:,0:],`3[],`4[0:,0:],`5[0:,0:,0:],``0[],``1[0:,0:],``2[0:,0:,0:])">
+            <summary>Test Y</summary>
+            <typeparam name="G">G</typeparam>
+            <typeparam name="H">H</typeparam>
+            <typeparam name="I">I</typeparam>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+            <param name="d">d</param>
+            <param name="e">e</param>
+            <param name="f">f</param>
+            <param name="g">g</param>
+            <param name="h">h</param>
+            <param name="i">i</param>
+        </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
             <summary>Test A</summary>
         </member>
@@ -414,6 +429,10 @@
         </member>
         <member name="E:Towel_Testing.XmlDocumentationFromEvent.NestedTypeGeneric`1.EventC">
             <summary>Test C</summary>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromParameter.Test1(System.Object)">
+            <summary>Test1</summary>
+            <param name="a">TEST a</param>
         </member>
     </members>
 </doc>

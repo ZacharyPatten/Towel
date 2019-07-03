@@ -1294,109 +1294,15 @@ namespace System
             // build the generic index mappings
             Dictionary<Type, int> typeGenericMap = new Dictionary<Type, int>();
             int tempTypeGeneric = 0;
-            Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), (Type x) => typeGenericMap.Add(x, tempTypeGeneric++));
+            Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap.Add(x, tempTypeGeneric++));
             Dictionary<Type, int> methodGenericMap = new Dictionary<Type, int>();
             int tempMethodGeneric = 0;
-            Array.ForEach(methodInfo.GetGenericArguments(), (Type x) => methodGenericMap.Add(x, tempMethodGeneric++));
-
-            // convert types to strings as they appear as keys in the XML documentation files
-            string GetFormattedString(Type type, bool isMethodParameter)
-            {
-                string result;
-
-                if (type.IsGenericParameter)
-                {
-                    if (methodGenericMap.TryGetValue(type, out int methodIndex))
-                    {
-                        result = "``" + methodIndex;
-                    }
-                    else
-                    {
-                        result = "`" + typeGenericMap[type];
-                    }
-                    goto FormatComplete;
-                }
-
-                // ref types
-                string refTypeString = string.Empty;
-                if (type.IsByRef)
-                {
-                    refTypeString = "@";
-                }
-
-                // element type
-                Type elementType = null;
-                string elementTypeString = string.Empty;
-                if (type.HasElementType)
-                {
-                    elementType = type.GetElementType();
-                    elementTypeString = GetFormattedString(elementType, isMethodParameter);
-                }
-
-                // pointer types
-                if (type.IsPointer)
-                {
-                    result = elementTypeString + "*" + refTypeString;
-                    goto FormatComplete;
-                }
-
-                // array types
-                if (type.IsArray)
-                {
-                    int rank = type.GetArrayRank();
-                    string arrayDimensionsString =
-                        rank > 1 ?
-                        "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
-                        "[]";
-                    result = elementTypeString + arrayDimensionsString + refTypeString;
-                    goto FormatComplete;
-                }
-
-                // generic types
-                string genericArgumentsString = string.Empty;
-                if (type.IsGenericType && isMethodParameter)
-                {
-                    IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
-                        methodGenericMap.TryGetValue(x, out int methodIndex) ?
-                        "``" + methodIndex :
-                        typeGenericMap.TryGetValue(x, out int typeIndex) ?
-                        "`" + typeIndex :
-                        GetFormattedString(x, isMethodParameter));
-                    genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";
-                }
-
-                // preface string
-                string prefaceString;
-                if (type.IsNested)
-                {
-                    prefaceString = GetFormattedString(type.DeclaringType, isMethodParameter) + ".";
-                }
-                else
-                {
-                    prefaceString = type.Namespace + ".";
-                }
-
-                if (type.IsByRef)
-                {
-                    result = elementTypeString + genericArgumentsString + "@";
-                }
-                else
-                {
-                    string typeNameString =
-                        isMethodParameter ?
-                        typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty) :
-                        typeNameString = type.Name;
-                    result = prefaceString + typeNameString + genericArgumentsString;
-                }
-
-            FormatComplete:
-                return result;
-            }
+            Array.ForEach(methodInfo.GetGenericArguments(), x => methodGenericMap.Add(x, tempMethodGeneric++));
 
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 
             string memberTypePrefix = "M:";
-            string declarationTypeString = GetFormattedString(methodInfo.DeclaringType, false);
+            string declarationTypeString = GetXmlDocumenationFormattedString(methodInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
             string memberNameString = methodInfo.Name;
             string methodGenericArgumentsString =
                 methodGenericMap.Count > 0 ?
@@ -1404,7 +1310,7 @@ namespace System
                 string.Empty;
             string parametersString =
                 parameterInfos.Length > 0 ?
-                "(" + string.Join(",", methodInfo.GetParameters().Select(x => GetFormattedString(x.ParameterType, true))) + ")" :
+                "(" + string.Join(",", methodInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
                 string.Empty;
 
             string key =
@@ -1430,101 +1336,19 @@ namespace System
             // build the generic index mappings
             Dictionary<Type, int> typeGenericMap = new Dictionary<Type, int>();
             int tempTypeGeneric = 0;
-            Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), (Type x) => typeGenericMap.Add(x, tempTypeGeneric++));
+            Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap.Add(x, tempTypeGeneric++));
 
-            // convert types to strings as they appear as keys in the XML documentation files
-            string GetFormattedString(Type type, bool isMethodParameter)
-            {
-                string result;
-
-                if (type.IsGenericParameter)
-                {
-                    result = "`" + typeGenericMap[type];
-                    goto FormatComplete;
-                }
-
-                // ref types
-                string refTypeString = string.Empty;
-                if (type.IsByRef)
-                {
-                    refTypeString = "@";
-                }
-
-                // element type
-                Type elementType = null;
-                string elementTypeString = string.Empty;
-                if (type.HasElementType)
-                {
-                    elementType = type.GetElementType();
-                    elementTypeString = GetFormattedString(elementType, isMethodParameter);
-                }
-
-                // pointer types
-                if (type.IsPointer)
-                {
-                    result = elementTypeString + "*" + refTypeString;
-                    goto FormatComplete;
-                }
-
-                // array types
-                if (type.IsArray)
-                {
-                    int rank = type.GetArrayRank();
-                    string arrayDimensionsString =
-                        rank > 1 ?
-                        "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
-                        "[]";
-                    result = elementTypeString + arrayDimensionsString + refTypeString;
-                    goto FormatComplete;
-                }
-
-                // generic types
-                string genericArgumentsString = string.Empty;
-                if (type.IsGenericType && isMethodParameter)
-                {
-                    IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
-                        typeGenericMap.TryGetValue(x, out int typeIndex) ?
-                        "`" + typeIndex :
-                        GetFormattedString(x, isMethodParameter));
-                    genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";
-                }
-
-                // preface string
-                string prefaceString;
-                if (type.IsNested)
-                {
-                    prefaceString = GetFormattedString(type.DeclaringType, isMethodParameter) + ".";
-                }
-                else
-                {
-                    prefaceString = type.Namespace + ".";
-                }
-
-                if (type.IsByRef)
-                {
-                    result = elementTypeString + genericArgumentsString + "@";
-                }
-                else
-                {
-                    string typeNameString =
-                        isMethodParameter ?
-                        typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty) :
-                        typeNameString = type.Name;
-                    result = prefaceString + typeNameString + genericArgumentsString;
-                }
-
-            FormatComplete:
-                return result;
-            }
+            // constructors don't support generic types so this will always be empty
+            Dictionary<Type, int> methodGenericMap = new Dictionary<Type, int>();
 
             ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
 
             string memberTypePrefix = "M:";
-            string declarationTypeString = GetFormattedString(constructorInfo.DeclaringType, false);
+            string declarationTypeString = GetXmlDocumenationFormattedString(constructorInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
             string memberNameString = "#ctor";
             string parametersString =
                 parameterInfos.Length > 0 ?
-                "(" + string.Join(",", constructorInfo.GetParameters().Select(x => GetFormattedString(x.ParameterType, true))) + ")" :
+                "(" + string.Join(",", constructorInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
                 string.Empty;
 
             string key =
@@ -1536,6 +1360,111 @@ namespace System
 
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
+        }
+
+        // convert types to strings as they appear as keys in the XML documentation files
+        private static string GetXmlDocumenationFormattedString(
+            Type type, bool isMethodParameter,
+            Dictionary<Type, int> typeGenericMap,
+            Dictionary<Type, int> methodGenericMap)
+        {
+            string result;
+
+            if (type.IsGenericParameter)
+            {
+                if (methodGenericMap.TryGetValue(type, out int methodIndex))
+                {
+                    result = "``" + methodIndex;
+                }
+                else
+                {
+                    result = "`" + typeGenericMap[type];
+                }
+                goto FormatComplete;
+            }
+
+            // ref types
+            string refTypeString = string.Empty;
+            if (type.IsByRef)
+            {
+                refTypeString = "@";
+            }
+
+            // element type
+            Type elementType = null;
+            string elementTypeString = string.Empty;
+            if (type.HasElementType)
+            {
+                elementType = type.GetElementType();
+                elementTypeString = GetXmlDocumenationFormattedString(
+                    elementType,
+                    isMethodParameter,
+                    typeGenericMap,
+                    methodGenericMap);
+            }
+
+            // pointer types
+            if (type.IsPointer)
+            {
+                result = elementTypeString + "*" + refTypeString;
+                goto FormatComplete;
+            }
+
+            // array types
+            if (type.IsArray)
+            {
+                int rank = type.GetArrayRank();
+                string arrayDimensionsString =
+                    rank > 1 ?
+                    "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
+                    "[]";
+                result = elementTypeString + arrayDimensionsString + refTypeString;
+                goto FormatComplete;
+            }
+
+            // generic types
+            string genericArgumentsString = string.Empty;
+            if (type.IsGenericType && isMethodParameter)
+            {
+                IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
+                    methodGenericMap.TryGetValue(x, out int methodIndex) ?
+                    "``" + methodIndex :
+                    typeGenericMap.TryGetValue(x, out int typeIndex) ?
+                    "`" + typeIndex :
+                    GetXmlDocumenationFormattedString(x, isMethodParameter, typeGenericMap, methodGenericMap));
+                genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";
+            }
+
+            // preface string
+            string prefaceString;
+            if (type.IsNested)
+            {
+                prefaceString = GetXmlDocumenationFormattedString(
+                    type.DeclaringType,
+                    isMethodParameter,
+                    typeGenericMap,
+                    methodGenericMap) + ".";
+            }
+            else
+            {
+                prefaceString = type.Namespace + ".";
+            }
+
+            if (type.IsByRef)
+            {
+                result = elementTypeString + genericArgumentsString + "@";
+            }
+            else
+            {
+                string typeNameString =
+                    isMethodParameter ?
+                    typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty) :
+                    typeNameString = type.Name;
+                result = prefaceString + typeNameString + genericArgumentsString;
+            }
+
+        FormatComplete:
+            return result;
         }
 
         /// <summary>Gets the XML documentation on a property.</summary>
@@ -1615,6 +1544,28 @@ namespace System
             {
                 return null;
             }
+        }
+
+        /// <summary>Gets the XML documentation for a parameter.</summary>
+        /// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+        /// <returns>The XML documenation of the parameter.</returns>
+        public static string GetDocumentation(this ParameterInfo parameterInfo)
+        {
+            string memberDocumentation = parameterInfo.Member.GetDocumentation();
+            if (memberDocumentation != null)
+            {
+                string regexPattern =
+                    Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
+                    ".*?" +
+                    Regex.Escape(@"</param>");
+
+                Match match = Regex.Match(memberDocumentation, regexPattern);
+                if (match.Success)
+                {
+                    return match.Value;
+                }
+            }
+            return null;
         }
 
         #endregion
