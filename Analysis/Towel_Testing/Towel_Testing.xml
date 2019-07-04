@@ -157,6 +157,12 @@
             <param name="h">h</param>
             <param name="i">i</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.NestedNestedGenericTypeOverriding3`3.DocumentedMethod(`3[],`4[0:,0:],`5[0:,0:,0:])">
+            <summary>Test Z</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+            <param name="c">c</param>
+        </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
             <summary>Test A</summary>
         </member>

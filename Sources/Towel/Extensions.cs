@@ -1277,8 +1277,7 @@ namespace System
         public static string GetDocumentation(this Type type)
         {
             LoadXmlDocumentation(type.Assembly);
-
-            string key = "T:" + Regex.Replace(type.FullName, @"\[.*\]", string.Empty).Replace('+', '.');
+            string key = "T:" + XmlDocumentationKeyHelper(type.FullName, null);
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
         }
@@ -1474,9 +1473,7 @@ namespace System
         public static string GetDocumentation(this PropertyInfo propertyInfo)
         {
             LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-
-            string key = "P:" + Regex.Replace(propertyInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + propertyInfo.Name;
-
+            string key = "P:" + XmlDocumentationKeyHelper(propertyInfo.DeclaringType.FullName, propertyInfo.Name);
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
         }
@@ -1488,9 +1485,7 @@ namespace System
         public static string GetDocumentation(this FieldInfo fieldInfo)
         {
             LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-
-            string key = "F:" + Regex.Replace(fieldInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + fieldInfo.Name;
-
+            string key = "F:" + XmlDocumentationKeyHelper(fieldInfo.DeclaringType.FullName, fieldInfo.Name);
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
         }
@@ -1502,11 +1497,19 @@ namespace System
         public static string GetDocumentation(this EventInfo eventInfo)
         {
             LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-
-            string key = "E:" + Regex.Replace(eventInfo.DeclaringType.FullName, @"\[.*\]", string.Empty).Replace('+', '.') + "." + eventInfo.Name;
-
+            string key = "E:" + XmlDocumentationKeyHelper(eventInfo.DeclaringType.FullName, eventInfo.Name);
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
+        }
+
+        private static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
+        {
+            string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
+            if (memberNameString != null)
+            {
+                key += "." + memberNameString;
+            }
+            return key;
         }
 
         /// <summary>Gets the XML documentation on a member.</summary>

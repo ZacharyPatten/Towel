@@ -368,6 +368,7 @@ string GetDocumentation(this PropertyInfo propertyInfo);
 string GetDocumentation(this EventInfo eventInfo);
 string GetDocumentation(this ConstructorInfo constructorInfo);
 string GetDocumentation(this MethodInfo methodInfo);
+string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
 ```
 

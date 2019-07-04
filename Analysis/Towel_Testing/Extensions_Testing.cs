@@ -341,6 +341,20 @@ namespace Towel_Testing
                     G[] g, H[,] h, I[,,] i)
                 { }
             }
+
+#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
+            public class NestedNestedGenericTypeOverriding3<A, B, C>
+#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
+            {
+                /// <summary>Test Z</summary>
+                /// <param name="a">a</param>
+                /// <param name="b">b</param>
+                /// <param name="c">c</param>
+                [XmlDocumentationFromMethod]
+                public void DocumentedMethod(
+                    A[] a, B[,] b, C[,,] c)
+                { }
+            }
         }
     }
 
