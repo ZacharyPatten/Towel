@@ -105,7 +105,7 @@ namespace Towel_Documentation
                     nestedTypes.ForEach(ConvertTypeToHtml);
 
                     // Fields
-                    foreach (FieldInfo fieldInfo in type.GetFields())
+                    foreach (FieldInfo fieldInfo in type.GetFields().Where(x => x.DeclaringType == type))
                     {
                         if (!(fieldInfo.DeclaringType.FullName is null))
                         {
@@ -117,7 +117,7 @@ namespace Towel_Documentation
                     }
 
                     // Properties
-                    foreach (PropertyInfo propertyInfo in type.GetProperties())
+                    foreach (PropertyInfo propertyInfo in type.GetProperties().Where(x => x.DeclaringType == type))
                     {
                         if (!(propertyInfo.DeclaringType.FullName is null))
                         {
@@ -129,7 +129,7 @@ namespace Towel_Documentation
                     }
 
                     // Constructors
-                    foreach (ConstructorInfo constructorInfo in type.GetConstructors())
+                    foreach (ConstructorInfo constructorInfo in type.GetConstructors().Where(x => x.DeclaringType == type))
                     {
                         if (!(constructorInfo.DeclaringType.FullName is null))
                         {
@@ -141,7 +141,7 @@ namespace Towel_Documentation
                     }
 
                     // Methods
-                    foreach (MethodInfo methodInfo in type.GetMethods())
+                    foreach (MethodInfo methodInfo in type.GetMethods().Where(x => x.DeclaringType == type))
                     {
                         if (!(methodInfo.DeclaringType.FullName is null))
                         {

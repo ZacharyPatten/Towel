@@ -3515,6 +3515,10 @@
             <summary>Contains the necessary type definitions for the various omnitree types.</summary>
             <summary>Contains the necessary type definitions for the various omnitree types.</summary>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`1">
+            <summary>Represents a 1D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+        </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`1.Axis1">
             <summary>The value along axis 1.</summary>
         </member>
@@ -3525,11 +3529,44 @@
             <summary>A location along each axis.</summary>
             <param name="axis1">The location along axis 1.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`1">
+            <summary>Represents a 1D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`1.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`1.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`1.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`1.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`2">
+            <summary>Delegate for locating an item in 1D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`2">
+            <summary>Delegate for getting the 1D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`2">
+            <summary>Delegate for getting the 1D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},Towel.Compare{``0})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3547,6 +3584,11 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`2">
+            <summary>Represents a 2D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+        </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`2.Axis1">
             <summary>The value along axis 1.</summary>
         </member>
@@ -3561,11 +3603,59 @@
             <param name="axis1">The location along axis 1.</param>
             <param name="axis2">The location along axis 2.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`2">
+            <summary>Represents a 2D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`2.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`2.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`2.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`2.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`2.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`2.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`3">
+            <summary>Delegate for locating an item in 2D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`3">
+            <summary>Delegate for getting the 2D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`3">
+            <summary>Delegate for getting the 2D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3582,6 +3672,12 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``2(Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Equate{``0},Towel.Equate{``1})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`3">
+            <summary>Represents a 3D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
         </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`3.Axis1">
             <summary>The value along axis 1.</summary>
@@ -3601,11 +3697,74 @@
             <param name="axis2">The location along axis 2.</param>
             <param name="axis3">The location along axis 3.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`3">
+            <summary>Represents a 3D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Min3">
+            <summary>The minimum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`3.Max3">
+            <summary>The maximum value along the 3 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`3.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`3.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`4">
+            <summary>Delegate for locating an item in 3D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+            <param name="axis3">The location of the item along the 3 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`4">
+            <summary>Delegate for getting the 3D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`4">
+            <summary>Delegate for getting the 3D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3622,6 +3781,13 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``3(Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`4">
+            <summary>Represents a 4D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
         </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`4.Axis1">
             <summary>The value along axis 1.</summary>
@@ -3645,11 +3811,89 @@
             <param name="axis3">The location along axis 3.</param>
             <param name="axis4">The location along axis 4.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`4">
+            <summary>Represents a 4D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Min3">
+            <summary>The minimum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Max3">
+            <summary>The maximum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Min4">
+            <summary>The minimum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`4.Max4">
+            <summary>The maximum value along the 4 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`4.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`4.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`5">
+            <summary>Delegate for locating an item in 4D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+            <param name="axis3">The location of the item along the 3 dimension.</param>
+            <param name="axis4">The location of the item along the 4 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`5">
+            <summary>Delegate for getting the 4D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`5">
+            <summary>Delegate for getting the 4D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3666,6 +3910,14 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``4(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`5">
+            <summary>Represents a 5D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
         </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`5.Axis1">
             <summary>The value along axis 1.</summary>
@@ -3693,11 +3945,104 @@
             <param name="axis4">The location along axis 4.</param>
             <param name="axis5">The location along axis 5.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`5">
+            <summary>Represents a 5D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Min3">
+            <summary>The minimum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Max3">
+            <summary>The maximum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Min4">
+            <summary>The minimum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Max4">
+            <summary>The maximum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Min5">
+            <summary>The minimum value along the 5 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`5.Max5">
+            <summary>The maximum value along the 5 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`5.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`5.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`6">
+            <summary>Delegate for locating an item in 5D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+            <param name="axis3">The location of the item along the 3 dimension.</param>
+            <param name="axis4">The location of the item along the 4 dimension.</param>
+            <param name="axis5">The location of the item along the 5 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`6">
+            <summary>Delegate for getting the 5D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`6">
+            <summary>Delegate for getting the 5D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3714,6 +4059,15 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``5(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`6">
+            <summary>Represents a 6D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
         </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`6.Axis1">
             <summary>The value along axis 1.</summary>
@@ -3745,11 +4099,119 @@
             <param name="axis5">The location along axis 5.</param>
             <param name="axis6">The location along axis 6.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`6">
+            <summary>Represents a 6D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min3">
+            <summary>The minimum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max3">
+            <summary>The maximum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min4">
+            <summary>The minimum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max4">
+            <summary>The maximum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min5">
+            <summary>The minimum value along the 5 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max5">
+            <summary>The maximum value along the 5 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Min6">
+            <summary>The minimum value along the 6 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`6.Max6">
+            <summary>The maximum value along the 6 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`6.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`6.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`7">
+            <summary>Delegate for locating an item in 6D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+            <param name="axis3">The location of the item along the 3 dimension.</param>
+            <param name="axis4">The location of the item along the 4 dimension.</param>
+            <param name="axis5">The location of the item along the 5 dimension.</param>
+            <param name="axis6">The location of the item along the 6 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`7">
+            <summary>Delegate for getting the 6D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
+            <param name="min6">The minimum bound of the item along the 6 dimension.</param>
+            <param name="max6">The maximum bound of the item along the 6 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`7">
+            <summary>Delegate for getting the 6D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
+            <param name="min6">The minimum bound of the item along the 6 dimension.</param>
+            <param name="max6">The maximum bound of the item along the 6 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3766,6 +4228,16 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``6(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector`7">
+            <summary>Represents a 7D vector.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
         </member>
         <member name="F:Towel.DataStructures.Omnitree.Vector`7.Axis1">
             <summary>The value along axis 1.</summary>
@@ -3801,11 +4273,134 @@
             <param name="axis6">The location along axis 6.</param>
             <param name="axis7">The location along axis 7.</param>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds`7">
+            <summary>Represents a 7D bounding box.</summary>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min1">
+            <summary>The minimum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max1">
+            <summary>The maximum value along the 1 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min2">
+            <summary>The minimum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max2">
+            <summary>The maximum value along the 2 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min3">
+            <summary>The minimum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max3">
+            <summary>The maximum value along the 3 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min4">
+            <summary>The minimum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max4">
+            <summary>The maximum value along the 4 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min5">
+            <summary>The minimum value along the 5 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max5">
+            <summary>The maximum value along the 5 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min6">
+            <summary>The minimum value along the 6 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max6">
+            <summary>The maximum value along the 6 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Min7">
+            <summary>The minimum value along the 7 dimension.</summary>
+        </member>
+        <member name="F:Towel.DataStructures.Omnitree.Bounds`7.Max7">
+            <summary>The maximum value along the 7 dimension.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Bounds`7.None">
             <summary>Extends infinitely along each axis.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds`7.#ctor(Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Location`8">
+            <summary>Delegate for locating an item in 7D space.</summary>
+            <typeparam name="T">The generic type of the item to locate.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
+            <param name="item">The item to locate.</param>
+            <param name="axis1">The location of the item along the 1 dimension.</param>
+            <param name="axis2">The location of the item along the 2 dimension.</param>
+            <param name="axis3">The location of the item along the 3 dimension.</param>
+            <param name="axis4">The location of the item along the 4 dimension.</param>
+            <param name="axis5">The location of the item along the 5 dimension.</param>
+            <param name="axis6">The location of the item along the 6 dimension.</param>
+            <param name="axis7">The location of the item along the 7 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBounds`8">
+            <summary>Delegate for getting the 7D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
+            <param name="min6">The minimum bound of the item along the 6 dimension.</param>
+            <param name="max6">The maximum bound of the item along the 6 dimension.</param>
+            <param name="min7">The minimum bound of the item along the 7 dimension.</param>
+            <param name="max7">The maximum bound of the item along the 7 dimension.</param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.GetBoundings`8">
+            <summary>Delegate for getting the 7D bounding box of an item.</summary>
+            <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+            <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
+            <param name="item">The item to get the bounding box of.</param>
+            <param name="min1">The minimum bound of the item along the 1 dimension.</param>
+            <param name="max1">The maximum bound of the item along the 1 dimension.</param>
+            <param name="min2">The minimum bound of the item along the 2 dimension.</param>
+            <param name="max2">The maximum bound of the item along the 2 dimension.</param>
+            <param name="min3">The minimum bound of the item along the 3 dimension.</param>
+            <param name="max3">The maximum bound of the item along the 3 dimension.</param>
+            <param name="min4">The minimum bound of the item along the 4 dimension.</param>
+            <param name="max4">The maximum bound of the item along the 4 dimension.</param>
+            <param name="min5">The minimum bound of the item along the 5 dimension.</param>
+            <param name="max5">The maximum bound of the item along the 5 dimension.</param>
+            <param name="min6">The minimum bound of the item along the 6 dimension.</param>
+            <param name="max6">The maximum bound of the item along the 6 dimension.</param>
+            <param name="min7">The minimum bound of the item along the 7 dimension.</param>
+            <param name="max7">The maximum bound of the item along the 7 dimension.</param>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
@@ -3974,14 +4569,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -4090,21 +4677,21 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.Step{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
@@ -4124,7 +4711,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.StepBreak{`0},`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.System#Collections#IEnumerable#GetEnumerator">
@@ -4341,14 +4928,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -4479,15 +5058,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.Step{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -4495,7 +5074,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -4522,7 +5101,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.StepBreak{`0},`1,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
         </member>
@@ -4764,14 +5343,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -4924,15 +5495,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.Step{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -4942,7 +5513,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -4976,7 +5547,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.StepBreak{`0},`1,`2,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -5243,14 +5814,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -5425,15 +5988,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5445,7 +6008,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5486,7 +6049,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.StepBreak{`0},`1,`2,`3,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -5778,14 +6341,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -5982,15 +6537,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6004,7 +6559,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6052,7 +6607,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.StepBreak{`0},`1,`2,`3,`4,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -6369,14 +6924,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -6595,15 +7142,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6619,7 +7166,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6674,7 +7221,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.StepBreak{`0},`1,`2,`3,`4,`5,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -7016,14 +7563,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.DetermineMedians(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Leaf)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -7264,15 +7803,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -7290,7 +7829,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -7352,7 +7891,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.StepBreak{`0},`1,`2,`3,`4,`5,`6,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -7555,14 +8094,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -7716,53 +8247,57 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.Step{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.StepBreak{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
@@ -7772,7 +8307,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.System#Collections#IEnumerable#GetEnumerator">
@@ -7999,14 +8534,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -8197,15 +8724,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8213,7 +8740,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8221,7 +8748,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8229,7 +8756,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8237,6 +8764,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8244,6 +8772,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8251,6 +8780,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8258,6 +8788,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8270,7 +8801,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.StepBreak{`0},`1,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
         </member>
@@ -8530,14 +9061,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -8765,15 +9288,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8783,7 +9306,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8793,7 +9316,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8803,7 +9326,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8813,6 +9336,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8822,6 +9346,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8831,6 +9356,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8840,6 +9366,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8855,7 +9382,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.StepBreak{`0},`1,`2,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -9148,14 +9675,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -9420,15 +9939,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9440,7 +9959,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9452,7 +9971,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9464,7 +9983,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9476,6 +9995,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9487,6 +10007,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9498,6 +10019,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9509,6 +10031,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -9527,7 +10050,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.StepBreak{`0},`1,`2,`3,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -9853,14 +10376,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -10162,15 +10677,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10184,7 +10699,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10198,7 +10713,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10212,7 +10727,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10226,6 +10741,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10239,6 +10755,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10252,6 +10769,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10265,6 +10783,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -10286,7 +10805,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.StepBreak{`0},`1,`2,`3,`4,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -10645,14 +11164,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -10991,15 +11502,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11015,7 +11526,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11031,7 +11542,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11047,7 +11558,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11063,6 +11574,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11078,6 +11590,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11093,6 +11606,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11108,6 +11622,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11132,7 +11647,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.StepBreak{`0},`1,`2,`3,`4,`5,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -11524,14 +12039,6 @@
             <param name="ms">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.DetermineMedians(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node)">
-            <summary>Determins the dimensions of the child at the given index.</summary>
-            <param name="leaf">The parent of the node to compute dimensions for.</param>
-            <param name="child">The index of the child to compute dimensions for.</param>
-            <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
-            <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
-            <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Clear">
             <summary>Returns the tree to an empty state.</summary>
         </member>
@@ -11907,15 +12414,15 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Stepper(Towel.Step{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Stepper(Towel.StepBreak{`0})">
             <summary>Traverses every item in the tree and performs the delegate in them.</summary>
-            <param name="function">The delegate to perform on every item in the tree.</param>
+            <param name="step">The delegate to perform on every item in the tree.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperEncapsulated(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11933,7 +12440,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11951,7 +12458,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.Step{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11969,7 +12476,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -11987,6 +12494,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperEncapsulated(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -12004,6 +12512,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -12021,6 +12530,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -12038,6 +12548,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -12065,7 +12576,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.StepBreak{`0},`1,`2,`3,`4,`5,`6,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-            <param name="function">The delegate to perform on all items in the tree within the given bounds.</param>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
