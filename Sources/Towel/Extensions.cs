@@ -1291,12 +1291,13 @@ namespace System
             LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
 
             // build the generic index mappings
-            Dictionary<Type, int> typeGenericMap = new Dictionary<Type, int>();
+            Dictionary<string, int> typeGenericMap = new Dictionary<string, int>();
             int tempTypeGeneric = 0;
-            Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap.Add(x, tempTypeGeneric++));
-            Dictionary<Type, int> methodGenericMap = new Dictionary<Type, int>();
+            Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
+
+            Dictionary<string, int> methodGenericMap = new Dictionary<string, int>();
             int tempMethodGeneric = 0;
-            Array.ForEach(methodInfo.GetGenericArguments(), x => methodGenericMap.Add(x, tempMethodGeneric++));
+            Array.ForEach(methodInfo.GetGenericArguments(), x => methodGenericMap.Add(x.Name, tempMethodGeneric++));
 
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 
@@ -1333,12 +1334,12 @@ namespace System
             LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
 
             // build the generic index mappings
-            Dictionary<Type, int> typeGenericMap = new Dictionary<Type, int>();
+            Dictionary<string, int> typeGenericMap = new Dictionary<string, int>();
             int tempTypeGeneric = 0;
-            Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap.Add(x, tempTypeGeneric++));
+            Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
 
             // constructors don't support generic types so this will always be empty
-            Dictionary<Type, int> methodGenericMap = new Dictionary<Type, int>();
+            Dictionary<string, int> methodGenericMap = new Dictionary<string, int>();
 
             ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
 
@@ -1364,20 +1365,20 @@ namespace System
         // convert types to strings as they appear as keys in the XML documentation files
         private static string GetXmlDocumenationFormattedString(
             Type type, bool isMethodParameter,
-            Dictionary<Type, int> typeGenericMap,
-            Dictionary<Type, int> methodGenericMap)
+            Dictionary<string, int> typeGenericMap,
+            Dictionary<string, int> methodGenericMap)
         {
             string result;
 
             if (type.IsGenericParameter)
             {
-                if (methodGenericMap.TryGetValue(type, out int methodIndex))
+                if (methodGenericMap.TryGetValue(type.Name, out int methodIndex))
                 {
                     result = "``" + methodIndex;
                 }
                 else
                 {
-                    result = "`" + typeGenericMap[type];
+                    result = "`" + typeGenericMap[type.Name];
                 }
                 goto FormatComplete;
             }
@@ -1426,9 +1427,9 @@ namespace System
             if (type.IsGenericType && isMethodParameter)
             {
                 IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
-                    methodGenericMap.TryGetValue(x, out int methodIndex) ?
+                    methodGenericMap.TryGetValue(x.Name, out int methodIndex) ?
                     "``" + methodIndex :
-                    typeGenericMap.TryGetValue(x, out int typeIndex) ?
+                    typeGenericMap.TryGetValue(x.Name, out int typeIndex) ?
                     "`" + typeIndex :
                     GetXmlDocumenationFormattedString(x, isMethodParameter, typeGenericMap, methodGenericMap));
                 genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";

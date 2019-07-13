@@ -163,6 +163,10 @@
             <param name="b">b</param>
             <param name="c">c</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod_OptionalParameters(System.Int32)">
+            <summary>Test AA</summary>
+            <param name="a">a</param>
+        </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
             <summary>Test A</summary>
         </member>

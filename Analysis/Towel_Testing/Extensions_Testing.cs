@@ -159,6 +159,7 @@ namespace Towel_Testing
 
         /// <summary>Test C</summary>
         /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
         public void DocumentedMethod(object a) { }
 
         /// <summary>Test D</summary>
@@ -356,6 +357,11 @@ namespace Towel_Testing
                 { }
             }
         }
+
+        /// <summary>Test AA</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
+        public void DocumentedMethod_OptionalParameters(int a = 2) { }
     }
 
     #endregion
