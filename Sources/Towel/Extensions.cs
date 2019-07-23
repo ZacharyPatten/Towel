@@ -23,16 +23,12 @@ namespace System
         /// <returns>The string of the repeated character.</returns>
         public static string Repeat(this char character, int count)
         {
-            if (count < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(count));
-            }
-            char[] sets = new char[count];
-            for (int i = 0; i < count; i++)
-            {
-                sets[i] = character;
-            }
-            return new string(sets);
+            //You should use this instead of rolling your own optimization 
+            //as https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/shared/System/String.cs 
+            //will probably have be more optimized since it uses unsafe to optimize 
+            //string allocation
+            //same exceptions etc are guranteed with this code
+            return new string(character, count);
         }
 
         #endregion
