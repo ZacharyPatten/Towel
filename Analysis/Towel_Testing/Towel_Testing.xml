@@ -142,6 +142,22 @@
             <param name="e">e</param>
             <param name="f">f</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.op_Implicit(Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2{`0,`1,`2})~System.Boolean">
+            <summary>Test DD.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.op_Explicit(Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2{`0,`1,`2})~System.Int32">
+            <summary>Test EE.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.op_Implicit(System.Boolean)~Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2{`0,`1,`2}">
+            <summary>Test HH.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.op_Explicit(System.Int32)~Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2{`0,`1,`2}">
+            <summary>Test II.</summary>
+            <param name="a">a</param>
+        </member>
         <member name="M:Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2`3.NestedNestedGenericType3`3.DocumentedMethod``3(`0[],`1[0:,0:],`2[0:,0:,0:],`3[],`4[0:,0:],`5[0:,0:,0:],``0[],``1[0:,0:],``2[0:,0:,0:])">
             <summary>Test Y</summary>
             <typeparam name="G">G</typeparam>
@@ -165,6 +181,22 @@
         </member>
         <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod_OptionalParameters(System.Int32)">
             <summary>Test AA</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Implicit(Towel_Testing.XmlDocumentationFromMethod)~System.Boolean">
+            <summary>Test BB.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Explicit(Towel_Testing.XmlDocumentationFromMethod)~System.Int32">
+            <summary>Test CC.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Implicit(System.Boolean)~Towel_Testing.XmlDocumentationFromMethod">
+            <summary>Test FF.</summary>
+            <param name="a">a</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Explicit(System.Int32)~Towel_Testing.XmlDocumentationFromMethod">
+            <summary>Test GG.</summary>
             <param name="a">a</param>
         </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">

@@ -22,12 +22,6 @@ namespace Towel_Testing
                 try
                 {
                     string xmlDocumentation = methodInfo.GetDocumentation();
-
-                    if (xmlDocumentation.Contains("Test Y"))
-                    {
-                        Debugger.Break();
-                    }
-
                     Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
                 }
                 catch
@@ -320,6 +314,26 @@ namespace Towel_Testing
             [XmlDocumentationFromMethod]
             public void DocumentedMethod<D, E, F>(A[] a, B[,] b, C[,,] c, D[] d, E[,] e, F[,,] f) { }
 
+            /// <summary>Test DD.</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromMethod]
+            public static implicit operator bool(NestedGenericType2<A, B, C> a) { return false; }
+
+            /// <summary>Test EE.</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromMethod]
+            public static explicit operator int(NestedGenericType2<A, B, C> a) { return 0; }
+
+            /// <summary>Test HH.</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromMethod]
+            public static implicit operator NestedGenericType2<A, B, C>(bool a) { return null; }
+
+            /// <summary>Test II.</summary>
+            /// <param name="a">a</param>
+            [XmlDocumentationFromMethod]
+            public static explicit operator NestedGenericType2<A, B, C>(int a) { return null; }
+
             public class NestedNestedGenericType3<D, E, F>
             {
                 /// <summary>Test Y</summary>
@@ -342,7 +356,7 @@ namespace Towel_Testing
                     G[] g, H[,] h, I[,,] i)
                 { }
             }
-
+            
 #pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
             public class NestedNestedGenericTypeOverriding3<A, B, C>
 #pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
@@ -362,6 +376,26 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         [XmlDocumentationFromMethod]
         public void DocumentedMethod_OptionalParameters(int a = 2) { }
+
+        /// <summary>Test BB.</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
+        public static implicit operator bool(XmlDocumentationFromMethod a) { return false; }
+
+        /// <summary>Test CC.</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
+        public static explicit operator int(XmlDocumentationFromMethod a) { return 0; }
+
+        /// <summary>Test FF.</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
+        public static implicit operator XmlDocumentationFromMethod(bool a) { return null; }
+
+        /// <summary>Test GG.</summary>
+        /// <param name="a">a</param>
+        [XmlDocumentationFromMethod]
+        public static explicit operator XmlDocumentationFromMethod(int a) { return null; }
     }
 
     #endregion

@@ -1312,6 +1312,13 @@ namespace System
                 methodGenericArgumentsString +
                 parametersString;
 
+            // handle casting operators witch include the return type in the XML key
+            if (methodInfo.Name.Equals("op_Implicit") ||
+                methodInfo.Name.Equals("op_Explicit"))
+            {
+                key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
+            }
+
             loadedXmlDocumentation.TryGetValue(key, out string documentation);
             return documentation;
         }
