@@ -396,6 +396,18 @@ namespace Towel_Testing
         /// <param name="a">a</param>
         [XmlDocumentationFromMethod]
         public static explicit operator XmlDocumentationFromMethod(int a) { return null; }
+
+        /// <summary>Test JJ.</summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        [XmlDocumentationFromMethod]
+        public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, XmlDocumentationFromMethod b) { return null; }
+
+        /// <summary>Test KK.</summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        [XmlDocumentationFromMethod]
+        public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, NestedGenericType2<bool, bool, bool> b) { return null; }
     }
 
     #endregion

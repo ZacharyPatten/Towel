@@ -199,6 +199,16 @@
             <summary>Test GG.</summary>
             <param name="a">a</param>
         </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Addition(Towel_Testing.XmlDocumentationFromMethod,Towel_Testing.XmlDocumentationFromMethod)">
+            <summary>Test JJ.</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.op_Addition(Towel_Testing.XmlDocumentationFromMethod,Towel_Testing.XmlDocumentationFromMethod.NestedGenericType2{System.Boolean,System.Boolean,System.Boolean})">
+            <summary>Test KK.</summary>
+            <param name="a">a</param>
+            <param name="b">b</param>
+        </member>
         <member name="T:Towel_Testing.XmlDocumentationFromTypeA">
             <summary>Test A</summary>
         </member>
