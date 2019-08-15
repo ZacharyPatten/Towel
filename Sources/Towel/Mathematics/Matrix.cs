@@ -173,7 +173,7 @@ namespace Towel.Mathematics
         /// <param name="rows">The number of rows to construct.</param>
         /// <param name="columns">The number of columns to construct.</param>
         /// <param name="data">The data of the matrix in ROW MAJOR ORDER.</param>
-        internal Matrix(int rows, int columns, params T[] data) : this(rows, columns)
+        public Matrix(int rows, int columns, params T[] data) : this(rows, columns)
         {
             if (data is null)
             {
@@ -676,7 +676,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the multiplication.</param>
 		/// <param name="b">The right matrix of the multiplication.</param>
         /// <param name="c">The resulting matrix of the multiplication.</param>
-        private static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+        public static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
         {
             if (a is null)
             {

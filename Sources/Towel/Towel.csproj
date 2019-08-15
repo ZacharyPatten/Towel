@@ -30,9 +30,6 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
   </PropertyGroup>
 
   <ItemGroup>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Measurements\MeasurementGeneration.tt" />
   </ItemGroup>
 
