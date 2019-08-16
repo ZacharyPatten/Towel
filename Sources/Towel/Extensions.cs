@@ -1206,56 +1206,69 @@ namespace System
             }
         }
 
-        #endregion
+		#endregion
 
-        #endregion
+		#endregion
 
-        #region XML Code Documentation
+		#region XML Code Documentation
 
-        internal static HashSet<Assembly> loadedAssemblies = new HashSet<Assembly>();
-        internal static Dictionary<string, string> loadedXmlDocumentation = new Dictionary<string, string>();
+		internal static HashSet<Assembly> loadedAssemblies = new HashSet<Assembly>();
+		internal static Dictionary<string, string> loadedXmlDocumentation = new Dictionary<string, string>();
 
-        internal static void LoadXmlDocumentation(Assembly assembly)
-        {
-            try
-            {
-                if (loadedAssemblies.Contains(assembly))
-                {
-                    return;
-                }
-                string directoryPath = assembly.GetDirectoryPath();
-                string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
-                if (File.Exists(xmlFilePath))
-                {
-                    LoadXmlDocumentation(File.ReadAllText(xmlFilePath));
-                    loadedAssemblies.Add(assembly);
-                }
-            }
-            catch
-            {
-                Debugger.Break();
-            }
-        }
+		internal static void LoadXmlDocumentation(Assembly assembly)
+		{
+			try
+			{
+				if (loadedAssemblies.Contains(assembly))
+				{
+					return;
+				}
+				string directoryPath = assembly.GetDirectoryPath();
+				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
+				if (File.Exists(xmlFilePath))
+				{
+					using (StreamReader streamReader = new StreamReader(xmlFilePath))
+					{
+						LoadXmlDocumentation(streamReader);
+						loadedAssemblies.Add(assembly);
+					}
+				}
+			}
+			catch
+			{
+				Debugger.Break();
+			}
+		}
 
-        /// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-        /// <param name="xmlDocumentation">The content of the XML code documentation.</param>
-        public static void LoadXmlDocumentation(string xmlDocumentation)
-        {
-            using (XmlReader xmlReader = XmlReader.Create(new StringReader(xmlDocumentation)))
-            {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
-                    {
-                        string raw_name = xmlReader["name"];
-                        loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
-                    }
-                }
-            }
-        }
+		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+		/// <param name="xmlDocumentation">The content of the XML code documentation.</param>
+		public static void LoadXmlDocumentation(string xmlDocumentation)
+		{
+			using (StringReader stringReader = new StringReader(xmlDocumentation))
+			{
+				LoadXmlDocumentation(stringReader);
+			}
+		}
 
-        /// <summary>Clears the currently loaded XML documentation.</summary>
-        public static void ClearXmlDocumentation()
+		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+		/// <param name="xmlDocumentation">The text reader to process in an XmlReader.</param>
+		public static void LoadXmlDocumentation(TextReader textReader)
+		{
+			using (XmlReader xmlReader = XmlReader.Create(textReader))
+			{
+				while (xmlReader.Read())
+				{
+					if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
+					{
+						string raw_name = xmlReader["name"];
+						loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+					}
+				}
+			}
+		}
+
+		/// <summary>Clears the currently loaded XML documentation.</summary>
+		public static void ClearXmlDocumentation()
         {
             loadedAssemblies.Clear();
             loadedXmlDocumentation.Clear();
