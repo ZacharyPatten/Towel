@@ -261,6 +261,16 @@ namespace Towel.Measurements
         }
 
 		#endregion
+<# //------------------------------------------------------------------------------------------- #>
+
+		#region Casting Operators
+
+		public static implicit operator <#= measurement.Item1 #><T>((T, MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units) valueTuple)
+		{
+			return new <#= measurement.Item1 #><T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
 
 <# //------------------------------------------------------------------------------------------- #>
 		#region Mathematics

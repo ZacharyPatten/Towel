@@ -324,6 +324,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Acceleration<T>((T, MeasurementUnitsSyntaxTypes.AccelerationBaseUnits) valueTuple)
+		{
+			return new Acceleration<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -1145,6 +1154,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator AngularAcceleration<T>((T, MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits) valueTuple)
+		{
+			return new AngularAcceleration<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -1731,6 +1749,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Angle<T>((T, MeasurementUnitsSyntaxTypes.AngleUnits) valueTuple)
+		{
+			return new Angle<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -2429,6 +2456,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator AngularSpeed<T>((T, MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits) valueTuple)
+		{
+			return new AngularSpeed<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -3087,6 +3123,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Area<T>((T, MeasurementUnitsSyntaxTypes.AreaBaseUnits) valueTuple)
+		{
+			return new Area<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -3897,6 +3942,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator AreaDensity<T>((T, MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits) valueTuple)
+		{
+			return new AreaDensity<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -4751,6 +4805,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Density<T>((T, MeasurementUnitsSyntaxTypes.DensityBaseUnits) valueTuple)
+		{
+			return new Density<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -5387,6 +5450,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator ElectricCharge<T>((T, MeasurementUnitsSyntaxTypes.ElectricChargeUnits) valueTuple)
+		{
+			return new ElectricCharge<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -5999,6 +6071,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator ElectricCurrent<T>((T, MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits) valueTuple)
+		{
+			return new ElectricCurrent<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -6673,6 +6754,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Energy<T>((T, MeasurementUnitsSyntaxTypes.EnergyBaseUnits) valueTuple)
+		{
+			return new Energy<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -7720,6 +7810,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Force<T>((T, MeasurementUnitsSyntaxTypes.ForceBaseUnits) valueTuple)
+		{
+			return new Force<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -8562,6 +8661,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Length<T>((T, MeasurementUnitsSyntaxTypes.LengthUnits) valueTuple)
+		{
+			return new Length<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -9533,6 +9641,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator LinearDensity<T>((T, MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits) valueTuple)
+		{
+			return new LinearDensity<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -10394,6 +10511,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator LinearMass<T>((T, MeasurementUnitsSyntaxTypes.LinearMassBaseUnits) valueTuple)
+		{
+			return new LinearMass<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -11413,6 +11539,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator LinearMassFlow<T>((T, MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits) valueTuple)
+		{
+			return new LinearMassFlow<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -12205,6 +12340,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Mass<T>((T, MeasurementUnitsSyntaxTypes.MassUnits) valueTuple)
+		{
+			return new Mass<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -13226,6 +13370,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Power<T>((T, MeasurementUnitsSyntaxTypes.PowerBaseUnits) valueTuple)
+		{
+			return new Power<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -14065,6 +14218,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Pressure<T>((T, MeasurementUnitsSyntaxTypes.PressureBaseUnits) valueTuple)
+		{
+			return new Pressure<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -14825,6 +14987,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Speed<T>((T, MeasurementUnitsSyntaxTypes.SpeedBaseUnits) valueTuple)
+		{
+			return new Speed<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -15571,6 +15742,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator Tempurature<T>((T, MeasurementUnitsSyntaxTypes.TempuratureUnits) valueTuple)
+		{
+			return new Tempurature<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -16068,6 +16248,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Time<T>((T, MeasurementUnitsSyntaxTypes.TimeUnits) valueTuple)
+		{
+			return new Time<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
@@ -16959,6 +17148,15 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Casting Operators
+
+		public static implicit operator TimeArea<T>((T, MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits) valueTuple)
+		{
+			return new TimeArea<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
 		#region Mathematics
 
 		#region Bases
@@ -17726,6 +17924,15 @@ namespace Towel.Measurements
                 return measurement;
             }
         }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator Volume<T>((T, MeasurementUnitsSyntaxTypes.VolumeBaseUnits) valueTuple)
+		{
+			return new Volume<T>(valueTuple.Item1, valueTuple.Item2);
+		}
 
 		#endregion
 
