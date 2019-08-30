@@ -27230,6 +27230,10 @@
             <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
             <param name="xmlDocumentation">The content of the XML code documentation.</param>
         </member>
+        <member name="M:System.TowelSystemExtensions.LoadXmlDocumentation(System.IO.TextReader)">
+            <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+            <param name="xmlDocumentation">The text reader to process in an XmlReader.</param>
+        </member>
         <member name="M:System.TowelSystemExtensions.ClearXmlDocumentation">
             <summary>Clears the currently loaded XML documentation.</summary>
         </member>

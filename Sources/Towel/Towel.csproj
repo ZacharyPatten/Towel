@@ -14,7 +14,7 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
     <PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
     <Authors>Zachary Patten</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.4-alpha</Version>
+    <Version>1.0.5-alpha</Version>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
