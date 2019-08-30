@@ -208,7 +208,11 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
-            return result;
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
         }
 
         internal static class AddImplementation<T>
@@ -270,7 +274,11 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
-            return result;
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
         }
 
         internal static class SubtractImplementation<T>
@@ -332,7 +340,11 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
-            return result;
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
         }
 
         internal static class MultiplyImplementation<T>
@@ -394,7 +406,11 @@ namespace Towel.Mathematics
                 }
             }
             stepper(step);
-            return result;
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
         }
 
         internal static class DivideImplementation<T>
