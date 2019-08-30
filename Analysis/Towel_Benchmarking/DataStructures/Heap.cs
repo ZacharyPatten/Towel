@@ -1,28 +1,25 @@
 ﻿using BenchmarkDotNet.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
 {
-    [Benchmarks(Tag.DataStructures, Tag.HeapArray)]
-    public class HeapArray_Benchmarks
-    {
-        [ParamsSource(nameof(EnqueueCounts))]
-        public int EnqueueCount { get; set; }
+	[Benchmarks(Tag.DataStructures, Tag.HeapArray)]
+	public class HeapArray_Benchmarks
+	{
+		[ParamsSource(nameof(EnqueueCounts))]
+		public int EnqueueCount { get; set; }
 
-        public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
+		public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
 
-        [Benchmark]
-        public void Enqueue()
-        {
-            IHeap<int> heap = new HeapArray<int>();
-            int enqueueCount = EnqueueCount;
-            for (int i = 0; i < enqueueCount; i++)
-            {
-                heap.Enqueue(i);
-            }
-        }
-    }
+		[Benchmark]
+		public void Enqueue()
+		{
+			IHeap<int> heap = new HeapArray<int>();
+			int enqueueCount = EnqueueCount;
+			for (int i = 0; i < enqueueCount; i++)
+			{
+				heap.Enqueue(i);
+			}
+		}
+	}
 }

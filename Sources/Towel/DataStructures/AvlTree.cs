@@ -3,1234 +3,1234 @@ using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
-    /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-    /// <typeparam name="T">The generic type of this data structure.</typeparam>
-    public interface IAvlTree<T> : IDataStructure<T>,
-        // Structure Properties
-        DataStructure.IAddable<T>,
-        DataStructure.IRemovable<T>,
-        DataStructure.ICountable,
-        DataStructure.IClearable,
-        DataStructure.IComparing<T>,
-        DataStructure.IAuditable<T>
-    {
-        #region Properties
+	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+	/// <typeparam name="T">The generic type of this data structure.</typeparam>
+	public interface IAvlTree<T> : IDataStructure<T>,
+		// Structure Properties
+		DataStructure.IAddable<T>,
+		DataStructure.IRemovable<T>,
+		DataStructure.ICountable,
+		DataStructure.IClearable,
+		DataStructure.IComparing<T>,
+		DataStructure.IAuditable<T>
+	{
+		#region Properties
 
-        /// <summary>Gets the current least item in the avl tree.</summary>
-        T CurrentLeast { get; }
-        /// <summary>Gets the current greated item in the avl tree.</summary>
-        T CurrentGreatest { get; }
+		/// <summary>Gets the current least item in the avl tree.</summary>
+		T CurrentLeast { get; }
+		/// <summary>Gets the current greated item in the avl tree.</summary>
+		T CurrentGreatest { get; }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        /// <summary>Determines if this structure contains a given item.</summary>
-        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-        /// <returns>True if contained, False if not.</returns>
-        bool Contains(CompareToKnownValue<T> compare);
-        /// <summary>Gets an item based on a given key.</summary>
-        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-        /// <returns>The found item.</returns>
-        T Get(CompareToKnownValue<T> compare);
-        /// <summary>Removes and item based on a given key.</summary>
-        /// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-        void Remove(CompareToKnownValue<T> compare);
-        /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        void StepperReverse(Step<T> step);
-        /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        void StepperReverse(StepRef<T> step);
-        /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        StepStatus StepperReverse(StepBreak<T> step);
-        /// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        StepStatus StepperReverse(StepRefBreak<T> step);
-        /// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        void Stepper(Step<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        void Stepper(StepRef<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        /// <returns>The result status of the stepper function.</returns>
-        StepStatus Stepper(StepBreak<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        /// <returns>The result status of the stepper function.</returns>
-        StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        void StepperReverse(Step<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        void StepperReverse(StepRef<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        /// <returns>The result status of the stepper function.</returns>
-        StepStatus StepperReverse(StepBreak<T> step, T minimum, T maximum);
-        /// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-        /// <param name="step">The step function.</param>
-        /// <param name="minimum">The minimum step value.</param>
-        /// <param name="maximum">The maximum step value.</param>
-        /// <returns>The result status of the stepper function.</returns>
-        StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum);
+		/// <summary>Determines if this structure contains a given item.</summary>
+		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+		/// <returns>True if contained, False if not.</returns>
+		bool Contains(CompareToKnownValue<T> compare);
+		/// <summary>Gets an item based on a given key.</summary>
+		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+		/// <returns>The found item.</returns>
+		T Get(CompareToKnownValue<T> compare);
+		/// <summary>Removes and item based on a given key.</summary>
+		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+		void Remove(CompareToKnownValue<T> compare);
+		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		void StepperReverse(Step<T> step);
+		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		void StepperReverse(StepRef<T> step);
+		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		StepStatus StepperReverse(StepBreak<T> step);
+		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		StepStatus StepperReverse(StepRefBreak<T> step);
+		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		void Stepper(Step<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		void Stepper(StepRef<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		/// <returns>The result status of the stepper function.</returns>
+		StepStatus Stepper(StepBreak<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		/// <returns>The result status of the stepper function.</returns>
+		StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		void StepperReverse(Step<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		void StepperReverse(StepRef<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		/// <returns>The result status of the stepper function.</returns>
+		StepStatus StepperReverse(StepBreak<T> step, T minimum, T maximum);
+		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
+		/// <param name="step">The step function.</param>
+		/// <param name="minimum">The minimum step value.</param>
+		/// <param name="maximum">The maximum step value.</param>
+		/// <returns>The result status of the stepper function.</returns>
+		StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum);
 
-        #endregion
-    }
+		#endregion
+	}
 
-    /// <summary>Contains extensions methods for the AvlTree interface.</summary>
-    public static class AvlTree
-    {
-        #region Extensions
+	/// <summary>Contains extensions methods for the AvlTree interface.</summary>
+	public static class AvlTree
+	{
+		#region Extensions
 
-        public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-        public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-        public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-        public static Stepper<T> Stepper<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
-        public static StepperRef<T> StepperRef<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
-        public static StepperBreak<T> StepperBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
-        public static StepperRefBreak<T> StepperRefBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
-        public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
-        public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
-        public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
-        public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
+		public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+		public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+		public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
+		public static Stepper<T> Stepper<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
+		public static StepperRef<T> StepperRef<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
+		public static StepperBreak<T> StepperBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
+		public static StepperRefBreak<T> StepperRefBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
+		public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
+		public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
+		public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
+		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
 
-        /// <summary>Wrapper for the get function to handle exceptions.</summary>
-        /// <typeparam name="T">The generic type of this data structure.</typeparam>
-        /// <param name="avlTree">This structure.</param>
-        /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-        /// <param name="item">The item if found.</param>
-        /// <returns>True if successful, False if not.</returns>
-        public static bool TryGet<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare, out T item)
-        {
-            try
-            {
-                item = avlTree.Get(compare);
-                return true;
-            }
-            catch
-            {
-                item = default(T);
-                return false;
-            }
-        }
+		/// <summary>Wrapper for the get function to handle exceptions.</summary>
+		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <param name="avlTree">This structure.</param>
+		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <param name="item">The item if found.</param>
+		/// <returns>True if successful, False if not.</returns>
+		public static bool TryGet<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare, out T item)
+		{
+			try
+			{
+				item = avlTree.Get(compare);
+				return true;
+			}
+			catch
+			{
+				item = default(T);
+				return false;
+			}
+		}
 
-        /// <summary>Wrapper for the remove function to handle exceptions.</summary>
-        /// <typeparam name="T">The generic type of this data structure.</typeparam>
-        /// <param name="avlTree">This structure.</param>
-        /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-        /// <returns>True if successful, False if not.</returns>
-        public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
-        {
-            try
-            {
-                avlTree.Remove(compare);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+		/// <summary>Wrapper for the remove function to handle exceptions.</summary>
+		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <param name="avlTree">This structure.</param>
+		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <returns>True if successful, False if not.</returns>
+		public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
+		{
+			try
+			{
+				avlTree.Remove(compare);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 
-    /// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-    /// <citation>
-    /// This AVL tree imlpementation was originally developed by 
-    /// Rodney Howell of Kansas State University. However, it has 
-    /// been modified since its addition into the Towel framework.
-    /// </citation>
-    [Serializable]
-    public class AvlTreeLinked<T> : IAvlTree<T>
-    {
-        internal Node _root;
-        internal int _count;
-        internal Compare<T> _compare;
+	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+	/// <citation>
+	/// This AVL tree imlpementation was originally developed by 
+	/// Rodney Howell of Kansas State University. However, it has 
+	/// been modified since its addition into the Towel framework.
+	/// </citation>
+	[Serializable]
+	public class AvlTreeLinked<T> : IAvlTree<T>
+	{
+		internal Node _root;
+		internal int _count;
+		internal Compare<T> _compare;
 
-        #region Node
+		#region Node
 
-        /// <summary>This class just holds the data for each individual node of the tree.</summary>
-        [Serializable]
-        internal class Node
-        {
-            internal T Value;
-            internal Node LeftChild;
-            internal Node RightChild;
-            internal int Height;
+		/// <summary>This class just holds the data for each individual node of the tree.</summary>
+		[Serializable]
+		internal class Node
+		{
+			internal T Value;
+			internal Node LeftChild;
+			internal Node RightChild;
+			internal int Height;
 
-            internal Node(T value)
-            {
-                this.Value = value;
-                this.LeftChild = null;
-                this.RightChild = null;
-                this.Height = 0;
-            }
-        }
+			internal Node(T value)
+			{
+				this.Value = value;
+				this.LeftChild = null;
+				this.RightChild = null;
+				this.Height = 0;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>Constructs an AVL Tree.</summary>
-        /// <param name="compare">The comparison function for sorting the items.</param>
-        /// <runtime>θ(1)</runtime>
-        public AvlTreeLinked(Compare<T> compare)
-        {
-            this._root = null;
-            this._count = 0;
-            this._compare = compare;
-        }
+		/// <summary>Constructs an AVL Tree.</summary>
+		/// <param name="compare">The comparison function for sorting the items.</param>
+		/// <runtime>θ(1)</runtime>
+		public AvlTreeLinked(Compare<T> compare)
+		{
+			this._root = null;
+			this._count = 0;
+			this._compare = compare;
+		}
 
-        /// <summary>Constructs an AVL Tree.</summary>
-        /// <runtime>θ(1)</runtime>
-        public AvlTreeLinked() : this(Towel.Compare.Default) { }
+		/// <summary>Constructs an AVL Tree.</summary>
+		/// <runtime>θ(1)</runtime>
+		public AvlTreeLinked() : this(Towel.Compare.Default) { }
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>Gets the current least item in the avl tree.</summary>
-        /// <runtime>θ(ln(Count))</runtime>
-        public T CurrentLeast
-        {
-            get
-            {
-                Node node = this._root;
-                while (node.LeftChild != null)
-                {
-                    node = node.LeftChild;
-                }
-                return node.Value;
-            }
-        }
+		/// <summary>Gets the current least item in the avl tree.</summary>
+		/// <runtime>θ(ln(Count))</runtime>
+		public T CurrentLeast
+		{
+			get
+			{
+				Node node = this._root;
+				while (node.LeftChild != null)
+				{
+					node = node.LeftChild;
+				}
+				return node.Value;
+			}
+		}
 
-        /// <summary>Gets the current greated item in the avl tree.</summary>
-        /// <runtime>θ(ln(Count))</runtime>
-        public T CurrentGreatest
-        {
-            get
-            {
-                Node node = this._root;
-                while (node.RightChild != null)
-                {
-                    node = node.RightChild;
-                }
-                return node.Value;
-            }
-        }
+		/// <summary>Gets the current greated item in the avl tree.</summary>
+		/// <runtime>θ(ln(Count))</runtime>
+		public T CurrentGreatest
+		{
+			get
+			{
+				Node node = this._root;
+				while (node.RightChild != null)
+				{
+					node = node.RightChild;
+				}
+				return node.Value;
+			}
+		}
 
-        /// <summary>The comparison function being utilized by this structure.</summary>
-        /// <runtime>θ(1)</runtime>
-        public Compare<T> Compare
-        {
-            get
-            {
-                return this._compare;
-            }
-        }
+		/// <summary>The comparison function being utilized by this structure.</summary>
+		/// <runtime>θ(1)</runtime>
+		public Compare<T> Compare
+		{
+			get
+			{
+				return this._compare;
+			}
+		}
 
-        /// <summary>Gets the number of elements in the collection.</summary>
-        /// <runtime>θ(1)</runtime>
-        public int Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
+		/// <summary>Gets the number of elements in the collection.</summary>
+		/// <runtime>θ(1)</runtime>
+		public int Count
+		{
+			get
+			{
+				return _count;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        #region Add
+		#region Add
 
-        /// <summary>Adds an object to the AVL Tree.</summary>
-        /// <param name="addition">The object to add.</param>
-        /// <runtime>O(ln(n))</runtime>
-        public void Add(T addition)
-        {
-            Node ADD(T ADDITION, Node NODE)
-            {
-                if (NODE is null)
-                {
-                    return new Node(ADDITION);
-                }
-                CompareResult comparison = _compare(NODE.Value, ADDITION);
-                if (comparison == CompareResult.Equal)
-                {
-                    throw new InvalidOperationException("Adding an item that already exists.");
-                }
-                else if (comparison == CompareResult.Greater)
-                {
-                    NODE.LeftChild = ADD(ADDITION, NODE.LeftChild);
-                }
-                else // (compareResult == Comparison.Less)
-                {
-                    NODE.RightChild = ADD(ADDITION, NODE.RightChild);
-                }
-                return Balance(NODE);
-            }
+		/// <summary>Adds an object to the AVL Tree.</summary>
+		/// <param name="addition">The object to add.</param>
+		/// <runtime>O(ln(n))</runtime>
+		public void Add(T addition)
+		{
+			Node ADD(T ADDITION, Node NODE)
+			{
+				if (NODE is null)
+				{
+					return new Node(ADDITION);
+				}
+				CompareResult comparison = _compare(NODE.Value, ADDITION);
+				if (comparison == CompareResult.Equal)
+				{
+					throw new InvalidOperationException("Adding an item that already exists.");
+				}
+				else if (comparison == CompareResult.Greater)
+				{
+					NODE.LeftChild = ADD(ADDITION, NODE.LeftChild);
+				}
+				else // (compareResult == Comparison.Less)
+				{
+					NODE.RightChild = ADD(ADDITION, NODE.RightChild);
+				}
+				return Balance(NODE);
+			}
 
-            _root = ADD(addition, _root);
-            _count++;
-        }
+			_root = ADD(addition, _root);
+			_count++;
+		}
 
-        #endregion
+		#endregion
 
-        #region Clear
+		#region Clear
 
-        /// <summary>Returns the tree to an iterative state.</summary>
-        /// <runtime>θ(1)</runtime>
-        public void Clear()
-        {
-            _root = null;
-            _count = 0;
-        }
+		/// <summary>Returns the tree to an iterative state.</summary>
+		/// <runtime>θ(1)</runtime>
+		public void Clear()
+		{
+			_root = null;
+			_count = 0;
+		}
 
-        #endregion
+		#endregion
 
-        #region Clone
+		#region Clone
 
-        /// <summary>Clones the AVL tree.</summary>
-        /// <returns>A clone of the AVL tree.</returns>
-        /// <runtime>θ(n)</runtime>
-        public AvlTreeLinked<T> Clone()
-        {
-            // Note: this has room for optimization
-            AvlTreeLinked<T> clone = new AvlTreeLinked<T>(this._compare);
-            Stepper(x => clone.Add(x));
-            return clone;
-        }
+		/// <summary>Clones the AVL tree.</summary>
+		/// <returns>A clone of the AVL tree.</returns>
+		/// <runtime>θ(n)</runtime>
+		public AvlTreeLinked<T> Clone()
+		{
+			// Note: this has room for optimization
+			AvlTreeLinked<T> clone = new AvlTreeLinked<T>(this._compare);
+			Stepper(x => clone.Add(x));
+			return clone;
+		}
 
-        #endregion
+		#endregion
 
-        #region Contains
+		#region Contains
 
-        /// <summary>Determines if the AVL tree contains a value.</summary>
-        /// <param name="value">The value to look for.</param>
-        /// <returns>Whether or not the AVL tree contains the value.</returns>
-        /// <runtime>O(ln(Count)) Ω(1)</runtime>
-        public bool Contains(T value)
-        {
-            bool CONTAINS(T VALUE, Node NODE)
-            {
-                if (NODE is null)
-                {
-                    return false;
-                }
-                CompareResult comparison = _compare(VALUE, NODE.Value);
-                if (comparison == CompareResult.Equal)
-                {
-                    return true;
-                }
-                else if (comparison == CompareResult.Less)
-                {
-                    return CONTAINS(VALUE, NODE.LeftChild);
-                }
-                else // else if (comparison == Comparison.Greater)
-                {
-                    return CONTAINS(VALUE, NODE.RightChild);
-                }
-            }
+		/// <summary>Determines if the AVL tree contains a value.</summary>
+		/// <param name="value">The value to look for.</param>
+		/// <returns>Whether or not the AVL tree contains the value.</returns>
+		/// <runtime>O(ln(Count)) Ω(1)</runtime>
+		public bool Contains(T value)
+		{
+			bool CONTAINS(T VALUE, Node NODE)
+			{
+				if (NODE is null)
+				{
+					return false;
+				}
+				CompareResult comparison = _compare(VALUE, NODE.Value);
+				if (comparison == CompareResult.Equal)
+				{
+					return true;
+				}
+				else if (comparison == CompareResult.Less)
+				{
+					return CONTAINS(VALUE, NODE.LeftChild);
+				}
+				else // else if (comparison == Comparison.Greater)
+				{
+					return CONTAINS(VALUE, NODE.RightChild);
+				}
+			}
 
-            return CONTAINS(value, this._root);
-        }
+			return CONTAINS(value, this._root);
+		}
 
-        /// <summary>Determines if this structure contains an item by a given key.</summary>
-        /// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
-        /// <returns>True of contained, False if not.</returns>
-        /// <runtime>O(ln(Count)) Ω(1)</runtime>
-        public bool Contains(CompareToKnownValue<T> comparison)
-        {
-            Node node = _root;
-            while (node != null)
-            {
-                CompareResult compareResult = comparison(node.Value);
-                if (compareResult == CompareResult.Equal)
-                {
-                    return true;
-                }
-                else if (compareResult == CompareResult.Greater)
-                {
-                    node = node.LeftChild;
-                }
-                else // (compareResult == Copmarison.Less)
-                {
-                    node = node.RightChild;
-                }
-            }
-            return false;
-        }
+		/// <summary>Determines if this structure contains an item by a given key.</summary>
+		/// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <returns>True of contained, False if not.</returns>
+		/// <runtime>O(ln(Count)) Ω(1)</runtime>
+		public bool Contains(CompareToKnownValue<T> comparison)
+		{
+			Node node = _root;
+			while (node != null)
+			{
+				CompareResult compareResult = comparison(node.Value);
+				if (compareResult == CompareResult.Equal)
+				{
+					return true;
+				}
+				else if (compareResult == CompareResult.Greater)
+				{
+					node = node.LeftChild;
+				}
+				else // (compareResult == Copmarison.Less)
+				{
+					node = node.RightChild;
+				}
+			}
+			return false;
+		}
 
-        #endregion
+		#endregion
 
-        #region Get (Known Value)
+		#region Get (Known Value)
 
-        /// <summary>Gets the item with the designated by the string.</summary>
-        /// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-        /// <returns>The object with the desired string ID if it exists.</returns>
-        /// <runtime>O(ln(Count)) Ω(1)</runtime>
-        public T Get(CompareToKnownValue<T> compare)
-        {
-            Node node = _root;
-            while (node != null)
-            {
-                CompareResult comparison = compare(node.Value);
-                if (comparison == CompareResult.Equal)
-                {
-                    return node.Value;
-                }
-                else if (comparison == CompareResult.Greater)
-                {
-                    node = node.LeftChild;
-                }
-                else // (compareResult == Copmarison.Less)
-                {
-                    node = node.RightChild;
-                }
-            }
-            throw new InvalidOperationException("Attempting to get a non-existing item.");
-        }
+		/// <summary>Gets the item with the designated by the string.</summary>
+		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <returns>The object with the desired string ID if it exists.</returns>
+		/// <runtime>O(ln(Count)) Ω(1)</runtime>
+		public T Get(CompareToKnownValue<T> compare)
+		{
+			Node node = _root;
+			while (node != null)
+			{
+				CompareResult comparison = compare(node.Value);
+				if (comparison == CompareResult.Equal)
+				{
+					return node.Value;
+				}
+				else if (comparison == CompareResult.Greater)
+				{
+					node = node.LeftChild;
+				}
+				else // (compareResult == Copmarison.Less)
+				{
+					node = node.RightChild;
+				}
+			}
+			throw new InvalidOperationException("Attempting to get a non-existing item.");
+		}
 
-        #endregion
+		#endregion
 
-        #region Remove
+		#region Remove
 
-        /// <summary>Removes an item from this structure.</summary>
-        /// <param name="removal">The item to remove.</param>
-        /// <runtime>O(ln(n))</runtime>
-        public void Remove(T removal)
-        {
-            Node REMOVE(T REMOVAL, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    CompareResult compareResult = _compare(NODE.Value, REMOVAL);
-                    if (compareResult == CompareResult.Equal)
-                    {
-                        if (NODE.RightChild != null)
-                        {
-                            NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
-                            leftMostOfRight.RightChild = NODE.RightChild;
-                            leftMostOfRight.LeftChild = NODE.LeftChild;
-                            NODE = leftMostOfRight;
-                        }
-                        else if (NODE.LeftChild != null)
-                        {
-                            NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
-                            rightMostOfLeft.RightChild = NODE.RightChild;
-                            rightMostOfLeft.LeftChild = NODE.LeftChild;
-                            NODE = rightMostOfLeft;
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                        SetHeight(NODE);
-                        return Balance(NODE);
-                    }
-                    else if (compareResult == CompareResult.Greater)
-                    {
-                        NODE.LeftChild = REMOVE(REMOVAL, NODE.LeftChild);
-                    }
-                    else // (compareResult == Comparison.Less)
-                    {
-                        NODE.RightChild = REMOVE(REMOVAL, NODE.RightChild);
-                    }
-                    SetHeight(NODE);
-                    return Balance(NODE);
-                }
-                throw new InvalidOperationException("Attempting to remove a non-existing entry.");
-            }
+		/// <summary>Removes an item from this structure.</summary>
+		/// <param name="removal">The item to remove.</param>
+		/// <runtime>O(ln(n))</runtime>
+		public void Remove(T removal)
+		{
+			Node REMOVE(T REMOVAL, Node NODE)
+			{
+				if (NODE != null)
+				{
+					CompareResult compareResult = _compare(NODE.Value, REMOVAL);
+					if (compareResult == CompareResult.Equal)
+					{
+						if (NODE.RightChild != null)
+						{
+							NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
+							leftMostOfRight.RightChild = NODE.RightChild;
+							leftMostOfRight.LeftChild = NODE.LeftChild;
+							NODE = leftMostOfRight;
+						}
+						else if (NODE.LeftChild != null)
+						{
+							NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
+							rightMostOfLeft.RightChild = NODE.RightChild;
+							rightMostOfLeft.LeftChild = NODE.LeftChild;
+							NODE = rightMostOfLeft;
+						}
+						else
+						{
+							return null;
+						}
+						SetHeight(NODE);
+						return Balance(NODE);
+					}
+					else if (compareResult == CompareResult.Greater)
+					{
+						NODE.LeftChild = REMOVE(REMOVAL, NODE.LeftChild);
+					}
+					else // (compareResult == Comparison.Less)
+					{
+						NODE.RightChild = REMOVE(REMOVAL, NODE.RightChild);
+					}
+					SetHeight(NODE);
+					return Balance(NODE);
+				}
+				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
+			}
 
-            _root = REMOVE(removal, _root);
-            _count--;
-        }
+			_root = REMOVE(removal, _root);
+			_count--;
+		}
 
-        #endregion
+		#endregion
 
-        #region Remove (Known Value)
+		#region Remove (Known Value)
 
-        /// <summary>Removes an item from this structure by a given key.</summary>
-        /// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
-        /// <runtime>O(ln(n))</runtime>
-        public void Remove(CompareToKnownValue<T> compare)
-        {
-            Node REMOVE(CompareToKnownValue<T> COMPARE, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    CompareResult compareResult = COMPARE(NODE.Value);
-                    if (compareResult == CompareResult.Equal)
-                    {
-                        if (NODE.RightChild != null)
-                        {
-                            NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
-                            leftMostOfRight.RightChild = NODE.RightChild;
-                            leftMostOfRight.LeftChild = NODE.LeftChild;
-                            NODE = leftMostOfRight;
-                        }
-                        else if (NODE.LeftChild != null)
-                        {
-                            NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
-                            rightMostOfLeft.RightChild = NODE.RightChild;
-                            rightMostOfLeft.LeftChild = NODE.LeftChild;
-                            NODE = rightMostOfLeft;
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                        SetHeight(NODE);
-                        return Balance(NODE);
-                    }
-                    else if (compareResult == CompareResult.Greater)
-                    {
-                        NODE.LeftChild = REMOVE(COMPARE, NODE.LeftChild);
-                    }
-                    else // (compareResult == Comparison.Less)
-                    {
-                        NODE.RightChild = REMOVE(COMPARE, NODE.RightChild);
-                    }
-                    SetHeight(NODE);
-                    return Balance(NODE);
-                }
-                throw new InvalidOperationException("Attempting to remove a non-existing entry.");
-            }
+		/// <summary>Removes an item from this structure by a given key.</summary>
+		/// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
+		/// <runtime>O(ln(n))</runtime>
+		public void Remove(CompareToKnownValue<T> compare)
+		{
+			Node REMOVE(CompareToKnownValue<T> COMPARE, Node NODE)
+			{
+				if (NODE != null)
+				{
+					CompareResult compareResult = COMPARE(NODE.Value);
+					if (compareResult == CompareResult.Equal)
+					{
+						if (NODE.RightChild != null)
+						{
+							NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
+							leftMostOfRight.RightChild = NODE.RightChild;
+							leftMostOfRight.LeftChild = NODE.LeftChild;
+							NODE = leftMostOfRight;
+						}
+						else if (NODE.LeftChild != null)
+						{
+							NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
+							rightMostOfLeft.RightChild = NODE.RightChild;
+							rightMostOfLeft.LeftChild = NODE.LeftChild;
+							NODE = rightMostOfLeft;
+						}
+						else
+						{
+							return null;
+						}
+						SetHeight(NODE);
+						return Balance(NODE);
+					}
+					else if (compareResult == CompareResult.Greater)
+					{
+						NODE.LeftChild = REMOVE(COMPARE, NODE.LeftChild);
+					}
+					else // (compareResult == Comparison.Less)
+					{
+						NODE.RightChild = REMOVE(COMPARE, NODE.RightChild);
+					}
+					SetHeight(NODE);
+					return Balance(NODE);
+				}
+				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
+			}
 
-            _root = REMOVE(compare, _root);
-            _count--;
-        }
+			_root = REMOVE(compare, _root);
+			_count--;
+		}
 
-        #endregion
+		#endregion
 
-        #region Stepper And IEnumerable
+		#region Stepper And IEnumerable
 
-        #region Stepper
+		#region Stepper
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <remarks>Runtime: O(n * step).</remarks>
-        public void Stepper(Step<T> step)
-        {
-            void Stepper(Step<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    Stepper(STEP, NODE.LeftChild);
-                    STEP(NODE.Value);
-                    Stepper(STEP, NODE.RightChild);
-                }
-            }
-            Stepper(step, _root);
-        }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <remarks>Runtime: O(n * step).</remarks>
+		public void Stepper(Step<T> step)
+		{
+			void Stepper(Step<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					Stepper(STEP, NODE.LeftChild);
+					STEP(NODE.Value);
+					Stepper(STEP, NODE.RightChild);
+				}
+			}
+			Stepper(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public void Stepper(StepRef<T> step)
-        {
-            void Stepper(StepRef<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    Stepper(STEP, NODE.LeftChild);
-                    STEP(ref NODE.Value);
-                    Stepper(STEP, NODE.RightChild);
-                }
-            }
-            Stepper(step, _root);
-        }
+		{
+			void Stepper(StepRef<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					Stepper(STEP, NODE.LeftChild);
+					STEP(ref NODE.Value);
+					Stepper(STEP, NODE.RightChild);
+				}
+			}
+			Stepper(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public StepStatus Stepper(StepBreak<T> step)
-        {
-            StepStatus Stepper(StepBreak<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (STEP(NODE.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-                return StepStatus.Continue;
-            }
-            return Stepper(step, _root);
-        }
+		{
+			StepStatus Stepper(StepBreak<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (STEP(NODE.Value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+				return StepStatus.Continue;
+			}
+			return Stepper(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public StepStatus Stepper(StepRefBreak<T> step)
-        {
-            StepStatus Stepper(StepRefBreak<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (STEP(ref NODE.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-                return StepStatus.Continue;
-            }
-            return Stepper(step, _root);
-        }
+		{
+			StepStatus Stepper(StepRefBreak<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					if (Stepper(STEP, NODE.LeftChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (STEP(ref NODE.Value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (Stepper(STEP, NODE.RightChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+				return StepStatus.Continue;
+			}
+			return Stepper(step, _root);
+		}
 
-        #endregion
+		#endregion
 
-        #region Stepper (ranged)
+		#region Stepper (ranged)
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual void Stepper(Step<T> step, T minimum, T maximum)
-        {
-            void Stepper(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                        STEP(NODE.Value);
-                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                }
-            }
+		{
+			void Stepper(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+						STEP(NODE.Value);
+						Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+				}
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            Stepper(step, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			Stepper(step, _root, minimum, maximum);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual void Stepper(StepRef<T> step, T minimum, T maximum)
-        {
-            void Stepper(StepRef<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                        STEP(ref NODE.Value);
-                        Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                }
-            }
+		{
+			void Stepper(StepRef<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+						STEP(ref NODE.Value);
+						Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+				}
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            Stepper(step, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			Stepper(step, _root, minimum, maximum);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual StepStatus Stepper(StepBreak<T> step, T minimum, T maximum)
-        {
-            StepStatus Stepper(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (STEP(NODE.Value) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		{
+			StepStatus Stepper(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (STEP(NODE.Value) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            if (this._compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            return Stepper(step, _root, minimum, maximum);
-        }
+			if (this._compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			return Stepper(step, _root, minimum, maximum);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <remarks>Runtime: O(n * step).</remarks>
 		public virtual StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum)
-        {
-            StepStatus Stepper(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (STEP(ref NODE.Value) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		{
+			StepStatus Stepper(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						return Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						return Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						if (Stepper(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (STEP(ref NODE.Value) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (Stepper(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            return Stepper(step, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			return Stepper(step, _root, minimum, maximum);
+		}
 
-        #endregion
+		#endregion
 
-        #region StepperReverse
+		#region StepperReverse
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public void StepperReverse(Step<T> step)
-        {
-            bool StepperReverse(Step<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    StepperReverse(STEP, NODE.RightChild);
-                    STEP(NODE.Value);
-                    StepperReverse(STEP, NODE.LeftChild);
-                }
-                return true;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public void StepperReverse(Step<T> step)
+		{
+			bool StepperReverse(Step<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					StepperReverse(STEP, NODE.RightChild);
+					STEP(NODE.Value);
+					StepperReverse(STEP, NODE.LeftChild);
+				}
+				return true;
+			}
 
-            StepperReverse(step, _root);
-        }
+			StepperReverse(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public void StepperReverse(StepRef<T> step)
-        {
-            bool StepperReverse(StepRef<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    StepperReverse(STEP, NODE.RightChild);
-                    STEP(ref NODE.Value);
-                    StepperReverse(STEP, NODE.LeftChild);
-                }
-                return true;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public void StepperReverse(StepRef<T> step)
+		{
+			bool StepperReverse(StepRef<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					StepperReverse(STEP, NODE.RightChild);
+					STEP(ref NODE.Value);
+					StepperReverse(STEP, NODE.LeftChild);
+				}
+				return true;
+			}
 
-            StepperReverse(step, _root);
-        }
+			StepperReverse(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public StepStatus StepperReverse(StepBreak<T> step)
-        {
-            StepStatus StepperReverse(StepBreak<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (STEP(NODE.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public StepStatus StepperReverse(StepBreak<T> step)
+		{
+			StepStatus StepperReverse(StepBreak<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (STEP(NODE.Value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            return StepperReverse(step, _root);
-        }
+			return StepperReverse(step, _root);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public StepStatus StepperReverse(StepRefBreak<T> step)
-        {
-            StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE)
-            {
-                if (NODE != null)
-                {
-                    if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (STEP(ref NODE.Value) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                    if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
-                    {
-                        return StepStatus.Break;
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public StepStatus StepperReverse(StepRefBreak<T> step)
+		{
+			StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE)
+			{
+				if (NODE != null)
+				{
+					if (StepperReverse(STEP, NODE.RightChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (STEP(ref NODE.Value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+					if (StepperReverse(STEP, NODE.LeftChild) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            return StepperReverse(step, _root);
-        }
+			return StepperReverse(step, _root);
+		}
 
-        #endregion
+		#endregion
 
-        #region StepperReverse (ranged)
+		#region StepperReverse (ranged)
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <param name="minimum">The minimum value of the optimized stepper function.</param>
-        /// <param name="maximum">The maximum value of the optimized stepper function.</param>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public virtual void StepperReverse(Step<T> step, T minimum, T maximum)
-        {
-            void StepperReverse(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                        STEP(NODE.Value);
-                        StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                }
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public virtual void StepperReverse(Step<T> step, T minimum, T maximum)
+		{
+			void StepperReverse(Step<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+						STEP(NODE.Value);
+						StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+				}
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            StepperReverse(step, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			StepperReverse(step, _root, minimum, maximum);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <param name="minimum">The minimum value of the optimized stepper function.</param>
-        /// <param name="maximum">The maximum value of the optimized stepper function.</param>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public virtual void StepperReverse(StepRef<T> step, T minimum, T maximum)
-        {
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            StepperReverse(step, _root, minimum, maximum);
-        }
-        internal void StepperReverse(StepRef<T> step, Node node, T minimum, T maximum)
-        {
-            if (node != null)
-            {
-                if (_compare(node.Value, minimum) == CompareResult.Less)
-                {
-                    StepperReverse(step, node.RightChild, minimum, maximum);
-                }
-                else if (_compare(node.Value, maximum) == CompareResult.Greater)
-                {
-                    StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-                else
-                {
-                    StepperReverse(step, node.RightChild, minimum, maximum);
-                    step(ref node.Value);
-                    StepperReverse(step, node.LeftChild, minimum, maximum);
-                }
-            }
-        }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public virtual void StepperReverse(StepRef<T> step, T minimum, T maximum)
+		{
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			StepperReverse(step, _root, minimum, maximum);
+		}
+		internal void StepperReverse(StepRef<T> step, Node node, T minimum, T maximum)
+		{
+			if (node != null)
+			{
+				if (_compare(node.Value, minimum) == CompareResult.Less)
+				{
+					StepperReverse(step, node.RightChild, minimum, maximum);
+				}
+				else if (_compare(node.Value, maximum) == CompareResult.Greater)
+				{
+					StepperReverse(step, node.LeftChild, minimum, maximum);
+				}
+				else
+				{
+					StepperReverse(step, node.RightChild, minimum, maximum);
+					step(ref node.Value);
+					StepperReverse(step, node.LeftChild, minimum, maximum);
+				}
+			}
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-        /// <param name="minimum">The minimum value of the optimized stepper function.</param>
-        /// <param name="maximum">The maximum value of the optimized stepper function.</param>
-        /// <remarks>Runtime: O(n * traversalFunction).</remarks>
-        public virtual StepStatus StepperReverse(StepBreak<T> step_function, T minimum, T maximum)
-        {
-            StepStatus StepperReverse(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (STEP(NODE.Value) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		public virtual StepStatus StepperReverse(StepBreak<T> step_function, T minimum, T maximum)
+		{
+			StepStatus StepperReverse(StepBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (STEP(NODE.Value) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            return StepperReverse(step_function, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			return StepperReverse(step_function, _root, minimum, maximum);
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="step">The delegate to invoke on each item in the structure.</param>
-        /// <param name="minimum">The minimum value of the optimized stepper function.</param>
-        /// <param name="maximum">The maximum value of the optimized stepper function.</param>
-        /// <remarks>Runtime: O(n * step_function).</remarks>
-        public virtual StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum)
-        {
-            StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
-            {
-                if (NODE != null)
-                {
-                    if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
-                    {
-                        return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
-                    }
-                    else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
-                    {
-                        return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
-                    }
-                    else
-                    {
-                        if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (STEP(ref NODE.Value) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                        if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
-                        {
-                            return StepStatus.Break;
-                        }
-                    }
-                }
-                return StepStatus.Continue;
-            }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <remarks>Runtime: O(n * step_function).</remarks>
+		public virtual StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum)
+		{
+			StepStatus StepperReverse(StepRefBreak<T> STEP, Node NODE, T MINIMUM, T MAXIMUM)
+			{
+				if (NODE != null)
+				{
+					if (_compare(NODE.Value, MINIMUM) == CompareResult.Less)
+					{
+						return StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM);
+					}
+					else if (_compare(NODE.Value, MAXIMUM) == CompareResult.Greater)
+					{
+						return StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM);
+					}
+					else
+					{
+						if (StepperReverse(STEP, NODE.RightChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (STEP(ref NODE.Value) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+						if (StepperReverse(STEP, NODE.LeftChild, MINIMUM, MAXIMUM) == StepStatus.Break)
+						{
+							return StepStatus.Break;
+						}
+					}
+				}
+				return StepStatus.Continue;
+			}
 
-            if (_compare(minimum, maximum) == CompareResult.Greater)
-            {
-                throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-            }
-            return StepperReverse(step, _root, minimum, maximum);
-        }
+			if (_compare(minimum, maximum) == CompareResult.Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
+			return StepperReverse(step, _root, minimum, maximum);
+		}
 
-        #endregion
+		#endregion
 
-        #region IEnumerable
+		#region IEnumerable
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
 
-        /// <summary>Gets the enumerator for this instance.</summary>
-        /// <returns>An enumerator to iterate through the data structure.</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            IStack<Node> forks = new StackLinked<Node>();
-            Node current = _root;
-            while (current != null || forks.Count > 0)
-            {
-                if (current != null)
-                {
-                    forks.Push(current);
-                    current = current.LeftChild;
-                }
-                else if (forks.Count > 0)
-                {
-                    current = forks.Pop();
-                    yield return current.Value;
-                    current = current.RightChild;
-                }
-            }
-        }
+		/// <summary>Gets the enumerator for this instance.</summary>
+		/// <returns>An enumerator to iterate through the data structure.</returns>
+		public IEnumerator<T> GetEnumerator()
+		{
+			IStack<Node> forks = new StackLinked<Node>();
+			Node current = _root;
+			while (current != null || forks.Count > 0)
+			{
+				if (current != null)
+				{
+					forks.Push(current);
+					current = current.LeftChild;
+				}
+				else if (forks.Count > 0)
+				{
+					current = forks.Pop();
+					yield return current.Value;
+					current = current.RightChild;
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #endregion
+		#endregion
 
-        #region Helpers
+		#region Helpers
 
-        /// <summary>Standard balancing algorithm for an AVL Tree.</summary>
-        /// <param name="node">The tree to check the balancing of.</param>
-        /// <returns>The result of the possible balancing.</returns>
-        /// <runtime>θ(1)</runtime>
-        private Node Balance(Node node)
-        {
-            Node RotateSingleLeft(Node NODE)
-            {
-                Node temp = NODE.RightChild;
-                NODE.RightChild = temp.LeftChild;
-                temp.LeftChild = NODE;
-                SetHeight(NODE);
-                SetHeight(temp);
-                return temp;
-            }
+		/// <summary>Standard balancing algorithm for an AVL Tree.</summary>
+		/// <param name="node">The tree to check the balancing of.</param>
+		/// <returns>The result of the possible balancing.</returns>
+		/// <runtime>θ(1)</runtime>
+		private Node Balance(Node node)
+		{
+			Node RotateSingleLeft(Node NODE)
+			{
+				Node temp = NODE.RightChild;
+				NODE.RightChild = temp.LeftChild;
+				temp.LeftChild = NODE;
+				SetHeight(NODE);
+				SetHeight(temp);
+				return temp;
+			}
 
-            Node RotateDoubleLeft(Node NODE)
-            {
-                Node temp = NODE.RightChild.LeftChild;
-                NODE.RightChild.LeftChild = temp.RightChild;
-                temp.RightChild = NODE.RightChild;
-                NODE.RightChild = temp.LeftChild;
-                temp.LeftChild = NODE;
-                SetHeight(temp.LeftChild);
-                SetHeight(temp.RightChild);
-                SetHeight(temp);
-                return temp;
-            }
+			Node RotateDoubleLeft(Node NODE)
+			{
+				Node temp = NODE.RightChild.LeftChild;
+				NODE.RightChild.LeftChild = temp.RightChild;
+				temp.RightChild = NODE.RightChild;
+				NODE.RightChild = temp.LeftChild;
+				temp.LeftChild = NODE;
+				SetHeight(temp.LeftChild);
+				SetHeight(temp.RightChild);
+				SetHeight(temp);
+				return temp;
+			}
 
-            Node RotateSingleRight(Node NODE)
-            {
-                Node temp = NODE.LeftChild;
-                NODE.LeftChild = temp.RightChild;
-                temp.RightChild = NODE;
-                SetHeight(NODE);
-                SetHeight(temp);
-                return temp;
-            }
+			Node RotateSingleRight(Node NODE)
+			{
+				Node temp = NODE.LeftChild;
+				NODE.LeftChild = temp.RightChild;
+				temp.RightChild = NODE;
+				SetHeight(NODE);
+				SetHeight(temp);
+				return temp;
+			}
 
-            Node RotateDoubleRight(Node NODE)
-            {
-                Node temp = NODE.LeftChild.RightChild;
-                NODE.LeftChild.RightChild = temp.LeftChild;
-                temp.LeftChild = NODE.LeftChild;
-                NODE.LeftChild = temp.RightChild;
-                temp.RightChild = NODE;
-                SetHeight(temp.RightChild);
-                SetHeight(temp.LeftChild);
-                SetHeight(temp);
-                return temp;
-            }
+			Node RotateDoubleRight(Node NODE)
+			{
+				Node temp = NODE.LeftChild.RightChild;
+				NODE.LeftChild.RightChild = temp.LeftChild;
+				temp.LeftChild = NODE.LeftChild;
+				NODE.LeftChild = temp.RightChild;
+				temp.RightChild = NODE;
+				SetHeight(temp.RightChild);
+				SetHeight(temp.LeftChild);
+				SetHeight(temp);
+				return temp;
+			}
 
-            if (Height(node.LeftChild) == Height(node.RightChild) + 2)
-            {
-                if (Height(node.LeftChild.LeftChild) > Height(node.RightChild))
-                {
-                    return RotateSingleRight(node);
-                }
-                else
-                {
-                    return RotateDoubleRight(node);
-                }
-            }
-            else if (Height(node.RightChild) == Height(node.LeftChild) + 2)
-            {
-                if (Height(node.RightChild.RightChild) > Height(node.LeftChild))
-                {
-                    return RotateSingleLeft(node);
-                }
-                else
-                {
-                    return RotateDoubleLeft(node);
-                }
-            }
-            SetHeight(node);
-            return node;
-        }
+			if (Height(node.LeftChild) == Height(node.RightChild) + 2)
+			{
+				if (Height(node.LeftChild.LeftChild) > Height(node.RightChild))
+				{
+					return RotateSingleRight(node);
+				}
+				else
+				{
+					return RotateDoubleRight(node);
+				}
+			}
+			else if (Height(node.RightChild) == Height(node.LeftChild) + 2)
+			{
+				if (Height(node.RightChild.RightChild) > Height(node.LeftChild))
+				{
+					return RotateSingleLeft(node);
+				}
+				else
+				{
+					return RotateDoubleLeft(node);
+				}
+			}
+			SetHeight(node);
+			return node;
+		}
 
-        /// <summary>This is just a protection against the null valued leaf nodes, which have a height of "-1".</summary>
-        /// <param name="node">The node to find the hight of.</param>
-        /// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
-        /// <runtime>θ(1)</runtime>
-        private int Height(Node node)
-        {
-            if (node is null)
-            {
-                return -1;
-            }
-            else
-            {
-                return node.Height;
-            }
-        }
+		/// <summary>This is just a protection against the null valued leaf nodes, which have a height of "-1".</summary>
+		/// <param name="node">The node to find the hight of.</param>
+		/// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
+		/// <runtime>θ(1)</runtime>
+		private int Height(Node node)
+		{
+			if (node is null)
+			{
+				return -1;
+			}
+			else
+			{
+				return node.Height;
+			}
+		}
 
-        /// <summary>Removes the left-most child of an AVL Tree node and returns it 
-        /// through the out parameter.</summary>
-        /// <param name="node">The tree to remove the left-most child from.</param>
-        /// <param name="leftMost">The left-most child of this AVL tree.</param>
-        /// <returns>The updated tree with the removal.</returns>
-        private Node RemoveLeftMost(Node node, out Node leftMost)
-        {
-            if (node.LeftChild is null)
-            {
-                leftMost = node;
-                return null;
-            }
-            node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
-            SetHeight(node);
-            return Balance(node);
-        }
+		/// <summary>Removes the left-most child of an AVL Tree node and returns it 
+		/// through the out parameter.</summary>
+		/// <param name="node">The tree to remove the left-most child from.</param>
+		/// <param name="leftMost">The left-most child of this AVL tree.</param>
+		/// <returns>The updated tree with the removal.</returns>
+		private Node RemoveLeftMost(Node node, out Node leftMost)
+		{
+			if (node.LeftChild is null)
+			{
+				leftMost = node;
+				return null;
+			}
+			node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
+			SetHeight(node);
+			return Balance(node);
+		}
 
-        /// <summary>Removes the right-most child of an AVL Tree node and returns it 
-        /// through the out parameter.</summary>
-        /// <param name="node">The tree to remove the right-most child from.</param>
-        /// <param name="leftMost">The right-most child of this AVL tree.</param>
-        /// <returns>The updated tree with the removal.</returns>
-        private Node RemoveRightMost(Node node, out Node rightMost)
-        {
-            if (node.RightChild is null)
-            {
-                rightMost = node;
-                return null;
-            }
-            node.LeftChild = RemoveRightMost(node.RightChild, out rightMost);
-            SetHeight(node);
-            return Balance(node);
-        }
+		/// <summary>Removes the right-most child of an AVL Tree node and returns it 
+		/// through the out parameter.</summary>
+		/// <param name="node">The tree to remove the right-most child from.</param>
+		/// <param name="leftMost">The right-most child of this AVL tree.</param>
+		/// <returns>The updated tree with the removal.</returns>
+		private Node RemoveRightMost(Node node, out Node rightMost)
+		{
+			if (node.RightChild is null)
+			{
+				rightMost = node;
+				return null;
+			}
+			node.LeftChild = RemoveRightMost(node.RightChild, out rightMost);
+			SetHeight(node);
+			return Balance(node);
+		}
 
-        /// <summary>Sets the height of a tree based on its children's heights.</summary>
-        /// <param name="node">The tree to have its height adjusted.</param>
-        /// <remarks>Runtime: O(1).</remarks>
-        private void SetHeight(Node node)
-        {
-            if (node.LeftChild is null && node.RightChild is null)
-            {
-                node.Height = 0;
-            }
-            else if (Height(node.LeftChild) < Height(node.RightChild))
-            {
-                node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
-            }
-        }
+		/// <summary>Sets the height of a tree based on its children's heights.</summary>
+		/// <param name="node">The tree to have its height adjusted.</param>
+		/// <remarks>Runtime: O(1).</remarks>
+		private void SetHeight(Node node)
+		{
+			if (node.LeftChild is null && node.RightChild is null)
+			{
+				node.Height = 0;
+			}
+			else if (Height(node.LeftChild) < Height(node.RightChild))
+			{
+				node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #endregion
-    }
+		#endregion
+	}
 }

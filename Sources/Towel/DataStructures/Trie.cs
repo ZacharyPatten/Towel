@@ -2,106 +2,106 @@
 
 namespace Towel.DataStructures
 {
-    public interface ITrie<T> : IDataStructure<T>
-    {
-        #region member
+	public interface ITrie<T> : IDataStructure<T>
+	{
+		#region member
 
 
 
-        #endregion
-    }
+		#endregion
+	}
 
-    public static class Trie
-    {
-        #region delegates
+	public static class Trie
+	{
+		#region delegates
 
-        public delegate bool HasSplit<T>(T item, int i);
-        public delegate T Split<T>(T item, int i);
+		public delegate bool HasSplit<T>(T item, int i);
+		public delegate T Split<T>(T item, int i);
 
-        #endregion
+		#endregion
 
-        #region extensions
-
-
-
-        #endregion
-    }
-
-    [Serializable]
-    public class Trie_Linked<T> : ITrie<T>
-    {
-        #region Trie_Linked<T>
-
-        /// <summary>Creates a shallow clone of this data structure.</summary>
-        /// <returns>A shallow clone of this data structure.</returns>
-        public IDataStructure<T> Clone()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>Converts the structure into an array.</summary>
-        /// <returns>An array containing all the item in the structure.</returns>
-        public T[] ToArray()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion
-
-        #region Trie<T>
+		#region extensions
 
 
 
-        #endregion
+		#endregion
+	}
 
-        #region Structure<T>
+	[Serializable]
+	public class Trie_Linked<T> : ITrie<T>
+	{
+		#region Trie_Linked<T>
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(Step<T> function)
-        {
-            throw new System.NotImplementedException();
-        }
+		/// <summary>Creates a shallow clone of this data structure.</summary>
+		/// <returns>A shallow clone of this data structure.</returns>
+		public IDataStructure<T> Clone()
+		{
+			throw new System.NotImplementedException();
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        public void Stepper(StepRef<T> function)
-        {
-            throw new System.NotImplementedException();
-        }
+		/// <summary>Converts the structure into an array.</summary>
+		/// <returns>An array containing all the item in the structure.</returns>
+		public T[] ToArray()
+		{
+			throw new System.NotImplementedException();
+		}
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepBreak<T> function)
-        {
-            throw new System.NotImplementedException();
-        }
+		#endregion
 
-        /// <summary>Invokes a delegate for each entry in the data structure.</summary>
-        /// <param name="function">The delegate to invoke on each item in the structure.</param>
-        /// <returns>The resulting status of the iteration.</returns>
-        public StepStatus Stepper(StepRefBreak<T> function)
-        {
-            throw new System.NotImplementedException();
-        }
+		#region Trie<T>
 
-        #endregion
 
-        #region IEnumerable<T>
 
-        System.Collections.IEnumerator
-         System.Collections.IEnumerable.GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
+		#endregion
 
-        System.Collections.Generic.IEnumerator<T>
-            System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
+		#region Structure<T>
 
-        #endregion
-    }
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<T> function)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<T> function)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepBreak<T> function)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> function)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		#endregion
+
+		#region IEnumerable<T>
+
+		System.Collections.IEnumerator
+		 System.Collections.IEnumerable.GetEnumerator()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		System.Collections.Generic.IEnumerator<T>
+			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		#endregion
+	}
 }

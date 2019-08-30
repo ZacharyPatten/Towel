@@ -7,13 +7,13 @@ using Speedf = Towel.Measurements.Speed<float>;
 
 namespace Measurements
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("You are runnning the Measurements example.");
-            Console.WriteLine("==========================================");
-            Console.WriteLine();
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Console.WriteLine("You are runnning the Measurements example.");
+			Console.WriteLine("==========================================");
+			Console.WriteLine();
 
 			#region Specific Measurement Type Examples
 
@@ -23,18 +23,18 @@ namespace Measurements
 			Angle<double> angle2 = (0.5, Revolutions);
 
 			Console.WriteLine("  Angle--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    angle1 = " + angle1);
-            Console.WriteLine("    angle2 = " + angle2);
-            Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
-            Console.WriteLine("    angle2 - angle1 = " + (angle2 - angle1));
-            Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
-            Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
-            Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
-            Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
-            Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
-            Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    angle1 = " + angle1);
+			Console.WriteLine("    angle2 = " + angle2);
+			Console.WriteLine("    angle1 + angle2 = " + (angle1 + angle2));
+			Console.WriteLine("    angle2 - angle1 = " + (angle2 - angle1));
+			Console.WriteLine("    angle1 * 2 = " + (angle1 * 2));
+			Console.WriteLine("    angle1 / 2 = " + (angle1 / 2));
+			Console.WriteLine("    angle1 > angle2 = " + (angle1 > angle2));
+			Console.WriteLine("    angle1 == angle2 = " + (angle1 == angle2));
+			Console.WriteLine("    angle1 * 2 == angle2 = " + (angle1 * 2 == angle2));
+			Console.WriteLine("    angle1 != angle2 = " + (angle1 != angle2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -44,18 +44,18 @@ namespace Measurements
 			Length<double> length2 = (2d, Yards);
 
 			Console.WriteLine("  Length--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    length1 = " + length1);
-            Console.WriteLine("    length2 = " + length2);
-            Console.WriteLine("    length1 + length2 = " + (length1 + length2));
-            Console.WriteLine("    length2 - length1 = " + (length2 - length1));
-            Console.WriteLine("    length1 * 2 = " + (length1 * 2));
-            Console.WriteLine("    length1 / 2 = " + (length1 / 2));
-            Console.WriteLine("    length1 > length2 = " + (length1 > length2));
-            Console.WriteLine("    length1 == length2 = " + (length1 == length2));
-            Console.WriteLine("    length1 * 2 == length2 = " + (length1 * 2 == length2));
-            Console.WriteLine("    length1 != length2 = " + (length1 != length2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    length1 = " + length1);
+			Console.WriteLine("    length2 = " + length2);
+			Console.WriteLine("    length1 + length2 = " + (length1 + length2));
+			Console.WriteLine("    length2 - length1 = " + (length2 - length1));
+			Console.WriteLine("    length1 * 2 = " + (length1 * 2));
+			Console.WriteLine("    length1 / 2 = " + (length1 / 2));
+			Console.WriteLine("    length1 > length2 = " + (length1 > length2));
+			Console.WriteLine("    length1 == length2 = " + (length1 == length2));
+			Console.WriteLine("    length1 * 2 == length2 = " + (length1 * 2 == length2));
+			Console.WriteLine("    length1 != length2 = " + (length1 != length2));
+			Console.WriteLine();
 
 			//object result = angle1 + length1; // WILL NOT COMPILE (this is a good thing) :)
 
@@ -67,18 +67,18 @@ namespace Measurements
 			Mass<double> mass2 = (2d, Kilograms);
 
 			Console.WriteLine("  Mass--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    mass1 = " + mass1);
-            Console.WriteLine("    mass2 = " + mass2);
-            Console.WriteLine("    mass1 + mass2 = " + (mass1 + mass2));
-            Console.WriteLine("    mass2 - mass1 = " + (mass2 - mass1));
-            Console.WriteLine("    mass1 * 2 = " + (mass1 * 2));
-            Console.WriteLine("    mass1 / 2 = " + (mass1 / 2));
-            Console.WriteLine("    mass1 > mass2 = " + (mass1 > mass2));
-            Console.WriteLine("    mass1 == mass2 = " + (mass1 == mass2));
-            Console.WriteLine("    mass1 * 2 == mass2 = " + (mass1 * 2 == mass2));
-            Console.WriteLine("    mass1 != mass2 = " + (mass1 != mass2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    mass1 = " + mass1);
+			Console.WriteLine("    mass2 = " + mass2);
+			Console.WriteLine("    mass1 + mass2 = " + (mass1 + mass2));
+			Console.WriteLine("    mass2 - mass1 = " + (mass2 - mass1));
+			Console.WriteLine("    mass1 * 2 = " + (mass1 * 2));
+			Console.WriteLine("    mass1 / 2 = " + (mass1 / 2));
+			Console.WriteLine("    mass1 > mass2 = " + (mass1 > mass2));
+			Console.WriteLine("    mass1 == mass2 = " + (mass1 == mass2));
+			Console.WriteLine("    mass1 * 2 == mass2 = " + (mass1 * 2 == mass2));
+			Console.WriteLine("    mass1 != mass2 = " + (mass1 != mass2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -88,18 +88,18 @@ namespace Measurements
 			Time<double> time2 = (2d, Minutes);
 
 			Console.WriteLine("  Time--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    time1 = " + time1);
-            Console.WriteLine("    time2 = " + time2);
-            Console.WriteLine("    time1 + time2 = " + (time1 + time2));
-            Console.WriteLine("    time2 - time1 = " + (time2 - time1));
-            Console.WriteLine("    time1 * 2 = " + (time1 * 2));
-            Console.WriteLine("    time1 / 2 = " + (time1 / 2));
-            Console.WriteLine("    time1 > time2 = " + (time1 > time2));
-            Console.WriteLine("    time1 == time2 = " + (time1 == time2));
-            Console.WriteLine("    time1 * 2 == time2 = " + (time1 * 2 == time2));
-            Console.WriteLine("    time1 != time2 = " + (time1 != time2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    time1 = " + time1);
+			Console.WriteLine("    time2 = " + time2);
+			Console.WriteLine("    time1 + time2 = " + (time1 + time2));
+			Console.WriteLine("    time2 - time1 = " + (time2 - time1));
+			Console.WriteLine("    time1 * 2 = " + (time1 * 2));
+			Console.WriteLine("    time1 / 2 = " + (time1 / 2));
+			Console.WriteLine("    time1 > time2 = " + (time1 > time2));
+			Console.WriteLine("    time1 == time2 = " + (time1 == time2));
+			Console.WriteLine("    time1 * 2 == time2 = " + (time1 * 2 == time2));
+			Console.WriteLine("    time1 != time2 = " + (time1 != time2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -109,18 +109,18 @@ namespace Measurements
 			Area<double> area2 = (2d, Yards * Yards);
 
 			Console.WriteLine("  Area--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    area1 = " + area1);
-            Console.WriteLine("    area2 = " + area2);
-            Console.WriteLine("    area1 + area2 = " + (area1 + area2));
-            Console.WriteLine("    area2 - area1 = " + (area2 - area1));
-            Console.WriteLine("    area1 * 2 = " + (area1 * 2));
-            Console.WriteLine("    area1 / 2 = " + (area1 / 2));
-            Console.WriteLine("    area1 > area2 = " + (area1 > area2));
-            Console.WriteLine("    area1 == area2 = " + (area1 == area2));
-            Console.WriteLine("    area1 * 2 == area2 = " + (area1 * 2 == area2));
-            Console.WriteLine("    area1 != area2 = " + (area1 != area2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    area1 = " + area1);
+			Console.WriteLine("    area2 = " + area2);
+			Console.WriteLine("    area1 + area2 = " + (area1 + area2));
+			Console.WriteLine("    area2 - area1 = " + (area2 - area1));
+			Console.WriteLine("    area1 * 2 = " + (area1 * 2));
+			Console.WriteLine("    area1 / 2 = " + (area1 / 2));
+			Console.WriteLine("    area1 > area2 = " + (area1 > area2));
+			Console.WriteLine("    area1 == area2 = " + (area1 == area2));
+			Console.WriteLine("    area1 * 2 == area2 = " + (area1 * 2 == area2));
+			Console.WriteLine("    area1 != area2 = " + (area1 != area2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -130,20 +130,20 @@ namespace Measurements
 			Volume<double> volume2 = (2d, Yards * Yards * Yards);
 
 			Console.WriteLine("  Volume--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    volume1 = " + volume1);
-            Console.WriteLine("    volume2 = " + volume2);
-            Console.WriteLine("    volume1 + volume2 = " + (volume1 + volume2));
-            Console.WriteLine("    volume2 - volume1 = " + (volume2 - volume1));
-            Console.WriteLine("    volume1 * 2 = " + (volume1 * 2));
-            Console.WriteLine("    volume1 / 2 = " + (volume1 / 2));
-            Console.WriteLine("    volume1 > volume2 = " + (volume1 > volume2));
-            Console.WriteLine("    volume1 == volume2 = " + (volume1 == volume2));
-            Console.WriteLine("    volume1 * 2 == volume2 = " + (volume1 * 2 == volume2));
-            Console.WriteLine("    volume1 != volume2 = " + (volume1 != volume2));
-            Area<double> area3 = volume1 / length1;
-            Console.WriteLine("    volume1 / length1 = " + area3);
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    volume1 = " + volume1);
+			Console.WriteLine("    volume2 = " + volume2);
+			Console.WriteLine("    volume1 + volume2 = " + (volume1 + volume2));
+			Console.WriteLine("    volume2 - volume1 = " + (volume2 - volume1));
+			Console.WriteLine("    volume1 * 2 = " + (volume1 * 2));
+			Console.WriteLine("    volume1 / 2 = " + (volume1 / 2));
+			Console.WriteLine("    volume1 > volume2 = " + (volume1 > volume2));
+			Console.WriteLine("    volume1 == volume2 = " + (volume1 == volume2));
+			Console.WriteLine("    volume1 * 2 == volume2 = " + (volume1 * 2 == volume2));
+			Console.WriteLine("    volume1 != volume2 = " + (volume1 != volume2));
+			Area<double> area3 = volume1 / length1;
+			Console.WriteLine("    volume1 / length1 = " + area3);
+			Console.WriteLine();
 
 			#endregion
 
@@ -153,22 +153,22 @@ namespace Measurements
 			Speed<double> speed2 = (2d, Inches / Milliseconds);
 
 			Console.WriteLine("  Speed--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    speed1 = " + speed1);
-            Console.WriteLine("    speed2 = " + speed2);
-            Console.WriteLine("    speed1 + speed2 = " + (speed1 + speed2));
-            Console.WriteLine("    speed2 - speed1 = " + (speed2 - speed1));
-            Console.WriteLine("    speed1 * 2 = " + (speed1 * 2));
-            Console.WriteLine("    speed1 / 2 = " + (speed1 / 2));
-            Console.WriteLine("    speed1 > speed2 = " + (speed1 > speed2));
-            Console.WriteLine("    speed1 == speed2 = " + (speed1 == speed2));
-            Console.WriteLine("    speed1 * 2 == speed2 = " + (speed1 * 2 == speed2));
-            Console.WriteLine("    speed1 != speed2 = " + (speed1 != speed2));
-            Console.WriteLine("    speed1 * time2 = " + (speed1 * time2));
-            Speed<double> speed3 = (6d, Knots);
-            Console.WriteLine("    speed3 = " + speed3);
-            Console.WriteLine("    speed1 + speed3 = " + (speed1 + speed3));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    speed1 = " + speed1);
+			Console.WriteLine("    speed2 = " + speed2);
+			Console.WriteLine("    speed1 + speed2 = " + (speed1 + speed2));
+			Console.WriteLine("    speed2 - speed1 = " + (speed2 - speed1));
+			Console.WriteLine("    speed1 * 2 = " + (speed1 * 2));
+			Console.WriteLine("    speed1 / 2 = " + (speed1 / 2));
+			Console.WriteLine("    speed1 > speed2 = " + (speed1 > speed2));
+			Console.WriteLine("    speed1 == speed2 = " + (speed1 == speed2));
+			Console.WriteLine("    speed1 * 2 == speed2 = " + (speed1 * 2 == speed2));
+			Console.WriteLine("    speed1 != speed2 = " + (speed1 != speed2));
+			Console.WriteLine("    speed1 * time2 = " + (speed1 * time2));
+			Speed<double> speed3 = (6d, Knots);
+			Console.WriteLine("    speed3 = " + speed3);
+			Console.WriteLine("    speed1 + speed3 = " + (speed1 + speed3));
+			Console.WriteLine();
 
 			#endregion
 
@@ -178,19 +178,19 @@ namespace Measurements
 			Acceleration<double> acceleration2 = (4d, Inches / Milliseconds / Milliseconds);
 
 			Console.WriteLine("  Acceleration--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    acceleration1 = " + acceleration1);
-            Console.WriteLine("    acceleration2 = " + acceleration2);
-            Console.WriteLine("    acceleration1 + acceleration2 = " + (acceleration1 + acceleration2));
-            Console.WriteLine("    acceleration2 - acceleration1 = " + (acceleration2 - acceleration1));
-            Console.WriteLine("    acceleration1 * 2 = " + (acceleration1 * 2));
-            Console.WriteLine("    acceleration1 / 2 = " + (acceleration1 / 2));
-            Console.WriteLine("    acceleration1 > acceleration2 = " + (acceleration1 > acceleration2));
-            Console.WriteLine("    acceleration1 == acceleration2 = " + (acceleration1 == acceleration2));
-            Console.WriteLine("    acceleration1 * 2 == acceleration2 = " + (acceleration1 * 2 == acceleration2));
-            Console.WriteLine("    acceleration1 != acceleration2 = " + (acceleration1 != acceleration2));
-            Console.WriteLine("    acceleration1 * time2 = " + (acceleration1 * time2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    acceleration1 = " + acceleration1);
+			Console.WriteLine("    acceleration2 = " + acceleration2);
+			Console.WriteLine("    acceleration1 + acceleration2 = " + (acceleration1 + acceleration2));
+			Console.WriteLine("    acceleration2 - acceleration1 = " + (acceleration2 - acceleration1));
+			Console.WriteLine("    acceleration1 * 2 = " + (acceleration1 * 2));
+			Console.WriteLine("    acceleration1 / 2 = " + (acceleration1 / 2));
+			Console.WriteLine("    acceleration1 > acceleration2 = " + (acceleration1 > acceleration2));
+			Console.WriteLine("    acceleration1 == acceleration2 = " + (acceleration1 == acceleration2));
+			Console.WriteLine("    acceleration1 * 2 == acceleration2 = " + (acceleration1 * 2 == acceleration2));
+			Console.WriteLine("    acceleration1 != acceleration2 = " + (acceleration1 != acceleration2));
+			Console.WriteLine("    acceleration1 * time2 = " + (acceleration1 * time2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -200,18 +200,18 @@ namespace Measurements
 			Force<double> force2 = (2d, Newtons);
 
 			Console.WriteLine("  Force--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    force1 = " + force1);
-            Console.WriteLine("    force2 = " + force2);
-            Console.WriteLine("    force1 + force2 = " + (force1 + force2));
-            Console.WriteLine("    force2 - force1 = " + (force2 - force1));
-            Console.WriteLine("    force1 * 2 = " + (force1 * 2));
-            Console.WriteLine("    force1 / 2 = " + (force1 / 2));
-            Console.WriteLine("    force1 > force2 = " + (force1 > force2));
-            Console.WriteLine("    force1 == force2 = " + (force1 == force2));
-            Console.WriteLine("    force1 * 2 == force2 = " + (force1 * 2 == force2));
-            Console.WriteLine("    force1 != force2 = " + (force1 != force2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    force1 = " + force1);
+			Console.WriteLine("    force2 = " + force2);
+			Console.WriteLine("    force1 + force2 = " + (force1 + force2));
+			Console.WriteLine("    force2 - force1 = " + (force2 - force1));
+			Console.WriteLine("    force1 * 2 = " + (force1 * 2));
+			Console.WriteLine("    force1 / 2 = " + (force1 / 2));
+			Console.WriteLine("    force1 > force2 = " + (force1 > force2));
+			Console.WriteLine("    force1 == force2 = " + (force1 == force2));
+			Console.WriteLine("    force1 * 2 == force2 = " + (force1 * 2 == force2));
+			Console.WriteLine("    force1 != force2 = " + (force1 != force2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -221,18 +221,18 @@ namespace Measurements
 			ElectricCurrent<double> electricCurrent2 = (4d, Amperes);
 
 			Console.WriteLine("  ElectricCurrent--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    electricCurrent1 = " + electricCurrent1);
-            Console.WriteLine("    electricCurrent2 = " + electricCurrent2);
-            Console.WriteLine("    electricCurrent1 + electricCurrent2 = " + (electricCurrent1 + electricCurrent2));
-            Console.WriteLine("    acceleration2 - electricCurrent1 = " + (electricCurrent2 - electricCurrent1));
-            Console.WriteLine("    electricCurrent1 * 2 = " + (electricCurrent1 * 2));
-            Console.WriteLine("    electricCurrent1 / 2 = " + (electricCurrent1 / 2));
-            Console.WriteLine("    electricCurrent1 > electricCurrent2 = " + (electricCurrent1 > electricCurrent2));
-            Console.WriteLine("    electricCurrent1 == electricCurrent2 = " + (electricCurrent1 == electricCurrent2));
-            Console.WriteLine("    electricCurrent1 * 2 == electricCurrent2 = " + (electricCurrent1 * 2 == electricCurrent2));
-            Console.WriteLine("    electricCurrent1 != electricCurrent2 = " + (electricCurrent1 != electricCurrent2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    electricCurrent1 = " + electricCurrent1);
+			Console.WriteLine("    electricCurrent2 = " + electricCurrent2);
+			Console.WriteLine("    electricCurrent1 + electricCurrent2 = " + (electricCurrent1 + electricCurrent2));
+			Console.WriteLine("    acceleration2 - electricCurrent1 = " + (electricCurrent2 - electricCurrent1));
+			Console.WriteLine("    electricCurrent1 * 2 = " + (electricCurrent1 * 2));
+			Console.WriteLine("    electricCurrent1 / 2 = " + (electricCurrent1 / 2));
+			Console.WriteLine("    electricCurrent1 > electricCurrent2 = " + (electricCurrent1 > electricCurrent2));
+			Console.WriteLine("    electricCurrent1 == electricCurrent2 = " + (electricCurrent1 == electricCurrent2));
+			Console.WriteLine("    electricCurrent1 * 2 == electricCurrent2 = " + (electricCurrent1 * 2 == electricCurrent2));
+			Console.WriteLine("    electricCurrent1 != electricCurrent2 = " + (electricCurrent1 != electricCurrent2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -242,19 +242,19 @@ namespace Measurements
 			AngularSpeed<double> angularSpeed2 = (2200d, Degrees / Milliseconds);
 
 			Console.WriteLine("  AngularSpeed--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    angularSpeed1 = " + angularSpeed1);
-            Console.WriteLine("    angularSpeed2 = " + angularSpeed2);
-            Console.WriteLine("    angularSpeed1 + angularSpeed2 = " + (angularSpeed1 + angularSpeed2));
-            Console.WriteLine("    angularSpeed2 - angularSpeed1 = " + (angularSpeed2 - angularSpeed1));
-            Console.WriteLine("    angularSpeed1 * 2 = " + (angularSpeed1 * 2));
-            Console.WriteLine("    angularSpeed1 / 2 = " + (angularSpeed1 / 2));
-            Console.WriteLine("    angularSpeed1 > angularSpeed2 = " + (angularSpeed1 > angularSpeed2));
-            Console.WriteLine("    angularSpeed1 == angularSpeed2 = " + (angularSpeed1 == angularSpeed2));
-            Console.WriteLine("    angularSpeed1 * 2 == angularSpeed2 = " + (angularSpeed1 * 2 == angularSpeed2));
-            Console.WriteLine("    angularSpeed1 != angularSpeed2 = " + (angularSpeed1 != angularSpeed2));
-            Console.WriteLine("    angularSpeed1 * time2 = " + (angularSpeed1 * time2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    angularSpeed1 = " + angularSpeed1);
+			Console.WriteLine("    angularSpeed2 = " + angularSpeed2);
+			Console.WriteLine("    angularSpeed1 + angularSpeed2 = " + (angularSpeed1 + angularSpeed2));
+			Console.WriteLine("    angularSpeed2 - angularSpeed1 = " + (angularSpeed2 - angularSpeed1));
+			Console.WriteLine("    angularSpeed1 * 2 = " + (angularSpeed1 * 2));
+			Console.WriteLine("    angularSpeed1 / 2 = " + (angularSpeed1 / 2));
+			Console.WriteLine("    angularSpeed1 > angularSpeed2 = " + (angularSpeed1 > angularSpeed2));
+			Console.WriteLine("    angularSpeed1 == angularSpeed2 = " + (angularSpeed1 == angularSpeed2));
+			Console.WriteLine("    angularSpeed1 * 2 == angularSpeed2 = " + (angularSpeed1 * 2 == angularSpeed2));
+			Console.WriteLine("    angularSpeed1 != angularSpeed2 = " + (angularSpeed1 != angularSpeed2));
+			Console.WriteLine("    angularSpeed1 * time2 = " + (angularSpeed1 * time2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -264,19 +264,19 @@ namespace Measurements
 			AngularAcceleration<double> angularAcceleration2 = (.4d, Degrees / Milliseconds / Milliseconds);
 
 			Console.WriteLine("  AngularAcceleration--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    angularAcceleration1 = " + angularAcceleration1);
-            Console.WriteLine("    angularAcceleration2 = " + angularAcceleration2);
-            Console.WriteLine("    angularAcceleration1 + angularAcceleration2 = " + (angularAcceleration1 + angularAcceleration2));
-            Console.WriteLine("    angularAcceleration2 - angularAcceleration1 = " + (angularAcceleration2 - angularAcceleration1));
-            Console.WriteLine("    angularAcceleration1 * 2 = " + (angularAcceleration1 * 2));
-            Console.WriteLine("    angularAcceleration1 / 2 = " + (angularAcceleration1 / 2));
-            Console.WriteLine("    angularAcceleration1 > angularAcceleration2 = " + (angularAcceleration1 > angularAcceleration2));
-            Console.WriteLine("    angularAcceleration1 == angularAcceleration2 = " + (angularAcceleration1 == angularAcceleration2));
-            Console.WriteLine("    angularAcceleration1 * 2 == angularAcceleration2 = " + (angularAcceleration1 * 2 == angularAcceleration2));
-            Console.WriteLine("    angularAcceleration1 != angularAcceleration2 = " + (angularAcceleration1 != angularAcceleration2));
-            Console.WriteLine("    angularAcceleration1 * time2 = " + (angularAcceleration1 * time2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    angularAcceleration1 = " + angularAcceleration1);
+			Console.WriteLine("    angularAcceleration2 = " + angularAcceleration2);
+			Console.WriteLine("    angularAcceleration1 + angularAcceleration2 = " + (angularAcceleration1 + angularAcceleration2));
+			Console.WriteLine("    angularAcceleration2 - angularAcceleration1 = " + (angularAcceleration2 - angularAcceleration1));
+			Console.WriteLine("    angularAcceleration1 * 2 = " + (angularAcceleration1 * 2));
+			Console.WriteLine("    angularAcceleration1 / 2 = " + (angularAcceleration1 / 2));
+			Console.WriteLine("    angularAcceleration1 > angularAcceleration2 = " + (angularAcceleration1 > angularAcceleration2));
+			Console.WriteLine("    angularAcceleration1 == angularAcceleration2 = " + (angularAcceleration1 == angularAcceleration2));
+			Console.WriteLine("    angularAcceleration1 * 2 == angularAcceleration2 = " + (angularAcceleration1 * 2 == angularAcceleration2));
+			Console.WriteLine("    angularAcceleration1 != angularAcceleration2 = " + (angularAcceleration1 != angularAcceleration2));
+			Console.WriteLine("    angularAcceleration1 * time2 = " + (angularAcceleration1 * time2));
+			Console.WriteLine();
 
 			#endregion
 
@@ -286,56 +286,56 @@ namespace Measurements
 			Density<double> density2 = (2000d, Grams / Meters / Meters / Meters);
 
 			Console.WriteLine("  Density--------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("    density1 = " + density1);
-            Console.WriteLine("    density2 = " + density2);
-            Console.WriteLine("    density1 + density2 = " + (density1 + density2));
-            Console.WriteLine("    density2 - density1 = " + (density2 - density1));
-            Console.WriteLine("    density1 * 2 = " + (density1 * 2));
-            Console.WriteLine("    density1 / 2 = " + (density1 / 2));
-            Console.WriteLine("    density1 > density2 = " + (density1 > density2));
-            Console.WriteLine("    density1 == density2 = " + (density1 == density2));
-            Console.WriteLine("    density1 * 2 == density2 = " + (density1 * 2 == density2));
-            Console.WriteLine("    density1 != density2 = " + (density1 != density2));
-            Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("    density1 = " + density1);
+			Console.WriteLine("    density2 = " + density2);
+			Console.WriteLine("    density1 + density2 = " + (density1 + density2));
+			Console.WriteLine("    density2 - density1 = " + (density2 - density1));
+			Console.WriteLine("    density1 * 2 = " + (density1 * 2));
+			Console.WriteLine("    density1 / 2 = " + (density1 / 2));
+			Console.WriteLine("    density1 > density2 = " + (density1 > density2));
+			Console.WriteLine("    density1 == density2 = " + (density1 == density2));
+			Console.WriteLine("    density1 * 2 == density2 = " + (density1 * 2 == density2));
+			Console.WriteLine("    density1 != density2 = " + (density1 != density2));
+			Console.WriteLine();
 
-            #endregion
+			#endregion
 
-            #endregion
+			#endregion
 
-            #region Syntax Sugar Example (removing the generic type via alias)
+			#region Syntax Sugar Example (removing the generic type via alias)
 
-            // If you hate seeing the "<float>" or "<double>" you can add syntax 
-            // sugar to your files with an alias in C#:
-            //
-            // using Speedf = Towel.Measurements.Speed<float>;
+			// If you hate seeing the "<float>" or "<double>" you can add syntax 
+			// sugar to your files with an alias in C#:
+			//
+			// using Speedf = Towel.Measurements.Speed<float>;
 
-            Speedf speedf = (1f, Meters / Seconds);
+			Speedf speedf = (1f, Meters / Seconds);
 
-            #endregion
+			#endregion
 
-            #region Vectors Examples
+			#region Vectors Examples
 
-            // You can use measurements inside Vectors in Towel.
+			// You can use measurements inside Vectors in Towel.
 
-            Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
-                (1f, Meters / Seconds),
-                (2f, Meters / Seconds),
-                (3f, Meters / Seconds));
+			Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
+				(1f, Meters / Seconds),
+				(2f, Meters / Seconds),
+				(3f, Meters / Seconds));
 
-            Vector<Speedf> velocity2 = new Vector<Speedf>(
-                (.1f, Centimeters / Seconds),
-                (.2f, Centimeters / Seconds),
-                (.3f, Centimeters / Seconds));
+			Vector<Speedf> velocity2 = new Vector<Speedf>(
+				(.1f, Centimeters / Seconds),
+				(.2f, Centimeters / Seconds),
+				(.3f, Centimeters / Seconds));
 
-            Vector<Speed<float>> velocity3 = velocity1 + velocity2;
+			Vector<Speed<float>> velocity3 = velocity1 + velocity2;
 
-            #endregion
+			#endregion
 
-            Console.WriteLine();
-            Console.WriteLine("=================================================");
-            Console.WriteLine("Example Complete...");
-            Console.ReadLine();
-        }
-    }
+			Console.WriteLine();
+			Console.WriteLine("=================================================");
+			Console.WriteLine("Example Complete...");
+			Console.ReadLine();
+		}
+	}
 }
