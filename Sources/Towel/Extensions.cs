@@ -1105,7 +1105,7 @@ namespace System
             }
         }
 
-        private static string ConvertWholeNumber(decimal @decimal)
+		internal static string ConvertWholeNumber(decimal @decimal)
         {
             if (@decimal % 1 != 0 || @decimal < 0)
             {
