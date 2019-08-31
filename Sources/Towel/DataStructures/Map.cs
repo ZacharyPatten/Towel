@@ -26,7 +26,11 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		bool TryGet(K key, out T item);
+		/// <summary>Tries to get a value by key.</summary>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value if it is found or default if not found.</param>
+		/// <returns>True if the value was found. False if not.</returns>
+		bool TryGet(K key, out T value);
 		/// <summary>Gets an item by key.</summary>
 		/// <param name="key">The key of the pair to get.</param>
 		/// <returns>The by the provided key.</returns>
@@ -284,6 +288,10 @@ namespace Towel.DataStructures
 			throw new InvalidOperationException("attempting to get a non-existing key from a map");
 		}
 
+		/// <summary>Tries to get a value by key.</summary>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value if it was found or default if not found.</param>
+		/// <returns>True if the value was found. False if not.</returns>
 		public bool TryGet(K key, out T value)
 		{
 			int hashCode = ComputeHash(key);
@@ -860,6 +868,10 @@ namespace Towel.DataStructures
 			throw new InvalidOperationException("attempting to get a non-existing key from a map");
 		}
 
+		/// <summary>Tries to get a value by key.</summary>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value if found or default if not found.</param>
+		/// <returns>True if the value is found. False if not.</returns>
 		public bool TryGet(K key, out T value)
 		{
 			int hashCode = _hash(key);

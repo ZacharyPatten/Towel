@@ -3346,6 +3346,12 @@
             <param name="key">The "index" to access of the structure.</param>
             <returns>The value at the index of the requested key.</returns>
         </member>
+        <member name="M:Towel.DataStructures.IMap`2.TryGet(`1,`0@)">
+            <summary>Tries to get a value by key.</summary>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value if it is found or default if not found.</param>
+            <returns>True if the value was found. False if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.IMap`2.Get(`1)">
             <summary>Gets an item by key.</summary>
             <param name="key">The key of the pair to get.</param>
@@ -3457,6 +3463,12 @@
             <summary>Gets an item by key.</summary>
             <param name="key">The key of the item to get.</param>
             <returns>The by the provided key.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.TryGet(`1,`0@)">
+            <summary>Tries to get a value by key.</summary>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value if it was found or default if not found.</param>
+            <returns>True if the value was found. False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Set(`1,`0)">
             <summary>Sets an item by key.</summary>
@@ -3576,6 +3588,12 @@
             <summary>Gets an item by key.</summary>
             <param name="key">The key of the item to get.</param>
             <returns>The value of the provided key.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashArray`2.TryGet(`1,`0@)">
+            <summary>Tries to get a value by key.</summary>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value if found or default if not found.</param>
+            <returns>True if the value is found. False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashArray`2.Set(`1,`0)">
             <summary>Sets the value of a given key in the map.</summary>
