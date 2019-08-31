@@ -355,7 +355,6 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		/// <runtime>θ(1)</runtime>
 		public QueueArray()
 		{
@@ -529,7 +528,7 @@ namespace Towel.DataStructures
 		{
 			if (_count == 0)
 			{
-				throw new InvalidOperationException("attempting to dequeue from an empty queue.");
+				throw new InvalidOperationException("attempting to queue from an empty queue.");
 			}
 			if (_count < _queue.Length / 4 && _queue.Length / 2 > _minimumCapacity)
 			{
@@ -554,6 +553,8 @@ namespace Towel.DataStructures
 
 		#region Peek
 
+		/// <summary>Gets the next item in the queue without removing it.</summary>
+		/// <returns>The next item in the queue.</returns>
 		public T Peek()
 		{
 			T returnValue = _queue[_start];
@@ -599,7 +600,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<T> step)
 		{

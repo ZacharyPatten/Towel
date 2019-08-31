@@ -12988,7 +12988,6 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.#ctor">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-            <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
             <runtime>θ(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.#ctor(System.Int32)">
@@ -13031,6 +13030,10 @@
             <summary>Removes the item at a specific index.</summary>
             <remarks>Runtime: Towel(n - index).</remarks>
         </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.Peek">
+            <summary>Gets the next item in the queue without removing it.</summary>
+            <returns>The next item in the queue.</returns>
+        </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Clear">
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
             <remarks>Runtime: O(1).</remarks>
@@ -13045,7 +13048,7 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepRefBreak{`0})">
