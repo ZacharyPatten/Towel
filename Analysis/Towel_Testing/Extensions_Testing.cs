@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-#pragma warning disable IDE0060 // Suppress Compiler Messages (they are intentional for testing)
+#pragma warning disable IDE0060 // Remove unused parameter
 
 namespace Towel_Testing
 {
@@ -151,7 +151,7 @@ namespace Towel_Testing
 			Assert.IsTrue(new Action<int>(c).Method.IsLocalFunction());
 
 			void d<T>() { }
-			Assert.IsTrue(new Action<int>(c).Method.IsLocalFunction());
+			Assert.IsTrue(new Action(d<int>).Method.IsLocalFunction());
 
 			//// pending C# 8
 			//static void e() { }
@@ -180,6 +180,8 @@ namespace Towel_Testing
 
 		#endregion
 	}
+
+#pragma warning disable CS0067 // The event is never used
 
 	#region XML Documentation From MethodInfo
 
@@ -896,6 +898,8 @@ namespace Towel_Testing
 	}
 
 	#endregion
+
+#pragma warning restore CS0067 // The event is never used
 }
 
-#pragma warning restore IDE0060
+#pragma warning restore IDE0060 // Remove unused parameter

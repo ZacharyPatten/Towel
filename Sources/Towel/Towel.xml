@@ -26639,6 +26639,121 @@
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Days">
             <summary>Units of an time measurement.</summary>
         </member>
+        <member name="T:Towel.Serialization.Serialization">
+            <summary>Static class containing serialization code.</summary>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0)">
+            <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="value">The value to serialize.</param>
+            <returns>The XML serialzation of the value.</returns>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.Xml.XmlWriterSettings)">
+            <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="value">The value to serialize.</param>
+            <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
+            <returns>The XML serialzation of the value.</returns>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.IO.TextWriter)">
+            <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="value">The value to serialize.</param>
+            <param name="textWriter">The text writer to output the XML serialization to.</param>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
+            <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="value">The value to serialize.</param>
+            <param name="textWriter">The text writer to output the XML serialization to.</param>
+            <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultFromXml``1(System.String)">
+            <summary>Wrapper for the default XML deserialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <param name="string">The string containing the XML content to deserialize.</param>
+            <returns>The deserialized value.</returns>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.DefaultFromXml``1(System.IO.TextReader)">
+            <summary>Wrapper for the default XML deserialization in .NET using XmlSerializer.</summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <param name="textReader">The text reader providing the XML to deserialize.</param>
+            <returns>The deserialized value.</returns>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0)">
+            <summary>Serializes a static delegate to XML.</summary>
+            <typeparam name="T">The type of delegate to serialize.</typeparam>
+            <param name="delegate">The delegate to serialize.</param>
+            <returns>The XML serialization of the delegate.</returns>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.Xml.XmlWriterSettings)">
+            <summary>Serializes a static delegate to XML.</summary>
+            <typeparam name="T">The type of delegate to serialize.</typeparam>
+            <param name="delegate">The delegate to serialize.</param>
+            <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
+            <returns>The XML serialization of the delegate.</returns>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter)">
+            <summary>Serializes a static delegate to XML.</summary>
+            <typeparam name="T">The type of delegate to serialize.</typeparam>
+            <param name="delegate">The delegate to serialize.</param>
+            <param name="textWriter">The text writer to output the XML serialization to.</param>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
+            <summary>Serializes a static delegate to XML.</summary>
+            <typeparam name="T">The type of delegate to serialize.</typeparam>
+            <param name="delegate">The delegate to serialize.</param>
+            <param name="textWriter">The text writer to output the XML serialization to.</param>
+            <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateFromXml``1(System.String)">
+            <summary>Deserializes a static delegate from XML.</summary>
+            <typeparam name="T">The type of the delegate to deserialize.</typeparam>
+            <param name="string">The string of XML content to deserialize.</param>
+            <returns>The deserialized delegate.</returns>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
+        <member name="M:Towel.Serialization.Serialization.StaticDelegateFromXml``1(System.IO.TextReader)">
+            <summary>Deserializes a static delegate from XML.</summary>
+            <typeparam name="T">The type of the delegate to deserialize.</typeparam>
+            <param name="textReader">The text reader providing the XML to deserialize.</param>
+            <returns>The deserialized delegate.</returns>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a non-static method.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            Thrown when the delegate is pointing to a local function.
+            </exception>
+        </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of data structure iteration.</summary>
         </member>

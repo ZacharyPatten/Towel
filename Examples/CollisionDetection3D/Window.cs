@@ -176,20 +176,20 @@ namespace CollisionDetection3D
 
 	#region Sphere
 
-	class Sphere : IObject3D
-	{
-		public float Radius;
-
-		public SVector3 Position { get; set; }
-		public SVector3 Velocity { get; set; }
-
-		public float MinX { get => Position.X - Radius; }
-		public float MaxX { get => Position.X + Radius; }
-		public float MinY { get => Position.Y - Radius; }
-		public float MaxY { get => Position.Y + Radius; }
-		public float MinZ { get => Position.Z - Radius; }
-		public float MaxZ { get => Position.Z + Radius; }
-	}
+	//class Sphere : IObject3D
+	//{
+	//	public float Radius;
+	//
+	//	public SVector3 Position { get; set; }
+	//	public SVector3 Velocity { get; set; }
+	//
+	//	public float MinX { get => Position.X - Radius; }
+	//	public float MaxX { get => Position.X + Radius; }
+	//	public float MinY { get => Position.Y - Radius; }
+	//	public float MaxY { get => Position.Y + Radius; }
+	//	public float MinZ { get => Position.Z - Radius; }
+	//	public float MaxZ { get => Position.Z + Radius; }
+	//}
 
 	#endregion
 
@@ -372,15 +372,15 @@ void main()
 				z = obj.Position.Z;
 			}
 
-			void GetBounds(IObject3D boundingBox3D,
-				out float minX, out float maxX,
-				out float minY, out float maxY,
-				out float minZ, out float maxZ)
-			{
-				minX = boundingBox3D.MinX; maxX = boundingBox3D.MaxX;
-				minY = boundingBox3D.MinY; maxY = boundingBox3D.MaxY;
-				minZ = boundingBox3D.MinZ; maxZ = boundingBox3D.MaxZ;
-			}
+			//void GetBounds(IObject3D boundingBox3D,
+			//	out float minX, out float maxX,
+			//	out float minY, out float maxY,
+			//	out float minZ, out float maxZ)
+			//{
+			//	minX = boundingBox3D.MinX; maxX = boundingBox3D.MaxX;
+			//	minY = boundingBox3D.MinY; maxY = boundingBox3D.MaxY;
+			//	minZ = boundingBox3D.MinZ; maxZ = boundingBox3D.MaxZ;
+			//}
 
 			bool Equate(IObject3D a, IObject3D b)
 			{
@@ -528,14 +528,10 @@ void main()
 
 					#endregion
 				}
-				else if (@object is Sphere)
-				{
-					#region Render Sphere
-
-					// I haven't added any spheres yet
-
-					#endregion
-				}
+				//else if (@object is Sphere)
+				//{
+				//	// I haven't added any spheres yet
+				//}
 			}
 
 			#endregion

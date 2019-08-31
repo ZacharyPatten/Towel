@@ -463,7 +463,7 @@ namespace Towel.Measurements
 			[ConversionFactor(NauticalMiles, "5.4 * 10 ^ 20")]
 			[MetricUnit(MetricUnits.Yotta)]
 			Yottameters = 25,
-			/// <summary>Units of an length measurement.</summary>
+			// <summary>Units of an length measurement.</summary>
 			//LightYear = 26,
 		}
 	}
@@ -661,7 +661,7 @@ namespace Towel.Measurements
 			Fahrenheit = 2,
 		}
 
-		public static Func<T, T>[][] BuildConversionTable<T>()
+		internal static Func<T, T>[][] BuildConversionTable<T>()
 		{
 			T A = (Symbolics.Parse<T>("273.15").Simplify() as Symbolics.Constant<T>).Value;
 			T B = (Symbolics.Parse<T>("9 / 5").Simplify() as Symbolics.Constant<T>).Value;
