@@ -11,6 +11,8 @@ namespace Towel_Testing
 	[TestClass]
 	public class Extensions_Testing
 	{
+		#region XML Documentation Testing
+
 		[TestMethod]
 		public void GetDocumentation_Method()
 		{
@@ -131,6 +133,52 @@ namespace Towel_Testing
 			string Test1_a = typeof(XmlDocumentationFromParameter).GetMethod("Test1").GetParameters()[0].GetDocumentation();
 			Assert.IsTrue(Test1_a.Equals("<param name=\"a\">TEST a</param>"));
 		}
+
+		#endregion
+
+		#region MethodInfo Testing
+
+		[TestMethod]
+		public void IsLocalFunction_MethodInfo()
+		{
+			void a() { }
+			Assert.IsTrue(new Action(a).Method.IsLocalFunction());
+
+			long b() { return 0; }
+			Assert.IsTrue(new Func<long>(b).Method.IsLocalFunction());
+
+			void c(int c1) { }
+			Assert.IsTrue(new Action<int>(c).Method.IsLocalFunction());
+
+			void d<T>() { }
+			Assert.IsTrue(new Action<int>(c).Method.IsLocalFunction());
+
+			//// pending C# 8
+			//static void e() { }
+			//Assert.IsTrue(new Action(e).Method.IsLocalFunction());
+
+			MethodInfo f()
+			{
+				void g() { }
+				return new Action(g).Method;
+			}
+			Assert.IsTrue(f().IsLocalFunction());
+
+			MethodInfo h()
+			{
+				MethodInfo i()
+				{
+					void j() { }
+					return new Action(j).Method;
+				}
+				return i();
+			}
+			Assert.IsTrue(h().IsLocalFunction());
+
+			Assert.IsFalse(new Action(IsLocalFunction_MethodInfo).Method.IsLocalFunction());
+		}
+
+		#endregion
 	}
 
 	#region XML Documentation From MethodInfo

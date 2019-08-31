@@ -27232,7 +27232,7 @@
         </member>
         <member name="M:System.TowelSystemExtensions.LoadXmlDocumentation(System.IO.TextReader)">
             <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-            <param name="xmlDocumentation">The text reader to process in an XmlReader.</param>
+            <param name="textReader">The text reader to process in an XmlReader.</param>
         </member>
         <member name="M:System.TowelSystemExtensions.ClearXmlDocumentation">
             <summary>Clears the currently loaded XML documentation.</summary>
@@ -27283,6 +27283,11 @@
             <summary>Gets the XML documentation for a parameter.</summary>
             <param name="parameterInfo">The parameter to get the XML documentation for.</param>
             <returns>The XML documenation of the parameter.</returns>
+        </member>
+        <member name="M:System.TowelSystemExtensions.IsLocalFunction(System.Reflection.MethodInfo)">
+            <summary>Determines if a MethodInfo is a local function.</summary>
+            <param name="methodInfo">The method info to determine if it is a local function.</param>
+            <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
         <member name="M:System.TowelSystemExtensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>

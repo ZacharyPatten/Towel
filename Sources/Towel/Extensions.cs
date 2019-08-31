@@ -1251,7 +1251,7 @@ namespace System
 		}
 
 		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-		/// <param name="xmlDocumentation">The text reader to process in an XmlReader.</param>
+		/// <param name="textReader">The text reader to process in an XmlReader.</param>
 		public static void LoadXmlDocumentation(TextReader textReader)
 		{
 			using (XmlReader xmlReader = XmlReader.Create(textReader))
@@ -1581,6 +1581,18 @@ namespace System
 				}
 			}
 			return null;
+		}
+
+		#endregion
+
+		#region MethodInfo
+
+		/// <summary>Determines if a MethodInfo is a local function.</summary>
+		/// <param name="methodInfo">The method info to determine if it is a local function.</param>
+		/// <returns>True if the MethodInfo is a local function. False if not.</returns>
+		public static bool IsLocalFunction(this MethodInfo methodInfo)
+		{
+			return Regex.Match(methodInfo.Name, @"g__.+\|\d+_\d+").Success;
 		}
 
 		#endregion
