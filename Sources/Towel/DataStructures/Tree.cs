@@ -44,7 +44,6 @@ namespace Towel.DataStructures
 
 	/// <summary>A generic tree data structure using a dictionary to store node data.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	[Serializable]
 	public class TreeMap<T> : ITree<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>,
@@ -57,7 +56,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal T Parent;

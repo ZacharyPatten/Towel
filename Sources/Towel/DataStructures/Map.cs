@@ -83,7 +83,6 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	[Serializable]
 	public class MapHashLinked<T, K> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IHashing<K>
@@ -98,7 +97,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal K Key;
@@ -656,7 +654,6 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	[Serializable]
 	public class MapHashArray<T, K> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IHashing<K>
@@ -671,7 +668,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal struct Node
 		{
 			internal int Hash;

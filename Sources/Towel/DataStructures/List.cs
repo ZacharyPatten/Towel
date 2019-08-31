@@ -8,18 +8,10 @@ namespace Towel.DataStructures
 		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.ICountable,
-		DataStructure.IClearable,
-		DataStructure.IEquating<T>
+		DataStructure.IClearable
 	{
 		#region Members
 
-		/// <summary>Removes the first occurence of an item in the list.</summary>
-		/// <param name="value">The value to remove the first occurence of.</param>
-		void RemoveFirst(T value);
-		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
-		/// <param name="value">The value to remove the first occurence of.</param>
-		/// <returns>True if the item was found and removed; False if not.</returns>
-		bool TryRemoveFirst(T value);
 		/// <summary>Removes the first occurence of an item in the list.</summary>
 		/// <param name="predicate">The function to determine equality.</param>
 		void RemoveFirst(Predicate<T> predicate);
@@ -30,11 +22,65 @@ namespace Towel.DataStructures
 		/// <summary>Removes all occurences of an item in the list.</summary>
 		/// <param name="predicate">The function to determine equality.</param>
 		void RemoveAll(Predicate<T> predicate);
-		/// <summary>Removes all occurences of an item in the list.</summary>
-		/// <param name="value">The value to remove all occurences of.</param>
-		void RemoveAll(T value);
 
 		#endregion
+	}
+
+	/// <summary>Contains static extension methods for IList types.</summary>
+	public static class List
+	{
+		/// <summary>Removes the first occurence of an item in the list.</summary>
+		/// <param name="iList">The list to remove the value from.</param>
+		/// <param name="value">The value to remove the first occurence of.</param>
+		public static void RemoveFirst<T>(this IList<T> iList, T value)
+		{
+			iList.RemoveFirst(value, Equate.Default);
+		}
+
+		/// <summary>Removes the first occurence of an item in the list.</summary>
+		/// <param name="iList">The list to remove the value from.</param>
+		/// <param name="value">The value to remove the first occurence of.</param>
+		/// <param name="equate">The delegate for performing equality checks.</param>
+		public static void RemoveFirst<T>(this IList<T> iList, T value, Equate<T> equate)
+		{
+			iList.RemoveFirst(x => equate(x, value));
+		}
+
+		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
+		/// <param name="iList">The list to remove the value from.</param>
+		/// <param name="value">The value to remove the first occurence of.</param>
+		/// <returns>True if the item was found and removed; False if not.</returns>
+		public static bool TryRemoveFirst<T>(this IList<T> iList, T value)
+		{
+			return iList.TryRemoveFirst(value, Equate.Default);
+		}
+
+		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
+		/// <param name="iList">The list to remove the value from.</param>
+		/// <param name="value">The value to remove the first occurence of.</param>
+		/// <param name="equate">The delegate for performing equality checks.</param>
+		/// <returns>True if the item was found and removed; False if not.</returns>
+		public static bool TryRemoveFirst<T>(this IList<T> iList, T value, Equate<T> equate)
+		{
+			return iList.TryRemoveFirst(x => equate(x, value));
+		}
+
+		/// <summary>Removes all occurences of an item in the list.</summary>
+		/// <param name="iList">The list to remove the values from.</param>
+		/// <param name="value">The value to remove all occurences of.</param>
+		public static void RemoveAll<T>(this IList<T> iList, T value)
+		{
+			iList.RemoveAll(value, Equate.Default);
+		}
+
+		/// <summary>Removes all occurences of an item in the list.</summary>
+		/// <param name="iList">The list to remove the values from.</param>
+		/// <param name="value">The value to remove all occurences of.</param>
+		/// <param name="equate">The delegate for performing equality checks.</param>
+		public static void RemoveAll<T>(this IList<T> iList, T value, Equate<T> equate)
+		{
+			iList.RemoveAll(x => equate(x, value));
+		}
 	}
 
 	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
@@ -45,7 +91,6 @@ namespace Towel.DataStructures
 		internal int _count;
 		internal Node _head;
 		internal Node _tail;
-		internal Equate<T> _equate;
 
 		#region Node
 
@@ -77,25 +122,18 @@ namespace Towel.DataStructures
 				current_clone = current_clone.Next;
 				current = current.Next;
 			}
-			_equate = listLinked._equate;
 			_head = head;
 			_tail = current_clone;
 			_count = listLinked._count;
 		}
 
 		/// <summary>Creates an instance of a AddableLinked.</summary>
-		/// <param name="equate">The equate delegate to be used by the structure.</param>
 		/// <runtime>θ(1)</runtime>
-		public ListLinked(Equate<T> equate)
+		public ListLinked()
 		{
-			_equate = equate;
 			_head = _tail = null;
 			_count = 0;
 		}
-
-		/// <summary>Creates an instance of a AddableLinked.</summary>
-		/// <runtime>θ(1)</runtime>
-		public ListLinked() : this(Towel.Equate.Default) { }
 
 		#endregion
 
@@ -104,10 +142,6 @@ namespace Towel.DataStructures
 		/// <summary>Returns the number of items in the list.</summary>
 		/// <runtime>θ(1)</runtime>
 		public int Count => _count;
-
-		/// <summary>Returns the equate delegate being used by the structure.</summary>
-		/// <runtime>θ(1)</runtime>
-		public Equate<T> Equate => _equate;
 
 		#endregion
 
@@ -160,13 +194,6 @@ namespace Towel.DataStructures
 		#region Remove
 
 		/// <summary>Removes the first equality by object reference.</summary>
-		/// <param name="removal">The reference to the item to remove.</param>
-		public void RemoveFirst(T removal)
-		{
-			RemoveFirst(x => _equate(x, removal));
-		}
-
-		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public void RemoveFirst(Predicate<T> predicate)
 		{
@@ -206,21 +233,6 @@ namespace Towel.DataStructures
 				}
 				listNode = listNode.Next;
 			}
-		}
-
-		/// <summary>Removes the first equality by object reference.</summary>
-		/// <param name="value">The item to remove.</param>
-		public void RemoveAll(T value)
-		{
-			RemoveAll(x => _equate(x, value));
-		}
-
-		/// <summary>Trys to remove the first occurence of a value if the value exists.</summary>
-		/// <param name="value">The value to remove.</param>
-		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst(T value)
-		{
-			return TryRemoveFirst(x => _equate(x, value));
 		}
 
 		/// <summary>Trys to remove the first predicated value if the value exists.</summary>
@@ -374,30 +386,22 @@ namespace Towel.DataStructures
 	{
 		internal T[] _list;
 		internal int _count;
-		internal Equate<T> _equate;
 
 		#region Constructor
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <runtime>O(1)</runtime>
-		public ListArray() : this(1, Towel.Equate.Default<T>) { }
+		public ListArray() : this(1) { }
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
 		/// <runtime>O(1)</runtime>
-		public ListArray(int expectedCount) : this(expectedCount, Towel.Equate.Default) { }
-
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
-		/// <param name="equate">The equate delegate to be used by the list.</param>
-		/// <runtime>O(1)</runtime>
-		public ListArray(int expectedCount, Equate<T> equate)
+		public ListArray(int expectedCount)
 		{
 			if (expectedCount < 1)
 			{
 				throw new ArgumentOutOfRangeException(nameof(expectedCount), expectedCount, "!(0 < " + nameof(expectedCount) + ")");
 			}
-			_equate = equate;
 			_list = new T[expectedCount];
 			_count = 0;
 		}
@@ -409,15 +413,13 @@ namespace Towel.DataStructures
 			{
 				_list[i] = listArray._list[i];
 			}
-			_equate = listArray._equate;
 			_count = listArray._count;
 		}
 
-		internal ListArray(T[] list, int count, Equate<T> equate)
+		internal ListArray(T[] list, int count)
 		{
 			_list = list;
 			_count = count;
-			_equate = equate;
 		}
 
 		#endregion
@@ -455,9 +457,6 @@ namespace Towel.DataStructures
 		/// <summary>Gets the current capacity of the list.</summary>
 		/// <runtime>O(1)</runtime>
 		public int CurrentCapacity => _list.Length;
-		/// <summary>Gets the equate delegate of the list.</summary>
-		/// <runtime>O(1)</runtime>
-		public Equate<T> Equate => _equate;
 
 		#endregion
 
@@ -592,14 +591,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Removes all occurences of a given item.</summary>
-		/// <param name="value">The item to remove.</param>
-		/// <runtime>Θ(n)</runtime>
-		public void RemoveAll(T value)
-		{
-			RemoveAll(x => _equate(x, value));
-		}
-
 		/// <summary>Removes all predicated items from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>Θ(n)</runtime>
@@ -624,14 +615,6 @@ namespace Towel.DataStructures
 			_count -= removed;
 		}
 
-		/// <summary>Removes the first occurence of a value from the list.</summary>
-		/// <param name="removal">The value to remove.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirst(T removal)
-		{
-			RemoveFirst(x => _equate(x, removal));
-		}
-
 		/// <summary>Removes the first predicated value from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
@@ -644,11 +627,20 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
-		/// <param name="removal">The value to remove.</param>
+		/// <param name="value">The value to remove.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(T removal)
+		public void RemoveFirstWithoutShrink(T value)
 		{
-			RemoveFirstWithoutShrink(x => _equate(x, removal));
+			RemoveFirstWithoutShrink(value, Equate.Default);
+		}
+
+		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="equate">The delegate providing the equality check.</param>
+		/// <runtime>O(n), Ω(1)</runtime>
+		public void RemoveFirstWithoutShrink(T value, Equate<T> equate)
+		{
+			RemoveFirstWithoutShrink(x => equate(x, value));
 		}
 
 		/// <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
@@ -660,14 +652,6 @@ namespace Towel.DataStructures
 			{
 				throw new InvalidOperationException("Attempting to remove a non-existing item from this list.");
 			}
-		}
-
-		/// <summary>Tries to remove the first value if the value exists.</summary>
-		/// <param name="value">The value to remove.</param>
-		/// <returns>True if the item was found and removed. False if not.</returns>
-		public bool TryRemoveFirst(T value)
-		{
-			return TryRemoveFirst(x => _equate(x, value));
 		}
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>

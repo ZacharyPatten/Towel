@@ -17,7 +17,6 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	[Serializable]
 	public class SetHashLinked<T> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
@@ -32,7 +31,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal T Value;
@@ -355,7 +353,6 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	[Serializable]
 	public class SetHashArray<T> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
@@ -370,7 +367,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal struct Node
 		{
 			internal int Hash;
@@ -721,7 +717,6 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	[Serializable]
 	public class Set<STRUCTURE, T> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>

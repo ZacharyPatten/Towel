@@ -257,7 +257,6 @@ namespace Towel.DataStructures
 	/// addition into the Towel framework.
 	/// http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
 	/// </citation>
-	[Serializable]
 	public class RedBlackTreeLinked<T> : IRedBlackTree<T>
 	{
 		internal const bool Red = true;
@@ -270,7 +269,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal bool Color;

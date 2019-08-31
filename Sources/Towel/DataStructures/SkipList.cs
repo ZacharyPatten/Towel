@@ -18,7 +18,6 @@ namespace Towel.DataStructures
 	///	 Created by: Leslie Sanford (08/27/2003)
 	///	 Contact: jabberdabber@hotmail.com
 	/// </citation>
-	[Serializable]
 	public class SkipListLinked<T> : System.Collections.IEnumerable
 	{
 		internal const int MaxLevel = 32; // Maximum level any node in a skip list can have
@@ -30,7 +29,6 @@ namespace Towel.DataStructures
 		internal int _count; // Current number of elements in the skip list.
 							 // nested types
 		#region private class Node
-		[Serializable]
 		internal class Node
 		{
 			// References to nodes further along in the skip list.

@@ -110,7 +110,6 @@ namespace Towel.DataStructures
 
 	/// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	[Serializable]
 	public class BTreeLinkedArray<T> : IBTree<T>
 	{
 		Node _root;

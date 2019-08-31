@@ -33,7 +33,6 @@ namespace Towel.DataStructures
 	/// Rodney Howell of Kansas State University. However, it has 
 	/// been modified since its addition into the Towel framework.
 	/// </citation>
-	[Serializable]
 	public class HeapArray<T> : IHeap<T>
 	{
 		internal readonly Compare<T> _compare;

@@ -29,7 +29,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Sorted linear data structure implemented using a list array.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	[Serializable]
 	public class OrderListArray<T> : IOrder<T>
 	{
 		internal ListArray<T> _list;
@@ -167,7 +166,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Sorted linear data structure implemented using a list array.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
-	[Serializable]
 	public class OrderListLinked<T> : IOrder<T>
 	{
 		internal ListLinked<T> _list;

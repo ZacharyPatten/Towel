@@ -51,7 +51,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	[Serializable]
 	public class GraphSetOmnitree<T> : IGraph<T>
 	{
 		internal SetHashLinked<T> _nodes;
@@ -60,7 +59,6 @@ namespace Towel.DataStructures
 		#region Nested Types
 
 		/// <summary>Represents an edge in a graph.</summary>
-		[Serializable]
 		public class Edge
 		{
 			/// <summary>The starting node of the edge.</summary>
@@ -278,7 +276,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
 	/// <typeparam name="T">The generic node type of this graph.</typeparam>
-	[Serializable]
 	public class GraphMap<T> : IGraph<T>
 	{
 		internal MapHashLinked<MapHashLinked<bool, T>, T> _map;
@@ -287,7 +284,6 @@ namespace Towel.DataStructures
 		#region Nested Types
 
 		/// <summary>Represents an edge in a graph.</summary>
-		[Serializable]
 		public class Edge
 		{
 			/// <summary>The starting point of the edge.</summary>

@@ -254,7 +254,6 @@ namespace Towel.DataStructures
 	/// Rodney Howell of Kansas State University. However, it has 
 	/// been modified since its addition into the Towel framework.
 	/// </citation>
-	[Serializable]
 	public class AvlTreeLinked<T> : IAvlTree<T>
 	{
 		internal Node _root;
@@ -263,8 +262,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		/// <summary>This class just holds the data for each individual node of the tree.</summary>
-		[Serializable]
 		internal class Node
 		{
 			internal T Value;

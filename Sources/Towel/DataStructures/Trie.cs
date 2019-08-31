@@ -27,7 +27,6 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	[Serializable]
 	public class Trie_Linked<T> : ITrie<T>
 	{
 		#region Trie_Linked<T>
