@@ -219,6 +219,21 @@ Vector<Speedf> velocity2 = new Vector<Speedf>(
 	(2f, Centimeters / Seconds),
 	(3f, Centimeters / Seconds));
 Vector<Speed<float>> velocity3 = velocity1 + velocity2;
+
+// Manual Unit Conversions
+// 1. Index Operator On Measurement Type
+double angle1_inRadians = angle1[Radians];
+float speed1_inMilesPerHour = speed1[Miles / Hours];
+// 2. Static Conversion Methods
+double angle3 = Angle<double>.Convert(7d,
+	Radians,  // from
+	Degrees); // to
+double speed2 = Speed<double>.Convert(8d,
+	Meters / Seconds, // from
+	Miles / Hours);   // to
+double force1 = Force<double>.Convert(9d,
+	Kilograms * Meters / Seconds / Seconds, // from
+	Grams * Miles / Hours / Hours);         // to
 ```
 
 ## Data Structures

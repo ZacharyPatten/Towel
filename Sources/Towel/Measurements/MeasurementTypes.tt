@@ -144,6 +144,46 @@ namespace Towel.Measurements
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 		internal <#= baseUnit #>.Units _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
 <# baseUnitIndex++; } } #>
+<# //------------------------------------------------------------------------------------------- #>
+
+		#region Static Conversions
+
+		public static T Convert(T value
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			, <#= baseUnit #>.Units from<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			, <#= baseUnit #>.Units to<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+			)
+		{
+			<#= measurement.Item1 #><T> measurement = new <#= measurement.Item1 #><T>(value
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+				, from<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+				);
+			return measurement[
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+				<#= baseUnitIndex == 0 ? string.Empty : "," #> to<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units from,
+			MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units to)
+		{
+			return Convert(value
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			, from._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			, to._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+<# baseUnitIndex++; } } #>
+			);
+		}
+
+		#endregion
 
 <# //------------------------------------------------------------------------------------------- #>
 		#region Constructors

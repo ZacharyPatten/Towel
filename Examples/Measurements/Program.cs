@@ -303,6 +303,24 @@ namespace Measurements
 
 			#endregion
 
+			#region Static Unit Conversion Methods
+			{
+				// Examples of static measurement unit conversion methods
+
+				double result1 = Angle<double>.Convert(7d,
+					Radians,  // from
+					Degrees); // to
+
+				double result2 = Speed<double>.Convert(8d,
+					Meters / Seconds, // from
+					Miles / Hours);   // to
+
+				double result3 = Force<double>.Convert(9d,
+					Kilograms * Meters / Seconds / Seconds, // from
+					Grams * Miles / Hours / Hours);         // to
+			}
+			#endregion
+
 			#region Syntax Sugar Example (removing the generic type via alias)
 
 			// If you hate seeing the "<float>" or "<double>" you can add syntax 

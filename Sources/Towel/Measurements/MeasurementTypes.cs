@@ -185,6 +185,45 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits2;
 		internal Time.Units _TimeUnits3;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Time.Units fromTimeUnits2
+			, Time.Units fromTimeUnits3
+			, Length.Units toLengthUnits1
+			, Time.Units toTimeUnits2
+			, Time.Units toTimeUnits3
+			)
+		{
+			Acceleration<T> measurement = new Acceleration<T>(value
+				, fromLengthUnits1
+				, fromTimeUnits2
+				, fromTimeUnits3
+				);
+			return measurement[
+				 toLengthUnits1
+				, toTimeUnits2
+				, toTimeUnits3
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AccelerationBaseUnits from,
+			MeasurementUnitsSyntaxTypes.AccelerationBaseUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, from._TimeUnits2
+			, from._TimeUnits3
+			, to._LengthUnits1
+			, to._TimeUnits2
+			, to._TimeUnits3
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Acceleration with the measurement value and units.</summary>
@@ -1015,6 +1054,45 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits2;
 		internal Time.Units _TimeUnits3;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Angle.Units fromAngleUnits1
+			, Time.Units fromTimeUnits2
+			, Time.Units fromTimeUnits3
+			, Angle.Units toAngleUnits1
+			, Time.Units toTimeUnits2
+			, Time.Units toTimeUnits3
+			)
+		{
+			AngularAcceleration<T> measurement = new AngularAcceleration<T>(value
+				, fromAngleUnits1
+				, fromTimeUnits2
+				, fromTimeUnits3
+				);
+			return measurement[
+				 toAngleUnits1
+				, toTimeUnits2
+				, toTimeUnits3
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits from,
+			MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits to)
+		{
+			return Convert(value
+			, from._AngleUnits1
+			, from._TimeUnits2
+			, from._TimeUnits3
+			, to._AngleUnits1
+			, to._TimeUnits2
+			, to._TimeUnits3
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
@@ -1679,6 +1757,33 @@ namespace Towel.Measurements
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Angle.Units, T>();
 		internal T _measurement;
 		internal Angle.Units _AngleUnits1;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Angle.Units fromAngleUnits1
+			, Angle.Units toAngleUnits1
+			)
+		{
+			Angle<T> measurement = new Angle<T>(value
+				, fromAngleUnits1
+				);
+			return measurement[
+				 toAngleUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AngleUnits from,
+			MeasurementUnitsSyntaxTypes.AngleUnits to)
+		{
+			return Convert(value
+			, from._AngleUnits1
+			, to._AngleUnits1
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -2346,6 +2451,39 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Angle.Units _AngleUnits1;
 		internal Time.Units _TimeUnits2;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Angle.Units fromAngleUnits1
+			, Time.Units fromTimeUnits2
+			, Angle.Units toAngleUnits1
+			, Time.Units toTimeUnits2
+			)
+		{
+			AngularSpeed<T> measurement = new AngularSpeed<T>(value
+				, fromAngleUnits1
+				, fromTimeUnits2
+				);
+			return measurement[
+				 toAngleUnits1
+				, toTimeUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits from,
+			MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits to)
+		{
+			return Convert(value
+			, from._AngleUnits1
+			, from._TimeUnits2
+			, to._AngleUnits1
+			, to._TimeUnits2
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -3016,6 +3154,39 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Length.Units _LengthUnits1;
 		internal Length.Units _LengthUnits2;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units toLengthUnits1
+			, Length.Units toLengthUnits2
+			)
+		{
+			Area<T> measurement = new Area<T>(value
+				, fromLengthUnits1
+				, fromLengthUnits2
+				);
+			return measurement[
+				 toLengthUnits1
+				, toLengthUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AreaBaseUnits from,
+			MeasurementUnitsSyntaxTypes.AreaBaseUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, from._LengthUnits2
+			, to._LengthUnits1
+			, to._LengthUnits2
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -3805,6 +3976,45 @@ namespace Towel.Measurements
 		internal Mass.Units _MassUnits1;
 		internal Length.Units _LengthUnits2;
 		internal Length.Units _LengthUnits3;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			)
+		{
+			AreaDensity<T> measurement = new AreaDensity<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits from,
+			MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -4636,6 +4846,51 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits3;
 		internal Length.Units _LengthUnits4;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Length.Units fromLengthUnits4
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			, Length.Units toLengthUnits4
+			)
+		{
+			Density<T> measurement = new Density<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				, fromLengthUnits4
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				, toLengthUnits4
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.DensityBaseUnits from,
+			MeasurementUnitsSyntaxTypes.DensityBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, from._LengthUnits4
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			, to._LengthUnits4
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Density with the measurement value and units.</summary>
@@ -5378,6 +5633,33 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal ElectricCharge.Units _ElectricChargeUnits1;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, ElectricCharge.Units fromElectricChargeUnits1
+			, ElectricCharge.Units toElectricChargeUnits1
+			)
+		{
+			ElectricCharge<T> measurement = new ElectricCharge<T>(value
+				, fromElectricChargeUnits1
+				);
+			return measurement[
+				 toElectricChargeUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.ElectricChargeUnits from,
+			MeasurementUnitsSyntaxTypes.ElectricChargeUnits to)
+		{
+			return Convert(value
+			, from._ElectricChargeUnits1
+			, to._ElectricChargeUnits1
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an ElectricCharge with the measurement value and units.</summary>
@@ -5964,6 +6246,39 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal ElectricCharge.Units _ElectricChargeUnits1;
 		internal Time.Units _TimeUnits2;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, ElectricCharge.Units fromElectricChargeUnits1
+			, Time.Units fromTimeUnits2
+			, ElectricCharge.Units toElectricChargeUnits1
+			, Time.Units toTimeUnits2
+			)
+		{
+			ElectricCurrent<T> measurement = new ElectricCurrent<T>(value
+				, fromElectricChargeUnits1
+				, fromTimeUnits2
+				);
+			return measurement[
+				 toElectricChargeUnits1
+				, toTimeUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits from,
+			MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits to)
+		{
+			return Convert(value
+			, from._ElectricChargeUnits1
+			, from._TimeUnits2
+			, to._ElectricChargeUnits1
+			, to._TimeUnits2
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -6557,6 +6872,57 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits3;
 		internal Time.Units _TimeUnits4;
 		internal Time.Units _TimeUnits5;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Time.Units fromTimeUnits4
+			, Time.Units fromTimeUnits5
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			, Time.Units toTimeUnits4
+			, Time.Units toTimeUnits5
+			)
+		{
+			Energy<T> measurement = new Energy<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				, fromTimeUnits4
+				, fromTimeUnits5
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				, toTimeUnits4
+				, toTimeUnits5
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.EnergyBaseUnits from,
+			MeasurementUnitsSyntaxTypes.EnergyBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, from._TimeUnits4
+			, from._TimeUnits5
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			, to._TimeUnits4
+			, to._TimeUnits5
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -7641,6 +8007,51 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits3;
 		internal Time.Units _TimeUnits4;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Time.Units fromTimeUnits3
+			, Time.Units fromTimeUnits4
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Time.Units toTimeUnits3
+			, Time.Units toTimeUnits4
+			)
+		{
+			Force<T> measurement = new Force<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromTimeUnits3
+				, fromTimeUnits4
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toTimeUnits3
+				, toTimeUnits4
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.ForceBaseUnits from,
+			MeasurementUnitsSyntaxTypes.ForceBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._TimeUnits3
+			, from._TimeUnits4
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._TimeUnits3
+			, to._TimeUnits4
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Force with the measurement value and units.</summary>
@@ -8592,6 +9003,33 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Length.Units _LengthUnits1;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Length.Units toLengthUnits1
+			)
+		{
+			Length<T> measurement = new Length<T>(value
+				, fromLengthUnits1
+				);
+			return measurement[
+				 toLengthUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.LengthUnits from,
+			MeasurementUnitsSyntaxTypes.LengthUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, to._LengthUnits1
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Length with the measurement value and units.</summary>
@@ -9532,6 +9970,39 @@ namespace Towel.Measurements
 		internal Mass.Units _MassUnits1;
 		internal Length.Units _LengthUnits2;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			)
+		{
+			LinearDensity<T> measurement = new LinearDensity<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits from,
+			MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, to._MassUnits1
+			, to._LengthUnits2
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an LinearDensity with the measurement value and units.</summary>
@@ -10404,6 +10875,39 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Mass.Units _MassUnits1;
 		internal Length.Units _LengthUnits2;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			)
+		{
+			LinearMass<T> measurement = new LinearMass<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.LinearMassBaseUnits from,
+			MeasurementUnitsSyntaxTypes.LinearMassBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, to._MassUnits1
+			, to._LengthUnits2
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -11400,6 +11904,45 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits2;
 		internal Time.Units _TimeUnits3;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Time.Units fromTimeUnits3
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Time.Units toTimeUnits3
+			)
+		{
+			LinearMassFlow<T> measurement = new LinearMassFlow<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromTimeUnits3
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toTimeUnits3
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits from,
+			MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._TimeUnits3
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._TimeUnits3
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
@@ -12271,6 +12814,33 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Mass.Units _MassUnits1;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Mass.Units toMassUnits1
+			)
+		{
+			Mass<T> measurement = new Mass<T>(value
+				, fromMassUnits1
+				);
+			return measurement[
+				 toMassUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.MassUnits from,
+			MeasurementUnitsSyntaxTypes.MassUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, to._MassUnits1
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Mass with the measurement value and units.</summary>
@@ -13140,6 +13710,63 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits4;
 		internal Time.Units _TimeUnits5;
 		internal Time.Units _TimeUnits6;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Time.Units fromTimeUnits4
+			, Time.Units fromTimeUnits5
+			, Time.Units fromTimeUnits6
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			, Time.Units toTimeUnits4
+			, Time.Units toTimeUnits5
+			, Time.Units toTimeUnits6
+			)
+		{
+			Power<T> measurement = new Power<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				, fromTimeUnits4
+				, fromTimeUnits5
+				, fromTimeUnits6
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				, toTimeUnits4
+				, toTimeUnits5
+				, toTimeUnits6
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.PowerBaseUnits from,
+			MeasurementUnitsSyntaxTypes.PowerBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, from._TimeUnits4
+			, from._TimeUnits5
+			, from._TimeUnits6
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			, to._TimeUnits4
+			, to._TimeUnits5
+			, to._TimeUnits6
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -14049,6 +14676,51 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits3;
 		internal Time.Units _TimeUnits4;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Length.Units fromLengthUnits2
+			, Time.Units fromTimeUnits3
+			, Time.Units fromTimeUnits4
+			, Mass.Units toMassUnits1
+			, Length.Units toLengthUnits2
+			, Time.Units toTimeUnits3
+			, Time.Units toTimeUnits4
+			)
+		{
+			Pressure<T> measurement = new Pressure<T>(value
+				, fromMassUnits1
+				, fromLengthUnits2
+				, fromTimeUnits3
+				, fromTimeUnits4
+				);
+			return measurement[
+				 toMassUnits1
+				, toLengthUnits2
+				, toTimeUnits3
+				, toTimeUnits4
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.PressureBaseUnits from,
+			MeasurementUnitsSyntaxTypes.PressureBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._LengthUnits2
+			, from._TimeUnits3
+			, from._TimeUnits4
+			, to._MassUnits1
+			, to._LengthUnits2
+			, to._TimeUnits3
+			, to._TimeUnits4
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
@@ -14878,6 +15550,39 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits1;
 		internal Time.Units _TimeUnits2;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Time.Units fromTimeUnits2
+			, Length.Units toLengthUnits1
+			, Time.Units toTimeUnits2
+			)
+		{
+			Speed<T> measurement = new Speed<T>(value
+				, fromLengthUnits1
+				, fromTimeUnits2
+				);
+			return measurement[
+				 toLengthUnits1
+				, toTimeUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.SpeedBaseUnits from,
+			MeasurementUnitsSyntaxTypes.SpeedBaseUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, from._TimeUnits2
+			, to._LengthUnits1
+			, to._TimeUnits2
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Speed with the measurement value and units.</summary>
@@ -15670,6 +16375,33 @@ namespace Towel.Measurements
 		internal T _measurement;
 		internal Tempurature.Units _TempuratureUnits1;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Tempurature.Units fromTempuratureUnits1
+			, Tempurature.Units toTempuratureUnits1
+			)
+		{
+			Tempurature<T> measurement = new Tempurature<T>(value
+				, fromTempuratureUnits1
+				);
+			return measurement[
+				 toTempuratureUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.TempuratureUnits from,
+			MeasurementUnitsSyntaxTypes.TempuratureUnits to)
+		{
+			return Convert(value
+			, from._TempuratureUnits1
+			, to._TempuratureUnits1
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an Tempurature with the measurement value and units.</summary>
@@ -16178,6 +16910,33 @@ namespace Towel.Measurements
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Time.Units, T>();
 		internal T _measurement;
 		internal Time.Units _TimeUnits1;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Time.Units fromTimeUnits1
+			, Time.Units toTimeUnits1
+			)
+		{
+			Time<T> measurement = new Time<T>(value
+				, fromTimeUnits1
+				);
+			return measurement[
+				 toTimeUnits1
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.TimeUnits from,
+			MeasurementUnitsSyntaxTypes.TimeUnits to)
+		{
+			return Convert(value
+			, from._TimeUnits1
+			, to._TimeUnits1
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
@@ -17039,6 +17798,39 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits1;
 		internal Time.Units _TimeUnits2;
 
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Time.Units fromTimeUnits1
+			, Time.Units fromTimeUnits2
+			, Time.Units toTimeUnits1
+			, Time.Units toTimeUnits2
+			)
+		{
+			TimeArea<T> measurement = new TimeArea<T>(value
+				, fromTimeUnits1
+				, fromTimeUnits2
+				);
+			return measurement[
+				 toTimeUnits1
+				, toTimeUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits from,
+			MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits to)
+		{
+			return Convert(value
+			, from._TimeUnits1
+			, from._TimeUnits2
+			, to._TimeUnits1
+			, to._TimeUnits2
+			);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>Constructs an TimeArea with the measurement value and units.</summary>
@@ -17787,6 +18579,45 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits1;
 		internal Length.Units _LengthUnits2;
 		internal Length.Units _LengthUnits3;
+
+		#region Static Conversions
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Length.Units toLengthUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			)
+		{
+			Volume<T> measurement = new Volume<T>(value
+				, fromLengthUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				);
+			return measurement[
+				 toLengthUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.VolumeBaseUnits from,
+			MeasurementUnitsSyntaxTypes.VolumeBaseUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, to._LengthUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			);
+		}
+
+		#endregion
 
 		#region Constructors
 
