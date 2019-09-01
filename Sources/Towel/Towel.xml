@@ -18269,6 +18269,30 @@
             <param name="right">The object to compare to.</param>
             <returns>True if the references are equal, false if not.</returns>
         </member>
+        <member name="T:Towel.Measurements.Measurement">
+            <summary>Static class with methods regarding measurements.</summary>
+        </member>
+        <member name="T:Towel.Measurements.Measurement.IUnits`1">
+            <summary>Interface for unit conversion.</summary>
+            <typeparam name="UNITSTYPE">The unit type of the interface.</typeparam>
+        </member>
+        <member name="M:Towel.Measurements.Measurement.IUnits`1.Convert``1(``0,`0,`0)">
+            <summary>Converts the units of measurement of a value.</summary>
+            <typeparam name="T">The generic type of the value to convert.</typeparam>
+            <param name="value">The value to be converted.</param>
+            <param name="from">The current units of the value.</param>
+            <param name="to">The desired units of the value.</param>
+            <returns>The value converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Measurement.Convert``2(``0,``1,``1)">
+            <summary>Converts the units of measurement of a value.</summary>
+            <typeparam name="T">The generic type of the value to convert.</typeparam>
+            <typeparam name="UNITSTYPE">The type of units to be converted.</typeparam>
+            <param name="value">The value to be converted.</param>
+            <param name="from">The current units of the value.</param>
+            <param name="to">The desired units of the value.</param>
+            <returns>The value converted into the desired units.</returns>
+        </member>
         <member name="T:Towel.Measurements.Acceleration`1">
             <summary>Acceleration measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>

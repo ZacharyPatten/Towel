@@ -19404,7 +19404,7 @@ namespace Towel.Measurements
 
 	public static class MeasurementUnitsSyntaxTypes
 	{
-		public struct AccelerationBaseUnits
+		public struct AccelerationBaseUnits : Measurement.IUnits<AccelerationBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
 			public Time.Units _TimeUnits2;
@@ -19415,6 +19415,13 @@ namespace Towel.Measurements
 				_LengthUnits1 = LengthUnits1;
 				_TimeUnits2 = TimeUnits2;
 				_TimeUnits3 = TimeUnits3;
+			}
+
+			public T Convert<T>(T value,
+				AccelerationBaseUnits from,
+				AccelerationBaseUnits to)
+			{
+				return Acceleration<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19441,7 +19448,7 @@ namespace Towel.Measurements
 			public Acceleration.Units _AccelerationUnits;
 		}
 
-		public struct AngularAccelerationBaseUnits
+		public struct AngularAccelerationBaseUnits : Measurement.IUnits<AngularAccelerationBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
 			public Time.Units _TimeUnits2;
@@ -19453,6 +19460,13 @@ namespace Towel.Measurements
 				_TimeUnits2 = TimeUnits2;
 				_TimeUnits3 = TimeUnits3;
 			}
+
+			public T Convert<T>(T value,
+				AngularAccelerationBaseUnits from,
+				AngularAccelerationBaseUnits to)
+			{
+				return AngularAcceleration<T>.Convert(value, from, to);
+			}
 		
 		
 		}
@@ -19462,13 +19476,20 @@ namespace Towel.Measurements
 			public AngularAcceleration.Units _AngularAccelerationUnits;
 		}
 
-		public struct AngleUnits
+		public struct AngleUnits : Measurement.IUnits<AngleUnits>
 		{
 			public Angle.Units _AngleUnits1;
 
 			public AngleUnits(Angle.Units AngleUnits1)
 			{
 				_AngleUnits1 = AngleUnits1;
+			}
+
+			public T Convert<T>(T value,
+				AngleUnits from,
+				AngleUnits to)
+			{
+				return Angle<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19484,7 +19505,7 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct AngularSpeedBaseUnits
+		public struct AngularSpeedBaseUnits : Measurement.IUnits<AngularSpeedBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
 			public Time.Units _TimeUnits2;
@@ -19493,6 +19514,13 @@ namespace Towel.Measurements
 			{
 				_AngleUnits1 = AngleUnits1;
 				_TimeUnits2 = TimeUnits2;
+			}
+
+			public T Convert<T>(T value,
+				AngularSpeedBaseUnits from,
+				AngularSpeedBaseUnits to)
+			{
+				return AngularSpeed<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19508,7 +19536,7 @@ namespace Towel.Measurements
 			public AngularSpeed.Units _AngularSpeedUnits;
 		}
 
-		public struct AreaBaseUnits
+		public struct AreaBaseUnits : Measurement.IUnits<AreaBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
 			public Length.Units _LengthUnits2;
@@ -19517,6 +19545,13 @@ namespace Towel.Measurements
 			{
 				_LengthUnits1 = LengthUnits1;
 				_LengthUnits2 = LengthUnits2;
+			}
+
+			public T Convert<T>(T value,
+				AreaBaseUnits from,
+				AreaBaseUnits to)
+			{
+				return Area<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19535,7 +19570,7 @@ namespace Towel.Measurements
 			public Area.Units _AreaUnits;
 		}
 
-		public struct AreaDensityBaseUnits
+		public struct AreaDensityBaseUnits : Measurement.IUnits<AreaDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19546,6 +19581,13 @@ namespace Towel.Measurements
 				_MassUnits1 = MassUnits1;
 				_LengthUnits2 = LengthUnits2;
 				_LengthUnits3 = LengthUnits3;
+			}
+
+			public T Convert<T>(T value,
+				AreaDensityBaseUnits from,
+				AreaDensityBaseUnits to)
+			{
+				return AreaDensity<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19564,7 +19606,7 @@ namespace Towel.Measurements
 			public AreaDensity.Units _AreaDensityUnits;
 		}
 
-		public struct DensityBaseUnits
+		public struct DensityBaseUnits : Measurement.IUnits<DensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19578,6 +19620,13 @@ namespace Towel.Measurements
 				_LengthUnits3 = LengthUnits3;
 				_LengthUnits4 = LengthUnits4;
 			}
+
+			public T Convert<T>(T value,
+				DensityBaseUnits from,
+				DensityBaseUnits to)
+			{
+				return Density<T>.Convert(value, from, to);
+			}
 		
 		
 		
@@ -19588,13 +19637,20 @@ namespace Towel.Measurements
 			public Density.Units _DensityUnits;
 		}
 
-		public struct ElectricChargeUnits
+		public struct ElectricChargeUnits : Measurement.IUnits<ElectricChargeUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
 
 			public ElectricChargeUnits(ElectricCharge.Units ElectricChargeUnits1)
 			{
 				_ElectricChargeUnits1 = ElectricChargeUnits1;
+			}
+
+			public T Convert<T>(T value,
+				ElectricChargeUnits from,
+				ElectricChargeUnits to)
+			{
+				return ElectricCharge<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19604,7 +19660,7 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct ElectricCurrentBaseUnits
+		public struct ElectricCurrentBaseUnits : Measurement.IUnits<ElectricCurrentBaseUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
 			public Time.Units _TimeUnits2;
@@ -19614,6 +19670,13 @@ namespace Towel.Measurements
 				_ElectricChargeUnits1 = ElectricChargeUnits1;
 				_TimeUnits2 = TimeUnits2;
 			}
+
+			public T Convert<T>(T value,
+				ElectricCurrentBaseUnits from,
+				ElectricCurrentBaseUnits to)
+			{
+				return ElectricCurrent<T>.Convert(value, from, to);
+			}
 		
 		}
 
@@ -19622,7 +19685,7 @@ namespace Towel.Measurements
 			public ElectricCurrent.Units _ElectricCurrentUnits;
 		}
 
-		public struct EnergyBaseUnits
+		public struct EnergyBaseUnits : Measurement.IUnits<EnergyBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19637,6 +19700,13 @@ namespace Towel.Measurements
 				_LengthUnits3 = LengthUnits3;
 				_TimeUnits4 = TimeUnits4;
 				_TimeUnits5 = TimeUnits5;
+			}
+
+			public T Convert<T>(T value,
+				EnergyBaseUnits from,
+				EnergyBaseUnits to)
+			{
+				return Energy<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19659,7 +19729,7 @@ namespace Towel.Measurements
 			public Energy.Units _EnergyUnits;
 		}
 
-		public struct ForceBaseUnits
+		public struct ForceBaseUnits : Measurement.IUnits<ForceBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19672,6 +19742,13 @@ namespace Towel.Measurements
 				_LengthUnits2 = LengthUnits2;
 				_TimeUnits3 = TimeUnits3;
 				_TimeUnits4 = TimeUnits4;
+			}
+
+			public T Convert<T>(T value,
+				ForceBaseUnits from,
+				ForceBaseUnits to)
+			{
+				return Force<T>.Convert(value, from, to);
 			}
 		
 			public static EnergyBaseUnits operator *(ForceBaseUnits a, LengthUnits b)
@@ -19696,13 +19773,20 @@ namespace Towel.Measurements
 			public Force.Units _ForceUnits;
 		}
 
-		public struct LengthUnits
+		public struct LengthUnits : Measurement.IUnits<LengthUnits>
 		{
 			public Length.Units _LengthUnits1;
 
 			public LengthUnits(Length.Units LengthUnits1)
 			{
 				_LengthUnits1 = LengthUnits1;
+			}
+
+			public T Convert<T>(T value,
+				LengthUnits from,
+				LengthUnits to)
+			{
+				return Length<T>.Convert(value, from, to);
 			}
 		
 			public static VolumeBaseUnits operator *(LengthUnits a, AreaBaseUnits b)
@@ -19741,7 +19825,7 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct LinearDensityBaseUnits
+		public struct LinearDensityBaseUnits : Measurement.IUnits<LinearDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19750,6 +19834,13 @@ namespace Towel.Measurements
 			{
 				_MassUnits1 = MassUnits1;
 				_LengthUnits2 = LengthUnits2;
+			}
+
+			public T Convert<T>(T value,
+				LinearDensityBaseUnits from,
+				LinearDensityBaseUnits to)
+			{
+				return LinearDensity<T>.Convert(value, from, to);
 			}
 		
 		
@@ -19778,7 +19869,7 @@ namespace Towel.Measurements
 			public LinearDensity.Units _LinearDensityUnits;
 		}
 
-		public struct LinearMassBaseUnits
+		public struct LinearMassBaseUnits : Measurement.IUnits<LinearMassBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19787,6 +19878,13 @@ namespace Towel.Measurements
 			{
 				_MassUnits1 = MassUnits1;
 				_LengthUnits2 = LengthUnits2;
+			}
+
+			public T Convert<T>(T value,
+				LinearMassBaseUnits from,
+				LinearMassBaseUnits to)
+			{
+				return LinearMass<T>.Convert(value, from, to);
 			}
 		
 			public static EnergyBaseUnits operator *(LinearMassBaseUnits a, AccelerationBaseUnits b)
@@ -19818,7 +19916,7 @@ namespace Towel.Measurements
 			public LinearMass.Units _LinearMassUnits;
 		}
 
-		public struct LinearMassFlowBaseUnits
+		public struct LinearMassFlowBaseUnits : Measurement.IUnits<LinearMassFlowBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19829,6 +19927,13 @@ namespace Towel.Measurements
 				_MassUnits1 = MassUnits1;
 				_LengthUnits2 = LengthUnits2;
 				_TimeUnits3 = TimeUnits3;
+			}
+
+			public T Convert<T>(T value,
+				LinearMassFlowBaseUnits from,
+				LinearMassFlowBaseUnits to)
+			{
+				return LinearMassFlow<T>.Convert(value, from, to);
 			}
 		
 			public static PowerBaseUnits operator *(LinearMassFlowBaseUnits a, AccelerationBaseUnits b)
@@ -19856,13 +19961,20 @@ namespace Towel.Measurements
 			public LinearMassFlow.Units _LinearMassFlowUnits;
 		}
 
-		public struct MassUnits
+		public struct MassUnits : Measurement.IUnits<MassUnits>
 		{
 			public Mass.Units _MassUnits1;
 
 			public MassUnits(Mass.Units MassUnits1)
 			{
 				_MassUnits1 = MassUnits1;
+			}
+
+			public T Convert<T>(T value,
+				MassUnits from,
+				MassUnits to)
+			{
+				return Mass<T>.Convert(value, from, to);
 			}
 		
 			public static ForceBaseUnits operator *(MassUnits a, AccelerationBaseUnits b)
@@ -19899,7 +20011,7 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct PowerBaseUnits
+		public struct PowerBaseUnits : Measurement.IUnits<PowerBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19917,6 +20029,13 @@ namespace Towel.Measurements
 				_TimeUnits5 = TimeUnits5;
 				_TimeUnits6 = TimeUnits6;
 			}
+
+			public T Convert<T>(T value,
+				PowerBaseUnits from,
+				PowerBaseUnits to)
+			{
+				return Power<T>.Convert(value, from, to);
+			}
 		
 		
 		
@@ -19929,7 +20048,7 @@ namespace Towel.Measurements
 			public Power.Units _PowerUnits;
 		}
 
-		public struct PressureBaseUnits
+		public struct PressureBaseUnits : Measurement.IUnits<PressureBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
 			public Length.Units _LengthUnits2;
@@ -19943,6 +20062,13 @@ namespace Towel.Measurements
 				_TimeUnits3 = TimeUnits3;
 				_TimeUnits4 = TimeUnits4;
 			}
+
+			public T Convert<T>(T value,
+				PressureBaseUnits from,
+				PressureBaseUnits to)
+			{
+				return Pressure<T>.Convert(value, from, to);
+			}
 		
 		
 		
@@ -19955,7 +20081,7 @@ namespace Towel.Measurements
 			public Pressure.Units _PressureUnits;
 		}
 
-		public struct SpeedBaseUnits
+		public struct SpeedBaseUnits : Measurement.IUnits<SpeedBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
 			public Time.Units _TimeUnits2;
@@ -19964,6 +20090,13 @@ namespace Towel.Measurements
 			{
 				_LengthUnits1 = LengthUnits1;
 				_TimeUnits2 = TimeUnits2;
+			}
+
+			public T Convert<T>(T value,
+				SpeedBaseUnits from,
+				SpeedBaseUnits to)
+			{
+				return Speed<T>.Convert(value, from, to);
 			}
 		
 			public static PowerBaseUnits operator *(SpeedBaseUnits a, ForceBaseUnits b)
@@ -19994,7 +20127,7 @@ namespace Towel.Measurements
 			public Speed.Units _SpeedUnits;
 		}
 
-		public struct TempuratureUnits
+		public struct TempuratureUnits : Measurement.IUnits<TempuratureUnits>
 		{
 			public Tempurature.Units _TempuratureUnits1;
 
@@ -20002,15 +20135,29 @@ namespace Towel.Measurements
 			{
 				_TempuratureUnits1 = TempuratureUnits1;
 			}
+
+			public T Convert<T>(T value,
+				TempuratureUnits from,
+				TempuratureUnits to)
+			{
+				return Tempurature<T>.Convert(value, from, to);
+			}
 		}
 
-		public struct TimeUnits
+		public struct TimeUnits : Measurement.IUnits<TimeUnits>
 		{
 			public Time.Units _TimeUnits1;
 
 			public TimeUnits(Time.Units TimeUnits1)
 			{
 				_TimeUnits1 = TimeUnits1;
+			}
+
+			public T Convert<T>(T value,
+				TimeUnits from,
+				TimeUnits to)
+			{
+				return Time<T>.Convert(value, from, to);
 			}
 		
 		
@@ -20027,7 +20174,7 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct TimeAreaBaseUnits
+		public struct TimeAreaBaseUnits : Measurement.IUnits<TimeAreaBaseUnits>
 		{
 			public Time.Units _TimeUnits1;
 			public Time.Units _TimeUnits2;
@@ -20036,6 +20183,13 @@ namespace Towel.Measurements
 			{
 				_TimeUnits1 = TimeUnits1;
 				_TimeUnits2 = TimeUnits2;
+			}
+
+			public T Convert<T>(T value,
+				TimeAreaBaseUnits from,
+				TimeAreaBaseUnits to)
+			{
+				return TimeArea<T>.Convert(value, from, to);
 			}
 		
 		
@@ -20049,7 +20203,7 @@ namespace Towel.Measurements
 			public TimeArea.Units _TimeAreaUnits;
 		}
 
-		public struct VolumeBaseUnits
+		public struct VolumeBaseUnits : Measurement.IUnits<VolumeBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
 			public Length.Units _LengthUnits2;
@@ -20060,6 +20214,13 @@ namespace Towel.Measurements
 				_LengthUnits1 = LengthUnits1;
 				_LengthUnits2 = LengthUnits2;
 				_LengthUnits3 = LengthUnits3;
+			}
+
+			public T Convert<T>(T value,
+				VolumeBaseUnits from,
+				VolumeBaseUnits to)
+			{
+				return Volume<T>.Convert(value, from, to);
 			}
 		
 		

@@ -307,15 +307,20 @@ namespace Measurements
 			{
 				// Examples of static measurement unit conversion methods
 
-				double result1 = Angle<double>.Convert(7d,
+				// Note: I strongly recommend using the measurement types
+				// versus just the conversion methods if you have the
+				// ability to do so. You don't have type-safeness with
+				// further operations you do with these values.
+
+				double result1 = Measurement.Convert(7d,
 					Radians,  // from
 					Degrees); // to
 
-				double result2 = Speed<double>.Convert(8d,
+				double result2 = Measurement.Convert(8d,
 					Meters / Seconds, // from
 					Miles / Hours);   // to
 
-				double result3 = Force<double>.Convert(9d,
+				double result3 = Measurement.Convert(9d,
 					Kilograms * Meters / Seconds / Seconds, // from
 					Grams * Miles / Hours / Hours);         // to
 			}

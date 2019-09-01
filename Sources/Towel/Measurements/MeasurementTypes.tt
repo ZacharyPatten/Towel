@@ -1136,7 +1136,7 @@ string bIndexString = null;
 <# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length == 1; #>
 <# bool isDerivedUnit = !isBaseUnit; #>
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
-		public struct <#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units
+		public struct <#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units : Measurement.IUnits<<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units>
 		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 			public <#= baseUnit #>.Units _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
@@ -1149,6 +1149,13 @@ string bIndexString = null;
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 				_<#= baseUnit #>Units<#= baseUnitIndex + 1 #> = <#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
 <# baseUnitIndex++; } } #>
+			}
+
+			public T Convert<T>(T value,
+				<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units from,
+				<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units to)
+			{
+				return <#= measurement.Item1 #><T>.Convert(value, from, to);
 			}
 <# foreach ((string, string) @operator in multiplicationOperatorMappings[measurement.Item1]) { #>
 <# var isBDerivedUnit = measurementMappings[@operator.Item1].Item2.Length + measurementMappings[@operator.Item1].Item3.Length > 1; #>

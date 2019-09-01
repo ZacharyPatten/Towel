@@ -234,6 +234,11 @@ double speed2 = Speed<double>.Convert(8d,
 double force1 = Force<double>.Convert(9d,
 	Kilograms * Meters / Seconds / Seconds, // from
 	Grams * Miles / Hours / Hours);         // to
+double angle4 = Measurement.Convert(10d,
+	Radians,  // from
+	Degrees); // to
+// Note: The unit conversion on the Measurement class
+// is still type-safe.
 ```
 
 ## Data Structures
