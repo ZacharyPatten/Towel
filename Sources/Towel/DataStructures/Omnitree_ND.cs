@@ -86,11 +86,15 @@ namespace Towel.DataStructures
 	{
 		#region Spacial Types (Bound, Vector, Bounds) And Location/Bounding Functions
 
+		/// <summary>Represents a bound in ND space.</summary>
+		/// <typeparam name="T">The generic type of the bound.</typeparam>
 		public struct Bound<T>
 		{
 			internal readonly bool Exists;
 			internal readonly T Value;
 
+			/// <summary>Constructs a bound from a value.</summary>
+			/// <param name="value">The value of the bound.</param>
 			public Bound(T value)
 			{
 				Exists = true;
@@ -103,13 +107,19 @@ namespace Towel.DataStructures
 				Value = value;
 			}
 
+			/// <summary>Represents a null bound meaning it does not exist.</summary>
 			public static Bound<T> None { get { return new Bound<T>(false, default(T)); } }
 
+			/// <summary>Converts a value to a bound.</summary>
+			/// <param name="value">The value to convert into a bound.</param>
 			public static implicit operator Bound<T>(T value)
 			{
 				return new Bound<T>(value);
 			}
 
+			/// <summary>Gets the bound compare delegate from a value compare delegate.</summary>
+			/// <param name="compare">The value compare to wrap into a bounds compare.</param>
+			/// <returns>The bounds compare.</returns>
 			public static Compare<Bound<T>> Compare(Compare<T> compare)
 			{
 				return (Bound<T> a, Bound<T> b) =>
@@ -130,6 +140,13 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
+		/// <typeparam name="T">The generic type of the values to find the point of subdivision.</typeparam>
+		/// <typeparam name="A">The type of axis along with the values are to be subdivided.</typeparam>
+		/// <typeparam name="BoundsType">The type of bounds currently constraining the data.</typeparam>
+		/// <param name="bounds">The current bounds of the set of values.</param>
+		/// <param name="values">The values to find the point of subdivision.</param>
+		/// <returns></returns>
 		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Stepper<T> values);
 
 		internal static T SubDivide<T>(Bound<T>[] bounds, Compare<T> compare)
@@ -214,6 +231,7 @@ namespace Towel.DataStructures
 
 		#region N Dimensional
 
+		/// <summary>An N-D vector.</summary>
 		public struct Vector
 		{
 			internal object[] _location;
@@ -229,18 +247,23 @@ namespace Towel.DataStructures
 				get { return new Vector(null); }
 			}
 
+			/// <summary>Constructs an N-D vector.</summary>
+			/// <param name="location"></param>
 			public Vector(params object[] location)
 			{
 				this._location = location.Clone() as object[];
 			}
 		}
 
+		/// <summary>An N-D bounding box.</summary>
 		public struct Bounds
 		{
 
 			Bound<object>[] _min, _max;
 
+			/// <summary>The minimum of the bounds.</summary>
 			public Bound<object>[] Min { get { return this._min; } }
+			/// <summary>The maximum of the bounds.</summary>
 			public Bound<object>[] Max { get { return this._max; } }
 
 			/// <summary>Extends infinitely along each axis.</summary>

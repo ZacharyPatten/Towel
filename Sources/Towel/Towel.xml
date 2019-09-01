@@ -4538,11 +4538,56 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bound`1">
+            <summary>Represents a bound in ND space.</summary>
+            <typeparam name="T">The generic type of the bound.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Bound`1.#ctor(`0)">
+            <summary>Constructs a bound from a value.</summary>
+            <param name="value">The value of the bound.</param>
+        </member>
+        <member name="P:Towel.DataStructures.Omnitree.Bound`1.None">
+            <summary>Represents a null bound meaning it does not exist.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Bound`1.op_Implicit(`0)~Towel.DataStructures.Omnitree.Bound{`0}">
+            <summary>Converts a value to a bound.</summary>
+            <param name="value">The value to convert into a bound.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Bound`1.Compare(Towel.Compare{`0})">
+            <summary>Gets the bound compare delegate from a value compare delegate.</summary>
+            <param name="compare">The value compare to wrap into a bounds compare.</param>
+            <returns>The bounds compare.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.SubdivisionOverride`3">
+            <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
+            <typeparam name="T">The generic type of the values to find the point of subdivision.</typeparam>
+            <typeparam name="A">The type of axis along with the values are to be subdivided.</typeparam>
+            <typeparam name="BoundsType">The type of bounds currently constraining the data.</typeparam>
+            <param name="bounds">The current bounds of the set of values.</param>
+            <param name="values">The values to find the point of subdivision.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Vector">
+            <summary>An N-D vector.</summary>
+        </member>
         <member name="P:Towel.DataStructures.Omnitree.Vector.Location">
             <summary>The locations along each axis.</summary>
         </member>
         <member name="P:Towel.DataStructures.Omnitree.Vector.Default">
             <summary>Returns a vector with defaulted values.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Vector.#ctor(System.Object[])">
+            <summary>Constructs an N-D vector.</summary>
+            <param name="location"></param>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.Bounds">
+            <summary>An N-D bounding box.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Omnitree.Bounds.Min">
+            <summary>The minimum of the bounds.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Omnitree.Bounds.Max">
+            <summary>The maximum of the bounds.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds.None(System.Int32)">
             <summary>Extends infinitely along each axis.</summary>
