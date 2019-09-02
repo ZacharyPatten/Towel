@@ -365,7 +365,7 @@ namespace Measurements
 			//string length1String = length1.ToString();
 			//Measurement.TryParse<double, Length<double>>(length1String, out Length<double> length1Parsed, double.TryParse);
 
-			//string density1String = length1.ToString();
+			//string density1String = density1.ToString();
 			//Measurement.TryParse<double, Density<double>>(density1String, out Density<double> density1Parsed, double.TryParse);
 
 			#endregion
