@@ -133,9 +133,31 @@ namespace Towel.Measurements
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
 	#region <#= measurement.Item1 #>
 
+	internal static partial class ParsingFunctions
+	{
+		[Measurement.Parseable("<#= string.Join("*", measurement.Item2) #><#= measurement.Item3.Length > 0 ? "/" : string.Empty #><#= string.Join("/", measurement.Item3) #>")]
+		public static object <#= measurement.Item1 #><T>(T value, object[] units)
+		{
+			if (units.Length != <#= concatenatedBaseUnits.Count() #>)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
+			}
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			if (!(units[<#= baseUnitIndex #>] is <#= baseUnit #>.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
+			}
+<# baseUnitIndex++; } } #>
+			return new <#= measurement.Item1 #><T>(value
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+				, (<#= baseUnit #>.Units)units[<#= baseUnitIndex #>]
+<# baseUnitIndex++; } } #>
+				);
+		}
+	}
+
 	/// <summary><#= measurement.Item1 #> measurement with a value and the units.</summary>
 	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
-	[Measurement.Parseable("<#= string.Join("*", measurement.Item2) #><#= measurement.Item3.Length > 0 ? "/" : string.Empty #><#= string.Join("/", measurement.Item3) #>")]
 	public struct <#= measurement.Item1 #><T>
 	{
 <# if (isBaseUnit) { #>
@@ -182,29 +204,6 @@ namespace Towel.Measurements
 			, to._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
 <# baseUnitIndex++; } } #>
 			);
-		}
-
-		internal static object Factory(object[] objects)
-		{
-			if (objects.Length != <#= concatenatedBaseUnits.Count() #>)
-			{
-				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
-			}
-			if (!(objects[0] is T))
-			{
-				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
-			}
-<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
-			if (!(objects[<#= baseUnitIndex + 1 #>] is <#= baseUnit #>.Units))
-			{
-				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
-			}
-<# baseUnitIndex++; } } #>
-			return new <#= measurement.Item1 #><T>((T)objects[0]
-<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
-				, (<#= baseUnit #>.Units)objects[<#= baseUnitIndex + 1 #>]
-<# baseUnitIndex++; } } #>
-				);
 		}
 
 		#endregion
