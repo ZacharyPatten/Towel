@@ -359,14 +359,14 @@ namespace Measurements
 
 			// This is still in development.
 
-			string angle1String = angle1.ToString();
-			Measurement.TryParse<double, Angle<double>>(angle1String, out Angle<double> angle1Parsed, double.TryParse);
+			//string angle1String = angle1.ToString();
+			//Measurement.TryParse<double, Angle<double>>(angle1String, out Angle<double> angle1Parsed, double.TryParse);
 
-			string length1String = length1.ToString();
-			Measurement.TryParse<double, Length<double>>(length1String, out Length<double> length1Parsed, double.TryParse);
+			//string length1String = length1.ToString();
+			//Measurement.TryParse<double, Length<double>>(length1String, out Length<double> length1Parsed, double.TryParse);
 
-			string density1String = length1.ToString();
-			Measurement.TryParse<double, Density<double>>(density1String, out Density<double> density1Parsed, double.TryParse);
+			//string density1String = length1.ToString();
+			//Measurement.TryParse<double, Density<double>>(density1String, out Density<double> density1Parsed, double.TryParse);
 
 			#endregion
 
