@@ -14,6 +14,7 @@ namespace Towel.Measurements
 	public static class Acceleration
 	{
 		/// <summary>Units for acceleration measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -29,6 +30,7 @@ namespace Towel.Measurements
 	public static class Angle
 	{
 		/// <summary>Units for angle measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -67,6 +69,7 @@ namespace Towel.Measurements
 	public static class AngularAcceleration
 	{
 		/// <summary>Units for angularAcceleration measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -82,6 +85,7 @@ namespace Towel.Measurements
 	public static class AngularSpeed
 	{
 		/// <summary>Units for AngularSpeed measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -97,6 +101,7 @@ namespace Towel.Measurements
 	public static class Area
 	{
 		/// <summary>Units for Volumne measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -112,6 +117,7 @@ namespace Towel.Measurements
 	public static class AreaDensity
 	{
 		/// <summary>Units for AreaDensity measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -127,6 +133,7 @@ namespace Towel.Measurements
 	public static class Density
 	{
 		/// <summary>Units for Desnity measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -142,6 +149,7 @@ namespace Towel.Measurements
 	public static class ElectricCharge
 	{
 		/// <summary>Units for electric charge measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -223,6 +231,7 @@ namespace Towel.Measurements
 	public static class ElectricCurrent
 	{
 		/// <summary>Units for electric current measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -238,6 +247,7 @@ namespace Towel.Measurements
 	public static class Energy
 	{
 		/// <summary>Units for Energy measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -253,6 +263,7 @@ namespace Towel.Measurements
 	public static class Force
 	{
 		/// <summary>Units for Force measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -268,6 +279,7 @@ namespace Towel.Measurements
 	public static class Length
 	{
 		/// <summary>Units for length measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -476,6 +488,7 @@ namespace Towel.Measurements
 	public static class LinearDensity
 	{
 		/// <summary>Units for LinearDensity measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -491,6 +504,7 @@ namespace Towel.Measurements
 	public static class LinearMass
 	{
 		/// <summary>Units for LinearMass measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -506,6 +520,7 @@ namespace Towel.Measurements
 	public static class LinearMassFlow
 	{
 		/// <summary>Units for LinearMassFlow measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -521,6 +536,7 @@ namespace Towel.Measurements
 	public static class Mass
 	{
 		/// <summary>Units for Mass measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -602,6 +618,7 @@ namespace Towel.Measurements
 	public static class Power
 	{
 		/// <summary>Units for Power measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -617,6 +634,7 @@ namespace Towel.Measurements
 	public static class Pressure
 	{
 		/// <summary>Units for Pressure measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -632,6 +650,7 @@ namespace Towel.Measurements
 	public static class Speed
 	{
 		/// <summary>Units for Speed measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -647,6 +666,7 @@ namespace Towel.Measurements
 	public static class Tempurature
 	{
 		/// <summary>Units for Tempurature measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -694,6 +714,7 @@ namespace Towel.Measurements
 	public static class Time
 	{
 		/// <summary>Units for time measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -742,6 +763,7 @@ namespace Towel.Measurements
 	public static class TimeArea
 	{
 		/// <summary>Units for Volumne measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{
@@ -757,6 +779,7 @@ namespace Towel.Measurements
 	public static class Volume
 	{
 		/// <summary>Units for Volumne measurements.</summary>
+		[Measurement.ParseableUnit]
 		[Serializable]
 		public enum Units
 		{

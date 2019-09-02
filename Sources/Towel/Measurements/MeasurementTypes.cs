@@ -177,7 +177,8 @@ namespace Towel.Measurements
 	#region Acceleration
 
 	/// <summary>Acceleration measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Length/Time/Time")]
 	public struct Acceleration<T>
 	{
 		internal T _measurement;
@@ -185,7 +186,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits2;
 		internal Time.Units _TimeUnits3;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
@@ -220,6 +221,35 @@ namespace Towel.Measurements
 			, to._TimeUnits2
 			, to._TimeUnits3
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 3)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Acceleration Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Acceleration Factory.");
+			}
+			if (!(objects[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Acceleration Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Acceleration Factory.");
+			}
+			if (!(objects[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Acceleration Factory.");
+			}
+			return new Acceleration<T>((T)objects[0]
+				, (Length.Units)objects[1]
+				, (Time.Units)objects[2]
+				, (Time.Units)objects[3]
+				);
 		}
 
 		#endregion
@@ -1046,7 +1076,8 @@ namespace Towel.Measurements
 	#region AngularAcceleration
 
 	/// <summary>AngularAcceleration measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Angle/Time/Time")]
 	public struct AngularAcceleration<T>
 	{
 		internal T _measurement;
@@ -1054,7 +1085,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits2;
 		internal Time.Units _TimeUnits3;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
@@ -1089,6 +1120,35 @@ namespace Towel.Measurements
 			, to._TimeUnits2
 			, to._TimeUnits3
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 3)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularAcceleration Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularAcceleration Factory.");
+			}
+			if (!(objects[1] is Angle.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularAcceleration Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularAcceleration Factory.");
+			}
+			if (!(objects[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularAcceleration Factory.");
+			}
+			return new AngularAcceleration<T>((T)objects[0]
+				, (Angle.Units)objects[1]
+				, (Time.Units)objects[2]
+				, (Time.Units)objects[3]
+				);
 		}
 
 		#endregion
@@ -1751,14 +1811,15 @@ namespace Towel.Measurements
 	#region Angle
 
 	/// <summary>Angle measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Angle")]
 	public struct Angle<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Angle.Units, T>();
 		internal T _measurement;
 		internal Angle.Units _AngleUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
@@ -1781,6 +1842,25 @@ namespace Towel.Measurements
 			, from._AngleUnits1
 			, to._AngleUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Angle Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Angle Factory.");
+			}
+			if (!(objects[1] is Angle.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Angle Factory.");
+			}
+			return new Angle<T>((T)objects[0]
+				, (Angle.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -2445,14 +2525,15 @@ namespace Towel.Measurements
 	#region AngularSpeed
 
 	/// <summary>AngularSpeed measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Angle/Time")]
 	public struct AngularSpeed<T>
 	{
 		internal T _measurement;
 		internal Angle.Units _AngleUnits1;
 		internal Time.Units _TimeUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
@@ -2481,6 +2562,30 @@ namespace Towel.Measurements
 			, to._AngleUnits1
 			, to._TimeUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularSpeed Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularSpeed Factory.");
+			}
+			if (!(objects[1] is Angle.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularSpeed Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AngularSpeed Factory.");
+			}
+			return new AngularSpeed<T>((T)objects[0]
+				, (Angle.Units)objects[1]
+				, (Time.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -3148,14 +3253,15 @@ namespace Towel.Measurements
 	#region Area
 
 	/// <summary>Area measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Length*Length")]
 	public struct Area<T>
 	{
 		internal T _measurement;
 		internal Length.Units _LengthUnits1;
 		internal Length.Units _LengthUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
@@ -3184,6 +3290,30 @@ namespace Towel.Measurements
 			, to._LengthUnits1
 			, to._LengthUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Area Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Area Factory.");
+			}
+			if (!(objects[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Area Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Area Factory.");
+			}
+			return new Area<T>((T)objects[0]
+				, (Length.Units)objects[1]
+				, (Length.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -3969,7 +4099,8 @@ namespace Towel.Measurements
 	#region AreaDensity
 
 	/// <summary>AreaDensity measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass/Length/Length")]
 	public struct AreaDensity<T>
 	{
 		internal T _measurement;
@@ -3977,7 +4108,7 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits2;
 		internal Length.Units _LengthUnits3;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -4012,6 +4143,35 @@ namespace Towel.Measurements
 			, to._LengthUnits2
 			, to._LengthUnits3
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 3)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AreaDensity Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AreaDensity Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AreaDensity Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AreaDensity Factory.");
+			}
+			if (!(objects[3] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to AreaDensity Factory.");
+			}
+			return new AreaDensity<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Length.Units)objects[3]
+				);
 		}
 
 		#endregion
@@ -4837,7 +4997,8 @@ namespace Towel.Measurements
 	#region Density
 
 	/// <summary>Density measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass/Length/Length/Length")]
 	public struct Density<T>
 	{
 		internal T _measurement;
@@ -4846,7 +5007,7 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits3;
 		internal Length.Units _LengthUnits4;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -4887,6 +5048,40 @@ namespace Towel.Measurements
 			, to._LengthUnits3
 			, to._LengthUnits4
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 4)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			if (!(objects[3] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			if (!(objects[4] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Density Factory.");
+			}
+			return new Density<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Length.Units)objects[3]
+				, (Length.Units)objects[4]
+				);
 		}
 
 		#endregion
@@ -5626,14 +5821,15 @@ namespace Towel.Measurements
 	#region ElectricCharge
 
 	/// <summary>ElectricCharge measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("ElectricCharge")]
 	public struct ElectricCharge<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<ElectricCharge.Units, T>();
 		internal T _measurement;
 		internal ElectricCharge.Units _ElectricChargeUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, ElectricCharge.Units fromElectricChargeUnits1
@@ -5656,6 +5852,25 @@ namespace Towel.Measurements
 			, from._ElectricChargeUnits1
 			, to._ElectricChargeUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCharge Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCharge Factory.");
+			}
+			if (!(objects[1] is ElectricCharge.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCharge Factory.");
+			}
+			return new ElectricCharge<T>((T)objects[0]
+				, (ElectricCharge.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -6240,14 +6455,15 @@ namespace Towel.Measurements
 	#region ElectricCurrent
 
 	/// <summary>ElectricCurrent measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("ElectricCharge/Time")]
 	public struct ElectricCurrent<T>
 	{
 		internal T _measurement;
 		internal ElectricCharge.Units _ElectricChargeUnits1;
 		internal Time.Units _TimeUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, ElectricCharge.Units fromElectricChargeUnits1
@@ -6276,6 +6492,30 @@ namespace Towel.Measurements
 			, to._ElectricChargeUnits1
 			, to._TimeUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCurrent Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCurrent Factory.");
+			}
+			if (!(objects[1] is ElectricCharge.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCurrent Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to ElectricCurrent Factory.");
+			}
+			return new ElectricCurrent<T>((T)objects[0]
+				, (ElectricCharge.Units)objects[1]
+				, (Time.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -6863,7 +7103,8 @@ namespace Towel.Measurements
 	#region Energy
 
 	/// <summary>Energy measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass*Length*Length/Time/Time")]
 	public struct Energy<T>
 	{
 		internal T _measurement;
@@ -6873,7 +7114,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits4;
 		internal Time.Units _TimeUnits5;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -6920,6 +7161,45 @@ namespace Towel.Measurements
 			, to._TimeUnits4
 			, to._TimeUnits5
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 5)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[3] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[4] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			if (!(objects[5] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Energy Factory.");
+			}
+			return new Energy<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Length.Units)objects[3]
+				, (Time.Units)objects[4]
+				, (Time.Units)objects[5]
+				);
 		}
 
 		#endregion
@@ -7998,7 +8278,8 @@ namespace Towel.Measurements
 	#region Force
 
 	/// <summary>Force measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass*Length/Time/Time")]
 	public struct Force<T>
 	{
 		internal T _measurement;
@@ -8007,7 +8288,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits3;
 		internal Time.Units _TimeUnits4;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -8048,6 +8329,40 @@ namespace Towel.Measurements
 			, to._TimeUnits3
 			, to._TimeUnits4
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 4)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			if (!(objects[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			if (!(objects[4] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Force Factory.");
+			}
+			return new Force<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Time.Units)objects[3]
+				, (Time.Units)objects[4]
+				);
 		}
 
 		#endregion
@@ -8996,14 +9311,15 @@ namespace Towel.Measurements
 	#region Length
 
 	/// <summary>Length measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Length")]
 	public struct Length<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Length.Units, T>();
 		internal T _measurement;
 		internal Length.Units _LengthUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
@@ -9026,6 +9342,25 @@ namespace Towel.Measurements
 			, from._LengthUnits1
 			, to._LengthUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Length Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Length Factory.");
+			}
+			if (!(objects[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Length Factory.");
+			}
+			return new Length<T>((T)objects[0]
+				, (Length.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -9963,14 +10298,15 @@ namespace Towel.Measurements
 	#region LinearDensity
 
 	/// <summary>LinearDensity measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass/Length")]
 	public struct LinearDensity<T>
 	{
 		internal T _measurement;
 		internal Mass.Units _MassUnits1;
 		internal Length.Units _LengthUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -9999,6 +10335,30 @@ namespace Towel.Measurements
 			, to._MassUnits1
 			, to._LengthUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearDensity Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearDensity Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearDensity Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearDensity Factory.");
+			}
+			return new LinearDensity<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -10869,14 +11229,15 @@ namespace Towel.Measurements
 	#region LinearMass
 
 	/// <summary>LinearMass measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass*Length")]
 	public struct LinearMass<T>
 	{
 		internal T _measurement;
 		internal Mass.Units _MassUnits1;
 		internal Length.Units _LengthUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -10905,6 +11266,30 @@ namespace Towel.Measurements
 			, to._MassUnits1
 			, to._LengthUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMass Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMass Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMass Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMass Factory.");
+			}
+			return new LinearMass<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -11896,7 +12281,8 @@ namespace Towel.Measurements
 	#region LinearMassFlow
 
 	/// <summary>LinearMassFlow measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass*Length/Time")]
 	public struct LinearMassFlow<T>
 	{
 		internal T _measurement;
@@ -11904,7 +12290,7 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits2;
 		internal Time.Units _TimeUnits3;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -11939,6 +12325,35 @@ namespace Towel.Measurements
 			, to._LengthUnits2
 			, to._TimeUnits3
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 3)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMassFlow Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMassFlow Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMassFlow Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMassFlow Factory.");
+			}
+			if (!(objects[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to LinearMassFlow Factory.");
+			}
+			return new LinearMassFlow<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Time.Units)objects[3]
+				);
 		}
 
 		#endregion
@@ -12807,14 +13222,15 @@ namespace Towel.Measurements
 	#region Mass
 
 	/// <summary>Mass measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass")]
 	public struct Mass<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Mass.Units, T>();
 		internal T _measurement;
 		internal Mass.Units _MassUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -12837,6 +13253,25 @@ namespace Towel.Measurements
 			, from._MassUnits1
 			, to._MassUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Mass Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Mass Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Mass Factory.");
+			}
+			return new Mass<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -13700,7 +14135,8 @@ namespace Towel.Measurements
 	#region Power
 
 	/// <summary>Power measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass*Length*Length/Time/Time/Time")]
 	public struct Power<T>
 	{
 		internal T _measurement;
@@ -13711,7 +14147,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits5;
 		internal Time.Units _TimeUnits6;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -13764,6 +14200,50 @@ namespace Towel.Measurements
 			, to._TimeUnits5
 			, to._TimeUnits6
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 6)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[3] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[4] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[5] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			if (!(objects[6] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Power Factory.");
+			}
+			return new Power<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Length.Units)objects[3]
+				, (Time.Units)objects[4]
+				, (Time.Units)objects[5]
+				, (Time.Units)objects[6]
+				);
 		}
 
 		#endregion
@@ -14667,7 +15147,8 @@ namespace Towel.Measurements
 	#region Pressure
 
 	/// <summary>Pressure measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Mass/Length/Time/Time")]
 	public struct Pressure<T>
 	{
 		internal T _measurement;
@@ -14676,7 +15157,7 @@ namespace Towel.Measurements
 		internal Time.Units _TimeUnits3;
 		internal Time.Units _TimeUnits4;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
@@ -14717,6 +15198,40 @@ namespace Towel.Measurements
 			, to._TimeUnits3
 			, to._TimeUnits4
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 4)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			if (!(objects[1] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			if (!(objects[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			if (!(objects[4] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Pressure Factory.");
+			}
+			return new Pressure<T>((T)objects[0]
+				, (Mass.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Time.Units)objects[3]
+				, (Time.Units)objects[4]
+				);
 		}
 
 		#endregion
@@ -15543,14 +16058,15 @@ namespace Towel.Measurements
 	#region Speed
 
 	/// <summary>Speed measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Length/Time")]
 	public struct Speed<T>
 	{
 		internal T _measurement;
 		internal Length.Units _LengthUnits1;
 		internal Time.Units _TimeUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
@@ -15579,6 +16095,30 @@ namespace Towel.Measurements
 			, to._LengthUnits1
 			, to._TimeUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Speed Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Speed Factory.");
+			}
+			if (!(objects[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Speed Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Speed Factory.");
+			}
+			return new Speed<T>((T)objects[0]
+				, (Length.Units)objects[1]
+				, (Time.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -16368,14 +16908,15 @@ namespace Towel.Measurements
 	#region Tempurature
 
 	/// <summary>Tempurature measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Tempurature")]
 	public struct Tempurature<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Tempurature.Units, T>();
 		internal T _measurement;
 		internal Tempurature.Units _TempuratureUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Tempurature.Units fromTempuratureUnits1
@@ -16398,6 +16939,25 @@ namespace Towel.Measurements
 			, from._TempuratureUnits1
 			, to._TempuratureUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Tempurature Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Tempurature Factory.");
+			}
+			if (!(objects[1] is Tempurature.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Tempurature Factory.");
+			}
+			return new Tempurature<T>((T)objects[0]
+				, (Tempurature.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -16904,14 +17464,15 @@ namespace Towel.Measurements
 	#region Time
 
 	/// <summary>Time measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Time")]
 	public struct Time<T>
 	{
 		internal static Func<T, T>[][] Table = UnitConversionTable.Build<Time.Units, T>();
 		internal T _measurement;
 		internal Time.Units _TimeUnits1;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Time.Units fromTimeUnits1
@@ -16934,6 +17495,25 @@ namespace Towel.Measurements
 			, from._TimeUnits1
 			, to._TimeUnits1
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 1)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Time Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Time Factory.");
+			}
+			if (!(objects[1] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Time Factory.");
+			}
+			return new Time<T>((T)objects[0]
+				, (Time.Units)objects[1]
+				);
 		}
 
 		#endregion
@@ -17791,14 +18371,15 @@ namespace Towel.Measurements
 	#region TimeArea
 
 	/// <summary>TimeArea measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Time*Time")]
 	public struct TimeArea<T>
 	{
 		internal T _measurement;
 		internal Time.Units _TimeUnits1;
 		internal Time.Units _TimeUnits2;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Time.Units fromTimeUnits1
@@ -17827,6 +18408,30 @@ namespace Towel.Measurements
 			, to._TimeUnits1
 			, to._TimeUnits2
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to TimeArea Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to TimeArea Factory.");
+			}
+			if (!(objects[1] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to TimeArea Factory.");
+			}
+			if (!(objects[2] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to TimeArea Factory.");
+			}
+			return new TimeArea<T>((T)objects[0]
+				, (Time.Units)objects[1]
+				, (Time.Units)objects[2]
+				);
 		}
 
 		#endregion
@@ -18572,7 +19177,8 @@ namespace Towel.Measurements
 	#region Volume
 
 	/// <summary>Volume measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("Length*Length*Length")]
 	public struct Volume<T>
 	{
 		internal T _measurement;
@@ -18580,7 +19186,7 @@ namespace Towel.Measurements
 		internal Length.Units _LengthUnits2;
 		internal Length.Units _LengthUnits3;
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
@@ -18615,6 +19221,35 @@ namespace Towel.Measurements
 			, to._LengthUnits2
 			, to._LengthUnits3
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != 3)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Volume Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Volume Factory.");
+			}
+			if (!(objects[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Volume Factory.");
+			}
+			if (!(objects[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Volume Factory.");
+			}
+			if (!(objects[3] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to Volume Factory.");
+			}
+			return new Volume<T>((T)objects[0]
+				, (Length.Units)objects[1]
+				, (Length.Units)objects[2]
+				, (Length.Units)objects[3]
+				);
 		}
 
 		#endregion
@@ -19404,6 +20039,7 @@ namespace Towel.Measurements
 
 	public static class MeasurementUnitsSyntaxTypes
 	{
+		[Measurement.ParseableUnitType("Length/Time/Time")]
 		public struct AccelerationBaseUnits : Measurement.IUnits<AccelerationBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -19448,6 +20084,7 @@ namespace Towel.Measurements
 			public Acceleration.Units _AccelerationUnits;
 		}
 
+		[Measurement.ParseableUnitType("Angle/Time/Time")]
 		public struct AngularAccelerationBaseUnits : Measurement.IUnits<AngularAccelerationBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -19476,6 +20113,7 @@ namespace Towel.Measurements
 			public AngularAcceleration.Units _AngularAccelerationUnits;
 		}
 
+		[Measurement.ParseableUnitType("Angle")]
 		public struct AngleUnits : Measurement.IUnits<AngleUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -19505,6 +20143,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("Angle/Time")]
 		public struct AngularSpeedBaseUnits : Measurement.IUnits<AngularSpeedBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -19536,6 +20175,7 @@ namespace Towel.Measurements
 			public AngularSpeed.Units _AngularSpeedUnits;
 		}
 
+		[Measurement.ParseableUnitType("Length*Length")]
 		public struct AreaBaseUnits : Measurement.IUnits<AreaBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -19570,6 +20210,7 @@ namespace Towel.Measurements
 			public Area.Units _AreaUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass/Length/Length")]
 		public struct AreaDensityBaseUnits : Measurement.IUnits<AreaDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19606,6 +20247,7 @@ namespace Towel.Measurements
 			public AreaDensity.Units _AreaDensityUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass/Length/Length/Length")]
 		public struct DensityBaseUnits : Measurement.IUnits<DensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19637,6 +20279,7 @@ namespace Towel.Measurements
 			public Density.Units _DensityUnits;
 		}
 
+		[Measurement.ParseableUnitType("ElectricCharge")]
 		public struct ElectricChargeUnits : Measurement.IUnits<ElectricChargeUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
@@ -19660,6 +20303,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("ElectricCharge/Time")]
 		public struct ElectricCurrentBaseUnits : Measurement.IUnits<ElectricCurrentBaseUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
@@ -19685,6 +20329,7 @@ namespace Towel.Measurements
 			public ElectricCurrent.Units _ElectricCurrentUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass*Length*Length/Time/Time")]
 		public struct EnergyBaseUnits : Measurement.IUnits<EnergyBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19729,6 +20374,7 @@ namespace Towel.Measurements
 			public Energy.Units _EnergyUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass*Length/Time/Time")]
 		public struct ForceBaseUnits : Measurement.IUnits<ForceBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19773,6 +20419,7 @@ namespace Towel.Measurements
 			public Force.Units _ForceUnits;
 		}
 
+		[Measurement.ParseableUnitType("Length")]
 		public struct LengthUnits : Measurement.IUnits<LengthUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -19825,6 +20472,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("Mass/Length")]
 		public struct LinearDensityBaseUnits : Measurement.IUnits<LinearDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19869,6 +20517,7 @@ namespace Towel.Measurements
 			public LinearDensity.Units _LinearDensityUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass*Length")]
 		public struct LinearMassBaseUnits : Measurement.IUnits<LinearMassBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19916,6 +20565,7 @@ namespace Towel.Measurements
 			public LinearMass.Units _LinearMassUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass*Length/Time")]
 		public struct LinearMassFlowBaseUnits : Measurement.IUnits<LinearMassFlowBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -19961,6 +20611,7 @@ namespace Towel.Measurements
 			public LinearMassFlow.Units _LinearMassFlowUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass")]
 		public struct MassUnits : Measurement.IUnits<MassUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20011,6 +20662,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("Mass*Length*Length/Time/Time/Time")]
 		public struct PowerBaseUnits : Measurement.IUnits<PowerBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20048,6 +20700,7 @@ namespace Towel.Measurements
 			public Power.Units _PowerUnits;
 		}
 
+		[Measurement.ParseableUnitType("Mass/Length/Time/Time")]
 		public struct PressureBaseUnits : Measurement.IUnits<PressureBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20081,6 +20734,7 @@ namespace Towel.Measurements
 			public Pressure.Units _PressureUnits;
 		}
 
+		[Measurement.ParseableUnitType("Length/Time")]
 		public struct SpeedBaseUnits : Measurement.IUnits<SpeedBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -20127,6 +20781,7 @@ namespace Towel.Measurements
 			public Speed.Units _SpeedUnits;
 		}
 
+		[Measurement.ParseableUnitType("Tempurature")]
 		public struct TempuratureUnits : Measurement.IUnits<TempuratureUnits>
 		{
 			public Tempurature.Units _TempuratureUnits1;
@@ -20144,6 +20799,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("Time")]
 		public struct TimeUnits : Measurement.IUnits<TimeUnits>
 		{
 			public Time.Units _TimeUnits1;
@@ -20174,6 +20830,7 @@ namespace Towel.Measurements
 			}
 		}
 
+		[Measurement.ParseableUnitType("Time*Time")]
 		public struct TimeAreaBaseUnits : Measurement.IUnits<TimeAreaBaseUnits>
 		{
 			public Time.Units _TimeUnits1;
@@ -20203,6 +20860,7 @@ namespace Towel.Measurements
 			public TimeArea.Units _TimeAreaUnits;
 		}
 
+		[Measurement.ParseableUnitType("Length*Length*Length")]
 		public struct VolumeBaseUnits : Measurement.IUnits<VolumeBaseUnits>
 		{
 			public Length.Units _LengthUnits1;

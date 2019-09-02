@@ -134,7 +134,8 @@ namespace Towel.Measurements
 	#region <#= measurement.Item1 #>
 
 	/// <summary><#= measurement.Item1 #> measurement with a value and the units.</summary>
-    /// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	[Measurement.Parseable("<#= string.Join("*", measurement.Item2) #><#= measurement.Item3.Length > 0 ? "/" : string.Empty #><#= string.Join("/", measurement.Item3) #>")]
 	public struct <#= measurement.Item1 #><T>
 	{
 <# if (isBaseUnit) { #>
@@ -146,7 +147,7 @@ namespace Towel.Measurements
 <# baseUnitIndex++; } } #>
 <# //------------------------------------------------------------------------------------------- #>
 
-		#region Static Conversions
+		#region Statics
 
 		public static T Convert(T value
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
@@ -181,6 +182,29 @@ namespace Towel.Measurements
 			, to._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
 <# baseUnitIndex++; } } #>
 			);
+		}
+
+		internal static object Factory(object[] objects)
+		{
+			if (objects.Length != <#= concatenatedBaseUnits.Count() #>)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
+			}
+			if (!(objects[0] is T))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
+			}
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+			if (!(objects[<#= baseUnitIndex + 1 #>] is <#= baseUnit #>.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to <#= measurement.Item1 #> Factory.");
+			}
+<# baseUnitIndex++; } } #>
+			return new <#= measurement.Item1 #><T>((T)objects[0]
+<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
+				, (<#= baseUnit #>.Units)objects[<#= baseUnitIndex + 1 #>]
+<# baseUnitIndex++; } } #>
+				);
 		}
 
 		#endregion
@@ -1136,6 +1160,7 @@ string bIndexString = null;
 <# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length == 1; #>
 <# bool isDerivedUnit = !isBaseUnit; #>
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
+		[Measurement.ParseableUnitType("<#= string.Join("*", measurement.Item2) #><#= measurement.Item3.Length > 0 ? "/" : string.Empty #><#= string.Join("/", measurement.Item3) #>")]
 		public struct <#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units : Measurement.IUnits<<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units>
 		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>

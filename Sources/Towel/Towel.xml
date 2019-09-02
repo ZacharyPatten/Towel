@@ -474,6 +474,9 @@
             <param name="end">The ending index of the sort.</param>
             <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
         </member>
+        <member name="T:Towel.Assume">
+            <summary>Breaks type safeness by making assumptions about types.</summary>
+        </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
         </member>

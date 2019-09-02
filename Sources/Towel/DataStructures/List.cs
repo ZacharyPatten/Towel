@@ -29,6 +29,8 @@ namespace Towel.DataStructures
 	/// <summary>Contains static extension methods for IList types.</summary>
 	public static class List
 	{
+		#region Extensions
+
 		/// <summary>Removes the first occurence of an item in the list.</summary>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
@@ -81,6 +83,8 @@ namespace Towel.DataStructures
 		{
 			iList.RemoveAll(x => equate(x, value));
 		}
+
+		#endregion
 	}
 
 	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>

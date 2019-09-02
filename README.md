@@ -238,7 +238,7 @@ double angle4 = Measurement.Convert(10d,
 	Radians,  // from
 	Degrees); // to
 // Note: The unit conversion on the Measurement class
-// is still type-safe.
+// is still compile-time-safe.
 ```
 
 ## Data Structures

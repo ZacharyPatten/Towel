@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Towel.Mathematics;
+
+using LinqExpression = System.Linq.Expressions.Expression;
+using LinqParameterExpression = System.Linq.Expressions.ParameterExpression;
 
 namespace Towel.Measurements
 {
 	/// <summary>Static class with methods regarding measurements.</summary>
 	public static class Measurement
 	{
+		#region Convert
+
 		/// <summary>Interface for unit conversion.</summary>
 		/// <typeparam name="UNITSTYPE">The unit type of the interface.</typeparam>
 		public interface IUnits<UNITSTYPE>
@@ -32,5 +41,199 @@ namespace Towel.Measurements
 		{
 			return from.Convert(value, from, to);
 		}
+
+		#endregion
+
+		#region Parse
+
+		internal class ParseableAttribute : Attribute
+		{
+			internal string Key;
+
+			internal ParseableAttribute(string key)
+			{
+				Key = key;
+			}
+		}
+
+		internal class ParseableUnitAttribute : Attribute { }
+		internal class ParseableUnitTypeAttribute : Attribute
+		{
+			internal string Key;
+
+			internal ParseableUnitTypeAttribute(string key)
+			{
+				Key = key;
+			}
+		}
+
+		internal static bool ParsingLibraryBuilt = false;
+		internal static string AllUnitsRegexPattern;
+		internal static Dictionary<string, string> UnitStringToUnitTypeString;
+		internal static Dictionary<string, Enum> UnitStringToEnumMap;
+		internal static Dictionary<string, Func<object[], object>> UnitsStringsToFactoryFunctions;
+
+		internal static void BuildParsingLibrary()
+		{
+			// make a regex pattern with all the currently supported unit types and
+			// build the unit string to unit type string map
+			List<string> strings = new List<string>();
+			Dictionary<string, string> unitStringToUnitTypeString = new Dictionary<string, string>();
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
+			{
+				if (!type.IsEnum)
+				{
+					throw new Exception("There is a bug in Towel. " + nameof(ParseableUnitAttribute) + " is on a non enum type.");
+				}
+				if (!type.Name.Equals("Units") || type.DeclaringType == null)
+				{
+					throw new Exception("There is a bug in Towel. A unit type definition does not follow the required structure.");
+				}
+				string unitTypeString = type.DeclaringType.Name;
+				foreach (Enum @enum in Enum.GetValues(type).Cast<Enum>())
+				{
+					strings.Add(@enum.ToString());
+					unitStringToUnitTypeString.Add(@enum.ToString(), unitTypeString);
+				}
+			}
+			strings.Add(@"\*");
+			strings.Add(@"\/");
+			AllUnitsRegexPattern = string.Join("|", strings);
+			UnitStringToUnitTypeString = unitStringToUnitTypeString;
+
+			// make the Enum arrays to units map
+			Dictionary<string, Enum> unitStringToEnumMap = new Dictionary<string, Enum>();
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
+			{
+				foreach (Enum @enum in Enum.GetValues(type))
+				{
+					unitStringToEnumMap.Add(@enum.ToString(), @enum);
+				}
+			}
+			UnitStringToEnumMap = unitStringToEnumMap;
+
+			// make the delegates for constructing the measurements
+			Dictionary<string, Func<object[], object>> unitsStringsToFactoryFunctions = new Dictionary<string, Func<object[], object>>();
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableAttribute>())
+			{
+				ParseableAttribute parsableAttribute = type.GetCustomAttribute<ParseableAttribute>();
+				Func<object[], object> factory = Assume.Method<Func<object[], object>>(null, type, "Factory", BindingFlags.Static | BindingFlags.NonPublic);
+				if (factory is null)
+				{
+					throw new Exception("There is a bug in Towel. A ParseableAttribute is on a type without the necessary Factory method.");
+				}
+				unitsStringsToFactoryFunctions.Add(parsableAttribute.Key, factory);
+			}
+			UnitsStringsToFactoryFunctions = unitsStringsToFactoryFunctions;
+
+			ParsingLibraryBuilt = true;
+		}
+
+		public static bool TryParse<T>(string @string, out object measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		{
+			if (!ParsingLibraryBuilt)
+			{
+				BuildParsingLibrary();
+			}
+
+			List<object> parameters = new List<object>();
+			bool AtLeastOneUnit = false;
+			bool? numerator = null;
+			MatchCollection matchCollection = Regex.Matches(@string, AllUnitsRegexPattern);
+			if (matchCollection.Count <= 0 || matchCollection[0].Index <= 0)
+			{
+				measurement = default(object);
+				return false;
+			}
+			string numericString = @string.Substring(0, matchCollection[0].Index);
+			T value;
+			try
+			{
+				value = Symbolics.ParseAndSimplifyToConstant<T>(numericString, tryParseNumeric);
+				parameters.Add(value);
+			}
+			catch
+			{
+				measurement = default(object);
+				return false;
+			}
+			StringBuilder stringBuilder = new StringBuilder();
+			foreach (Match match in matchCollection)
+			{
+				string matchValue = match.Value;
+				if (matchValue.Equals("*") || matchValue.Equals("/"))
+				{
+					if (!(numerator is null))
+					{
+						measurement = default(object);
+						return false;
+					}
+					if (!AtLeastOneUnit)
+					{
+						measurement = default(object);
+						return false;
+					}
+					numerator = matchValue.Equals("*");
+					continue;
+				}
+				if (!UnitStringToEnumMap.TryGetValue(match.Value, out Enum @enum))
+				{
+					measurement = default(object);
+					return false;
+				}
+				if (!AtLeastOneUnit)
+				{
+					if (!(numerator is null))
+					{
+						measurement = default(object);
+						return false;
+					}
+					stringBuilder.Append(@enum.GetType().DeclaringType.Name);
+					parameters.Add(@enum);
+				}
+				else
+				{
+					if (numerator is null)
+					{
+						measurement = default(object);
+						return false;
+					}
+					if (numerator.Value)
+					{
+						stringBuilder.Append("*" + @enum.GetType().DeclaringType.Name);
+						parameters.Add(@enum);
+					}
+					else
+					{
+						stringBuilder.Append("/" + @enum.GetType().DeclaringType.Name);
+						parameters.Add(@enum);
+					}
+				}
+				numerator = null;
+			}
+			if (!(numerator is null))
+			{
+				measurement = default(object);
+				return false;
+			}
+			string key = stringBuilder.ToString();
+			Func<object[], object> factory = UnitsStringsToFactoryFunctions[key];
+			measurement = factory(parameters.ToArray());
+			return true;
+		}
+
+		public static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		{
+			if (!TryParse(@string, out object parsedMeasurment, tryParseNumeric) ||
+				!(parsedMeasurment is MEASUREMENT))
+			{
+				measurement = default(MEASUREMENT);
+				return false;
+			}
+			measurement = (MEASUREMENT)parsedMeasurment;
+			return true;
+		}
+
+		#endregion
 	}
 }
