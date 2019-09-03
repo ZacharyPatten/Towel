@@ -612,6 +612,22 @@ namespace Towel.Measurements
 
 	#endregion
 
+	#region MassRate
+
+	/// <summary>Contains unit types and conversion factors for the generic MassRate struct.</summary>
+	public static class MassRate
+	{
+		/// <summary>Units for MassRate measurements.</summary>
+		[Measurement.ParseableUnit]
+		[Serializable]
+		public enum Units
+		{
+			// no custom units currently
+		}
+	}
+
+	#endregion
+
 	#region Power
 
 	/// <summary>Contains unit types and conversion factors for the generic Power struct.</summary>

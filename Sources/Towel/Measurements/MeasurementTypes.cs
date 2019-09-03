@@ -22,6 +22,7 @@
 //    LinearMass: Mass*Length
 //    LinearMassFlow: Mass*Length/Time
 //    Mass: Mass
+//    MassRate: Mass/Time
 //    Power: Mass*Length*Length/Time/Time/Time
 //    Pressure: Mass/Length/Time/Time
 //    Speed: Length/Time
@@ -58,6 +59,7 @@
 //    Density * Area = LinearDensity
 //    Density * Length = AreaDensity
 //    Density * Volume = Mass
+//    Density * VolumeRate = MassRate
 //    ElectricCurrent * Time = ElectricCharge
 //    Force * Length = Energy
 //    Force * Speed = Power
@@ -70,8 +72,10 @@
 //    Length * Length = Area
 //    Length * LinearDensity = Mass
 //    Length * Mass = LinearMass
+//    Length * MassRate = LinearMassFlow
 //    LinearDensity * Area = LinearMass
 //    LinearDensity * Length = Mass
+//    LinearDensity * Speed = MassRate
 //    LinearMass * Acceleration = Energy
 //    LinearMassFlow * Acceleration = Power
 //    LinearMassFlow * Speed = Energy
@@ -79,6 +83,9 @@
 //    Mass * Acceleration = Force
 //    Mass * Length = LinearMass
 //    Mass * Speed = LinearMassFlow
+//    MassRate * Length = LinearMassFlow
+//    MassRate * Speed = Force
+//    MassRate * Time = Mass
 //    Power * Time = Energy
 //    Pressure * Area = Force
 //    Pressure * TimeArea = LinearDensity
@@ -86,8 +93,10 @@
 //    Pressure * VolumeRate = Power
 //    Speed * Area = VolumeRate
 //    Speed * Force = Power
+//    Speed * LinearDensity = MassRate
 //    Speed * LinearMassFlow = Energy
 //    Speed * Mass = LinearMassFlow
+//    Speed * MassRate = Force
 //    Speed * Time = Length
 //    Time * Acceleration = Speed
 //    Time * AngularAcceleration = AngularSpeed
@@ -95,6 +104,7 @@
 //    Time * ElectricCurrent = ElectricCharge
 //    Time * Force = LinearMassFlow
 //    Time * LinearMassFlow = LinearMass
+//    Time * MassRate = Mass
 //    Time * Power = Energy
 //    Time * Speed = Length
 //    Time * Time = TimeArea
@@ -107,6 +117,7 @@
 //    Volume * Density = Mass
 //    Volume * Pressure = Energy
 //    VolumeRate * AreaDensity = LinearMassFlow
+//    VolumeRate * Density = MassRate
 //    VolumeRate * Pressure = Power
 //    VolumeRate * Time = Volume
 //    Angle / AngularAcceleration = TimeArea
@@ -133,7 +144,9 @@
 //    Force / Acceleration = Mass
 //    Force / Area = Pressure
 //    Force / Mass = Acceleration
+//    Force / MassRate = Speed
 //    Force / Pressure = Area
+//    Force / Speed = MassRate
 //    Length / Acceleration = TimeArea
 //    Length / Speed = Time
 //    Length / Time = Speed
@@ -156,7 +169,9 @@
 //    LinearMass / Volume = AreaDensity
 //    LinearMassFlow / AreaDensity = VolumeRate
 //    LinearMassFlow / Force = Time
+//    LinearMassFlow / Length = MassRate
 //    LinearMassFlow / Mass = Speed
+//    LinearMassFlow / MassRate = Length
 //    LinearMassFlow / Speed = Mass
 //    LinearMassFlow / Time = Force
 //    LinearMassFlow / VolumeRate = AreaDensity
@@ -165,7 +180,13 @@
 //    Mass / Density = Volume
 //    Mass / Length = LinearDensity
 //    Mass / LinearDensity = Length
+//    Mass / MassRate = Time
+//    Mass / Time = MassRate
 //    Mass / Volume = Density
+//    MassRate / Density = VolumeRate
+//    MassRate / LinearDensity = Speed
+//    MassRate / Speed = LinearDensity
+//    MassRate / VolumeRate = Density
 //    Power / Acceleration = LinearMassFlow
 //    Power / Force = Speed
 //    Power / LinearMassFlow = Acceleration
@@ -5655,6 +5676,47 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Density<T> * VolumeRate<T> = MassRate<T>
+
+		/// <summary>Mulitplies Density by VolumeRate resulting in MassRate.</summary>
+		/// <param name="a">The Density to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> Multiply(Density<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits3 <= b._LengthUnits2 ? a._LengthUnits3 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits4 <= b._LengthUnits3 ? a._LengthUnits4 : b._LengthUnits3;
+
+			T A = a[a._MassUnits1, LengthUnits1, LengthUnits2, LengthUnits3];
+			T B = b[LengthUnits1, LengthUnits2, LengthUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new MassRate<T>(C
+				, a._MassUnits1
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Density by VolumeRate resulting in MassRate.</summary>
+		/// <param name="a">The Density to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> operator *(Density<T> a, VolumeRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Density by VolumeRate resulting in MassRate.</summary>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public MassRate<T> Multiply(VolumeRate<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -9182,6 +9244,47 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Force<T> / MassRate<T> = Speed<T>
+
+		/// <summary>Divides Force by MassRate resulting in Speed.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> Divide(Force<T> a, MassRate<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits3 <= b._TimeUnits2 ? a._TimeUnits3 : b._TimeUnits2;
+
+			T A = a[MassUnits1, a._LengthUnits2, TimeUnits2, a._TimeUnits4];
+			T B = b[MassUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Speed<T>(C
+				, a._LengthUnits2
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides Force by MassRate resulting in Speed.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> operator /(Force<T> a, MassRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Force by MassRate resulting in Speed.</summary>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public Speed<T> Divide(MassRate<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Force<T> / Pressure<T> = Area<T>
 
 		/// <summary>Divides Force by Pressure resulting in Area.</summary>
@@ -9217,6 +9320,47 @@ namespace Towel.Measurements
 		/// <param name="b">The Pressure to divide by.</param>
 		/// <returns>The Area result of the division.</returns>
 		public Area<T> Divide(Pressure<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Force<T> / Speed<T> = MassRate<T>
+
+		/// <summary>Divides Force by Speed resulting in MassRate.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> Divide(Force<T> a, Speed<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits3 <= b._TimeUnits2 ? a._TimeUnits3 : b._TimeUnits2;
+
+			T A = a[a._MassUnits1, LengthUnits1, TimeUnits2, a._TimeUnits4];
+			T B = b[LengthUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new MassRate<T>(C
+				, a._MassUnits1
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides Force by Speed resulting in MassRate.</summary>
+		/// <param name="a">The Force to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> operator /(Force<T> a, Speed<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Force by Speed resulting in MassRate.</summary>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public MassRate<T> Divide(Speed<T> b)
         {
 			return this / b;
         }
@@ -9995,6 +10139,45 @@ namespace Towel.Measurements
 		/// <param name="b">The Mass to multiply by.</param>
 		/// <returns>The LinearMass result of the multiplication.</returns>
 		public LinearMass<T> Multiply(Mass<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Length<T> * MassRate<T> = LinearMassFlow<T>
+
+		/// <summary>Mulitplies Length by MassRate resulting in LinearMassFlow.</summary>
+		/// <param name="a">The Length to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> Multiply(Length<T> a, MassRate<T> b)
+        {
+
+			T A = a[a._LengthUnits1];
+			T B = b[b._MassUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearMassFlow<T>(C
+				, b._MassUnits1
+				, a._LengthUnits1
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Length by MassRate resulting in LinearMassFlow.</summary>
+		/// <param name="a">The Length to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> operator *(Length<T> a, MassRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Length by MassRate resulting in LinearMassFlow.</summary>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public LinearMassFlow<T> Multiply(MassRate<T> b)
         {
 			return this * b;
         }
@@ -10841,6 +11024,45 @@ namespace Towel.Measurements
 		/// <param name="b">The Length to multiply by.</param>
 		/// <returns>The Mass result of the multiplication.</returns>
 		public Mass<T> Multiply(Length<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region LinearDensity<T> * Speed<T> = MassRate<T>
+
+		/// <summary>Mulitplies LinearDensity by Speed resulting in MassRate.</summary>
+		/// <param name="a">The LinearDensity to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> Multiply(LinearDensity<T> a, Speed<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1];
+			T B = b[LengthUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new MassRate<T>(C
+				, a._MassUnits1
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies LinearDensity by Speed resulting in MassRate.</summary>
+		/// <param name="a">The LinearDensity to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> operator *(LinearDensity<T> a, Speed<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies LinearDensity by Speed resulting in MassRate.</summary>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public MassRate<T> Multiply(Speed<T> b)
         {
 			return this * b;
         }
@@ -13073,6 +13295,46 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region LinearMassFlow<T> / Length<T> = MassRate<T>
+
+		/// <summary>Divides LinearMassFlow by Length resulting in MassRate.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The Length to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> Divide(LinearMassFlow<T> a, Length<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._TimeUnits3];
+			T B = b[LengthUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new MassRate<T>(C
+				, a._MassUnits1
+				, a._TimeUnits3
+				);
+        }
+
+		/// <summary>Divides LinearMassFlow by Length resulting in MassRate.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The Length to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> operator /(LinearMassFlow<T> a, Length<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearMassFlow by Length resulting in MassRate.</summary>
+		/// <param name="b">The Length to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public MassRate<T> Divide(Length<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region LinearMassFlow<T> / Mass<T> = Speed<T>
 
 		/// <summary>Divides LinearMassFlow by Mass resulting in Speed.</summary>
@@ -13106,6 +13368,46 @@ namespace Towel.Measurements
 		/// <param name="b">The Mass to divide by.</param>
 		/// <returns>The Speed result of the division.</returns>
 		public Speed<T> Divide(Mass<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region LinearMassFlow<T> / MassRate<T> = Length<T>
+
+		/// <summary>Divides LinearMassFlow by MassRate resulting in Length.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Length result of the division.</returns>
+		public static Length<T> Divide(LinearMassFlow<T> a, MassRate<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits3 <= b._TimeUnits2 ? a._TimeUnits3 : b._TimeUnits2;
+
+			T A = a[MassUnits1, a._LengthUnits2, TimeUnits2];
+			T B = b[MassUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Length<T>(C
+				, a._LengthUnits2
+				);
+        }
+
+		/// <summary>Divides LinearMassFlow by MassRate resulting in Length.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Length result of the division.</returns>
+		public static Length<T> operator /(LinearMassFlow<T> a, MassRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearMassFlow by MassRate resulting in Length.</summary>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Length result of the division.</returns>
+		public Length<T> Divide(MassRate<T> b)
         {
 			return this / b;
         }
@@ -14115,6 +14417,84 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Mass<T> / MassRate<T> = Time<T>
+
+		/// <summary>Divides Mass by MassRate resulting in Time.</summary>
+		/// <param name="a">The Mass to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> Divide(Mass<T> a, MassRate<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+
+			T A = a[MassUnits1];
+			T B = b[MassUnits1, b._TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Time<T>(C
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Divides Mass by MassRate resulting in Time.</summary>
+		/// <param name="a">The Mass to be divided.</param>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> operator /(Mass<T> a, MassRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Mass by MassRate resulting in Time.</summary>
+		/// <param name="b">The MassRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public Time<T> Divide(MassRate<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Mass<T> / Time<T> = MassRate<T>
+
+		/// <summary>Divides Mass by Time resulting in MassRate.</summary>
+		/// <param name="a">The Mass to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> Divide(Mass<T> a, Time<T> b)
+        {
+
+			T A = a[a._MassUnits1];
+			T B = b[b._TimeUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new MassRate<T>(C
+				, a._MassUnits1
+				, b._TimeUnits1
+				);
+        }
+
+		/// <summary>Divides Mass by Time resulting in MassRate.</summary>
+		/// <param name="a">The Mass to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public static MassRate<T> operator /(Mass<T> a, Time<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Mass by Time resulting in MassRate.</summary>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The MassRate result of the division.</returns>
+		public MassRate<T> Divide(Time<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Mass<T> / Volume<T> = Density<T>
 
 		/// <summary>Divides Mass by Volume resulting in Density.</summary>
@@ -14370,6 +14750,901 @@ namespace Towel.Measurements
             return
                 _measurement.GetHashCode()
 				^ _MassUnits1.GetHashCode()
+				;
+        }
+
+		#endregion
+	}
+
+	#endregion
+
+	#region MassRate
+
+	internal static partial class ParsingFunctions
+	{
+		[Measurement.Parseable("Mass/Time")]
+		public static object MassRate<T>(T value, object[] units)
+		{
+			if (units.Length != 2)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to MassRate Factory.");
+			}
+			if (!(units[0] is Mass.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to MassRate Factory.");
+			}
+			if (!(units[1] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to MassRate Factory.");
+			}
+			return new MassRate<T>(value
+				, (Mass.Units)units[0]
+				, (Time.Units)units[1]
+				);
+		}
+	}
+
+	/// <summary>MassRate measurement with a value and the units.</summary>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	public struct MassRate<T>
+	{
+		internal T _measurement;
+		internal Mass.Units _MassUnits1;
+		internal Time.Units _TimeUnits2;
+
+		#region Statics
+
+		public static T Convert(T value
+			, Mass.Units fromMassUnits1
+			, Time.Units fromTimeUnits2
+			, Mass.Units toMassUnits1
+			, Time.Units toTimeUnits2
+			)
+		{
+			MassRate<T> measurement = new MassRate<T>(value
+				, fromMassUnits1
+				, fromTimeUnits2
+				);
+			return measurement[
+				 toMassUnits1
+				, toTimeUnits2
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.MassRateBaseUnits from,
+			MeasurementUnitsSyntaxTypes.MassRateBaseUnits to)
+		{
+			return Convert(value
+			, from._MassUnits1
+			, from._TimeUnits2
+			, to._MassUnits1
+			, to._TimeUnits2
+			);
+		}
+
+		public static bool TryParse(string @string, out MassRate<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		{
+			return Measurement.TryParse<T, MassRate<T>>(@string, out value, tryParseNumeric);
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>Constructs an MassRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the MassRate.</param>
+		/// <param name="units">The units of the MassRate.</param>
+		public MassRate(T measurement, MeasurementUnitsSyntaxTypes.MassRateBaseUnits units) : this(measurement
+			, units._MassUnits1
+			, units._TimeUnits2
+			) { }
+
+		/// <summary>Constructs an MassRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the MassRate.</param>
+        /// <param name="units">The units of the MassRate.</param>
+		public MassRate(T measurement, MassRate.Units units)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Constructs an MassRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the MassRate.</param>
+		/// <param name="MassUnits1">The units of the MassRate.</param>
+		/// <param name="TimeUnits2">The units of the MassRate.</param>
+		public MassRate(T measurement
+			, Mass.Units MassUnits1
+			, Time.Units TimeUnits2
+			)
+		{
+			_measurement = measurement;
+			_MassUnits1 = MassUnits1;
+			_TimeUnits2 = TimeUnits2;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>The #1 component of this measurements units.</summary>
+        public Mass.Units MassUnits1
+        {
+            get { return _MassUnits1; }
+            set
+            {
+                if (value != _MassUnits1)
+                {
+                    _measurement = this[value, _TimeUnits2];
+                    _MassUnits1 = value;
+                }
+            }
+        }
+
+		/// <summary>The #2 component of this measurements units.</summary>
+        public Time.Units TimeUnits2
+        {
+            get { return _TimeUnits2; }
+            set
+            {
+                if (value != _TimeUnits2)
+                {
+                    _measurement = this[_MassUnits1, value];
+                    _TimeUnits2 = value;
+                }
+            }
+        }
+
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
+		public T this[MeasurementUnitsSyntaxTypes.MassRateBaseUnits units]
+		{
+			get { return this[units._MassUnits1, units._TimeUnits2]; }
+		}
+
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="MassUnits1">The #1 component of this measurements units.</param>
+		/// <param name="TimeUnits2">The #2 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
+		public T this[Mass.Units MassUnits1, Time.Units TimeUnits2]
+        {
+            get
+            {
+                T measurement = _measurement;
+                if (MassUnits1 != _MassUnits1)
+                {
+                    if (MassUnits1 < _MassUnits1)
+                    {
+                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    }
+                    else
+                    {
+                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    }
+                }
+                if (TimeUnits2 != _TimeUnits2)
+                {
+                    if (TimeUnits2 > _TimeUnits2)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits2][(int)TimeUnits2](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits2][(int)_TimeUnits2](measurement);
+                    }
+                }
+                return measurement;
+            }
+        }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator MassRate<T>((T, MeasurementUnitsSyntaxTypes.MassRateBaseUnits) valueTuple)
+		{
+			return new MassRate<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
+		#region Mathematics
+
+		#region Bases
+
+		internal static MassRate<T> MathBase(MassRate<T> a, T b, Func<T, T, T> func)
+        {
+            return new MassRate<T>(func(a._measurement, b)
+				, a._MassUnits1
+				, a._TimeUnits2
+			);
+        }
+
+        internal static MassRate<T> MathBase(MassRate<T> a, MassRate<T> b, Func<T, T, T> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits2 <= b._TimeUnits2 ? a._TimeUnits2 : b._TimeUnits2;
+			T A = a[MassUnits1, TimeUnits2];
+			T B = b[MassUnits1, TimeUnits2];
+            T C = func(A, B);
+			return new MassRate<T>(C, MassUnits1, TimeUnits2);
+        }
+
+        internal static bool LogicBase(MassRate<T> a, MassRate<T> b, Func<T, T, bool> func)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits2 <= b._TimeUnits2 ? a._TimeUnits2 : b._TimeUnits2;
+			T A = a[MassUnits1, TimeUnits2];
+			T B = b[MassUnits1, TimeUnits2];
+            return func(A, B);
+        }
+
+		#endregion
+
+		#region Add
+
+        /// <summary>Adds two MassRate measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static MassRate<T> Add(MassRate<T> a, MassRate<T> b)
+        {
+            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+        }
+
+        /// <summary>Adds two MassRate measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static MassRate<T> operator +(MassRate<T> a, MassRate<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Adds two MassRate measurements.</summary>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public MassRate<T> Add(MassRate<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Subtracts two MassRate measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static MassRate<T> Subtract(MassRate<T> a, MassRate<T> b)
+        {
+            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+        }
+
+        /// <summary>Subtracts two MassRate measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static MassRate<T> operator -(MassRate<T> a, MassRate<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Subtracts two MassRate measurements.</summary>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public MassRate<T> Subtract(MassRate<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply
+
+        /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
+        /// <param name="a">The MassRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static MassRate<T> Multiply(MassRate<T> a, T b)
+        {
+            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+        }
+
+        /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
+        /// <param name="a">The MassRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static MassRate<T> Multiply(T b, MassRate<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
+        /// <param name="a">The MassRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static MassRate<T> operator *(MassRate<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
+        /// <param name="a">The MassRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static MassRate<T> operator *(T b, MassRate<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public MassRate<T> Add(T b)
+        {
+            return this * b;
+        }
+
+		#region MassRate<T> * Length<T> = LinearMassFlow<T>
+
+		/// <summary>Mulitplies MassRate by Length resulting in LinearMassFlow.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Length to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> Multiply(MassRate<T> a, Length<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._TimeUnits2];
+			T B = b[b._LengthUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearMassFlow<T>(C
+				, a._MassUnits1
+				, b._LengthUnits1
+				, a._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies MassRate by Length resulting in LinearMassFlow.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Length to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> operator *(MassRate<T> a, Length<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies MassRate by Length resulting in LinearMassFlow.</summary>
+		/// <param name="b">The Length to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public LinearMassFlow<T> Multiply(Length<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region MassRate<T> * Speed<T> = Force<T>
+
+		/// <summary>Mulitplies MassRate by Speed resulting in Force.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> Multiply(MassRate<T> a, Speed<T> b)
+        {
+
+			T A = a[a._MassUnits1, a._TimeUnits2];
+			T B = b[b._LengthUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new Force<T>(C
+				, a._MassUnits1
+				, b._LengthUnits1
+				, a._TimeUnits2
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies MassRate by Speed resulting in Force.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> operator *(MassRate<T> a, Speed<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies MassRate by Speed resulting in Force.</summary>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public Force<T> Multiply(Speed<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region MassRate<T> * Time<T> = Mass<T>
+
+		/// <summary>Mulitplies MassRate by Time resulting in Mass.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public static Mass<T> Multiply(MassRate<T> a, Time<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits2 <= b._TimeUnits1 ? a._TimeUnits2 : b._TimeUnits1;
+
+			T A = a[a._MassUnits1, TimeUnits1];
+			T B = b[TimeUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new Mass<T>(C
+				, a._MassUnits1
+				);
+        }
+
+		/// <summary>Mulitplies MassRate by Time resulting in Mass.</summary>
+		/// <param name="a">The MassRate to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public static Mass<T> operator *(MassRate<T> a, Time<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies MassRate by Time resulting in Mass.</summary>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public Mass<T> Multiply(Time<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region Divide
+
+		/// <summary>Divides an MassRate measurement by another MassRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(MassRate<T> a, MassRate<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits2 <= b._TimeUnits2 ? a._TimeUnits2 : b._TimeUnits2;
+			T A = a[MassUnits1, TimeUnits2];
+			T B = b[MassUnits1, TimeUnits2];
+            return Compute.Divide(A, B);
+        }
+
+        /// <summary>Divides this MassRate measurement by a numaric scalar value.</summary>
+        /// <param name="a">The MassRate measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static MassRate<T> Divide(MassRate<T> a, T b)
+        {
+            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+        }
+
+        /// <summary>Divides this MassRate measurement by a numaric scalar value.</summary>
+        /// <param name="a">The MassRate measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static MassRate<T> operator /(MassRate<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides this MassRate measurement by a numaric scalar value.</summary>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public MassRate<T> Divide(T b)
+        {
+            return this / b;
+        }
+
+        /// <summary>Divides an MassRate measurement by another MassRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T operator /(MassRate<T> a, MassRate<T> b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides an MassRate measurement by another MassRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public T Divide(MassRate<T> b)
+        {
+            return this / b;
+        }
+
+
+		#region MassRate<T> / Density<T> = VolumeRate<T>
+
+		/// <summary>Divides MassRate by Density resulting in VolumeRate.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The Density to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> Divide(MassRate<T> a, Density<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+
+			T A = a[MassUnits1, a._TimeUnits2];
+			T B = b[MassUnits1, b._LengthUnits2, b._LengthUnits3, b._LengthUnits4];
+			T C = Compute.Divide(A, B);
+
+			return new VolumeRate<T>(C
+				, b._LengthUnits2
+				, b._LengthUnits3
+				, b._LengthUnits4
+				, a._TimeUnits2
+				);
+        }
+
+		/// <summary>Divides MassRate by Density resulting in VolumeRate.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The Density to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> operator /(MassRate<T> a, Density<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides MassRate by Density resulting in VolumeRate.</summary>
+		/// <param name="b">The Density to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public VolumeRate<T> Divide(Density<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region MassRate<T> / LinearDensity<T> = Speed<T>
+
+		/// <summary>Divides MassRate by LinearDensity resulting in Speed.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The LinearDensity to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> Divide(MassRate<T> a, LinearDensity<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+
+			T A = a[MassUnits1, a._TimeUnits2];
+			T B = b[MassUnits1, b._LengthUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Speed<T>(C
+				, b._LengthUnits2
+				, a._TimeUnits2
+				);
+        }
+
+		/// <summary>Divides MassRate by LinearDensity resulting in Speed.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The LinearDensity to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> operator /(MassRate<T> a, LinearDensity<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides MassRate by LinearDensity resulting in Speed.</summary>
+		/// <param name="b">The LinearDensity to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public Speed<T> Divide(LinearDensity<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region MassRate<T> / Speed<T> = LinearDensity<T>
+
+		/// <summary>Divides MassRate by Speed resulting in LinearDensity.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The LinearDensity result of the division.</returns>
+		public static LinearDensity<T> Divide(MassRate<T> a, Speed<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits2 <= b._TimeUnits2 ? a._TimeUnits2 : b._TimeUnits2;
+
+			T A = a[a._MassUnits1, TimeUnits1];
+			T B = b[b._LengthUnits1, TimeUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new LinearDensity<T>(C
+				, a._MassUnits1
+				, b._LengthUnits1
+				);
+        }
+
+		/// <summary>Divides MassRate by Speed resulting in LinearDensity.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The LinearDensity result of the division.</returns>
+		public static LinearDensity<T> operator /(MassRate<T> a, Speed<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides MassRate by Speed resulting in LinearDensity.</summary>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The LinearDensity result of the division.</returns>
+		public LinearDensity<T> Divide(Speed<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region MassRate<T> / VolumeRate<T> = Density<T>
+
+		/// <summary>Divides MassRate by VolumeRate resulting in Density.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Density result of the division.</returns>
+		public static Density<T> Divide(MassRate<T> a, VolumeRate<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits2 <= b._TimeUnits4 ? a._TimeUnits2 : b._TimeUnits4;
+
+			T A = a[a._MassUnits1, TimeUnits1];
+			T B = b[b._LengthUnits1, b._LengthUnits2, b._LengthUnits3, TimeUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new Density<T>(C
+				, a._MassUnits1
+				, b._LengthUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				);
+        }
+
+		/// <summary>Divides MassRate by VolumeRate resulting in Density.</summary>
+		/// <param name="a">The MassRate to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Density result of the division.</returns>
+		public static Density<T> operator /(MassRate<T> a, VolumeRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides MassRate by VolumeRate resulting in Density.</summary>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Density result of the division.</returns>
+		public Density<T> Divide(VolumeRate<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region LessThan
+
+        /// <summary>Determines if an MassRate measurement is less than another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool LessThan(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is less than another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool operator <(MassRate<T> a, MassRate<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is less than another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public bool LessThan(MassRate<T> b)
+        {
+            return this < b;
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        /// <summary>Determines if an MassRate measurement is greater than another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool GreaterThan(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is greater than another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool operator >(MassRate<T> a, MassRate<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is greater than another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public bool GreaterThan(MassRate<T> b)
+        {
+            return this > b;
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        /// <summary>Determines if an MassRate measurement is less than or equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool LessThanOrEqual(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is less than or equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool operator <=(MassRate<T> a, MassRate<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is less than or equal to another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public bool LessThanOrEqual(MassRate<T> b)
+        {
+            return this <= b;
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        /// <summary>Determines if an MassRate measurement is greater than or equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool GreaterThanOrEqual(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is greater than or equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool operator >=(MassRate<T> a, MassRate<T> b)
+        {
+            return GreaterThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is greater than or equal to another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public bool GreaterThanOrEqual(MassRate<T> b)
+        {
+            return this >= b;
+        }
+
+        #endregion
+
+        #region Equal
+
+        /// <summary>Determines if an MassRate measurement is equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool Equal(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool operator ==(MassRate<T> a, MassRate<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is equal to another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public bool Equal(MassRate<T> b)
+        {
+            return this == b;
+        }
+
+        #endregion
+
+        #region NotEqual
+
+        /// <summary>Determines if an MassRate measurement is not equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool NotEqual(MassRate<T> a, MassRate<T> b)
+        {
+            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an MassRate measurement is not equal to another MassRate measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool operator !=(MassRate<T> a, MassRate<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        /// <summary>Determines if an MassRate measurement is not equal to another MassRate measurement.</summary>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public bool NotEqual(MassRate<T> b)
+        {
+            return this != b;
+        }
+
+        #endregion
+
+		#endregion
+
+		#region Overrides
+
+		/// <summary>Base Equals override that performs a type and value equality check.</summary>
+        /// <param name="obj">The object to check for equality with.</param>
+        /// <returns>True if the types and values equal. False if not.</returns>
+		public override bool Equals(object obj)
+        {
+            if (obj is MassRate<T>)
+            {
+                return this == (MassRate<T>)obj;
+            }
+            return false;
+        }
+
+		/// <summary>Converts the MassRate measurement to a string represenation.</summary>
+        /// <returns>The string representation of the measurement.</returns>
+		public override string ToString()
+        {
+            return _measurement + " " +
+				_MassUnits1
+				+ "/" +
+				_TimeUnits2
+				;
+        }
+
+		/// <summary>Base hashing function for MassRate measurements.</summary>
+        /// <returns>Computed hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            return
+                _measurement.GetHashCode()
+				^ _MassUnits1.GetHashCode()
+				^ _TimeUnits2.GetHashCode()
 				;
         }
 
@@ -16851,6 +18126,45 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Speed<T> * LinearDensity<T> = MassRate<T>
+
+		/// <summary>Mulitplies Speed by LinearDensity resulting in MassRate.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The LinearDensity to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> Multiply(Speed<T> a, LinearDensity<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, a._TimeUnits2];
+			T B = b[b._MassUnits1, LengthUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new MassRate<T>(C
+				, b._MassUnits1
+				, a._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Speed by LinearDensity resulting in MassRate.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The LinearDensity to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> operator *(Speed<T> a, LinearDensity<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Speed by LinearDensity resulting in MassRate.</summary>
+		/// <param name="b">The LinearDensity to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public MassRate<T> Multiply(LinearDensity<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
 		#region Speed<T> * LinearMassFlow<T> = Energy<T>
 
 		/// <summary>Mulitplies Speed by LinearMassFlow resulting in Energy.</summary>
@@ -16925,6 +18239,46 @@ namespace Towel.Measurements
 		/// <param name="b">The Mass to multiply by.</param>
 		/// <returns>The LinearMassFlow result of the multiplication.</returns>
 		public LinearMassFlow<T> Multiply(Mass<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Speed<T> * MassRate<T> = Force<T>
+
+		/// <summary>Mulitplies Speed by MassRate resulting in Force.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> Multiply(Speed<T> a, MassRate<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._TimeUnits2];
+			T B = b[b._MassUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new Force<T>(C
+				, b._MassUnits1
+				, a._LengthUnits1
+				, a._TimeUnits2
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Speed by MassRate resulting in Force.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public static Force<T> operator *(Speed<T> a, MassRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Speed by MassRate resulting in Force.</summary>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Force result of the multiplication.</returns>
+		public Force<T> Multiply(MassRate<T> b)
         {
 			return this * b;
         }
@@ -18399,6 +19753,44 @@ namespace Towel.Measurements
 		/// <param name="b">The LinearMassFlow to multiply by.</param>
 		/// <returns>The LinearMass result of the multiplication.</returns>
 		public LinearMass<T> Multiply(LinearMassFlow<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Time<T> * MassRate<T> = Mass<T>
+
+		/// <summary>Mulitplies Time by MassRate resulting in Mass.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public static Mass<T> Multiply(Time<T> a, MassRate<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits1 <= b._TimeUnits2 ? a._TimeUnits1 : b._TimeUnits2;
+
+			T A = a[TimeUnits1];
+			T B = b[b._MassUnits1, TimeUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new Mass<T>(C
+				, b._MassUnits1
+				);
+        }
+
+		/// <summary>Mulitplies Time by MassRate resulting in Mass.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public static Mass<T> operator *(Time<T> a, MassRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Time by MassRate resulting in Mass.</summary>
+		/// <param name="b">The MassRate to multiply by.</param>
+		/// <returns>The Mass result of the multiplication.</returns>
+		public Mass<T> Multiply(MassRate<T> b)
         {
 			return this * b;
         }
@@ -21059,6 +22451,47 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region VolumeRate<T> * Density<T> = MassRate<T>
+
+		/// <summary>Mulitplies VolumeRate by Density resulting in MassRate.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Density to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> Multiply(VolumeRate<T> a, Density<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits3 ? a._LengthUnits2 : b._LengthUnits3;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits4 ? a._LengthUnits3 : b._LengthUnits4;
+
+			T A = a[LengthUnits1, LengthUnits2, LengthUnits3, a._TimeUnits4];
+			T B = b[b._MassUnits1, LengthUnits1, LengthUnits2, LengthUnits3];
+			T C = Compute.Multiply(A, B);
+
+			return new MassRate<T>(C
+				, b._MassUnits1
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Density resulting in MassRate.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Density to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public static MassRate<T> operator *(VolumeRate<T> a, Density<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Density resulting in MassRate.</summary>
+		/// <param name="b">The Density to multiply by.</param>
+		/// <returns>The MassRate result of the multiplication.</returns>
+		public MassRate<T> Multiply(Density<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
 		#region VolumeRate<T> * Pressure<T> = Power<T>
 
 		/// <summary>Mulitplies VolumeRate by Pressure resulting in Power.</summary>
@@ -21752,6 +23185,7 @@ namespace Towel.Measurements
 		
 		
 		
+		
 		}
 
 		public struct DensityUnits
@@ -21888,6 +23322,8 @@ namespace Towel.Measurements
 		
 		
 		
+		
+		
 		}
 
 		public struct ForceUnits
@@ -21934,6 +23370,11 @@ namespace Towel.Measurements
 				return new LinearMassBaseUnits(b._MassUnits1, a._LengthUnits1);
 			}
 		
+			public static LinearMassFlowBaseUnits operator *(LengthUnits a, MassRateBaseUnits b)
+			{
+				return new LinearMassFlowBaseUnits(b._MassUnits1, a._LengthUnits1, b._TimeUnits2);
+			}
+		
 		
 		
 			public static SpeedBaseUnits operator /(LengthUnits a, TimeUnits b)
@@ -21964,6 +23405,7 @@ namespace Towel.Measurements
 			{
 				return LinearDensity<T>.Convert(value, from, to);
 			}
+		
 		
 		
 		
@@ -22073,6 +23515,8 @@ namespace Towel.Measurements
 		
 		
 		
+		
+		
 			public static ForceBaseUnits operator /(LinearMassFlowBaseUnits a, TimeUnits b)
 			{
 				return new ForceBaseUnits(a._MassUnits1, a._LengthUnits2, a._TimeUnits3, b._TimeUnits1);
@@ -22129,10 +23573,55 @@ namespace Towel.Measurements
 			}
 		
 		
+		
+			public static MassRateBaseUnits operator /(MassUnits a, TimeUnits b)
+			{
+				return new MassRateBaseUnits(a._MassUnits1, b._TimeUnits1);
+			}
+		
 			public static DensityBaseUnits operator /(MassUnits a, VolumeBaseUnits b)
 			{
 				return new DensityBaseUnits(a._MassUnits1, b._LengthUnits1, b._LengthUnits2, b._LengthUnits3);
 			}
+		}
+
+		public struct MassRateBaseUnits : Measurement.IUnits<MassRateBaseUnits>
+		{
+			public Mass.Units _MassUnits1;
+			public Time.Units _TimeUnits2;
+
+			public MassRateBaseUnits(Mass.Units MassUnits1, Time.Units TimeUnits2)
+			{
+				_MassUnits1 = MassUnits1;
+				_TimeUnits2 = TimeUnits2;
+			}
+
+			public T Convert<T>(T value,
+				MassRateBaseUnits from,
+				MassRateBaseUnits to)
+			{
+				return MassRate<T>.Convert(value, from, to);
+			}
+		
+			public static LinearMassFlowBaseUnits operator *(MassRateBaseUnits a, LengthUnits b)
+			{
+				return new LinearMassFlowBaseUnits(a._MassUnits1, b._LengthUnits1, a._TimeUnits2);
+			}
+		
+			public static ForceBaseUnits operator *(MassRateBaseUnits a, SpeedBaseUnits b)
+			{
+				return new ForceBaseUnits(a._MassUnits1, b._LengthUnits1, a._TimeUnits2, b._TimeUnits2);
+			}
+		
+		
+		
+		
+		
+		}
+
+		public struct MassRateUnits
+		{
+			public MassRate.Units _MassRateUnits;
 		}
 
 		public struct PowerBaseUnits : Measurement.IUnits<PowerBaseUnits>
@@ -22236,6 +23725,7 @@ namespace Towel.Measurements
 				return new PowerBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, b._TimeUnits3, b._TimeUnits4);
 			}
 		
+		
 			public static EnergyBaseUnits operator *(SpeedBaseUnits a, LinearMassFlowBaseUnits b)
 			{
 				return new EnergyBaseUnits(b._MassUnits1, a._LengthUnits1, b._LengthUnits2, a._TimeUnits2, b._TimeUnits3);
@@ -22244,6 +23734,11 @@ namespace Towel.Measurements
 			public static LinearMassFlowBaseUnits operator *(SpeedBaseUnits a, MassUnits b)
 			{
 				return new LinearMassFlowBaseUnits(b._MassUnits1, a._LengthUnits1, a._TimeUnits2);
+			}
+		
+			public static ForceBaseUnits operator *(SpeedBaseUnits a, MassRateBaseUnits b)
+			{
+				return new ForceBaseUnits(b._MassUnits1, a._LengthUnits1, a._TimeUnits2, b._TimeUnits2);
 			}
 		
 		
@@ -22291,6 +23786,7 @@ namespace Towel.Measurements
 			{
 				return Time<T>.Convert(value, from, to);
 			}
+		
 		
 		
 		
@@ -22394,6 +23890,7 @@ namespace Towel.Measurements
 			{
 				return VolumeRate<T>.Convert(value, from, to);
 			}
+		
 		
 		
 		

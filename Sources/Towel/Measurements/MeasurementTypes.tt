@@ -26,6 +26,7 @@ var measurements = new (string, string[], string[])[]
 	("LinearMass", new string[] { "Mass", "Length" }, new string[] { }),
 	("LinearMassFlow", new string[] { "Mass", "Length" }, new string[] { "Time" }),
 	("Mass", new string[] { "Mass" }, new string[] { }),
+	("MassRate", new string[] { "Mass" }, new string[] { "Time" }),
 	("Power", new string[] { "Mass", "Length", "Length", }, new string[] { "Time", "Time", "Time", }),
 	("Pressure", new string[] { "Mass" }, new string[] { "Length", "Time", "Time", }),
 	("Speed", new string[] { "Length" }, new string[] { "Time" }),
