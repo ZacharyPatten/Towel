@@ -67,53 +67,60 @@ namespace Towel.Measurements
 			}
 		}
 
-		internal static class ParsingLibrary<T>
+		internal static bool ParsingLibraryBuilt = false;
+		internal static string AllUnitsRegexPattern;
+		internal static Dictionary<string, string> UnitStringToUnitTypeString;
+		internal static Dictionary<string, Enum> UnitStringToEnumMap;
+
+		internal static void BuildParsingLibrary()
 		{
-			internal static bool ParsingLibraryBuilt = false;
-			internal static string AllUnitsRegexPattern;
-			internal static Dictionary<string, string> UnitStringToUnitTypeString;
-			internal static Dictionary<string, Enum> UnitStringToEnumMap;
+			// make a regex pattern with all the currently supported unit types and
+			// build the unit string to unit type string map
+			List<string> strings = new List<string>();
+			Dictionary<string, string> unitStringToUnitTypeString = new Dictionary<string, string>();
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
+			{
+				if (!type.IsEnum)
+				{
+					throw new Exception("There is a bug in Towel. " + nameof(ParseableUnitAttribute) + " is on a non enum type.");
+				}
+				if (!type.Name.Equals("Units") || type.DeclaringType == null)
+				{
+					throw new Exception("There is a bug in Towel. A unit type definition does not follow the required structure.");
+				}
+				string unitTypeString = type.DeclaringType.Name;
+				foreach (Enum @enum in Enum.GetValues(type).Cast<Enum>())
+				{
+					strings.Add(@enum.ToString());
+					unitStringToUnitTypeString.Add(@enum.ToString(), unitTypeString);
+				}
+			}
+			strings.Add(@"\*");
+			strings.Add(@"\/");
+			AllUnitsRegexPattern = string.Join("|", strings);
+			UnitStringToUnitTypeString = unitStringToUnitTypeString;
+
+			// make the Enum arrays to units map
+			Dictionary<string, Enum> unitStringToEnumMap = new Dictionary<string, Enum>();
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
+			{
+				foreach (Enum @enum in Enum.GetValues(type))
+				{
+					unitStringToEnumMap.Add(@enum.ToString(), @enum);
+				}
+			}
+			UnitStringToEnumMap = unitStringToEnumMap;
+
+			ParsingLibraryBuilt = true;
+		}
+
+		internal static class TypeSpecificParsingLibrary<T>
+		{
+			internal static bool TypeSpecificParsingLibraryBuilt = false;
 			internal static Dictionary<string, Func<T, object[], object>> UnitsStringsToFactoryFunctions;
 
-			internal static void BuildParsingLibrary()
+			internal static void BuildTypeSpecificParsingLibrary()
 			{
-				// make a regex pattern with all the currently supported unit types and
-				// build the unit string to unit type string map
-				List<string> strings = new List<string>();
-				Dictionary<string, string> unitStringToUnitTypeString = new Dictionary<string, string>();
-				foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
-				{
-					if (!type.IsEnum)
-					{
-						throw new Exception("There is a bug in Towel. " + nameof(ParseableUnitAttribute) + " is on a non enum type.");
-					}
-					if (!type.Name.Equals("Units") || type.DeclaringType == null)
-					{
-						throw new Exception("There is a bug in Towel. A unit type definition does not follow the required structure.");
-					}
-					string unitTypeString = type.DeclaringType.Name;
-					foreach (Enum @enum in Enum.GetValues(type).Cast<Enum>())
-					{
-						strings.Add(@enum.ToString());
-						unitStringToUnitTypeString.Add(@enum.ToString(), unitTypeString);
-					}
-				}
-				strings.Add(@"\*");
-				strings.Add(@"\/");
-				AllUnitsRegexPattern = string.Join("|", strings);
-				UnitStringToUnitTypeString = unitStringToUnitTypeString;
-
-				// make the Enum arrays to units map
-				Dictionary<string, Enum> unitStringToEnumMap = new Dictionary<string, Enum>();
-				foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
-				{
-					foreach (Enum @enum in Enum.GetValues(type))
-					{
-						unitStringToEnumMap.Add(@enum.ToString(), @enum);
-					}
-				}
-				UnitStringToEnumMap = unitStringToEnumMap;
-
 				// make the delegates for constructing the measurements
 				Dictionary<string, Func<T, object[], object>> unitsStringsToFactoryFunctions = new Dictionary<string, Func<T, object[], object>>();
 				foreach (MethodInfo methodInfo in typeof(ParsingFunctions).GetMethods())
@@ -128,21 +135,25 @@ namespace Towel.Measurements
 				}
 				UnitsStringsToFactoryFunctions = unitsStringsToFactoryFunctions;
 
-				ParsingLibraryBuilt = true;
+				TypeSpecificParsingLibraryBuilt = true;
 			}
 		}
 
 		public static bool TryParse<T>(string @string, out object measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
-			if (!ParsingLibrary<T>.ParsingLibraryBuilt)
+			if (!ParsingLibraryBuilt)
 			{
-				ParsingLibrary<T>.BuildParsingLibrary();
+				BuildParsingLibrary();
+			}
+			if (!TypeSpecificParsingLibrary<T>.TypeSpecificParsingLibraryBuilt)
+			{
+				TypeSpecificParsingLibrary<T>.BuildTypeSpecificParsingLibrary();
 			}
 
 			List<object> parameters = new List<object>();
 			bool AtLeastOneUnit = false;
 			bool? numerator = null;
-			MatchCollection matchCollection = Regex.Matches(@string, ParsingLibrary<T>.AllUnitsRegexPattern);
+			MatchCollection matchCollection = Regex.Matches(@string, AllUnitsRegexPattern);
 			if (matchCollection.Count <= 0 || matchCollection[0].Index <= 0)
 			{
 				measurement = default(object);
@@ -178,7 +189,7 @@ namespace Towel.Measurements
 					numerator = matchValue.Equals("*");
 					continue;
 				}
-				if (!ParsingLibrary<T>.UnitStringToEnumMap.TryGetValue(match.Value, out Enum @enum))
+				if (!UnitStringToEnumMap.TryGetValue(match.Value, out Enum @enum))
 				{
 					measurement = default(object);
 					return false;
@@ -220,7 +231,7 @@ namespace Towel.Measurements
 				return false;
 			}
 			string key = stringBuilder.ToString();
-			Func<T, object[], object> factory = ParsingLibrary<T>.UnitsStringsToFactoryFunctions[key];
+			Func<T, object[], object> factory = TypeSpecificParsingLibrary<T>.UnitsStringsToFactoryFunctions[key];
 			measurement = factory(value, parameters.ToArray());
 			return true;
 		}
