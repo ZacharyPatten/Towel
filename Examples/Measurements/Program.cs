@@ -366,6 +366,15 @@ namespace Measurements
 			string density1String = density1.ToString();
 			Density<double>.TryParse(density1String, out Density<double> density1Parsed);
 
+			string speedString = "20.5 Meters / Seconds";
+			Speed<float>.TryParse(speedString, out Speed<float> parsedSpeed);
+
+			string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
+			Force<decimal>.TryParse(forceString, out Force<decimal> parsedForce);
+
+			string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
+			Density<double>.TryParse(densityString, out Density<double> parsedDensity);
+
 			#endregion
 
 			Console.WriteLine();
