@@ -1164,7 +1164,6 @@ string bIndexString = null;
 <# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length == 1; #>
 <# bool isDerivedUnit = !isBaseUnit; #>
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
-		[Measurement.ParseableUnitType("<#= string.Join("*", measurement.Item2) #><#= measurement.Item3.Length > 0 ? "/" : string.Empty #><#= string.Join("/", measurement.Item3) #>")]
 		public struct <#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units : Measurement.IUnits<<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units>
 		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>

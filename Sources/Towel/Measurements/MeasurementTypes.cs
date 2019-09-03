@@ -20131,7 +20131,6 @@ namespace Towel.Measurements
 
 	public static class MeasurementUnitsSyntaxTypes
 	{
-		[Measurement.ParseableUnitType("Length/Time/Time")]
 		public struct AccelerationBaseUnits : Measurement.IUnits<AccelerationBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -20176,7 +20175,6 @@ namespace Towel.Measurements
 			public Acceleration.Units _AccelerationUnits;
 		}
 
-		[Measurement.ParseableUnitType("Angle/Time/Time")]
 		public struct AngularAccelerationBaseUnits : Measurement.IUnits<AngularAccelerationBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -20205,7 +20203,6 @@ namespace Towel.Measurements
 			public AngularAcceleration.Units _AngularAccelerationUnits;
 		}
 
-		[Measurement.ParseableUnitType("Angle")]
 		public struct AngleUnits : Measurement.IUnits<AngleUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -20235,7 +20232,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("Angle/Time")]
 		public struct AngularSpeedBaseUnits : Measurement.IUnits<AngularSpeedBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -20267,7 +20263,6 @@ namespace Towel.Measurements
 			public AngularSpeed.Units _AngularSpeedUnits;
 		}
 
-		[Measurement.ParseableUnitType("Length*Length")]
 		public struct AreaBaseUnits : Measurement.IUnits<AreaBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -20302,7 +20297,6 @@ namespace Towel.Measurements
 			public Area.Units _AreaUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass/Length/Length")]
 		public struct AreaDensityBaseUnits : Measurement.IUnits<AreaDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20339,7 +20333,6 @@ namespace Towel.Measurements
 			public AreaDensity.Units _AreaDensityUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass/Length/Length/Length")]
 		public struct DensityBaseUnits : Measurement.IUnits<DensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20371,7 +20364,6 @@ namespace Towel.Measurements
 			public Density.Units _DensityUnits;
 		}
 
-		[Measurement.ParseableUnitType("ElectricCharge")]
 		public struct ElectricChargeUnits : Measurement.IUnits<ElectricChargeUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
@@ -20395,7 +20387,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("ElectricCharge/Time")]
 		public struct ElectricCurrentBaseUnits : Measurement.IUnits<ElectricCurrentBaseUnits>
 		{
 			public ElectricCharge.Units _ElectricChargeUnits1;
@@ -20421,7 +20412,6 @@ namespace Towel.Measurements
 			public ElectricCurrent.Units _ElectricCurrentUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass*Length*Length/Time/Time")]
 		public struct EnergyBaseUnits : Measurement.IUnits<EnergyBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20466,7 +20456,6 @@ namespace Towel.Measurements
 			public Energy.Units _EnergyUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass*Length/Time/Time")]
 		public struct ForceBaseUnits : Measurement.IUnits<ForceBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20511,7 +20500,6 @@ namespace Towel.Measurements
 			public Force.Units _ForceUnits;
 		}
 
-		[Measurement.ParseableUnitType("Length")]
 		public struct LengthUnits : Measurement.IUnits<LengthUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -20564,7 +20552,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("Mass/Length")]
 		public struct LinearDensityBaseUnits : Measurement.IUnits<LinearDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20609,7 +20596,6 @@ namespace Towel.Measurements
 			public LinearDensity.Units _LinearDensityUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass*Length")]
 		public struct LinearMassBaseUnits : Measurement.IUnits<LinearMassBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20657,7 +20643,6 @@ namespace Towel.Measurements
 			public LinearMass.Units _LinearMassUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass*Length/Time")]
 		public struct LinearMassFlowBaseUnits : Measurement.IUnits<LinearMassFlowBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20703,7 +20688,6 @@ namespace Towel.Measurements
 			public LinearMassFlow.Units _LinearMassFlowUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass")]
 		public struct MassUnits : Measurement.IUnits<MassUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20754,7 +20738,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("Mass*Length*Length/Time/Time/Time")]
 		public struct PowerBaseUnits : Measurement.IUnits<PowerBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20792,7 +20775,6 @@ namespace Towel.Measurements
 			public Power.Units _PowerUnits;
 		}
 
-		[Measurement.ParseableUnitType("Mass/Length/Time/Time")]
 		public struct PressureBaseUnits : Measurement.IUnits<PressureBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -20826,7 +20808,6 @@ namespace Towel.Measurements
 			public Pressure.Units _PressureUnits;
 		}
 
-		[Measurement.ParseableUnitType("Length/Time")]
 		public struct SpeedBaseUnits : Measurement.IUnits<SpeedBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -20873,7 +20854,6 @@ namespace Towel.Measurements
 			public Speed.Units _SpeedUnits;
 		}
 
-		[Measurement.ParseableUnitType("Tempurature")]
 		public struct TempuratureUnits : Measurement.IUnits<TempuratureUnits>
 		{
 			public Tempurature.Units _TempuratureUnits1;
@@ -20891,7 +20871,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("Time")]
 		public struct TimeUnits : Measurement.IUnits<TimeUnits>
 		{
 			public Time.Units _TimeUnits1;
@@ -20922,7 +20901,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		[Measurement.ParseableUnitType("Time*Time")]
 		public struct TimeAreaBaseUnits : Measurement.IUnits<TimeAreaBaseUnits>
 		{
 			public Time.Units _TimeUnits1;
@@ -20952,7 +20930,6 @@ namespace Towel.Measurements
 			public TimeArea.Units _TimeAreaUnits;
 		}
 
-		[Measurement.ParseableUnitType("Length*Length*Length")]
 		public struct VolumeBaseUnits : Measurement.IUnits<VolumeBaseUnits>
 		{
 			public Length.Units _LengthUnits1;

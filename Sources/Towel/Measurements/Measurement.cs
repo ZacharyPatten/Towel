@@ -55,17 +55,7 @@ namespace Towel.Measurements
 				Key = key;
 			}
 		}
-
 		internal class ParseableUnitAttribute : Attribute { }
-		internal class ParseableUnitTypeAttribute : Attribute
-		{
-			internal string Key;
-
-			internal ParseableUnitTypeAttribute(string key)
-			{
-				Key = key;
-			}
-		}
 
 		internal static bool ParsingLibraryBuilt = false;
 		internal static string AllUnitsRegexPattern;
