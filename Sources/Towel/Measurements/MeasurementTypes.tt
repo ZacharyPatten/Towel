@@ -32,7 +32,9 @@ var measurements = new (string, string[], string[])[]
 	("Tempurature", new string[] { "Tempurature" }, new string[] { }),
 	("Time", new string[] { "Time" }, new string[] { }),
 	("TimeArea", new string[] { "Time", "Time", }, new string[] { }),
+	//("Torque", new string[] { "Mass", "Length", "Length" }, new string[] { "Time", "Time" }),
 	("Volume", new string[] { "Length", "Length", "Length" }, new string[] { }),
+	("VolumeRate", new string[] { "Length", "Length", "Length" }, new string[] { "Time" }),
 
 	// Measurement Type Definitions --------------------------------------------------
 };

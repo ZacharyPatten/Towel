@@ -29,6 +29,7 @@
 //    Time: Time
 //    TimeArea: Time*Time
 //    Volume: Length*Length*Length
+//    VolumeRate: Length*Length*Length/Time
 
 #region Operators
 
@@ -48,10 +49,12 @@
 //    Area * Length = Volume
 //    Area * LinearDensity = LinearMass
 //    Area * Pressure = Force
+//    Area * Speed = VolumeRate
 //    AreaDensity * Acceleration = Pressure
 //    AreaDensity * Area = Mass
 //    AreaDensity * Length = LinearDensity
 //    AreaDensity * Volume = LinearMass
+//    AreaDensity * VolumeRate = LinearMassFlow
 //    Density * Area = LinearDensity
 //    Density * Length = AreaDensity
 //    Density * Volume = Mass
@@ -80,6 +83,8 @@
 //    Pressure * Area = Force
 //    Pressure * TimeArea = LinearDensity
 //    Pressure * Volume = Energy
+//    Pressure * VolumeRate = Power
+//    Speed * Area = VolumeRate
 //    Speed * Force = Power
 //    Speed * LinearMassFlow = Energy
 //    Speed * Mass = LinearMassFlow
@@ -93,6 +98,7 @@
 //    Time * Power = Energy
 //    Time * Speed = Length
 //    Time * Time = TimeArea
+//    Time * VolumeRate = Volume
 //    TimeArea * Acceleration = Length
 //    TimeArea * AngularAcceleration = Angle
 //    TimeArea * Force = LinearMass
@@ -100,6 +106,9 @@
 //    Volume * AreaDensity = LinearMass
 //    Volume * Density = Mass
 //    Volume * Pressure = Energy
+//    VolumeRate * AreaDensity = LinearMassFlow
+//    VolumeRate * Pressure = Power
+//    VolumeRate * Time = Volume
 //    Angle / AngularAcceleration = TimeArea
 //    Angle / AngularSpeed = Time
 //    Angle / Time = AngularSpeed
@@ -145,10 +154,12 @@
 //    LinearMass / Time = LinearMassFlow
 //    LinearMass / TimeArea = Force
 //    LinearMass / Volume = AreaDensity
+//    LinearMassFlow / AreaDensity = VolumeRate
 //    LinearMassFlow / Force = Time
 //    LinearMassFlow / Mass = Speed
 //    LinearMassFlow / Speed = Mass
 //    LinearMassFlow / Time = Force
+//    LinearMassFlow / VolumeRate = AreaDensity
 //    Mass / Area = AreaDensity
 //    Mass / AreaDensity = Area
 //    Mass / Density = Volume
@@ -158,7 +169,9 @@
 //    Power / Acceleration = LinearMassFlow
 //    Power / Force = Speed
 //    Power / LinearMassFlow = Acceleration
+//    Power / Pressure = VolumeRate
 //    Power / Speed = Force
+//    Power / VolumeRate = Pressure
 //    Pressure / Acceleration = AreaDensity
 //    Pressure / AreaDensity = Acceleration
 //    Speed / Acceleration = Time
@@ -166,6 +179,10 @@
 //    TimeArea / Time = Time
 //    Volume / Area = Length
 //    Volume / Length = Area
+//    Volume / Time = VolumeRate
+//    Volume / VolumeRate = Time
+//    VolumeRate / Area = Speed
+//    VolumeRate / Speed = Area
 
 #endregion
 
@@ -3793,6 +3810,46 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Area<T> * Speed<T> = VolumeRate<T>
+
+		/// <summary>Mulitplies Area by Speed resulting in VolumeRate.</summary>
+		/// <param name="a">The Area to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public static VolumeRate<T> Multiply(Area<T> a, Speed<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._LengthUnits2];
+			T B = b[b._LengthUnits1, b._TimeUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new VolumeRate<T>(C
+				, a._LengthUnits1
+				, a._LengthUnits2
+				, b._LengthUnits1
+				, b._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Area by Speed resulting in VolumeRate.</summary>
+		/// <param name="a">The Area to be multiplied.</param>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public static VolumeRate<T> operator *(Area<T> a, Speed<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Area by Speed resulting in VolumeRate.</summary>
+		/// <param name="b">The Speed to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public VolumeRate<T> Multiply(Speed<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -4643,6 +4700,47 @@ namespace Towel.Measurements
 		/// <param name="b">The Volume to multiply by.</param>
 		/// <returns>The LinearMass result of the multiplication.</returns>
 		public LinearMass<T> Multiply(Volume<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region AreaDensity<T> * VolumeRate<T> = LinearMassFlow<T>
+
+		/// <summary>Mulitplies AreaDensity by VolumeRate resulting in LinearMassFlow.</summary>
+		/// <param name="a">The AreaDensity to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> Multiply(AreaDensity<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits3 <= b._LengthUnits2 ? a._LengthUnits3 : b._LengthUnits2;
+
+			T A = a[a._MassUnits1, LengthUnits1, LengthUnits2];
+			T B = b[LengthUnits1, LengthUnits2, b._LengthUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearMassFlow<T>(C
+				, a._MassUnits1
+				, b._LengthUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies AreaDensity by VolumeRate resulting in LinearMassFlow.</summary>
+		/// <param name="a">The AreaDensity to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> operator *(AreaDensity<T> a, VolumeRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies AreaDensity by VolumeRate resulting in LinearMassFlow.</summary>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public LinearMassFlow<T> Multiply(VolumeRate<T> b)
         {
 			return this * b;
         }
@@ -12892,6 +12990,48 @@ namespace Towel.Measurements
         }
 
 
+		#region LinearMassFlow<T> / AreaDensity<T> = VolumeRate<T>
+
+		/// <summary>Divides LinearMassFlow by AreaDensity resulting in VolumeRate.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> Divide(LinearMassFlow<T> a, AreaDensity<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+
+			T A = a[MassUnits1, a._LengthUnits2, a._TimeUnits3];
+			T B = b[MassUnits1, b._LengthUnits2, b._LengthUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new VolumeRate<T>(C
+				, a._LengthUnits2
+				, b._LengthUnits2
+				, b._LengthUnits3
+				, a._TimeUnits3
+				);
+        }
+
+		/// <summary>Divides LinearMassFlow by AreaDensity resulting in VolumeRate.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> operator /(LinearMassFlow<T> a, AreaDensity<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearMassFlow by AreaDensity resulting in VolumeRate.</summary>
+		/// <param name="b">The AreaDensity to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public VolumeRate<T> Divide(AreaDensity<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region LinearMassFlow<T> / Force<T> = Time<T>
 
 		/// <summary>Divides LinearMassFlow by Force resulting in Time.</summary>
@@ -13047,6 +13187,48 @@ namespace Towel.Measurements
 		/// <param name="b">The Time to divide by.</param>
 		/// <returns>The Force result of the division.</returns>
 		public Force<T> Divide(Time<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region LinearMassFlow<T> / VolumeRate<T> = AreaDensity<T>
+
+		/// <summary>Divides LinearMassFlow by VolumeRate resulting in AreaDensity.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public static AreaDensity<T> Divide(LinearMassFlow<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits3 <= b._TimeUnits4 ? a._TimeUnits3 : b._TimeUnits4;
+
+			T A = a[a._MassUnits1, LengthUnits1, TimeUnits2];
+			T B = b[LengthUnits1, b._LengthUnits2, b._LengthUnits3, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new AreaDensity<T>(C
+				, a._MassUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				);
+        }
+
+		/// <summary>Divides LinearMassFlow by VolumeRate resulting in AreaDensity.</summary>
+		/// <param name="a">The LinearMassFlow to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public static AreaDensity<T> operator /(LinearMassFlow<T> a, VolumeRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides LinearMassFlow by VolumeRate resulting in AreaDensity.</summary>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The AreaDensity result of the division.</returns>
+		public AreaDensity<T> Divide(VolumeRate<T> b)
         {
 			return this / b;
         }
@@ -14941,6 +15123,50 @@ namespace Towel.Measurements
 		#endregion
 
 
+		#region Power<T> / Pressure<T> = VolumeRate<T>
+
+		/// <summary>Divides Power by Pressure resulting in VolumeRate.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> Divide(Power<T> a, Pressure<T> b)
+        {
+			Mass.Units MassUnits1 = a._MassUnits1 <= b._MassUnits1 ? a._MassUnits1 : b._MassUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits3 ? a._TimeUnits4 : b._TimeUnits3;
+			Time.Units TimeUnits3 = a._TimeUnits5 <= b._TimeUnits4 ? a._TimeUnits5 : b._TimeUnits4;
+
+			T A = a[MassUnits1, a._LengthUnits2, a._LengthUnits3, TimeUnits2, TimeUnits3, a._TimeUnits6];
+			T B = b[MassUnits1, b._LengthUnits2, TimeUnits2, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new VolumeRate<T>(C
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, b._LengthUnits2
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by Pressure resulting in VolumeRate.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> operator /(Power<T> a, Pressure<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by Pressure resulting in VolumeRate.</summary>
+		/// <param name="b">The Pressure to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public VolumeRate<T> Divide(Pressure<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
 		#region Power<T> / Speed<T> = Force<T>
 
 		/// <summary>Divides Power by Speed resulting in Force.</summary>
@@ -14977,6 +15203,50 @@ namespace Towel.Measurements
 		/// <param name="b">The Speed to divide by.</param>
 		/// <returns>The Force result of the division.</returns>
 		public Force<T> Divide(Speed<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Power<T> / VolumeRate<T> = Pressure<T>
+
+		/// <summary>Divides Power by VolumeRate resulting in Pressure.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> Divide(Power<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits3 <= b._LengthUnits2 ? a._LengthUnits3 : b._LengthUnits2;
+			Time.Units TimeUnits3 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+
+			T A = a[a._MassUnits1, LengthUnits1, LengthUnits2, TimeUnits3, a._TimeUnits5, a._TimeUnits6];
+			T B = b[LengthUnits1, LengthUnits2, b._LengthUnits3, TimeUnits3];
+			T C = Compute.Divide(A, B);
+
+			return new Pressure<T>(C
+				, a._MassUnits1
+				, b._LengthUnits3
+				, a._TimeUnits5
+				, a._TimeUnits6
+				);
+        }
+
+		/// <summary>Divides Power by VolumeRate resulting in Pressure.</summary>
+		/// <param name="a">The Power to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public static Pressure<T> operator /(Power<T> a, VolumeRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Power by VolumeRate resulting in Pressure.</summary>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Pressure result of the division.</returns>
+		public Pressure<T> Divide(VolumeRate<T> b)
         {
 			return this / b;
         }
@@ -15754,6 +16024,49 @@ namespace Towel.Measurements
 
 		#endregion
 
+		#region Pressure<T> * VolumeRate<T> = Power<T>
+
+		/// <summary>Mulitplies Pressure by VolumeRate resulting in Power.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(Pressure<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits2 <= b._LengthUnits1 ? a._LengthUnits2 : b._LengthUnits1;
+
+			T A = a[a._MassUnits1, LengthUnits1, a._TimeUnits3, a._TimeUnits4];
+			T B = b[LengthUnits1, b._LengthUnits2, b._LengthUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, a._MassUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				, a._TimeUnits3
+				, a._TimeUnits4
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies Pressure by VolumeRate resulting in Power.</summary>
+		/// <param name="a">The Pressure to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(Pressure<T> a, VolumeRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Pressure by VolumeRate resulting in Power.</summary>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(VolumeRate<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
         #endregion
 
         #region Divide
@@ -16455,6 +16768,46 @@ namespace Towel.Measurements
         {
             return this * b;
         }
+
+		#region Speed<T> * Area<T> = VolumeRate<T>
+
+		/// <summary>Mulitplies Speed by Area resulting in VolumeRate.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public static VolumeRate<T> Multiply(Speed<T> a, Area<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._TimeUnits2];
+			T B = b[b._LengthUnits1, b._LengthUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new VolumeRate<T>(C
+				, a._LengthUnits1
+				, b._LengthUnits1
+				, b._LengthUnits2
+				, a._TimeUnits2
+				);
+        }
+
+		/// <summary>Mulitplies Speed by Area resulting in VolumeRate.</summary>
+		/// <param name="a">The Speed to be multiplied.</param>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public static VolumeRate<T> operator *(Speed<T> a, Area<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Speed by Area resulting in VolumeRate.</summary>
+		/// <param name="b">The Area to multiply by.</param>
+		/// <returns>The VolumeRate result of the multiplication.</returns>
+		public VolumeRate<T> Multiply(Area<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
 
 		#region Speed<T> * Force<T> = Power<T>
 
@@ -18164,6 +18517,46 @@ namespace Towel.Measurements
 		/// <param name="b">The Time to multiply by.</param>
 		/// <returns>The TimeArea result of the multiplication.</returns>
 		public TimeArea<T> Multiply(Time<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region Time<T> * VolumeRate<T> = Volume<T>
+
+		/// <summary>Mulitplies Time by VolumeRate resulting in Volume.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public static Volume<T> Multiply(Time<T> a, VolumeRate<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits1 <= b._TimeUnits4 ? a._TimeUnits1 : b._TimeUnits4;
+
+			T A = a[TimeUnits1];
+			T B = b[b._LengthUnits1, b._LengthUnits2, b._LengthUnits3, TimeUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new Volume<T>(C
+				, b._LengthUnits1
+				, b._LengthUnits2
+				, b._LengthUnits3
+				);
+        }
+
+		/// <summary>Mulitplies Time by VolumeRate resulting in Volume.</summary>
+		/// <param name="a">The Time to be multiplied.</param>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public static Volume<T> operator *(Time<T> a, VolumeRate<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies Time by VolumeRate resulting in Volume.</summary>
+		/// <param name="b">The VolumeRate to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public Volume<T> Multiply(VolumeRate<T> b)
         {
 			return this * b;
         }
@@ -19899,6 +20292,88 @@ namespace Towel.Measurements
 
 		#endregion
 
+
+		#region Volume<T> / Time<T> = VolumeRate<T>
+
+		/// <summary>Divides Volume by Time resulting in VolumeRate.</summary>
+		/// <param name="a">The Volume to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> Divide(Volume<T> a, Time<T> b)
+        {
+
+			T A = a[a._LengthUnits1, a._LengthUnits2, a._LengthUnits3];
+			T B = b[b._TimeUnits1];
+			T C = Compute.Divide(A, B);
+
+			return new VolumeRate<T>(C
+				, a._LengthUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, b._TimeUnits1
+				);
+        }
+
+		/// <summary>Divides Volume by Time resulting in VolumeRate.</summary>
+		/// <param name="a">The Volume to be divided.</param>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public static VolumeRate<T> operator /(Volume<T> a, Time<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Volume by Time resulting in VolumeRate.</summary>
+		/// <param name="b">The Time to divide by.</param>
+		/// <returns>The VolumeRate result of the division.</returns>
+		public VolumeRate<T> Divide(Time<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region Volume<T> / VolumeRate<T> = Time<T>
+
+		/// <summary>Divides Volume by VolumeRate resulting in Time.</summary>
+		/// <param name="a">The Volume to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> Divide(Volume<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+
+			T A = a[LengthUnits1, LengthUnits2, LengthUnits3];
+			T B = b[LengthUnits1, LengthUnits2, LengthUnits3, b._TimeUnits4];
+			T C = Compute.Divide(A, B);
+
+			return new Time<T>(C
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides Volume by VolumeRate resulting in Time.</summary>
+		/// <param name="a">The Volume to be divided.</param>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public static Time<T> operator /(Volume<T> a, VolumeRate<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides Volume by VolumeRate resulting in Time.</summary>
+		/// <param name="b">The VolumeRate to divide by.</param>
+		/// <returns>The Time result of the division.</returns>
+		public Time<T> Divide(VolumeRate<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
         #endregion
 
         #region LessThan
@@ -20124,6 +20599,920 @@ namespace Towel.Measurements
 
 	#endregion
 
+	#region VolumeRate
+
+	internal static partial class ParsingFunctions
+	{
+		[Measurement.Parseable("Length*Length*Length/Time")]
+		public static object VolumeRate<T>(T value, object[] units)
+		{
+			if (units.Length != 4)
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to VolumeRate Factory.");
+			}
+			if (!(units[0] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to VolumeRate Factory.");
+			}
+			if (!(units[1] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to VolumeRate Factory.");
+			}
+			if (!(units[2] is Length.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to VolumeRate Factory.");
+			}
+			if (!(units[3] is Time.Units))
+			{
+				throw new Exception("Bug in Towel. Invalid parameters to VolumeRate Factory.");
+			}
+			return new VolumeRate<T>(value
+				, (Length.Units)units[0]
+				, (Length.Units)units[1]
+				, (Length.Units)units[2]
+				, (Time.Units)units[3]
+				);
+		}
+	}
+
+	/// <summary>VolumeRate measurement with a value and the units.</summary>
+	/// <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
+	public struct VolumeRate<T>
+	{
+		internal T _measurement;
+		internal Length.Units _LengthUnits1;
+		internal Length.Units _LengthUnits2;
+		internal Length.Units _LengthUnits3;
+		internal Time.Units _TimeUnits4;
+
+		#region Statics
+
+		public static T Convert(T value
+			, Length.Units fromLengthUnits1
+			, Length.Units fromLengthUnits2
+			, Length.Units fromLengthUnits3
+			, Time.Units fromTimeUnits4
+			, Length.Units toLengthUnits1
+			, Length.Units toLengthUnits2
+			, Length.Units toLengthUnits3
+			, Time.Units toTimeUnits4
+			)
+		{
+			VolumeRate<T> measurement = new VolumeRate<T>(value
+				, fromLengthUnits1
+				, fromLengthUnits2
+				, fromLengthUnits3
+				, fromTimeUnits4
+				);
+			return measurement[
+				 toLengthUnits1
+				, toLengthUnits2
+				, toLengthUnits3
+				, toTimeUnits4
+				];
+		}
+
+		public static T Convert(T value,
+			MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits from,
+			MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits to)
+		{
+			return Convert(value
+			, from._LengthUnits1
+			, from._LengthUnits2
+			, from._LengthUnits3
+			, from._TimeUnits4
+			, to._LengthUnits1
+			, to._LengthUnits2
+			, to._LengthUnits3
+			, to._TimeUnits4
+			);
+		}
+
+		public static bool TryParse(string @string, out VolumeRate<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		{
+			return Measurement.TryParse<T, VolumeRate<T>>(@string, out value, tryParseNumeric);
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>Constructs an VolumeRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the VolumeRate.</param>
+		/// <param name="units">The units of the VolumeRate.</param>
+		public VolumeRate(T measurement, MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits units) : this(measurement
+			, units._LengthUnits1
+			, units._LengthUnits2
+			, units._LengthUnits3
+			, units._TimeUnits4
+			) { }
+
+		/// <summary>Constructs an VolumeRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the VolumeRate.</param>
+        /// <param name="units">The units of the VolumeRate.</param>
+		public VolumeRate(T measurement, VolumeRate.Units units)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Constructs an VolumeRate with the measurement value and units.</summary>
+        /// <param name="measurement">The measurement value of the VolumeRate.</param>
+		/// <param name="LengthUnits1">The units of the VolumeRate.</param>
+		/// <param name="LengthUnits2">The units of the VolumeRate.</param>
+		/// <param name="LengthUnits3">The units of the VolumeRate.</param>
+		/// <param name="TimeUnits4">The units of the VolumeRate.</param>
+		public VolumeRate(T measurement
+			, Length.Units LengthUnits1
+			, Length.Units LengthUnits2
+			, Length.Units LengthUnits3
+			, Time.Units TimeUnits4
+			)
+		{
+			_measurement = measurement;
+			_LengthUnits1 = LengthUnits1;
+			_LengthUnits2 = LengthUnits2;
+			_LengthUnits3 = LengthUnits3;
+			_TimeUnits4 = TimeUnits4;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>The #1 component of this measurements units.</summary>
+        public Length.Units LengthUnits1
+        {
+            get { return _LengthUnits1; }
+            set
+            {
+                if (value != _LengthUnits1)
+                {
+                    _measurement = this[value, _LengthUnits2, _LengthUnits3, _TimeUnits4];
+                    _LengthUnits1 = value;
+                }
+            }
+        }
+
+		/// <summary>The #2 component of this measurements units.</summary>
+        public Length.Units LengthUnits2
+        {
+            get { return _LengthUnits2; }
+            set
+            {
+                if (value != _LengthUnits2)
+                {
+                    _measurement = this[_LengthUnits1, value, _LengthUnits3, _TimeUnits4];
+                    _LengthUnits2 = value;
+                }
+            }
+        }
+
+		/// <summary>The #3 component of this measurements units.</summary>
+        public Length.Units LengthUnits3
+        {
+            get { return _LengthUnits3; }
+            set
+            {
+                if (value != _LengthUnits3)
+                {
+                    _measurement = this[_LengthUnits1, _LengthUnits2, value, _TimeUnits4];
+                    _LengthUnits3 = value;
+                }
+            }
+        }
+
+		/// <summary>The #4 component of this measurements units.</summary>
+        public Time.Units TimeUnits4
+        {
+            get { return _TimeUnits4; }
+            set
+            {
+                if (value != _TimeUnits4)
+                {
+                    _measurement = this[_LengthUnits1, _LengthUnits2, _LengthUnits3, value];
+                    _TimeUnits4 = value;
+                }
+            }
+        }
+
+		/// <summary>Gets the measurement in the specified units.</summary>
+        /// <param name="units">The units to get the measurement in.</param>
+        /// <returns>The measurement value in the specified units.</returns>
+		public T this[MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits units]
+		{
+			get { return this[units._LengthUnits1, units._LengthUnits2, units._LengthUnits3, units._TimeUnits4]; }
+		}
+
+		/// <summary>Gets the measurement in the specified units.</summary>
+		/// <param name="LengthUnits1">The #1 component of this measurements units.</param>
+		/// <param name="LengthUnits2">The #2 component of this measurements units.</param>
+		/// <param name="LengthUnits3">The #3 component of this measurements units.</param>
+		/// <param name="TimeUnits4">The #4 component of this measurements units.</param>
+		/// <returns>The measurement value in the specified units.</returns>
+		public T this[Length.Units LengthUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4]
+        {
+            get
+            {
+                T measurement = _measurement;
+                if (LengthUnits1 != _LengthUnits1)
+                {
+                    if (LengthUnits1 < _LengthUnits1)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    }
+                }
+                if (LengthUnits2 != _LengthUnits2)
+                {
+                    if (LengthUnits2 < _LengthUnits2)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    }
+                }
+                if (LengthUnits3 != _LengthUnits3)
+                {
+                    if (LengthUnits3 < _LengthUnits3)
+                    {
+                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    }
+                    else
+                    {
+                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    }
+                }
+                if (TimeUnits4 != _TimeUnits4)
+                {
+                    if (TimeUnits4 > _TimeUnits4)
+                    {
+                        measurement = Time<T>.Table[(int)_TimeUnits4][(int)TimeUnits4](measurement);
+                    }
+                    else
+                    {
+                        measurement = Time<T>.Table[(int)TimeUnits4][(int)_TimeUnits4](measurement);
+                    }
+                }
+                return measurement;
+            }
+        }
+
+		#endregion
+
+		#region Casting Operators
+
+		public static implicit operator VolumeRate<T>((T, MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits) valueTuple)
+		{
+			return new VolumeRate<T>(valueTuple.Item1, valueTuple.Item2);
+		}
+
+		#endregion
+
+		#region Mathematics
+
+		#region Bases
+
+		internal static VolumeRate<T> MathBase(VolumeRate<T> a, T b, Func<T, T, T> func)
+        {
+            return new VolumeRate<T>(func(a._measurement, b)
+				, a._LengthUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, a._TimeUnits4
+			);
+        }
+
+        internal static VolumeRate<T> MathBase(VolumeRate<T> a, VolumeRate<T> b, Func<T, T, T> func)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+			T B = b[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+            T C = func(A, B);
+			return new VolumeRate<T>(C, LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4);
+        }
+
+        internal static bool LogicBase(VolumeRate<T> a, VolumeRate<T> b, Func<T, T, bool> func)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+			T B = b[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+            return func(A, B);
+        }
+
+		#endregion
+
+		#region Add
+
+        /// <summary>Adds two VolumeRate measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static VolumeRate<T> Add(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+        }
+
+        /// <summary>Adds two VolumeRate measurements.</summary>
+        /// <param name="a">The first operand of the addition.</param>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public static VolumeRate<T> operator +(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return Add(a, b);
+        }
+
+        /// <summary>Adds two VolumeRate measurements.</summary>
+        /// <param name="b">The second operand of the addition.</param>
+        /// <returns>The result of the addition operation.</returns>
+        public VolumeRate<T> Add(VolumeRate<T> b)
+        {
+            return this + b;
+        }
+
+        #endregion
+
+        #region Subtract
+
+        /// <summary>Subtracts two VolumeRate measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static VolumeRate<T> Subtract(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+        }
+
+        /// <summary>Subtracts two VolumeRate measurements.</summary>
+        /// <param name="a">The first operand of the subtraction.</param>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public static VolumeRate<T> operator -(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return Subtract(a, b);
+        }
+
+        /// <summary>Subtracts two VolumeRate measurements.</summary>
+        /// <param name="b">The second operand of the subtraction.</param>
+        /// <returns>The result of the subtraction.</returns>
+        public VolumeRate<T> Subtract(VolumeRate<T> b)
+        {
+            return this - b;
+        }
+
+        #endregion
+
+        #region Multiply
+
+        /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
+        /// <param name="a">The VolumeRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static VolumeRate<T> Multiply(VolumeRate<T> a, T b)
+        {
+            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+        }
+
+        /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
+        /// <param name="a">The VolumeRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static VolumeRate<T> Multiply(T b, VolumeRate<T> a)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
+        /// <param name="a">The VolumeRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static VolumeRate<T> operator *(VolumeRate<T> a, T b)
+        {
+            return Multiply(a, b);
+        }
+
+        /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
+        /// <param name="a">The VolumeRate measurement to multiply.</param>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public static VolumeRate<T> operator *(T b, VolumeRate<T> a)
+        {
+            return Multiply(b, a);
+        }
+
+        /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
+        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+        /// <returns>The result of the multiplication.</returns>
+        public VolumeRate<T> Add(T b)
+        {
+            return this * b;
+        }
+
+		#region VolumeRate<T> * AreaDensity<T> = LinearMassFlow<T>
+
+		/// <summary>Mulitplies VolumeRate by AreaDensity resulting in LinearMassFlow.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> Multiply(VolumeRate<T> a, AreaDensity<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits3 ? a._LengthUnits2 : b._LengthUnits3;
+
+			T A = a[LengthUnits1, LengthUnits2, a._LengthUnits3, a._TimeUnits4];
+			T B = b[b._MassUnits1, LengthUnits1, LengthUnits2];
+			T C = Compute.Multiply(A, B);
+
+			return new LinearMassFlow<T>(C
+				, b._MassUnits1
+				, a._LengthUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies VolumeRate by AreaDensity resulting in LinearMassFlow.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public static LinearMassFlow<T> operator *(VolumeRate<T> a, AreaDensity<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies VolumeRate by AreaDensity resulting in LinearMassFlow.</summary>
+		/// <param name="b">The AreaDensity to multiply by.</param>
+		/// <returns>The LinearMassFlow result of the multiplication.</returns>
+		public LinearMassFlow<T> Multiply(AreaDensity<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region VolumeRate<T> * Pressure<T> = Power<T>
+
+		/// <summary>Mulitplies VolumeRate by Pressure resulting in Power.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> Multiply(VolumeRate<T> a, Pressure<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits2 ? a._LengthUnits1 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, a._LengthUnits2, a._LengthUnits3, a._TimeUnits4];
+			T B = b[b._MassUnits1, LengthUnits1, b._TimeUnits3, b._TimeUnits4];
+			T C = Compute.Multiply(A, B);
+
+			return new Power<T>(C
+				, b._MassUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				, a._TimeUnits4
+				, b._TimeUnits3
+				, b._TimeUnits4
+				);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Pressure resulting in Power.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public static Power<T> operator *(VolumeRate<T> a, Pressure<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Pressure resulting in Power.</summary>
+		/// <param name="b">The Pressure to multiply by.</param>
+		/// <returns>The Power result of the multiplication.</returns>
+		public Power<T> Multiply(Pressure<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+		#region VolumeRate<T> * Time<T> = Volume<T>
+
+		/// <summary>Mulitplies VolumeRate by Time resulting in Volume.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public static Volume<T> Multiply(VolumeRate<T> a, Time<T> b)
+        {
+			Time.Units TimeUnits1 = a._TimeUnits4 <= b._TimeUnits1 ? a._TimeUnits4 : b._TimeUnits1;
+
+			T A = a[a._LengthUnits1, a._LengthUnits2, a._LengthUnits3, TimeUnits1];
+			T B = b[TimeUnits1];
+			T C = Compute.Multiply(A, B);
+
+			return new Volume<T>(C
+				, a._LengthUnits1
+				, a._LengthUnits2
+				, a._LengthUnits3
+				);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Time resulting in Volume.</summary>
+		/// <param name="a">The VolumeRate to be multiplied.</param>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public static Volume<T> operator *(VolumeRate<T> a, Time<T> b)
+        {
+			return Multiply(a, b);
+        }
+
+		/// <summary>Mulitplies VolumeRate by Time resulting in Volume.</summary>
+		/// <param name="b">The Time to multiply by.</param>
+		/// <returns>The Volume result of the multiplication.</returns>
+		public Volume<T> Multiply(Time<T> b)
+        {
+			return this * b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region Divide
+
+		/// <summary>Divides an VolumeRate measurement by another VolumeRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T Divide(VolumeRate<T> a, VolumeRate<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+			Length.Units LengthUnits3 = a._LengthUnits3 <= b._LengthUnits3 ? a._LengthUnits3 : b._LengthUnits3;
+			Time.Units TimeUnits4 = a._TimeUnits4 <= b._TimeUnits4 ? a._TimeUnits4 : b._TimeUnits4;
+			T A = a[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+			T B = b[LengthUnits1, LengthUnits2, LengthUnits3, TimeUnits4];
+            return Compute.Divide(A, B);
+        }
+
+        /// <summary>Divides this VolumeRate measurement by a numaric scalar value.</summary>
+        /// <param name="a">The VolumeRate measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static VolumeRate<T> Divide(VolumeRate<T> a, T b)
+        {
+            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+        }
+
+        /// <summary>Divides this VolumeRate measurement by a numaric scalar value.</summary>
+        /// <param name="a">The VolumeRate measurement to divide.</param>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public static VolumeRate<T> operator /(VolumeRate<T> a, T b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides this VolumeRate measurement by a numaric scalar value.</summary>
+        /// <param name="b">The numeric scalar to divide by.</param>
+        /// <returns>The result of the division.</returns>
+        public VolumeRate<T> Divide(T b)
+        {
+            return this / b;
+        }
+
+        /// <summary>Divides an VolumeRate measurement by another VolumeRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="a">The first operand of the division operation.</param>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public static T operator /(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return Divide(a, b);
+        }
+
+        /// <summary>Divides an VolumeRate measurement by another VolumeRate measurement resulting in a scalar numeric value.</summary>
+        /// <param name="b">The second operand of the division operation.</param>
+        /// <returns>The scalar numeric value result from the division.</returns>
+        public T Divide(VolumeRate<T> b)
+        {
+            return this / b;
+        }
+
+
+		#region VolumeRate<T> / Area<T> = Speed<T>
+
+		/// <summary>Divides VolumeRate by Area resulting in Speed.</summary>
+		/// <param name="a">The VolumeRate to be divided.</param>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> Divide(VolumeRate<T> a, Area<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Length.Units LengthUnits2 = a._LengthUnits2 <= b._LengthUnits2 ? a._LengthUnits2 : b._LengthUnits2;
+
+			T A = a[LengthUnits1, LengthUnits2, a._LengthUnits3, a._TimeUnits4];
+			T B = b[LengthUnits1, LengthUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Speed<T>(C
+				, a._LengthUnits3
+				, a._TimeUnits4
+				);
+        }
+
+		/// <summary>Divides VolumeRate by Area resulting in Speed.</summary>
+		/// <param name="a">The VolumeRate to be divided.</param>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public static Speed<T> operator /(VolumeRate<T> a, Area<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides VolumeRate by Area resulting in Speed.</summary>
+		/// <param name="b">The Area to divide by.</param>
+		/// <returns>The Speed result of the division.</returns>
+		public Speed<T> Divide(Area<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+
+		#region VolumeRate<T> / Speed<T> = Area<T>
+
+		/// <summary>Divides VolumeRate by Speed resulting in Area.</summary>
+		/// <param name="a">The VolumeRate to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public static Area<T> Divide(VolumeRate<T> a, Speed<T> b)
+        {
+			Length.Units LengthUnits1 = a._LengthUnits1 <= b._LengthUnits1 ? a._LengthUnits1 : b._LengthUnits1;
+			Time.Units TimeUnits2 = a._TimeUnits4 <= b._TimeUnits2 ? a._TimeUnits4 : b._TimeUnits2;
+
+			T A = a[LengthUnits1, a._LengthUnits2, a._LengthUnits3, TimeUnits2];
+			T B = b[LengthUnits1, TimeUnits2];
+			T C = Compute.Divide(A, B);
+
+			return new Area<T>(C
+				, a._LengthUnits2
+				, a._LengthUnits3
+				);
+        }
+
+		/// <summary>Divides VolumeRate by Speed resulting in Area.</summary>
+		/// <param name="a">The VolumeRate to be divided.</param>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public static Area<T> operator /(VolumeRate<T> a, Speed<T> b)
+        {
+			return Divide(a, b);
+        }
+
+		/// <summary>Divides VolumeRate by Speed resulting in Area.</summary>
+		/// <param name="b">The Speed to divide by.</param>
+		/// <returns>The Area result of the division.</returns>
+		public Area<T> Divide(Speed<T> b)
+        {
+			return this / b;
+        }
+
+		#endregion
+
+        #endregion
+
+        #region LessThan
+
+        /// <summary>Determines if an VolumeRate measurement is less than another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool LessThan(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is less than another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the less than operation.</param>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public static bool operator <(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LessThan(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is less than another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the less than operation.</param>
+        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
+        public bool LessThan(VolumeRate<T> b)
+        {
+            return this < b;
+        }
+
+        #endregion
+
+        #region GreaterThan
+
+        /// <summary>Determines if an VolumeRate measurement is greater than another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool GreaterThan(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is greater than another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than operation.</param>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public static bool operator >(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return GreaterThan(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is greater than another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the greater than operation.</param>
+        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+        public bool GreaterThan(VolumeRate<T> b)
+        {
+            return this > b;
+        }
+
+        #endregion
+
+        #region LessThanOrEqual
+
+        /// <summary>Determines if an VolumeRate measurement is less than or equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool LessThanOrEqual(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is less than or equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the less than or equal to operation.</param>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public static bool operator <=(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LessThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is less than or equal to another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the less than or equal to operation.</param>
+        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+        public bool LessThanOrEqual(VolumeRate<T> b)
+        {
+            return this <= b;
+        }
+
+        #endregion
+
+        #region GreaterThanOrEqual
+
+        /// <summary>Determines if an VolumeRate measurement is greater than or equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool GreaterThanOrEqual(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is greater than or equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the greater than or equal to operation.</param>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public static bool operator >=(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return GreaterThanOrEqual(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is greater than or equal to another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the greater than or equal to operation.</param>
+        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+        public bool GreaterThanOrEqual(VolumeRate<T> b)
+        {
+            return this >= b;
+        }
+
+        #endregion
+
+        #region Equal
+
+        /// <summary>Determines if an VolumeRate measurement is equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool Equal(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the equal to operation.</param>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public static bool operator ==(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return Equal(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is equal to another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the equal to operation.</param>
+        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+        public bool Equal(VolumeRate<T> b)
+        {
+            return this == b;
+        }
+
+        #endregion
+
+        #region NotEqual
+
+        /// <summary>Determines if an VolumeRate measurement is not equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool NotEqual(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is not equal to another VolumeRate measurement.</summary>
+        /// <param name="a">The first operand of the not equal to operation.</param>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public static bool operator !=(VolumeRate<T> a, VolumeRate<T> b)
+        {
+            return NotEqual(a, b);
+        }
+
+        /// <summary>Determines if an VolumeRate measurement is not equal to another VolumeRate measurement.</summary>
+        /// <param name="b">The second operand of the not equal to operation.</param>
+        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+        public bool NotEqual(VolumeRate<T> b)
+        {
+            return this != b;
+        }
+
+        #endregion
+
+		#endregion
+
+		#region Overrides
+
+		/// <summary>Base Equals override that performs a type and value equality check.</summary>
+        /// <param name="obj">The object to check for equality with.</param>
+        /// <returns>True if the types and values equal. False if not.</returns>
+		public override bool Equals(object obj)
+        {
+            if (obj is VolumeRate<T>)
+            {
+                return this == (VolumeRate<T>)obj;
+            }
+            return false;
+        }
+
+		/// <summary>Converts the VolumeRate measurement to a string represenation.</summary>
+        /// <returns>The string representation of the measurement.</returns>
+		public override string ToString()
+        {
+            return _measurement + " " +
+				_LengthUnits1 + "*" + _LengthUnits2 + "*" + _LengthUnits3
+				+ "/" +
+				_TimeUnits4
+				;
+        }
+
+		/// <summary>Base hashing function for VolumeRate measurements.</summary>
+        /// <returns>Computed hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            return
+                _measurement.GetHashCode()
+				^ _LengthUnits1.GetHashCode()
+				^ _LengthUnits2.GetHashCode()
+				^ _LengthUnits3.GetHashCode()
+				^ _TimeUnits4.GetHashCode()
+				;
+        }
+
+		#endregion
+	}
+
+	#endregion
+
 
 	#region MeasurementUnitsSyntaxTypes
 
@@ -20290,6 +21679,11 @@ namespace Towel.Measurements
 		
 		
 		
+			public static VolumeRateBaseUnits operator *(AreaBaseUnits a, SpeedBaseUnits b)
+			{
+				return new VolumeRateBaseUnits(a._LengthUnits1, a._LengthUnits2, b._LengthUnits1, b._TimeUnits2);
+			}
+		
 		}
 
 		public struct AreaUnits
@@ -20316,6 +21710,7 @@ namespace Towel.Measurements
 			{
 				return AreaDensity<T>.Convert(value, from, to);
 			}
+		
 		
 		
 		
@@ -20677,10 +22072,12 @@ namespace Towel.Measurements
 		
 		
 		
+		
 			public static ForceBaseUnits operator /(LinearMassFlowBaseUnits a, TimeUnits b)
 			{
 				return new ForceBaseUnits(a._MassUnits1, a._LengthUnits2, a._TimeUnits3, b._TimeUnits1);
 			}
+		
 		}
 
 		public struct LinearMassFlowUnits
@@ -20768,6 +22165,8 @@ namespace Towel.Measurements
 		
 		
 		
+		
+		
 		}
 
 		public struct PowerUnits
@@ -20801,6 +22200,7 @@ namespace Towel.Measurements
 		
 		
 		
+		
 		}
 
 		public struct PressureUnits
@@ -20824,6 +22224,11 @@ namespace Towel.Measurements
 				SpeedBaseUnits to)
 			{
 				return Speed<T>.Convert(value, from, to);
+			}
+		
+			public static VolumeRateBaseUnits operator *(SpeedBaseUnits a, AreaBaseUnits b)
+			{
+				return new VolumeRateBaseUnits(a._LengthUnits1, b._LengthUnits1, b._LengthUnits2, a._TimeUnits2);
 			}
 		
 			public static PowerBaseUnits operator *(SpeedBaseUnits a, ForceBaseUnits b)
@@ -20899,6 +22304,7 @@ namespace Towel.Measurements
 			{
 				return new TimeAreaBaseUnits(a._TimeUnits1, b._TimeUnits1);
 			}
+		
 		}
 
 		public struct TimeAreaBaseUnits : Measurement.IUnits<TimeAreaBaseUnits>
@@ -20954,11 +22360,50 @@ namespace Towel.Measurements
 		
 		
 		
+		
+			public static VolumeRateBaseUnits operator /(VolumeBaseUnits a, TimeUnits b)
+			{
+				return new VolumeRateBaseUnits(a._LengthUnits1, a._LengthUnits2, a._LengthUnits3, b._TimeUnits1);
+			}
+		
 		}
 
 		public struct VolumeUnits
 		{
 			public Volume.Units _VolumeUnits;
+		}
+
+		public struct VolumeRateBaseUnits : Measurement.IUnits<VolumeRateBaseUnits>
+		{
+			public Length.Units _LengthUnits1;
+			public Length.Units _LengthUnits2;
+			public Length.Units _LengthUnits3;
+			public Time.Units _TimeUnits4;
+
+			public VolumeRateBaseUnits(Length.Units LengthUnits1, Length.Units LengthUnits2, Length.Units LengthUnits3, Time.Units TimeUnits4)
+			{
+				_LengthUnits1 = LengthUnits1;
+				_LengthUnits2 = LengthUnits2;
+				_LengthUnits3 = LengthUnits3;
+				_TimeUnits4 = TimeUnits4;
+			}
+
+			public T Convert<T>(T value,
+				VolumeRateBaseUnits from,
+				VolumeRateBaseUnits to)
+			{
+				return VolumeRate<T>.Convert(value, from, to);
+			}
+		
+		
+		
+		
+		
+		}
+
+		public struct VolumeRateUnits
+		{
+			public VolumeRate.Units _VolumeRateUnits;
 		}
 
 	}

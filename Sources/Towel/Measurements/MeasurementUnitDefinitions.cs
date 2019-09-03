@@ -789,6 +789,22 @@ namespace Towel.Measurements
 
 	#endregion
 
+	#region Volume
+
+	/// <summary>Contains unit types and conversion factors for the generic VolumeRate struct.</summary>
+	public static class VolumeRate
+	{
+		/// <summary>Units for VolumeRate measurements.</summary>
+		[Measurement.ParseableUnit]
+		[Serializable]
+		public enum Units
+		{
+			// no custom units currently
+		}
+	}
+
+	#endregion
+
 	// Tools has shared functionality between the various unit definitions
 
 	#region Tools
