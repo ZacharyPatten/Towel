@@ -87,5 +87,28 @@ namespace Towel
 			}
 			return null;
 		}
+
+		public static bool TryParse<T>(string @string, out T value)
+		{
+			return TryParseImplementation<T>.Function(@string, out value);
+		}
+
+		private static class TryParseImplementation<T>
+		{
+			internal delegate bool TryParseDelegate(string @string, out T value);
+
+			internal static TryParseDelegate Function = (string @string, out T value) =>
+			{
+				TryParseDelegate function = Method<TryParseDelegate>(null, typeof(T), "TryParse", BindingFlags.Static);
+				Function = !(function is null) ?
+					function :
+					(string _string, out T _value) =>
+					{
+						_value = default;
+						return false;
+					};
+				return Function(@string, out value);
+			};
+		}
 	}
 }

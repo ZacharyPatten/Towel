@@ -377,19 +377,13 @@ namespace Mathematics
 			Console.WriteLine("      Simplified: " + symbolicExpression4.Simplify());
 			Console.WriteLine("      Plugin(5): " + symbolicExpression4.Substitute("x", 5d).Simplify());
 
-			//Expression<Func<double, double, double, double>> expression5 = (x, y, z) => Power(x, 3d) + 2d * x * y * Power(z, 2d) - y * z + 1d;
-			//var symbolicExpression5 = Symbolics.Parse(expression5);
-			//Console.WriteLine("    Expression 5: " + symbolicExpression5);
-			//Console.WriteLine("      Simplified: " + symbolicExpression5.Simplify());
-			//Console.WriteLine("      Plugin(x = 5): " + symbolicExpression5.Substitute("x", 5d).Simplify());
-
-			var symbolicExpression6 = Symbolics.Parse<double>("2 * (7 / [x])", double.TryParse);
+			var symbolicExpression6 = Symbolics.Parse<double>("2 * (7 / [x])");
 			Console.WriteLine("    Expression 6: " + symbolicExpression6);
 			Console.WriteLine("      Simplified: " + symbolicExpression6.Simplify());
 			Symbolics.Expression symbolicExpression6Simplified = symbolicExpression6.Substitute("x", 9d).Simplify();
 			Console.WriteLine("      Plugin(x = 9): " + symbolicExpression6Simplified);
 
-			var symbolicExpression7 = Symbolics.Parse<double>("10 + 8 * (7 / [x]) + 7 ^ 2", double.TryParse);
+			var symbolicExpression7 = Symbolics.Parse<double>("10 + 8 * (7 / [x]) + 7 ^ 2");
 			Console.WriteLine("    Expression 7: " + symbolicExpression7);
 			Console.WriteLine("      Simplified: " + symbolicExpression7.Simplify());
 			Console.WriteLine("      Plugin(x = 11): " + symbolicExpression7.Substitute("x", 11d).Simplify());

@@ -3875,9 +3875,15 @@ namespace Towel.Mathematics
 
 		internal static bool TryParseConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
 		{
-			if (tryParsingFunction != null && tryParsingFunction(@string, out T parsedValue))
+			if (tryParsingFunction != null && tryParsingFunction(@string, out T explicitParsedValue))
 			{
-				parsedExpression = new Constant<T>(parsedValue);
+				parsedExpression = new Constant<T>(explicitParsedValue);
+				return true;
+			}
+
+			if (Assume.TryParse(@string, out T assumeParsedValue))
+			{
+				parsedExpression = new Constant<T>(assumeParsedValue);
 				return true;
 			}
 

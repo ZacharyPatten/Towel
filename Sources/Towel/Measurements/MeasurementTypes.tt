@@ -206,6 +206,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		public static bool TryParse(string @string, out <#= measurement.Item1 #><T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		{
+			return Measurement.TryParse<T, <#= measurement.Item1 #><T>>(@string, out value, tryParseNumeric);
+		}
+
 		#endregion
 
 <# //------------------------------------------------------------------------------------------- #>
