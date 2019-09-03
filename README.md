@@ -172,6 +172,7 @@ Here are the currently supported measurement types:
 //    LinearMass: Mass*Length
 //    LinearMassFlow: Mass*Length/Time
 //    Mass: Mass
+//    MassRate: Mass/Time
 //    Power: Mass*Length*Length/Time/Time/Time
 //    Pressure: Mass/Length/Time/Time
 //    Speed: Length/Time
@@ -179,6 +180,7 @@ Here are the currently supported measurement types:
 //    Time: Time
 //    TimeArea: Time*Time
 //    Volume: Length*Length*Length
+//    VolumeRate: Length*Length*Length/Time
 ```
 
 The measurement types are generated in the *Towel/Measurements/MeasurementTypes.tt* T4 text template file. The unit (enum) definitions are in the *Towel/Measurements/MeasurementUnitDefinitions.cs* file. Both measurment types and unit definitions can be easily added. If you think a measurement type or unit type should be added, please [submit an enhancement issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
@@ -239,6 +241,12 @@ double angle4 = Measurement.Convert(10d,
 	Degrees); // to
 // Note: The unit conversion on the Measurement class
 // is still compile-time-safe.
+
+// Measurement Parsing
+Speed<float>.TryParse("20.5 Meters / Seconds",
+	out Speed<float> parsedSpeed);
+Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
+	out Force<decimal> parsedForce);
 ```
 
 ## Data Structures
