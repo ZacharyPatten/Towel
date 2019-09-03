@@ -329,13 +329,13 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region KnownConstantOfUknownType + Inheriters
+		#region KnownConstantOfUnknownType + Inheriters
 
 		#region KnownConstantOfUknownType
 
 		/// <summary>Abstract base class for known constants of unknown types.</summary>
 		[Serializable]
-		public abstract class KnownConstantOfUknownType : Constant
+		public abstract class KnownConstantOfUnknownType : Constant
 		{
 			/// <summary>True if this numeric value is a known value.</summary>
 			public override bool IsKnownConstant => true;
@@ -350,7 +350,7 @@ namespace Towel.Mathematics
 		/// <summary>Represents the π (pi).</summary>
 		[Serializable]
 		[KnownConstant("π")]
-		public class Pi : KnownConstantOfUknownType
+		public class Pi : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new instance of pi.</summary>
 			public Pi() : base() { }
@@ -399,7 +399,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents zero (0).</summary>
 		[Serializable]
-		public class Zero : KnownConstantOfUknownType
+		public class Zero : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new zero (0) value.</summary>
 			public Zero() : base() { }
@@ -449,7 +449,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of one (1).</summary>
 		[Serializable]
-		public class One : KnownConstantOfUknownType
+		public class One : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new one (1) constant.</summary>
 			public One() : base() { }
@@ -499,7 +499,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of two (2).</summary>
 		[Serializable]
-		public class Two : KnownConstantOfUknownType
+		public class Two : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new value of two (2).</summary>
 			public Two() : base() { }
@@ -549,7 +549,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of three (3).</summary>
 		[Serializable]
-		public class Three : KnownConstantOfUknownType
+		public class Three : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new value of three (3).</summary>
 			public Three() : base() { }
@@ -663,7 +663,9 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region KnownConstantOfUknownType
+		#region KnownConstantOfKnownType<T> + Inheriters
+
+		#region KnownConstantOfKnownType<T>
 
 		/// <summary>Abstract base class for known constants of unknown types.</summary>
 		[Serializable]
@@ -990,6 +992,8 @@ namespace Towel.Mathematics
 			/// <returns>The computed hash code for this instance.</returns>
 			public override int GetHashCode() => HashCode;
 		}
+
+		#endregion
 
 		#endregion
 
@@ -3076,7 +3080,7 @@ namespace Towel.Mathematics
 		private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
 		private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
 		// Known Constant References
-		private static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUknownType>> ParsableKnownConstants;
+		private static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>> ParsableKnownConstants;
 
 		#region Reflection Code (Actually Building the Parsing Library)
 
@@ -3214,12 +3218,12 @@ namespace Towel.Mathematics
 				}
 
 				// Known Constants
-				ParsableKnownConstants = new System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUknownType>>();
-				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantOfUknownType>().Where(x => !x.IsAbstract))
+				ParsableKnownConstants = new System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>>();
+				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantOfUnknownType>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
-					Func<KnownConstantOfUknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUknownType>>(newExpression).Compile();
+					Func<KnownConstantOfUnknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUnknownType>>(newExpression).Compile();
 					//string knownConstant = type.ConvertToCsharpSource();
 					//if (knownConstant.Contains("+"))
 					//{
