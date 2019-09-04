@@ -17,8 +17,6 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Type_ConvertToCsharpSource()
 		{
-			string test =  typeof(System.Collections.Generic.List<Towel_Testing.A.D<System.Int32>.E<System.Int32>>).FullName;
-
 			(Type, string)[] testCases = new (Type, string)[]
 			{
 				(typeof(System.Int32), "System.Int32"), // standard type
@@ -29,6 +27,7 @@ namespace Towel_Testing
 				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"), // nested nested type
 				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>"), // nested generic type
 				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<>.E<>"), // nested generic type
+				(typeof(System.Collections.Generic.List<(System.String @event, System.Object @class)>), "System.Collections.Generic.List<System.ValueTuple<System.String, System.Object>>"), // list + value tuple
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
