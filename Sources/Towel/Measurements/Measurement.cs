@@ -48,11 +48,7 @@ namespace Towel.Measurements
 		internal class ParseableAttribute : Attribute
 		{
 			internal string Key;
-
-			internal ParseableAttribute(string key)
-			{
-				Key = key;
-			}
+			internal ParseableAttribute(string key) { Key = key; }
 		}
 		internal class ParseableUnitAttribute : Attribute { }
 
@@ -151,7 +147,7 @@ namespace Towel.Measurements
 			MatchCollection matchCollection = Regex.Matches(@string, AllUnitsRegexPattern);
 			if (matchCollection.Count <= 0 || matchCollection[0].Index <= 0)
 			{
-				measurement = default(object);
+				measurement = default;
 				return false;
 			}
 			string numericString = @string.Substring(0, matchCollection[0].Index);
@@ -162,7 +158,7 @@ namespace Towel.Measurements
 			}
 			catch
 			{
-				measurement = default(object);
+				measurement = default;
 				return false;
 			}
 			StringBuilder stringBuilder = new StringBuilder();
@@ -173,12 +169,12 @@ namespace Towel.Measurements
 				{
 					if (!(numerator is null))
 					{
-						measurement = default(object);
+						measurement = default;
 						return false;
 					}
 					if (!AtLeastOneUnit)
 					{
-						measurement = default(object);
+						measurement = default;
 						return false;
 					}
 					numerator = matchValue.Equals("*");
@@ -186,14 +182,14 @@ namespace Towel.Measurements
 				}
 				if (!UnitStringToEnumMap.TryGetValue(match.Value, out Enum @enum))
 				{
-					measurement = default(object);
+					measurement = default;
 					return false;
 				}
 				if (!AtLeastOneUnit)
 				{
 					if (!(numerator is null))
 					{
-						measurement = default(object);
+						measurement = default;
 						return false;
 					}
 					AtLeastOneUnit = true;
@@ -204,7 +200,7 @@ namespace Towel.Measurements
 				{
 					if (numerator is null)
 					{
-						measurement = default(object);
+						measurement = default;
 						return false;
 					}
 					if (numerator.Value)
@@ -222,7 +218,7 @@ namespace Towel.Measurements
 			}
 			if (!(numerator is null))
 			{
-				measurement = default(object);
+				measurement = default;
 				return false;
 			}
 			string key = stringBuilder.ToString();
@@ -236,7 +232,7 @@ namespace Towel.Measurements
 			if (!TryParse(@string, out object parsedMeasurment, tryParseNumeric) ||
 				!(parsedMeasurment is MEASUREMENT))
 			{
-				measurement = default(MEASUREMENT);
+				measurement = default;
 				return false;
 			}
 			measurement = (MEASUREMENT)parsedMeasurment;

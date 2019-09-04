@@ -254,6 +254,15 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Acceleration measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits3">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits3">The desired units of the measurement.</param>
+		/// <returns>The Acceleration measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Time.Units fromTimeUnits2
@@ -275,6 +284,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Acceleration measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Acceleration measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AccelerationBaseUnits from,
 			MeasurementUnitsSyntaxTypes.AccelerationBaseUnits to)
@@ -289,6 +303,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Acceleration measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Acceleration<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Acceleration<T>>(@string, out value, tryParseNumeric);
@@ -437,6 +456,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Acceleration measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Acceleration measurement.</param>
 		public static implicit operator Acceleration<T>((T, MeasurementUnitsSyntaxTypes.AccelerationBaseUnits) valueTuple)
 		{
 			return new Acceleration<T>(valueTuple.Item1, valueTuple.Item2);
@@ -1157,6 +1178,15 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a AngularAcceleration measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromAngleUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits3">The current units of the measurement.</param>
+		/// <param name="toAngleUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits3">The desired units of the measurement.</param>
+		/// <returns>The AngularAcceleration measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
 			, Time.Units fromTimeUnits2
@@ -1178,6 +1208,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a AngularAcceleration measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The AngularAcceleration measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits from,
 			MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits to)
@@ -1192,6 +1227,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a AngularAcceleration measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out AngularAcceleration<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, AngularAcceleration<T>>(@string, out value, tryParseNumeric);
@@ -1340,6 +1380,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a AngularAcceleration measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a AngularAcceleration measurement.</param>
 		public static implicit operator AngularAcceleration<T>((T, MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits) valueTuple)
 		{
 			return new AngularAcceleration<T>(valueTuple.Item1, valueTuple.Item2);
@@ -1885,6 +1927,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Angle measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromAngleUnits1">The current units of the measurement.</param>
+		/// <param name="toAngleUnits1">The desired units of the measurement.</param>
+		/// <returns>The Angle measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
 			, Angle.Units toAngleUnits1
@@ -1898,6 +1945,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Angle measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Angle measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AngleUnits from,
 			MeasurementUnitsSyntaxTypes.AngleUnits to)
@@ -1908,6 +1960,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Angle measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Angle<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Angle<T>>(@string, out value, tryParseNumeric);
@@ -1989,6 +2046,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Angle measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Angle measurement.</param>
 		public static implicit operator Angle<T>((T, MeasurementUnitsSyntaxTypes.AngleUnits) valueTuple)
 		{
 			return new Angle<T>(valueTuple.Item1, valueTuple.Item2);
@@ -2608,6 +2667,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a AngularSpeed measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromAngleUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="toAngleUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <returns>The AngularSpeed measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Angle.Units fromAngleUnits1
 			, Time.Units fromTimeUnits2
@@ -2625,6 +2691,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a AngularSpeed measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The AngularSpeed measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits from,
 			MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits to)
@@ -2637,6 +2708,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a AngularSpeed measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out AngularSpeed<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, AngularSpeed<T>>(@string, out value, tryParseNumeric);
@@ -2755,6 +2831,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a AngularSpeed measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a AngularSpeed measurement.</param>
 		public static implicit operator AngularSpeed<T>((T, MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits) valueTuple)
 		{
 			return new AngularSpeed<T>(valueTuple.Item1, valueTuple.Item2);
@@ -3340,6 +3418,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Area measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <returns>The Area measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Length.Units fromLengthUnits2
@@ -3357,6 +3442,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Area measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Area measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AreaBaseUnits from,
 			MeasurementUnitsSyntaxTypes.AreaBaseUnits to)
@@ -3369,6 +3459,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Area measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Area<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Area<T>>(@string, out value, tryParseNumeric);
@@ -3487,6 +3582,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Area measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Area measurement.</param>
 		public static implicit operator Area<T>((T, MeasurementUnitsSyntaxTypes.AreaBaseUnits) valueTuple)
 		{
 			return new Area<T>(valueTuple.Item1, valueTuple.Item2);
@@ -4236,6 +4333,15 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a AreaDensity measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <returns>The AreaDensity measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -4257,6 +4363,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a AreaDensity measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The AreaDensity measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits from,
 			MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits to)
@@ -4271,6 +4382,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a AreaDensity measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out AreaDensity<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, AreaDensity<T>>(@string, out value, tryParseNumeric);
@@ -4419,6 +4535,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a AreaDensity measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a AreaDensity measurement.</param>
 		public static implicit operator AreaDensity<T>((T, MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits) valueTuple)
 		{
 			return new AreaDensity<T>(valueTuple.Item1, valueTuple.Item2);
@@ -5185,6 +5303,17 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Density measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits4">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits4">The desired units of the measurement.</param>
+		/// <returns>The Density measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -5210,6 +5339,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Density measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Density measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.DensityBaseUnits from,
 			MeasurementUnitsSyntaxTypes.DensityBaseUnits to)
@@ -5226,6 +5360,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Density measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Density<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Density<T>>(@string, out value, tryParseNumeric);
@@ -5404,6 +5543,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Density measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Density measurement.</param>
 		public static implicit operator Density<T>((T, MeasurementUnitsSyntaxTypes.DensityBaseUnits) valueTuple)
 		{
 			return new Density<T>(valueTuple.Item1, valueTuple.Item2);
@@ -6037,6 +6178,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a ElectricCharge measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromElectricChargeUnits1">The current units of the measurement.</param>
+		/// <param name="toElectricChargeUnits1">The desired units of the measurement.</param>
+		/// <returns>The ElectricCharge measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, ElectricCharge.Units fromElectricChargeUnits1
 			, ElectricCharge.Units toElectricChargeUnits1
@@ -6050,6 +6196,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a ElectricCharge measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The ElectricCharge measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.ElectricChargeUnits from,
 			MeasurementUnitsSyntaxTypes.ElectricChargeUnits to)
@@ -6060,6 +6211,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a ElectricCharge measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out ElectricCharge<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, ElectricCharge<T>>(@string, out value, tryParseNumeric);
@@ -6141,6 +6297,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a ElectricCharge measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a ElectricCharge measurement.</param>
 		public static implicit operator ElectricCharge<T>((T, MeasurementUnitsSyntaxTypes.ElectricChargeUnits) valueTuple)
 		{
 			return new ElectricCharge<T>(valueTuple.Item1, valueTuple.Item2);
@@ -6680,6 +6838,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a ElectricCurrent measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromElectricChargeUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="toElectricChargeUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <returns>The ElectricCurrent measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, ElectricCharge.Units fromElectricChargeUnits1
 			, Time.Units fromTimeUnits2
@@ -6697,6 +6862,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a ElectricCurrent measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The ElectricCurrent measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits from,
 			MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits to)
@@ -6709,6 +6879,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a ElectricCurrent measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out ElectricCurrent<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, ElectricCurrent<T>>(@string, out value, tryParseNumeric);
@@ -6827,6 +7002,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a ElectricCurrent measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a ElectricCurrent measurement.</param>
 		public static implicit operator ElectricCurrent<T>((T, MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits) valueTuple)
 		{
 			return new ElectricCurrent<T>(valueTuple.Item1, valueTuple.Item2);
@@ -7350,6 +7527,19 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Energy measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits4">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits5">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits4">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits5">The desired units of the measurement.</param>
+		/// <returns>The Energy measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -7379,6 +7569,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Energy measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Energy measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.EnergyBaseUnits from,
 			MeasurementUnitsSyntaxTypes.EnergyBaseUnits to)
@@ -7397,6 +7592,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Energy measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Energy<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Energy<T>>(@string, out value, tryParseNumeric);
@@ -7605,6 +7805,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Energy measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Energy measurement.</param>
 		public static implicit operator Energy<T>((T, MeasurementUnitsSyntaxTypes.EnergyBaseUnits) valueTuple)
 		{
 			return new Energy<T>(valueTuple.Item1, valueTuple.Item2);
@@ -8523,6 +8725,17 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Force measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits3">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits4">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits3">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits4">The desired units of the measurement.</param>
+		/// <returns>The Force measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -8548,6 +8761,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Force measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Force measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.ForceBaseUnits from,
 			MeasurementUnitsSyntaxTypes.ForceBaseUnits to)
@@ -8564,6 +8782,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Force measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Force<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Force<T>>(@string, out value, tryParseNumeric);
@@ -8742,6 +8965,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Force measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Force measurement.</param>
 		public static implicit operator Force<T>((T, MeasurementUnitsSyntaxTypes.ForceBaseUnits) valueTuple)
 		{
 			return new Force<T>(valueTuple.Item1, valueTuple.Item2);
@@ -9625,6 +9850,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Length measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <returns>The Length measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Length.Units toLengthUnits1
@@ -9638,6 +9868,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Length measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Length measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.LengthUnits from,
 			MeasurementUnitsSyntaxTypes.LengthUnits to)
@@ -9648,6 +9883,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Length measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Length<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Length<T>>(@string, out value, tryParseNumeric);
@@ -9729,6 +9969,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Length measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Length measurement.</param>
 		public static implicit operator Length<T>((T, MeasurementUnitsSyntaxTypes.LengthUnits) valueTuple)
 		{
 			return new Length<T>(valueTuple.Item1, valueTuple.Item2);
@@ -10660,6 +10902,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a LinearDensity measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <returns>The LinearDensity measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -10677,6 +10926,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a LinearDensity measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The LinearDensity measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits from,
 			MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits to)
@@ -10689,6 +10943,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a LinearDensity measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out LinearDensity<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, LinearDensity<T>>(@string, out value, tryParseNumeric);
@@ -10807,6 +11066,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a LinearDensity measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a LinearDensity measurement.</param>
 		public static implicit operator LinearDensity<T>((T, MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits) valueTuple)
 		{
 			return new LinearDensity<T>(valueTuple.Item1, valueTuple.Item2);
@@ -11634,6 +11895,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a LinearMass measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <returns>The LinearMass measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -11651,6 +11919,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a LinearMass measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The LinearMass measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.LinearMassBaseUnits from,
 			MeasurementUnitsSyntaxTypes.LinearMassBaseUnits to)
@@ -11663,6 +11936,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a LinearMass measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out LinearMass<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, LinearMass<T>>(@string, out value, tryParseNumeric);
@@ -11781,6 +12059,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a LinearMass measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a LinearMass measurement.</param>
 		public static implicit operator LinearMass<T>((T, MeasurementUnitsSyntaxTypes.LinearMassBaseUnits) valueTuple)
 		{
 			return new LinearMass<T>(valueTuple.Item1, valueTuple.Item2);
@@ -12696,6 +12976,15 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a LinearMassFlow measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits3">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits3">The desired units of the measurement.</param>
+		/// <returns>The LinearMassFlow measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -12717,6 +13006,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a LinearMassFlow measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The LinearMassFlow measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits from,
 			MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits to)
@@ -12731,6 +13025,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a LinearMassFlow measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out LinearMassFlow<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, LinearMassFlow<T>>(@string, out value, tryParseNumeric);
@@ -12879,6 +13178,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a LinearMassFlow measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a LinearMassFlow measurement.</param>
 		public static implicit operator LinearMassFlow<T>((T, MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits) valueTuple)
 		{
 			return new LinearMassFlow<T>(valueTuple.Item1, valueTuple.Item2);
@@ -13794,6 +14095,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Mass measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <returns>The Mass measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Mass.Units toMassUnits1
@@ -13807,6 +14113,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Mass measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Mass measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.MassUnits from,
 			MeasurementUnitsSyntaxTypes.MassUnits to)
@@ -13817,6 +14128,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Mass measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Mass<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Mass<T>>(@string, out value, tryParseNumeric);
@@ -13898,6 +14214,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Mass measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Mass measurement.</param>
 		public static implicit operator Mass<T>((T, MeasurementUnitsSyntaxTypes.MassUnits) valueTuple)
 		{
 			return new Mass<T>(valueTuple.Item1, valueTuple.Item2);
@@ -14794,6 +15112,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a MassRate measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <returns>The MassRate measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Time.Units fromTimeUnits2
@@ -14811,6 +15136,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a MassRate measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The MassRate measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.MassRateBaseUnits from,
 			MeasurementUnitsSyntaxTypes.MassRateBaseUnits to)
@@ -14823,6 +15153,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a MassRate measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out MassRate<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, MassRate<T>>(@string, out value, tryParseNumeric);
@@ -14941,6 +15276,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a MassRate measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a MassRate measurement.</param>
 		public static implicit operator MassRate<T>((T, MeasurementUnitsSyntaxTypes.MassRateBaseUnits) valueTuple)
 		{
 			return new MassRate<T>(valueTuple.Item1, valueTuple.Item2);
@@ -15713,6 +16050,21 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Power measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits4">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits5">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits6">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits4">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits5">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits6">The desired units of the measurement.</param>
+		/// <returns>The Power measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -15746,6 +16098,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Power measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Power measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.PowerBaseUnits from,
 			MeasurementUnitsSyntaxTypes.PowerBaseUnits to)
@@ -15766,6 +16123,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Power measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Power<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Power<T>>(@string, out value, tryParseNumeric);
@@ -16004,6 +16366,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Power measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Power measurement.</param>
 		public static implicit operator Power<T>((T, MeasurementUnitsSyntaxTypes.PowerBaseUnits) valueTuple)
 		{
 			return new Power<T>(valueTuple.Item1, valueTuple.Item2);
@@ -16805,6 +17169,17 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Pressure measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromMassUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits3">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits4">The current units of the measurement.</param>
+		/// <param name="toMassUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits3">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits4">The desired units of the measurement.</param>
+		/// <returns>The Pressure measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Mass.Units fromMassUnits1
 			, Length.Units fromLengthUnits2
@@ -16830,6 +17205,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Pressure measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Pressure measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.PressureBaseUnits from,
 			MeasurementUnitsSyntaxTypes.PressureBaseUnits to)
@@ -16846,6 +17226,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Pressure measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Pressure<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Pressure<T>>(@string, out value, tryParseNumeric);
@@ -17024,6 +17409,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Pressure measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Pressure measurement.</param>
 		public static implicit operator Pressure<T>((T, MeasurementUnitsSyntaxTypes.PressureBaseUnits) valueTuple)
 		{
 			return new Pressure<T>(valueTuple.Item1, valueTuple.Item2);
@@ -17751,6 +18138,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Speed measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <returns>The Speed measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Time.Units fromTimeUnits2
@@ -17768,6 +18162,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Speed measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Speed measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.SpeedBaseUnits from,
 			MeasurementUnitsSyntaxTypes.SpeedBaseUnits to)
@@ -17780,6 +18179,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Speed measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Speed<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Speed<T>>(@string, out value, tryParseNumeric);
@@ -17898,6 +18302,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Speed measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Speed measurement.</param>
 		public static implicit operator Speed<T>((T, MeasurementUnitsSyntaxTypes.SpeedBaseUnits) valueTuple)
 		{
 			return new Speed<T>(valueTuple.Item1, valueTuple.Item2);
@@ -18719,6 +19125,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Tempurature measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromTempuratureUnits1">The current units of the measurement.</param>
+		/// <param name="toTempuratureUnits1">The desired units of the measurement.</param>
+		/// <returns>The Tempurature measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Tempurature.Units fromTempuratureUnits1
 			, Tempurature.Units toTempuratureUnits1
@@ -18732,6 +19143,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Tempurature measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Tempurature measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.TempuratureUnits from,
 			MeasurementUnitsSyntaxTypes.TempuratureUnits to)
@@ -18742,6 +19158,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Tempurature measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Tempurature<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Tempurature<T>>(@string, out value, tryParseNumeric);
@@ -18823,6 +19244,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Tempurature measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Tempurature measurement.</param>
 		public static implicit operator Tempurature<T>((T, MeasurementUnitsSyntaxTypes.TempuratureUnits) valueTuple)
 		{
 			return new Tempurature<T>(valueTuple.Item1, valueTuple.Item2);
@@ -19279,6 +19702,11 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Time measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromTimeUnits1">The current units of the measurement.</param>
+		/// <param name="toTimeUnits1">The desired units of the measurement.</param>
+		/// <returns>The Time measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Time.Units fromTimeUnits1
 			, Time.Units toTimeUnits1
@@ -19292,6 +19720,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Time measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Time measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.TimeUnits from,
 			MeasurementUnitsSyntaxTypes.TimeUnits to)
@@ -19302,6 +19735,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Time measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Time<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Time<T>>(@string, out value, tryParseNumeric);
@@ -19383,6 +19821,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Time measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Time measurement.</param>
 		public static implicit operator Time<T>((T, MeasurementUnitsSyntaxTypes.TimeUnits) valueTuple)
 		{
 			return new Time<T>(valueTuple.Item1, valueTuple.Item2);
@@ -20273,6 +20713,13 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a TimeArea measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromTimeUnits1">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits2">The current units of the measurement.</param>
+		/// <param name="toTimeUnits1">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits2">The desired units of the measurement.</param>
+		/// <returns>The TimeArea measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Time.Units fromTimeUnits1
 			, Time.Units fromTimeUnits2
@@ -20290,6 +20737,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a TimeArea measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The TimeArea measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits from,
 			MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits to)
@@ -20302,6 +20754,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a TimeArea measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out TimeArea<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, TimeArea<T>>(@string, out value, tryParseNumeric);
@@ -20420,6 +20877,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a TimeArea measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a TimeArea measurement.</param>
 		public static implicit operator TimeArea<T>((T, MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits) valueTuple)
 		{
 			return new TimeArea<T>(valueTuple.Item1, valueTuple.Item2);
@@ -21089,6 +21548,15 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a Volume measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <returns>The Volume measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Length.Units fromLengthUnits2
@@ -21110,6 +21578,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a Volume measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The Volume measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.VolumeBaseUnits from,
 			MeasurementUnitsSyntaxTypes.VolumeBaseUnits to)
@@ -21124,6 +21597,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a Volume measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out Volume<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, Volume<T>>(@string, out value, tryParseNumeric);
@@ -21272,6 +21750,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a Volume measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a Volume measurement.</param>
 		public static implicit operator Volume<T>((T, MeasurementUnitsSyntaxTypes.VolumeBaseUnits) valueTuple)
 		{
 			return new Volume<T>(valueTuple.Item1, valueTuple.Item2);
@@ -22039,6 +22519,17 @@ namespace Towel.Measurements
 
 		#region Statics
 
+		/// <summary>Converts a VolumeRate measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="fromLengthUnits1">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits2">The current units of the measurement.</param>
+		/// <param name="fromLengthUnits3">The current units of the measurement.</param>
+		/// <param name="fromTimeUnits4">The current units of the measurement.</param>
+		/// <param name="toLengthUnits1">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits2">The desired units of the measurement.</param>
+		/// <param name="toLengthUnits3">The desired units of the measurement.</param>
+		/// <param name="toTimeUnits4">The desired units of the measurement.</param>
+		/// <returns>The VolumeRate measurement converted into the desired units.</returns>
 		public static T Convert(T value
 			, Length.Units fromLengthUnits1
 			, Length.Units fromLengthUnits2
@@ -22064,6 +22555,11 @@ namespace Towel.Measurements
 				];
 		}
 
+		/// <summary>Converts a VolumeRate measurement from units to another.</summary>
+		/// <param name="value">The value to convert the units of.</param>
+		/// <param name="from">The current units of the measurement.</param>
+		/// <param name="to">The desired units of the measurement.</param>
+		/// <returns>The VolumeRate measurement converted into the desired units.</returns>
 		public static T Convert(T value,
 			MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits from,
 			MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits to)
@@ -22080,6 +22576,11 @@ namespace Towel.Measurements
 			);
 		}
 
+		/// <summary>Parses a VolumeRate measurement string.</summary>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value.</param>
+		/// <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+		/// <returns>True if the parse was successful or false if not.</returns>
 		public static bool TryParse(string @string, out VolumeRate<T> value, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			return Measurement.TryParse<T, VolumeRate<T>>(@string, out value, tryParseNumeric);
@@ -22258,6 +22759,8 @@ namespace Towel.Measurements
 
 		#region Casting Operators
 
+		/// <summary>Converts a ValueTuple to a VolumeRate measurement.</summary>
+		/// <param name="valueTuple">The ValueTuple to converted into a VolumeRate measurement.</param>
 		public static implicit operator VolumeRate<T>((T, MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits) valueTuple)
 		{
 			return new VolumeRate<T>(valueTuple.Item1, valueTuple.Item2);

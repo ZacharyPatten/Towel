@@ -18811,6 +18811,31 @@
             <summary>Acceleration measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Acceleration measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="fromTimeUnits3">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <param name="toTimeUnits3">The desired units of the measurement.</param>
+            <returns>The Acceleration measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits)">
+            <summary>Converts a Acceleration measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Acceleration measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.TryParse(System.String,Towel.Measurements.Acceleration{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Acceleration measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits)">
             <summary>Constructs an Acceleration with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Acceleration.</param>
@@ -18848,6 +18873,10 @@
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <param name="TimeUnits3">The #3 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Acceleration`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits})~Towel.Measurements.Acceleration{`0}">
+            <summary>Converts a ValueTuple to a Acceleration measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Acceleration measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Acceleration`1.Add(Towel.Measurements.Acceleration{`0},Towel.Measurements.Acceleration{`0})">
             <summary>Adds two Acceleration measurements.</summary>
@@ -19167,6 +19196,31 @@
             <summary>AngularAcceleration measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.AngularAcceleration`1.Convert(`0,Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a AngularAcceleration measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromAngleUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="fromTimeUnits3">The current units of the measurement.</param>
+            <param name="toAngleUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <param name="toTimeUnits3">The desired units of the measurement.</param>
+            <returns>The AngularAcceleration measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularAcceleration`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits)">
+            <summary>Converts a AngularAcceleration measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The AngularAcceleration measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularAcceleration`1.TryParse(System.String,Towel.Measurements.AngularAcceleration{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a AngularAcceleration measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.AngularAcceleration`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits)">
             <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AngularAcceleration.</param>
@@ -19204,6 +19258,10 @@
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <param name="TimeUnits3">The #3 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularAcceleration`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits})~Towel.Measurements.AngularAcceleration{`0}">
+            <summary>Converts a ValueTuple to a AngularAcceleration measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a AngularAcceleration measurement.</param>
         </member>
         <member name="M:Towel.Measurements.AngularAcceleration`1.Add(Towel.Measurements.AngularAcceleration{`0},Towel.Measurements.AngularAcceleration{`0})">
             <summary>Adds two AngularAcceleration measurements.</summary>
@@ -19455,6 +19513,27 @@
             <summary>Angle measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Angle`1.Convert(`0,Towel.Measurements.Angle.Units,Towel.Measurements.Angle.Units)">
+            <summary>Converts a Angle measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromAngleUnits1">The current units of the measurement.</param>
+            <param name="toAngleUnits1">The desired units of the measurement.</param>
+            <returns>The Angle measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Angle`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits)">
+            <summary>Converts a Angle measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Angle measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Angle`1.TryParse(System.String,Towel.Measurements.Angle{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Angle measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Angle`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits)">
             <summary>Constructs an Angle with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Angle.</param>
@@ -19477,6 +19556,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="AngleUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Angle`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits})~Towel.Measurements.Angle{`0}">
+            <summary>Converts a ValueTuple to a Angle measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Angle measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Angle`1.Add(Towel.Measurements.Angle{`0},Towel.Measurements.Angle{`0})">
             <summary>Adds two Angle measurements.</summary>
@@ -19762,6 +19845,29 @@
             <summary>AngularSpeed measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.AngularSpeed`1.Convert(`0,Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units,Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a AngularSpeed measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromAngleUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="toAngleUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <returns>The AngularSpeed measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularSpeed`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits)">
+            <summary>Converts a AngularSpeed measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The AngularSpeed measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularSpeed`1.TryParse(System.String,Towel.Measurements.AngularSpeed{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a AngularSpeed measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.AngularSpeed`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits)">
             <summary>Constructs an AngularSpeed with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AngularSpeed.</param>
@@ -19794,6 +19900,10 @@
             <param name="AngleUnits1">The #1 component of this measurements units.</param>
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AngularSpeed`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits})~Towel.Measurements.AngularSpeed{`0}">
+            <summary>Converts a ValueTuple to a AngularSpeed measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a AngularSpeed measurement.</param>
         </member>
         <member name="M:Towel.Measurements.AngularSpeed`1.Add(Towel.Measurements.AngularSpeed{`0},Towel.Measurements.AngularSpeed{`0})">
             <summary>Adds two AngularSpeed measurements.</summary>
@@ -20062,6 +20172,29 @@
             <summary>Area measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Area`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a Area measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <returns>The Area measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits)">
+            <summary>Converts a Area measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Area measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.TryParse(System.String,Towel.Measurements.Area{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Area measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Area`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits)">
             <summary>Constructs an Area with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Area.</param>
@@ -20094,6 +20227,10 @@
             <param name="LengthUnits1">The #1 component of this measurements units.</param>
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Area`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits})~Towel.Measurements.Area{`0}">
+            <summary>Converts a ValueTuple to a Area measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Area measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Area`1.Add(Towel.Measurements.Area{`0},Towel.Measurements.Area{`0})">
             <summary>Adds two Area measurements.</summary>
@@ -20430,6 +20567,31 @@
             <summary>AreaDensity measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a AreaDensity measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <returns>The AreaDensity measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits)">
+            <summary>Converts a AreaDensity measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The AreaDensity measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.TryParse(System.String,Towel.Measurements.AreaDensity{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a AreaDensity measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.AreaDensity`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits)">
             <summary>Constructs an AreaDensity with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AreaDensity.</param>
@@ -20467,6 +20629,10 @@
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <param name="LengthUnits3">The #3 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.AreaDensity`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits})~Towel.Measurements.AreaDensity{`0}">
+            <summary>Converts a ValueTuple to a AreaDensity measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a AreaDensity measurement.</param>
         </member>
         <member name="M:Towel.Measurements.AreaDensity`1.Add(Towel.Measurements.AreaDensity{`0},Towel.Measurements.AreaDensity{`0})">
             <summary>Adds two AreaDensity measurements.</summary>
@@ -20803,6 +20969,33 @@
             <summary>Density measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Density`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a Density measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="fromLengthUnits4">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <param name="toLengthUnits4">The desired units of the measurement.</param>
+            <returns>The Density measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Density`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits)">
+            <summary>Converts a Density measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Density measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Density`1.TryParse(System.String,Towel.Measurements.Density{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Density measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Density`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits)">
             <summary>Constructs an Density with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Density.</param>
@@ -20845,6 +21038,10 @@
             <param name="LengthUnits3">The #3 component of this measurements units.</param>
             <param name="LengthUnits4">The #4 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Density`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits})~Towel.Measurements.Density{`0}">
+            <summary>Converts a ValueTuple to a Density measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Density measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Density`1.Add(Towel.Measurements.Density{`0},Towel.Measurements.Density{`0})">
             <summary>Adds two Density measurements.</summary>
@@ -21130,6 +21327,27 @@
             <summary>ElectricCharge measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.ElectricCharge`1.Convert(`0,Towel.Measurements.ElectricCharge.Units,Towel.Measurements.ElectricCharge.Units)">
+            <summary>Converts a ElectricCharge measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromElectricChargeUnits1">The current units of the measurement.</param>
+            <param name="toElectricChargeUnits1">The desired units of the measurement.</param>
+            <returns>The ElectricCharge measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCharge`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits)">
+            <summary>Converts a ElectricCharge measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The ElectricCharge measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCharge`1.TryParse(System.String,Towel.Measurements.ElectricCharge{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a ElectricCharge measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.ElectricCharge`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits)">
             <summary>Constructs an ElectricCharge with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the ElectricCharge.</param>
@@ -21152,6 +21370,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCharge`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits})~Towel.Measurements.ElectricCharge{`0}">
+            <summary>Converts a ValueTuple to a ElectricCharge measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a ElectricCharge measurement.</param>
         </member>
         <member name="M:Towel.Measurements.ElectricCharge`1.Add(Towel.Measurements.ElectricCharge{`0},Towel.Measurements.ElectricCharge{`0})">
             <summary>Adds two ElectricCharge measurements.</summary>
@@ -21403,6 +21625,29 @@
             <summary>ElectricCurrent measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.ElectricCurrent`1.Convert(`0,Towel.Measurements.ElectricCharge.Units,Towel.Measurements.Time.Units,Towel.Measurements.ElectricCharge.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a ElectricCurrent measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromElectricChargeUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="toElectricChargeUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <returns>The ElectricCurrent measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCurrent`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits)">
+            <summary>Converts a ElectricCurrent measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The ElectricCurrent measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCurrent`1.TryParse(System.String,Towel.Measurements.ElectricCurrent{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a ElectricCurrent measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.ElectricCurrent`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits)">
             <summary>Constructs an ElectricCurrent with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the ElectricCurrent.</param>
@@ -21435,6 +21680,10 @@
             <param name="ElectricChargeUnits1">The #1 component of this measurements units.</param>
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.ElectricCurrent`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits})~Towel.Measurements.ElectricCurrent{`0}">
+            <summary>Converts a ValueTuple to a ElectricCurrent measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a ElectricCurrent measurement.</param>
         </member>
         <member name="M:Towel.Measurements.ElectricCurrent`1.Add(Towel.Measurements.ElectricCurrent{`0},Towel.Measurements.ElectricCurrent{`0})">
             <summary>Adds two ElectricCurrent measurements.</summary>
@@ -21669,6 +21918,35 @@
             <summary>Energy measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Energy`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Energy measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="fromTimeUnits4">The current units of the measurement.</param>
+            <param name="fromTimeUnits5">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <param name="toTimeUnits4">The desired units of the measurement.</param>
+            <param name="toTimeUnits5">The desired units of the measurement.</param>
+            <returns>The Energy measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits)">
+            <summary>Converts a Energy measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Energy measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.TryParse(System.String,Towel.Measurements.Energy{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Energy measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits)">
             <summary>Constructs an Energy with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Energy.</param>
@@ -21716,6 +21994,10 @@
             <param name="TimeUnits4">The #4 component of this measurements units.</param>
             <param name="TimeUnits5">The #5 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Energy`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits})~Towel.Measurements.Energy{`0}">
+            <summary>Converts a ValueTuple to a Energy measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Energy measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Energy`1.Add(Towel.Measurements.Energy{`0},Towel.Measurements.Energy{`0})">
             <summary>Adds two Energy measurements.</summary>
@@ -22103,6 +22385,33 @@
             <summary>Force measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Force`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Force measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromTimeUnits3">The current units of the measurement.</param>
+            <param name="fromTimeUnits4">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toTimeUnits3">The desired units of the measurement.</param>
+            <param name="toTimeUnits4">The desired units of the measurement.</param>
+            <returns>The Force measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits)">
+            <summary>Converts a Force measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Force measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.TryParse(System.String,Towel.Measurements.Force{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Force measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Force`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits)">
             <summary>Constructs an Force with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Force.</param>
@@ -22145,6 +22454,10 @@
             <param name="TimeUnits3">The #3 component of this measurements units.</param>
             <param name="TimeUnits4">The #4 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Force`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits})~Towel.Measurements.Force{`0}">
+            <summary>Converts a ValueTuple to a Force measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Force measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Force`1.Add(Towel.Measurements.Force{`0},Towel.Measurements.Force{`0})">
             <summary>Adds two Force measurements.</summary>
@@ -22532,6 +22845,27 @@
             <summary>Length measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Length`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a Length measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <returns>The Length measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits)">
+            <summary>Converts a Length measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Length measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.TryParse(System.String,Towel.Measurements.Length{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Length measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Length`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits)">
             <summary>Constructs an Length with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Length.</param>
@@ -22554,6 +22888,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="LengthUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Length`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits})~Towel.Measurements.Length{`0}">
+            <summary>Converts a ValueTuple to a Length measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Length measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Length`1.Add(Towel.Measurements.Length{`0},Towel.Measurements.Length{`0})">
             <summary>Adds two Length measurements.</summary>
@@ -22975,6 +23313,29 @@
             <summary>LinearDensity measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a LinearDensity measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <returns>The LinearDensity measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits)">
+            <summary>Converts a LinearDensity measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The LinearDensity measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.TryParse(System.String,Towel.Measurements.LinearDensity{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a LinearDensity measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearDensity`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits)">
             <summary>Constructs an LinearDensity with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearDensity.</param>
@@ -23007,6 +23368,10 @@
             <param name="MassUnits1">The #1 component of this measurements units.</param>
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearDensity`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits})~Towel.Measurements.LinearDensity{`0}">
+            <summary>Converts a ValueTuple to a LinearDensity measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a LinearDensity measurement.</param>
         </member>
         <member name="M:Towel.Measurements.LinearDensity`1.Add(Towel.Measurements.LinearDensity{`0},Towel.Measurements.LinearDensity{`0})">
             <summary>Adds two LinearDensity measurements.</summary>
@@ -23377,6 +23742,29 @@
             <summary>LinearMass measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.LinearMass`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a LinearMass measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <returns>The LinearMass measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits)">
+            <summary>Converts a LinearMass measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The LinearMass measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.TryParse(System.String,Towel.Measurements.LinearMass{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a LinearMass measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearMass`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits)">
             <summary>Constructs an LinearMass with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearMass.</param>
@@ -23409,6 +23797,10 @@
             <param name="MassUnits1">The #1 component of this measurements units.</param>
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMass`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits})~Towel.Measurements.LinearMass{`0}">
+            <summary>Converts a ValueTuple to a LinearMass measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a LinearMass measurement.</param>
         </member>
         <member name="M:Towel.Measurements.LinearMass`1.Add(Towel.Measurements.LinearMass{`0},Towel.Measurements.LinearMass{`0})">
             <summary>Adds two LinearMass measurements.</summary>
@@ -23813,6 +24205,31 @@
             <summary>LinearMassFlow measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a LinearMassFlow measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromTimeUnits3">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toTimeUnits3">The desired units of the measurement.</param>
+            <returns>The LinearMassFlow measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits)">
+            <summary>Converts a LinearMassFlow measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The LinearMassFlow measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.TryParse(System.String,Towel.Measurements.LinearMassFlow{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a LinearMassFlow measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.LinearMassFlow`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits)">
             <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearMassFlow.</param>
@@ -23850,6 +24267,10 @@
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <param name="TimeUnits3">The #3 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.LinearMassFlow`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits})~Towel.Measurements.LinearMassFlow{`0}">
+            <summary>Converts a ValueTuple to a LinearMassFlow measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a LinearMassFlow measurement.</param>
         </member>
         <member name="M:Towel.Measurements.LinearMassFlow`1.Add(Towel.Measurements.LinearMassFlow{`0},Towel.Measurements.LinearMassFlow{`0})">
             <summary>Adds two LinearMassFlow measurements.</summary>
@@ -24254,6 +24675,27 @@
             <summary>Mass measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Mass`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Mass.Units)">
+            <summary>Converts a Mass measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <returns>The Mass measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Mass`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits)">
+            <summary>Converts a Mass measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Mass measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Mass`1.TryParse(System.String,Towel.Measurements.Mass{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Mass measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Mass`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits)">
             <summary>Constructs an Mass with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Mass.</param>
@@ -24276,6 +24718,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="MassUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Mass`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits})~Towel.Measurements.Mass{`0}">
+            <summary>Converts a ValueTuple to a Mass measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Mass measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Mass`1.Add(Towel.Measurements.Mass{`0},Towel.Measurements.Mass{`0})">
             <summary>Adds two Mass measurements.</summary>
@@ -24680,6 +25126,29 @@
             <summary>MassRate measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.MassRate`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a MassRate measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <returns>The MassRate measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.MassRate`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits)">
+            <summary>Converts a MassRate measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The MassRate measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.MassRate`1.TryParse(System.String,Towel.Measurements.MassRate{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a MassRate measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.MassRate`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits)">
             <summary>Constructs an MassRate with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the MassRate.</param>
@@ -24712,6 +25181,10 @@
             <param name="MassUnits1">The #1 component of this measurements units.</param>
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.MassRate`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits})~Towel.Measurements.MassRate{`0}">
+            <summary>Converts a ValueTuple to a MassRate measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a MassRate measurement.</param>
         </member>
         <member name="M:Towel.Measurements.MassRate`1.Add(Towel.Measurements.MassRate{`0},Towel.Measurements.MassRate{`0})">
             <summary>Adds two MassRate measurements.</summary>
@@ -25048,6 +25521,37 @@
             <summary>Power measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Power`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Power measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="fromTimeUnits4">The current units of the measurement.</param>
+            <param name="fromTimeUnits5">The current units of the measurement.</param>
+            <param name="fromTimeUnits6">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <param name="toTimeUnits4">The desired units of the measurement.</param>
+            <param name="toTimeUnits5">The desired units of the measurement.</param>
+            <param name="toTimeUnits6">The desired units of the measurement.</param>
+            <returns>The Power measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits)">
+            <summary>Converts a Power measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Power measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.TryParse(System.String,Towel.Measurements.Power{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Power measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits)">
             <summary>Constructs an Power with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Power.</param>
@@ -25100,6 +25604,10 @@
             <param name="TimeUnits5">The #5 component of this measurements units.</param>
             <param name="TimeUnits6">The #6 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Power`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits})~Towel.Measurements.Power{`0}">
+            <summary>Converts a ValueTuple to a Power measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Power measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Power`1.Add(Towel.Measurements.Power{`0},Towel.Measurements.Power{`0})">
             <summary>Adds two Power measurements.</summary>
@@ -25436,6 +25944,33 @@
             <summary>Pressure measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Pressure`1.Convert(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Pressure measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromMassUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromTimeUnits3">The current units of the measurement.</param>
+            <param name="fromTimeUnits4">The current units of the measurement.</param>
+            <param name="toMassUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toTimeUnits3">The desired units of the measurement.</param>
+            <param name="toTimeUnits4">The desired units of the measurement.</param>
+            <returns>The Pressure measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits)">
+            <summary>Converts a Pressure measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Pressure measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.TryParse(System.String,Towel.Measurements.Pressure{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Pressure measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits)">
             <summary>Constructs an Pressure with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Pressure.</param>
@@ -25478,6 +26013,10 @@
             <param name="TimeUnits3">The #3 component of this measurements units.</param>
             <param name="TimeUnits4">The #4 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Pressure`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits})~Towel.Measurements.Pressure{`0}">
+            <summary>Converts a ValueTuple to a Pressure measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Pressure measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Pressure`1.Add(Towel.Measurements.Pressure{`0},Towel.Measurements.Pressure{`0})">
             <summary>Adds two Pressure measurements.</summary>
@@ -25797,6 +26336,29 @@
             <summary>Speed measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Speed`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Speed measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <returns>The Speed measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits)">
+            <summary>Converts a Speed measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Speed measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.TryParse(System.String,Towel.Measurements.Speed{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Speed measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Speed`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits)">
             <summary>Constructs an Speed with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Speed.</param>
@@ -25829,6 +26391,10 @@
             <param name="LengthUnits1">The #1 component of this measurements units.</param>
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Speed`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits})~Towel.Measurements.Speed{`0}">
+            <summary>Converts a ValueTuple to a Speed measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Speed measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Speed`1.Add(Towel.Measurements.Speed{`0},Towel.Measurements.Speed{`0})">
             <summary>Adds two Speed measurements.</summary>
@@ -26199,6 +26765,27 @@
             <summary>Tempurature measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Tempurature`1.Convert(`0,Towel.Measurements.Tempurature.Units,Towel.Measurements.Tempurature.Units)">
+            <summary>Converts a Tempurature measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromTempuratureUnits1">The current units of the measurement.</param>
+            <param name="toTempuratureUnits1">The desired units of the measurement.</param>
+            <returns>The Tempurature measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Tempurature`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits)">
+            <summary>Converts a Tempurature measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Tempurature measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Tempurature`1.TryParse(System.String,Towel.Measurements.Tempurature{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Tempurature measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Tempurature`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits)">
             <summary>Constructs an Tempurature with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Tempurature.</param>
@@ -26221,6 +26808,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="TempuratureUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Tempurature`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits})~Towel.Measurements.Tempurature{`0}">
+            <summary>Converts a ValueTuple to a Tempurature measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Tempurature measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Tempurature`1.Add(Towel.Measurements.Tempurature{`0},Towel.Measurements.Tempurature{`0})">
             <summary>Adds two Tempurature measurements.</summary>
@@ -26438,6 +27029,27 @@
             <summary>Time measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Time`1.Convert(`0,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a Time measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromTimeUnits1">The current units of the measurement.</param>
+            <param name="toTimeUnits1">The desired units of the measurement.</param>
+            <returns>The Time measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits)">
+            <summary>Converts a Time measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Time measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.TryParse(System.String,Towel.Measurements.Time{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Time measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Time`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits)">
             <summary>Constructs an Time with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Time.</param>
@@ -26460,6 +27072,10 @@
             <summary>Gets the measurement in the specified units.</summary>
             <param name="TimeUnits1">The #1 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Time`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits})~Towel.Measurements.Time{`0}">
+            <summary>Converts a ValueTuple to a Time measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Time measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Time`1.Add(Towel.Measurements.Time{`0},Towel.Measurements.Time{`0})">
             <summary>Adds two Time measurements.</summary>
@@ -26864,6 +27480,29 @@
             <summary>TimeArea measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.TimeArea`1.Convert(`0,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a TimeArea measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromTimeUnits1">The current units of the measurement.</param>
+            <param name="fromTimeUnits2">The current units of the measurement.</param>
+            <param name="toTimeUnits1">The desired units of the measurement.</param>
+            <param name="toTimeUnits2">The desired units of the measurement.</param>
+            <returns>The TimeArea measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.TimeArea`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits)">
+            <summary>Converts a TimeArea measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The TimeArea measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.TimeArea`1.TryParse(System.String,Towel.Measurements.TimeArea{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a TimeArea measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.TimeArea`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits)">
             <summary>Constructs an TimeArea with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the TimeArea.</param>
@@ -26896,6 +27535,10 @@
             <param name="TimeUnits1">The #1 component of this measurements units.</param>
             <param name="TimeUnits2">The #2 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.TimeArea`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits})~Towel.Measurements.TimeArea{`0}">
+            <summary>Converts a ValueTuple to a TimeArea measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a TimeArea measurement.</param>
         </member>
         <member name="M:Towel.Measurements.TimeArea`1.Add(Towel.Measurements.TimeArea{`0},Towel.Measurements.TimeArea{`0})">
             <summary>Adds two TimeArea measurements.</summary>
@@ -27198,6 +27841,31 @@
             <summary>Volume measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.Volume`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units)">
+            <summary>Converts a Volume measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <returns>The Volume measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits)">
+            <summary>Converts a Volume measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The Volume measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.TryParse(System.String,Towel.Measurements.Volume{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a Volume measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.Volume`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits)">
             <summary>Constructs an Volume with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Volume.</param>
@@ -27235,6 +27903,10 @@
             <param name="LengthUnits2">The #2 component of this measurements units.</param>
             <param name="LengthUnits3">The #3 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.Volume`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits})~Towel.Measurements.Volume{`0}">
+            <summary>Converts a ValueTuple to a Volume measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a Volume measurement.</param>
         </member>
         <member name="M:Towel.Measurements.Volume`1.Add(Towel.Measurements.Volume{`0},Towel.Measurements.Volume{`0})">
             <summary>Adds two Volume measurements.</summary>
@@ -27571,6 +28243,33 @@
             <summary>VolumeRate measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>
         </member>
+        <member name="M:Towel.Measurements.VolumeRate`1.Convert(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
+            <summary>Converts a VolumeRate measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="fromLengthUnits1">The current units of the measurement.</param>
+            <param name="fromLengthUnits2">The current units of the measurement.</param>
+            <param name="fromLengthUnits3">The current units of the measurement.</param>
+            <param name="fromTimeUnits4">The current units of the measurement.</param>
+            <param name="toLengthUnits1">The desired units of the measurement.</param>
+            <param name="toLengthUnits2">The desired units of the measurement.</param>
+            <param name="toLengthUnits3">The desired units of the measurement.</param>
+            <param name="toTimeUnits4">The desired units of the measurement.</param>
+            <returns>The VolumeRate measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.VolumeRate`1.Convert(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits)">
+            <summary>Converts a VolumeRate measurement from units to another.</summary>
+            <param name="value">The value to convert the units of.</param>
+            <param name="from">The current units of the measurement.</param>
+            <param name="to">The desired units of the measurement.</param>
+            <returns>The VolumeRate measurement converted into the desired units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.VolumeRate`1.TryParse(System.String,Towel.Measurements.VolumeRate{`0}@,Towel.Mathematics.Symbolics.TryParseNumeric{`0})">
+            <summary>Parses a VolumeRate measurement string.</summary>
+            <param name="string">The string to be parsed.</param>
+            <param name="value">The parsed value.</param>
+            <param name="tryParseNumeric">The tryparse function for the generic type.</param>
+            <returns>True if the parse was successful or false if not.</returns>
+        </member>
         <member name="M:Towel.Measurements.VolumeRate`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits)">
             <summary>Constructs an VolumeRate with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the VolumeRate.</param>
@@ -27613,6 +28312,10 @@
             <param name="LengthUnits3">The #3 component of this measurements units.</param>
             <param name="TimeUnits4">The #4 component of this measurements units.</param>
             <returns>The measurement value in the specified units.</returns>
+        </member>
+        <member name="M:Towel.Measurements.VolumeRate`1.op_Implicit(System.ValueTuple{`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits})~Towel.Measurements.VolumeRate{`0}">
+            <summary>Converts a ValueTuple to a VolumeRate measurement.</summary>
+            <param name="valueTuple">The ValueTuple to converted into a VolumeRate measurement.</param>
         </member>
         <member name="M:Towel.Measurements.VolumeRate`1.Add(Towel.Measurements.VolumeRate{`0},Towel.Measurements.VolumeRate{`0})">
             <summary>Adds two VolumeRate measurements.</summary>
