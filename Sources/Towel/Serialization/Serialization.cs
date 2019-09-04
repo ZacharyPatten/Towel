@@ -14,10 +14,7 @@ namespace Towel.Serialization
 		#region Shared
 
 		internal static readonly XmlWriterSettings DefaultXmlWriterSettings =
-			new XmlWriterSettings()
-			{
-				OmitXmlDeclaration = true,
-			};
+			new XmlWriterSettings() { OmitXmlDeclaration = true, };
 
 		#endregion
 
@@ -29,10 +26,8 @@ namespace Towel.Serialization
 		/// <typeparam name="T">The type of object to serialize.</typeparam>
 		/// <param name="value">The value to serialize.</param>
 		/// <returns>The XML serialzation of the value.</returns>
-		public static string DefaultToXml<T>(T value)
-		{
-			return DefaultToXml(value, DefaultXmlWriterSettings);
-		}
+		public static string DefaultToXml<T>(T value) =>
+			DefaultToXml(value, DefaultXmlWriterSettings);
 
 		/// <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
 		/// <typeparam name="T">The type of object to serialize.</typeparam>
@@ -52,10 +47,8 @@ namespace Towel.Serialization
 		/// <typeparam name="T">The type of object to serialize.</typeparam>
 		/// <param name="value">The value to serialize.</param>
 		/// <param name="textWriter">The text writer to output the XML serialization to.</param>
-		public static void DefaultToXml<T>(T value, TextWriter textWriter)
-		{
+		public static void DefaultToXml<T>(T value, TextWriter textWriter) =>
 			DefaultToXml(value, textWriter, DefaultXmlWriterSettings);
-		}
 
 		/// <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
 		/// <typeparam name="T">The type of object to serialize.</typeparam>
@@ -128,10 +121,8 @@ namespace Towel.Serialization
 		/// <exception cref="NotSupportedException">
 		/// Thrown when the delegate is pointing to a local function.
 		/// </exception>
-		public static string StaticDelegateToXml<T>(T @delegate) where T : Delegate
-		{
-			return StaticDelegateToXml(@delegate, DefaultXmlWriterSettings);
-		}
+		public static string StaticDelegateToXml<T>(T @delegate) where T : Delegate =>
+			StaticDelegateToXml(@delegate, DefaultXmlWriterSettings);
 
 		/// <summary>Serializes a static delegate to XML.</summary>
 		/// <typeparam name="T">The type of delegate to serialize.</typeparam>
@@ -163,10 +154,8 @@ namespace Towel.Serialization
 		/// <exception cref="NotSupportedException">
 		/// Thrown when the delegate is pointing to a local function.
 		/// </exception>
-		public static void StaticDelegateToXml<T>(T @delegate, TextWriter textWriter) where T : Delegate
-		{
+		public static void StaticDelegateToXml<T>(T @delegate, TextWriter textWriter) where T : Delegate =>
 			StaticDelegateToXml(@delegate, textWriter, DefaultXmlWriterSettings);
-		}
 
 		/// <summary>Serializes a static delegate to XML.</summary>
 		/// <typeparam name="T">The type of delegate to serialize.</typeparam>
