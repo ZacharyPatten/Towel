@@ -24,6 +24,7 @@ namespace Towel_Testing
 			Assert.IsTrue((120m).ToEnglishWords().Equals("One Hundred Twenty"));
 			Assert.IsTrue((1300m).ToEnglishWords().Equals("One Thousand Three Hundred"));
 			Assert.IsTrue((7725m).ToEnglishWords().Equals("Seven Thousand Seven Hundred Twenty-Five"));
+			Assert.IsTrue((12m).ToEnglishWords().Equals("Twelve"));
 		}
 
 		#endregion
