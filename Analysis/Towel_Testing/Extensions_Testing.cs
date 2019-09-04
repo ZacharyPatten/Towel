@@ -27,7 +27,8 @@ namespace Towel_Testing
 				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"), // nested type
 				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"), // nested generic type
 				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"), // nested nested type
-				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>") // nested generic type
+				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>"), // nested generic type
+				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<>.E<>"), // nested generic type
 			};
 			foreach ((Type, string) testCase in testCases)
 			{

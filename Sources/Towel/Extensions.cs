@@ -593,9 +593,9 @@ namespace Towel
 
 		#region Type
 
-		/// <summary>Converts a System.Type into a string as it would appear in C# source code.</summary>
-		/// <param name="type">The "System.Type" to convert to a string.</param>
-		/// <returns>The string as the "System.Type" would appear in C# source code.</returns>
+		/// <summary>Converts a <see cref="System.Type"/> into a string as it would appear in C# source code.</summary>
+		/// <param name="type">The <see cref="System.Type"/> to convert to a string.</param>
+		/// <returns>The string as the <see cref="System.Type"/> would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type)
 		{
 			int index = 0;
@@ -625,49 +625,61 @@ namespace Towel
 			}
 			else
 			{
-				string typeToSring = type.ToString();
-				if (typeToSring.Contains('+'))
+				string typeToString = type.ToString();
+				if (typeToString.Contains('+'))
 				{
-					typeToSring = typeToSring.Substring(typeToSring.LastIndexOf('+') + 1);
+					typeToString = typeToString.Substring(typeToString.LastIndexOf('+') + 1);
 				}
 				bool containsSquigly = false;
-				if (typeToSring.Contains('`'))
+				if (typeToString.Contains('`'))
 				{
-					typeToSring = typeToSring.Substring(0, typeToSring.IndexOf('`')) + "<";
+					typeToString = typeToString.Substring(0, typeToString.IndexOf('`')) + "<";
 					containsSquigly = true;
 				}
-				Type[] generics = type.GetGenericArguments();
-				int genericsParametersOnCurrentType = generics.Length;
-				if (!(type.DeclaringType is null))
-				{
-					genericsParametersOnCurrentType -= type.DeclaringType.GetGenericArguments().Length;
-				}
-				for (int i = 0; i < genericsParametersOnCurrentType; i++)
-				{
-					if (i > 0)
-					{
-						typeToSring += ", ";
-					}
-					if (generics[i].IsGenericParameter)
-					{
-						typeToSring += ConvertToCsharpSource(genericParameters[index++], genericParameters, ref index);
-					}
-					else if (type.IsGenericType)
-					{
-						typeToSring += ConvertToCsharpSource(generics[i]);
-					}
-					else
-					{
-						ConvertToCsharpSource(generics[i], genericParameters, ref index);
-					}
-				}
-				result += typeToSring;
+				HandleGenericParameters(type, genericParameters, ref index, ref typeToString);
+				result += typeToString;
 				if (containsSquigly)
 				{
 					result += ">";
 				}
 			}
 			return result;
+		}
+
+		internal static void HandleGenericParameters(Type type, Type[] genericParameters, ref int index, ref string typeToString)
+		{
+			Type[] generics = type.GetGenericArguments();
+			int genericsParametersOnCurrentType = generics.Length;
+			if (!(type.DeclaringType is null))
+			{
+				genericsParametersOnCurrentType -= type.DeclaringType.GetGenericArguments().Length;
+			}
+			for (int i = 0; i < genericsParametersOnCurrentType; i++)
+			{
+				if (i > 0)
+				{
+					typeToString += ", ";
+				}
+				if (generics[i].IsGenericParameter)
+				{
+					if (!genericParameters[index].IsGenericParameter)
+					{
+						typeToString += ConvertToCsharpSource(genericParameters[index++], genericParameters, ref index);
+					}
+					else
+					{
+						index++;
+					}
+				}
+				else if (type.IsGenericType)
+				{
+					typeToString += ConvertToCsharpSource(generics[i]);
+				}
+				else
+				{
+					ConvertToCsharpSource(generics[i], genericParameters, ref index);
+				}
+			}
 		}
 
 		#endregion

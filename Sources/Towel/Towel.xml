@@ -14526,9 +14526,9 @@
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.ConvertToCsharpSource(System.Type)">
-            <summary>Converts a System.Type into a string as it would appear in C# source code.</summary>
-            <param name="type">The "System.Type" to convert to a string.</param>
-            <returns>The string as the "System.Type" would appear in C# source code.</returns>
+            <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
+            <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
+            <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.Remove``1(System.Collections.Generic.IList{``0},System.Predicate{``0})">
             <summary>Removes all predicated elements from an IList.</summary>
