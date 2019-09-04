@@ -446,7 +446,7 @@ namespace Towel
 			}
 			if (min > max)
 			{
-				throw new ArgumentException("!(min <= max)");
+				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
 			}
 			byte[] buf = new byte[8];
 			random.NextBytes(buf);
@@ -514,7 +514,7 @@ namespace Towel
 			}
 			if (min > max)
 			{
-				throw new ArgumentException("!(min <= max)");
+				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
 			}
 			TimeSpan randomTimeSpan = NextTimeSpan(random, TimeSpan.Zero, max - min);
 			return min.Add(randomTimeSpan);
@@ -546,7 +546,7 @@ namespace Towel
 			}
 			if (min > max)
 			{
-				throw new ArgumentException("!(min <= max)");
+				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
 			}
 			long tickRange = max.Ticks - min.Ticks;
 			long randomLong = random.NextLong(0, tickRange);
@@ -556,7 +556,7 @@ namespace Towel
 		/// <summary>Shuffles the elements of an IList into random order.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="random">The random algorithm for index generation.</param>
-		/// <param name="iList">The structure to be shuffled.</param>
+		/// <param name="array">The structure to be shuffled.</param>
 		public static void Shuffle<T>(this Random random, T[] array) =>
 			Sort.Shuffle(random, array.WrapGetIndex(), array.WrapSetIndex(), 0, array.Length);
 

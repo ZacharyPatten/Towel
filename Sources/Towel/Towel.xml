@@ -14483,7 +14483,7 @@
             <summary>Shuffles the elements of an IList into random order.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
-            <param name="iList">The structure to be shuffled.</param>
+            <param name="array">The structure to be shuffled.</param>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Shuffles the elements of an IList into random order.</summary>

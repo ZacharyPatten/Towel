@@ -140,7 +140,7 @@ namespace Towel.Algorithms
 		internal static Stepper<NODE> BuildPath<NODE, NUMERIC>(GreedyNode<NODE, NUMERIC> node)
 		{
 			PathNode<NODE> start = BuildPath(node, out PathNode<NODE> end);
-			return (Step<NODE> step) =>
+			return step =>
 			{
 				PathNode<NODE> current = start;
 				while (current != null)
@@ -154,7 +154,7 @@ namespace Towel.Algorithms
 		internal static Stepper<NODE> BuildPath<NODE, NUMERIC>(AstarNode<NODE, NUMERIC> node)
 		{
 			PathNode<NODE> start = BuildPath(node, out PathNode<NODE> end);
-			return (Step<NODE> step) =>
+			return step =>
 			{
 				PathNode<NODE> current = start;
 				while (current != null)
@@ -234,7 +234,7 @@ namespace Towel.Algorithms
 				else
 				{
 					neighbors(current.Value,
-						(NODE neighbor) =>
+						neighbor =>
 						{
 							NUMERIC costValue = Compute.Add(current.Cost, cost(current.Value, neighbor));
 							fringe.Enqueue(
@@ -258,10 +258,8 @@ namespace Towel.Algorithms
 		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal)
-		{
-			return Graph(start, graph.Neighbors, heuristic, cost, goal);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, Goal<NODE> goal) =>
+			Graph(start, graph.Neighbors, heuristic, cost, goal);
 
 		/// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -270,10 +268,8 @@ namespace Towel.Algorithms
 		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 		/// <param name="goal">The goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal)
-		{
-			return Graph(start, neighbors, heuristic, cost, goal, Equate.Default);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal) =>
+			Graph(start, neighbors, heuristic, cost, goal, Equate.Default);
 
 		/// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -283,10 +279,8 @@ namespace Towel.Algorithms
 		/// <param name="goal">The goal node.</param>
 		/// <param name="equate">A delegate for checking for equality between two nodes.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate)
-		{
-			return Graph(start, neighbors, heuristic, cost, (NODE node) => { return equate(node, goal); });
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate) =>
+			Graph(start, neighbors, heuristic, cost, node => equate(node, goal));
 
 		/// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -295,10 +289,8 @@ namespace Towel.Algorithms
 		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 		/// <param name="goal">The goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal)
-		{
-			return Graph(start, graph, heuristic, cost, goal, Equate.Default);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal) =>
+			Graph(start, graph, heuristic, cost, goal, Equate.Default);
 
 		/// <summary>Runs the A* search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -308,10 +300,8 @@ namespace Towel.Algorithms
 		/// <param name="goal">The goal node.</param>
 		/// <param name="equate">A delegate for checking for equality between two nodes.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate)
-		{
-			return Graph(start, graph.Neighbors, heuristic, cost, (NODE node) => { return equate(node, goal); });
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Cost<NODE, NUMERIC> cost, NODE goal, Equate<NODE> equate) =>
+			Graph(start, graph.Neighbors, heuristic, cost, (NODE node) => { return equate(node, goal); });
 
 		#endregion
 
@@ -367,10 +357,8 @@ namespace Towel.Algorithms
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, NODE goal)
-		{
-			return Graph(start, neighbors, heuristic, goal, Equate.Default);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, NODE goal) =>
+			Graph(start, neighbors, heuristic, goal, Equate.Default);
 
 		/// <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -379,10 +367,8 @@ namespace Towel.Algorithms
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate)
-		{
-			return Graph(start, neighbors, heuristic, (NODE node) => { return equate(node, goal); });
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, Neighbors<NODE> neighbors, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate) =>
+			Graph(start, neighbors, heuristic, node => equate(node, goal));
 
 		/// <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -390,10 +376,8 @@ namespace Towel.Algorithms
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal)
-		{
-			return Graph(start, graph, heuristic, goal, Equate.Default);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal) =>
+			Graph(start, graph, heuristic, goal, Equate.Default);
 
 		/// <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -402,10 +386,8 @@ namespace Towel.Algorithms
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate)
-		{
-			return Graph(start, graph.Neighbors, heuristic, (NODE node) => { return equate(node, goal); });
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, NODE goal, Equate<NODE> equate) =>
+			Graph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
 		/// <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
 		/// <param name="start">The node to start at.</param>
@@ -413,10 +395,8 @@ namespace Towel.Algorithms
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal)
-		{
-			return Graph(start, graph.Neighbors, heuristic, goal);
-		}
+		public static Stepper<NODE> Graph<NODE, NUMERIC>(NODE start, IGraph<NODE> graph, Heuristic<NODE, NUMERIC> heuristic, Goal<NODE> goal) =>
+			Graph(start, graph.Neighbors, heuristic, goal);
 
 		#endregion
 

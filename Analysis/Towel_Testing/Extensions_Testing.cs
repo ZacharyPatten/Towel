@@ -12,6 +12,27 @@ namespace Towel_Testing
 	[TestClass]
 	public class Extensions_Testing
 	{
+		#region Type Testing
+
+		[TestMethod]
+		public void Type_ConvertToCsharpSource()
+		{
+			(Type, string)[] testCases = new (Type, string)[]
+			{
+				(typeof(System.Int32), "System.Int32"),
+				(typeof(Towel.Stepper<System.Int32>), "Towel.Stepper<System.Int32>"),
+				(typeof(System.Collections.Generic.List<Towel.Stepper<System.Int32>>), "System.Collections.Generic.List<Towel.Stepper<System.Int32>>"),
+				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
+				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
+			};
+			foreach ((Type, string) testCase in testCases)
+			{
+				Assert.IsTrue(testCase.Item1.ConvertToCsharpSource().Equals(testCase.Item2), testCase.Item1.ToString());
+			}
+		}
+
+		#endregion
+
 		#region Decimal Testing
 
 		[TestMethod]
