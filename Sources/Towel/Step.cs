@@ -19,51 +19,43 @@ namespace Towel
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
-	[Serializable]
 	public delegate void Step<T>(T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
-	[Serializable]
 	public delegate void StepRef<T>(ref T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[Serializable]
 	public delegate StepStatus StepBreak<T>(T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[Serializable]
 	public delegate StepStatus StepRefBreak<T>(ref T current);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	[Serializable]
 	public delegate void Stepper<T>(Step<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	[Serializable]
 	public delegate void StepperRef<T>(StepRef<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	[Serializable]
 	public delegate StepStatus StepperBreak<T>(StepBreak<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	[Serializable]
 	public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
 
 	#endregion
@@ -75,7 +67,6 @@ namespace Towel
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
-	[Serializable]
 	public delegate void Step<T1, T2>(T1 a, T2 b);
 
 	/// <summary>Delegate for an action to perform while stepping.</summary>
@@ -83,7 +74,6 @@ namespace Towel
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
-	[Serializable]
 	public delegate void StepRef<T1, T2>(ref T1 a, ref T2 b);
 
 	/// <summary>Delegate for an action to perform while stepping.</summary>
@@ -92,7 +82,6 @@ namespace Towel
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[Serializable]
 	public delegate StepStatus StepBreak<T1, T2>(T1 a, T2 b);
 
 	/// <summary>Delegate for an action to perform while stepping.</summary>
@@ -101,35 +90,30 @@ namespace Towel
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	[Serializable]
 	public delegate StepStatus StepRefBreak<T1, T2>(ref T1 a, ref T2 b);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="step">The action to perform on every step.</param>
-	[Serializable]
 	public delegate void Stepper<T1, T2>(Step<T1, T2> step);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="step">The action to perform on every step.</param>
-	[Serializable]
 	public delegate void StepperRef<T1, T2>(StepRef<T1, T2> step);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="step">The action to perform on every step.</param>
-	[Serializable]
 	public delegate void StepperBreak<T1, T2>(StepBreak<T1, T2> step);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="step">The action to perform on every step.</param>
-	[Serializable]
 	public delegate void StepperRefBreak<T1, T2>(StepRefBreak<T1, T2> step);
 
 	#endregion
@@ -142,28 +126,23 @@ namespace Towel
 		/// <param name="stepper">The stepper to append to.</param>
 		/// <param name="values">The values to append to the stepper.</param>
 		/// <returns>The resulting stepper with the appended values.</returns>
-		public static Stepper<T> Append<T>(this Stepper<T> stepper, params T[] values)
-		{
-			return stepper.Concat(values.ToStepper());
-		}
+		public static Stepper<T> Append<T>(this Stepper<T> stepper, params T[] values) =>
+			stepper.Concat(values.ToStepper());
 
 		/// <summary>Builds a stepper from values.</summary>
 		/// <typeparam name="T">The generic type of the stepper to build.</typeparam>
 		/// <param name="values">The values to build the stepper from.</param>
 		/// <returns>The resulting stepper function for the provided values.</returns>
-		public static Stepper<T> Build<T>(params T[] values)
-		{
-			return values.ToStepper();
-		}
+		public static Stepper<T> Build<T>(params T[] values) =>
+			values.ToStepper();
 
 		/// <summary>Concatenates steppers.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The first stepper of the contactenation.</param>
 		/// <param name="otherSteppers">The other steppers of the concatenation.</param>
 		/// <returns>The concatenated steppers as a single stepper.</returns>
-		public static Stepper<T> Concat<T>(this Stepper<T> stepper, params Stepper<T>[] otherSteppers)
-		{
-			return step =>
+		public static Stepper<T> Concat<T>(this Stepper<T> stepper, params Stepper<T>[] otherSteppers) =>
+			step =>
 			{
 				stepper(step);
 				foreach (Stepper<T> otherStepper in otherSteppers)
@@ -171,16 +150,14 @@ namespace Towel
 					otherStepper(step);
 				}
 			};
-		}
 
 		/// <summary>Filters a stepper using a where predicate.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The stepper to filter.</param>
 		/// <param name="predicate">The predicate of the where filter.</param>
 		/// <returns>The filtered stepper.</returns>
-		public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate)
-		{
-			return step =>
+		public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate) =>
+			step =>
 			{
 				stepper(x =>
 				{
@@ -190,38 +167,33 @@ namespace Towel
 					}
 				});
 			};
-		}
 
 		/// <summary>Creates a stepper from an iteration pattern.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="iterations">The number of times to iterate.</param>
 		/// <param name="func">The generation pattern for the iteration.</param>
 		/// <returns>A stepper build from the iteration pattern.</returns>
-		public static Stepper<T> Iterate<T>(int iterations, Func<int, T> func)
-		{
-			return step =>
+		public static Stepper<T> Iterate<T>(int iterations, Func<int, T> func) =>
+			step =>
 			{
 				for (int i = 0; i < iterations; i++)
 				{
 					step(func(i));
 				}
 			};
-		}
 
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="enumerable">The Ienumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static Stepper<T> ToStepper<T>(this IEnumerable<T> enumerable)
-		{
-			return step =>
+		public static Stepper<T> ToStepper<T>(this IEnumerable<T> enumerable) =>
+			step =>
 			{
 				foreach (T x in enumerable)
 				{
 					step(x);
 				}
 			};
-		}
 
 		/// <summary>Converts the stepper into an array.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
@@ -230,10 +202,10 @@ namespace Towel
 		public static T[] ToArray<T>(this Stepper<T> stepper)
 		{
 			int count = stepper.Count();
-			T[] elements = new T[count];
+			T[] array = new T[count];
 			int i = 0;
-			stepper(x => elements[i++] = x);
-			return elements;
+			stepper(x => array[i++] = x);
+			return array;
 		}
 
 		/// <summary>Counts the number of items in the stepper.</summary>
@@ -265,11 +237,11 @@ namespace Towel
 			int i = 1;
 			return step =>
 			{
-				stepper((T item) =>
+				stepper(x =>
 				{
 					if (i == nth)
 					{
-						step(item);
+						step(x);
 						i = 1;
 					}
 					else
@@ -335,19 +307,15 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the data.</typeparam>
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper)
-		{
-			return ContainsDuplicates(stepper, Equate.Default, Hash.Default);
-		}
+		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper) =>
+			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Stepper<T> stepper)
-		{
-			return ContainsDuplicates(stepper, Equate.Default, Hash.Default);
-		}
+		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
+			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
 	}
 }

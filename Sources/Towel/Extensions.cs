@@ -598,7 +598,7 @@ namespace System
 		/// <param name="iList">The structure to be shuffled.</param>
 		public static void Shuffle<T>(this Random random, Collections.Generic.IList<T> iList)
 		{
-			Sort.Shuffle(random, Accessor.Get(iList), Accessor.Assign(iList), 0, iList.Count);
+			Sort.Shuffle(random, iList.WrapGetIndex(), iList.WrapSetIndex(), 0, iList.Count);
 		}
 
 		/// <summary>Shuffles the elements of an IList into random order.</summary>
@@ -694,6 +694,18 @@ namespace System
 		#endregion
 
 		#region IList
+
+		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
+		/// <typeparam name="T">The generic type of the IList.</typeparam>
+		/// <param name="ilist">The IList to retrieve the get delegate of.</param>
+		/// <returns>A delegate for getting an indexed value in the IList.</returns>
+		public static GetIndex<T> WrapGetIndex<T>(this Collections.Generic.IList<T> ilist) => index => ilist[index];
+
+		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
+		/// <typeparam name="T">The generic type of the IList.</typeparam>
+		/// <param name="ilist">The IList to retrieve the set delegate of.</param>
+		/// <returns>A delegate for setting an indexed value in the IList.</returns>
+		public static SetIndex<T> WrapSetIndex<T>(this Collections.Generic.IList<T> ilist) => (index, value) => ilist[index] = value;
 
 		/// <summary>Removes all predicated elements from an IList.</summary>
 		/// <typeparam name="T">The generic type of elements in the IList.</typeparam>

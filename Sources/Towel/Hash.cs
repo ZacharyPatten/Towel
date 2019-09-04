@@ -6,7 +6,6 @@ namespace Towel
 	/// <typeparam name="T">The type of this hash function.</typeparam>
 	/// <param name="item">The instance to compute the hash of.</param>
 	/// <returns>The computed hash of the given item.</returns>
-	[Serializable]
 	public delegate int Hash<T>(T item);
 
 	/// <summary>Static wrapper for the based "object.GetHashCode" fuction.</summary>
@@ -14,9 +13,9 @@ namespace Towel
 	{
 		/// <summary>Static wrapper for the instance based "object.GetHashCode" fuction.</summary>
 		/// <typeparam name="T">The generic type of the hash operation.</typeparam>
-		/// <param name="item">The item to get the hash code of.</param>
+		/// <param name="value">The item to get the hash code of.</param>
 		/// <returns>The computed hash code using the base GetHashCode instance method.</returns>
-		public static int Default<T>(T item) { return item.GetHashCode(); }
+		public static int Default<T>(T value) => value.GetHashCode();
 
 		/// <summary>used for hash tables in this project. NOTE: CHANGING THESE VALUES MIGHT BREAK HASH TABLES</summary>
 		internal static readonly int[] TableSizes = {

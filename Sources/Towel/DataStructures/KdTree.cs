@@ -743,7 +743,7 @@ namespace Towel.DataStructures
 					closest[dimension] = toPoint(dimension);
 			}
 
-			return Accessor.Get(closest);
+			return closest.WrapGetIndex();
 		}
 
 		public HyperRect<T> Clone()

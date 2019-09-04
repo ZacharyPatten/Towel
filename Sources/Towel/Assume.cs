@@ -21,29 +21,29 @@ namespace Towel
 			internal delegate bool TryParseDelegate(string @string, out T value);
 
 			internal static TryParseDelegate Function = (string @string, out T value) =>
-			{
-				Type type = typeof(T);
-				Type[] parameterTypes = new Type[] { typeof(string), type.MakeByRefType() };
-				MethodInfo methodInfo =
-					type.GetMethod("TryParse",
-						BindingFlags.Static |
-						BindingFlags.Public |
-						BindingFlags.NonPublic,
-						null,
-						parameterTypes,
-						null);
-				Function =
-					methodInfo is null
-					?
-					(string _string, out T _value) =>
-					{
-						_value = default;
-						return false;
-					}
-					:
-					(TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
-				return Function(@string, out value);
-			};
+				{
+					Type type = typeof(T);
+					Type[] parameterTypes = new Type[] { typeof(string), type.MakeByRefType() };
+					MethodInfo methodInfo =
+						type.GetMethod("TryParse",
+							BindingFlags.Static |
+							BindingFlags.Public |
+							BindingFlags.NonPublic,
+							null,
+							parameterTypes,
+							null);
+					Function =
+						methodInfo is null
+						?
+						(string _string, out T _value) =>
+						{
+							_value = default;
+							return false;
+						}
+						:
+						(TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
+					return Function(@string, out value);
+				};
 		}
 	}
 }
