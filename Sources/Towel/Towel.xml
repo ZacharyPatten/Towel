@@ -24,27 +24,35 @@
         </member>
         <member name="T:Towel.Algorithms.Search.Neighbors`1">
             <summary>Step function for all neigbors of a given node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="current">The node to step through all the neighbors of.</param>
             <param name="neighbors">Step function to perform on all neighbors.</param>
         </member>
         <member name="T:Towel.Algorithms.Search.Heuristic`2">
             <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="node">The node to compute the heuristic value of.</param>
             <returns>The computed heuristic value for this node.</returns>
         </member>
         <member name="T:Towel.Algorithms.Search.Cost`2">
             <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="current">The current (starting) node.</param>
             <param name="neighbor">The node to compute the cost of movign to.</param>
             <returns>The computed cost value of movign from current to neighbor.</returns>
         </member>
         <member name="T:Towel.Algorithms.Search.Goal`1">
             <summary>Predicate for determining if we have reached the goal node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="current">The current node.</param>
             <returns>True if the current node is a/the goal node; False if not.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0})">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -54,6 +62,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0})">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to perform the search on.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -63,6 +73,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0)">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -72,6 +84,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0})">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -82,6 +96,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0)">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to perform the search on.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -91,6 +107,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0})">
             <summary>Runs the A* search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to perform the search on.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -101,6 +119,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -109,6 +129,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -117,6 +139,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -126,6 +150,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -134,6 +160,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
@@ -143,6 +171,8 @@
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
             <summary>Runs the Greedy search algorithm algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
