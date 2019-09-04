@@ -17,6 +17,8 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Type_ConvertToCsharpSource()
 		{
+			string test =  typeof(System.Collections.Generic.List<Towel_Testing.A.D<System.Int32>.E<System.Int32>>).FullName;
+
 			(Type, string)[] testCases = new (Type, string)[]
 			{
 				(typeof(System.Int32), "System.Int32"), // standard type
@@ -25,10 +27,22 @@ namespace Towel_Testing
 				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"), // nested type
 				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"), // nested generic type
 				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"), // nested nested type
+				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>") // nested generic type
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
-				Assert.IsTrue(testCase.Item1.ConvertToCsharpSource().Equals(testCase.Item2), testCase.Item1.ToString());
+				string temp;
+				try
+				{
+					temp = testCase.Item1.ConvertToCsharpSource();
+					Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+				}
+				catch
+				{
+					Debugger.Break();
+					temp = testCase.Item1.ConvertToCsharpSource();
+					Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+				}
 			}
 		}
 
@@ -223,11 +237,19 @@ namespace Towel_Testing
 
 	#region Testing Types
 
-	public static class A
+	public class A
 	{
-		public static class B
+		public class B
 		{
-			public static class C
+			public class C
+			{
+
+			}
+		}
+
+		public class D<AA>
+		{
+			public class E<BB>
 			{
 
 			}

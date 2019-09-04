@@ -598,15 +598,21 @@ namespace Towel
 		/// <returns>The string as the "System.Type" would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type)
 		{
+			int index = 0;
+			Type[] genericArguments = type.GetGenericArguments();
+			return ConvertToCsharpSource(type, genericArguments, ref index);
+		}
+
+		internal static string ConvertToCsharpSource(Type type, Type[] genericParameters, ref int index)
+		{
 			if (type is null)
 			{
 				throw new ArgumentNullException(nameof(type));
 			}
-			// work up the declaration type tree
 			string result = string.Empty;
-			if (type.IsNested)
+			if (type.IsNested && !type.IsGenericParameter)
 			{
-				result = ConvertToCsharpSource(type.DeclaringType) + ".";
+				result = ConvertToCsharpSource(type.DeclaringType, genericParameters, ref index) + ".";
 			}
 			if (!type.IsGenericType)
 			{
@@ -619,7 +625,6 @@ namespace Towel
 			}
 			else
 			{
-				// non-generic initial parents
 				string typeToSring = type.ToString();
 				if (typeToSring.Contains('+'))
 				{
@@ -631,21 +636,29 @@ namespace Towel
 					typeToSring = typeToSring.Substring(0, typeToSring.IndexOf('`')) + "<";
 					containsSquigly = true;
 				}
-				// generic string arguments
 				Type[] generics = type.GetGenericArguments();
-				for (int i = 0; i < generics.Length; i++)
+				int genericsParametersOnCurrentType = generics.Length;
+				if (!(type.DeclaringType is null))
+				{
+					genericsParametersOnCurrentType -= type.DeclaringType.GetGenericArguments().Length;
+				}
+				for (int i = 0; i < genericsParametersOnCurrentType; i++)
 				{
 					if (i > 0)
 					{
 						typeToSring += ", ";
 					}
-					if (generics[i].DeclaringType == type)
+					if (generics[i].IsGenericParameter)
 					{
-						typeToSring += generics[i].ToString();
+						typeToSring += ConvertToCsharpSource(genericParameters[index++], genericParameters, ref index);
+					}
+					else if (type.IsGenericType)
+					{
+						typeToSring += ConvertToCsharpSource(generics[i]);
 					}
 					else
 					{
-						typeToSring += ConvertToCsharpSource(generics[i]);
+						ConvertToCsharpSource(generics[i], genericParameters, ref index);
 					}
 				}
 				result += typeToSring;
