@@ -44,7 +44,7 @@ namespace Towel
 						_value = default;
 						return false;
 					}
-				:
+					:
 					(TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
 				return Function(@string, out value);
 			};
