@@ -557,8 +557,8 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="random">The random algorithm for index generation.</param>
 		/// <param name="iList">The structure to be shuffled.</param>
-		public static void Shuffle<T>(this Random random, System.Collections.Generic.IList<T> iList) =>
-			Sort.Shuffle(random, iList.WrapGetIndex(), iList.WrapSetIndex(), 0, iList.Count);
+		public static void Shuffle<T>(this Random random, T[] array) =>
+			Sort.Shuffle(random, array.WrapGetIndex(), array.WrapSetIndex(), 0, array.Length);
 
 		/// <summary>Shuffles the elements of an IList into random order.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
@@ -650,20 +650,6 @@ namespace Towel
 
 		#region IList
 
-		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="ilist">The IList to retrieve the get delegate of.</param>
-		/// <returns>A delegate for getting an indexed value in the IList.</returns>
-		public static GetIndex<T> WrapGetIndex<T>(this System.Collections.Generic.IList<T> ilist) =>
-			index => ilist[index];
-
-		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="ilist">The IList to retrieve the set delegate of.</param>
-		/// <returns>A delegate for setting an indexed value in the IList.</returns>
-		public static SetIndex<T> WrapSetIndex<T>(this System.Collections.Generic.IList<T> ilist) =>
-			(index, value) => ilist[index] = value;
-
 		/// <summary>Removes all predicated elements from an IList.</summary>
 		/// <typeparam name="T">The generic type of elements in the IList.</typeparam>
 		/// <param name="iList">The IList to perform the predicated removal on.</param>
@@ -700,6 +686,20 @@ namespace Towel
 		#endregion
 
 		#region Array
+
+		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
+		/// <typeparam name="T">The generic type of the IList.</typeparam>
+		/// <param name="array">The array to retrieve the get delegate of.</param>
+		/// <returns>A delegate for getting an indexed value in the IList.</returns>
+		public static GetIndex<T> WrapGetIndex<T>(this T[] array) =>
+			index => array[index];
+
+		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
+		/// <typeparam name="T">The generic type of the IList.</typeparam>
+		/// <param name="array">The array to retrieve the set delegate of.</param>
+		/// <returns>A delegate for setting an indexed value in the IList.</returns>
+		public static SetIndex<T> WrapSetIndex<T>(this T[] array) =>
+			(index, value) => array[index] = value;
 
 		/// <summary>Builds an array from a size and initialization delegate.</summary>
 		/// <typeparam name="T">The generic type of the array.</typeparam>

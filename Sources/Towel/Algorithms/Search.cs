@@ -10,6 +10,15 @@ namespace Towel.Algorithms
 		#region Binary
 
 		/// <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
+		/// <typeparam name="T">The generic type of the set of values.</typeparam>
+		/// <param name="array">The array to binary search on.</param>
+		/// <param name="compare">Comparison delegate.</param>
+		/// <returns>The index where the specific value fits into the index, sorted items.</returns>
+		public static int Binary<T>(T[] array, CompareToKnownValue<T> compare) =>
+			Binary(array.WrapGetIndex(), array.Length, compare);
+
+		/// <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
+		/// <typeparam name="T">The generic type of the set of values.</typeparam>
 		/// <param name="get">Indexer delegate.</param>
 		/// <param name="length">The number of indexed items.</param>
 		/// <param name="compare">Comparison delegate.</param>
@@ -31,7 +40,7 @@ namespace Towel.Algorithms
 			return Binary(get, 0, length, compare);
 		}
 
-		private static int Binary<T>(GetIndex<T> get, int index, int length, CompareToKnownValue<T> compare)
+		internal static int Binary<T>(GetIndex<T> get, int index, int length, CompareToKnownValue<T> compare)
 		{
 			int low = index;
 			int hi = index + length - 1;
