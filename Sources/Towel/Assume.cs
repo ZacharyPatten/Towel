@@ -10,12 +10,17 @@ namespace Towel
 	/// <summary>Breaks type safeness by making assumptions about types.</summary>
 	public static class Assume
 	{
+		/// <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
+		/// <typeparam name="T">The generic type to make assumptions about.</typeparam>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value if successful or default if not.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public static bool TryParse<T>(string @string, out T value)
 		{
 			return TryParseImplementation<T>.Function(@string, out value);
 		}
 
-		private static class TryParseImplementation<T>
+		internal static class TryParseImplementation<T>
 		{
 			internal delegate bool TryParseDelegate(string @string, out T value);
 
