@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,10 +11,10 @@ using Towel;
 using Towel.Algorithms;
 using Towel.DataStructures;
 
-namespace System
+namespace Towel
 {
 	/// <summary>Contains Extension methods on common System types.</summary>
-	public static class TowelSystemExtensions
+	public static class TowelDotNetExtensions
 	{
 		#region char
 
@@ -64,18 +65,14 @@ namespace System
 			return false;
 		}
 
-		internal static string RemoveCarriageReturns(this string str)
-		{
-			return str.Replace("\r", string.Empty);
-		}
+		internal static string RemoveCarriageReturns(this string @string) =>
+			@string.Replace("\r", string.Empty);
 
 		/// <summary>Removes carriage returns and then replaces all new line characters with System.Environment.NewLine.</summary>
 		/// <param name="string">The string to standardize the new lines of.</param>
 		/// <returns>The new line standardized string.</returns>
-		internal static string StandardizeNewLines(this string @string)
-		{
-			return @string.RemoveCarriageReturns().Replace("\n", Environment.NewLine);
-		}
+		internal static string StandardizeNewLines(this string @string) =>
+			@string.RemoveCarriageReturns().Replace("\n", Environment.NewLine);
 
 		/// <summary>Creates a string of a repreated string a provided number of times.</summary>
 		/// <param name="string">The string to repeat.</param>
@@ -102,35 +99,33 @@ namespace System
 		/// <returns>an array of the individual lines of the string.</returns>
 		public static string[] SplitLines(this string @string)
 		{
+			if (@string is null)
+			{
+				throw new ArgumentNullException(nameof(@string));
+			}
 			return @string.RemoveCarriageReturns().Split('\n');
 		}
 
 		/// <summary>Indents every line in a string with a single tab character.</summary>
 		/// /// <param name="string">The string to indent the lines of.</param>
 		/// <returns>The indented string.</returns>
-		public static string IndentLines(this string @string)
-		{
-			return PadLinesLeft(@string, "\t");
-		}
+		public static string IndentLines(this string @string) =>
+			PadLinesLeft(@string, "\t");
 
 		/// <summary>Indents every line in a string with a given number of tab characters.</summary>
 		/// <param name="string">The string to indent the lines of.</param>
 		/// <param name="count">The number of tabs of the indention.</param>
 		/// <returns>The indented string.</returns>
-		public static string IndentLines(this string @string, int count)
-		{
-			return PadLinesLeft(@string, '\t'.Repeat(count));
-		}
+		public static string IndentLines(this string @string, int count) =>
+			PadLinesLeft(@string, '\t'.Repeat(count));
 
 		/// <summary>Indents after every new line sequence found between two string indeces.</summary>
 		/// <param name="string">The string to be indented.</param>
 		/// <param name="start">The starting index to look for new line sequences to indent.</param>
 		/// <param name="end">The starting index to look for new line sequences to indent.</param>
 		/// <returns>The indented string.</returns>
-		public static string IndentNewLinesBetweenIndeces(this string @string, int start, int end)
-		{
-			return PadLinesLeftBetweenIndeces(@string, "\t", start, end);
-		}
+		public static string IndentNewLinesBetweenIndeces(this string @string, int start, int end) =>
+			PadLinesLeftBetweenIndeces(@string, "\t", start, end);
 
 		/// <summary>Indents after every new line sequence found between two string indeces.</summary>
 		/// <param name="string">The string to be indented.</param>
@@ -138,20 +133,16 @@ namespace System
 		/// <param name="start">The starting index to look for new line sequences to indent.</param>
 		/// <param name="end">The starting index to look for new line sequences to indent.</param>
 		/// <returns>The indented string.</returns>
-		public static string IndentNewLinesBetweenIndeces(this string @string, int count, int start, int end)
-		{
-			return PadLinesLeftBetweenIndeces(@string, '\t'.Repeat(count), start, end);
-		}
+		public static string IndentNewLinesBetweenIndeces(this string @string, int count, int start, int end) =>
+			PadLinesLeftBetweenIndeces(@string, '\t'.Repeat(count), start, end);
 
 		/// <summary>Indents a range of line numbers in a string.</summary>
 		/// <param name="string">The string to indent specified lines of.</param>
 		/// <param name="startingLineNumber">The line number to start line indention on.</param>
 		/// <param name="endingLineNumber">The line number to stop line indention on.</param>
 		/// <returns>The string with the specified lines indented.</returns>
-		public static string IndentLineNumbers(this string @string, int startingLineNumber, int endingLineNumber)
-		{
-			return PadLinesLeft(@string, "\t", startingLineNumber, endingLineNumber);
-		}
+		public static string IndentLineNumbers(this string @string, int startingLineNumber, int endingLineNumber) =>
+			PadLinesLeft(@string, "\t", startingLineNumber, endingLineNumber);
 
 		/// <summary>Indents a range of line numbers in a string.</summary>
 		/// <param name="string">The string to indent specified lines of.</param>
@@ -159,10 +150,8 @@ namespace System
 		/// <param name="startingLineNumber">The line number to start line indention on.</param>
 		/// <param name="endingLineNumber">The line number to stop line indention on.</param>
 		/// <returns>The string with the specified lines indented.</returns>
-		public static string IndentLineNumbers(this string @string, int count, int startingLineNumber, int endingLineNumber)
-		{
-			return PadLinesLeft(@string, '\t'.Repeat(count), startingLineNumber, endingLineNumber);
-		}
+		public static string IndentLineNumbers(this string @string, int count, int startingLineNumber, int endingLineNumber) =>
+			PadLinesLeft(@string, '\t'.Repeat(count), startingLineNumber, endingLineNumber);
 
 		/// <summary>Adds a string onto the beginning of every line in a string.</summary>
 		/// <param name="string">The string to pad.</param>
@@ -360,10 +349,8 @@ namespace System
 		/// <summary>Counts the number of lines in the string.</summary>
 		/// <param name="str">The string to get the line count of.</param>
 		/// <returns>The number of lines in the string.</returns>
-		public static int CountLines(this string str)
-		{
-			return Regex.Matches(str.StandardizeNewLines(), Environment.NewLine).Count + 1;
-		}
+		public static int CountLines(this string str) =>
+			Regex.Matches(str.StandardizeNewLines(), Environment.NewLine).Count + 1;
 
 		#endregion
 
@@ -386,14 +373,14 @@ namespace System
 		/// <summary>Generates a random string of a given length using the System.Random generator with a specific set of characters.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized string to generate.</param>
-		/// <param name="allowableChars">The set of allowable characters.</param>
+		/// <param name="characterPool">The set of allowable characters.</param>
 		/// <returns>The generated randomized string.</returns>
-		public static string NextString(this Random random, int length, char[] allowableChars)
+		public static string NextString(this Random random, int length, char[] characterPool)
 		{
 			char[] randomstring = new char[length];
 			for (int i = 0; i < randomstring.Length; i++)
 			{
-				randomstring[i] = allowableChars[random.Next(0, allowableChars.Length)];
+				randomstring[i] = random.Choose(characterPool);
 			}
 			return new string(randomstring);
 		}
@@ -402,63 +389,49 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized alphanumeric string to generate.</param>
 		/// <returns>The generated randomized alphanumeric string.</returns>
-		public static string NextAlphaNumericString(this Random random, int length)
-		{
-			return NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray());
-		}
+		public static string NextAlphaNumericString(this Random random, int length) =>
+			NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray());
 
 		/// <summary>Generates a random numeric string of a given length using the System.Random generator.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized numeric string to generate.</param>
 		/// <returns>The generated randomized numeric string.</returns>
-		public static string NumericString(this Random random, int length)
-		{
-			return NextString(random, length, "0123456789".ToCharArray());
-		}
+		public static string NumericString(this Random random, int length) =>
+			NextString(random, length, "0123456789".ToCharArray());
 
 		/// <summary>Generates a random alhpabetical string of a given length using the System.Random generator.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized alphabetical string to generate.</param>
 		/// <returns>The generated randomized alphabetical string.</returns>
-		public static string NextAlphabeticString(this Random random, int length)
-		{
-			return NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
-		}
+		public static string NextAlphabeticString(this Random random, int length) =>
+			NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
 
 		/// <summary>Generates a random char value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated char value.</returns>
-		public static char NextChar(this Random random)
-		{
-			return NextChar(random, char.MinValue, char.MaxValue);
-		}
+		public static char NextChar(this Random random) =>
+			NextChar(random, char.MinValue, char.MaxValue);
 
 		/// <summary>Generates a random char value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="min">Minimum allowed value of the random generation.</param>
 		/// <param name="max">Maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated char value.</returns>
-		public static char NextChar(this Random random, char min, char max)
-		{
-			return (char)random.Next(min, max);
-		}
+		public static char NextChar(this Random random, char min, char max) =>
+			(char)random.Next(min, max);
 
 		/// <summary>Generates a random long value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated long value.</returns>
-		public static long NextLong(this Random random)
-		{
-			return NextLong(random, long.MaxValue);
-		}
+		public static long NextLong(this Random random) =>
+			NextLong(random, long.MaxValue);
 
 		/// <summary>Generates a random long value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">Maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated long value.</returns>
-		public static long NextLong(this Random random, long max)
-		{
-			return NextLong(random, 0, max);
-		}
+		public static long NextLong(this Random random, long max) => 
+			NextLong(random, 0, max);
 
 		/// <summary>Generates a random long value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -504,37 +477,29 @@ namespace System
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this Random random, decimal max)
-		{
-			return NextDecimal(random, 0, max);
-		}
+		public static decimal NextDecimal(this Random random, decimal max) =>
+			NextDecimal(random, 0, max);
 
 		/// <summary>Generates a random decimal value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="min">The minimum allowed value of the random generation.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this Random random, decimal min, decimal max)
-		{
-			return (NextDecimal(random) % (max - min)) + min;
-		}
+		public static decimal NextDecimal(this Random random, decimal min, decimal max) =>
+			(NextDecimal(random) % (max - min)) + min;
 
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
-		public static DateTime NextDateTime(this Random random)
-		{
-			return NextDateTime(random, DateTime.MaxValue);
-		}
+		public static DateTime NextDateTime(this Random random) =>
+			NextDateTime(random, DateTime.MaxValue);
 
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
-		public static DateTime NextDateTime(this Random random, DateTime max)
-		{
-			return NextDateTime(random, DateTime.MinValue, max);
-		}
+		public static DateTime NextDateTime(this Random random, DateTime max) =>
+			NextDateTime(random, DateTime.MinValue, max);
 
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -558,19 +523,15 @@ namespace System
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated TimeSpan value.</returns>
-		public static TimeSpan NextTimeSpan(this Random random)
-		{
-			return NextTimeSpan(random, TimeSpan.MaxValue);
-		}
+		public static TimeSpan NextTimeSpan(this Random random) =>
+			NextTimeSpan(random, TimeSpan.MaxValue);
 
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated TimeSpan value.</returns>
-		public static TimeSpan NextTimeSpan(this Random random, TimeSpan max)
-		{
-			return NextTimeSpan(random, TimeSpan.Zero, max);
-		}
+		public static TimeSpan NextTimeSpan(this Random random, TimeSpan max) =>
+			NextTimeSpan(random, TimeSpan.Zero, max);
 
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -596,10 +557,8 @@ namespace System
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="random">The random algorithm for index generation.</param>
 		/// <param name="iList">The structure to be shuffled.</param>
-		public static void Shuffle<T>(this Random random, Collections.Generic.IList<T> iList)
-		{
+		public static void Shuffle<T>(this Random random, System.Collections.Generic.IList<T> iList) =>
 			Sort.Shuffle(random, iList.WrapGetIndex(), iList.WrapSetIndex(), 0, iList.Count);
-		}
 
 		/// <summary>Shuffles the elements of an IList into random order.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
@@ -608,20 +567,16 @@ namespace System
 		/// <param name="assign">The set accessor for the structure to shuffle.</param>
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The </param>
-		public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> assign, int start, int end)
-		{
+		public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> assign, int start, int end) =>
 			Sort.Shuffle(random, get, assign, start, end);
-		}
 
 		/// <summary>Chooses an item at random (all equally weighted).</summary>
 		/// <typeparam name="T">The generic type of the items to choose from.</typeparam>
 		/// <param name="random">The random algorithm for index generation.</param>
 		/// <param name="values">The values to choose from.</param>
 		/// <returns>A randomly selected value from the supplied options.</returns>
-		public static T Choose<T>(this Random random, params T[] values)
-		{
-			return values[random.Next(values.Length)];
-		}
+		public static T Choose<T>(this Random random, params T[] values) =>
+			values[random.Next(values.Length)];
 
 		#endregion
 
@@ -699,19 +654,21 @@ namespace System
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="ilist">The IList to retrieve the get delegate of.</param>
 		/// <returns>A delegate for getting an indexed value in the IList.</returns>
-		public static GetIndex<T> WrapGetIndex<T>(this Collections.Generic.IList<T> ilist) => index => ilist[index];
+		public static GetIndex<T> WrapGetIndex<T>(this System.Collections.Generic.IList<T> ilist) =>
+			index => ilist[index];
 
 		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="ilist">The IList to retrieve the set delegate of.</param>
 		/// <returns>A delegate for setting an indexed value in the IList.</returns>
-		public static SetIndex<T> WrapSetIndex<T>(this Collections.Generic.IList<T> ilist) => (index, value) => ilist[index] = value;
+		public static SetIndex<T> WrapSetIndex<T>(this System.Collections.Generic.IList<T> ilist) =>
+			(index, value) => ilist[index] = value;
 
 		/// <summary>Removes all predicated elements from an IList.</summary>
 		/// <typeparam name="T">The generic type of elements in the IList.</typeparam>
 		/// <param name="iList">The IList to perform the predicated removal on.</param>
 		/// <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
-		public static void Remove<T>(this Collections.Generic.IList<T> iList, Predicate<T> predicate)
+		public static void Remove<T>(this System.Collections.Generic.IList<T> iList, Predicate<T> predicate)
 		{
 			int write_position = 0;
 			{
@@ -764,10 +721,8 @@ namespace System
 		/// <param name="a1">The first array of the deep equality check.</param>
 		/// <param name="a2">The second array of the deep equality check.</param>
 		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
-		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2)
-		{
-			return a1.ValuesAreEqual(a2, Equate.Default);
-		}
+		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2) =>
+			a1.ValuesAreEqual(a2, Equate.Default);
 
 		/// <summary>Performs a deep equality check of two arrays.</summary>
 		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
@@ -830,10 +785,8 @@ namespace System
 		/// <typeparam name="T">The generic type to store in the jagged array.</typeparam>
 		/// <param name="sideLength">The length of each dimension.</param>
 		/// <returns>The constructed jagged array.</returns>
-		public static T[][] ConstructSquareJaggedArray<T>(int sideLength)
-		{
-			return ConstructRectangularJaggedArray<T>(sideLength, sideLength);
-		}
+		public static T[][] ConstructSquareJaggedArray<T>(int sideLength) =>
+			ConstructRectangularJaggedArray<T>(sideLength, sideLength);
 
 		#endregion
 
@@ -1089,7 +1042,12 @@ namespace System
 				decimal hundredsDigit = decimal.Parse(@decimal.ToString()[0].ToString());
 				if (hundredsDigit > 0)
 				{
-					result = ConvertDigit(hundredsDigit) + " Hundred " + ConvertTensDigits(tensDigits);
+					result =
+						ConvertDigit(hundredsDigit) +
+						" Hundred" +
+						(tensDigits > 0 ?
+						" " + ConvertTensDigits(tensDigits) :
+						string.Empty);
 				}
 				else
 				{

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Towel;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 
@@ -11,10 +12,26 @@ namespace Towel_Testing
 	[TestClass]
 	public class Extensions_Testing
 	{
+		#region Decimal Testing
+
+		[TestMethod]
+		public void Decimal_ToEnglishWords()
+		{
+			Assert.IsTrue((1m).ToEnglishWords().Equals("One"));
+			Assert.IsTrue((-1m).ToEnglishWords().Equals("Negative One"));
+			Assert.IsTrue((1.5m).ToEnglishWords().Equals("One And Five Tenths"));
+			Assert.IsTrue((69m).ToEnglishWords().Equals("Sixty-Nine"));
+			Assert.IsTrue((120m).ToEnglishWords().Equals("One Hundred Twenty"));
+			Assert.IsTrue((1300m).ToEnglishWords().Equals("One Thousand Three Hundred"));
+			Assert.IsTrue((7725m).ToEnglishWords().Equals("Seven Thousand Seven Hundred Twenty-Five"));
+		}
+
+		#endregion
+
 		#region XML Documentation Testing
 
 		[TestMethod]
-		public void GetDocumentation_Method()
+		public void MethodInfo_GetDocumentation()
 		{
 			foreach (MethodInfo methodInfo in Assembly.GetExecutingAssembly().GetMethodInfosWithAttribute<XmlDocumentationFromMethodAttribute>())
 			{
@@ -33,7 +50,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_TypeInfo()
+		public void Type_GetDocumentation()
 		{
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
 			{
@@ -52,7 +69,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_FieldInfo()
+		public void FieldInfo_GetDocumentation()
 		{
 			foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
 			{
@@ -71,7 +88,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_ConstructorInfo()
+		public void ConstructorInfo_GetDocumentation()
 		{
 			foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
 			{
@@ -90,7 +107,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_PropertyInfo()
+		public void PropertyInfo_GetDocumentation()
 		{
 			foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
 			{
@@ -109,7 +126,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_EventInfo()
+		public void EventInfo_GetDocumentation()
 		{
 			foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
 			{
@@ -128,7 +145,7 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void GetDocumentation_ParameterInfo()
+		public void ParameterInfo_GetDocumentation()
 		{
 			string Test1_a = typeof(XmlDocumentationFromParameter).GetMethod("Test1").GetParameters()[0].GetDocumentation();
 			Assert.IsTrue(Test1_a.Equals("<param name=\"a\">TEST a</param>"));
@@ -139,7 +156,7 @@ namespace Towel_Testing
 		#region MethodInfo Testing
 
 		[TestMethod]
-		public void IsLocalFunction_MethodInfo()
+		public void MethodInfo_IsLocalFunction()
 		{
 			void a() { }
 			Assert.IsTrue(new Action(a).Method.IsLocalFunction());
@@ -175,11 +192,13 @@ namespace Towel_Testing
 			}
 			Assert.IsTrue(h().IsLocalFunction());
 
-			Assert.IsFalse(new Action(IsLocalFunction_MethodInfo).Method.IsLocalFunction());
+			Assert.IsFalse(new Action(MethodInfo_IsLocalFunction).Method.IsLocalFunction());
 		}
 
 		#endregion
 	}
+
+	#region XML Documentation Types
 
 #pragma warning disable CS0067 // The event is never used
 
@@ -900,6 +919,8 @@ namespace Towel_Testing
 	#endregion
 
 #pragma warning restore CS0067 // The event is never used
+
+	#endregion
 }
 
 #pragma warning restore IDE0060 // Remove unused parameter

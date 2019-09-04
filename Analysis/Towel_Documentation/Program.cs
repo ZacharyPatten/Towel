@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web;
+using Towel;
 
 using Namespace =
 	System.ValueTuple<
@@ -20,7 +21,7 @@ namespace Towel_Documentation
 		{
 			// This program generates HTML from the XML documentation of the code in the Towel project.
 
-			TowelSystemExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
+			TowelDotNetExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 			Assembly assembly = typeof(Towel.Stepper).Assembly;
 			Type[] exportedTypes = assembly.GetExportedTypes();
 
