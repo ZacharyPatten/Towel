@@ -19,11 +19,12 @@ namespace Towel_Testing
 		{
 			(Type, string)[] testCases = new (Type, string)[]
 			{
-				(typeof(System.Int32), "System.Int32"),
-				(typeof(Towel.Stepper<System.Int32>), "Towel.Stepper<System.Int32>"),
-				(typeof(System.Collections.Generic.List<Towel.Stepper<System.Int32>>), "System.Collections.Generic.List<Towel.Stepper<System.Int32>>"),
-				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
-				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
+				(typeof(System.Int32), "System.Int32"), // standard type
+				(typeof(Towel.Stepper<System.Int32>), "Towel.Stepper<System.Int32>"), // generic delegate
+				(typeof(System.Collections.Generic.List<Towel.Stepper<System.Int32>>), "System.Collections.Generic.List<Towel.Stepper<System.Int32>>"), // generic type with generic type
+				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"), // nested type
+				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"), // nested generic type
+				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"), // nested nested type
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
@@ -219,6 +220,21 @@ namespace Towel_Testing
 
 		#endregion
 	}
+
+	#region Testing Types
+
+	public static class A
+	{
+		public static class B
+		{
+			public static class C
+			{
+
+			}
+		}
+	}
+
+	#endregion
 
 	#region XML Documentation Types
 
