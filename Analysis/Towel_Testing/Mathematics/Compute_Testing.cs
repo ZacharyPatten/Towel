@@ -647,7 +647,7 @@ namespace Towel_Testing.Mathematics
 					isEven = !isEven;
 
 					// only whole numbers can be even... test a random rational value
-					decimal randomRatio = random.NextDecimal(10000) / 10000;
+					decimal randomRatio = (decimal)random.NextDouble();
 					if (randomRatio > 0m)
 					{
 						Assert.IsFalse(IsEven(i + randomRatio));
