@@ -61,37 +61,13 @@ namespace Towel
 			}
 		}
 
-		internal class DefaultWrapper<T>
+		internal class DefaultImplementation<T>
 		{
-			internal static Compare<T> Compare = (T a, T b) =>
+			internal static Compare<T> Function = (T a, T b) =>
 				{
-					FromComparer(Comparer<T>.Default);
-					Comparer<T> comparer = null;
-					try { comparer = Comparer<T>.Default; }
-					catch { }
-					if (comparer is null)
-					{
-						throw new InvalidOperationException("no default comparer exists for " + typeof(T).ConvertToCsharpSource());
-					}
-					DefaultWrapper<T>.Compare = (T _a, T _b) =>
-						{
-							int comparison = comparer.Compare(_a, _b);
-							if (comparison < 0)
-							{
-								return CompareResult.Less;
-							}
-							else if (comparison > 0)
-							{
-								return CompareResult.Greater;
-							}
-							else
-							{
-								return CompareResult.Equal;
-							}
-						};
-					return DefaultWrapper<T>.Compare(a, b);
+					Function = FromComparer(Comparer<T>.Default);
+					return Function(a, b);
 				};
-
 		}
 
 		/// <summary>Gets the default comparer or throws an exception if non exists.</summary>
@@ -101,7 +77,7 @@ namespace Towel
 		/// <returns>The result of the comparison.</returns>
 		public static CompareResult Default<T>(T a, T b)
 		{
-			return DefaultWrapper<T>.Compare(a, b);
+			return DefaultImplementation<T>.Function(a, b);
 		}
 
 		/// <summary>Inverts a comparison delegate.</summary>
