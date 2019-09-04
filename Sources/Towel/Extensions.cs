@@ -16,19 +16,6 @@ namespace Towel
 	/// <summary>Contains Extension methods on common System types.</summary>
 	public static class TowelDotNetExtensions
 	{
-		#region char
-
-		/// <summary>Creates a string of a repreated character a provided number of times.</summary>
-		/// <param name="character">The character to repeat.</param>
-		/// <param name="count">The number of repetitions of the charater (aka resulting string length).</param>
-		/// <returns>The string of the repeated character.</returns>
-		public static string Repeat(this char character, int count)
-		{
-			return new string(character, count);
-		}
-
-		#endregion
-
 		#region string
 
 		/// <summary>Checks if a string contains any of a collections on characters.</summary>
@@ -117,7 +104,7 @@ namespace Towel
 		/// <param name="count">The number of tabs of the indention.</param>
 		/// <returns>The indented string.</returns>
 		public static string IndentLines(this string @string, int count) =>
-			PadLinesLeft(@string, '\t'.Repeat(count));
+			PadLinesLeft(@string, new string('\t', count));
 
 		/// <summary>Indents after every new line sequence found between two string indeces.</summary>
 		/// <param name="string">The string to be indented.</param>
@@ -134,7 +121,7 @@ namespace Towel
 		/// <param name="end">The starting index to look for new line sequences to indent.</param>
 		/// <returns>The indented string.</returns>
 		public static string IndentNewLinesBetweenIndeces(this string @string, int count, int start, int end) =>
-			PadLinesLeftBetweenIndeces(@string, '\t'.Repeat(count), start, end);
+			PadLinesLeftBetweenIndeces(@string, new string('\t', count), start, end);
 
 		/// <summary>Indents a range of line numbers in a string.</summary>
 		/// <param name="string">The string to indent specified lines of.</param>
@@ -151,7 +138,7 @@ namespace Towel
 		/// <param name="endingLineNumber">The line number to stop line indention on.</param>
 		/// <returns>The string with the specified lines indented.</returns>
 		public static string IndentLineNumbers(this string @string, int count, int startingLineNumber, int endingLineNumber) =>
-			PadLinesLeft(@string, '\t'.Repeat(count), startingLineNumber, endingLineNumber);
+			PadLinesLeft(@string, new string('\t', count), startingLineNumber, endingLineNumber);
 
 		/// <summary>Adds a string onto the beginning of every line in a string.</summary>
 		/// <param name="string">The string to pad.</param>
@@ -362,6 +349,14 @@ namespace Towel
 		/// <returns>The generated randomized string.</returns>
 		public static string NextString(this Random random, int length)
 		{
+			if (random is null)
+			{
+				throw new ArgumentNullException(nameof(random));
+			}
+			if (length < 1)
+			{
+				throw new ArgumentException("(" + nameof(length) + " < 1)");
+			}
 			char[] randomstring = new char[length];
 			for (int i = 0; i < randomstring.Length; i++)
 			{
@@ -377,6 +372,22 @@ namespace Towel
 		/// <returns>The generated randomized string.</returns>
 		public static string NextString(this Random random, int length, char[] characterPool)
 		{
+			if (random is null)
+			{
+				throw new ArgumentNullException(nameof(random));
+			}
+			if (length < 1)
+			{
+				throw new ArgumentException("(" + nameof(length) + " < 1)");
+			}
+			if (characterPool is null)
+			{
+				throw new ArgumentNullException(nameof(characterPool));
+			}
+			if (characterPool.Length < 1)
+			{
+				throw new ArgumentException("(" + nameof(characterPool) + "." + nameof(characterPool.Length) + " < 1)");
+			}
 			char[] randomstring = new char[length];
 			for (int i = 0; i < randomstring.Length; i++)
 			{

@@ -14235,12 +14235,6 @@
         <member name="T:Towel.TowelDotNetExtensions">
             <summary>Contains Extension methods on common System types.</summary>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Repeat(System.Char,System.Int32)">
-            <summary>Creates a string of a repreated character a provided number of times.</summary>
-            <param name="character">The character to repeat.</param>
-            <param name="count">The number of repetitions of the charater (aka resulting string length).</param>
-            <returns>The string of the repeated character.</returns>
-        </member>
         <member name="M:Towel.TowelDotNetExtensions.ContainsAny(System.String,System.Char[])">
             <summary>Checks if a string contains any of a collections on characters.</summary>
             <param name="string">The string to see if it contains any of the specified characters.</param>
