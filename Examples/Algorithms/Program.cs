@@ -34,7 +34,7 @@ namespace Algorithms
 
 				// Bubble
 				Sort.Bubble(dataSet);
-				Console.Write("    Bubble: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write("    Bubble:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				Console.WriteLine("    shuffling dataSet...");
@@ -58,48 +58,49 @@ namespace Algorithms
 
 				// Quick
 				Sort.Quick(dataSet);
-				Console.Write("    Quick: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write("    Quick:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				Console.WriteLine("    shuffling dataSet...");
 				Sort.Shuffle(dataSet);
 
 				// Merge
-				Sort.Merge(Compute.Compare, dataSet);
-				Console.Write("    Merge: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Sort.Merge(dataSet);
+				Console.Write("    Merge:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				Console.WriteLine("    shuffling dataSet...");
 				Sort.Shuffle(dataSet);
 
 				// Heap
-				Sort.Heap(Compute.Compare, dataSet);
-				Console.Write("    Heap: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Sort.Heap(dataSet);
+				Console.Write("    Heap:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				Console.WriteLine("    shuffling dataSet...");
 				Sort.Shuffle(dataSet);
 
 				// OddEven
-				Sort.OddEven(Compute.Compare, dataSet);
-				Console.Write("    OddEven: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Sort.OddEven(dataSet);
+				Console.Write("    OddEven:   " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				//Console.WriteLine("  shuffling dataSet...");
-				//Sort<int>.Shuffle(dataSet);
+				//Sort.Shuffle(dataSet);
 
 				//// Slow
 				//Sort<int>.Slow(Logic.compare, get, set, 0, dataSet.Length);
 				//Console.Write("Slow: " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				//Console.WriteLine();
 
-				//Console.WriteLine("  shuffling dataSet...");
-				//Sort<int>.Shuffle(dataSet);
+				Console.WriteLine("    shuffling dataSet...");
+				Sort.Shuffle(dataSet);
 
 				// Bogo
-				//Sort<int>.Bogo(Logic.compare, get, set, 0, dataSet.Length);
-				Console.Write("    Bogo: Disabled (takes forever)"); //+ string.Join(", ", dataSet.Select(x => x.ToString())));
-																	 //Console.WriteLine();
+				Console.Write("    Bogo:      Disabled (takes forever)");
+				//Sort.Bogo(dataSet);
+				//Console.Write("    Bogo: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
 
 				Console.WriteLine();
 				Console.WriteLine();
@@ -121,9 +122,18 @@ namespace Algorithms
 					3,
                     // add edges
                     { 0, 1 },
-					{ 0, 2 },
-					{ 1, 3 },
-					{ 2, 3 }
+					{ 1, 2 },
+					{ 2, 3 },
+					{ 0, 3 },
+
+					// visualization
+					//
+					//     0 --------> 1
+					//     |           |
+					//     |           |
+					//     |           |
+					//     v           v
+					//     3 <-------- 2
 				};
 
 				// make a heuristic function
@@ -149,12 +159,10 @@ namespace Algorithms
 				{
 					if (from == 0 && to == 1)
 						return 1;
-					if (from == 0 && to == 2)
+					if (from == 1 && to == 2)
 						return 2;
-					if (from == 1 && to == 3)
-						return 5;
 					if (from == 2 && to == 3)
-						return 1;
+						return 5;
 					if (from == 0 && to == 3)
 						return 99;
 					throw new Exception("invalid path cost computation");
@@ -170,8 +178,8 @@ namespace Algorithms
 				}
 
 				// run A* the algorithm
-				Stepper<int> aStar_path = Search.Graph<int, int>(0, graph, heuristic, cost, goal);
-				Console.Write("    A* Path: ");
+				Stepper<int> aStar_path = Search.Graph(0, graph, heuristic, cost, goal);
+				Console.Write("    A* Path:     ");
 				if (aStar_path != null)
 				{
 					aStar_path(i => Console.Write(i + " "));
@@ -180,11 +188,10 @@ namespace Algorithms
 				{
 					Console.Write("none");
 				}
-
 				Console.WriteLine();
 
 				// run the Greedy algorithm
-				Stepper<int> greedy_path = Search.Graph<int, int>(0, graph, heuristic, goal);
+				Stepper<int> greedy_path = Search.Graph(0, graph, heuristic, goal);
 				Console.Write("    Greedy Path: ");
 				if (greedy_path != null)
 				{
@@ -194,8 +201,8 @@ namespace Algorithms
 				{
 					Console.Write("none");
 				}
-
 				Console.WriteLine();
+
 				Console.WriteLine();
 			}
 			#endregion
