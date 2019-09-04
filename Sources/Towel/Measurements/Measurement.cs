@@ -6,9 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Towel.Mathematics;
 
-using LinqExpression = System.Linq.Expressions.Expression;
-using LinqParameterExpression = System.Linq.Expressions.ParameterExpression;
-
 namespace Towel.Measurements
 {
 	/// <summary>Static class with methods regarding measurements.</summary>
@@ -46,6 +43,8 @@ namespace Towel.Measurements
 
 		#region Parse
 
+		#region Attributes
+
 		internal class ParseableAttribute : Attribute
 		{
 			internal string Key;
@@ -56,6 +55,10 @@ namespace Towel.Measurements
 			}
 		}
 		internal class ParseableUnitAttribute : Attribute { }
+
+		#endregion
+
+		#region Parsing Libaries
 
 		internal static bool ParsingLibraryBuilt = false;
 		internal static string AllUnitsRegexPattern;
@@ -128,6 +131,8 @@ namespace Towel.Measurements
 				TypeSpecificParsingLibraryBuilt = true;
 			}
 		}
+
+		#endregion
 
 		public static bool TryParse<T>(string @string, out object measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
@@ -226,7 +231,7 @@ namespace Towel.Measurements
 			return true;
 		}
 
-		public static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			if (!TryParse(@string, out object parsedMeasurment, tryParseNumeric) ||
 				!(parsedMeasurment is MEASUREMENT))
