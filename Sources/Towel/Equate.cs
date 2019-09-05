@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Delegate for equating two instances of the same type.</summary>
 	/// <typeparam name="T">The types of the instances to compare.</typeparam>
@@ -37,9 +35,7 @@ namespace Towel
 		/// <typeparam name="T">The generic parameter of the delegates.</typeparam>
 		/// <param name="compare">The compare delegate to convert to a equate.</param>
 		/// <returns>The compare delegate converted into an equate.</returns>
-		public static Equate<T> FromCompare<T>(Compare<T> compare)
-		{
-			return (T a, T b) => compare(a, b) == CompareResult.Equal;
-		}
+		public static Equate<T> FromCompare<T>(Compare<T> compare) =>
+			(a, b) => compare(a, b) == CompareResult.Equal;
 	}
 }

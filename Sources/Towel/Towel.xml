@@ -18807,6 +18807,14 @@
             <param name="to">The desired units of the value.</param>
             <returns>The value converted into the desired units.</returns>
         </member>
+        <member name="M:Towel.Measurements.Measurement.TryParse``1(System.String,System.Object@,Towel.Mathematics.Symbolics.TryParseNumeric{``0})">
+            <summary>Parses a measurement from a string.</summary>
+            <typeparam name="T">The numeric type to parse the quantity as.</typeparam>
+            <param name="string">The string to parse.</param>
+            <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
+            <param name="tryParseNumeric">Explicit try parse function for the numeric type.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="T:Towel.Measurements.Acceleration`1">
             <summary>Acceleration measurement with a value and the units.</summary>
             <typeparam name="T">The generic numeric type used to store the value of the measurement.</typeparam>

@@ -130,6 +130,12 @@ namespace Towel.Measurements
 
 		#endregion
 
+		/// <summary>Parses a measurement from a string.</summary>
+		/// <typeparam name="T">The numeric type to parse the quantity as.</typeparam>
+		/// <param name="string">The string to parse.</param>
+		/// <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
+		/// <param name="tryParseNumeric">Explicit try parse function for the numeric type.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public static bool TryParse<T>(string @string, out object measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
 		{
 			if (!ParsingLibraryBuilt)
