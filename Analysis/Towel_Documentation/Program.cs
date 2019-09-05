@@ -67,19 +67,133 @@ namespace Towel_Documentation
 
 			#endregion
 
+			StringBuilder output = new StringBuilder();
+
+			#region CSS
+
+			string css =
+@".collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.class.collapsible {
+	background-color: #4ec994;
+}
+
+.active.class.collapsible, .class.collapsible:hover {
+	background-color: #347F5D;
+}
+
+.valuetype.collapsible {
+	background-color: #FFFF72;
+}
+
+.active.valuetype.collapsible, .valuetype.collapsible:hover {
+	background-color: #A1A54F;
+}
+
+.enum.collapsible {
+	background-color: #FF8040;
+}
+
+.active.enum.collapsible, .enum.collapsible:hover {
+	background-color: #AD5C30;
+}
+
+.interface.collapsible {
+	background-color: #b8d7a3;
+}
+
+.active.interface.collapsible, .interface.collapsible:hover {
+	background-color: #b8d7a3;
+}
+
+.delegate.collapsible {
+	background-color: #BD63C5;
+}
+
+.active.delegate.collapsible, .delegate.collapsible:hover {
+	background-color: #723D77;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}";
+
+			#endregion
+
+			#region JS
+
+			string js =
+@"var coll = document.getElementsByClassName('collapsible');
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+	coll[i].addEventListener('click', function() {
+		this.classList.toggle('active');
+		var content = this.nextElementSibling;
+		if (content.style.display === 'block')
+		{
+			content.style.display = 'none';
+		}
+		else
+		{
+			content.style.display = 'block';
+		}
+	});
+}";
+
+			#endregion
+
 			#region Convert To HTML
 
-			StringBuilder stringBuilder = new StringBuilder();
+			output.AppendLine("<!DOCTYPE html>");
+			output.AppendLine("<html>");
+			output.AppendLine("<head>");
+
+			output.AppendLine("<style>");
+			output.AppendLine(css);
+			output.AppendLine("</style>");
+
+			output.AppendLine("</head>");
+			output.AppendLine("<body>");
+
 			rootNamespaces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 			foreach (Namespace @namespace in rootNamespaces)
 			{
 				ConvertNamespaceToHtml(@namespace);
 			}
+
+			output.AppendLine("<script>");
+			output.AppendLine(js);
+			output.AppendLine("</script>");
+
+			output.AppendLine("</body>");
+			output.AppendLine("</html>");
+
 			void ConvertNamespaceToHtml(Namespace @namespace)
 			{
-				stringBuilder.Append("<li class=\"namespace\">");
-				stringBuilder.AppendLine(@namespace.Item1);
-				stringBuilder.AppendLine("<ul>");
+				output.Append("<button class='collapsible namespace'>");
+				output.Append(@namespace.Item1 + " [Namespace]");
+				output.AppendLine("</button>");
+
+				output.AppendLine("<div class='content'>");
 
 				// Namespaces
 				@namespace.Item2.Sort();
@@ -89,18 +203,27 @@ namespace Towel_Documentation
 				@namespace.Item3.Sort((a, b) => a.Name.CompareTo(b.Name));
 				@namespace.Item3.ForEach(ConvertTypeToHtml);
 
-				stringBuilder.AppendLine("</ul>");
-				stringBuilder.AppendLine("</li>");
+				output.AppendLine("</div>");
 			}
 			void ConvertTypeToHtml(Type type)
 			{
 				string typeToString = type.ConvertToCsharpSource();
 				if (!string.IsNullOrEmpty(typeToString))
 				{
-					stringBuilder.Append("<li class=\"type\">");
-					stringBuilder.AppendLine(typeToString.Substring(typeToString.LastIndexOf('.') + 1));
-					stringBuilder.AppendLine(HttpUtility.HtmlEncode(type.GetDocumentation()));
-					stringBuilder.AppendLine("<ul>");
+					string typeString =
+						type.IsInterface ? "interface" :
+						type.IsEnum ? "enum" :
+						type.IsValueType ? "valuetype" :
+						typeof(MulticastDelegate).IsAssignableFrom(type.BaseType) ? "delegate" :
+						type.IsClass ? "class" :
+						throw new NotImplementedException();
+
+					output.Append("<button class='collapsible type " + typeString + "'>");
+					output.Append(typeToString.Substring(typeToString.LastIndexOf('.') + 1) + " [" + typeString + "]");
+					output.AppendLine("</button>");
+
+					output.AppendLine("<div class='content'>");
+					output.AppendLine(HttpUtility.HtmlEncode(type.GetDocumentation()));
 
 					// Nested Types
 					List<Type> nestedTypes = type.GetNestedTypes().ToList();
@@ -112,10 +235,13 @@ namespace Towel_Documentation
 						x.DeclaringType == type &&
 						!(x.DeclaringType.FullName is null)))
 					{
-						stringBuilder.AppendLine("<li class=\"field\">");
-						stringBuilder.AppendLine(fieldInfo.Name);
-						stringBuilder.AppendLine(HttpUtility.HtmlEncode(fieldInfo.GetDocumentation()));
-						stringBuilder.AppendLine("</li>");
+						output.Append("<button class='collapsible field'>");
+						output.Append(fieldInfo.Name + " [Field]");
+						output.AppendLine("</button>");
+
+						output.AppendLine("<div class='content'>");
+						output.AppendLine(HttpUtility.HtmlEncode(fieldInfo.GetDocumentation()));
+						output.AppendLine("</div>");
 					}
 
 					// Properties
@@ -123,10 +249,13 @@ namespace Towel_Documentation
 						x.DeclaringType == type &&
 						!(x.DeclaringType.FullName is null)))
 					{
-						stringBuilder.AppendLine("<li class=\"property\">");
-						stringBuilder.AppendLine(propertyInfo.Name);
-						stringBuilder.AppendLine(HttpUtility.HtmlEncode(propertyInfo.GetDocumentation()));
-						stringBuilder.AppendLine("</li>");
+						output.Append("<button class='collapsible property'>");
+						output.Append(propertyInfo.Name + " [Property]");
+						output.AppendLine("</button>");
+
+						output.AppendLine("<div class='content'>");
+						output.AppendLine(HttpUtility.HtmlEncode(propertyInfo.GetDocumentation()));
+						output.AppendLine("</div>");
 					}
 
 					// Constructors
@@ -135,10 +264,13 @@ namespace Towel_Documentation
 						!(x.DeclaringType.FullName is null) &&
 						!typeof(MulticastDelegate).IsAssignableFrom(x.DeclaringType.BaseType)))
 					{
-						stringBuilder.AppendLine("<li class=\"constructor\">");
-						stringBuilder.AppendLine(constructorInfo.Name);
-						stringBuilder.AppendLine(HttpUtility.HtmlEncode(constructorInfo.GetDocumentation()));
-						stringBuilder.AppendLine("</li>");
+						output.Append("<button class='collapsible constructor'>");
+						output.Append(constructorInfo.Name + " [Constructor]");
+						output.AppendLine("</button>");
+
+						output.AppendLine("<div class='content'>");
+						output.AppendLine(HttpUtility.HtmlEncode(constructorInfo.GetDocumentation()));
+						output.AppendLine("</div>");
 					}
 
 					// Methods
@@ -149,20 +281,22 @@ namespace Towel_Documentation
 						!x.IsConstructor &&
 						!x.IsSpecialName))
 					{
-						stringBuilder.AppendLine("<li class=\"method\">");
-						stringBuilder.AppendLine(methodInfo.Name);
-						stringBuilder.AppendLine(HttpUtility.HtmlEncode(methodInfo.GetDocumentation()));
-						stringBuilder.AppendLine("</li>");
+						output.Append("<button class='collapsible method'>");
+						output.Append(methodInfo.Name + " [Method]");
+						output.AppendLine("</button>");
+
+						output.AppendLine("<div class='content'>");
+						output.AppendLine(HttpUtility.HtmlEncode(methodInfo.GetDocumentation()));
+						output.AppendLine("</div>");
 					}
 
-					stringBuilder.AppendLine("</ul>");
-					stringBuilder.AppendLine("</li>");
+					output.AppendLine("</div>");
 				}
 			}
 
 			#endregion
 
-			File.WriteAllText("TowelDocumentation.html", stringBuilder.ToString());
+			File.WriteAllText("TowelDocumentation.html", output.ToString());
 		}
 	}
 }
