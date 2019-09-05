@@ -636,43 +636,6 @@ namespace Towel
 
 		#endregion
 
-		#region IList
-
-		/// <summary>Removes all predicated elements from an IList.</summary>
-		/// <typeparam name="T">The generic type of elements in the IList.</typeparam>
-		/// <param name="iList">The IList to perform the predicated removal on.</param>
-		/// <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
-		public static void Remove<T>(this System.Collections.Generic.IList<T> iList, Predicate<T> predicate)
-		{
-			int write_position = 0;
-			{
-				int i = 0;
-				// while (i == write_position) we can avoid the assignment
-				for (; i < iList.Count && i == write_position; i++)
-				{
-					if (!predicate(iList[i]))
-					{
-						write_position++;
-					}
-				}
-				// now (i != write_position), assignment required
-				for (; i < iList.Count; i++)
-				{
-					if (!predicate(iList[i]))
-					{
-						iList[write_position++] = iList[i];
-					}
-				}
-			}
-			// removing from the end of the IList is an O(1) operation
-			for (int i = iList.Count - 1; i >= write_position; i--)
-			{
-				iList.RemoveAt(i);
-			}
-		}
-
-		#endregion
-
 		#region Array
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>

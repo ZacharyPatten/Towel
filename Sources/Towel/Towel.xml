@@ -14530,12 +14530,6 @@
             <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
             <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Remove``1(System.Collections.Generic.IList{``0},System.Predicate{``0})">
-            <summary>Removes all predicated elements from an IList.</summary>
-            <typeparam name="T">The generic type of elements in the IList.</typeparam>
-            <param name="iList">The IList to perform the predicated removal on.</param>
-            <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
-        </member>
         <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.Step{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
