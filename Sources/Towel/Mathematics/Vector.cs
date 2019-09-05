@@ -809,7 +809,7 @@ namespace Towel.Mathematics
 			T[] B = b._vector;
 			for (int i = 0; i < Dimensions; i++)
 			{
-				b[i] = Compute.Divide(a[i], magnitude);
+				B[i] = Compute.Divide(a[i], magnitude);
 			}
 		}
 
@@ -967,6 +967,7 @@ namespace Towel.Mathematics
 		/// <summary>Rotates a vector by a quaternion.</summary>
 		/// <param name="a">The vector to rotate.</param>
 		/// <param name="b">The quaternion to rotate the 3-component vector by.</param>
+		/// <param name="c">The result of the rotation.</param>
 		public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T> c)
 		{
 			Quaternion<T>.Rotate(b, a, ref c);
@@ -1062,6 +1063,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The starting vector of the interpolation.</param>
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
+		/// <param name="c">The result of the slerp operation.</param>
 		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
 		{
 			throw new NotImplementedException();

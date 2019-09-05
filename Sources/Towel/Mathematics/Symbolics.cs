@@ -1442,6 +1442,8 @@ namespace Towel.Mathematics
 		/// <summary>Represents one of the trigonometry functions.</summary>
 		public abstract class Trigonometry : Unary, Operation.IMathematical
 		{
+			/// <summary>Constructs a new trigonometry expression.</summary>
+			/// <param name="a">The parameter to the trigonometry expression.</param>
 			public Trigonometry(Expression a) : base(a) { }
 		}
 
@@ -1453,6 +1455,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Sine : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new sine expression.</summary>
+			/// <param name="a">The parameter to the sine expression.</param>
 			public Sine(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -1497,6 +1501,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Cosine : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new cosine expression.</summary>
+			/// <param name="a">The parameter to the cosine expression.</param>
 			public Cosine(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -1541,6 +1547,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Tangent : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new tangent expression.</summary>
+			/// <param name="a">The parameter to the tangent expression.</param>
 			public Tangent(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -1585,6 +1593,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Cosecant : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new cosecant expression.</summary>
+			/// <param name="a">The parameter to the cosecant expression.</param>
 			public Cosecant(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -1629,6 +1639,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Secant : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new secant expression.</summary>
+			/// <param name="a">The parameter to the secant expression.</param>
 			public Secant(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -1673,6 +1685,8 @@ namespace Towel.Mathematics
 		[Serializable]
 		public class Cotangent : Trigonometry, Operation.IMathematical
 		{
+			/// <summary>Constructs a new cotangent expression.</summary>
+			/// <param name="a">The parameter to the cotangent expression.</param>
 			public Cotangent(Expression a) : base(a) { }
 
 			/// <summary>Simplifies the mathematical expression.</summary>
@@ -3862,12 +3876,12 @@ namespace Towel.Mathematics
 				// implied multiplications to the left and right
 				if (knownConstantMatch.Index != 0)
 				{
-					Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index));
+					Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index), tryParsingFunction);
 					parsedExpression *= A;
 				}
 				if (knownConstantMatch.Index < @string.Length - 1)
 				{
-					Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1));
+					Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1), tryParsingFunction);
 					parsedExpression *= B;
 				}
 				return true;

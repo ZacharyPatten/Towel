@@ -14536,6 +14536,26 @@
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
         </member>
+        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepRef{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepBreak{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepRefBreak{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
         <member name="M:Towel.TowelDotNetExtensions.WrapGetIndex``1(``0[])">
             <summary>Converts the get indexer of an IList to a delegate.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
@@ -16573,6 +16593,11 @@
             <param name="leniency">How much the values can vary but still be considered equal.</param>
             <returns>True if values are equal, false if not.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Fill(Towel.Mathematics.Matrix{`0},System.Func{System.Int32,System.Int32,`0})">
+            <summary>Fills a matrix with values using a delegate.</summary>
+            <param name="matrix">The matrix to fill the values of.</param>
+            <param name="function">The function to set the values at the relative indeces.</param>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.Clone(Towel.Mathematics.Matrix{`0})">
             <summary>Creates a copy of a matrix.</summary>
             <param name="a">The matrix to copy.</param>
@@ -16584,12 +16609,12 @@
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.op_Explicit(`0[0:,0:])~Towel.Mathematics.Matrix{`0}">
             <summary>Converts a T[,] into a matrix.</summary>
-            <param name="a">The T[,] to convert to a matrix.</param>
+            <param name="array">The T[,] to convert to a matrix.</param>
             <returns>The resulting matrix after conversion.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.op_Explicit(Towel.Mathematics.Matrix{`0})~`0[0:,0:]">
             <summary>Converts a matrix into a T[,].</summary>
-            <param name="a">The matrix toconvert to a T[,].</param>
+            <param name="matrix">The matrix toconvert to a T[,].</param>
             <returns>The resulting T[,] after conversion.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Stepper(Towel.Step{`0})">
@@ -17757,8 +17782,16 @@
         <member name="T:Towel.Mathematics.Symbolics.Trigonometry">
             <summary>Represents one of the trigonometry functions.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Trigonometry.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new trigonometry expression.</summary>
+            <param name="a">The parameter to the trigonometry expression.</param>
+        </member>
         <member name="T:Towel.Mathematics.Symbolics.Sine">
             <summary>Represents the sine trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Sine.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new sine expression.</summary>
+            <param name="a">The parameter to the sine expression.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Sine.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -17781,6 +17814,10 @@
         <member name="T:Towel.Mathematics.Symbolics.Cosine">
             <summary>Represents the cosine trigonometric function.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosine.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new cosine expression.</summary>
+            <param name="a">The parameter to the cosine expression.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Cosine.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -17801,6 +17838,10 @@
         </member>
         <member name="T:Towel.Mathematics.Symbolics.Tangent">
             <summary>Represents the tanget trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Tangent.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new tangent expression.</summary>
+            <param name="a">The parameter to the tangent expression.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Tangent.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -17823,6 +17864,10 @@
         <member name="T:Towel.Mathematics.Symbolics.Cosecant">
             <summary>Represents the cosecant trigonometric function.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cosecant.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new cosecant expression.</summary>
+            <param name="a">The parameter to the cosecant expression.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Cosecant.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -17844,6 +17889,10 @@
         <member name="T:Towel.Mathematics.Symbolics.Secant">
             <summary>Represents the secant trigonometric function.</summary>
         </member>
+        <member name="M:Towel.Mathematics.Symbolics.Secant.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new secant expression.</summary>
+            <param name="a">The parameter to the secant expression.</param>
+        </member>
         <member name="M:Towel.Mathematics.Symbolics.Secant.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
             <returns>The simplified mathematical expression.</returns>
@@ -17864,6 +17913,10 @@
         </member>
         <member name="T:Towel.Mathematics.Symbolics.Cotangent">
             <summary>Represents the cotangent trigonometric function.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Symbolics.Cotangent.#ctor(Towel.Mathematics.Symbolics.Expression)">
+            <summary>Constructs a new cotangent expression.</summary>
+            <param name="a">The parameter to the cotangent expression.</param>
         </member>
         <member name="M:Towel.Mathematics.Symbolics.Cotangent.Simplify">
             <summary>Simplifies the mathematical expression.</summary>
@@ -18597,6 +18650,7 @@
             <summary>Rotates a vector by a quaternion.</summary>
             <param name="a">The vector to rotate.</param>
             <param name="b">The quaternion to rotate the 3-component vector by.</param>
+            <param name="c">The result of the rotation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.RotateBy(Towel.Mathematics.Vector{`0},Towel.Mathematics.Quaternion{`0})">
             <summary>Rotates a vector by a quaternion.</summary>
@@ -18640,6 +18694,7 @@
             <param name="a">The starting vector of the interpolation.</param>
             <param name="b">The ending vector of the interpolation.</param>
             <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
+            <param name="c">The result of the slerp operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.SphericalInterpolation(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},`0)">
             <summary>Spherically interpolates between two vectors.</summary>

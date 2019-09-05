@@ -2381,6 +2381,9 @@ namespace Towel.Mathematics
 
 		#region Fill
 
+		/// <summary>Fills a matrix with values using a delegate.</summary>
+		/// <param name="matrix">The matrix to fill the values of.</param>
+		/// <param name="function">The function to set the values at the relative indeces.</param>
 		public static void Fill(Matrix<T> matrix, Func<int, int, T> function)
 		{
 			int Rows = matrix.Rows;
@@ -2461,15 +2464,13 @@ namespace Towel.Mathematics
 		#region Casting Operators
 
 		/// <summary>Converts a T[,] into a matrix.</summary>
-		/// <param name="a">The T[,] to convert to a matrix.</param>
+		/// <param name="array">The T[,] to convert to a matrix.</param>
 		/// <returns>The resulting matrix after conversion.</returns>
-		public static explicit operator Matrix<T>(T[,] array)
-		{
-			return new Matrix<T>(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
-		}
+		public static explicit operator Matrix<T>(T[,] array) =>
+			new Matrix<T>(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
 
 		/// <summary>Converts a matrix into a T[,].</summary>
-		/// <param name="a">The matrix toconvert to a T[,].</param>
+		/// <param name="matrix">The matrix toconvert to a T[,].</param>
 		/// <returns>The resulting T[,] after conversion.</returns>
 		public static explicit operator T[,](Matrix<T> matrix)
 		{
@@ -2494,53 +2495,21 @@ namespace Towel.Mathematics
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (int i = 0; i < _matrix.Length; i++)
-			{
-				step(_matrix[i]);
-			}
-		}
+		public void Stepper(Step<T> step) => _matrix.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _matrix.Length; i++)
-			{
-				step(ref _matrix[i]);
-			}
-		}
+		public void Stepper(StepRef<T> step) => _matrix.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (int i = 0; i < _matrix.Length; i++)
-			{
-				if (step(_matrix[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _matrix.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _matrix.Length; i++)
-			{
-				if (step(ref _matrix[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => _matrix.ForEach(step);
 
 		#endregion
 
@@ -2548,29 +2517,18 @@ namespace Towel.Mathematics
 
 		/// <summary>Prints out a string representation of this matrix.</summary>
 		/// <returns>A string representing this matrix.</returns>
-		public override string ToString()
-		{
-			return base.ToString();
-		}
+		public override string ToString() => base.ToString();
 
 		/// <summary>Matrixs a hash code from the values of this matrix.</summary>
 		/// <returns>A hash code for the matrix.</returns>
-		public override int GetHashCode()
-		{
-			return this._matrix.GetHashCode() ^ this._rows ^ this._columns;
-		}
+		public override int GetHashCode() => _matrix.GetHashCode() ^ _rows ^ _columns;
 
 		/// <summary>Does an equality check by value.</summary>
 		/// <param name="b">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object b)
-		{
-			if (!(b is Matrix<T>))
-			{
-				return Equal(this, (Matrix<T>)b);
-			}
-			return false;
-		}
+		public override bool Equals(object b) => b is Matrix<T> B
+			? Equal(this, B)
+			: false;
 
 		#endregion
 	}

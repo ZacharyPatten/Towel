@@ -645,6 +645,52 @@ namespace Towel
 		public static void ForEach<T>(this T[] array, Step<T> step) =>
 			Array.ForEach(array, step.Invoke);
 
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		public static void ForEach<T>(this T[] array, StepRef<T> step)
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				step(ref array[i]);
+			}
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the stepper.</returns>
+		public static StepStatus ForEach<T>(this T[] array, StepBreak<T> step)
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				if (step(array[i]) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the stepper.</returns>
+		public static StepStatus ForEach<T>(this T[] array, StepRefBreak<T> step)
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				if (step(ref array[i]) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
+		}
+
 		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="array">The array to retrieve the get delegate of.</param>

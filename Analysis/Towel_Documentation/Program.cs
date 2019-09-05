@@ -96,11 +96,11 @@ namespace Towel_Documentation
 	background-color: #347F5D;
 }
 
-.valuetype.collapsible {
+.struct.collapsible {
 	background-color: #FFFF72;
 }
 
-.active.valuetype.collapsible, .valuetype.collapsible:hover {
+.active.struct.collapsible, .struct.collapsible:hover {
 	background-color: #A1A54F;
 }
 
@@ -213,7 +213,7 @@ for (i = 0; i < coll.length; i++)
 					string typeString =
 						type.IsInterface ? "interface" :
 						type.IsEnum ? "enum" :
-						type.IsValueType ? "valuetype" :
+						type.IsValueType ? "struct" :
 						typeof(MulticastDelegate).IsAssignableFrom(type.BaseType) ? "delegate" :
 						type.IsClass ? "class" :
 						throw new NotImplementedException();
