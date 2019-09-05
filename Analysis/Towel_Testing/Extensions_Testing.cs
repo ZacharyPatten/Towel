@@ -37,6 +37,13 @@ namespace Towel_Testing
 				(typeof(int**), "System.Int32**"), // double pointers
 				(typeof(Span<int>), "System.Span<System.Int32>"), // ref struct
 				(typeof(int[]), "System.Int32[]"), // arrays
+				(typeof(int[][]), "System.Int32[][]"), // jagged arrays
+				(typeof(int[][][]), "System.Int32[][][]"), // jagged arrays
+				(typeof(int[,]), "System.Int32[,]"), // arrays
+				(typeof(int[,,]), "System.Int32[,,]"), // arrays
+				(typeof(int[,,,]), "System.Int32[,,,]"), // arrays
+				(typeof(int[][,,,][]), "System.Int32[][,,,][]"), // arrays
+				(typeof(int[,,,][][,,,]), "System.Int32[,,,][][,,,]"), // arrays
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
