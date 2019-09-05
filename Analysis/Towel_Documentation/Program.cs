@@ -9,9 +9,9 @@ using Towel;
 
 using Namespace =
 	System.ValueTuple<
-		string,
-		System.Collections.Generic.List<string>,
-		System.Collections.Generic.List<System.Type>>;
+		string, // namespace
+		System.Collections.Generic.List<string>, // nested namespaces
+		System.Collections.Generic.List<System.Type>>; // nested types
 
 namespace Towel_Documentation
 {
@@ -21,55 +21,57 @@ namespace Towel_Documentation
 		{
 			// This program generates HTML from the XML documentation of the code in the Towel project.
 
-			TowelDotNetExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
-			Assembly assembly = typeof(Towel.Stepper).Assembly;
-			Type[] exportedTypes = assembly.GetExportedTypes();
-
-			// First Pass: Build Namespace Hierarchy
-			List<Namespace> namespaceHierarchy = new List<Namespace>();
-			Dictionary<string, Namespace> namespaceMap = new Dictionary<string, Namespace>();
-			foreach (string fullNamespace in exportedTypes.Select(x => x.Namespace).Distinct())
+			// Note: Explicitly loading the XML file is not necessary if the XML file
+			// is in the same location as the referenced DLL. In this case it was necessary.
+			string Towel_xml_Path = @"..\..\..\..\..\Sources\Towel\Towel.xml";
+			using (StreamReader reader = new StreamReader(Towel_xml_Path))
 			{
-				if (!namespaceMap.ContainsKey(fullNamespace))
+				TowelDotNetExtensions.LoadXmlDocumentation(reader);
+			}
+			Assembly assembly = typeof(Towel.Stepper).Assembly;
+
+			#region Build Namespace Tree
+
+			List<Namespace> rootNamespaces = new List<Namespace>();
+			Dictionary<string, Namespace> namespaceMap = new Dictionary<string, Namespace>();
+
+			void HandleNamespace(string @namespace)
+			{
+				if (namespaceMap.ContainsKey(@namespace))
 				{
-					string[] namespaces = fullNamespace.Split('.');
-					string currentFullNamespace = null;
-					Namespace? parent = null;
-					foreach (string @namespace in namespaces)
-					{
-						currentFullNamespace = currentFullNamespace is null ? @namespace :
-							currentFullNamespace + "." + @namespace;
-						if (!namespaceMap.TryGetValue(currentFullNamespace, out Namespace current))
-						{
-							current = (@namespace, new List<string>(), new List<Type>());
-							if (parent.HasValue)
-							{
-								parent.Value.Item2.Add(currentFullNamespace);
-							}
-							else
-							{
-								namespaceHierarchy.Add(current);
-							}
-							namespaceMap[currentFullNamespace] = current;
-						}
-						parent = current;
-					}
+					return;
+				}
+				string parentNameSpace = @namespace.Contains('.')
+					?  @namespace.Substring(0, @namespace.LastIndexOf("."))
+					: null;
+				Namespace namespaceTuple = (@namespace, new List<string>(), new List<Type>());
+				namespaceMap[@namespace] = namespaceTuple;
+				if (!(parentNameSpace is null))
+				{
+					HandleNamespace(parentNameSpace);
+					namespaceMap[parentNameSpace].Item2.Add(@namespace);
+				}
+				else
+				{
+					rootNamespaces.Add(namespaceTuple);
 				}
 			}
 
-			// Second Pass: Add Types To the Namespace Hierarchy
+			Type[] exportedTypes = assembly.GetExportedTypes();
 			foreach (Type type in exportedTypes)
 			{
-				if (!type.IsNested)
-				{
-					namespaceMap[type.Namespace].Item3.Add(type);
-				}
+				string @namespace = type.Namespace;
+				HandleNamespace(@namespace);
+				namespaceMap[@namespace].Item3.Add(type);
 			}
 
-			// Third Pass: Convert The Namespace Hierarchy To HTML (And Sort Alphabetically)
+			#endregion
+
+			#region Convert To HTML
+
 			StringBuilder stringBuilder = new StringBuilder();
-			namespaceHierarchy.Sort((a, b) => a.Item1.CompareTo(b.Item1));
-			foreach (Namespace @namespace in namespaceHierarchy)
+			rootNamespaces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+			foreach (Namespace @namespace in rootNamespaces)
 			{
 				ConvertNamespaceToHtml(@namespace);
 			}
@@ -106,57 +108,59 @@ namespace Towel_Documentation
 					nestedTypes.ForEach(ConvertTypeToHtml);
 
 					// Fields
-					foreach (FieldInfo fieldInfo in type.GetFields().Where(x => x.DeclaringType == type))
+					foreach (FieldInfo fieldInfo in type.GetFields().Where(x => 
+						x.DeclaringType == type &&
+						!(x.DeclaringType.FullName is null)))
 					{
-						if (!(fieldInfo.DeclaringType.FullName is null))
-						{
-							stringBuilder.AppendLine("<li class=\"field\">");
-							stringBuilder.AppendLine(fieldInfo.Name);
-							stringBuilder.AppendLine(HttpUtility.HtmlEncode(fieldInfo.GetDocumentation()));
-							stringBuilder.AppendLine("</li>");
-						}
+						stringBuilder.AppendLine("<li class=\"field\">");
+						stringBuilder.AppendLine(fieldInfo.Name);
+						stringBuilder.AppendLine(HttpUtility.HtmlEncode(fieldInfo.GetDocumentation()));
+						stringBuilder.AppendLine("</li>");
 					}
 
 					// Properties
-					foreach (PropertyInfo propertyInfo in type.GetProperties().Where(x => x.DeclaringType == type))
+					foreach (PropertyInfo propertyInfo in type.GetProperties().Where(x =>
+						x.DeclaringType == type &&
+						!(x.DeclaringType.FullName is null)))
 					{
-						if (!(propertyInfo.DeclaringType.FullName is null))
-						{
-							stringBuilder.AppendLine("<li class=\"property\">");
-							stringBuilder.AppendLine(propertyInfo.Name);
-							stringBuilder.AppendLine(HttpUtility.HtmlEncode(propertyInfo.GetDocumentation()));
-							stringBuilder.AppendLine("</li>");
-						}
+						stringBuilder.AppendLine("<li class=\"property\">");
+						stringBuilder.AppendLine(propertyInfo.Name);
+						stringBuilder.AppendLine(HttpUtility.HtmlEncode(propertyInfo.GetDocumentation()));
+						stringBuilder.AppendLine("</li>");
 					}
 
 					// Constructors
-					foreach (ConstructorInfo constructorInfo in type.GetConstructors().Where(x => x.DeclaringType == type))
+					foreach (ConstructorInfo constructorInfo in type.GetConstructors().Where(x =>
+						x.DeclaringType == type &&
+						!(x.DeclaringType.FullName is null) &&
+						!typeof(MulticastDelegate).IsAssignableFrom(x.DeclaringType.BaseType)))
 					{
-						if (!(constructorInfo.DeclaringType.FullName is null))
-						{
-							stringBuilder.AppendLine("<li class=\"constructor\">");
-							stringBuilder.AppendLine(constructorInfo.Name);
-							stringBuilder.AppendLine(HttpUtility.HtmlEncode(constructorInfo.GetDocumentation()));
-							stringBuilder.AppendLine("</li>");
-						}
+						stringBuilder.AppendLine("<li class=\"constructor\">");
+						stringBuilder.AppendLine(constructorInfo.Name);
+						stringBuilder.AppendLine(HttpUtility.HtmlEncode(constructorInfo.GetDocumentation()));
+						stringBuilder.AppendLine("</li>");
 					}
 
 					// Methods
-					foreach (MethodInfo methodInfo in type.GetMethods().Where(x => x.DeclaringType == type))
+					foreach (MethodInfo methodInfo in type.GetMethods().Where(x =>
+						x.DeclaringType == type &&
+						!(x.DeclaringType.FullName is null) &&
+						!typeof(MulticastDelegate).IsAssignableFrom(x.DeclaringType.BaseType) &&
+						!x.IsConstructor &&
+						!x.IsSpecialName))
 					{
-						if (!(methodInfo.DeclaringType.FullName is null))
-						{
-							stringBuilder.AppendLine("<li class=\"method\">");
-							stringBuilder.AppendLine(methodInfo.Name);
-							stringBuilder.AppendLine(HttpUtility.HtmlEncode(methodInfo.GetDocumentation()));
-							stringBuilder.AppendLine("</li>");
-						}
+						stringBuilder.AppendLine("<li class=\"method\">");
+						stringBuilder.AppendLine(methodInfo.Name);
+						stringBuilder.AppendLine(HttpUtility.HtmlEncode(methodInfo.GetDocumentation()));
+						stringBuilder.AppendLine("</li>");
 					}
 
 					stringBuilder.AppendLine("</ul>");
 					stringBuilder.AppendLine("</li>");
 				}
 			}
+
+			#endregion
 
 			File.WriteAllText("TowelDocumentation.html", stringBuilder.ToString());
 		}

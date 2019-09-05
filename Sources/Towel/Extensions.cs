@@ -1158,9 +1158,11 @@ namespace Towel
 					using (StreamReader streamReader = new StreamReader(xmlFilePath))
 					{
 						LoadXmlDocumentation(streamReader);
-						loadedAssemblies.Add(assembly);
 					}
 				}
+				// currently marking assembly as loaded even if the XML file was not found
+				// may want to adjust in future, but I think this is good for now
+				loadedAssemblies.Add(assembly);
 			}
 			catch
 			{

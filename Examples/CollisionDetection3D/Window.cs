@@ -197,7 +197,7 @@ namespace CollisionDetection3D
 	{
 		#region Vertex Shader Source
 
-		string _vertextShaderSource =
+		readonly string _vertextShaderSource =
 @"#version 330 core
 
 layout(location = 0) in vec3 aPosition;
@@ -221,7 +221,7 @@ void main(void)
 
 		#region Fragment Shader Source
 
-		string _fragmentShaderSource =
+		readonly string _fragmentShaderSource =
 @"#version 330
 
 in vec3 colorPass;
@@ -302,9 +302,7 @@ void main()
 		private bool firstMove = true;
 		private Vector2 lastPos;
 
-		private double time;
-
-		private Random random = new Random();
+		private readonly Random random = new Random();
 
 		public Window() : base() { }
 
@@ -371,16 +369,6 @@ void main()
 				y = obj.Position.Y;
 				z = obj.Position.Z;
 			}
-
-			//void GetBounds(IObject3D boundingBox3D,
-			//	out float minX, out float maxX,
-			//	out float minY, out float maxY,
-			//	out float minZ, out float maxZ)
-			//{
-			//	minX = boundingBox3D.MinX; maxX = boundingBox3D.MaxX;
-			//	minY = boundingBox3D.MinY; maxY = boundingBox3D.MaxY;
-			//	minZ = boundingBox3D.MinZ; maxZ = boundingBox3D.MaxZ;
-			//}
 
 			bool Equate(IObject3D a, IObject3D b)
 			{
@@ -493,8 +481,10 @@ void main()
 
 			#region Camera Initialization
 
-			camera = new Camera(new Vector3(0, 10, 50));
-			camera.AspectRatio = Width / (float)Height;
+			camera = new Camera(new Vector3(0, 10, 50))
+			{
+				AspectRatio = Width / (float)Height
+			};
 			CursorVisible = false;
 
 			#endregion
@@ -506,7 +496,6 @@ void main()
 		{
 			#region Rendering Code
 
-			time += 4.0 * e.Time;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			Matrix4 projectionMatrix = camera.GetProjectionMatrix();
 			Matrix4 cameraMatrix = camera.GetViewMatrix();
@@ -546,8 +535,6 @@ void main()
 			{
 				return;
 			}
-
-			//DateTime a = DateTime.Now;
 
 			#region Controls
 
