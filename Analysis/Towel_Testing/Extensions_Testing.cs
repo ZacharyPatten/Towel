@@ -31,6 +31,8 @@ namespace Towel_Testing
 				(typeof(System.Int32?), "System.Nullable<System.Int32>"), // nullable
 				(typeof(Towel_Testing.A.D<System.Object>.E<System.String>), "Towel_Testing.A.D<System.Object>.E<System.String>"), // nested generic type
 				(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"), // lots of generics
+				(typeof((int, int, int, int, int, int, int, int, int)), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"), // large value tuple
+				(typeof(StepStatus), "Towel.StepStatus"), // enum
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
