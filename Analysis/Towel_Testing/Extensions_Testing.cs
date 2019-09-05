@@ -33,6 +33,10 @@ namespace Towel_Testing
 				(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"), // lots of generics
 				(typeof((int, int, int, int, int, int, int, int, int)), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"), // large value tuple
 				(typeof(StepStatus), "Towel.StepStatus"), // enum
+				(typeof(int*), "System.Int32*"), // pointers
+				(typeof(int**), "System.Int32**"), // double pointers
+				(typeof(Span<int>), "System.Span<System.Int32>"), // ref struct
+				(typeof(int[]), "System.Int32[]"), // arrays
 			};
 			foreach ((Type, string) testCase in testCases)
 			{
