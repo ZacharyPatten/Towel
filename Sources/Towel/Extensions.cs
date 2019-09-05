@@ -598,88 +598,40 @@ namespace Towel
 		/// <returns>The string as the <see cref="System.Type"/> would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type)
 		{
-			int index = 0;
-			Type[] genericArguments = type.GetGenericArguments();
-			return ConvertToCsharpSource(type, genericArguments, ref index);
+			IQueue<Type> genericParameters = new QueueArray<Type>();
+			type.GetGenericArguments().ForEach(x => genericParameters.Enqueue(x));
+			return ConvertToCsharpSource(type, genericParameters);
 		}
 
-		internal static string ConvertToCsharpSource(Type type, Type[] genericParameters, ref int index)
+		internal static string ConvertToCsharpSource(Type type, IQueue<Type> genericParameters)
 		{
 			if (type is null)
 			{
 				throw new ArgumentNullException(nameof(type));
 			}
-			string result = string.Empty;
-			if (type.IsNested && !type.IsGenericParameter)
+			string result = type.IsNested
+				? ConvertToCsharpSource(type.DeclaringType, genericParameters) + "."
+				: type.Namespace + ".";
+			result += Regex.Replace(type.Name, "`.*", string.Empty);
+			if (type.IsGenericType)
 			{
-				result = ConvertToCsharpSource(type.DeclaringType, genericParameters, ref index) + ".";
-			}
-			if (!type.IsGenericType)
-			{
-				string typeToSring = type.ToString();
-				if (typeToSring.Contains('+'))
+				result += "<";
+				bool firstIteration = true;
+				foreach (Type generic in type.GetGenericArguments())
 				{
-					typeToSring = typeToSring.Substring(typeToSring.LastIndexOf('+') + 1);
+					if (genericParameters.Count <= 0)
+					{
+						break;
+					}
+					Type correctGeneric = genericParameters.Dequeue();
+					result += correctGeneric.IsGenericParameter
+						? string.Empty
+						: (firstIteration ? string.Empty : ", ") + ConvertToCsharpSource(correctGeneric);
+					firstIteration = false;
 				}
-				result += typeToSring;
-			}
-			else
-			{
-				string typeToString = type.ToString();
-				if (typeToString.Contains('+'))
-				{
-					typeToString = typeToString.Substring(typeToString.LastIndexOf('+') + 1);
-				}
-				bool containsSquigly = false;
-				if (typeToString.Contains('`'))
-				{
-					typeToString = typeToString.Substring(0, typeToString.IndexOf('`')) + "<";
-					containsSquigly = true;
-				}
-				HandleGenericParameters(type, genericParameters, ref index, ref typeToString);
-				result += typeToString;
-				if (containsSquigly)
-				{
-					result += ">";
-				}
+				result += ">";
 			}
 			return result;
-		}
-
-		internal static void HandleGenericParameters(Type type, Type[] genericParameters, ref int index, ref string typeToString)
-		{
-			Type[] generics = type.GetGenericArguments();
-			int genericsParametersOnCurrentType = generics.Length;
-			if (!(type.DeclaringType is null))
-			{
-				genericsParametersOnCurrentType -= type.DeclaringType.GetGenericArguments().Length;
-			}
-			for (int i = 0; i < genericsParametersOnCurrentType; i++)
-			{
-				if (i > 0)
-				{
-					typeToString += ", ";
-				}
-				if (generics[i].IsGenericParameter)
-				{
-					if (!genericParameters[index].IsGenericParameter)
-					{
-						typeToString += ConvertToCsharpSource(genericParameters[index++], genericParameters, ref index);
-					}
-					else
-					{
-						index++;
-					}
-				}
-				else if (type.IsGenericType)
-				{
-					typeToString += ConvertToCsharpSource(generics[i]);
-				}
-				else
-				{
-					ConvertToCsharpSource(generics[i], genericParameters, ref index);
-				}
-			}
 		}
 
 		#endregion
@@ -722,6 +674,13 @@ namespace Towel
 		#endregion
 
 		#region Array
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		public static void ForEach<T>(this T[] array, Step<T> step) =>
+			Array.ForEach(array, step.Invoke);
 
 		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>

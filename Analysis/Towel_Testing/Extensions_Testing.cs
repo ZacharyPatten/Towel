@@ -28,6 +28,9 @@ namespace Towel_Testing
 				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>"), // nested generic type
 				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<>.E<>"), // nested generic type
 				(typeof(System.Collections.Generic.List<(System.String @event, System.Object @class)>), "System.Collections.Generic.List<System.ValueTuple<System.String, System.Object>>"), // list + value tuple
+				(typeof(System.Int32?), "System.Nullable<System.Int32>"), // nullable
+				(typeof(Towel_Testing.A.D<System.Object>.E<System.String>), "Towel_Testing.A.D<System.Object>.E<System.String>"), // nested generic type
+				(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"), // lots of generics
 			};
 			foreach ((Type, string) testCase in testCases)
 			{

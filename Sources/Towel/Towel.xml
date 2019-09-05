@@ -14536,6 +14536,12 @@
             <param name="iList">The IList to perform the predicated removal on.</param>
             <param name="predicate">The predicate determining if an element is removed (True) or not (False).</param>
         </member>
+        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.Step{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+        </member>
         <member name="M:Towel.TowelDotNetExtensions.WrapGetIndex``1(``0[])">
             <summary>Converts the get indexer of an IList to a delegate.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
