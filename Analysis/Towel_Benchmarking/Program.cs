@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Running;
 using System;
 using System.Reflection;
+using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Benchmarking
@@ -31,9 +32,15 @@ namespace Towel_Benchmarking
 
 	#region Benchmark Settings
 
-	/// <summary>
-	/// Allows customization of the benchmarking.
-	/// </summary>
+	public class Person
+	{
+		public Guid Id;
+		public string FirstName;
+		public string LastName;
+		public DateTime DateOfBirth;
+	}
+
+	/// <summary>Allows customization of the benchmarking.</summary>
 	public static class BenchmarkSettings
 	{
 		/// <summary>
@@ -53,13 +60,13 @@ namespace Towel_Benchmarking
 
             // Data Structure Tags ---------------------------------
             Tag.Link, // aka Tuple
-            Tag.Indexed, // aka Array
-            Tag.AddableArray, // aka ListArray
-            Tag.AddableLinked, // aka ListArray
-            Tag.FirstInLastOutArray, // aka Stack as Array
-            Tag.FirstInLastOutLinked, // aka Stack as Linked List
-            Tag.FirstInFirstOutArray, // aka Queue as Array
-            Tag.FirstInFirstOutLinked, // aka Queue as Linked List
+            Tag.Array,
+            Tag.ListArray,
+            Tag.ListLinked,
+            Tag.StackArray,
+            Tag.StackLinked,
+            Tag.QueueArray,
+            Tag.QueueLinked,
             Tag.HeapArray,
 			Tag.AvlTreeLinked,
 			Tag.RedBlackTreeLinked,
@@ -77,11 +84,36 @@ namespace Towel_Benchmarking
 		/// </summary>
 		public static class DataStructures
 		{
-			/// <summary>
-			/// The insertion counts for the relative insertion methods of
-			/// the data structures: add, enqueue, push, etc.
-			/// </summary>
-			public static int[] InsertionCounts => new int[] { 100, 100000 };
+			public static Person[][] RandomData => GenerateBenchmarkData();
+
+			public static Person[][] GenerateBenchmarkData()
+			{
+				DateTime minimumBirthDate = new DateTime(1950, 1, 1);
+				DateTime maximumBirthDate = new DateTime(2000, 1, 1);
+
+				Random random = new Random();
+				Person[] GenerateData(int count)
+				{
+					Person[] data = new Person[count];
+					for (int i = 0; i < count; i++)
+					{
+						data[i] = new Person()
+						{
+							Id = Guid.NewGuid(),
+							FirstName = random.NextAlphabeticString(random.Next(5, 11)),
+							LastName = random.NextAlphabeticString(random.Next(5, 11)),
+							DateOfBirth = random.NextDateTime(minimumBirthDate, maximumBirthDate)
+						};
+					}
+					return data;
+				}
+
+				return new Person[][]
+				{
+					GenerateData(100),
+					GenerateData(100000),
+				};
+			}
 		}
 	}
 
@@ -112,14 +144,14 @@ namespace Towel_Benchmarking
 
 		// Data Structure Tags
 		Link, // aka Tuple
-		Indexed, // aka Array
-		AddableArray, // aka ListArray
-		AddableLinked, // aka LinkedList
-		FirstInFirstOutArray, // aka Queue as Array
-		FirstInFirstOutLinked, // aka Queue as Linked List
-		FirstInLastOutArray, // aka Stack as Array
-		FirstInLastOutLinked, // aka Stack as Linked List
-		HeapArray, // as Flattened Array
+		Array,
+		ListArray,
+		ListLinked,
+		QueueArray,
+		QueueLinked,
+		StackArray,
+		StackLinked,
+		HeapArray,
 		AvlTreeLinked,
 		RedBlackTreeLinked,
 		BTree,

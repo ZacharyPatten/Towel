@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
@@ -6,19 +7,19 @@ namespace Towel_Benchmarking.DataStructures
 	[Benchmarks(Tag.DataStructures, Tag.RedBlackTreeLinked)]
 	public class RedBlackTreeLinked_Benchmarks
 	{
-		[ParamsSource(nameof(AddCounts))]
-		public int AddCount { get; set; }
+		[ParamsSource(nameof(RandomData))]
+		public Person[] RandomTestData { get; set; }
 
-		public int[] AddCounts => BenchmarkSettings.DataStructures.InsertionCounts;
+		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
 
 		[Benchmark]
 		public void Add()
 		{
-			IRedBlackTree<int> avlTree = new RedBlackTreeLinked<int>();
-			int addCount = AddCount;
-			for (int i = 0; i < addCount; i++)
+			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person>(
+				(a, b) => Compare.Wrap(a.Id.CompareTo(b.Id)));
+			foreach (Person person in RandomTestData)
 			{
-				avlTree.Add(i);
+				tree.Add(person);
 			}
 		}
 	}

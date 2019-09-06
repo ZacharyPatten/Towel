@@ -3,8 +3,8 @@ using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
 {
-	[Benchmarks(Tag.DataStructures, Tag.SetHashArray)]
-	public class SetHashArray_Benchmarks
+	[Benchmarks(Tag.DataStructures, Tag.StackArray)]
+	public class StackArray_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
@@ -14,18 +14,26 @@ namespace Towel_Benchmarking.DataStructures
 		[Benchmark]
 		public void Add()
 		{
-			ISet<Person> set = new SetHashArray<Person>(
-				(a, b) => a.Id == b.Id,
-				x => x.Id.GetHashCode());
+			IStack<Person> stack = new StackArray<Person>();
 			foreach (Person person in RandomTestData)
 			{
-				set.Add(person);
+				stack.Push(person);
+			}
+		}
+
+		[Benchmark]
+		public void PushWithCapacity()
+		{
+			IStack<Person> stack = new StackArray<Person>(RandomTestData.Length);
+			foreach (Person person in RandomTestData)
+			{
+				stack.Push(person);
 			}
 		}
 	}
 
-	[Benchmarks(Tag.DataStructures, Tag.SetHashLinked)]
-	public class SetHashLinked_Benchmarks
+	[Benchmarks(Tag.DataStructures, Tag.StackLinked)]
+	public class StackLinked_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
@@ -33,14 +41,12 @@ namespace Towel_Benchmarking.DataStructures
 		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
 
 		[Benchmark]
-		public void Add()
+		public void Push()
 		{
-			ISet<Person> set = new SetHashLinked<Person>(
-				(a, b) => a.Id == b.Id,
-				x => x.Id.GetHashCode());
+			IStack<Person> stack = new StackLinked<Person>();
 			foreach (Person person in RandomTestData)
 			{
-				set.Add(person);
+				stack.Push(person);
 			}
 		}
 	}

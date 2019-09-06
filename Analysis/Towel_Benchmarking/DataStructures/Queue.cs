@@ -3,8 +3,8 @@ using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
 {
-	[Benchmarks(Tag.DataStructures, Tag.SetHashArray)]
-	public class SetHashArray_Benchmarks
+	[Benchmarks(Tag.DataStructures, Tag.QueueArray)]
+	public class QueueArray_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
@@ -12,20 +12,28 @@ namespace Towel_Benchmarking.DataStructures
 		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
 
 		[Benchmark]
-		public void Add()
+		public void Enqueue()
 		{
-			ISet<Person> set = new SetHashArray<Person>(
-				(a, b) => a.Id == b.Id,
-				x => x.Id.GetHashCode());
+			IQueue<Person> queue = new QueueArray<Person>();
 			foreach (Person person in RandomTestData)
 			{
-				set.Add(person);
+				queue.Enqueue(person);
+			}
+		}
+
+		[Benchmark]
+		public void EnqueueWithCapacity()
+		{
+			IQueue<Person> queue = new QueueArray<Person>(RandomTestData.Length);
+			foreach (Person person in RandomTestData)
+			{
+				queue.Enqueue(person);
 			}
 		}
 	}
 
-	[Benchmarks(Tag.DataStructures, Tag.SetHashLinked)]
-	public class SetHashLinked_Benchmarks
+	[Benchmarks(Tag.DataStructures, Tag.QueueLinked)]
+	public class QueueLinked_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
@@ -33,14 +41,12 @@ namespace Towel_Benchmarking.DataStructures
 		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
 
 		[Benchmark]
-		public void Add()
+		public void Enqueue()
 		{
-			ISet<Person> set = new SetHashLinked<Person>(
-				(a, b) => a.Id == b.Id,
-				x => x.Id.GetHashCode());
+			IQueue<Person> queue = new QueueLinked<Person>();
 			foreach (Person person in RandomTestData)
 			{
-				set.Add(person);
+				queue.Enqueue(person);
 			}
 		}
 	}

@@ -279,7 +279,8 @@ for (i = 0; i < coll.length; i++)
 						!(x.DeclaringType.FullName is null) &&
 						!typeof(MulticastDelegate).IsAssignableFrom(x.DeclaringType.BaseType) &&
 						!x.IsConstructor &&
-						!x.IsSpecialName))
+						!x.IsSpecialName &&
+						!x.IsLocalFunction()))
 					{
 						output.Append("<button class='collapsible method'>");
 						output.Append(methodInfo.Name + " [Method]");

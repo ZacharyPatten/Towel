@@ -6,19 +6,18 @@ namespace Towel_Benchmarking.DataStructures
 	[Benchmarks(Tag.DataStructures, Tag.HeapArray)]
 	public class HeapArray_Benchmarks
 	{
-		[ParamsSource(nameof(EnqueueCounts))]
-		public int EnqueueCount { get; set; }
+		[ParamsSource(nameof(RandomData))]
+		public Person[] RandomTestData { get; set; }
 
-		public int[] EnqueueCounts => BenchmarkSettings.DataStructures.InsertionCounts;
+		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
 
 		[Benchmark]
-		public void Enqueue()
+		public void Add()
 		{
-			IHeap<int> heap = new HeapArray<int>();
-			int enqueueCount = EnqueueCount;
-			for (int i = 0; i < enqueueCount; i++)
+			IHeap<Person> heap = new HeapArray<Person>();
+			foreach (Person person in RandomTestData)
 			{
-				heap.Enqueue(i);
+				heap.Enqueue(person);
 			}
 		}
 	}
