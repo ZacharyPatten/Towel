@@ -353,7 +353,34 @@ Tree<T> treeMap = new TreeMap<T>(...);
 <p>
 
 ```csharp
-IGraph<T> graphSetOmnitree = new GraphSetOmnitree<T>();
+// A graph is a data structure that contains nodes and edges. They are useful
+// when you need to model real world scenarios. They also are generally used
+// for particular algorithms such as path finding. The GraphSetOmnitree is a
+// graph that stores nodes in a hashed set and the edges in a 2D omnitree (aka
+// quadtree).
+
+IGraph<int> graph = new GraphSetOmnitree<int>()
+{
+    // add nodes
+    0,
+	1,
+	2,
+	3,
+    // add edges
+    { 0, 1 },
+	{ 1, 2 },
+	{ 2, 3 },
+	{ 0, 3 },
+
+	// visualization
+	//
+	//     0 --------> 1
+	//     |           |
+	//     |           |
+	//     |           |
+	//     v           v
+	//     3 <-------- 2
+};
 ```
 
 </p>
