@@ -3711,6 +3711,11 @@
             <param name="min1">The minimum bound of the item along the 1 dimension.</param>
             <param name="max1">The maximum bound of the item along the 1 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``2(Towel.DataStructures.Omnitree.GetBoundings{``0,``1})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},Towel.Compare{``0})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -3726,6 +3731,14 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``1(Towel.DataStructures.Omnitree.Vector{``0},Towel.DataStructures.Omnitree.Vector{``0},Towel.Equate{``0})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Vector{``0},Towel.Compare{``0})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreePoints{``0,``1},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -3830,6 +3843,11 @@
             <param name="min2">The minimum bound of the item along the 2 dimension.</param>
             <param name="max2">The maximum bound of the item along the 2 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``3(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -3845,6 +3863,16 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``2(Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Equate{``0},Towel.Equate{``1})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreePoints{``0,``1,``2},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -3973,6 +4001,11 @@
             <param name="min3">The minimum bound of the item along the 3 dimension.</param>
             <param name="max3">The maximum bound of the item along the 3 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``4(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2,``3})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -3988,6 +4021,18 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``3(Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="Axis3">The generic type of the 3 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <param name="compare3">The delegate for comparing values along the the 3 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -4140,6 +4185,11 @@
             <param name="min4">The minimum bound of the item along the 4 dimension.</param>
             <param name="max4">The maximum bound of the item along the 4 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``5(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2,``3,``4})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -4155,6 +4205,20 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``4(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="Axis3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="Axis4">The generic type of the 4 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <param name="compare3">The delegate for comparing values along the the 3 dimension.</param>
+            <param name="compare4">The delegate for comparing values along the the 4 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -4331,6 +4395,11 @@
             <param name="min5">The minimum bound of the item along the 5 dimension.</param>
             <param name="max5">The maximum bound of the item along the 5 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``6(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2,``3,``4,``5})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -4346,6 +4415,22 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``5(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="Axis3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="Axis4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="Axis5">The generic type of the 5 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <param name="compare3">The delegate for comparing values along the the 3 dimension.</param>
+            <param name="compare4">The delegate for comparing values along the the 4 dimension.</param>
+            <param name="compare5">The delegate for comparing values along the the 5 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -4546,6 +4631,11 @@
             <param name="min6">The minimum bound of the item along the 6 dimension.</param>
             <param name="max6">The maximum bound of the item along the 6 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``7(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -4561,6 +4651,24 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``6(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="Axis3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="Axis4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="Axis5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="Axis6">The generic type of the 6 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <param name="compare3">The delegate for comparing values along the the 3 dimension.</param>
+            <param name="compare4">The delegate for comparing values along the the 4 dimension.</param>
+            <param name="compare5">The delegate for comparing values along the the 5 dimension.</param>
+            <param name="compare6">The delegate for comparing values along the the 6 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -4785,6 +4893,11 @@
             <param name="min7">The minimum bound of the item along the 7 dimension.</param>
             <param name="max7">The maximum bound of the item along the 7 dimension.</param>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.ConvertToGetBounds``8(Towel.DataStructures.Omnitree.GetBoundings{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+            <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>		/// <typeparam name="A7">The generic type of the 7 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+            <returns>The converted Omnitree.GetBounds delegate.</returns>
+        </member>
         <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
@@ -4800,6 +4913,26 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``7(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5},Towel.Equate{``6})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
+            <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+            <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
+            <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
+            <typeparam name="Axis3">The generic type of the 3 dimension.</typeparam>
+            <typeparam name="Axis4">The generic type of the 4 dimension.</typeparam>
+            <typeparam name="Axis5">The generic type of the 5 dimension.</typeparam>
+            <typeparam name="Axis6">The generic type of the 6 dimension.</typeparam>
+            <typeparam name="Axis7">The generic type of the 7 dimension.</typeparam>
+            <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+            <param name="vector">The point representing an extended plan along each axis.</param>
+            <param name="compare1">The delegate for comparing values along the the 1 dimension.</param>
+            <param name="compare2">The delegate for comparing values along the the 2 dimension.</param>
+            <param name="compare3">The delegate for comparing values along the the 3 dimension.</param>
+            <param name="compare4">The delegate for comparing values along the the 4 dimension.</param>
+            <param name="compare5">The delegate for comparing values along the the 5 dimension.</param>
+            <param name="compare6">The delegate for comparing values along the the 6 dimension.</param>
+            <param name="compare7">The delegate for comparing values along the the 7 dimension.</param>
+            <returns>True if the extended point was straddled or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6,``7},``0)">
             <summary>Removes all occurences of a value from the omnitree.</summary>

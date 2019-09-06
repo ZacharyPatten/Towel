@@ -373,6 +373,10 @@ void main()
 			// construction of the omnitree
 			_omnitree = new OmnitreePointsLinked<IObject3D, float, float, float>(
 				Locate,
+				// Override the subdivision algorithms to use mean instead of median. We can do this because we are 
+				// working with numerical values. We could also speed things up even more in this case by dividing
+				// the bounding space (using the "bounds" parameter below rather than "stepper"), but I wanted to
+				// show the mean algorithm in this example.
 				subdivisionOverride1: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinX))),
 				subdivisionOverride2: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinY))),
 				subdivisionOverride3: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinZ))));

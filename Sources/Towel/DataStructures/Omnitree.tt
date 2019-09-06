@@ -122,10 +122,8 @@ namespace Towel.DataStructures
 			public A<#= j #> Axis<#= j #>;<# } #>
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> Default
-			{
-				get { return new Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(default(A1)<# for (int j = 2; j <= i; j++) { #>, default(A<#= j #>)<# } #>); }
-			}
+			public static Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> Default =>
+				new Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(default(A1)<# for (int j = 2; j <= i; j++) { #>, default(A<#= j #>)<# } #>);
 
 			/// <summary>A location along each axis.</summary><# for (int j = 1; j <= i; j++) { #>
 			/// <param name="axis<#= j #>">The location along axis <#= j #>.</param><# } #>
@@ -146,15 +144,10 @@ namespace Towel.DataStructures
 			public Bound<A<#= j #>> Max<#= j #>;<# } #>
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> None
-			{
-				get
-				{
-					return new Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(
-						Bound<A1>.None, Bound<A1>.None<# for (int j = 2; j <= i; j++) { #>,
-						Bound<A<#= j #>>.None, Bound<A<#= j #>>.None<# } #>);
-				}
-			}
+			public static Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> None =>
+				new Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(
+					Bound<A1>.None, Bound<A1>.None<# for (int j = 2; j <= i; j++) { #>,
+					Bound<A<#= j #>>.None, Bound<A<#= j #>>.None<# } #>);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
@@ -195,67 +188,70 @@ namespace Towel.DataStructures
 		/// <param name="max<#= j #>">The maximum bound of the item along the <#= j #> dimension.</param><# } #>
 		public delegate void GetBoundings<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(T item, out A1 min1, out A1 max1<# for (int j = 2; j <= i; j++) { #>, out A<#= j #> min<#= j #>, out A<#= j #> max<#= j #><# } #>);
 
-		internal static GetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> ConvertToGetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(GetBoundings<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> getBoundings)
-		{
-			return (T item<# for (int j = 1; j <= i; j++) { #>,
-				out Bound<A<#= j #>> minBound<#= j #>, out Bound<A<#= j #>> maxBound<#= j #><# } #>) =>
-				{<# for (int j = 1; j <= i; j++) { #>
-					A<#= j #> min<#= j #>; A<#= j #> max<#= j #>;<# } #>
-					getBoundings(item<# for (int j = 1; j <= i; j++) { #>,
-						out min<#= j #>, out max<#= j #><# } #>);
-					<# for (int j = 1; j <= i; j++) { #>
-					minBound<#= j #> = min<#= j #>; maxBound<#= j #> = max<#= j #>;<# } #>
-				};
-		}
+		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam><# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
+		public static GetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> ConvertToGetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(GetBoundings<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> getBoundings) =>
+			(T item<# for (int j = 1; j <= i; j++) { #>,
+			out Bound<A<#= j #>> minBound<#= j #>, out Bound<A<#= j #>> maxBound<#= j #><# } #>) =>
+			{<# for (int j = 1; j <= i; j++) { #>
+				A<#= j #> min<#= j #>; A<#= j #> max<#= j #>;<# } #>
+				getBoundings(item<# for (int j = 1; j <= i; j++) { #>,
+					out min<#= j #>, out max<#= j #><# } #>);<# for (int j = 1; j <= i; j++) { #>
+				minBound<#= j #> = min<#= j #>; maxBound<#= j #> = max<#= j #>;<# } #>
+			};
 
-		
 		/// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
 		/// <returns>True if the spaces overlap; False if not.</returns>
-		internal static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b, <#= chain_Compare_AxisX_compareX #>)
-		{<# for (int j = 1; j <= i; j++) { #>
-			if (a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less)
-				return false;
-			else if (a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater)
-				return false;
-<# } #>
-			return true;
-		}
+		public static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b,
+			<#= chain_Compare_AxisX_compareX #>) =><# for (int j = 1; j <= i; j++) { #>
+			a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less ? false :
+			a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater ? false :<# } #>
+			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
-		internal static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector, <#= chain_Compare_AxisX_compareX #>)
-		{
+		public static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector,
+			<#= chain_Compare_AxisX_compareX #>) =>
 			// if the location is not outside the bounds, it must be inside<# for (int j = 1; j <= i; j++) { #>
-			if (bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less)
-				return false;
-			else if (bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater)
-				return false;<# } #>
-			return true;
-		}
+			bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less ? false :
+			bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater ? false :<# } #>
+			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
-		internal static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b, <#= chain_Compare_AxisX_compareX #>)
-		{
-			if ((a.Min1.Exists && !b.Min1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Min<#= j #>.Exists && !b.Min<#= j #>.Exists)<# } #>)
-				return false;
-			if ((a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #>)
-				return false;<# for (int j = 1; j <= i; j++) { #>
-			if (b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less)
-				return false;
-			if (b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater)
-				return false;<# } #>
-			return true;
-		}
+		public static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b,
+			<#= chain_Compare_AxisX_compareX #>) =>
+			(a.Min1.Exists && !b.Min1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Min<#= j #>.Exists && !b.Min<#= j #>.Exists)<# } #> ? false :
+			(a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #> ? false :<# for (int j = 1; j <= i; j++) { #>
+			b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less ? false :
+			b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater ? false :<# } #>
+			true;
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
-		internal static bool EqualsCheck<<#= chain_AxisX #>>(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b, <#= chain_Equate_AxisX_equateX #>)
-		{<# for (int j = 1; j <= i; j++) { #>
-			if (!equate<#= j #>(a.Axis<#= j #>, b.Axis<#= j #>))
-				return false;<# } #>
-			return true;
-		}
+		public static bool EqualsCheck<<#= chain_AxisX #>>(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b,
+			<#= chain_Equate_AxisX_equateX #>) =><# for (int j = 1; j <= i; j++) { #>
+			!equate<#= j #>(a.Axis<#= j #>, b.Axis<#= j #>) ? false :<# } #>
+			true;
+
+		/// <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="Axis<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		/// <param name="bounds">The bounds to determine if it straddles the extended point.</param>
+		/// <param name="vector">The point representing an extended plan along each axis.</param>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <param name="compare<#= j #>">The delegate for comparing values along the the <#= j #> dimension.</param>
+<# } #>
+		/// <returns>True if the extended point was straddled or false if not.</returns>
+		public static bool StraddlesLines<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector,
+			<#= chain_Compare_AxisX_compareX #>) =><# for (int j = 1; j <= i; j++) { #>
+			(!bounds.Min<#= j #>.Exists || (bounds.Min<#= j #>.Exists && compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
+			(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)) ? true :<# } #>
+			false;
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -301,8 +297,8 @@ namespace Towel.DataStructures
 		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreeBounds<T, <#= chain_AxisX #>> omnitree,T removal, Equate<T> equate)
 		{
 <# for (int j = 1; j <= i; j++) { #>
-			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;<# } #>
-
+			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
+<# } #>
 			omnitree.GetBounds(removal, out min1, out max1<# for (int j = 2; j <= i; j++) { #>, out min<#= j #>, out max<#= j #><# } #>);
 			omnitree.RemoveOverlapped(min1, max1<# for (int j = 2; j <= i; j++) { #>, min<#= j #>, max<#= j #><# } #>, x => equate(x, removal));
 		}
@@ -323,7 +319,7 @@ namespace Towel.DataStructures
 	string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
 	string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
 	string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
-	string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+	//string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
 	// DOCUMENTATION
 	string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
 	string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
@@ -565,17 +561,14 @@ namespace Towel.DataStructures
 				this.PointOfDivision = pointOfDivision;
 			}
 
-			internal Branch(Branch branchToClone)
-				: base(branchToClone)
+			internal Branch(Branch branchToClone) : base(branchToClone)
 			{
 				Children = branchToClone.Children.Clone() as Node[];
 				PointOfDivision = branchToClone.PointOfDivision;
 			}
 
-			internal override Node Clone()
-			{
-				return new Branch(this);
-			}
+			internal override Node Clone() =>
+				new Branch(this);
 		}
 
 		/// <summary>A branch in the tree. Only contains items.</summary>
@@ -599,14 +592,11 @@ namespace Towel.DataStructures
 				: base(bounds, parent, index)
 			{ }
 
-			internal Leaf(Leaf leafToClone)
-				: base(leafToClone)
+			internal Leaf(Leaf leafToClone) : base(leafToClone)
 			{
 				Head = new Node(leafToClone.Head.Value, null);
-
 				Node this_looper = Head;
 				Node other_looper = leafToClone.Head;
-
 				while (other_looper != null)
 				{
 					this_looper.Next = new Node(other_looper.Next.Value, null);
@@ -621,10 +611,8 @@ namespace Towel.DataStructures
 				this.Count++;
 			}
 
-			internal override OmnitreePointsLinked<T, <#= chain_AxisX #>>.Node Clone()
-			{
-				return new Leaf(this);
-			}
+			internal override OmnitreePointsLinked<T, <#= chain_AxisX #>>.Node Clone() =>
+				new Leaf(this);
 		}
 
 		#endregion
@@ -690,20 +678,14 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the items at a given coordinate.</summary><# for (int j = 1; j <= i; j++) { #>
 		/// <param name="axis<#= j #>">The coordinate along axis <#= j #>.</param><# } #>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[<#= chain_AxisX_axisX #>]
-		{
-			get
-			{
-				return (Step<T> step) => { this.Stepper(step, <#= chain_axisX #>); };
-			}
-		}
+		public Stepper<T> this[<#= chain_AxisX_axisX #>] =>
+			step => Stepper(step, <#= chain_axisX #>);
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		public int Dimensions { get { return _dimensions; } }
 
 		/// <summary>The location function the Omnitree is using.</summary>
 		public Omnitree.Location<T, <#= chain_AxisX #>> Locate { get { return this._locate; } }
-
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The comparison function the Omnitree is using along the <#= j #>D axis.</summary>
 		public Compare<Axis<#= j #>> Compare<#= j #> { get { return this._compare<#= j #>; } }<# } #>
@@ -719,14 +701,14 @@ namespace Towel.DataStructures
 			{
 				MaxDepthFinder maxDepthFinder = null;
 				maxDepthFinder =
-						(Node node, int current_depth, ref int max_depth) =>
-						{
-							if (current_depth > max_depth)
-								max_depth = current_depth;
-							if (node is Branch)
-								foreach (Node child in (node as Branch).Children)
-									maxDepthFinder(child, current_depth + 1, ref max_depth);
-						};
+					(Node node, int current_depth, ref int max_depth) =>
+					{
+						if (current_depth > max_depth)
+							max_depth = current_depth;
+						if (node is Branch)
+							foreach (Node child in (node as Branch).Children)
+								maxDepthFinder(child, current_depth + 1, ref max_depth);
+					};
 				int _max_depth = -1;
 				maxDepthFinder(this._top, 0, ref _max_depth);
 				return _max_depth;
@@ -741,13 +723,13 @@ namespace Towel.DataStructures
 			{
 				NodeCountFinder nodeCountFinder = null;
 				nodeCountFinder =
-						(Node node, ref int current_count) =>
-						{
-							current_count++;
-							if (node is Branch)
-								foreach (Node child in (node as Branch).Children)
-									nodeCountFinder(child, ref current_count);
-						};
+					(Node node, ref int current_count) =>
+					{
+						current_count++;
+						if (node is Branch)
+							foreach (Node child in (node as Branch).Children)
+								nodeCountFinder(child, ref current_count);
+					};
 
 				int _current_count = 0;
 				nodeCountFinder(this._top, ref _current_count);
@@ -763,15 +745,15 @@ namespace Towel.DataStructures
 			{
 				BranchCountFinder branchCountFinder = null;
 				branchCountFinder =
-						(Node node, ref int current_count) =>
+					(Node node, ref int current_count) =>
+					{
+						if (node is Branch)
 						{
-							if (node is Branch)
-							{
-								current_count++;
-								foreach (Node child in (node as Branch).Children)
-									branchCountFinder(child, ref current_count);
-							}
-						};
+							current_count++;
+							foreach (Node child in (node as Branch).Children)
+								branchCountFinder(child, ref current_count);
+						}
+					};
 
 				int _current_count = 0;
 				branchCountFinder(this._top, ref _current_count);
@@ -787,14 +769,14 @@ namespace Towel.DataStructures
 			{
 				LeafCountFinder leafCountFinder = null;
 				leafCountFinder =
-						(Node node, ref int current_count) =>
-						{
-							if (node is Leaf)
-								current_count++;
-							else
-								foreach (Node child in (node as Branch).Children)
-									leafCountFinder(child, ref current_count);
-						};
+					(Node node, ref int current_count) =>
+					{
+						if (node is Leaf)
+							current_count++;
+						else
+							foreach (Node child in (node as Branch).Children)
+								leafCountFinder(child, ref current_count);
+					};
 
 				int _current_count = 0;
 				leafCountFinder(this._top, ref _current_count);
@@ -1776,10 +1758,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step)
-		{
+		public void Stepper(Step<T> step) =>
 			this.Stepper(step, this._top);
-		}
+
 		internal void Stepper(Step<T> step, Node node)
 		{
 			if (node is Leaf)
@@ -1800,10 +1781,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			return Stepper(step, _top);
-		}
+		public StepStatus Stepper(StepBreak<T> step) =>
+			Stepper(step, _top);
+
 		internal StepStatus Stepper(StepBreak<T> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
@@ -1825,17 +1805,15 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void Stepper(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
+		public void Stepper(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
 			Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void Stepper(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
+		public void Stepper(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
 			Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+
 		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
 		{
 			if (node is Leaf)
@@ -1858,17 +1836,15 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus Stepper(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
-			return Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+		public StepStatus Stepper(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
+			Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus Stepper(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
-			return Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+		public StepStatus Stepper(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
+			Stepper(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
 		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
@@ -1896,10 +1872,9 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
-		public void Stepper(Step<T> step, <#= chain_AxisX_axisX #>)
-		{
+		public void Stepper(Step<T> step, <#= chain_AxisX_axisX #>) =>
 			Stepper(step, _top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>));
-		}
+
 		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
 			Node current = node;
@@ -1924,10 +1899,9 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
-		public StepStatus Stepper(StepBreak<T> step, <#= chain_AxisX_axisX #>)
-		{
-			return Stepper(step, _top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>));
-		}
+		public StepStatus Stepper(StepBreak<T> step, <#= chain_AxisX_axisX #>) =>
+			Stepper(step, _top, new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>));
+
 		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
 			Node current = node;
@@ -1967,13 +1941,9 @@ namespace Towel.DataStructures
 
 		#region Helpers
 
-		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector)
-		{<# for (int j = 1; j <= i; j++) { #>
-			if ((!bounds.Min<#= j #>.Exists || (bounds.Min<#= j #>.Exists && this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
-				(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)))
-				return true;<# } #>
-			return false;
-		}
+		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
+			Omnitree.StraddlesLines(bounds, vector<# for (int j = 1; j <= i; j++) { #>
+				, _compare<#= j #><# } #>);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -2226,30 +2196,30 @@ namespace Towel.DataStructures
 		/// <summary>Can be a leaf or a branch.</summary>
 		internal class Node
 		{
-			public class ValueNode
+			internal class ValueNode
 			{
 				internal T Value;
 				internal ValueNode Next;
 
-				public ValueNode(T value, ValueNode next)
+				internal ValueNode(T value, ValueNode next)
 				{
 					Value = value;
 					Next = next;
 				}
 			}
 
-			public Omnitree.Bounds<<#= chain_AxisX #>> Bounds;
-			public Node Parent;
-			public <#= child_index_type #> Index;
-			public int Count;
-			public ValueNode Head;
-			public Node[] Children;
-			public Omnitree.Vector<<#= chain_AxisX #>>? PointOfDivision;
+			internal Omnitree.Bounds<<#= chain_AxisX #>> Bounds;
+			internal Node Parent;
+			internal <#= child_index_type #> Index;
+			internal int Count;
+			internal ValueNode Head;
+			internal Node[] Children;
+			internal Omnitree.Vector<<#= chain_AxisX #>>? PointOfDivision;
 
 			/// <summary>Gets child by index.</summary>
 			/// <param name="child_index">The index of the child to get.</param>
 			/// <returns>The child of the given index or null if non-existent.</returns>
-			public Node this[<#= child_index_type #> child_index]
+			internal Node this[<#= child_index_type #> child_index]
 			{
 				get
 				{
@@ -2309,7 +2279,7 @@ namespace Towel.DataStructures
 			}
 
 			/// <summary>The depth this node is located in the Omnitree.</summary>
-			public int Depth
+			internal int Depth
 			{
 				get
 				{
@@ -2324,14 +2294,14 @@ namespace Towel.DataStructures
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
 			/// <param name="index">The number of elements stored in this node and its children.</param>
-			public Node(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node parent, <#= child_index_type #> index)
+			internal Node(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node parent, <#= child_index_type #> index)
 			{
 				Bounds = bounds;
 				Parent = parent;
 				Index = index;
 			}
 
-			public Node(Omnitree.Vector<<#= chain_AxisX #>> pointOfDivision, Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node parent, <#= child_index_type #> index)
+			internal Node(Omnitree.Vector<<#= chain_AxisX #>> pointOfDivision, Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node parent, <#= child_index_type #> index)
 				: this(bounds, parent, index)
 			{
 				PointOfDivision = pointOfDivision;
@@ -2358,16 +2328,14 @@ namespace Towel.DataStructures
 				}
 			}
 
-			public void Add(T addition)
+			internal void Add(T addition)
 			{
 				Head = new ValueNode(addition, Head);
 				Count++;
 			}
 
-			internal Node Clone()
-			{
-				return new Node(this);
-			}
+			internal Node Clone() =>
+				new Node(this);
 		}
 		
 		#endregion
@@ -3482,10 +3450,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step)
-		{
+		public void Stepper(Step<T> step) =>
 			this.Stepper(step, this._top);
-		}
+
 		internal void Stepper(Step<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
@@ -3501,10 +3468,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			return Stepper(step, _top);
-		}
+		public StepStatus Stepper(StepBreak<T> step) =>
+			Stepper(step, _top);
+
 		internal StepStatus Stepper(StepBreak<T> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
@@ -3524,40 +3490,32 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void StepperEncapsulated(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
+		public void StepperEncapsulated(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
-		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void StepperEncapsulated(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
-			StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
-		{
-			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
-		}
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void StepperOverlapped(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
-			StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+		public void StepperEncapsulated(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
+			StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
+		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds) =>
+			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public void StepperOverlapped(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
+		public void StepperOverlapped(Step<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
-		{
+
+		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+		<#= documentation_AxisX_minX_AxisX_maxX #>
+		public void StepperOverlapped(Step<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
+			StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
+		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
-		}
 
 		internal void StepperBase(
 			Step<T> step,
@@ -3583,40 +3541,32 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
-			return StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
-		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
-			return StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
-		{
-			return StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
-		}
+		public StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
+			StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>)
-		{
-			return StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
+		public StepStatus StepperEncapsulated(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
+			StepperEncapsulated(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
+		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds) =>
+			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
+
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_AxisX_minX_AxisX_maxX #>
-		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>)
-		{
-			return StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
-		}
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
-		{
-			return StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
-		}
+		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_minX_AxisX_maxX #>) =>
+			StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
+		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+		<#= documentation_AxisX_minX_AxisX_maxX #>
+		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>) =>
+			StepperOverlapped(step, _top, new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>));
+
+		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds) =>
+			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
 			StepBreak<T> step,
@@ -3649,18 +3599,14 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
-		public void StepperOverlapped(Step<T> step, <#= chain_AxisX_axisX #>)
-		{
+		public void StepperOverlapped(Step<T> step, <#= chain_AxisX_axisX #>) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>));
-		}
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
-		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_axisX #>)
-		{
-			return StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>));
-		}
+		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_axisX #>) =>
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -3676,13 +3622,9 @@ namespace Towel.DataStructures
 
 		#region Helpers
 
-		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector)
-		{<# for (int j = 1; j <= i; j++) { #>
-			if ((!bounds.Min<#= j #>.Exists || (this._compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
-				(!bounds.Max<#= j #>.Exists || (this._compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)))
-				return true;<# } #>
-			return false;
-		}
+		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
+			Omnitree.StraddlesLines(bounds, vector<# for (int j = 1; j <= i; j++) { #>
+				, _compare<#= j #><# } #>);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
