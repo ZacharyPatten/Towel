@@ -321,6 +321,17 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>A Spacial Partitioning data structure.</summary>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+	public interface IOmnitree<T> : IDataStructure<T>,
+		DataStructure.ICountable,
+		DataStructure.IAddable<T>,
+		DataStructure.IClearable,
+		DataStructure.IRemovable<T>
+	{
+		void Remove(T removal, Equate<T> equate);
+	}
+
 	// TODO: this will be teh ND version of the omnitree. It will allow for any number of dimensions without a
 	// compile time generated version of the tree for a given size (the "dimensionsToGenerate" in "OmnitreePoints.tt").
 	// It will have a single generic type, and use object arrays for the vector/bounds values.

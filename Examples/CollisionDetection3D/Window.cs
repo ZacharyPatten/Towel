@@ -370,42 +370,14 @@ void main()
 				z = obj.Position.Z;
 			}
 
-			bool Equate(IObject3D a, IObject3D b)
-			{
-				return
-					a.MinX == b.MinX && a.MaxX == b.MaxX &&
-					a.MinY == b.MinY && a.MaxY == b.MaxY &&
-					a.MinZ == b.MinZ && a.MaxZ == b.MaxZ;
-			}
-
-			float MeanMinX(
-				Omnitree.Bounds<float, float, float> parentBounds,
-				Stepper<IObject3D> stepper)
-			{
-				return Mean<float>(step => stepper(boundingBox => step(boundingBox.MinX)));
-			}
-
-			float MeanMinY(
-				Omnitree.Bounds<float, float, float> parentBounds,
-				Stepper<IObject3D> stepper)
-			{
-				return Mean<float>(step => stepper(boundingBox => step(boundingBox.MinY)));
-			}
-
-			float MeanMinZ(
-				Omnitree.Bounds<float, float, float> parentBounds,
-				Stepper<IObject3D> stepper)
-			{
-				return Mean<float>(step => stepper(boundingBox => step(boundingBox.MinZ)));
-			}
-
 			// construction of the omnitree
 			_omnitree = new OmnitreePointsLinked<IObject3D, float, float, float>(
 				Locate,
-				Equate,
 				Towel.Equate.Default, Towel.Equate.Default, Towel.Equate.Default,
 				Towel.Compare.Default, Towel.Compare.Default, Towel.Compare.Default,
-				MeanMinX, MeanMinY, MeanMinZ);
+				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinX))),
+				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinY))),
+				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinZ))));
 
 			foreach (var obj in _objects)
 			{
