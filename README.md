@@ -322,6 +322,14 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
         out A1 min1, out A1 max1,
         out A2 min2, out A2 max2,
         out A3 min3, out A3 max3...) => { ... });
+
+// By default, the omnitree will sort items along each axis and use the median algorithm to determine
+// the point of divisions. However, you can override the subdivision algorithm. For numarical values,
+// the mean algorithm can be used (and is much faster than median). If you know the data set will be
+// relatively evenly distributed within a sub-space, you can even set the subdivision algorithm to
+// calculate the subdivision from parent spaces rather than looking at the current contents of the
+// space. Note: In a future enhancement I will automatically detect if the mean algorithm is possible
+// for a given type, and then the default will depend on the type in use.
 ```
 
 Further Reading: http://towelcode.com/omnitree/
