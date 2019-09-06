@@ -323,6 +323,54 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
         out A2 min2, out A2 max2,
         out A3 min3, out A3 max3...) => { ... });
 
+// Visualizations
+//
+// 1 Dimensional:
+//
+//  -1D |-----------|-----------| +1D
+//
+//       <--- 0 ---> <--- 1 --->
+//
+// 2 Dimensional:
+//       _____________________
+//      |          |          |  +2D
+//      |          |          |   ^
+//      |     2    |     3    |   |
+//      |          |          |   |
+//      |----------|----------|   |
+//      |          |          |   |
+//      |          |          |   |
+//      |     0    |     1    |   |
+//      |          |          |   v
+//      |__________|__________|  -2D
+//
+//       -1D <-----------> +1D 
+//
+// 3 Dimensional:
+//
+//            +3D     _____________________
+//           7       /         /          /|
+//          /       /    6    /     7    / |
+//         /       /---------/----------/  |
+//        /       /    2    /     3    /|  |
+//       L       /_________/__________/ |  |
+//    -3D       |          |          | | /|          +2D
+//              |          |          | |/ |           ^
+//              |     2    |     3    | /  |           |
+//              |          |          |/|  | <-- 5     |
+//              |----------|----------| |  |           |
+//              |          |          | |  /           |
+//              |          |          | | /            |
+//              |     0    |     1    | |/             |
+//              |          |          | /              v
+//              |__________|__________|/              -2D
+//             
+//                   ^
+//                   |
+//                   4 (behind 0)
+//
+//               -1D <-----------> +1D
+
 // By default, the omnitree will sort items along each axis and use the median algorithm to determine
 // the point of divisions. However, you can override the subdivision algorithm. For numarical values,
 // the mean algorithm can be used (and is much faster than median). If you know the data set will be
