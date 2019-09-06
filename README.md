@@ -366,12 +366,11 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 	1,
 	2,
 	3,
-    // add edges
-    { 0, 1 },
+	// add edges
+	{ 0, 1 },
 	{ 1, 2 },
 	{ 2, 3 },
 	{ 0, 3 },
-
 	// visualization
 	//
 	//     0 --------> 1
