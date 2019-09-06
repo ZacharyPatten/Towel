@@ -978,102 +978,102 @@
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.Step{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRef{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRefBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.Step{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRef{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step_function).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.GetEnumerator">
             <summary>Gets the enumerator for this instance.</summary>
@@ -14455,6 +14455,10 @@
             <summary>Constructs a new Red Black Tree.</summary>
             <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
         </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(Towel.DataStructures.RedBlackTreeLinked{`0})">
+            <summary>Constructor for cloning purposes.</summary>
+            <param name="tree">The tree to be cloned.</param>
+        </member>
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.CurrentLeast">
             <summary>Gets the current least item in the avl tree.</summary>
         </member>
@@ -14507,102 +14511,102 @@
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRef{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRefBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.Step{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRef{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * traversalFunction).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0},`0,`0)">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <param name="minimum">The minimum value of the optimized stepper function.</param>
             <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <remarks>Runtime: O(n * step_function).</remarks>
+            <runtime>O(n * step), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>Returns the IEnumerator for this data structure.</summary>
