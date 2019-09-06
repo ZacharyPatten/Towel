@@ -323,6 +323,17 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
         out A2 min2, out A2 max2,
         out A3 min3, out A3 max3...) => { ... });
 
+// The maximum number of children any node can have is 2 ^ N where N is the number
+// of dimensions of the tree.
+```
+| Dimensions | Max # Children |
+| :---    | :--- |
+| 1 | 2 ^ 1 = 2 |
+| 2 | 2 ^ 2 = 4 |
+| 3 | 2 ^ 3 = 8 |
+| 4 | 2 ^ 4 = 16 |
+| ... | ... |
+```csharp
 // Visualizations
 //
 // 1 Dimensional:
