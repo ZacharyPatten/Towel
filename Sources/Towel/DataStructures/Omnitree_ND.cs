@@ -296,7 +296,7 @@ namespace Towel.DataStructures
 
 		#region Helper Functions
 
-		internal const int DefaultDepthLoad = 1;
+		internal const int DefaultDepthLoad = 2;
 
 		internal static void ComputeLoads(
 			int count,
@@ -309,12 +309,9 @@ namespace Towel.DataStructures
 				int naturalLog = (int)Math.Log(count);
 				_naturalLogLower = (int)Math.Pow(Math.E, naturalLog);
 				_naturalLogUpper = (int)Math.Pow(Math.E, naturalLog + 1);
-
 				_naturalLogLower = Math.Min(count - 10, _naturalLogLower);
 				_naturalLogUpper = Math.Max(2, _naturalLogUpper);
-				naturalLog = Math.Max(2, naturalLog);
-
-				_load = Compute.Maximum(naturalLog, DefaultDepthLoad);
+				_load = Math.Max(naturalLog, DefaultDepthLoad);
 			}
 		}
 
@@ -329,6 +326,9 @@ namespace Towel.DataStructures
 		DataStructure.IClearable,
 		DataStructure.IRemovable<T>
 	{
+		/// <summary>Removes all occurences of an item from the omnitree.</summary>
+		/// <param name="removal">The value to be removed.</param>
+		/// <param name="equate">The  delegate for determining equality.</param>
 		void Remove(T removal, Equate<T> equate);
 	}
 

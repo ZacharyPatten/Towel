@@ -373,11 +373,9 @@ void main()
 			// construction of the omnitree
 			_omnitree = new OmnitreePointsLinked<IObject3D, float, float, float>(
 				Locate,
-				Towel.Equate.Default, Towel.Equate.Default, Towel.Equate.Default,
-				Towel.Compare.Default, Towel.Compare.Default, Towel.Compare.Default,
-				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinX))),
-				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinY))),
-				(bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinZ))));
+				subdivisionOverride1: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinX))),
+				subdivisionOverride2: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinY))),
+				subdivisionOverride3: (bounds, stepper) => Mean<float>(step => stepper(boundingBox => step(boundingBox.MinZ))));
 
 			foreach (var obj in _objects)
 			{

@@ -3727,6 +3727,36 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreePoints{``0,``1},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreePoints{``0,``1},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreeBounds{``0,``1},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreeBounds{``0,``1},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`2">
             <summary>Represents a 2D vector.</summary>
             <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
@@ -3815,6 +3845,40 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``2(Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Equate{``0},Towel.Equate{``1})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreePoints{``0,``1,``2},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreePoints{``0,``1,``2},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`3">
             <summary>Represents a 3D vector.</summary>
@@ -3924,6 +3988,44 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``3(Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`4">
             <summary>Represents a 4D vector.</summary>
@@ -4053,6 +4155,48 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``4(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`5">
             <summary>Represents a 5D vector.</summary>
@@ -4202,6 +4346,52 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``5(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`6">
             <summary>Represents a 6D vector.</summary>
@@ -4371,6 +4561,56 @@
         <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``6(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector`7">
             <summary>Represents a 7D vector.</summary>
@@ -4561,6 +4801,60 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6,``7},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6,``7},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6,``7},``0)">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6,``7},``0,Towel.Equate{``0})">
+            <summary>Removes all occurences of a value from the omnitree.</summary>
+            <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
+            <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
+            <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
+            <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
+            <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
+            <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
+            <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
+            <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
+            <param name="omnitree">The omnitree to remove from.</param>
+            <param name="removal">The value to have all occurences removed.</param>
+            <param name="equate">The delegate for checking for equality.</param>
+        </member>
         <member name="T:Towel.DataStructures.Omnitree.Bound`1">
             <summary>Represents a bound in ND space.</summary>
             <typeparam name="T">The generic type of the bound.</typeparam>
@@ -4617,6 +4911,67 @@
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds.#ctor(Towel.DataStructures.Omnitree.Bound{System.Object}[],Towel.DataStructures.Omnitree.Bound{System.Object}[])">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`2">
+            <summary>Inheritance base for 1D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`3">
+            <summary>Inheritance base for 2D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`4">
+            <summary>Inheritance base for 3D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`5">
+            <summary>Inheritance base for 4D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`6">
+            <summary>Inheritance base for 5D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`7">
+            <summary>Inheritance base for 6D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitree`8">
+            <summary>Inheritance base for 7D omnitrees.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+            <typeparam name="Axis7">The type 7D axis.</typeparam>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`2">
+            <summary>Inheritance base for 1D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`2.Item(`1)">
             <summary>Steps through the values at a given location.</summary>
@@ -4685,6 +5040,11 @@
             <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The coordinate along the 1D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`2">
+            <summary>Omnitree that stores points along 1 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`2.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -4711,6 +5071,12 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+            <summary>Constructs a new 1D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 1D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.Item(`1)">
             <summary>Steps through all the items at a given coordinate.</summary>
             <param name="axis1">The coordinate along axis 1.</param>
@@ -4724,9 +5090,6 @@
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.Compare1">
             <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.Count">
             <summary>The current number of items in the tree.</summary>
@@ -4743,9 +5106,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -4754,7 +5114,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Clear">
@@ -4789,6 +5149,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1}.Node,Towel.DataStructures.Omnitree.Bounds{`1})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Update">
@@ -4888,16 +5249,19 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.StepBreak{`0},`1,`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.Step{`0},`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Stepper(Towel.StepBreak{`0},`1)">
@@ -4907,14 +5271,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1},Towel.DataStructures.Omnitree.Vector{`1})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -4945,10 +5309,14 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1}.Node,Towel.DataStructures.Omnitree.Vector{`1})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`3">
+            <summary>Inheritance base for 2D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`3.Item(`1,`2)">
             <summary>Steps through the values at a given location.</summary>
@@ -5034,6 +5402,12 @@
             <param name="axis1">The coordinate along the 1D axis.</param>
             <param name="axis2">The coordinate along the 2D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`3">
+            <summary>Omnitree that stores points along 2 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`3.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -5060,6 +5434,14 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+            <summary>Constructs a new 2D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 2D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.Item(`1,`2)">
             <summary>Steps through all the items at a given coordinate.</summary>
             <param name="axis1">The coordinate along axis 1.</param>
@@ -5078,12 +5460,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.Compare2">
             <summary>The comparison function the Omnitree is using along the 2D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -5099,9 +5475,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5110,7 +5483,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Clear">
@@ -5151,6 +5524,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Update">
@@ -5270,6 +5644,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5277,6 +5652,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5284,6 +5660,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Stepper(Towel.Step{`0},`1,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
         </member>
@@ -5295,14 +5672,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2},Towel.DataStructures.Omnitree.Vector{`1,`2})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -5333,10 +5710,15 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`4">
+            <summary>Inheritance base for 3D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`4.Item(`1,`2,`3)">
             <summary>Steps through the values at a given location.</summary>
@@ -5439,6 +5821,13 @@
             <param name="axis2">The coordinate along the 2D axis.</param>
             <param name="axis3">The coordinate along the 3D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`4">
+            <summary>Omnitree that stores points along 3 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`4.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -5465,6 +5854,16 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+            <summary>Constructs a new 3D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 3D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.Item(`1,`2,`3)">
             <summary>Steps through all the items at a given coordinate.</summary>
             <param name="axis1">The coordinate along axis 1.</param>
@@ -5487,15 +5886,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.Compare3">
             <summary>The comparison function the Omnitree is using along the 3D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -5511,9 +5901,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5522,7 +5909,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Clear">
@@ -5569,6 +5956,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Update">
@@ -5708,6 +6096,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5717,6 +6106,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -5726,6 +6116,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Stepper(Towel.Step{`0},`1,`2,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -5739,14 +6130,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3},Towel.DataStructures.Omnitree.Vector{`1,`2,`3})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -5777,10 +6168,16 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2,`3})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`5">
+            <summary>Inheritance base for 4D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`5.Item(`1,`2,`3,`4)">
             <summary>Steps through the values at a given location.</summary>
@@ -5900,6 +6297,14 @@
             <param name="axis3">The coordinate along the 3D axis.</param>
             <param name="axis4">The coordinate along the 4D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`5">
+            <summary>Omnitree that stores points along 4 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`5.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -5925,6 +6330,18 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+            <summary>Constructs a new 4D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 4D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.Item(`1,`2,`3,`4)">
             <summary>Steps through all the items at a given coordinate.</summary>
@@ -5952,18 +6369,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.Compare4">
             <summary>The comparison function the Omnitree is using along the 4D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -5979,9 +6384,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5990,7 +6392,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Clear">
@@ -6043,6 +6445,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Update">
@@ -6202,6 +6605,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6213,6 +6617,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6224,6 +6629,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Stepper(Towel.Step{`0},`1,`2,`3,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -6239,14 +6645,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4},Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -6277,10 +6683,17 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`6">
+            <summary>Inheritance base for 5D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`6.Item(`1,`2,`3,`4,`5)">
             <summary>Steps through the values at a given location.</summary>
@@ -6417,6 +6830,15 @@
             <param name="axis4">The coordinate along the 4D axis.</param>
             <param name="axis5">The coordinate along the 5D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`6">
+            <summary>Omnitree that stores points along 5 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`6.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -6442,6 +6864,20 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+            <summary>Constructs a new 5D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 5D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.Item(`1,`2,`3,`4,`5)">
             <summary>Steps through all the items at a given coordinate.</summary>
@@ -6473,21 +6909,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.Compare5">
             <summary>The comparison function the Omnitree is using along the 5D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -6503,9 +6924,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -6514,7 +6932,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Clear">
@@ -6573,6 +6991,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Update">
@@ -6752,6 +7171,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6765,6 +7185,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -6778,6 +7199,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Stepper(Towel.Step{`0},`1,`2,`3,`4,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -6795,14 +7217,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5},Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -6833,10 +7255,18 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`7">
+            <summary>Inheritance base for 6D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`7.Item(`1,`2,`3,`4,`5,`6)">
             <summary>Steps through the values at a given location.</summary>
@@ -6990,6 +7420,16 @@
             <param name="axis5">The coordinate along the 5D axis.</param>
             <param name="axis6">The coordinate along the 6D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`7">
+            <summary>Omnitree that stores points along 6 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`7.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -7015,6 +7455,22 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+            <summary>Constructs a new 6D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 6D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.Item(`1,`2,`3,`4,`5,`6)">
             <summary>Steps through all the items at a given coordinate.</summary>
@@ -7050,24 +7506,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.Compare6">
             <summary>The comparison function the Omnitree is using along the 6D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.EquateAxis6">
-            <summary>The function for equating values along the 6D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -7083,9 +7521,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -7094,7 +7529,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Clear">
@@ -7159,6 +7594,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Update">
@@ -7358,6 +7794,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -7373,6 +7810,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -7388,6 +7826,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Stepper(Towel.Step{`0},`1,`2,`3,`4,`5,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -7407,14 +7846,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6},Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -7445,10 +7884,19 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreePoints`8">
+            <summary>Inheritance base for 7D omnitrees that store points.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+            <typeparam name="Axis7">The type 7D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreePoints`8.Item(`1,`2,`3,`4,`5,`6,`7)">
             <summary>Steps through the values at a given location.</summary>
@@ -7619,6 +8067,17 @@
             <param name="axis6">The coordinate along the 6D axis.</param>
             <param name="axis7">The coordinate along the 7D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreePointsLinked`8">
+            <summary>Omnitree that stores points along 7 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+            <typeparam name="Axis7">The type 7D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreePointsLinked`8.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -7644,6 +8103,24 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+            <summary>Constructs a new 7D omnitree that stores points.</summary>
+            <param name="locate">The delegate for locating items in 7D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+            <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.Item(`1,`2,`3,`4,`5,`6,`7)">
             <summary>Steps through all the items at a given coordinate.</summary>
@@ -7683,27 +8160,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.Compare7">
             <summary>The comparison function the Omnitree is using along the 7D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis6">
-            <summary>The function for equating values along the 6D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.EquateAxis7">
-            <summary>The function for equating values along the 7D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -7719,9 +8175,6 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.GetMedianIndexes(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -7730,7 +8183,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="location">The location of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Clear">
@@ -7801,6 +8254,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.CountSubSpace(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7})">
             <summary>Counts the number of items in a sub space.</summary>
             <param name="node">The current traversal node.</param>
+            <param name="bounds">The bounds of the sub space being counted.</param>
             <returns>The number of items in the provided sub space.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Update">
@@ -8020,6 +8474,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.StepBreak{`0},`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8037,6 +8492,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7})">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
@@ -8054,6 +8510,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Stepper(Towel.Step{`0},`1,`2,`3,`4,`5,`6,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -8075,14 +8532,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6,`7},Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6,`7})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
             <param name="vector">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.ShrinkChild(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Branch,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.ReduceParentCounts(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -8113,13 +8570,19 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.GetEncapsulationParent(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node,Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6,`7})">
             <summary>Gets the nearest parent that encapsulates a location.</summary>
             <param name="node">The starting node to find the encapsulating parent of the location.</param>
-            <param name="coordinate1">The coordinate along the 1D axis.</param>
-            <param name="coordinate2">The coordinate along the 2D axis.</param>
-            <param name="coordinate3">The coordinate along the 3D axis.</param>
+            <param name="vector">The coordinates of the value.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`2">
+            <summary>Inheritance base for 1D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`2.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`2.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 1D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`2.CountSubSpaceEncapsulated(`1,`1)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -8159,6 +8622,8 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`2.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`2.RemoveOverlapped(`1)">
@@ -8226,6 +8691,11 @@
             <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The coordinate along the 1D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`2">
+            <summary>Omnitree that stores bounds along 1 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`2.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -8246,6 +8716,18 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+            <summary>Constructs a new 1D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 1D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+            <summary>Constructs a new 1D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 1D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`2.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
         </member>
@@ -8254,9 +8736,6 @@
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`2.Compare1">
             <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`2.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`2.Count">
             <summary>The current number of items in the tree.</summary>
@@ -8275,7 +8754,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Clear">
@@ -8490,6 +8969,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},`1)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},`1)">
@@ -8499,14 +8979,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1},Towel.DataStructures.Omnitree.Bounds{`1})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -8540,8 +9020,17 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`3">
+            <summary>Inheritance base for 2D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`3.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`3.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 2D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`3.CountSubSpaceEncapsulated(`1,`1,`2,`2)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -8593,6 +9082,10 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`3.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`3.RemoveOverlapped(`1,`2)">
@@ -8680,6 +9173,12 @@
             <param name="axis1">The coordinate along the 1D axis.</param>
             <param name="axis2">The coordinate along the 2D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`3">
+            <summary>Omnitree that stores bounds along 2 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`3.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -8700,6 +9199,22 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+            <summary>Constructs a new 2D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 2D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+            <summary>Constructs a new 2D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 2D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
         </member>
@@ -8711,12 +9226,6 @@
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.Compare2">
             <summary>The comparison function the Omnitree is using along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.Count">
             <summary>The current number of items in the tree.</summary>
@@ -8735,7 +9244,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Clear">
@@ -9003,6 +9512,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.StepperOverlapped(Towel.Step{`0},`1,`2)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
         </member>
@@ -9014,14 +9524,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2},Towel.DataStructures.Omnitree.Bounds{`1,`2})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -9055,8 +9565,18 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`4">
+            <summary>Inheritance base for 3D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`4.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`4.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 3D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`4.CountSubSpaceEncapsulated(`1,`1,`2,`2,`3,`3)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -9120,6 +9640,12 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`4.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
+            <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
+            <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`4.RemoveOverlapped(`1,`2,`3)">
@@ -9227,6 +9753,13 @@
             <param name="axis2">The coordinate along the 2D axis.</param>
             <param name="axis3">The coordinate along the 3D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`4">
+            <summary>Omnitree that stores bounds along 3 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`4.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -9247,6 +9780,26 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+            <summary>Constructs a new 3D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 3D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+            <summary>Constructs a new 3D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 3D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
         </member>
@@ -9261,15 +9814,6 @@
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.Compare3">
             <summary>The comparison function the Omnitree is using along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.Count">
             <summary>The current number of items in the tree.</summary>
@@ -9288,7 +9832,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Clear">
@@ -9609,6 +10153,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.StepperOverlapped(Towel.Step{`0},`1,`2,`3)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -9622,14 +10167,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3},Towel.DataStructures.Omnitree.Bounds{`1,`2,`3})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -9663,8 +10208,19 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`5">
+            <summary>Inheritance base for 4D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`5.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`5.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 4D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`5.CountSubSpaceEncapsulated(`1,`1,`2,`2,`3,`3,`4,`4)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -9740,6 +10296,14 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`5.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
+            <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
+            <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
+            <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
+            <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`5.RemoveOverlapped(`1,`2,`3,`4)">
@@ -9867,6 +10431,14 @@
             <param name="axis3">The coordinate along the 3D axis.</param>
             <param name="axis4">The coordinate along the 4D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`5">
+            <summary>Omnitree that stores bounds along 4 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`5.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -9887,6 +10459,30 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+            <summary>Constructs a new 4D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 4D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+            <summary>Constructs a new 4D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 4D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
         </member>
@@ -9905,18 +10501,6 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.Compare4">
             <summary>The comparison function the Omnitree is using along the 4D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -9934,7 +10518,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Clear">
@@ -10308,6 +10892,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.StepperOverlapped(Towel.Step{`0},`1,`2,`3,`4)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -10323,14 +10908,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4},Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -10364,8 +10949,20 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`6">
+            <summary>Inheritance base for 5D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`6.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`6.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 5D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`6.CountSubSpaceEncapsulated(`1,`1,`2,`2,`3,`3,`4,`4,`5,`5)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -10453,6 +11050,16 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`6.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
+            <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
+            <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
+            <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
+            <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
+            <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
+            <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`6.RemoveOverlapped(`1,`2,`3,`4,`5)">
@@ -10600,6 +11207,15 @@
             <param name="axis4">The coordinate along the 4D axis.</param>
             <param name="axis5">The coordinate along the 5D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`6">
+            <summary>Omnitree that stores bounds along 5 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`6.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -10619,6 +11235,34 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+            <summary>Constructs a new 5D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 5D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+            <summary>Constructs a new 5D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 5D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
@@ -10641,21 +11285,6 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.Compare5">
             <summary>The comparison function the Omnitree is using along the 5D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -10673,7 +11302,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Clear">
@@ -11100,6 +11729,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.StepperOverlapped(Towel.Step{`0},`1,`2,`3,`4,`5)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -11117,14 +11747,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5},Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -11158,8 +11788,21 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`7">
+            <summary>Inheritance base for 6D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`7.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`7.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 6D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`7.CountSubSpaceEncapsulated(`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -11259,6 +11902,18 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`7.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
+            <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
+            <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
+            <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
+            <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
+            <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
+            <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
+            <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
+            <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`7.RemoveOverlapped(`1,`2,`3,`4,`5,`6)">
@@ -11426,6 +12081,16 @@
             <param name="axis5">The coordinate along the 5D axis.</param>
             <param name="axis6">The coordinate along the 6D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`7">
+            <summary>Omnitree that stores bounds along 6 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`7.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -11445,6 +12110,38 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+            <summary>Constructs a new 6D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 6D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+            <summary>Constructs a new 6D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 6D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
@@ -11470,24 +12167,6 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.Compare6">
             <summary>The comparison function the Omnitree is using along the 6D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.EquateAxis6">
-            <summary>The function for equating values along the 6D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -11505,7 +12184,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Clear">
@@ -11985,6 +12664,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.StepperOverlapped(Towel.Step{`0},`1,`2,`3,`4,`5,`6)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -12004,14 +12684,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6},Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -12045,8 +12725,22 @@
             <param name="bounds">The bounds to get the encapsulating parent from.</param>
             <returns>The nearest node that encapsulates the given location.</returns>
         </member>
+        <member name="T:Towel.DataStructures.IOmnitreeBounds`8">
+            <summary>Inheritance base for 7D omnitrees that store bounds.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+            <typeparam name="Axis7">The type 7D axis.</typeparam>
+        </member>
         <member name="P:Towel.DataStructures.IOmnitreeBounds`8.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.IOmnitreeBounds`8.GetBounds">
+            <summary>The delegate being used by the omnitree to get the bounds of values in 7D space.</summary>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`8.CountSubSpaceEncapsulated(`1,`1,`2,`2,`3,`3,`4,`4,`5,`5,`6,`6,`7,`7)">
             <summary>Counts the number of items encapsulated by a sub space.</summary>
@@ -12158,6 +12852,20 @@
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`8.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`2},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`3},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`4},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`5},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`6},Towel.DataStructures.Omnitree.Bound{`7},Towel.DataStructures.Omnitree.Bound{`7},System.Predicate{`0})">
             <summary>Removes all the items in a given space where predicate is met.</summary>
+            <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
+            <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
+            <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
+            <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
+            <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
+            <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
+            <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
+            <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
+            <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
+            <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
+            <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
+            <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
+            <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
+            <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
             <param name="where">The predicate constraint of the removal.</param>
         </member>
         <member name="M:Towel.DataStructures.IOmnitreeBounds`8.RemoveOverlapped(`1,`2,`3,`4,`5,`6,`7)">
@@ -12345,6 +13053,17 @@
             <param name="axis6">The coordinate along the 6D axis.</param>
             <param name="axis7">The coordinate along the 7D axis.</param>
         </member>
+        <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`8">
+            <summary>Omnitree that stores bounds along 7 dimensions implemented as a linked tree.</summary>
+            <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+            <typeparam name="Axis1">The type 1D axis.</typeparam>
+            <typeparam name="Axis2">The type 2D axis.</typeparam>
+            <typeparam name="Axis3">The type 3D axis.</typeparam>
+            <typeparam name="Axis4">The type 4D axis.</typeparam>
+            <typeparam name="Axis5">The type 5D axis.</typeparam>
+            <typeparam name="Axis6">The type 6D axis.</typeparam>
+            <typeparam name="Axis7">The type 7D axis.</typeparam>
+        </member>
         <member name="T:Towel.DataStructures.OmnitreeBoundsLinked`8.Node">
             <summary>Can be a leaf or a branch.</summary>
         </member>
@@ -12364,6 +13083,42 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6,`7})">
             <summary>This constructor is for cloning purposes</summary>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+            <summary>Constructs a new 7D omnitree that stores bounds.</summary>
+            <param name="getBounds">The delegate for getting object bounds in 7D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+            <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+            <summary>Constructs a new 7D omnitree that stores bounds.</summary>
+            <param name="getBoundings">The delegate for getting object bounds in 7D space.</param>
+            <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+            <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+            <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+            <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+            <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+            <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+            <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+            <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+            <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+            <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+            <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+            <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+            <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+            <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
         </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.Dimensions">
             <summary>The number of dimensions in this tree.</summary>
@@ -12392,27 +13147,6 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.Compare7">
             <summary>The comparison function the Omnitree is using along the 7D axis.</summary>
         </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis1">
-            <summary>The function for equating values along the 1D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis2">
-            <summary>The function for equating values along the 2D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis3">
-            <summary>The function for equating values along the 3D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis4">
-            <summary>The function for equating values along the 4D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis5">
-            <summary>The function for equating values along the 5D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis6">
-            <summary>The function for equating values along the 6D axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.EquateAxis7">
-            <summary>The function for equating values along the 7D axis.</summary>
-        </member>
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.Count">
             <summary>The current number of items in the tree.</summary>
         </member>
@@ -12430,7 +13164,7 @@
             <summary>Recursive version of the add function.</summary>
             <param name="addition">The item to be added.</param>
             <param name="node">The current node for tree trversal.</param>
-            <param name="ms">The location of the addition.</param>
+            <param name="bounds">The bounds of the addition.</param>
             <param name="depth">The current depth of iteration.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Clear">
@@ -12963,6 +13697,7 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.StepperOverlapped(Towel.Step{`0},`1,`2,`3,`4,`5,`6,`7)">
             <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+            <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
             <param name="axis1">The axis of the removal along the  1D axis.</param>
             <param name="axis2">The axis of the removal along the  2D axis.</param>
             <param name="axis3">The axis of the removal along the  3D axis.</param>
@@ -12984,14 +13719,14 @@
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.DetermineChildIndex(Towel.DataStructures.Omnitree.Vector{`1,`2,`3,`4,`5,`6,`7},Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7})">
             <summary>Computes the child index that contains the desired dimensions.</summary>
-            <param name="node">The branch .</param>
-            <param name="vector">The dimensions to determine the child index.</param>
+            <param name="pointOfDivision">The point of division to compare against.</param>
+            <param name="bounds">The dimensions to determine the child index.</param>
             <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.ShrinkChild(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node,System.Int32)">
             <summary>Converts a branch back into a leaf when the count is reduced.</summary>
             <param name="parent">The parent to shrink a child of.</param>
-            <param name="child">The index of the child to shrink.</param>
+            <param name="child_index">The index of the child to shrink.</param>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.ReduceParentCounts(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6,`7}.Node,System.Int32)">
             <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
@@ -13028,6 +13763,11 @@
         <member name="T:Towel.DataStructures.IOmnitree`1">
             <summary>A Spacial Partitioning data structure.</summary>
             <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.IOmnitree`1.Remove(`0,Towel.Equate{`0})">
+            <summary>Removes all occurences of an item from the omnitree.</summary>
+            <param name="removal">The value to be removed.</param>
+            <param name="equate">The  delegate for determining equality.</param>
         </member>
         <member name="T:Towel.DataStructures.IOrder`1">
             <summary>Sorted linear data structure.</summary>
