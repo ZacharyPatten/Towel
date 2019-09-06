@@ -361,8 +361,8 @@ Tree<T> treeMap = new TreeMap<T>(...);
 
 IGraph<int> graph = new GraphSetOmnitree<int>()
 {
-    // add nodes
-    0,
+	// add nodes
+	0,
 	1,
 	2,
 	3,
