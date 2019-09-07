@@ -163,7 +163,16 @@ namespace Towel.Mathematics
 		/// <param name="function">The initialization function.</param>
 		public Matrix(int rows, int columns, Func<int, int, T> function) : this(rows, columns)
 		{
-			Fill(this, function);
+			Format(this, function);
+		}
+
+		/// <summary>Constructs a new matrix and initializes it via function.</summary>
+		/// <param name="rows">The number of rows to construct.</param>
+		/// <param name="columns">The number of columns to construct.</param>
+		/// <param name="function">The initialization function.</param>
+		public Matrix(int rows, int columns, Func<int, T> function) : this(rows, columns)
+		{
+			Format(this, function);
 		}
 
 		/// <summary>
@@ -279,7 +288,7 @@ namespace Towel.Mathematics
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
 					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
-					Fill(matrix, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
+					Format(matrix, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
 					return matrix;
 				};
 			}
@@ -1046,7 +1055,7 @@ namespace Towel.Mathematics
 				{
 					c._rows = a._rows;
 					c._columns = a._columns;
-					Fill(c, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
+					Format(c, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
 				}
 				else
 				{
@@ -1935,19 +1944,23 @@ namespace Towel.Mathematics
 		/// <param name="b">The transpose of the matrix.</param>
 		private static void Transpose(Matrix<T> a, ref Matrix<T> b)
 		{
+
 			if (a is null)
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			if (object.ReferenceEquals(a, b))
+			if (ReferenceEquals(a, b))
 			{
-				TransposeContents(b);
-				return;
+				if (b.IsSquare)
+				{
+					TransposeContents(b);
+					return;
+				}
 			}
 			int Length = a.Length;
 			int Rows = a.Columns;
 			int Columns = a.Rows;
-			if (b != null && b.Length == a.Length)
+			if (b != null && b.Length == a.Length && !ReferenceEquals(a, b))
 			{
 				b._rows = Rows;
 				b._columns = Columns;
@@ -2379,12 +2392,12 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Fill
+		#region Format
 
 		/// <summary>Fills a matrix with values using a delegate.</summary>
 		/// <param name="matrix">The matrix to fill the values of.</param>
 		/// <param name="function">The function to set the values at the relative indeces.</param>
-		public static void Fill(Matrix<T> matrix, Func<int, int, T> function)
+		public static void Format(Matrix<T> matrix, Func<int, int, T> function)
 		{
 			int Rows = matrix.Rows;
 			int Columns = matrix.Columns;
@@ -2397,6 +2410,14 @@ namespace Towel.Mathematics
 					MATRIX[i++] = function(row, column);
 				}
 			}
+		}
+
+		/// <summary>Fills a matrix with values using a delegate.</summary>
+		/// <param name="matrix">The matrix to fill the values of.</param>
+		/// <param name="func">The function to set the values at the relative indeces.</param>
+		public static void Format(Matrix<T> matrix, Func<int, T> func)
+		{
+			matrix._matrix.Format(func);
 		}
 
 		#endregion
@@ -2421,7 +2442,6 @@ namespace Towel.Mathematics
 		internal static void TransposeContents(Matrix<T> a)
 		{
 			int Rows = a.Rows;
-			int Columns = a.Columns;
 			for (int i = 0; i < Rows; i++)
 			{
 				int Rows_Minus_i = Rows - i;
@@ -2466,7 +2486,7 @@ namespace Towel.Mathematics
 		/// <summary>Converts a T[,] into a matrix.</summary>
 		/// <param name="array">The T[,] to convert to a matrix.</param>
 		/// <returns>The resulting matrix after conversion.</returns>
-		public static explicit operator Matrix<T>(T[,] array) =>
+		public static implicit operator Matrix<T>(T[,] array) =>
 			new Matrix<T>(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
 
 		/// <summary>Converts a matrix into a T[,].</summary>

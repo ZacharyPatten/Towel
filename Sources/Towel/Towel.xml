@@ -17278,6 +17278,12 @@
             <param name="columns">The number of columns to construct.</param>
             <param name="function">The initialization function.</param>
         </member>
+        <member name="M:Towel.Mathematics.Matrix`1.#ctor(System.Int32,System.Int32,System.Func{System.Int32,`0})">
+            <summary>Constructs a new matrix and initializes it via function.</summary>
+            <param name="rows">The number of rows to construct.</param>
+            <param name="columns">The number of columns to construct.</param>
+            <param name="function">The initialization function.</param>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.#ctor(System.Int32,System.Int32,`0[])">
             <summary>
             Creates a new matrix using ROW MAJOR ORDER. The data will be referenced to, so 
@@ -17756,10 +17762,15 @@
             <param name="leniency">How much the values can vary but still be considered equal.</param>
             <returns>True if values are equal, false if not.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Fill(Towel.Mathematics.Matrix{`0},System.Func{System.Int32,System.Int32,`0})">
+        <member name="M:Towel.Mathematics.Matrix`1.Format(Towel.Mathematics.Matrix{`0},System.Func{System.Int32,System.Int32,`0})">
             <summary>Fills a matrix with values using a delegate.</summary>
             <param name="matrix">The matrix to fill the values of.</param>
             <param name="function">The function to set the values at the relative indeces.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Format(Towel.Mathematics.Matrix{`0},System.Func{System.Int32,`0})">
+            <summary>Fills a matrix with values using a delegate.</summary>
+            <param name="matrix">The matrix to fill the values of.</param>
+            <param name="func">The function to set the values at the relative indeces.</param>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Clone(Towel.Mathematics.Matrix{`0})">
             <summary>Creates a copy of a matrix.</summary>
@@ -17770,7 +17781,7 @@
             <summary>Copies this matrix.</summary>
             <returns>The copy of this matrix.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.op_Explicit(`0[0:,0:])~Towel.Mathematics.Matrix{`0}">
+        <member name="M:Towel.Mathematics.Matrix`1.op_Implicit(`0[0:,0:])~Towel.Mathematics.Matrix{`0}">
             <summary>Converts a T[,] into a matrix.</summary>
             <param name="array">The T[,] to convert to a matrix.</param>
             <returns>The resulting matrix after conversion.</returns>

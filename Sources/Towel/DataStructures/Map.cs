@@ -185,7 +185,7 @@ namespace Towel.DataStructures
 		/// <remarks>Runtime: O(n), Omega(1).</remarks>
 		public void Add(K key, T value)
 		{
-			if (object.ReferenceEquals(key, null))
+			if (key == null)
 			{
 				throw new ArgumentNullException(nameof(key));
 			}

@@ -12,9 +12,9 @@ namespace Mathematics
 	class Program
 	{
 		// Gets randomized values
-		static Random random = new Random();
+		static readonly Random random = new Random();
 
-		static void Main(string[] args)
+		static void Main()
 		{
 			Console.WriteLine("You are runnning the Mathematics example.");
 			Console.WriteLine("==========================================");
