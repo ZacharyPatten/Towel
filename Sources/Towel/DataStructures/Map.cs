@@ -116,20 +116,8 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public MapHashLinked() : this(Towel.Equate.Default, Towel.Hash.Default) { }
-
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public MapHashLinked(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default, expectedCount) { }
-
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public MapHashLinked(Equate<K> equate, Hash<K> hash) : this(equate, hash, 0) { }
-
-		/// <summary>Constructs a new hash table instance.</summary>
 		/// <remarks>Runtime: O(stepper).</remarks>
-		public MapHashLinked(Equate<K> equate, Hash<K> hash, int expectedCount)
+		public MapHashLinked(Equate<K> equate = null, Hash<K> hash = null, int expectedCount = 0)
 		{
 			if (expectedCount > 0)
 			{
@@ -144,8 +132,8 @@ namespace Towel.DataStructures
 			{
 				_table = new Node[Towel.Hash.TableSizes[0]];
 			}
-			_equate = equate;
-			_hash = hash;
+			_equate = equate ?? Towel.Equate.Default;
+			_hash = hash ?? Towel.Hash.Default;
 			_count = 0;
 		}
 
@@ -201,7 +189,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(key));
 			}
-			int location = ComputeHash(key);
+			int location = ComputeIndex(key);
 			if (Find(key, location) == null)
 			{
 				if (++_count > _table.Length * _maxLoadFactor)
@@ -212,7 +200,7 @@ namespace Towel.DataStructures
 					}
 
 					Resize(GetLargerSize());
-					location = ComputeHash(key);
+					location = ComputeIndex(key);
 				}
 				Node p = new Node(key, value, null);
 				Add(p, location);
@@ -260,7 +248,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the key is in the structure. False if not.</returns>
 		public bool Contains(K key)
 		{
-			if (Find(key, ComputeHash(key)) == null)
+			if (Find(key, ComputeIndex(key)) == null)
 			{
 				return false;
 			}
@@ -292,7 +280,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the value was found. False if not.</returns>
 		public bool TryGet(K key, out T value)
 		{
-			int hashCode = ComputeHash(key);
+			int hashCode = ComputeIndex(key);
 			int table_index = hashCode % _table.Length;
 			for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
 			{
@@ -317,13 +305,14 @@ namespace Towel.DataStructures
 		{
 			if (Contains(key))
 			{
-				int hashCode = _hash(key);
-				int table_index = hashCode % _table.Length;
+				int table_index = ComputeIndex(key);
 				for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
+				{
 					if (_equate(bucket.Key, key))
 					{
 						bucket.Value = value;
 					}
+				}
 			}
 			else
 			{
@@ -384,7 +373,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(key));
 			}
-			int location = ComputeHash(key);
+			int location = ComputeIndex(key);
 			if (_equate(_table[location].Key, key))
 			{
 				_table[location] = _table[location].Next;
@@ -591,10 +580,7 @@ namespace Towel.DataStructures
 
 		#region Helpers
 
-		internal int ComputeHash(K key)
-		{
-			return (_hash(key) & 0x7fffffff) % _table.Length;
-		}
+		internal int ComputeIndex(K key) => Math.Abs(_hash(key)) % _table.Length;
 
 		internal Node Find(K key, int loc)
 		{
@@ -641,7 +627,7 @@ namespace Towel.DataStructures
 				while (temp[i] != null)
 				{
 					Node cell = RemoveFirst(temp, i);
-					Add(cell, ComputeHash(cell.Key));
+					Add(cell, ComputeIndex(cell.Key));
 				}
 			}
 		}
@@ -689,7 +675,7 @@ namespace Towel.DataStructures
 		#region  Constructors
 
 		/// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
-		public MapHashArray() : this(Towel.Equate.Default, Towel.Hash.Default) { }
+		public MapHashArray() : this(null, null) { }
 
 #pragma warning disable CS1587
 		/// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
@@ -699,12 +685,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new hash table instance.</summary>
 		/// <runtime>O(1)</runtime>
-		public MapHashArray(Equate<K> equate, Hash<K> hash)
+		public MapHashArray(Equate<K> equate = null, Hash<K> hash = null)
 		{
 			_nodes = new Node[Towel.Hash.TableSizes[0]];
 			_table = new int[Towel.Hash.TableSizes[0]];
-			_equate = equate;
-			_hash = hash;
+			_equate = equate ?? Towel.Equate.Default;
+			_hash = hash ?? Towel.Hash.Default;
 			_lastIndex = 0;
 			_count = 0;
 			_freeList = -1;
@@ -763,9 +749,9 @@ namespace Towel.DataStructures
 		public bool TryAdd(K key, T value)
 		{
 			int hashCode = _hash(key);
-			int index1 = hashCode % _table.Length;
+			int tableIndex = Math.Abs(hashCode) % _table.Length;
 			int num = 0;
-			for (int index2 = _table[hashCode % _table.Length] - 1; index2 >= 0; index2 = _nodes[index2].Next)
+			for (int index2 = _table[tableIndex] - 1; index2 >= 0; index2 = _nodes[index2].Next)
 			{
 				if (_nodes[index2].Hash == hashCode && _equate(_nodes[index2].Key, key))
 				{
@@ -784,7 +770,6 @@ namespace Towel.DataStructures
 				if (_lastIndex == _nodes.Length)
 				{
 					GrowTableSize(GetLargerSize());
-					index1 = hashCode % _table.Length;
 				}
 				index3 = _lastIndex;
 				_lastIndex += 1;
@@ -792,8 +777,8 @@ namespace Towel.DataStructures
 			_nodes[index3].Hash = hashCode;
 			_nodes[index3].Key = key;
 			_nodes[index3].Value = value;
-			_nodes[index3].Next = _table[index1] - 1;
-			_table[index1] = index3 + 1;
+			_nodes[index3].Next = _table[tableIndex] - 1;
+			_table[tableIndex] = index3 + 1;
 			_count += 1;
 			return true;
 		}
@@ -838,7 +823,8 @@ namespace Towel.DataStructures
 		public bool Contains(K key)
 		{
 			int hashCode = _hash(key);
-			for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
+			int tableIndex = Math.Abs(hashCode) % _table.Length;
+			for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
 			{
 				if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
 				{
@@ -871,7 +857,8 @@ namespace Towel.DataStructures
 		public bool TryGet(K key, out T value)
 		{
 			int hashCode = _hash(key);
-			for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
+			int tableIndex = Math.Abs(hashCode) % _table.Length;
+			for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
 			{
 				if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
 				{
@@ -895,7 +882,8 @@ namespace Towel.DataStructures
 			if (Contains(key))
 			{
 				int hashCode = _hash(key);
-				for (int index = _table[hashCode % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
+				int tableIndex = Math.Abs(hashCode) % _table.Length;
+				for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
 				{
 					if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
 					{
@@ -941,15 +929,15 @@ namespace Towel.DataStructures
 		public bool TryRemove(K key)
 		{
 			int hashCode = _hash(key);
-			int index1 = hashCode % _table.Length;
+			int tableIndex = Math.Abs(hashCode) % _table.Length;
 			int index2 = -1;
-			for (int index3 = _table[index1] - 1; index3 >= 0; index3 = _nodes[index3].Next)
+			for (int index3 = _table[tableIndex] - 1; index3 >= 0; index3 = _nodes[index3].Next)
 			{
 				if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Key, key))
 				{
 					if (index2 < 0)
 					{
-						_table[index1] = _nodes[index3].Next + 1;
+						_table[tableIndex] = _nodes[index3].Next + 1;
 					}
 					else
 					{
@@ -1149,6 +1137,8 @@ namespace Towel.DataStructures
 
 		#region Helpers
 
+		internal int ComputeIndex(K key) => Math.Abs(_hash(key)) % _table.Length;
+
 		private int GetLargerSize()
 		{
 			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
@@ -1178,7 +1168,7 @@ namespace Towel.DataStructures
 			int[] numArray = new int[newSize];
 			for (int index1 = 0; index1 < this._lastIndex; ++index1)
 			{
-				int index2 = slotArray[index1].Hash % newSize;
+				int index2 = Math.Abs(slotArray[index1].Hash) % newSize;
 				slotArray[index1].Next = numArray[index2] - 1;
 				numArray[index2] = index1 + 1;
 			}
@@ -1196,7 +1186,7 @@ namespace Towel.DataStructures
 				if (this._nodes[index2].Hash >= 0)
 				{
 					slotArray[index1] = this._nodes[index2];
-					int index3 = slotArray[index1].Hash % newSize;
+					int index3 = Math.Abs(slotArray[index1].Hash) % newSize;
 					slotArray[index1].Next = numArray[index3] - 1;
 					numArray[index3] = index1 + 1;
 					++index1;

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Towel.Algorithms;
 using Towel.DataStructures;
 using Towel.Measurements;
+using System.Linq;
 
 namespace Towel.Mathematics
 {
@@ -18,7 +19,7 @@ namespace Towel.Mathematics
 		/// <summary>a * b + c</summary>
 		internal static class MultiplyAddImplementation<T>
 		{
-			internal static Func<T, T, T, T> Function = (T a, T b, T c) =>
+			internal static Func<T, T, T, T> Function = (a, b, c) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -77,7 +78,7 @@ namespace Towel.Mathematics
 
 		internal static class AddMultiplyDivideAddImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T j, T pi) =>
+			internal static Func<T, T, T> Function = (j, pi) =>
 			{
 				ParameterExpression J = Expression.Parameter(typeof(T));
 				ParameterExpression PI = Expression.Parameter(typeof(T));
@@ -121,14 +122,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="B">The generic type to convert to.</typeparam>
 		/// <param name="a">The value to convert.</param>
 		/// <returns>The result of the conversion.</returns>
-		public static B Convert<A, B>(A a)
-		{
-			return ConvertImplementation<A, B>.Function(a);
-		}
+		public static B Convert<A, B>(A a) =>
+			ConvertImplementation<A, B>.Function(a);
 
 		internal static class ConvertImplementation<A, B>
 		{
-			internal static Func<A, B> Function = (A a) =>
+			internal static Func<A, B> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(A));
 				Expression BODY = Expression.Convert(A, typeof(B));
@@ -145,14 +144,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to negate.</param>
 		/// <returns>The result of the negation.</returns>
-		public static T Negate<T>(T a)
-		{
-			return NegateImplementation<T>.Function(a);
-		}
+		public static T Negate<T>(T a) =>
+			NegateImplementation<T>.Function(a);
 
 		internal static class NegateImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Negate(A);
@@ -170,10 +167,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the addition.</param>
 		/// <param name="b">The second operand of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		public static T Add<T>(T a, T b)
-		{
-			return AddImplementation<T>.Function(a, b);
-		}
+		public static T Add<T>(T a, T b) =>
+			AddImplementation<T>.Function(a, b);
 
 		/// <summary>Adds multiple numeric values [a + b + c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -182,10 +177,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the addition.</param>
 		/// <param name="d">The remaining operands of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		public static T Add<T>(T a, T b, T c, params T[] d)
-		{
-			return Add((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Add<T>(T a, T b, T c, params T[] d) =>
+			Add<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Adds multiple numeric values [step_1 + step_2 + step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -195,7 +188,7 @@ namespace Towel.Mathematics
 		{
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -206,8 +199,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -217,7 +209,7 @@ namespace Towel.Mathematics
 
 		internal static class AddImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -236,10 +228,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the subtraction.</param>
 		/// <param name="b">The second operand of the subtraction.</param>
 		/// <returns>The result of the subtraction.</returns>
-		public static T Subtract<T>(T a, T b)
-		{
-			return SubtractImplementation<T>.Function(a, b);
-		}
+		public static T Subtract<T>(T a, T b) =>
+			SubtractImplementation<T>.Function(a, b);
 
 		/// <summary>Subtracts multiple numeric values [a - b - c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -248,10 +238,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The first third of the subtraction.</param>
 		/// <param name="d">The remaining values of the subtraction.</param>
 		/// <returns>The result of the subtraction.</returns>
-		public static T Subtract<T>(T a, T b, T c, params T[] d)
-		{
-			return Subtract((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Subtract<T>(T a, T b, T c, params T[] d) =>
+			Subtract<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Subtracts multiple numeric values [step_1 - step_2 - step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -261,7 +249,7 @@ namespace Towel.Mathematics
 		{
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -272,8 +260,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -283,7 +270,7 @@ namespace Towel.Mathematics
 
 		internal static class SubtractImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -302,10 +289,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the multiplication.</param>
 		/// <param name="b">The second operand of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		public static T Multiply<T>(T a, T b)
-		{
-			return MultiplyImplementation<T>.Function(a, b);
-		}
+		public static T Multiply<T>(T a, T b) =>
+			MultiplyImplementation<T>.Function(a, b);
 
 		/// <summary>Multiplies multiple numeric values [a * b * c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -314,10 +299,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the multiplication.</param>
 		/// <param name="d">The remaining values of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		public static T Multiply<T>(T a, T b, T c, params T[] d)
-		{
-			return Multiply((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Multiply<T>(T a, T b, T c, params T[] d) =>
+			Multiply<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -349,7 +332,7 @@ namespace Towel.Mathematics
 
 		internal static class MultiplyImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -368,10 +351,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the division.</param>
 		/// <param name="b">The second operand of the division.</param>
 		/// <returns>The result of the division.</returns>
-		public static T Divide<T>(T a, T b)
-		{
-			return DivideImplementation<T>.Function(a, b);
-		}
+		public static T Divide<T>(T a, T b) =>
+			DivideImplementation<T>.Function(a, b);
 
 		/// <summary>Divides multiple numeric values [a / b / c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -380,10 +361,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the division.</param>
 		/// <param name="d">The remaining values of the division.</param>
 		/// <returns>The result of the division.</returns>
-		public static T Divide<T>(T a, T b, T c, params T[] d)
-		{
-			return Divide((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Divide<T>(T a, T b, T c, params T[] d) =>
+			Divide<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Divides multiple numeric values [step_1 / step_2 / step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -393,7 +372,7 @@ namespace Towel.Mathematics
 		{
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -404,8 +383,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -415,7 +393,7 @@ namespace Towel.Mathematics
 
 		internal static class DivideImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -433,14 +411,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The numeric value to invert.</param>
 		/// <returns>The result of the inversion.</returns>
-		public static T Invert<T>(T a)
-		{
-			return InvertImplementation<T>.Function(a);
-		}
+		public static T Invert<T>(T a) =>
+			InvertImplementation<T>.Function(a);
 
 		internal static class InvertImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Divide(Expression.Constant(Constant<T>.One), A);
@@ -458,10 +434,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the modulation.</param>
 		/// <param name="b">The second operand of the modulation.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Modulo<T>(T a, T b)
-		{
-			return ModuloImplementation<T>.Function(a, b);
-		}
+		public static T Modulo<T>(T a, T b) =>
+			ModuloImplementation<T>.Function(a, b);
 
 		/// <summary>Modulos multiple numeric values [a % b % c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -470,10 +444,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the modulation.</param>
 		/// <param name="d">The remaining values of the modulation.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Modulo<T>(T a, T b, T c, params T[] d)
-		{
-			return Modulo((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Modulo<T>(T a, T b, T c, params T[] d) =>
+			Modulo<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -487,7 +459,7 @@ namespace Towel.Mathematics
 			}
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -498,8 +470,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -509,7 +480,7 @@ namespace Towel.Mathematics
 
 		internal static class ModuloImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -528,10 +499,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the power.</param>
 		/// <param name="b">The first operand of the power.</param>
 		/// <returns>The result of the power.</returns>
-		public static T Power<T>(T a, T b)
-		{
-			return PowerImplementation<T>.Function(a, b);
-		}
+		public static T Power<T>(T a, T b) =>
+			PowerImplementation<T>.Function(a, b);
 
 		/// <summary>Powers multiple numeric values [a ^ b ^ c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -540,10 +509,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the power.</param>
 		/// <param name="d">The remaining values of the power.</param>
 		/// <returns>The result of the power.</returns>
-		public static T Power<T>(T a, T b, T c, params T[] d)
-		{
-			return Power((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Power<T>(T a, T b, T c, params T[] d) =>
+			Power<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Powers multiple numeric values [step_1 ^ step_2 ^ step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -557,7 +524,7 @@ namespace Towel.Mathematics
 			}
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -568,8 +535,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -579,7 +545,7 @@ namespace Towel.Mathematics
 
 		internal static class PowerImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				// Note: this code needs to die.. but this works until it gets a better version
 
@@ -593,7 +559,7 @@ namespace Towel.Mathematics
 				}
 				else
 				{
-					Function = (T A, T B) =>
+					Function = (A, B) =>
 					{
 						if (IsInteger(B) && IsPositive(B))
 						{
@@ -623,14 +589,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The numeric value to square root.</param>
 		/// <returns>The result of the square root.</returns>
-		public static T SquareRoot<T>(T a)
-		{
-			return SquareRootImplementation<T>.Function(a);
-		}
+		public static T SquareRoot<T>(T a) =>
+			SquareRootImplementation<T>.Function(a);
 
 		internal static class SquareRootImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				#region Optimization(int)
 
@@ -681,23 +645,19 @@ namespace Towel.Mathematics
 		/// <param name="a">The base of the root.</param>
 		/// <param name="b">The root of the operation.</param>
 		/// <returns>The result of the root.</returns>
-		public static T Root<T>(T a, T b)
-		{
-			return Power(a, Invert(b));
-		}
+		public static T Root<T>(T a, T b) =>
+			Power(a, Invert(b));
 
 		#endregion
 
 		#region Logarithm
 
-		public static T Logarithm<T>(T value, T @base)
-		{
-			return LogarithmImplementation<T>.Function(value, @base);
-		}
+		public static T Logarithm<T>(T value, T @base) =>
+			LogarithmImplementation<T>.Function(value, @base);
 
 		internal static class LogarithmImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				throw new NotImplementedException();
 
@@ -717,14 +677,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine integer status of.</param>
 		/// <returns>Whether or not the value is an integer.</returns>
-		public static bool IsInteger<T>(T a)
-		{
-			return IsIntegerImplementation<T>.Function(a);
-		}
+		public static bool IsInteger<T>(T a) =>
+			IsIntegerImplementation<T>.Function(a);
 
 		internal static class IsIntegerImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Equal(
@@ -743,14 +701,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine non-negative status of.</param>
 		/// <returns>Whether or not the value is non-negative.</returns>
-		public static bool IsNonNegative<T>(T a)
-		{
-			return IsNonNegativeImplementation<T>.Function(a);
-		}
+		public static bool IsNonNegative<T>(T a) =>
+			IsNonNegativeImplementation<T>.Function(a);
 
 		internal static class IsNonNegativeImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.GreaterThanOrEqual(A, Expression.Constant(Constant<T>.Zero));
@@ -767,14 +723,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine negative status of.</param>
 		/// <returns>Whether or not the value is negative.</returns>
-		public static bool IsNegative<T>(T a)
-		{
-			return IsNegativeImplementation<T>.Function(a);
-		}
+		public static bool IsNegative<T>(T a) =>
+			IsNegativeImplementation<T>.Function(a);
 
 		internal static class IsNegativeImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				LabelTarget RETURN = Expression.Label(typeof(bool));
@@ -792,14 +746,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine positive status of.</param>
 		/// <returns>Whether or not the value is positive.</returns>
-		public static bool IsPositive<T>(T a)
-		{
-			return IsPositiveImplementation<T>.Function(a);
-		}
+		public static bool IsPositive<T>(T a) =>
+			IsPositiveImplementation<T>.Function(a);
 
 		internal static class IsPositiveImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.GreaterThan(A, Expression.Constant(Constant<T>.Zero));
@@ -816,14 +768,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine even status of.</param>
 		/// <returns>Whether or not the value is even.</returns>
-		public static bool IsEven<T>(T a)
-		{
-			return IsEvenImplementation<T>.Function(a);
-		}
+		public static bool IsEven<T>(T a) =>
+			IsEvenImplementation<T>.Function(a);
 
 		internal static class IsEvenImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Equal(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.Zero));
@@ -840,14 +790,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine odd status of.</param>
 		/// <returns>Whether or not the value is odd.</returns>
-		public static bool IsOdd<T>(T a)
-		{
-			return IsOddImplementation<T>.Function(a);
-		}
+		public static bool IsOdd<T>(T a) =>
+			IsOddImplementation<T>.Function(a);
 
 		internal static class IsOddImplementation<T>
 		{
-			internal static Func<T, bool> Function = (T a) =>
+			internal static Func<T, bool> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY =
@@ -899,29 +847,13 @@ namespace Towel.Mathematics
 			//return IsPrimeImplementation<T>.Function(value);
 		}
 
-		internal static class IsPrimeImplementation<T>
-		{
-			internal static Func<T, bool> Function = (T a) =>
-			{
-				if (IsInteger(a))
-				{
-					if (Equal(a, Constant<T>.Two))
-					{
-						return true;
-					}
-					T squareRoot = SquareRoot(a);
-					for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Add(divisor, Constant<T>.Two))
-					{
-						if (Equal(Modulo(a, divisor), Constant<T>.Zero))
-						{
-							return false;
-						}
-					}
-					return true;
-				}
-				return false;
-			};
-		}
+		//internal static class IsPrimeImplementation<T>
+		//{
+		//	internal static Func<T, bool> Function = a =>
+		//	{
+		//		// until optimization is made... no need for this implementation class
+		//	};
+		//}
 
 		#endregion
 
@@ -931,14 +863,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to get the absolute value of.</param>
 		/// <returns>The absolute value of the provided value.</returns>
-		public static T AbsoluteValue<T>(T a)
-		{
-			return AbsoluteValueImplementation<T>.Function(a);
-		}
+		public static T AbsoluteValue<T>(T a) =>
+			AbsoluteValueImplementation<T>.Function(a);
 
 		internal static class AbsoluteValueImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				LabelTarget RETURN = Expression.Label(typeof(T));
@@ -962,10 +892,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the maximum operation.</param>
 		/// <param name="b">The second operand of the maximum operation.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(T a, T b)
-		{
-			return MaximumImplementation<T>.Function(a, b);
-		}
+		public static T Maximum<T>(T a, T b) =>
+			MaximumImplementation<T>.Function(a, b);
 
 		/// <summary>Computes the maximum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -974,10 +902,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the maximum operation.</param>
 		/// <param name="d">The remaining operands of the maximum operation.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(T a, T b, T c, params T[] d)
-		{
-			return Maximum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Maximum<T>(T a, T b, T c, params T[] d) =>
+			Maximum<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Computes the maximum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1013,7 +939,7 @@ namespace Towel.Mathematics
 
 		internal static class MaximumImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1038,10 +964,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the minimum operation.</param>
 		/// <param name="b">The second operand of the minimum operation.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(T a, T b)
-		{
-			return MinimumImplementation<T>.Function(a, b);
-		}
+		public static T Minimum<T>(T a, T b) =>
+			MinimumImplementation<T>.Function(a, b);
 
 		/// <summary>Computes the minimum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1050,10 +974,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the minimum operation.</param>
 		/// <param name="d">The remaining operands of the minimum operation.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(T a, T b, T c, params T[] d)
-		{
-			return Minimum((Step<T> step) => { step(a); step(b); step(c); d.ToStepper()(step); });
-		}
+		public static T Minimum<T>(T a, T b, T c, params T[] d) =>
+			Minimum<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Computes the minimum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1067,7 +989,7 @@ namespace Towel.Mathematics
 			}
 			T result = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -1078,8 +1000,7 @@ namespace Towel.Mathematics
 					result = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -1089,7 +1010,7 @@ namespace Towel.Mathematics
 
 		internal static class MinimumImplementation<T>
 		{
-			internal static Func<T, T, T> Function = (T a, T b) =>
+			internal static Func<T, T, T> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1115,10 +1036,8 @@ namespace Towel.Mathematics
 		/// <param name="minimum">The minimum of the range to clamp the value by.</param>
 		/// <param name="maximum">The maximum of the range to clamp the value by.</param>
 		/// <returns>The value restricted to the provided range.</returns>
-		public static T Clamp<T>(T value, T minimum, T maximum)
-		{
-			return ClampImplementation<T>.Function(value, minimum, maximum);
-		}
+		public static T Clamp<T>(T value, T minimum, T maximum) =>
+			ClampImplementation<T>.Function(value, minimum, maximum);
 
 		internal static class ClampImplementation<T>
 		{
@@ -1152,12 +1071,9 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="leniency">The allowed distance between the values to still be considered equal.</param>
 		/// <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
-		public static bool EqualLeniency<T>(T a, T b, T leniency)
-		{
+		public static bool EqualLeniency<T>(T a, T b, T leniency) =>
 			// TODO: add an ArgumentOutOfBounds check on leniency
-
-			return EqualLeniencyImplementation<T>.Function(a, b, leniency);
-		}
+			EqualLeniencyImplementation<T>.Function(a, b, leniency);
 
 		internal static class EqualLeniencyImplementation<T>
 		{
@@ -1190,14 +1106,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the comparison.</param>
 		/// <param name="b">The second operand of the comparison.</param>
 		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Compare<T>(T a, T b)
-		{
-			return CompareImplementation<T>.Function(a, b);
-		}
+		public static CompareResult Compare<T>(T a, T b) =>
+			CompareImplementation<T>.Function(a, b);
 
 		internal static class CompareImplementation<T>
 		{
-			internal static Func<T, T, CompareResult> Function = (T a, T b) =>
+			internal static Func<T, T, CompareResult> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1233,10 +1147,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the equality check.</param>
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <returns>The result of the equality check.</returns>
-		public static bool Equal<T>(T a, T b)
-		{
-			return EqualImplementation<T>.Function(a, b);
-		}
+		public static bool Equal<T>(T a, T b) =>
+			EqualImplementation<T>.Function(a, b);
 
 		/// <summary>Checks for equality among multiple numeric operands.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1280,7 +1192,7 @@ namespace Towel.Mathematics
 			bool result = true;
 			T value = default;
 			bool assigned = false;
-			void step(T a)
+			stepper(a =>
 			{
 				if (assigned)
 				{
@@ -1294,8 +1206,7 @@ namespace Towel.Mathematics
 					value = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -1305,7 +1216,7 @@ namespace Towel.Mathematics
 
 		internal static class EqualImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1324,14 +1235,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the inequality check.</param>
 		/// <param name="b">The second operand of the inequality check.</param>
 		/// <returns>The result of the inequality check.</returns>
-		public static bool NotEqual<T>(T a, T b)
-		{
-			return NotEqualImplementation<T>.Function(a, b);
-		}
+		public static bool NotEqual<T>(T a, T b) =>
+			NotEqualImplementation<T>.Function(a, b);
 
 		internal static class NotEqualImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1350,14 +1259,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the less than check.</param>
 		/// <param name="b">The second operand of the less than check.</param>
 		/// <returns>The result of the less than check.</returns>
-		public static bool LessThan<T>(T a, T b)
-		{
-			return LessThanImplementation<T>.Function(a, b);
-		}
+		public static bool LessThan<T>(T a, T b) =>
+			LessThanImplementation<T>.Function(a, b);
 
 		internal static class LessThanImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1376,14 +1283,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the greater than check.</param>
 		/// <param name="b">The second operand of the greater than check.</param>
 		/// <returns>The result of the greater than check.</returns>
-		public static bool GreaterThan<T>(T a, T b)
-		{
-			return GreaterThanImplementation<T>.Function(a, b);
-		}
+		public static bool GreaterThan<T>(T a, T b) =>
+			GreaterThanImplementation<T>.Function(a, b);
 
 		internal static class GreaterThanImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1402,14 +1307,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the less than or equal to check.</param>
 		/// <param name="b">The second operand of the less than or equal to check.</param>
 		/// <returns>The result of the less than or equal to check.</returns>
-		public static bool LessThanOrEqual<T>(T a, T b)
-		{
-			return LessThanOrEqualImplementation<T>.Function(a, b);
-		}
+		public static bool LessThanOrEqual<T>(T a, T b) =>
+			LessThanOrEqualImplementation<T>.Function(a, b);
 
 		internal static class LessThanOrEqualImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1428,14 +1331,12 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the greater than or equal to check.</param>
 		/// <param name="b">The second operand of the greater than or equal to check.</param>
 		/// <returns>The result of the greater than or equal to check.</returns>
-		public static bool GreaterThanOrEqual<T>(T a, T b)
-		{
-			return GreaterThanOrEqualImplementation<T>.Function(a, b);
-		}
+		public static bool GreaterThanOrEqual<T>(T a, T b) =>
+			GreaterThanOrEqualImplementation<T>.Function(a, b);
 
 		internal static class GreaterThanOrEqualImplementation<T>
 		{
-			internal static Func<T, T, bool> Function = (T a, T b) =>
+			internal static Func<T, T, bool> Function = (a, b) =>
 			{
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				ParameterExpression B = Expression.Parameter(typeof(T));
@@ -1455,10 +1356,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the greatest common factor computation.</param>
 		/// <param name="c">The remaining operands of the greatest common factor computation.</param>
 		/// <returns>The computed greatest common factor of the set of numbers.</returns>
-		public static T GreatestCommonFactor<T>(T a, T b, params T[] c)
-		{
-			return GreatestCommonFactor<T>((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
-		}
+		public static T GreatestCommonFactor<T>(T a, T b, params T[] c) =>
+			GreatestCommonFactor<T>(step => { step(a); step(b); c.ToStepper()(step); });
 
 		/// <summary>Computes the greatest common factor of a set of numbers.</summary>
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
@@ -1524,10 +1423,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the least common muiltiple computation.</param>
 		/// <param name="c">The remaining operands of the least common muiltiple computation.</param>
 		/// <returns>The computed least common least common multiple of the set of numbers.</returns>
-		public static T LeastCommonMultiple<T>(T a, T b, params T[] c)
-		{
-			return LeastCommonMultiple((Step<T> step) => { step(a); step(b); c.ToStepper()(step); });
-		}
+		public static T LeastCommonMultiple<T>(T a, T b, params T[] c) =>
+			LeastCommonMultiple<T>(step => { step(a); step(b); c.ToStepper()(step); });
 
 		/// <summary>Computes the least common multiple of a set of numbers.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1605,14 +1502,12 @@ namespace Towel.Mathematics
 		/// <returns>The computed factorial value.</returns>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
-		public static T Factorial<T>(T a)
-		{
-			return FactorialImplementation<T>.Function(a);
-		}
+		public static T Factorial<T>(T a) =>
+			FactorialImplementation<T>.Function(a);
 
 		internal static class FactorialImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				Function = A =>
 				{
@@ -1693,16 +1588,129 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Mode
+		#region Occurences
 
-		public static IHeap<Link<T, int>> Mode<T>(T a, params T[] b)
+		/// <summary>Counts the number of occurences of each item.</summary>
+		/// <typeparam name="T">The generic type to count the occerences of.</typeparam>
+		/// <param name="a">The first value in the data.</param>
+		/// <param name="b">The rest of the data.</param>
+		/// <returns>The occurence map of the data.</returns>
+		public static IMap<int, T> Occurences<T>(T a, params T[] b) =>
+			Occurences<T>(step => { step(a); b.ToStepper()(step); });
+
+		/// <summary>Counts the number of occurences of each item.</summary>
+		/// <typeparam name="T">The generic type to count the occerences of.</typeparam>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="a">The first value in the data.</param>
+		/// <param name="b">The rest of the data.</param>
+		/// <returns>The occurence map of the data.</returns>
+		public static IMap<int, T> Occurences<T>(Equate<T> equate, T a, params T[] b) =>
+			Occurences<T>(step => { step(a); b.ToStepper()(step); }, equate, null);
+
+		/// <summary>Counts the number of occurences of each item.</summary>
+		/// <typeparam name="T">The generic type to count the occerences of.</typeparam>
+		/// <param name="hash">The hash code delegate.</param>
+		/// <param name="a">The first value in the data.</param>
+		/// <param name="b">The rest of the data.</param>
+		/// <returns>The occurence map of the data.</returns>
+		public static IMap<int, T> Occurences<T>(Hash<T> hash, T a, params T[] b) =>
+			Occurences<T>(step => { step(a); b.ToStepper()(step); }, null, hash);
+
+		/// <summary>Counts the number of occurences of each item.</summary>
+		/// <typeparam name="T">The generic type to count the occerences of.</typeparam>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="hash">The hash code delegate.</param>
+		/// <param name="a">The first value in the data.</param>
+		/// <param name="b">The rest of the data.</param>
+		/// <returns>The occurence map of the data.</returns>
+		public static IMap<int, T> Occurences<T>(Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
+			Occurences<T>(step => { step(a); b.ToStepper()(step); }, equate, hash);
+
+		/// <summary>Counts the number of occurences of each item.</summary>
+		/// <typeparam name="T">The generic type to count the occerences of.</typeparam>
+		/// <param name="stepper">The data to count the occurences of.</param>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="hash">The hash code delegate.</param>
+		/// <returns>The occurence map of the data.</returns>
+		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Equate<T> equate = null, Hash<T> hash = null)
 		{
-			return Mode((Step<T> step) => { step(a); b.ToStepper()(step); });
+			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			stepper(a =>
+			{
+				if (map.Contains(a))
+				{
+					map[a]++;
+				}
+				else
+				{
+					map[a] = 1;
+				}
+			});
+			return map;
 		}
 
-		public static IHeap<Link<T, int>> Mode<T>(Stepper<T> stepper)
+		#endregion
+
+		#region Mode
+
+		/// <summary>Gets the mode(s) of a data set.</summary>
+		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="a">The first value of the data set.</param>
+		/// <param name="b">The rest of the data set.</param>
+		/// <returns>The heap of occurences by value.</returns>
+		public static Stepper<T> Mode<T>(T a, params T[] b) =>
+			Mode<T>(step => { step(a); b.ToStepper()(step); });
+
+		/// <summary>Gets the mode(s) of a data set.</summary>
+		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="a">The first value of the data set.</param>
+		/// <param name="b">The rest of the data set.</param>
+		/// <returns>The modes of the data set.</returns>
+		public static Stepper<T> Mode<T>(Equate<T> equate, T a, params T[] b) =>
+			Mode<T>(step => { step(a); b.ToStepper()(step); }, equate, null);
+
+		/// <summary>Gets the mode(s) of a data set.</summary>
+		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="hash">The hash code delegate</param>
+		/// <param name="a">The first value of the data set.</param>
+		/// <param name="b">The rest of the data set.</param>
+		/// <returns>The modes of the data set.</returns>
+		public static Stepper<T> Mode<T>(Hash<T> hash, T a, params T[] b) =>
+			Mode<T>(step => { step(a); b.ToStepper()(step); }, null, hash);
+
+		/// <summary>Gets the mode(s) of a data set.</summary>
+		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="hash">The hash code delegate</param>
+		/// <param name="a">The first value of the data set.</param>
+		/// <param name="b">The rest of the data set.</param>
+		/// <returns>The modes of the data set.</returns>
+		public static Stepper<T> Mode<T>(Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
+			Mode<T>(step => { step(a); b.ToStepper()(step); }, equate, hash);
+
+		/// <summary>Gets the mode(s) of a data set.</summary>
+		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="stepper">The data set.</param>
+		/// <param name="equate">The equality delegate.</param>
+		/// <param name="hash">The hash code delegate</param>
+		/// <returns>The modes of the data set.</returns>
+		public static Stepper<T> Mode<T>(Stepper<T> stepper, Equate<T> equate = null, Hash<T> hash = null)
 		{
-			throw new NotImplementedException();
+			IMap<int, T> map = Occurences(stepper, equate, hash);
+			IHeap<(T, int)> heap = new HeapArray<(T, int)>((a, b) => Towel.Compare.Wrap(a.Item2.CompareTo(b.Item2)));
+			map.Keys(x => heap.Enqueue((x, map[x])));
+			if (heap.Count <= 0)
+			{
+				return x => { };
+			}
+			IList<T> modes = new ListArray<T>();
+			int maxOccurences = heap.Peek().Item2;
+			while (heap.Count > 0 && heap.Peek().Item2 == maxOccurences)
+			{
+				modes.Add(heap.Dequeue().Item1);
+			}
+			return modes.Stepper;
 		}
 
 		#endregion
@@ -1714,10 +1722,8 @@ namespace Towel.Mathematics
 		/// <param name="a">The first value of the set of data to compute the mean of.</param>
 		/// <param name="b">The remaining values in the data set to compute the mean of.</param>
 		/// <returns>The computed mean of the set of data.</returns>
-		public static T Mean<T>(T a, params T[] b)
-		{
-			return Mean((Step<T> step) => { step(a); b.ToStepper()(step); });
-		}
+		public static T Mean<T>(T a, params T[] b) =>
+			Mean<T>(step => { step(a); b.ToStepper()(step); });
 
 		/// <summary>Computes the mean of a set of numerical values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1907,10 +1913,8 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the standard deviation of.</param>
 		/// <returns>The computed standard deviation of the set of numbers.</returns>
-		public static T StandardDeviation<T>(Stepper<T> stepper)
-		{
-			return SquareRoot(Variance(stepper));
-		}
+		public static T StandardDeviation<T>(Stepper<T> stepper) =>
+			SquareRoot(Variance(stepper));
 
 		#endregion
 
@@ -1944,10 +1948,8 @@ namespace Towel.Mathematics
 		/// <param name="maximum">The maximum of the set of data.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
 		/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
-		public static void Range<T>(out T minimum, out T maximum, Stepper<T> stepper)
-		{
+		public static void Range<T>(out T minimum, out T maximum, Stepper<T> stepper) =>
 			Range(stepper, out minimum, out maximum);
-		}
 
 		/// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1962,30 +1964,30 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(stepper));
 			}
-			T MINIMUM = default;
-			T MAXIMUM = default;
+			// Note: can't use out parameters as capture variables
+			T min = default;
+			T max = default;
 			bool assigned = false;
-			void step(T i)
+			stepper(a =>
 			{
 				if (assigned)
 				{
-					MINIMUM = LessThan(i, MINIMUM) ? i : MINIMUM;
-					MAXIMUM = LessThan(MAXIMUM, i) ? i : MAXIMUM;
+					min = LessThan(a, min) ? a : min;
+					max = LessThan(max, a) ? a : max;
 				}
 				else
 				{
-					MINIMUM = i;
-					MAXIMUM = i;
+					min = a;
+					max = a;
 					assigned = true;
 				}
-			}
-			stepper(step);
+			});
 			if (!assigned)
 			{
 				throw new ArgumentException("The argument is empty.", nameof(stepper));
 			}
-			minimum = MINIMUM;
-			maximum = MAXIMUM;
+			minimum = min;
+			maximum = max;
 		}
 
 		#endregion
@@ -2086,15 +2088,13 @@ namespace Towel.Mathematics
 
 		#region NaturalLogarithm
 
-		public static T NaturalLogarithm<T>(T a)
-		{
-			return NaturalLogarithmImplementation<T>.Function(a);
-		}
+		public static T NaturalLogarithm<T>(T a) =>
+			NaturalLogarithmImplementation<T>.Function(a);
 
 		/// <summary>Computes (natrual log): [ ln(n) ].</summary>
 		internal static class NaturalLogarithmImplementation<T>
 		{
-			internal static Func<T, T> Function = (T a) =>
+			internal static Func<T, T> Function = a =>
 			{
 				// optimization for specific known types
 				if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
@@ -2116,17 +2116,17 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="angle">The angle to compute the sine ratio of.</param>
+		/// <param name="a">The angle to compute the sine ratio of.</param>
 		/// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
 		/// <returns>The taylor series computed sine ratio of the provided angle.</returns>
-		public static T SineTaylorSeries<T>(Angle<T> angle, Predicate<T> predicate = null)
+		public static T SineTaylorSeries<T>(Angle<T> a, Predicate<T> predicate = null)
 		{
 			// Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!) + ...
 			// more terms in computation inproves accuracy
 
 			// Note: there is room for optimization (custom runtime compilation)
 
-			T x = angle[Angle.Units.Radians];
+			T x = a[Angle.Units.Radians];
 			T sine = x;
 			T previous;
 			bool isAddTerm = false;
@@ -2160,7 +2160,11 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T SineSystem<T>(Angle<T> a)
 		{
-			return Convert<double, T>(Math.Sin(Convert<T, double>(a[Angle.Units.Radians])));
+			T b = a[Angle.Units.Radians];
+			double c = Convert<T, double>(b);
+			double d = Math.Sin(c);
+			T e = Convert<double, T>(d);
+			return e;
 		}
 
 		/// <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2198,17 +2202,17 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes the cosine ratio of an angle using the relative talor series. Accurate but slow.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="angle">The angle to compute the cosine ratio of.</param>
+		/// <param name="a">The angle to compute the cosine ratio of.</param>
 		/// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
 		/// <returns>The taylor series computed cosine ratio of the provided angle.</returns>
-		public static T CosineTaylorSeries<T>(Angle<T> angle, Predicate<T> predicate = null)
+		public static T CosineTaylorSeries<T>(Angle<T> a, Predicate<T> predicate = null)
 		{
 			// Series: cosine(x) = 1 - (x^2 / 2!) + (x^4 / 4!) - (x^6 / 6!) + (x^8 / 8!) - ...
 			// more terms in computation inproves accuracy
 
 			// Note: there is room for optimization (custom runtime compilation)
 
-			T x = angle[Angle.Units.Radians];
+			T x = a[Angle.Units.Radians];
 			T cosine = Constant<T>.One;
 			T previous;
 			T xSquared = Multiply(x, x);
@@ -2242,7 +2246,11 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T CosineSystem<T>(Angle<T> a)
 		{
-			return Convert<double, T>(Math.Cos(Convert<T, double>(a[Angle.Units.Radians])));
+			T b = a[Angle.Units.Radians];
+			double c = Convert<T, double>(b);
+			double d = Math.Cos(c);
+			T e = Convert<double, T>(d);
+			return e;
 		}
 
 		/// <summary>Estimates the cosine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2261,7 +2269,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes the tangent ratio of an angle using the relative talor series. Accurate but slow.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="angle">The angle to compute the tangent ratio of.</param>
+		/// <param name="a">The angle to compute the tangent ratio of.</param>
 		/// <returns>The taylor series computed tangent ratio of the provided angle.</returns>
 		public static T TangentTaylorSeries<T>(Angle<T> a)
 		{
@@ -2275,7 +2283,11 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T TangentSystem<T>(Angle<T> a)
 		{
-			return Convert<double, T>(Math.Tan(Convert<T, double>(a[Angle.Units.Radians])));
+			T b = a[Angle.Units.Radians];
+			double c = Convert<T, double>(b);
+			double d = Math.Tan(c);
+			T e = Convert<double, T>(d);
+			return e;
 		}
 
 		/// <summary>Estimates the tangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2367,7 +2379,7 @@ namespace Towel.Mathematics
 
 		//internal static class InverseSineImplementation<T>
 		//{
-		//    internal static Func<T, Angle<T>> Function = (T a) =>
+		//    internal static Func<T, Angle<T>> Function = a =>
 		//    {
 		//        // optimization for specific known types
 		//        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
@@ -2392,7 +2404,7 @@ namespace Towel.Mathematics
 
 		//internal static class InverseCosineImplementation<T>
 		//{
-		//    internal static Func<T, Angle<T>> Function = (T a) =>
+		//    internal static Func<T, Angle<T>> Function = a =>
 		//    {
 		//        // optimization for specific known types
 		//        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
@@ -2417,7 +2429,7 @@ namespace Towel.Mathematics
 
 		//internal static class InverseTangentImplementation<T>
 		//{
-		//    internal static Func<T, Angle<T>> Function = (T a) =>
+		//    internal static Func<T, Angle<T>> Function = a =>
 		//    {
 		//        // optimization for specific known types
 		//        if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
@@ -2632,31 +2644,31 @@ namespace Towel.Mathematics
 				throw new ArgumentNullException(nameof(points));
 			}
 			int count = 0;
-			T SUMX = Constant<T>.Zero;
-			T SUMY = Constant<T>.Zero;
+			T sumx = Constant<T>.Zero;
+			T sumy = Constant<T>.Zero;
 			points((x, y) =>
 			{
-				SUMX = Add(SUMX, x);
-				SUMY = Add(SUMY, y);
+				sumx = Add(sumx, x);
+				sumy = Add(sumy, y);
 				count++;
 			});
 			if (count < 2)
 			{
-				throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count >= 2)");
+				throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count() >= 2)");
 			}
-			T COUNT = Convert<int, T>(count);
-			T MEANX = Divide(SUMX, COUNT);
-			T MEANY = Divide(SUMY, COUNT);
-			T VARIANCEX = Constant<T>.Zero;
-			T VARIANCEY = Constant<T>.Zero;
+			T tcount = Convert<int, T>(count);
+			T meanx = Divide(sumx, tcount);
+			T meany = Divide(sumy, tcount);
+			T variancex = Constant<T>.Zero;
+			T variancey = Constant<T>.Zero;
 			points((x, y) =>
 			{
-				T offset = Subtract(x, MEANX);
-				VARIANCEY = Add(VARIANCEY, Multiply(offset, Subtract(y, MEANY)));
-				VARIANCEX = Add(VARIANCEX, Multiply(offset, offset));
+				T offset = Subtract(x, meanx);
+				variancey = Add(variancey, Multiply(offset, Subtract(y, meany)));
+				variancex = Add(variancex, Multiply(offset, offset));
 			});
-			slope = Divide(VARIANCEY, VARIANCEX);
-			y_intercept = Subtract(MEANY, Multiply(slope, MEANX));
+			slope = Divide(variancey, variancex);
+			y_intercept = Subtract(meany, Multiply(slope, meanx));
 		}
 
 		#endregion
@@ -2667,14 +2679,12 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to factor the prime numbers of.</param>
 		/// <returns>A stepper of all the prime factors.</returns>
-		public static Stepper<T> FactorPrimes<T>(T a)
-		{
-			return FactorPrimesImplementation<T>.Function(a);
-		}
+		public static Stepper<T> FactorPrimes<T>(T a) =>
+			FactorPrimesImplementation<T>.Function(a);
 
 		internal static class FactorPrimesImplementation<T>
 		{
-			internal static Func<T, Stepper<T>> Function = (T a) =>
+			internal static Func<T, Stepper<T>> Function = a =>
 			{
 				Function = A =>
 				{

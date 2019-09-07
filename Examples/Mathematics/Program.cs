@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Towel;
 using Towel.Mathematics;
@@ -165,17 +166,8 @@ namespace Mathematics
 			// Examples
 			Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.ToStepper())));
 			Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.ToStepper())));
-
-			// I need to fix the "Mode" function
-			//Console.WriteLine("    Mode(data): ");
-			//Heap<Link<double, int>> modes = Mode(statistics_data.Stepper());
-			//while (modes.Count > 0)
-			//{
-			//    Link<double, int> link = modes.Dequeue();
-			//    Console.WriteLine("      Point: " + string.Format("{0:0.00}", link._1) + " Occurences: " + link._2);
-			//}
-			//Console.WriteLine();
-
+			double[] modes = Mode(statistics_data.ToStepper()).ToArray();
+			Console.WriteLine("    Mode(data): " + string.Join(",", modes.Select(x => string.Format("{0:0.00}", x))));
 			Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.ToStepper())));
 			Range(out double min, out double max, statistics_data.ToStepper());
 			Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", min) + "-" + string.Format("{0:0.00}", max));

@@ -808,7 +808,7 @@ namespace Towel
 			return memberInfo.GetCustomAttribute<AttributeType>();
 		}
 
-		/// <summary>Gets custom attribus on an enum value by generic type.</summary>
+		/// <summary>Gets custom attributes on an enum value by generic type.</summary>
 		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
 		/// <param name="enum">The enum value to get the attribute of.</param>
 		/// <returns>The attributes on the enum value of the provided type.</returns>
@@ -823,10 +823,8 @@ namespace Towel
 		/// <summary>Gets the maximum value of an enum.</summary>
 		/// <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
 		/// <returns>The maximum enum value of the provided type.</returns>
-		public static ENUM GetLastEnumValue<ENUM>()
-		{
-			return Enum.GetValues(typeof(ENUM)).Cast<ENUM>().Last();
-		}
+		public static ENUM GetLastEnumValue<ENUM>() =>
+			Enum.GetValues(typeof(ENUM)).Cast<ENUM>().Last();
 
 		#endregion
 

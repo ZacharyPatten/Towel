@@ -685,65 +685,27 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				step(_list[i]);
-			}
-		}
+		public void Stepper(Step<T> step) => _list.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				step(ref _list[i]);
-			}
-		}
+		public void Stepper(StepRef<T> step) => _list.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				if (step(_list[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _list.ForEach(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				if (step(ref _list[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => _list.ForEach(step);
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				yield return _list[i];
-			}
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		/// <summary>Gets the enumerator for the data structure.</summary>
+		/// <returns>The enumerator for the data structure.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _count; i++)
 			{
@@ -760,10 +722,7 @@ namespace Towel.DataStructures
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];
-			for (int i = 0; i < _count; i++)
-			{
-				array[i] = _list[i];
-			}
+			Array.Copy(_list, array, _count);
 			return array;
 		}
 

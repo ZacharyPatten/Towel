@@ -26,10 +26,7 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate. Here is an example for basic addition:
 
 ```csharp
-public static T Add<T>(T a, T b)
-{
-    return AddImplementation<T>.Function(a, b);
-}
+public static T Add<T>(T a, T b) => AddImplementation<T>.Function(a, b);
 
 internal static class AddImplementation<T>
 {

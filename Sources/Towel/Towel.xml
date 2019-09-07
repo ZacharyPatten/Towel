@@ -3333,6 +3333,10 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
+        <member name="M:Towel.DataStructures.ListArray`1.GetEnumerator">
+            <summary>Gets the enumerator for the data structure.</summary>
+            <returns>The enumerator for the data structure.</returns>
+        </member>
         <member name="M:Towel.DataStructures.ListArray`1.ToArray">
             <summary>Converts the list array into a standard array.</summary>
             <returns>A standard array of all the elements.</returns>
@@ -3408,18 +3412,6 @@
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1})">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Int32)">
             <summary>Constructs a new hash table instance.</summary>
@@ -15700,7 +15692,7 @@
             <returns>The attribute on the enum value of the provided type.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.GetEnumAttributes``1(System.Enum)">
-            <summary>Gets custom attribus on an enum value by generic type.</summary>
+            <summary>Gets custom attributes on an enum value by generic type.</summary>
             <typeparam name="AttributeType">The type of attribute to get.</typeparam>
             <param name="enum">The enum value to get the attribute of.</param>
             <returns>The attributes on the enum value of the provided type.</returns>
@@ -16833,6 +16825,86 @@
             <param name="n">The size of the subset (N choose n).</param>
             <returns>The computed binomial coefficient (N choose n).</returns>
         </member>
+        <member name="M:Towel.Mathematics.Compute.Occurences``1(``0,``0[])">
+            <summary>Counts the number of occurences of each item.</summary>
+            <typeparam name="T">The generic type to count the occerences of.</typeparam>
+            <param name="a">The first value in the data.</param>
+            <param name="b">The rest of the data.</param>
+            <returns>The occurence map of the data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Occurences``1(Towel.Equate{``0},``0,``0[])">
+            <summary>Counts the number of occurences of each item.</summary>
+            <typeparam name="T">The generic type to count the occerences of.</typeparam>
+            <param name="equate">The equality delegate.</param>
+            <param name="a">The first value in the data.</param>
+            <param name="b">The rest of the data.</param>
+            <returns>The occurence map of the data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Occurences``1(Towel.Hash{``0},``0,``0[])">
+            <summary>Counts the number of occurences of each item.</summary>
+            <typeparam name="T">The generic type to count the occerences of.</typeparam>
+            <param name="hash">The hash code delegate.</param>
+            <param name="a">The first value in the data.</param>
+            <param name="b">The rest of the data.</param>
+            <returns>The occurence map of the data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Occurences``1(Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
+            <summary>Counts the number of occurences of each item.</summary>
+            <typeparam name="T">The generic type to count the occerences of.</typeparam>
+            <param name="equate">The equality delegate.</param>
+            <param name="hash">The hash code delegate.</param>
+            <param name="a">The first value in the data.</param>
+            <param name="b">The rest of the data.</param>
+            <returns>The occurence map of the data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Occurences``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+            <summary>Counts the number of occurences of each item.</summary>
+            <typeparam name="T">The generic type to count the occerences of.</typeparam>
+            <param name="stepper">The data to count the occurences of.</param>
+            <param name="equate">The equality delegate.</param>
+            <param name="hash">The hash code delegate.</param>
+            <returns>The occurence map of the data.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mode``1(``0,``0[])">
+            <summary>Gets the mode(s) of a data set.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="a">The first value of the data set.</param>
+            <param name="b">The rest of the data set.</param>
+            <returns>The heap of occurences by value.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Equate{``0},``0,``0[])">
+            <summary>Gets the mode(s) of a data set.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="equate">The equality delegate.</param>
+            <param name="a">The first value of the data set.</param>
+            <param name="b">The rest of the data set.</param>
+            <returns>The modes of the data set.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Hash{``0},``0,``0[])">
+            <summary>Gets the mode(s) of a data set.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="hash">The hash code delegate</param>
+            <param name="a">The first value of the data set.</param>
+            <param name="b">The rest of the data set.</param>
+            <returns>The modes of the data set.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
+            <summary>Gets the mode(s) of a data set.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="equate">The equality delegate.</param>
+            <param name="hash">The hash code delegate</param>
+            <param name="a">The first value of the data set.</param>
+            <param name="b">The rest of the data set.</param>
+            <returns>The modes of the data set.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+            <summary>Gets the mode(s) of a data set.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="stepper">The data set.</param>
+            <param name="equate">The equality delegate.</param>
+            <param name="hash">The hash code delegate</param>
+            <returns>The modes of the data set.</returns>
+        </member>
         <member name="M:Towel.Mathematics.Compute.Mean``1(``0,``0[])">
             <summary>Computes the mean of a set of numerical values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -16923,7 +16995,7 @@
         <member name="M:Towel.Mathematics.Compute.SineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
             <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="angle">The angle to compute the sine ratio of.</param>
+            <param name="a">The angle to compute the sine ratio of.</param>
             <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
             <returns>The taylor series computed sine ratio of the provided angle.</returns>
         </member>
@@ -16943,7 +17015,7 @@
         <member name="M:Towel.Mathematics.Compute.CosineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
             <summary>Computes the cosine ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="angle">The angle to compute the cosine ratio of.</param>
+            <param name="a">The angle to compute the cosine ratio of.</param>
             <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
             <returns>The taylor series computed cosine ratio of the provided angle.</returns>
         </member>
@@ -16963,7 +17035,7 @@
         <member name="M:Towel.Mathematics.Compute.TangentTaylorSeries``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the tangent ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="angle">The angle to compute the tangent ratio of.</param>
+            <param name="a">The angle to compute the tangent ratio of.</param>
             <returns>The taylor series computed tangent ratio of the provided angle.</returns>
         </member>
         <member name="M:Towel.Mathematics.Compute.TangentSystem``1(Towel.Measurements.Angle{``0})">
@@ -30642,6 +30714,14 @@
         </member>
         <member name="T:Towel.Stepper">
             <summary>Extension methods.</summary>
+        </member>
+        <member name="M:Towel.Stepper.Convert``2(Towel.Stepper{``0},System.Func{``0,``1})">
+            <summary>Converts the values in this stepper to another type.</summary>
+            <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
+            <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
+            <param name="stepper">The stepper to convert.</param>
+            <param name="func">The conversion function.</param>
+            <returns>The converted stepper.</returns>
         </member>
         <member name="M:Towel.Stepper.Append``1(Towel.Stepper{``0},``0[])">
             <summary>Appends values to the stepper.</summary>

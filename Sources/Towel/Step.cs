@@ -121,6 +121,21 @@ namespace Towel
 	/// <summary>Extension methods.</summary>
 	public static class Stepper
 	{
+		/// <summary>Converts the values in this stepper to another type.</summary>
+		/// <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
+		/// <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
+		/// <param name="stepper">The stepper to convert.</param>
+		/// <param name="func">The conversion function.</param>
+		/// <returns>The converted stepper.</returns>
+		public static Stepper<B> Convert<A, B>(this Stepper<A> stepper, Func<A, B> func)
+		{
+			return b =>
+				stepper(a =>
+				{
+					b(func(a));
+				});
+		}
+
 		/// <summary>Appends values to the stepper.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The stepper to append to.</param>
