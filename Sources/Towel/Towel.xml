@@ -15666,11 +15666,17 @@
             /// <param name="equate">The delegate for checking two values for equality.</param>
             <returns>True if the array are determined to be deeply equal. False if not.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Fill``1(``0[],``0)">
+        <member name="M:Towel.TowelDotNetExtensions.Format``1(``0[],``0)">
             <summary>Formats an array so that all values are the same.</summary>
             <typeparam name="T">The generic type of the array to format.</typeparam>
             <param name="array">The array to format.</param>
             <param name="value">The value to format all entries in the array with.</param>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.Format``1(``0[],System.Func{System.Int32,``0})">
+            <summary>Formats an array so that all values are the same.</summary>
+            <typeparam name="T">The generic type of the array to format.</typeparam>
+            <param name="array">The array to format.</param>
+            <param name="func">The per-index format function.</param>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
             <summary>Constructs a square jagged array of the desired dimensions.</summary>
@@ -16865,42 +16871,43 @@
             <param name="hash">The hash code delegate.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.Mode``1(``0,``0[])">
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Step{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="step">The action to perform on every mode value found.</param>
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
-            <returns>The heap of occurences by value.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Equate{``0},``0,``0[])">
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Step{``0},Towel.Equate{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="step">The action to perform on every mode value found.</param>
             <param name="equate">The equality delegate.</param>
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
-            <returns>The modes of the data set.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Step{``0},Towel.Hash{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="step">The action to perform on every mode value found.</param>
             <param name="hash">The hash code delegate</param>
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
-            <returns>The modes of the data set.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Step{``0},Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="step">The action to perform on every mode value found.</param>
             <param name="equate">The equality delegate.</param>
             <param name="hash">The hash code delegate</param>
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
-            <returns>The modes of the data set.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Mathematics.Compute.Mode``1(Towel.Stepper{``0},Towel.Step{``0},Towel.Equate{``0},Towel.Hash{``0})">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The data set.</param>
+            <param name="step">The action to perform on every mode value found.</param>
             <param name="equate">The equality delegate.</param>
             <param name="hash">The hash code delegate</param>
             <returns>The modes of the data set.</returns>
@@ -17097,11 +17104,11 @@
             <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
             <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
         </member>
-        <member name="M:Towel.Mathematics.Compute.FactorPrimes``1(``0)">
+        <member name="M:Towel.Mathematics.Compute.FactorPrimes``1(``0,Towel.Step{``0})">
             <summary>Factors the primes numbers of a numeric integer value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to factor the prime numbers of.</param>
-            <returns>A stepper of all the prime factors.</returns>
+            <param name="step">The action to perform on all found prime factors.</param>
         </member>
         <member name="T:Towel.Mathematics.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
@@ -30711,6 +30718,16 @@
             <typeparam name="T1">The type of the object to step on.</typeparam>
             <typeparam name="T2">The type of the object to step on.</typeparam>
             <param name="step">The action to perform on every step.</param>
+        </member>
+        <member name="T:Towel.Step">
+            <summary>Extension methods.</summary>
+        </member>
+        <member name="M:Towel.Step.Gaps``1(Towel.Step{``0},Towel.Step{``0})">
+            <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>
+            <typeparam name="T">The generic type of the step function.</typeparam>
+            <param name="step">The step to add a gap step to.</param>
+            <param name="gapStep">The step to perform in the gaps.</param>
+            <returns>The combined step + gapStep function.</returns>
         </member>
         <member name="T:Towel.Stepper">
             <summary>Extension methods.</summary>

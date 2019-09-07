@@ -762,11 +762,23 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the array to format.</typeparam>
 		/// <param name="array">The array to format.</param>
 		/// <param name="value">The value to format all entries in the array with.</param>
-		public static void Fill<T>(this T[] array, T value)
+		public static void Format<T>(this T[] array, T value)
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
 				array[i] = value;
+			}
+		}
+
+		/// <summary>Formats an array so that all values are the same.</summary>
+		/// <typeparam name="T">The generic type of the array to format.</typeparam>
+		/// <param name="array">The array to format.</param>
+		/// <param name="func">The per-index format function.</param>
+		public static void Format<T>(this T[] array, Func<int, T> func)
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				array[i] = func(i);
 			}
 		}
 

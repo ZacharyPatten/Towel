@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
+using Towel.DataStructures;
 using static Towel.Mathematics.Compute;
 
 namespace Mathematics
@@ -11,7 +12,7 @@ namespace Mathematics
 	class Program
 	{
 		// Gets randomized values
-		public static Random random = new Random();
+		static Random random = new Random();
 
 		static void Main(string[] args)
 		{
@@ -50,26 +51,13 @@ namespace Mathematics
 			Fraction32 clamp_a = (Fraction32)(-123d / 9d);
 			Fraction32 clamp_b = (Fraction32)(7d / 12d);
 			Fraction32 clamp_c = (Fraction32)(14d / 15d);
-			double[] summation_values = new double[]
-			{
-				random.NextDouble(),
-				random.NextDouble(),
-				random.NextDouble(),
-				random.NextDouble(),
-			};
+			double[] summation_values = new double[4];
+			summation_values.Format(x => random.NextDouble());
 
 			// Examples
 			Console.WriteLine("    Negate(7): " + Negate(7));
 			Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
-
-			Console.Write("    Σ (" + string.Format("{0:0.00}", summation_values[0]));
-			for (int i = 1; i < summation_values.Length; i++)
-			{
-				Console.Write(", " + string.Format("{0:0.00}", summation_values[i]));
-			}
-			// multiple parameter add overload example (most math functions have this overload)
-			Console.WriteLine(") = " + string.Format("{0:0.00}", Add(summation_values.ToStepper())));
-
+			Console.WriteLine("    Σ (" + string.Join(", ", summation_values.Select(x => Format(x))) + ") = " + Add(summation_values.ToStepper()));
 			Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
 			Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
 			Console.WriteLine("    Divide(14, 7): " + Divide((short)14, (short)7));
@@ -93,28 +81,43 @@ namespace Mathematics
 			Console.WriteLine("  More Numeric Mathematics----------------------------");
 			Console.WriteLine();
 
-			// Variables
-			int prime_check = random.Next(1, 100000);
-			int[] gcf = new int[] { random.Next(1, 500) * 2, random.Next(1, 500) * 2, random.Next(1, 500) * 2 };
-			int[] lcm = new int[] { random.Next(1, 500) * 2, random.Next(1, 500) * 2, random.Next(1, 500) * 2 };
-			int prime_factors = random.Next(1, 100000);
-			int check = random.Next(1, 1000);
+			int random1 = random.Next(1, 100000);
+			Console.WriteLine("    IsPrime(" + random1 + "): " + IsPrime(random1));
 
-			// Examples
-			Console.WriteLine("    IsPrime(" + prime_check + "): " + IsPrime(prime_check));
-			Console.WriteLine("    IsNegative(" + check + "): " + IsNegative(check));
-			Console.WriteLine("    IsNonNegative(" + check + "): " + IsNonNegative(check));
-			Console.WriteLine("    IsPositive(" + check + "): " + IsPositive(check));
-			Console.WriteLine("    IsOdd(" + check + "): " + IsOdd(check));
-			Console.WriteLine("    IsEven(" + check + "): " + IsEven(check));
-			Console.WriteLine("    GCF(" + gcf[0] + ", " + gcf[1] + ", " + gcf[2] + "): " + GreatestCommonFactor(gcf.ToStepper()));
-			Console.WriteLine("    LCM(" + lcm[0] + ", " + lcm[1] + ", " + lcm[2] + "): " + LeastCommonMultiple(lcm.ToStepper()));
-			Console.Write("    Prime Factors(" + prime_factors + "): ");
-			FactorPrimes(prime_factors)(i => Console.Write(i + " "));
-			Console.WriteLine();
-			Console.WriteLine("    7!: " + Factorial(7));
+			int random2 = random.Next(1, 1000);
+			Console.WriteLine("    IsNegative(" + random2 + "): " + IsNegative(random2));
+
+			int random3 = random.Next(1, 1000);
+			Console.WriteLine("    IsNonNegative(" + random3 + "): " + IsNonNegative(random3));
+
+			int random4 = random.Next(1, 1000);
+			Console.WriteLine("    IsPositive(" + random4 + "): " + IsPositive(random4));
+
+			int random5 = random.Next(1, 1000);
+			Console.WriteLine("    IsOdd(" + random5 + "): " + IsOdd(random5));
+
+			int random6 = random.Next(1, 1000);
+			Console.WriteLine("    IsEven(" + random6 + "): " + IsEven(random6));
+
+			int[] randomInts1 = new int[3];
+			randomInts1.Format(x => random.Next(1, 500) * 2);
+			Console.WriteLine("    GCF(" + string.Join(", ", randomInts1) + "): " + GreatestCommonFactor(randomInts1.ToStepper()));
+
+			int[] randomInts2 = new int[3];
+			randomInts2.Format(x => random.Next(1, 500) * 2);
+			Console.WriteLine("    LCM(" + string.Join(", ", randomInts2) + "): " + LeastCommonMultiple(randomInts2.ToStepper()));
+
+			int random7 = random.Next(6, 10);
+			Console.WriteLine("    " + random7 + "!: " + Factorial(random7));
+
 			Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
+
 			Console.WriteLine("    7 choose 2: " + BinomialCoefficient(7, 2));
+
+			int random8 = random.Next(1, 100000);
+			Console.Write("    Prime Factors(" + random8 + "): ");
+			FactorPrimes(random8, i => Console.Write(i + " "));
+			Console.WriteLine();
 
 			Console.WriteLine();
 
@@ -128,8 +131,11 @@ namespace Mathematics
 			double randomDouble = random.NextDouble();
 			Angle<double> randomAngle = new Angle<double>(randomDouble, Angle.Units.Radians);
 
-			Console.WriteLine("    SinTaylorSeries(" + randomAngle + ") = " + SineTaylorSeries(randomAngle));
-			Console.WriteLine("    CosinTaylorSeries(" + randomAngle + ") = " + CosineTaylorSeries(randomAngle));
+			double sineTaylorSeries = SineTaylorSeries(randomAngle);
+			Console.WriteLine("    SinTaylorSeries(" + randomAngle + ") = " + Format(sineTaylorSeries));
+
+			double cosineTaylorSeries = CosineTaylorSeries(randomAngle);
+			Console.WriteLine("    CosinTaylorSeries(" + randomAngle + ") = " + Format(cosineTaylorSeries));
 
 			Console.WriteLine();
 
@@ -140,41 +146,66 @@ namespace Mathematics
 			Console.WriteLine("  Statistics-----------------------------------------");
 			Console.WriteLine();
 
-			// Variables/Data
+			// Data Generation
 			double mode_temp = random.NextDouble() * 100;
-			double[] statistics_data = new double[random.Next(5, 7)];
-			for (int i = 0; i < statistics_data.Length; i++)
-			{
-				if (i == 1 || i == statistics_data.Length - 1)
-				{
-					statistics_data[i] = mode_temp;
-				}
-				else
-				{
-					statistics_data[i] = random.NextDouble() * 100;
-				}
-			}
-			string stat_data_string = "    data: [" + string.Format("{0:0.00}", statistics_data[0]);
-			for (int i = 1; i < statistics_data.Length; i++)
-			{
-				stat_data_string += ", " + string.Format("{0:0.00}", statistics_data[i]);
-			}
-			stat_data_string += "]";
-			Console.WriteLine(stat_data_string);
+			double[] dataArray = new double[random.Next(5, 7)];
+			dataArray.Format(x => random.NextDouble() * 100);
+
+			// Lets copy a value in the array to ensure there is at least one 
+			// duplicate (so the "Mode" example will has something to show)
+			dataArray[dataArray.Length - 1] = dataArray[0];
+
+			// Print Data
+			Console.WriteLine("    data: [" + string.Join(", ", dataArray.Select(x => Format(x))) + "]");
 			Console.WriteLine();
 
+			Stepper<double> data = dataArray.ToStepper();
+
 			// Examples
-			Console.WriteLine("    Mean(data): " + string.Format("{0:0.00}", Mean(statistics_data.ToStepper())));
-			Console.WriteLine("    Median(data): " + string.Format("{0:0.00}", Median(statistics_data.ToStepper())));
-			double[] modes = Mode(statistics_data.ToStepper()).ToArray();
-			Console.WriteLine("    Mode(data): " + string.Join(",", modes.Select(x => string.Format("{0:0.00}", x))));
-			Console.WriteLine("    Geometric Mean(data): " + string.Format("{0:0.00}", GeometricMean(statistics_data.ToStepper())));
-			Range(out double min, out double max, statistics_data.ToStepper());
-			Console.WriteLine("    Range(data): " + string.Format("{0:0.00}", min) + "-" + string.Format("{0:0.00}", max));
-			Console.WriteLine("    Variance(data): " + string.Format("{0:0.00}", Variance(statistics_data.ToStepper())));
-			Console.WriteLine("    Standard Deviation(data): " + string.Format("{0:0.00}", StandardDeviation(statistics_data.ToStepper())));
-			Console.WriteLine("    Mean Deviation(data): " + string.Format("{0:0.00}", MeanDeviation(statistics_data.ToStepper())));
-			double[] quatiles = Quantiles(4, statistics_data.ToStepper());
+
+			double mean = Mean(data);
+			Console.WriteLine("    Mean(data): " + Format(mean));
+
+			double median = Median(data);
+			Console.WriteLine("    Median(data): " + Format(median));
+
+			//// Here is an example if you just want the values in a list
+			//
+			//IList<double> modes = new ListArray<double>();
+			//Mode(data, x => modes.Add(x));
+			//Console.WriteLine("    Mode(data): " +
+			//	(modes.Count > 0
+			//	? string.Join(",", modes.Select(x => Format(x)))
+			//	: "None"));
+
+			bool noModes = true;
+			Console.Write("    Mode(data): ");
+			Mode(data,
+				Step.Gaps<double>(
+					x => { Console.Write(Format(x)); noModes = false; },
+					x => Console.Write(", ")));
+			if (noModes)
+			{
+				Console.Write("None");
+			}
+			Console.WriteLine();
+
+			double geometricMean = GeometricMean(data);
+			Console.WriteLine("    Geometric Mean(data): " + Format(geometricMean));
+
+			Range(out double min, out double max, data);
+			Console.WriteLine("    Range(data): " + Format(min) + "-" + Format(max));
+
+			double variance = Variance(dataArray.ToStepper());
+			Console.WriteLine("    Variance(data): " + Format(variance));
+
+			double standardDeviation = StandardDeviation(data);
+			Console.WriteLine("    Standard Deviation(data): " + Format(standardDeviation));
+
+			double meanDeviation = MeanDeviation(data);
+			Console.WriteLine("    Mean Deviation(data): " + Format(meanDeviation));
+
+			double[] quatiles = Quantiles(4, data);
 			Console.Write("    Quartiles(data):");
 			foreach (double i in quatiles)
 			{
@@ -391,33 +422,38 @@ namespace Mathematics
 
 		#region Output Helpers
 
-		public static void ConsoleWrite(Quaternion<double> quaternion)
+		static string Format(double value)
+		{
+			return string.Format("{0:0.00}", value);
+		}
+
+		static void ConsoleWrite(Quaternion<double> quaternion)
 		{
 			Console.WriteLine(
 				"      [ x " +
-				string.Format("{0:0.00}", quaternion.X) + ", y " +
-				string.Format("{0:0.00}", quaternion.Y) + ", z " +
-				string.Format("{0:0.00}", quaternion.Z) + ", w " +
-				string.Format("{0:0.00}", quaternion.W) + " ]");
+				Format(quaternion.X) + ", y " +
+				Format(quaternion.Y) + ", z " +
+				Format(quaternion.Z) + ", w " +
+				Format(quaternion.W) + " ]");
 			Console.WriteLine();
 		}
 
-		public static void ConsoleWrite(Vector<double> vector)
+		static void ConsoleWrite(Vector<double> vector)
 		{
 			Console.Write("      [ ");
 			for (int i = 0; i < vector.Dimensions - 1; i++)
-				Console.Write(string.Format("{0:0.00}", vector[i]) + ", ");
-			Console.WriteLine(string.Format("{0:0.00}", vector[vector.Dimensions - 1] + " ]"));
+				Console.Write(Format(vector[i]) + ", ");
+			Console.WriteLine(Format(vector[vector.Dimensions - 1]) + " ]");
 			Console.WriteLine();
 		}
 
-		public static void ConsoleWrite(Matrix<double> matrix)
+		static void ConsoleWrite(Matrix<double> matrix)
 		{
 			for (int i = 0; i < matrix.Rows; i++)
 			{
 				Console.Write("      [ ");
 				for (int j = 0; j < matrix.Columns; j++)
-					Console.Write(string.Format("{0:0.00}", matrix[i, j]) + " ");
+					Console.Write(Format(matrix[i, j]) + " ");
 				Console.WriteLine("]");
 			}
 			Console.WriteLine();

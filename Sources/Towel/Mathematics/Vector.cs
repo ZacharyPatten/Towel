@@ -192,7 +192,7 @@ namespace Towel.Mathematics
 				FactoryZeroImplementation = DIMENSIONS =>
 				{
 					T[] vector = new T[DIMENSIONS];
-					vector.Fill(Constant<T>.Zero);
+					vector.Format(Constant<T>.Zero);
 					return new Vector<T>(vector);
 				};
 			}
@@ -218,7 +218,7 @@ namespace Towel.Mathematics
 				FactoryZeroImplementation = DIMENSIONS =>
 				{
 					T[] vector = new T[DIMENSIONS];
-					vector.Fill(Constant<T>.One);
+					vector.Format(Constant<T>.One);
 					return new Vector<T>(vector);
 				};
 			}

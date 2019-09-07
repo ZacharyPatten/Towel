@@ -119,6 +119,30 @@ namespace Towel
 	#endregion
 
 	/// <summary>Extension methods.</summary>
+	public static class Step
+	{
+		/// <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>
+		/// <typeparam name="T">The generic type of the step function.</typeparam>
+		/// <param name="step">The step to add a gap step to.</param>
+		/// <param name="gapStep">The step to perform in the gaps.</param>
+		/// <returns>The combined step + gapStep function.</returns>
+		public static Step<T> Gaps<T>(this Step<T> step, Step<T> gapStep)
+		{
+			bool first = true;
+			return
+				x =>
+				{
+					if (!first)
+					{
+						gapStep(x);
+					}
+					step(x);
+					first = false;
+				};
+		}
+	}
+
+	/// <summary>Extension methods.</summary>
 	public static class Stepper
 	{
 		/// <summary>Converts the values in this stepper to another type.</summary>

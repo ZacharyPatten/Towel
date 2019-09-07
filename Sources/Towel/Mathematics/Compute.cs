@@ -1655,62 +1655,71 @@ namespace Towel.Mathematics
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		/// <returns>The heap of occurences by value.</returns>
-		public static Stepper<T> Mode<T>(T a, params T[] b) =>
-			Mode<T>(step => { step(a); b.ToStepper()(step); });
+		public static void Mode<T>(Step<T> step, T a, params T[] b) =>
+			Mode<T>(x => { x(a); b.ToStepper()(x); }, step);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		/// <returns>The modes of the data set.</returns>
-		public static Stepper<T> Mode<T>(Equate<T> equate, T a, params T[] b) =>
-			Mode<T>(step => { step(a); b.ToStepper()(step); }, equate, null);
+		public static void Mode<T>(Step<T> step, Equate<T> equate, T a, params T[] b) =>
+			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, null);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		/// <returns>The modes of the data set.</returns>
-		public static Stepper<T> Mode<T>(Hash<T> hash, T a, params T[] b) =>
-			Mode<T>(step => { step(a); b.ToStepper()(step); }, null, hash);
+		public static void Mode<T>(Step<T> step, Hash<T> hash, T a, params T[] b) =>
+			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, null, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
+		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		/// <returns>The modes of the data set.</returns>
-		public static Stepper<T> Mode<T>(Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
-			Mode<T>(step => { step(a); b.ToStepper()(step); }, equate, hash);
+		public static void Mode<T>(Step<T> step, Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
+			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
 		/// <param name="stepper">The data set.</param>
+		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static Stepper<T> Mode<T>(Stepper<T> stepper, Equate<T> equate = null, Hash<T> hash = null)
+		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Equate<T> equate = null, Hash<T> hash = null)
 		{
-			IMap<int, T> map = Occurences(stepper, equate, hash);
-			IHeap<(T, int)> heap = new HeapArray<(T, int)>((a, b) => Towel.Compare.Wrap(a.Item2.CompareTo(b.Item2)));
-			map.Keys(x => heap.Enqueue((x, map[x])));
-			if (heap.Count <= 0)
+			int maxOccurences = -1;
+			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			stepper(a =>
 			{
-				return x => { };
-			}
-			IList<T> modes = new ListArray<T>();
-			int maxOccurences = heap.Peek().Item2;
-			while (heap.Count > 0 && heap.Peek().Item2 == maxOccurences)
+				if (map.Contains(a))
+				{
+					int occurences = ++map[a];
+					maxOccurences = Math.Max(occurences, maxOccurences);
+				}
+				else
+				{
+					map[a] = 1;
+					maxOccurences = Math.Max(1, maxOccurences);
+				}
+			});
+			map.Pairs((value, key) =>
 			{
-				modes.Add(heap.Dequeue().Item1);
-			}
-			return modes.Stepper;
+				if (value == maxOccurences)
+				{
+					step(key);
+				}
+			});
 		}
 
 		#endregion
@@ -2678,47 +2687,44 @@ namespace Towel.Mathematics
 		/// <summary>Factors the primes numbers of a numeric integer value.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to factor the prime numbers of.</param>
-		/// <returns>A stepper of all the prime factors.</returns>
-		public static Stepper<T> FactorPrimes<T>(T a) =>
-			FactorPrimesImplementation<T>.Function(a);
+		/// <param name="step">The action to perform on all found prime factors.</param>
+		public static void FactorPrimes<T>(T a, Step<T> step) =>
+			FactorPrimesImplementation<T>.Function(a, step);
 
 		internal static class FactorPrimesImplementation<T>
 		{
-			internal static Func<T, Stepper<T>> Function = a =>
+			internal static Action<T, Step<T>> Function = (a, x) =>
 			{
-				Function = A =>
+				Function = (A, step) =>
 				{
 					if (!IsInteger(A))
 					{
 						throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + "." + nameof(IsInteger) + ")");
 					}
-					return (Step<T> step) =>
+					if (IsNegative(A))
 					{
-						if (IsNegative(A))
+						A = AbsoluteValue(A);
+						step(Convert<int, T>(-1));
+					}
+					while (IsEven(A))
+					{
+						step(Constant<T>.Two);
+						A = Divide(A, Constant<T>.Two);
+					}
+					for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Add(i, Constant<T>.Two))
+					{
+						while (Equal(Modulo(A, i), Constant<T>.Zero))
 						{
-							A = AbsoluteValue(A);
-							step(Convert<int, T>(-1));
+							step(i);
+							A = Divide(A, i);
 						}
-						while (IsEven(A))
-						{
-							step(Constant<T>.Two);
-							A = Divide(A, Constant<T>.Two);
-						}
-						for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Add(i, Constant<T>.Two))
-						{
-							while (Equal(Modulo(A, i), Constant<T>.Zero))
-							{
-								step(i);
-								A = Divide(A, i);
-							}
-						}
-						if (GreaterThan(A, Constant<T>.Two))
-						{
-							step(A);
-						}
-					};
+					}
+					if (GreaterThan(A, Constant<T>.Two))
+					{
+						step(A);
+					}
 				};
-				return Function(a);
+				Function(a, x);
 			};
 		}
 

@@ -234,7 +234,7 @@ namespace Towel.Mathematics
 				FactoryZeroImplementation = (ROWS, COLUMNS) =>
 				{
 					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
-					matrix._matrix.Fill(Constant<T>.Zero);
+					matrix._matrix.Format(Constant<T>.Zero);
 					return matrix;
 				};
 			}
@@ -302,7 +302,7 @@ namespace Towel.Mathematics
 				throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
 			}
 			Matrix<T> matrix = new Matrix<T>(rows, columns);
-			matrix._matrix.Fill(value);
+			matrix._matrix.Format(value);
 			return matrix;
 		}
 
