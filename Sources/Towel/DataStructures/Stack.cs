@@ -453,53 +453,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (int i = 0; i < this._count; i++)
-			{
-				step(_array[i]);
-			}
-		}
+		public void Stepper(Step<T> step) => _array.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < this._count; i++)
-			{
-				step(ref _array[i]);
-			}
-		}
+		public void Stepper(StepRef<T> step) => _array.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				if (step(_array[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _array.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < this._count; i++)
-			{
-				if (step(ref _array[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step, _count);
 
 		#endregion
 

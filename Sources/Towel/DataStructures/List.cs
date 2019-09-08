@@ -470,7 +470,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds an item to the end of the list.</summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <runtime>O(n) Ω(1) ε(1)</runtime>
+		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Add(T addition)
 		{
 			if (_count == _list.Length)
@@ -514,7 +514,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1).</runtime>
 		public void Clear()
 		{
 			_list = new T[1];
@@ -538,7 +538,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes the item at a specific index.</summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <remarks>Runtime: Towel(n - index).</remarks>
+		/// <runtime>O(n), Ω(n - index), ε(n - index)</runtime>
 		public void Remove(int index)
 		{
 			RemoveWithoutShrink(index);
@@ -555,21 +555,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes the item at a specific index.</summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <remarks>Runtime: Towel(n - index).</remarks>
+		/// <runtime>Θ(n - index)</runtime>
 		public void RemoveWithoutShrink(int index)
 		{
 			if (index < 0 || index >= _count)
 			{
 				throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(ListArray<T>) + "." + nameof(Count) + ")");
-			}
-			if (_count < _list.Length / 2)
-			{
-				T[] newList = new T[_list.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newList[i] = _list[i];
-				}
-				_list = newList;
 			}
 			for (int i = index; i < _count - 1; i++)
 			{
@@ -580,7 +571,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes all predicated items from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <remarks>Runtime: Towel(n).</remarks>
+		/// <runtime>Θ(n)</runtime>
 		public void RemoveAll(Predicate<T> predicate)
 		{
 			RemoveAllWithoutShrink(predicate);
@@ -685,21 +676,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _list.ForEach(step);
+		public void Stepper(Step<T> step) => _list.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _list.ForEach(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _list.ForEach(step);
+		public void Stepper(StepRef<T> step) => _list.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _list.ForEach(step);
+		public StepStatus Stepper(StepBreak<T> step) => _list.Stepper(step, _count);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> step) => _list.Stepper(step, _count);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 

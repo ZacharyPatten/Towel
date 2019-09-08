@@ -1433,13 +1433,14 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the echelon of a matrix (aka REF).</summary>
 		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
 		/// <param name="b">The echelon of the matrix (aka REF).</param>
+		/// <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
 		private static void Echelon(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			if (object.ReferenceEquals(a, b))
+			if (ReferenceEquals(a, b))
 			{
 				a = a.Clone();
 			}
@@ -2515,21 +2516,21 @@ namespace Towel.Mathematics
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _matrix.ForEach(step);
+		public void Stepper(Step<T> step) => _matrix.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _matrix.ForEach(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _matrix.ForEach(step);
+		public void Stepper(StepRef<T> step) => _matrix.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _matrix.ForEach(step);
+		public StepStatus Stepper(StepBreak<T> step) => _matrix.Stepper(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> step) => _matrix.Stepper(step);
 
 		#endregion
 

@@ -1727,12 +1727,12 @@
         <member name="M:Towel.DataStructures.HeapArray`1.Enqueue(`0)">
             <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
             <param name="addition">The item to be added.</param>
-            <runtime>Runtime: O(ln(n)), θ(1), EstAvg(ln(n)).</runtime>
+            <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Dequeue">
             <summary>Dequeues the item with the highest priority.</summary>
             <returns>The item of the highest priority.</returns>
-            <remarks>Runtime: Theta(ln(n)).</remarks>
+            <remarks>O(ln(n)).</remarks>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Requeue(`0)">
             <summary>Requeues an item after a change has occured.</summary>
@@ -1741,27 +1741,27 @@
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Peek">
             <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.ShiftUp(System.Int32)">
             <summary>Standard priority queue algorithm for up sifting.</summary>
             <param name="index">The index to be up sifted.</param>
-            <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+            <runtime>O(ln(n)), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.ShiftDown(System.Int32)">
             <summary>Standard priority queue algorithm for sifting down.</summary>
             <param name="index">The index to be down sifted.</param>
-            <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+            <runtime>O(ln(n)), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.ArraySwap(System.Int32,System.Int32)">
             <summary>Standard array swap method.</summary>
             <param name="indexOne">The first index of the swap.</param>
             <param name="indexTwo">The second index of the swap.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Clear">
             <summary>Returns this queue to an empty state.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.ToArray">
             <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
@@ -1773,20 +1773,20 @@
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Clone">
@@ -3254,7 +3254,7 @@
         <member name="M:Towel.DataStructures.ListArray`1.Add(`0)">
             <summary>Adds an item to the end of the list.</summary>
             <param name="addition">The item to be added.</param>
-            <runtime>O(n) Ω(1) ε(1)</runtime>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Add(`0,System.Int32)">
             <summary>Adds an item at a given index.</summary>
@@ -3263,7 +3263,7 @@
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Clear">
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1).</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -3272,17 +3272,17 @@
         <member name="M:Towel.DataStructures.ListArray`1.Remove(System.Int32)">
             <summary>Removes the item at a specific index.</summary>
             <param name="index">The index of the item to be removed.</param>
-            <remarks>Runtime: Towel(n - index).</remarks>
+            <runtime>O(n), Ω(n - index), ε(n - index)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveWithoutShrink(System.Int32)">
             <summary>Removes the item at a specific index.</summary>
             <param name="index">The index of the item to be removed.</param>
-            <remarks>Runtime: Towel(n - index).</remarks>
+            <runtime>Θ(n - index)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAll(System.Predicate{`0})">
             <summary>Removes all predicated items from the list.</summary>
             <param name="predicate">The predicate to determine removals.</param>
-            <remarks>Runtime: Towel(n).</remarks>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAllWithoutShrink(System.Predicate{`0})">
             <summary>Removes all predicated items from the list.</summary>
@@ -14180,11 +14180,11 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -15606,26 +15606,56 @@
             <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
             <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.Step{``0})">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0},System.Int32)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <param name="length">The length of the array to step through.</param>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <param name="length">The length of the array to step through.</param>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <param name="length">The length of the array to step through.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <param name="length">The length of the array to step through.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepRef{``0})">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepBreak{``0})">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ForEach``1(``0[],Towel.StepRefBreak{``0})">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
@@ -17626,6 +17656,7 @@
             <summary>Calculates the echelon of a matrix (aka REF).</summary>
             <param name="a">The matrix to calculate the echelon of (aka REF).</param>
             <param name="b">The echelon of the matrix (aka REF).</param>
+            <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Echelon(Towel.Mathematics.Matrix{`0})">
             <summary>Calculates the echelon of a matrix (aka REF).</summary>

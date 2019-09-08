@@ -96,30 +96,21 @@ namespace Towel.DataStructures
 		/// <summary>Gets the index of the left child of the provided item.</summary>
 		/// <param name="parent">The item to find the left child of.</param>
 		/// <returns>The index of the left child of the provided item.</returns>
-		internal static int LeftChild(int parent)
-		{
-			return parent * 2;
-		}
+		internal static int LeftChild(int parent) => parent * 2;
 
 		/// <summary>Gets the index of the right child of the provided item.</summary>
 		/// <param name="parent">The item to find the right child of.</param>
 		/// <returns>The index of the right child of the provided item.</returns>
-		internal static int RightChild(int parent)
-		{
-			return parent * 2 + 1;
-		}
+		internal static int RightChild(int parent) => parent * 2 + 1;
 
 		/// <summary>Gets the index of the parent of the provided item.</summary>
 		/// <param name="child">The item to find the parent of.</param>
 		/// <returns>The index of the parent of the provided item.</returns>
-		internal static int Parent(int child)
-		{
-			return child / 2;
-		}
+		internal static int Parent(int child) => child / 2;
 
 		/// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <runtime>Runtime: O(ln(n)), θ(1), EstAvg(ln(n)).</runtime>
+		/// <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
 		public void Enqueue(T addition)
 		{
 			if (!(_count + 1 < _heap.Length))
@@ -142,7 +133,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Dequeues the item with the highest priority.</summary>
 		/// <returns>The item of the highest priority.</returns>
-		/// <remarks>Runtime: Theta(ln(n)).</remarks>
+		/// <remarks>O(ln(n)).</remarks>
 		public T Dequeue()
 		{
 			if (_count > 0)
@@ -178,7 +169,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T Peek()
 		{
 			if (_count > 0)
@@ -190,7 +181,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Standard priority queue algorithm for up sifting.</summary>
 		/// <param name="index">The index to be up sifted.</param>
-		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftUp(int index)
 		{
 			int parent;
@@ -203,7 +194,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Standard priority queue algorithm for sifting down.</summary>
 		/// <param name="index">The index to be down sifted.</param>
-		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftDown(int index)
 		{
 			int leftChild, rightChild;
@@ -226,7 +217,7 @@ namespace Towel.DataStructures
 		/// <summary>Standard array swap method.</summary>
 		/// <param name="indexOne">The first index of the swap.</param>
 		/// <param name="indexTwo">The second index of the swap.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		internal void ArraySwap(int indexOne, int indexTwo)
 		{
 			T temp = _heap[indexTwo];
@@ -235,7 +226,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Returns this queue to an empty state.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
 			_count = 0;
@@ -272,54 +263,22 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
-		{
-			for (int i = 1; i <= _count; i++)
-			{
-				function(_heap[i]);
-			}
-		}
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<T> step) => _heap.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> function)
-		{
-			for (int i = 1; i <= _count; i++)
-			{
-				function(ref _heap[i]);
-			}
-		}
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<T> step) => _heap.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
-		{
-			for (int i = 1; i <= _count; i++)
-			{
-				if (function(_heap[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _heap.Stepper(step, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> function)
-		{
-			for (int i = 1; i <= _count; i++)
-			{
-				if (function(ref _heap[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => _heap.Stepper(step, _count);
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>

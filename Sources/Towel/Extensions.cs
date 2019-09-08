@@ -599,7 +599,7 @@ namespace Towel
 		public static string ConvertToCsharpSource(this Type type)
 		{
 			IQueue<Type> genericParameters = new QueueArray<Type>();
-			type.GetGenericArguments().ForEach(x => genericParameters.Enqueue(x));
+			type.GetGenericArguments().Stepper(x => genericParameters.Enqueue(x));
 			return ConvertToCsharpSource(type, genericParameters);
 		}
 
@@ -642,14 +642,76 @@ namespace Towel
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void ForEach<T>(this T[] array, Step<T> step) =>
+		/// <param name="length">The length of the array to step through.</param>
+		internal static void Stepper<T>(this T[] array, Step<T> step, int length)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				step(array[i]);
+			}
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <param name="length">The length of the array to step through.</param>
+		internal static void Stepper<T>(this T[] array, StepRef<T> step, int length)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				step(ref array[i]);
+			}
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <param name="length">The length of the array to step through.</param>
+		/// <returns>The status of the stepper.</returns>
+		internal static StepStatus Stepper<T>(this T[] array, StepBreak<T> step, int length)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				if (step(array[i]) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <param name="length">The length of the array to step through.</param>
+		/// <returns>The status of the stepper.</returns>
+		internal static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step, int length)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				if (step(ref array[i]) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The generic type in the array.</typeparam>
+		/// <param name="array">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		public static void Stepper<T>(this T[] array, Step<T> step) =>
 			Array.ForEach(array, step.Invoke);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void ForEach<T>(this T[] array, StepRef<T> step)
+		public static void Stepper<T>(this T[] array, StepRef<T> step)
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -662,7 +724,7 @@ namespace Towel
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the stepper.</returns>
-		public static StepStatus ForEach<T>(this T[] array, StepBreak<T> step)
+		public static StepStatus Stepper<T>(this T[] array, StepBreak<T> step)
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -679,7 +741,7 @@ namespace Towel
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the stepper.</returns>
-		public static StepStatus ForEach<T>(this T[] array, StepRefBreak<T> step)
+		public static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step)
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
