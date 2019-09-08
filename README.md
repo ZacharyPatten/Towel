@@ -324,7 +324,7 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 // of dimensions of the tree.
 ```
 | Dimensions | Max # Children |
-| :---    | :--- |
+| :--- | :--- |
 | 1 | 2 ^ 1 = 2 |
 | 2 | 2 ^ 2 = 4 |
 | 3 | 2 ^ 3 = 8 |
@@ -378,6 +378,42 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 //                   4 (behind 0)
 //
 //               -1D <-----------> +1D
+//
+// 4 Dimensional:
+//
+//     +1D         +2D         +3D         +4D       Children Indexes:
+//      ^           ^           ^           ^
+//      |           |           |           |        -4D -3D -2D -1D: 0   +4D -3D -2D -1D: 8
+//      |           |           |           |        -4D -3D -2D +1D: 1   +4D -3D -2D +1D: 9
+//      |           |           |           |        -4D -3D +2D -1D: 2   +4D -3D +2D -1D: 10
+//      |           |           |           |        -4D -3D +2D +1D: 3   +4D -3D +2D +1D: 11
+//      |           |           |           |        -4D +3D -2D -1D: 4   +4D +3D -2D -1D: 12
+//     ---         ---         ---         ---       -4D +3D -2D +1D: 5   +4D +3D -2D +1D: 13
+//      |           |           |           |        -4D +3D +2D -1D: 6   +4D +3D +2D -1D: 14
+//      |           |           |           |        -4D +3D +2D +1D: 7   +4D +3D +2D +1D: 15
+//      |           |           |           |
+//      |           |           |           |
+//      |           |           |           |
+//      v           v           v           v
+//     -1D         -2D         -3D         -4D
+//
+//     With a value that is in the (+1D, -2D, -3D, +4D) child:
+//
+//     +1D         +2D         +3D         +4D
+//      ^           ^           ^           ^
+//      |           |           |           |
+//      |           |           |           |
+//      O---        |           |        ---O
+//      |   \       |           |       /   |
+//      |    \      |           |      /    |
+//     ---    \    ---         ---    /    ---
+//      |      \    |           |    /      |
+//      |       \   |           |   /       |
+//      |        ---O-----------O---        |
+//      |           |           |           |
+//      |           |           |           |
+//      v           v           v           v
+//     -1D         -2D         -3D         -4D
 
 // By default, the omnitree will sort items along each axis and use the median algorithm to determine
 // the point of divisions. However, you can override the subdivision algorithm. For numarical values,
@@ -386,10 +422,13 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 // calculate the subdivision from parent spaces rather than looking at the current contents of the
 // space. Note: In a future enhancement I will automatically detect if the mean algorithm is possible
 // for a given type, and then the default will depend on the type in use.
+
+// The depth of the omnitree is bounded by "ln(count)" the natural log of the current count. When adding
+// and item to the tree, if the number of items in the respective child is greater than ln(count) and 
+// the depth bounding has not been reached, then the child will be subdivided. The goal is to achieve 
+// Ω(ln(count)) runtime complexity when looking up values.
 ```
 
-Further Reading: http://towelcode.com/omnitree/
- 
 </p>
 </details>
 
