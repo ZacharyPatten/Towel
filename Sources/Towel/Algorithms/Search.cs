@@ -105,6 +105,8 @@ namespace Towel.Algorithms
 			internal Node Value;
 		}
 
+		internal class DijkstraNode<Node> : BaseAlgorithmNode<DijkstraNode<Node>, Node> { }
+
 		internal class GreedyNode<Node, Numeric> : BaseAlgorithmNode<GreedyNode<Node, Numeric>, Node>
 		{
 			internal Numeric Priority;
@@ -126,7 +128,7 @@ namespace Towel.Algorithms
 
 		#region Internal Fuctions
 
-		internal static Stepper<Node> BuildPath<AlgorithmNode, Node, Numeric>(BaseAlgorithmNode<AlgorithmNode, Node> node)
+		internal static Stepper<Node> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
 			PathNode<Node> start = null;
@@ -186,7 +188,7 @@ namespace Towel.Algorithms
 				AstarNode<Node, Numeric> current = fringe.Dequeue();
 				if (goal(current.Value))
 				{
-					return BuildPath<AstarNode<Node, Numeric>, Node, Numeric>(current);
+					return BuildPath<AstarNode<Node, Numeric>, Node>(current);
 				}
 				else
 				{
@@ -308,7 +310,7 @@ namespace Towel.Algorithms
 				GreedyNode<Node, Numeric> current = fringe.Dequeue();
 				if (goal(current.Value))
 				{
-					return BuildPath<GreedyNode<Node, Numeric>, Node, Numeric>(current);
+					return BuildPath<GreedyNode<Node, Numeric>, Node>(current);
 				}
 				else
 				{
@@ -386,6 +388,105 @@ namespace Towel.Algorithms
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
 			Graph(start, graph.Neighbors, heuristic, goal);
+
+		#endregion
+
+		#endregion
+
+		#region Dijkstra Algorithm
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal)
+		{
+			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
+			IQueue<DijkstraNode<Node>> fringe = new QueueLinked<DijkstraNode<Node>>();
+
+			// push starting node
+			fringe.Enqueue(
+				new DijkstraNode<Node>()
+				{
+					Previous = null,
+					Value = start,
+				});
+
+			// run the algorithm
+			while (fringe.Count != 0)
+			{
+				DijkstraNode<Node> current = fringe.Dequeue();
+				if (goal(current.Value))
+				{
+					return BuildPath<DijkstraNode<Node>, Node>(current);
+				}
+				else
+				{
+					neighbors(current.Value,
+						neighbor =>
+						{
+							fringe.Enqueue(
+								new DijkstraNode<Node>()
+								{
+									Previous = current,
+									Value = neighbor,
+								});
+						});
+				}
+			}
+			return null; // goal node was not reached (no path exists)
+		}
+
+		#region Dijkstra Overloads
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
+			Graph(start, neighbors, goal, Equate.Default);
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Equate<Node> equate) =>
+			Graph(start, neighbors, node => equate(node, goal));
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="graph">The graph to search against.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
+			Graph(start, graph, goal, Equate.Default);
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="graph">The graph to search against.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Equate<Node> equate) =>
+			Graph(start, graph.Neighbors, node => equate(node, goal));
+
+		/// <summary>Runs the Dijkstra search algorithm algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="graph">The graph to search against.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Goal<Node> goal) =>
+			Graph(start, graph.Neighbors, goal);
 
 		#endregion
 

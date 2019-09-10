@@ -375,6 +375,17 @@ namespace Algorithms
 						heuristicFunction,
 						goalFunction);
 
+				//// Note: the dijkstra algorithm is slow as balls, but feel free to uncomment
+				//// and run it if you want to.
+				//
+				//alreadyUsed.Clear();
+				//
+				//Stepper<Vector<float>> dijkstraPath =
+				//	Search.Graph(
+				//		enemyLocation,
+				//		neighborFunction,
+				//		goalFunction);
+
 				// NOTE: If there is no valid path, then "Search.Graph" will return "null."
 				// For this example, I know that there will be a valid path so I did not 
 				// include a null check.
@@ -382,6 +393,7 @@ namespace Algorithms
 				// Lets convert the paths into arrays so you can look at them in the debugger. :)
 				Vector<float>[] aStarPathArray = aStarPath.ToArray();
 				Vector<float>[] greedyPathArray = greedyPath.ToArray();
+				//Vector<float>[] dijkstraPathArray = dijkstraPath.ToArray();
 
 				// lets calculate the movement cost of each path to see how they compare
 				float astartTotalCost = Compute.Add<float>(step =>
@@ -398,6 +410,13 @@ namespace Algorithms
 						step(costFunction(greedyPathArray[i], greedyPathArray[i + 1]));
 					}
 				});
+				//float dijkstraTotalCost = Compute.Add<float>(step =>
+				//{
+				//	for (int i = 0; i < dijkstraPathArray.Length - 1; i++)
+				//	{
+				//		step(costFunction(dijkstraPathArray[i], dijkstraPathArray[i + 1]));
+				//	}
+				//});
 
 				// Notice that that the A* algorithm produces a less costly path than the Greedy, 
 				// meaning that it is faster. The Greedy path went through the mud, but the A* path

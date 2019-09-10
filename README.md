@@ -494,7 +494,7 @@ Sort.Heap<T>(...);
 Sort.OddEven<T>(...);
 
 // Path Finding
-// Note: overloads for both Greedy and A* algorithms
+// Note: overloads for A*, Heuristic Greedy, and Dijkstra algorithms
 Search.Graph<NODE, NUMERIC>(...);
 ```
 
