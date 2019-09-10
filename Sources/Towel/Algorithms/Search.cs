@@ -129,7 +129,15 @@ namespace Towel.Algorithms
 		internal static Stepper<Node> BuildPath<AlgorithmNode, Node, Numeric>(BaseAlgorithmNode<AlgorithmNode, Node> node)
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
-			PathNode<Node> start = BuildPathRecursive<AlgorithmNode, Node, Numeric>(node, out PathNode<Node> end);
+			PathNode<Node> start = null;
+			for (BaseAlgorithmNode<AlgorithmNode, Node> current = node; current != null; current = current.Previous)
+			{
+				start = new PathNode<Node>()
+				{
+					Value = current.Value,
+					Next = start,
+				};
+			}
 			return step =>
 			{
 				PathNode<Node> current = start;
@@ -139,24 +147,6 @@ namespace Towel.Algorithms
 					current = current.Next;
 				}
 			};
-		}
-
-		internal static PathNode<Node> BuildPathRecursive<AlgorithmNode, Node, Numeric>(BaseAlgorithmNode<AlgorithmNode, Node> currentNode, out PathNode<Node> currentPathNode)
-			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
-		{
-			if (currentNode.Previous == null)
-			{
-				PathNode<Node> start = new PathNode<Node>() { Value = currentNode.Value };
-				currentPathNode = start;
-				return start;
-			}
-			else
-			{
-				PathNode<Node> start = BuildPathRecursive<AlgorithmNode, Node, Numeric>(currentNode.Previous, out PathNode<Node> previous);
-				currentPathNode = new PathNode<Node>() { Value = currentNode.Value };
-				previous.Next = currentPathNode;
-				return start;
-			}
 		}
 
 		#endregion
