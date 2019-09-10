@@ -264,21 +264,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _heap.Stepper(step, _count);
+		public void Stepper(Step<T> step) => _heap.Stepper(step, 1, _count + 1);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _heap.Stepper(step, _count);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _heap.Stepper(step, _count);
+		public void Stepper(StepRef<T> step) => _heap.Stepper(step, 1, _count + 1);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _heap.Stepper(step, _count);
+		public StepStatus Stepper(StepBreak<T> step) => _heap.Stepper(step, 1, _count + 1);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> step) => _heap.Stepper(step, 1, _count + 1);
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>

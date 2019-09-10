@@ -57,8 +57,8 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Returns the number of items in the queue.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int Count { get { return _count; } }
+		/// <runtime>O(1)</runtime>
+		public int Count => _count;
 
 		#endregion
 
@@ -70,9 +70,13 @@ namespace Towel.DataStructures
 		public void EnqueueBack(T enqueue)
 		{
 			if (_tail == null)
+			{
 				_head = _tail = new Node(enqueue);
+			}
 			else
+			{
 				_tail = _tail.Next = new Node(enqueue);
+			}
 			_count++;
 		}
 
@@ -81,10 +85,14 @@ namespace Towel.DataStructures
 		public T DequeueFront()
 		{
 			if (_head == null)
+			{
 				throw new InvalidOperationException("Attempting to remove a non-existing id value.");
+			}
 			T value = _head.Value;
 			if (_head == _tail)
+			{
 				_tail = null;
+			}
 			_head = null;
 			_count--;
 			return value;
@@ -95,7 +103,9 @@ namespace Towel.DataStructures
 		public T PeekFront()
 		{
 			if (_head == null)
+			{
 				throw new InvalidOperationException("Attempting to remove a non-existing id value.");
+			}
 			T returnValue = _head.Value;
 			return returnValue;
 		}
@@ -114,7 +124,9 @@ namespace Towel.DataStructures
 		public T[] ToArray()
 		{
 			if (_count == 0)
+			{
 				return null;
+			}
 			T[] array = new T[_count];
 			Node looper = _head;
 			for (int i = 0; i < _count; i++)
@@ -125,56 +137,15 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			Node current = this._head;
-			while (current != null)
-			{
-				yield return current.Value;
-				current = current.Next;
-			}
-		}
-
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			Node current = this._head;
-			while (current != null)
-			{
-				yield return current.Value;
-				current = current.Next;
-			}
-		}
-
-		/// <summary>Checks to see if a given object is in this data structure.</summary>
-		/// <param name="item">The item to check for.</param>
-		/// <param name="compare">Delegate representing comparison technique.</param>
-		/// <returns>true if the item is in this structure; false if not.</returns>
-		public bool Contains(T item, Compare<T> compare)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Checks to see if a given object is in this data structure.</summary>
-		/// <typeparam name="Key">The type of the key to check for.</typeparam>
-		/// <param name="key">The key to check for.</param>
-		/// <param name="compare">Delegate representing comparison technique.</param>
-		/// <returns>true if the item is in this structure; false if not.</returns>
-		public bool Contains<Key>(Key key, Compare<T, Key> compare)
-		{
-			throw new NotImplementedException();
-		}
+		#region Stepper and IEnumerable
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Step<T> step)
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
 				step(current.Value);
-				current = current.Next;
 			}
 		}
 
@@ -182,7 +153,10 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step)
 		{
-			throw new NotImplementedException();
+			for (Node current = _head; current != null; current = current.Next)
+			{
+				step(ref current.Value);
+			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -190,7 +164,14 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<T> step)
 		{
-			throw new NotImplementedException();
+			for (Node current = _head; current != null; current = current.Next)
+			{
+				if (step(current.Value) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -198,8 +179,29 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			throw new NotImplementedException();
+			for (Node current = _head; current != null; current = current.Next)
+			{
+				if (step(ref current.Value) == StepStatus.Break)
+				{
+					return StepStatus.Break;
+				}
+			}
+			return StepStatus.Continue;
 		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <summary>Gets the enumerator for this dequeue.</summary>
+		/// <returns>The enumerator for this dequeue.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+		{
+			for (Node current = _head; current != null; current = current.Next)
+			{
+				yield return current.Value;
+			}
+		}
+
+		#endregion
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>

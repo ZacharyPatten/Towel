@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The newest item currently in the queue.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <runtime>O(1)</runtime>
 		public T Newest
 		{
 			get
@@ -90,7 +90,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>The oldest item currently in the queue.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <runtime>O(1)</runtime>
 		public T Oldest
 		{
 			get
@@ -107,8 +107,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Returns the number of items in the queue.</summary>
-		/// <runtime>θ(1)</runtime>
-		public int Count { get { return _count; } }
+		/// <runtime>O(1)</runtime>
+		public int Count => _count;
 
 		#endregion
 
@@ -118,17 +118,14 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the list into a standard array.</summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// /// <remarks>Runtime: Towel(n).</remarks>
+		/// <runtime>O(n)</runtime>
 		public T[] ToArray()
 		{
-			if (_count == 0)
-				return null;
 			T[] array = new T[_count];
-			Node looper = _head;
-			for (int i = 0; i < _count; i++)
+			int index = 0;
+			for (Node current = _head; current != null; current = current.Next)
 			{
-				array[i] = looper.Value;
-				looper = looper.Next;
+				array[index++] = current.Value;
 			}
 			return array;
 		}
@@ -141,8 +138,8 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public QueueLinked<T> Clone()
 		{
-			Node head = new Node(this._head.Value);
-			Node current = this._head.Next;
+			Node head = new Node(_head.Value);
+			Node current = _head.Next;
 			Node current_clone = head;
 			while (current != null)
 			{
@@ -154,7 +151,7 @@ namespace Towel.DataStructures
 			{
 				_head = head,
 				_tail = current_clone,
-				_count = this._count
+				_count = _count
 			};
 			return clone;
 		}
@@ -169,9 +166,13 @@ namespace Towel.DataStructures
 		public void Enqueue(T enqueue)
 		{
 			if (_tail == null)
+			{
 				_head = _tail = new Node(enqueue);
+			}
 			else
+			{
 				_tail = _tail.Next = new Node(enqueue);
+			}
 			_count++;
 		}
 
@@ -207,7 +208,9 @@ namespace Towel.DataStructures
 		public T Peek()
 		{
 			if (_head == null)
-				throw new System.InvalidOperationException("peek from an empty queue");
+			{
+				throw new InvalidOperationException("peek from an empty queue");
+			}
 			T returnValue = _head.Value;
 			return returnValue;
 		}
@@ -217,7 +220,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Resets the queue to an empty state.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
 			_head = _tail = null;
@@ -228,114 +231,67 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		#region public void Stepper(Step<T> function)
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<T> step)
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
-				function(current.Value);
-				current = current.Next;
+				step(current.Value);
 			}
 		}
-		#endregion
-		#region public void Stepper(StepRef<T> function)
+
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<T> step)
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
-				T temp = current.Value;
-				function(ref temp);
-				current.Value = temp;
-				current = current.Next;
+				step(ref current.Value);
 			}
 		}
-		#endregion
-		#region public StepStatus Stepper(StepBreak<T> function)
+
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
+		public StepStatus Stepper(StepBreak<T> step)
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
-				switch (function(current.Value))
+				if (step(current.Value) == StepStatus.Break)
 				{
-					case StepStatus.Break:
-						current = current.Next;
-						return StepStatus.Break;
-					case StepStatus.Continue:
-						current = current.Next;
-						continue;
-					default:
-						current = current.Next;
-						throw new System.NotImplementedException();
+					return StepStatus.Break;
 				}
 			}
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region public StepStatus Stepper(StepRefBreak<T> function)
+
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> function)
+		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
-				T temp = current.Value;
-				switch (function(ref temp))
+				if (step(ref current.Value) == StepStatus.Break)
 				{
-					case StepStatus.Break:
-						current.Value = temp;
-						current = current.Next;
-						return StepStatus.Break;
-					case StepStatus.Continue:
-						current.Value = temp;
-						current = current.Next;
-						continue;
-					default:
-						current.Value = temp;
-						current = current.Next;
-						throw new System.NotImplementedException();
+					return StepStatus.Break;
 				}
 			}
 			return StepStatus.Continue;
 		}
-		#endregion
-		#region System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <summary>Gets the enumerator for this queue.</summary>
+		/// <returns>The enumerator for the queue.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			Node current = this._head;
-			while (current != null)
+			for (Node current = _head; current != null; current = current.Next)
 			{
 				yield return current.Value;
-				current = current.Next;
 			}
 		}
-		#endregion
-		#region System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			Node current = this._head;
-			while (current != null)
-			{
-				yield return current.Value;
-				current = current.Next;
-			}
-		}
-		#endregion
 
 		#endregion
 
@@ -523,7 +479,7 @@ namespace Towel.DataStructures
 		#region Dequeue
 
 		/// <summary>Removes the item at a specific index.</summary>
-		/// <remarks>Runtime: Towel(n - index).</remarks>
+		/// <runtime>O(n - index)</runtime>
 		public T Dequeue()
 		{
 			if (_count == 0)
@@ -566,7 +522,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
 			_queue = new T[_minimumCapacity];
@@ -581,21 +537,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _queue.Stepper(step, _count);
+		public void Stepper(Step<T> step) => _queue.Stepper(step, 0, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _queue.Stepper(step, _count);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _queue.Stepper(step, _count);
+		public void Stepper(StepRef<T> step) => _queue.Stepper(step, 0, _count);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _queue.Stepper(step, _count);
+		public StepStatus Stepper(StepBreak<T> step) => _queue.Stepper(step, 0, _count);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> step) => _queue.Stepper(step, 0, _count);
 
 		#endregion
 
@@ -603,6 +559,8 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
+		/// <summary>Gets the enumerator for this queue.</summary>
+		/// <returns>The enumerator for this queue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _count; i++)

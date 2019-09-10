@@ -42,18 +42,15 @@ namespace Towel.DataStructures
 		public Array(int size)
 		{
 			if (size < 1)
-				throw new System.ArgumentOutOfRangeException("size of the array must be at least 1.");
-			this._array = new T[size];
+			{
+				throw new ArgumentOutOfRangeException("size of the array must be at least 1.");
+			}
+			_array = new T[size];
 		}
 
 		/// <summary>Constructs by wrapping an existing array.</summary>
 		/// <param name="array">The array to be wrapped.</param>
-		public Array(params T[] array)
-		{
-			this._array = new T[array.Length];
-			for (int i = 0; i < array.Length; i++)
-				this._array[i] = array[i];
-		}
+		public Array(params T[] array) => _array = array;
 
 		#endregion
 
@@ -66,18 +63,24 @@ namespace Towel.DataStructures
 		{
 			get
 			{
-				try { return _array[index]; }
-				catch { throw new System.ArgumentOutOfRangeException("index out of bounds."); }
+				if (!(0 <= index || index < _array.Length))
+				{
+					throw new ArgumentOutOfRangeException("!(0 <= " + nameof(index) + " < this." + nameof(_array.Length) + ")");
+				}
+				return _array[index];
 			}
 			set
 			{
-				try { _array[index] = value; }
-				catch { throw new System.ArgumentOutOfRangeException("index out of bounds."); }
+				if (!(0 <= index || index < _array.Length))
+				{
+					throw new ArgumentOutOfRangeException("!(0 <= " + nameof(index) + " < this." + nameof(_array.Length) + ")");
+				}
+				_array[index] = value;
 			}
 		}
 
 		/// <summary>The length of the array.</summary>
-		public int Length { get { return _array.Length; } }
+		public int Length => _array.Length;
 
 		#endregion
 
@@ -85,17 +88,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Implicitly converts a C# System array into a Towel array.</summary>
 		/// <param name="array">The array to be represented as a Towel array.</param>
-		/// <returns>The array wrapped in a Towel array.</returns>
-		public static implicit operator Array<T>(T[] array)
-		{
-			return new Array<T>(array);
-		}
+		public static implicit operator Array<T>(T[] array) => new Array<T>(array);
 
-		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-		public static implicit operator T[](Array<T> array)
-		{
-			return array.ToArray();
-		}
+		/// <summary>Implicitly converts a Towel array into a C# System array.</summary>
+		/// <param name="array">The array to be represented as a C# System array.</param>
+		public static implicit operator T[](Array<T> array) => array.ToArray();
 
 		#endregion
 
@@ -105,10 +102,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Array<T> Clone()
-		{
-			return new Array<T>((T[])_array.Clone());
-		}
+		public Array<T> Clone() => new Array<T>((T[])_array.Clone());
 
 		#endregion
 
@@ -116,65 +110,27 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (int i = 0; i < _array.Length; i++)
-			{
-				step(_array[i]);
-			}
-		}
+		public void Stepper(Step<T> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _array.Length; i++)
-			{
-				step(ref _array[i]);
-			}
-		}
+		public void Stepper(StepRef<T> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (int i = 0; i < _array.Length; i++)
-			{
-				if (step(_array[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _array.Length; i++)
-			{
-				if (step(ref _array[i]) == StepStatus.Break)
-				{
-					return StepStatus.Break;
-				}
-			}
-			return StepStatus.Continue;
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step);
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for the array.</summary>
 		/// <returns>The enumerator for the array.</returns>
-		public IEnumerator<T> GetEnumerator()
-		{
-			return ((IEnumerable<T>)_array).GetEnumerator();
-		}
+		public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)_array).GetEnumerator();
 
 		#endregion
 
@@ -182,10 +138,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
-		public T[] ToArray()
-		{
-			return _array;
-		}
+		public T[] ToArray() => _array;
 
 		#endregion
 
@@ -257,41 +210,41 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		public ulong Length
-		{
-			get
-			{
-				return _length;
-			}
-		}
+		/// <summary>The length of the array.</summary>
+		public ulong Length => _length;
 
-		public T this[int elementNumber]
+		/// <summary>Gets and sets the value at a particual index.</summary>
+		/// <param name="index">The index of the value to get or set.</param>
+		/// <returns>The value at the provided index.</returns>
+		public T this[int index]
 		{
 			get
 			{
-				return this[(ulong)elementNumber];
+				return this[(ulong)index];
 			}
 			set
 			{
-				this[(ulong)elementNumber] = value;
+				this[(ulong)index] = value;
 			}
 		}
 
-
-		public T this[ulong elementNumber]
+		/// <summary>Gets and sets the value at a particual index.</summary>
+		/// <param name="index">The index of the value to get or set.</param>
+		/// <returns>The value at the provided index.</returns>
+		public T this[ulong index]
 		{
 			// these must be _very_ simple in order to ensure that they get inlined into
 			// their caller 
 			get
 			{
-				int blockNum = (int)(elementNumber >> BLOCK_SIZE_LOG2);
-				int elementNumberInBlock = (int)(elementNumber & (BLOCK_SIZE - 1));
+				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
+				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
 				return _elements[blockNum][elementNumberInBlock];
 			}
 			set
 			{
-				int blockNum = (int)(elementNumber >> BLOCK_SIZE_LOG2);
-				int elementNumberInBlock = (int)(elementNumber & (BLOCK_SIZE - 1));
+				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
+				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
 				_elements[blockNum][elementNumberInBlock] = value;
 			}
 		}
@@ -300,10 +253,10 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		public ArrayJagged<T> Clone()
-		{
-			return new ArrayJagged<T>(this);
-		}
+		/// <summary>Clones this array.</summary>
+		/// <returns>A clone of the array.</returns>
+		public ArrayJagged<T> Clone() =>
+			new ArrayJagged<T>(this);
 
 		#region Stepper And IEnumerable
 
@@ -377,18 +330,11 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		public IEnumerator<T> GetEnumerator()
-		{
-			foreach (T[] array in _elements)
-			{
-				foreach (T value in array)
-				{
-					yield return value;
-				}
-			}
-		}
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		IEnumerator IEnumerable.GetEnumerator()
+		/// <summary>Gets the enumerator for this array.</summary>
+		/// <returns>The enumerator for this array.</returns>
+		public IEnumerator<T> GetEnumerator()
 		{
 			foreach (T[] array in _elements)
 			{

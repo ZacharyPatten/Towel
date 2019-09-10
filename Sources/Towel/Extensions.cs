@@ -642,10 +642,11 @@ namespace Towel
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <param name="length">The length of the array to step through.</param>
-		internal static void Stepper<T>(this T[] array, Step<T> step, int length)
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		internal static void Stepper<T>(this T[] array, Step<T> step, int start, int end)
 		{
-			for (int i = 0; i < length; i++)
+			for (int i = start; i < end; i++)
 			{
 				step(array[i]);
 			}
@@ -655,10 +656,11 @@ namespace Towel
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <param name="length">The length of the array to step through.</param>
-		internal static void Stepper<T>(this T[] array, StepRef<T> step, int length)
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		internal static void Stepper<T>(this T[] array, StepRef<T> step, int start, int end)
 		{
-			for (int i = 0; i < length; i++)
+			for (int i = start; i < end; i++)
 			{
 				step(ref array[i]);
 			}
@@ -668,11 +670,12 @@ namespace Towel
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <param name="length">The length of the array to step through.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
 		/// <returns>The status of the stepper.</returns>
-		internal static StepStatus Stepper<T>(this T[] array, StepBreak<T> step, int length)
+		internal static StepStatus Stepper<T>(this T[] array, StepBreak<T> step, int start, int end)
 		{
-			for (int i = 0; i < length; i++)
+			for (int i = start; i < end; i++)
 			{
 				if (step(array[i]) == StepStatus.Break)
 				{
@@ -686,11 +689,12 @@ namespace Towel
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <param name="length">The length of the array to step through.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
 		/// <returns>The status of the stepper.</returns>
-		internal static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step, int length)
+		internal static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step, int start, int end)
 		{
-			for (int i = 0; i < length; i++)
+			for (int i = start; i < end; i++)
 			{
 				if (step(ref array[i]) == StepStatus.Break)
 				{

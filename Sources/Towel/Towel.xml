@@ -610,10 +610,10 @@
         <member name="M:Towel.DataStructures.Array`1.op_Implicit(`0[])~Towel.DataStructures.Array{`0}">
             <summary>Implicitly converts a C# System array into a Towel array.</summary>
             <param name="array">The array to be represented as a Towel array.</param>
-            <returns>The array wrapped in a Towel array.</returns>
         </member>
         <member name="M:Towel.DataStructures.Array`1.op_Implicit(Towel.DataStructures.Array{`0})~`0[]">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+            <summary>Implicitly converts a Towel array into a C# System array.</summary>
+            <param name="array">The array to be represented as a C# System array.</param>
         </member>
         <member name="M:Towel.DataStructures.Array`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -649,6 +649,23 @@
             <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
             <typeparam name="T">The generic type of value to store in the array.</typeparam>
         </member>
+        <member name="P:Towel.DataStructures.ArrayJagged`1.Length">
+            <summary>The length of the array.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.ArrayJagged`1.Item(System.Int32)">
+            <summary>Gets and sets the value at a particual index.</summary>
+            <param name="index">The index of the value to get or set.</param>
+            <returns>The value at the provided index.</returns>
+        </member>
+        <member name="P:Towel.DataStructures.ArrayJagged`1.Item(System.UInt64)">
+            <summary>Gets and sets the value at a particual index.</summary>
+            <param name="index">The index of the value to get or set.</param>
+            <returns>The value at the provided index.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ArrayJagged`1.Clone">
+            <summary>Clones this array.</summary>
+            <returns>A clone of the array.</returns>
+        </member>
         <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -666,6 +683,10 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ArrayJagged`1.GetEnumerator">
+            <summary>Gets the enumerator for this array.</summary>
+            <returns>The enumerator for this array.</returns>
         </member>
         <member name="T:Towel.DataStructures.IAvlTree`1">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
@@ -1403,7 +1424,7 @@
         </member>
         <member name="P:Towel.DataStructures.DequeLinked`1.Count">
             <summary>Returns the number of items in the queue.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.EnqueueBack(`0)">
             <summary>Adds an item to the back of the queue.</summary>
@@ -1427,19 +1448,6 @@
             <returns>A standard array of all the items.</returns>
             <runtime>O(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Contains(`0,Towel.Compare{`0})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Contains``1(``0,Towel.Compare{`0,``0})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <typeparam name="Key">The type of the key to check for.</typeparam>
-            <param name="key">The key to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
-        </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -1457,6 +1465,10 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.DequeLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for this dequeue.</summary>
+            <returns>The enumerator for this dequeue.</returns>
         </member>
         <member name="M:Towel.DataStructures.DequeLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -14061,20 +14073,20 @@
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Newest">
             <summary>The newest item currently in the queue.</summary>
-            <runtime>θ(1)</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Oldest">
             <summary>The oldest item currently in the queue.</summary>
-            <runtime>θ(1)</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Count">
             <summary>Returns the number of items in the queue.</summary>
-            <runtime>θ(1)</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.ToArray">
             <summary>Converts the list into a standard array.</summary>
             <returns>A standard array of all the items.</returns>
-            /// <remarks>Runtime: Towel(n).</remarks>
+            <runtime>O(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -14096,31 +14108,29 @@
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Clear">
             <summary>Resets the queue to an empty state.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.QueueLinked`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.QueueLinked`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.QueueLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for this queue.</summary>
+            <returns>The enumerator for the queue.</returns>
         </member>
         <member name="T:Towel.DataStructures.QueueArray`1">
             <summary>Implements First-In-First-Out queue data structure using an array.</summary>
@@ -14168,7 +14178,7 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Dequeue">
             <summary>Removes the item at a specific index.</summary>
-            <remarks>Runtime: Towel(n - index).</remarks>
+            <runtime>O(n - index)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Peek">
             <summary>Gets the next item in the queue without removing it.</summary>
@@ -14176,7 +14186,7 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Clear">
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -14195,6 +14205,10 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.GetEnumerator">
+            <summary>Gets the enumerator for this queue.</summary>
+            <returns>The enumerator for this queue.</returns>
         </member>
         <member name="T:Towel.DataStructures.IRedBlackTree`1">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
@@ -14711,13 +14725,17 @@
         <member name="P:Towel.DataStructures.SetHashArray`1.Equate">
             <summary>The function for equating keys in this table.</summary>
         </member>
+        <member name="M:Towel.DataStructures.SetHashArray`1.GetEnumerator">
+            <summary>Gets the enumerator for this set.</summary>
+            <returns>The enumerator for this set.</returns>
+        </member>
         <member name="M:Towel.DataStructures.SetHashArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.SetHashArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="T:Towel.DataStructures.Set`2">
@@ -15198,6 +15216,10 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
+        <member name="M:Towel.DataStructures.StackArray`1.GetEnumerator">
+            <summary>Gets the enumerator for this stack.</summary>
+            <returns>The enumerator for this stack.</returns>
+        </member>
         <member name="T:Towel.DataStructures.ITree`1">
             <summary>A generic tree data structure.</summary>
             <typeparam name="T">The generic type stored in this data structure.</typeparam>
@@ -15606,34 +15628,38 @@
             <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
             <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0},System.Int32)">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="length">The length of the array to step through.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32)">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="length">The length of the array to step through.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32)">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="length">The length of the array to step through.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32)">
+        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="length">The length of the array to step through.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
             <returns>The status of the stepper.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0})">

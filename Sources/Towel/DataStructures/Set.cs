@@ -440,47 +440,49 @@ namespace Towel.DataStructures
 		{
 			//if (this._buckets == null)
 			//	this.Initialize(0);
-			int hashCode = this._hash(addition);
-			int index1 = hashCode % this._table.Length;
+			int hashCode = _hash(addition);
+			int index1 = Math.Abs(hashCode) % _table.Length;
 			int num = 0;
-			for (int index2 = this._table[hashCode % this._table.Length] - 1; index2 >= 0; index2 = this._nodes[index2].Next)
+			for (int index2 = _table[hashCode % _table.Length] - 1; index2 >= 0; index2 = _nodes[index2].Next)
 			{
-				if (this._nodes[index2].Hash == hashCode && this._equate(this._nodes[index2].Value, addition))
-					throw new System.InvalidOperationException("attempting to add an already existing value in the SetHash");
+				if (_nodes[index2].Hash == hashCode && _equate(_nodes[index2].Value, addition))
+				{
+					throw new InvalidOperationException("attempting to add an already existing value in the SetHash");
+				}
 				++num;
 			}
 			int index3;
-			if (this._freeList >= 0)
+			if (_freeList >= 0)
 			{
-				index3 = this._freeList;
-				this._freeList = this._nodes[index3].Next;
+				index3 = _freeList;
+				_freeList = _nodes[index3].Next;
 			}
 			else
 			{
-				if (this._lastIndex == this._nodes.Length)
+				if (_lastIndex == _nodes.Length)
 				{
 					GrowTableSize(GetLargerSize());
-					index1 = hashCode % this._table.Length;
+					index1 = hashCode % _table.Length;
 				}
-				index3 = this._lastIndex;
-				this._lastIndex = this._lastIndex + 1;
+				index3 = _lastIndex;
+				_lastIndex = _lastIndex + 1;
 			}
-			this._nodes[index3].Hash = hashCode;
-			this._nodes[index3].Value = addition;
-			this._nodes[index3].Next = this._table[index1] - 1;
-			this._table[index1] = index3 + 1;
-			this._count += 1;
+			_nodes[index3].Hash = hashCode;
+			_nodes[index3].Value = addition;
+			_nodes[index3].Next = _table[index1] - 1;
+			_table[index1] = index3 + 1;
+			_count += 1;
 		}
 
 		public void Clear()
 		{
-			if (this._lastIndex > 0)
+			if (_lastIndex > 0)
 			{
-				this._nodes = new Node[Towel.Hash.TableSizes[0]];
-				this._table = new int[Towel.Hash.TableSizes[0]];
-				this._lastIndex = 0;
-				this._count = 0;
-				this._freeList = -1;
+				_nodes = new Node[Towel.Hash.TableSizes[0]];
+				_table = new int[Towel.Hash.TableSizes[0]];
+				_lastIndex = 0;
+				_count = 0;
+				_freeList = -1;
 			}
 		}
 
@@ -488,46 +490,37 @@ namespace Towel.DataStructures
 		{
 			if (this._lastIndex > 0)
 			{
-				System.Array.Clear((System.Array)this._nodes, 0, this._lastIndex);
-				System.Array.Clear((System.Array)this._table, 0, this._table.Length);
-				this._lastIndex = 0;
-				this._count = 0;
-				this._freeList = -1;
+				Array.Clear(_nodes, 0, _lastIndex);
+				Array.Clear(_table, 0, _table.Length);
+				_lastIndex = 0;
+				_count = 0;
+				_freeList = -1;
 			}
 		}
 
 		public bool Contains(T value)
 		{
-			int hashCode = this._hash(value);
-			for (int index = this._table[hashCode % this._table.Length] - 1; index >= 0; index = this._nodes[index].Next)
+			int hashCode = _hash(value);
+			for (int index = _table[Math.Abs(hashCode) % _table.Length] - 1; index >= 0; index = _nodes[index].Next)
 			{
-				if (this._nodes[index].Hash == hashCode && this._equate(this._nodes[index].Value, value))
+				if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Value, value))
+				{
 					return true;
+				}
 			}
 			return false;
 		}
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			int num = 0;
-			for (int index = 0; index < this._lastIndex && num < this._count; ++index)
-			{
-				if (this._nodes[index].Hash >= 0)
-				{
-					++num;
-					yield return this._nodes[index].Value;
-				}
-			}
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		/// <summary>Gets the enumerator for this set.</summary>
+		/// <returns>The enumerator for this set.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			int num = 0;
-			for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+			for (int index = 0; index < _lastIndex && num < _count; ++index)
 			{
-				if (this._nodes[index].Hash >= 0)
+				if (_nodes[index].Hash >= 0)
 				{
 					++num;
 					yield return this._nodes[index].Value;
@@ -539,24 +532,26 @@ namespace Towel.DataStructures
 		{
 			this.Remove_private(removal);
 			int smallerSize = GetSmallerSize();
-			if (this._count < smallerSize)
+			if (_count < smallerSize)
+			{
 				ShrinkTableSize(smallerSize);
+			}
 		}
 
 		public void RemoveWithoutShrink(T removal)
 		{
-			this.Remove_private(removal);
+			Remove_private(removal);
 		}
 
 		public T[] ToArray()
 		{
-			T[] array = new T[this._count];
+			T[] array = new T[_count];
 			int num = 0;
-			for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+			for (int index = 0; index < _lastIndex && num < _count; ++index)
 			{
-				if (this._nodes[index].Hash >= 0)
+				if (_nodes[index].Hash >= 0)
 				{
-					array[num] = this._nodes[index].Value;
+					array[num] = _nodes[index].Value;
 					++num;
 				}
 			}
@@ -565,11 +560,15 @@ namespace Towel.DataStructures
 
 		public void Trim()
 		{
-			int prime = this._count;
-			while (Towel.Mathematics.Compute.IsPrime(prime))
+			int prime = _count;
+			while (!Mathematics.Compute.IsPrime(prime))
+			{
 				prime++;
-			if (prime != this._table.Length)
+			}
+			if (prime != _table.Length)
+			{
 				ShrinkTableSize(prime);
+			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -577,35 +576,30 @@ namespace Towel.DataStructures
 		public void Stepper(Step<T> function)
 		{
 			int num = 0;
-			for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+			for (int index = 0; index < _lastIndex && num < _count; ++index)
 			{
-				if (this._nodes[index].Hash >= 0)
+				if (_nodes[index].Hash >= 0)
 				{
 					++num;
-					function(this._nodes[index].Value);
+					function(_nodes[index].Value);
 				}
 			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
+		public StepStatus Stepper(StepBreak<T> step)
 		{
 			int num = 0;
-			for (int index = 0; index < this._lastIndex && num < this._count; ++index)
+			for (int index = 0; index < _lastIndex && num < _count; ++index)
 			{
-				if (this._nodes[index].Hash >= 0)
+				if (_nodes[index].Hash >= 0)
 				{
 					++num;
-					switch (function(this._nodes[index].Value))
+					if (step(_nodes[index].Value) == StepStatus.Break)
 					{
-						case StepStatus.Break:
-							return StepStatus.Break;
-						case StepStatus.Continue:
-							continue;
-						default:
-							throw new System.NotImplementedException();
+						return StepStatus.Break;
 					}
 				}
 			}
@@ -614,103 +608,118 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Private Methods
+		#region Internal Methods
 
-		private int GetLargerSize()
+		internal int GetLargerSize()
 		{
 			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
-				if (this._table.Length < Towel.Hash.TableSizes[i])
+			{
+				if (_table.Length < Towel.Hash.TableSizes[i])
+				{
 					return Towel.Hash.TableSizes[i];
+				}
+			}
 			return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
 		}
 
-		private int GetSmallerSize()
+		internal int GetSmallerSize()
 		{
 			for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-				if (this._table.Length > Towel.Hash.TableSizes[i])
+			{
+				if (_table.Length > Towel.Hash.TableSizes[i])
+				{
 					return Towel.Hash.TableSizes[i];
+				}
+			}
 			return Towel.Hash.TableSizes[0];
 		}
 
-		private void GrowTableSize(int newSize)
+		internal void GrowTableSize(int newSize)
 		{
 			Node[] slotArray = new Node[newSize];
-			if (this._nodes != null)
+			if (_nodes != null)
 			{
 				//System.Array.Copy((System.Array)this._nodes, 0, (System.Array)slotArray, 0, this._lastIndex);
 
-				for (int i = 0; i < this._lastIndex; i++)
-					slotArray[i] = this._nodes[i];
+				for (int i = 0; i < _lastIndex; i++)
+				{
+					slotArray[i] = _nodes[i];
+				}
 			}
 			int[] numArray = new int[newSize];
-			for (int index1 = 0; index1 < this._lastIndex; ++index1)
+			for (int index1 = 0; index1 < _lastIndex; ++index1)
 			{
 				int index2 = slotArray[index1].Hash % newSize;
 				slotArray[index1].Next = numArray[index2] - 1;
 				numArray[index2] = index1 + 1;
 			}
-			this._nodes = slotArray;
-			this._table = numArray;
+			_nodes = slotArray;
+			_table = numArray;
 		}
 
-		private void Remove_private(T removal)
+		internal void Remove_private(T removal)
 		{
-			int hashCode = this._hash(removal);
-			int index1 = hashCode % this._table.Length;
+			int hashCode = _hash(removal);
+			int index1 = Math.Abs(hashCode) % _table.Length;
 			int index2 = -1;
-			for (int index3 = this._table[index1] - 1; index3 >= 0; index3 = this._nodes[index3].Next)
+			for (int index3 = _table[index1] - 1; index3 >= 0; index3 = _nodes[index3].Next)
 			{
-				if (this._nodes[index3].Hash == hashCode && this._equate(this._nodes[index3].Value, removal))
+				if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Value, removal))
 				{
 					if (index2 < 0)
-						this._table[index1] = this._nodes[index3].Next + 1;
-					else
-						this._nodes[index2].Next = this._nodes[index3].Next;
-					this._nodes[index3].Hash = -1;
-					this._nodes[index3].Value = default(T);
-					this._nodes[index3].Next = this._freeList;
-					this._count -= 1;
-					if (this._count == 0)
 					{
-						this._lastIndex = 0;
-						this._freeList = -1;
+						_table[index1] = _nodes[index3].Next + 1;
 					}
 					else
-						this._freeList = index3;
+					{
+						_nodes[index2].Next = _nodes[index3].Next;
+					}
+					_nodes[index3].Hash = -1;
+					_nodes[index3].Value = default(T);
+					_nodes[index3].Next = _freeList;
+					_count -= 1;
+					if (_count == 0)
+					{
+						_lastIndex = 0;
+						_freeList = -1;
+					}
+					else
+					{
+						_freeList = index3;
+					}
 					return;
 				}
 				else
+				{
 					index2 = index3;
+				}
 			}
-			throw new System.InvalidOperationException("attempting to remove a non-existing value in a SetHash");
+			throw new InvalidOperationException("attempting to remove a non-existing value in a SetHash");
 		}
 
-		private void ShrinkTableSize(int newSize)
+		internal void ShrinkTableSize(int newSize)
 		{
 			Node[] slotArray = new Node[newSize];
 			int[] numArray = new int[newSize];
 			int index1 = 0;
-			for (int index2 = 0; index2 < this._lastIndex; ++index2)
+			for (int index2 = 0; index2 < _lastIndex; ++index2)
 			{
-				if (this._nodes[index2].Hash >= 0)
+				if (_nodes[index2].Hash >= 0)
 				{
-					slotArray[index1] = this._nodes[index2];
+					slotArray[index1] = _nodes[index2];
 					int index3 = slotArray[index1].Hash % newSize;
 					slotArray[index1].Next = numArray[index3] - 1;
 					numArray[index3] = index1 + 1;
 					++index1;
 				}
 			}
-			this._lastIndex = index1;
-			this._nodes = slotArray;
-			this._table = numArray;
-			this._freeList = -1;
+			_lastIndex = index1;
+			_nodes = slotArray;
+			_table = numArray;
+			_freeList = -1;
 		}
 
-		public SetHashArray<T> Clone()
-		{
-			return new SetHashArray<T>(this);
-		}
+		public SetHashArray<T> Clone() => new SetHashArray<T>(this);
 
 		#endregion
 	}

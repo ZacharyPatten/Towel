@@ -281,7 +281,7 @@ namespace Towel.DataStructures
 		public bool TryGet(K key, out T value)
 		{
 			int hashCode = ComputeIndex(key);
-			int table_index = hashCode % _table.Length;
+			int table_index = Math.Abs(hashCode) % _table.Length;
 			for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
 			{
 				if (_equate(bucket.Key, key))
@@ -676,12 +676,6 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
 		public MapHashArray() : this(null, null) { }
-
-#pragma warning disable CS1587
-		/// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
-		/// <param name="expectedCount">The expected count to initialize the size of the data structure to allow for.</param>
-		//public MapHashArray(int expectedCount) : this(Towel.Equate.Default, Towel.Hash.Default) { }
-#pragma warning restore CS1587
 
 		/// <summary>Constructs a new hash table instance.</summary>
 		/// <runtime>O(1)</runtime>
@@ -1113,10 +1107,7 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for the data structure.</summary>
 		/// <returns>The enumerator for the data structure.</returns>
@@ -1142,38 +1133,48 @@ namespace Towel.DataStructures
 		private int GetLargerSize()
 		{
 			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
-				if (this._table.Length < Towel.Hash.TableSizes[i])
+			{
+				if (_table.Length < Towel.Hash.TableSizes[i])
+				{
 					return Towel.Hash.TableSizes[i];
+				}
+			}
 			return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
 		}
 
 		private int GetSmallerSize()
 		{
 			for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-				if (this._table.Length > Towel.Hash.TableSizes[i])
+			{
+				if (_table.Length > Towel.Hash.TableSizes[i])
+				{
 					return Towel.Hash.TableSizes[i];
+				}
+			}
 			return Towel.Hash.TableSizes[0];
 		}
 
 		private void GrowTableSize(int newSize)
 		{
 			Node[] slotArray = new Node[newSize];
-			if (this._nodes != null)
+			if (_nodes != null)
 			{
 				//System.Array.Copy((System.Array)this._nodes, 0, (System.Array)slotArray, 0, this._lastIndex);
 
-				for (int i = 0; i < this._lastIndex; i++)
-					slotArray[i] = this._nodes[i];
+				for (int i = 0; i < _lastIndex; i++)
+				{
+					slotArray[i] = _nodes[i];
+				}
 			}
 			int[] numArray = new int[newSize];
-			for (int index1 = 0; index1 < this._lastIndex; ++index1)
+			for (int index1 = 0; index1 < _lastIndex; ++index1)
 			{
 				int index2 = Math.Abs(slotArray[index1].Hash) % newSize;
 				slotArray[index1].Next = numArray[index2] - 1;
 				numArray[index2] = index1 + 1;
 			}
-			this._nodes = slotArray;
-			this._table = numArray;
+			_nodes = slotArray;
+			_table = numArray;
 		}
 
 		private void ShrinkTableSize(int newSize)
@@ -1181,21 +1182,21 @@ namespace Towel.DataStructures
 			Node[] slotArray = new Node[newSize];
 			int[] numArray = new int[newSize];
 			int index1 = 0;
-			for (int index2 = 0; index2 < this._lastIndex; ++index2)
+			for (int index2 = 0; index2 < _lastIndex; ++index2)
 			{
-				if (this._nodes[index2].Hash >= 0)
+				if (_nodes[index2].Hash >= 0)
 				{
-					slotArray[index1] = this._nodes[index2];
+					slotArray[index1] = _nodes[index2];
 					int index3 = Math.Abs(slotArray[index1].Hash) % newSize;
 					slotArray[index1].Next = numArray[index3] - 1;
 					numArray[index3] = index1 + 1;
 					++index1;
 				}
 			}
-			this._lastIndex = index1;
-			this._nodes = slotArray;
-			this._table = numArray;
-			this._freeList = -1;
+			_lastIndex = index1;
+			_nodes = slotArray;
+			_table = numArray;
+			_freeList = -1;
 		}
 
 		#endregion
