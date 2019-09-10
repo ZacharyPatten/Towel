@@ -403,7 +403,6 @@ namespace Towel.Algorithms
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal)
 		{
-			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
 			IQueue<DijkstraNode<Node>> fringe = new QueueLinked<DijkstraNode<Node>>();
 
 			// push starting node
