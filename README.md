@@ -304,7 +304,7 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 
 ```csharp
 // An Omnitree is a Spacial Partitioning Tree (SPT) that works on an arbitrary number of dimensions.
-// It stores items sorted along multiple dinmensions by dividing spaces into sub-spaces. A 3D
+// It stores items sorted along multiple dimensions by dividing spaces into sub-spaces. A 3D
 // version of an SPT is often called an "Octree" and a 2D version of an SPT is often called a
 // "Quadtree." There are two versions of the Omnitree: Points and Bounds. The Points version stores
 // vectors while the Bounds version stores spaces with a minimum and maximum vector.
@@ -416,7 +416,7 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 //     -1D         -2D         -3D         -4D
 
 // By default, the omnitree will sort items along each axis and use the median algorithm to determine
-// the point of divisions. However, you can override the subdivision algorithm. For numarical values,
+// the point of divisions. However, you can override the subdivision algorithm. For numerical values,
 // the mean algorithm can be used (and is much faster than median). If you know the data set will be
 // relatively evenly distributed within a sub-space, you can even set the subdivision algorithm to
 // calculate the subdivision from parent spaces rather than looking at the current contents of the
