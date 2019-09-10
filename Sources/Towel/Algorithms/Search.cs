@@ -132,10 +132,11 @@ namespace Towel.Algorithms
 			PathNode<Node> start = null;
 			for (BaseAlgorithmNode<AlgorithmNode, Node> current = node; current != null; current = current.Previous)
 			{
+				PathNode<Node> temp = start;
 				start = new PathNode<Node>()
 				{
 					Value = current.Value,
-					Next = start,
+					Next = temp,
 				};
 			}
 			return step =>
