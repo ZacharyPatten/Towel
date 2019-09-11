@@ -13,7 +13,7 @@ using Namespace =
 		System.Collections.Generic.List<string>, // nested namespaces
 		System.Collections.Generic.List<System.Type>>; // nested types
 
-namespace Towel_Documentation
+namespace Towel_Documenting
 {
 	class Program
 	{
