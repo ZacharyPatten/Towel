@@ -10,6 +10,6 @@ _Please discuss the purpose of the changes._
 
 _Please link any related issues here._
 
-#### Users
+#### Mentions
 
-_Please link/discuss any related GitHub users here._
+_Please mention/discuss any related GitHub users here._
