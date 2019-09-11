@@ -215,6 +215,8 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryGet<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare, out T item)
 		{
+			// TODO: kill this function (try-catch should not be used for control flow)
+
 			try
 			{
 				item = avlTree.Get(compare);
@@ -234,6 +236,8 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
 		{
+			// TODO: kill this function (try-catch should not be used for control flow)
+
 			try
 			{
 				avlTree.Remove(compare);
@@ -317,7 +321,7 @@ namespace Towel.DataStructures
 
 		internal AvlTreeLinked(AvlTreeLinked<T> tree)
 		{
-			this._root = tree._root is null ? null : tree._root.Clone();
+			this._root = tree._root?.Clone();
 			this._count = tree._count;
 			this._compare = tree._compare;
 		}
@@ -332,7 +336,11 @@ namespace Towel.DataStructures
 		{
 			get
 			{
-				Node node = this._root;
+				if (_root is null)
+				{
+					throw new InvalidOperationException("Attempting to get the current least value from an empty AVL tree.");
+				}
+				Node node = _root;
 				while (node.LeftChild != null)
 				{
 					node = node.LeftChild;
@@ -347,7 +355,11 @@ namespace Towel.DataStructures
 		{
 			get
 			{
-				Node node = this._root;
+				if (_root is null)
+				{
+					throw new InvalidOperationException("Attempting to get the current greatest value from an empty AVL tree.");
+				}
+				Node node = _root;
 				while (node.RightChild != null)
 				{
 					node = node.RightChild;
@@ -358,23 +370,11 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		public Compare<T> Compare
-		{
-			get
-			{
-				return this._compare;
-			}
-		}
+		public Compare<T> Compare => _compare;
 
 		/// <summary>Gets the number of elements in the collection.</summary>
 		/// <runtime>θ(1)</runtime>
-		public int Count
-		{
-			get
-			{
-				return _count;
-			}
-		}
+		public int Count => _count;
 
 		#endregion
 
@@ -387,29 +387,29 @@ namespace Towel.DataStructures
 		/// <runtime>O(ln(n))</runtime>
 		public void Add(T addition)
 		{
-			Node ADD(T ADDITION, Node NODE)
+			Node Add(Node node)
 			{
-				if (NODE is null)
+				if (node is null)
 				{
-					return new Node(ADDITION);
+					return new Node(addition);
 				}
-				CompareResult comparison = _compare(NODE.Value, ADDITION);
-				if (comparison == CompareResult.Equal)
+				CompareResult comparison = _compare(node.Value, addition);
+				if (comparison == CompareResult.Less)
 				{
-					throw new InvalidOperationException("Adding an item that already exists.");
+					node.RightChild = Add(node.RightChild);
 				}
 				else if (comparison == CompareResult.Greater)
 				{
-					NODE.LeftChild = ADD(ADDITION, NODE.LeftChild);
+					node.LeftChild = Add(node.LeftChild);
 				}
-				else // (compareResult == Comparison.Less)
+				else // (comparison == CompareResult.Equal)
 				{
-					NODE.RightChild = ADD(ADDITION, NODE.RightChild);
+					throw new InvalidOperationException("Adding to add a duplicate value to an AVL tree.");
 				}
-				return Balance(NODE);
+				return Balance(node);
 			}
 
-			_root = ADD(addition, _root);
+			_root = Add(_root);
 			_count++;
 		}
 
@@ -448,31 +448,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to look for.</param>
 		/// <returns>Whether or not the AVL tree contains the value.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public bool Contains(T value)
-		{
-			bool CONTAINS(T VALUE, Node NODE)
-			{
-				if (NODE is null)
-				{
-					return false;
-				}
-				CompareResult comparison = _compare(VALUE, NODE.Value);
-				if (comparison == CompareResult.Equal)
-				{
-					return true;
-				}
-				else if (comparison == CompareResult.Less)
-				{
-					return CONTAINS(VALUE, NODE.LeftChild);
-				}
-				else // else if (comparison == Comparison.Greater)
-				{
-					return CONTAINS(VALUE, NODE.RightChild);
-				}
-			}
-
-			return CONTAINS(value, this._root);
-		}
+		public bool Contains(T value) => Contains(x => _compare(value, x));
 
 		/// <summary>Determines if this structure contains an item by a given key.</summary>
 		/// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
@@ -484,17 +460,17 @@ namespace Towel.DataStructures
 			while (node != null)
 			{
 				CompareResult compareResult = comparison(node.Value);
-				if (compareResult == CompareResult.Equal)
-				{
-					return true;
-				}
-				else if (compareResult == CompareResult.Greater)
+				if (compareResult == CompareResult.Less)
 				{
 					node = node.LeftChild;
 				}
-				else // (compareResult == Copmarison.Less)
+				else if (compareResult == CompareResult.Greater)
 				{
 					node = node.RightChild;
+				}
+				else // (compareResult == Copmarison.Equal)
+				{
+					return true;
 				}
 			}
 			return false;
@@ -514,20 +490,20 @@ namespace Towel.DataStructures
 			while (node != null)
 			{
 				CompareResult comparison = compare(node.Value);
-				if (comparison == CompareResult.Equal)
-				{
-					return node.Value;
-				}
-				else if (comparison == CompareResult.Greater)
+				if (comparison == CompareResult.Less)
 				{
 					node = node.LeftChild;
 				}
-				else // (compareResult == Copmarison.Less)
+				else if (comparison == CompareResult.Greater)
 				{
 					node = node.RightChild;
 				}
+				else // (compareResult == Copmarison.Equal)
+				{
+					return node.Value;
+				}
 			}
-			throw new InvalidOperationException("Attempting to get a non-existing item.");
+			throw new InvalidOperationException("Attempting to get a non-existing value from an AVL tree.");
 		}
 
 		#endregion
@@ -539,49 +515,48 @@ namespace Towel.DataStructures
 		/// <runtime>O(ln(n))</runtime>
 		public void Remove(T removal)
 		{
-			Node REMOVE(T REMOVAL, Node NODE)
+			Node Remove(Node node)
 			{
-				if (NODE != null)
+				if (node != null)
 				{
-					CompareResult compareResult = _compare(NODE.Value, REMOVAL);
-					if (compareResult == CompareResult.Equal)
+					CompareResult compareResult = _compare(node.Value, removal);
+					if (compareResult == CompareResult.Less)
 					{
-						if (NODE.RightChild != null)
+						node.RightChild = Remove(node.RightChild);
+					}
+					else if (compareResult == CompareResult.Greater)
+					{
+						node.LeftChild = Remove(node.LeftChild);
+					}
+					else // (compareResult == Comparison.Equal)
+					{
+						if (node.RightChild != null)
 						{
-							NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
-							leftMostOfRight.RightChild = NODE.RightChild;
-							leftMostOfRight.LeftChild = NODE.LeftChild;
-							NODE = leftMostOfRight;
+							node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
+							leftMostOfRight.RightChild = node.RightChild;
+							leftMostOfRight.LeftChild = node.LeftChild;
+							node = leftMostOfRight;
 						}
-						else if (NODE.LeftChild != null)
+						else if (node.LeftChild != null)
 						{
-							NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
-							rightMostOfLeft.RightChild = NODE.RightChild;
-							rightMostOfLeft.LeftChild = NODE.LeftChild;
-							NODE = rightMostOfLeft;
+							node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
+							rightMostOfLeft.RightChild = node.RightChild;
+							rightMostOfLeft.LeftChild = node.LeftChild;
+							node = rightMostOfLeft;
 						}
 						else
 						{
 							return null;
 						}
-						SetHeight(NODE);
-						return Balance(NODE);
+						SetHeight(node);
+						return Balance(node);
 					}
-					else if (compareResult == CompareResult.Greater)
-					{
-						NODE.LeftChild = REMOVE(REMOVAL, NODE.LeftChild);
-					}
-					else // (compareResult == Comparison.Less)
-					{
-						NODE.RightChild = REMOVE(REMOVAL, NODE.RightChild);
-					}
-					SetHeight(NODE);
-					return Balance(NODE);
+					SetHeight(node);
+					return Balance(node);
 				}
 				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
 			}
-
-			_root = REMOVE(removal, _root);
+			_root = Remove(_root);
 			_count--;
 		}
 
@@ -594,49 +569,47 @@ namespace Towel.DataStructures
 		/// <runtime>O(ln(n))</runtime>
 		public void Remove(CompareToKnownValue<T> compare)
 		{
-			Node REMOVE(CompareToKnownValue<T> COMPARE, Node NODE)
+			Node Remove(Node node)
 			{
-				if (NODE != null)
+				if (node != null)
 				{
-					CompareResult compareResult = COMPARE(NODE.Value);
-					if (compareResult == CompareResult.Equal)
+					CompareResult compareResult = compare(node.Value);
+					if (compareResult == CompareResult.Less)
 					{
-						if (NODE.RightChild != null)
+						node.LeftChild = Remove(node.LeftChild);
+					}
+					else if (compareResult == CompareResult.Greater)
+					{
+						node.RightChild = Remove(node.RightChild);
+					}
+					else // (compareResult == Comparison.Equal)
+					{
+						if (node.RightChild != null)
 						{
-							NODE.RightChild = RemoveLeftMost(NODE.RightChild, out Node leftMostOfRight);
-							leftMostOfRight.RightChild = NODE.RightChild;
-							leftMostOfRight.LeftChild = NODE.LeftChild;
-							NODE = leftMostOfRight;
+							node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
+							leftMostOfRight.RightChild = node.RightChild;
+							leftMostOfRight.LeftChild = node.LeftChild;
+							node = leftMostOfRight;
 						}
-						else if (NODE.LeftChild != null)
+						else if (node.LeftChild != null)
 						{
-							NODE.LeftChild = RemoveRightMost(NODE.LeftChild, out Node rightMostOfLeft);
-							rightMostOfLeft.RightChild = NODE.RightChild;
-							rightMostOfLeft.LeftChild = NODE.LeftChild;
-							NODE = rightMostOfLeft;
+							node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
+							rightMostOfLeft.RightChild = node.RightChild;
+							rightMostOfLeft.LeftChild = node.LeftChild;
+							node = rightMostOfLeft;
 						}
 						else
 						{
 							return null;
 						}
-						SetHeight(NODE);
-						return Balance(NODE);
 					}
-					else if (compareResult == CompareResult.Greater)
-					{
-						NODE.LeftChild = REMOVE(COMPARE, NODE.LeftChild);
-					}
-					else // (compareResult == Comparison.Less)
-					{
-						NODE.RightChild = REMOVE(COMPARE, NODE.RightChild);
-					}
-					SetHeight(NODE);
-					return Balance(NODE);
+					SetHeight(node);
+					return Balance(node);
 				}
 				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
 			}
 
-			_root = REMOVE(compare, _root);
+			_root = Remove(_root);
 			_count--;
 		}
 

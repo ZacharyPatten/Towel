@@ -104,9 +104,7 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryAdd<T>(this IAddable<T> structure, T addition)
 		{
-			// Note: This is most likely a bad practice. try-catch-ing should
-			// not be used for control flow like this. I will likely be moving this
-			// method into the "IAddable<T>" interface in the future.
+			// TODO: kill this function (try-catch should not be used for control flow)
 
 			try
 			{
@@ -126,9 +124,7 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryRemove<T>(this IRemovable<T> structure, T removal)
 		{
-			// Note: This is most likely a bad practice. try-catch-ing should
-			// not be used for control flow like this. I will likely be moving this
-			// method into the "IRemovable<T>" interface in the future.
+			// TODO: kill this function (try-catch should not be used for control flow)
 
 			try
 			{

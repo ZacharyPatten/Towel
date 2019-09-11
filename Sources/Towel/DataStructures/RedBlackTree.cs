@@ -215,6 +215,8 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryGet<T>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare, out T item)
 		{
+			// TODO: kill this function (try-catch should not be used for control flow)
+
 			try
 			{
 				item = redBlackTree.Get(compare);
@@ -234,6 +236,8 @@ namespace Towel.DataStructures
 		/// <returns>True if successful, False if not.</returns>
 		public static bool TryRemove<T>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare)
 		{
+			// TODO: kill this function (try-catch should not be used for control flow)
+
 			try
 			{
 				redBlackTree.Remove(compare);
@@ -294,6 +298,10 @@ namespace Towel.DataStructures
 
 			internal Node Clone(Node parent)
 			{
+				if (this == _sentinelNode)
+				{
+					return this;
+				}
 				Node clone = new Node(this.Color, this.Value, parent);
 				clone.LeftChild = this.LeftChild is null ? null : this.LeftChild.Clone(clone);
 				clone.RightChild = this.RightChild is null ? null : this.RightChild.Clone(clone);
@@ -322,7 +330,7 @@ namespace Towel.DataStructures
 		{
 			this._compare = tree._compare;
 			this._count = tree._count;
-			this._root = tree._root is null ? null : tree._root.Clone(null);
+			this._root = tree._root.Clone(null);
 		}
 
 		#endregion
@@ -334,17 +342,16 @@ namespace Towel.DataStructures
 		{
 			get
 			{
-				Node treeNode = _root;
-				if (treeNode == null || treeNode == _sentinelNode)
+				if (_root == _sentinelNode)
 				{
-					throw new InvalidOperationException("attempting to get the minimum value from an empty tree.");
+					throw new InvalidOperationException("attempting to get the least value from an empty tree.");
 				}
-				while (treeNode.LeftChild != _sentinelNode)
+				Node node = _root;
+				while (node.LeftChild != _sentinelNode)
 				{
-					treeNode = treeNode.LeftChild;
+					node = node.LeftChild;
 				}
-				T returnValue = treeNode.Value;
-				return returnValue;
+				return node.Value;
 			}
 		}
 
@@ -353,17 +360,16 @@ namespace Towel.DataStructures
 		{
 			get
 			{
-				Node treeNode = _root;
-				if (treeNode == null || treeNode == _sentinelNode)
+				if (_root == _sentinelNode)
 				{
-					throw new InvalidOperationException("attempting to get the maximum value from an empty tree.");
+					throw new InvalidOperationException("attempting to get the greatest value from an empty tree.");
 				}
-				while (treeNode.RightChild != _sentinelNode)
+				Node node = _root;
+				while (node.RightChild != _sentinelNode)
 				{
-					treeNode = treeNode.RightChild;
+					node = node.RightChild;
 				}
-				T returnValue = treeNode.Value;
-				return returnValue;
+				return node.Value;
 			}
 		}
 
@@ -452,27 +458,7 @@ namespace Towel.DataStructures
 		/// <summary>Determines if the tree contains a given value;</summary>
 		/// <param name="value">The value to see if the tree contains.</param>
 		/// <returns>True if the tree contains the value. False if not.</returns>
-		public bool Contains(T value)
-		{
-			Node treeNode = _root;
-			while (treeNode != _sentinelNode)
-			{
-				switch (_compare(treeNode.Value, value))
-				{
-					case CompareResult.Equal:
-						return true;
-					case CompareResult.Greater:
-						treeNode = treeNode.LeftChild;
-						break;
-					case CompareResult.Less:
-						treeNode = treeNode.RightChild;
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-			}
-			return false;
-		}
+		public bool Contains(T value) => Contains(x => _compare(value, x));
 
 		/// <summary>Determines if this structure contains an item by a given key.</summary>
 		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
@@ -488,10 +474,10 @@ namespace Towel.DataStructures
 					case CompareResult.Equal:
 						return true;
 					case CompareResult.Greater:
-						treeNode = treeNode.LeftChild;
+						treeNode = treeNode.RightChild;
 						break;
 					case CompareResult.Less:
-						treeNode = treeNode.RightChild;
+						treeNode = treeNode.LeftChild;
 						break;
 					default:
 						throw new NotImplementedException();
@@ -518,10 +504,10 @@ namespace Towel.DataStructures
 					case CompareResult.Equal:
 						return treeNode.Value;
 					case CompareResult.Greater:
-						treeNode = treeNode.LeftChild;
+						treeNode = treeNode.RightChild;
 						break;
 					case CompareResult.Less:
-						treeNode = treeNode.RightChild;
+						treeNode = treeNode.LeftChild;
 						break;
 					default:
 						throw new NotImplementedException();
@@ -536,33 +522,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes a value from the tree.</summary>
 		/// <param name="value">The value to be removed.</param>
-		public void Remove(T value)
-		{
-			Node node;
-			node = _root;
-			while (node != _sentinelNode)
-			{
-				switch (_compare(node.Value, value))
-				{
-					case CompareResult.Equal:
-						if (node == _sentinelNode)
-						{
-							return;
-						}
-						Remove(node);
-						_count -= 1;
-						return;
-					case CompareResult.Greater:
-						node = node.LeftChild;
-						break;
-					case CompareResult.Less:
-						node = node.RightChild;
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-			}
-		}
+		public void Remove(T value) => Remove(x => _compare(value, x));
 
 		/// <summary>Removes an item from this structure by a given key.</summary>
 		/// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
@@ -577,15 +537,17 @@ namespace Towel.DataStructures
 				{
 					case CompareResult.Equal:
 						if (node == _sentinelNode)
+						{
 							return;
-						this.Remove(node);
-						this._count = _count - 1;
+						}
+						Remove(node);
+						_count -= 1;
 						return;
 					case CompareResult.Greater:
-						node = node.LeftChild;
+						node = node.RightChild;
 						break;
 					case CompareResult.Less:
-						node = node.RightChild;
+						node = node.LeftChild;
 						break;
 					default:
 						throw new System.NotImplementedException();
