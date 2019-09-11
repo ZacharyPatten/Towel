@@ -1,0 +1,13 @@
+name: Towel Build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Towel Build
+      run: dotnet build Sources/Towel/Towel.csproj --configuration 'Release'
