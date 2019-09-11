@@ -8,13 +8,11 @@ If you notice anything that can be improved about the Towel project please [crea
 
 #### Share The Project
 
-Sharing the project with other programmers is a big help. Don't spam of course, but the more eyes on the project the more input can be provided to make the project better.
+Sharing the project with other programmers is a big help. The more eyes on the project the more input can be provided to make the project better.
 
 #### Writing Tutorials, Articles, and Blog Posts
 
-Towel is a very new project that is currently lacking proper documentation. Writing tutorials, articles, and/or blog posts about the project would be a big help. Let the [project developer(s)](https://github.com/ZacharyPatten/Towel#developers) know about your content, and it might be linked to from the project README.
-
-Towel has a [wordpress website](http://towelcode.com/) that needs a lot of work. If you would like to help out with the website,  message the [project developer(s)](https://github.com/ZacharyPatten/Towel#developers).
+Towel is lacking proper documentation. Writing tutorials, articles, and/or blog posts about the project would be a big help. Let the [project developer(s)](https://github.com/ZacharyPatten/Towel#developers) know about your content, and it might be linked to from the project README.
 
 #### Show Off How You Use Towel
 
@@ -24,6 +22,6 @@ If you use the Towel in a project and are willing to show it off, message the [p
 
 You can chat with the developer(s) on [Discord](https://discord.gg/4XbQbwF). They can give you more specific information on what would currently benefit the project.
 
-#### Work On Open Issues
+#### Development
 
-If you are confident and think you can help out with any open issues, please reach out to the [project developer(s)](https://github.com/ZacharyPatten/Towel#developers). Contributing to the code will usually involve the standard GitHub processes of forking the code, implementing the change, and submitting a pull request. Any issues marked as [Good First Issue](https://github.com/ZacharyPatten/Towel/contribute)s will generally be the best starting points for helping out.
+If you want to help out with the development of the code, contributing will involve the standard GitHub processes of forking the code and creating a pull request. Any issues marked as [Good First Issue](https://github.com/ZacharyPatten/Towel/contribute)s will generally be the best starting points for helping out. Visual Studio 2019 is the prefered environment for development. Just open the Towel.sln file and the project should build without any configuration.
