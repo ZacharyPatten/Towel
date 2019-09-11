@@ -39,6 +39,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection3D", "Examples\CollisionDetection3D\CollisionDetection3D.csproj", "{F5AADBDA-FB69-4644-9BD6-832DE2855922}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{34244537-A921-4307-BF25-A1B9C2F04088}"
+	ProjectSection(SolutionItems) = preProject
+		.github\pull_request_template.md = .github\pull_request_template.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2DF6D73F-EA22-4BDE-B7D8-3CD78D2C6D29}"
 	ProjectSection(SolutionItems) = preProject
@@ -49,11 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 	ProjectSection(SolutionItems) = preProject
 		.github\ISSUE_TEMPLATE\bug.md = .github\ISSUE_TEMPLATE\bug.md
 		.github\ISSUE_TEMPLATE\enhancement.md = .github\ISSUE_TEMPLATE\enhancement.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PULL_REQUEST_TEMPLATE", "PULL_REQUEST_TEMPLATE", "{917417C8-40EE-4689-9690-EEDC750FF21E}"
-	ProjectSection(SolutionItems) = preProject
-		.github\PULL_REQUEST_TEMPLATE\pull_request_template.md = .github\PULL_REQUEST_TEMPLATE\pull_request_template.md
 	EndProjectSection
 EndProject
 Global
@@ -120,7 +118,6 @@ Global
 		{34244537-A921-4307-BF25-A1B9C2F04088} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
 		{2DF6D73F-EA22-4BDE-B7D8-3CD78D2C6D29} = {34244537-A921-4307-BF25-A1B9C2F04088}
 		{8C1D7EB5-FC57-484B-84C6-43B2A1ED2AA3} = {34244537-A921-4307-BF25-A1B9C2F04088}
-		{917417C8-40EE-4689-9690-EEDC750FF21E} = {34244537-A921-4307-BF25-A1B9C2F04088}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}
