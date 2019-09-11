@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3424
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2DF6D73F-EA22-4BDE-B7D8-3CD78D2C6D29}"
 	ProjectSection(SolutionItems) = preProject
-		..\Game\.github\workflows\Test Build.yml = ..\Game\.github\workflows\Test Build.yml
+		.github\workflows\Towel Build.yml = .github\workflows\Towel Build.yml
 	EndProjectSection
 EndProject
 Global

@@ -10,7 +10,7 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 | :---    | :--- |
 | Website | http://towelcode.com/ |
 | GitHub  | https://github.com/ZacharyPatten/Towel |
-| Build   | ![](https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg) |
+| Status  | ![](https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg) |
 | NuGet   | [![nuget](https://img.shields.io/nuget/v/Towel.svg)](https://www.nuget.org/packages/Towel/) |
 | License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ZacharyPatten/Towel/blob/master/LICENSE) |
 | Discord | <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a> |
