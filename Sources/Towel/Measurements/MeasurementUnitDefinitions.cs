@@ -869,7 +869,7 @@ namespace Towel.Measurements
 				return Tempurature.BuildConversionTable<T>();
 			}
 
-			int size = Convert.ToInt32(TowelDotNetExtensions.GetLastEnumValue<UNITS>());
+			int size = Convert.ToInt32(Meta.GetLastEnumValue<UNITS>());
 			Func<T, T>[][] conversionFactorTable = TowelDotNetExtensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
 			foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
 			{

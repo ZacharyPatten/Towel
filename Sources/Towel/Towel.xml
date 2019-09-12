@@ -15673,11 +15673,6 @@
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ConvertToCsharpSource(System.Type)">
-            <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
-            <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
-            <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
-        </member>
         <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
@@ -15797,137 +15792,10 @@
             <param name="sideLength">The length of each dimension.</param>
             <returns>The constructed jagged array.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetEnumAttribute``1(System.Enum)">
-            <summary>Gets a custom attribute on an enum value by generic type.</summary>
-            <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-            <param name="enum">The enum value to get the attribute of.</param>
-            <returns>The attribute on the enum value of the provided type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetEnumAttributes``1(System.Enum)">
-            <summary>Gets custom attributes on an enum value by generic type.</summary>
-            <typeparam name="AttributeType">The type of attribute to get.</typeparam>
-            <param name="enum">The enum value to get the attribute of.</param>
-            <returns>The attributes on the enum value of the provided type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetLastEnumValue``1">
-            <summary>Gets the maximum value of an enum.</summary>
-            <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
-            <returns>The maximum enum value of the provided type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetEventInfosWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the events with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the events of.</param>
-            <returns>The IEnumerable of the events with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetConstructorInfosWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the constructors with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the constructors of.</param>
-            <returns>The IEnumerable of the constructors with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetPropertyInfosWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the properties with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the properties of.</param>
-            <returns>The IEnumerable of the properties with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetFieldInfosWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the fields with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the fields of.</param>
-            <returns>The IEnumerable of the fields with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetMethodInfosWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the methods with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the methods of.</param>
-            <returns>The IEnumerable of the methods with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetTypesWithAttribute``1(System.Reflection.Assembly)">
-            <summary>Enumerates through all the types with a custom attribute.</summary>
-            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
-            <param name="assembly">The assembly to iterate through the types of.</param>
-            <returns>The IEnumerable of the types with the provided attribute type.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDerivedTypes``1(System.Reflection.Assembly)">
-            <summary>Gets all the types in an assembly that derive from a base.</summary>
-            <typeparam name="Base">The base type to get the deriving types of.</typeparam>
-            <param name="assembly">The assmebly to perform the search on.</param>
-            <returns>The IEnumerable of the types that derive from the provided base.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDirectoryPath(System.Reflection.Assembly)">
-            <summary>Gets the file path of an assembly.</summary>
-            <param name="assembly">The assembly to get the file path of.</param>
-            <returns>The file path of the assembly.</returns>
-        </member>
         <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Decimal)">
             <summary>Converts a decimal to the English word representation of that value.</summary>
             <param name="decimal">The decimal value to convert to English words.</param>
             <returns>The English word representation of the decimal value.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.LoadXmlDocumentation(System.String)">
-            <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-            <param name="xmlDocumentation">The content of the XML code documentation.</param>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.LoadXmlDocumentation(System.IO.TextReader)">
-            <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-            <param name="textReader">The text reader to process in an XmlReader.</param>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.ClearXmlDocumentation">
-            <summary>Clears the currently loaded XML documentation.</summary>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Type)">
-            <summary>Gets the XML documentation on a type.</summary>
-            <param name="type">The type to get the XML documentation of.</param>
-            <returns>The XML documentation on the type.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.MethodInfo)">
-            <summary>Gets the XML documentation on a method.</summary>
-            <param name="methodInfo">The method to get the XML documentation of.</param>
-            <returns>The XML documentation on the method.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.ConstructorInfo)">
-            <summary>Gets the XML documentation on a constructor.</summary>
-            <param name="constructorInfo">The constructor to get the XML documentation of.</param>
-            <returns>The XML documentation on the constructor.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.PropertyInfo)">
-            <summary>Gets the XML documentation on a property.</summary>
-            <param name="propertyInfo">The property to get the XML documentation of.</param>
-            <returns>The XML documentation on the property.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.FieldInfo)">
-            <summary>Gets the XML documentation on a field.</summary>
-            <param name="fieldInfo">The field to get the XML documentation of.</param>
-            <returns>The XML documentation on the field.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.EventInfo)">
-            <summary>Gets the XML documentation on an event.</summary>
-            <param name="eventInfo">The event to get the XML documentation of.</param>
-            <returns>The XML documentation on the event.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.MemberInfo)">
-            <summary>Gets the XML documentation on a member.</summary>
-            <param name="memberInfo">The member to get the XML documentation of.</param>
-            <returns>The XML documentation on the member.</returns>
-            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.GetDocumentation(System.Reflection.ParameterInfo)">
-            <summary>Gets the XML documentation for a parameter.</summary>
-            <param name="parameterInfo">The parameter to get the XML documentation for.</param>
-            <returns>The XML documenation of the parameter.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.IsLocalFunction(System.Reflection.MethodInfo)">
-            <summary>Determines if a MethodInfo is a local function.</summary>
-            <param name="methodInfo">The method info to determine if it is a local function.</param>
-            <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
@@ -30616,6 +30484,165 @@
         </member>
         <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Days">
             <summary>Units of an time measurement.</summary>
+        </member>
+        <member name="T:Towel.Meta">
+            <summary>Constains static analysis methods of the code (reflection).</summary>
+        </member>
+        <member name="M:Towel.Meta.HasImplicitCast``2">
+            <summary>Determines if an implicit casting operator exists from one type to another.</summary>
+            <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
+            <typeparam name="To">The return type fo the implicit casting operator.</typeparam>
+            <returns>True if the implicit casting operator exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.HasExplicitCast``2">
+            <summary>Determines if an implicit casting operator exists from one type to another.</summary>
+            <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
+            <typeparam name="To">The return type fo the implicit casting operator.</typeparam>
+            <returns>True if the implicit casting operator exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.HasImplicitCast(System.Type,System.Type)">
+            <summary>Determines if an implicit casting operator exists from one type to another.</summary>
+            <param name="fromType">The parameter type of the implicit casting operator.</param>
+            <param name="toType">The return type fo the implicit casting operator.</param>
+            <returns>True if the implicit casting operator exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.HasExplicitCast(System.Type,System.Type)">
+            <summary>Determines if an implicit casting operator exists from one type to another.</summary>
+            <param name="fromType">The parameter type of the implicit casting operator.</param>
+            <param name="toType">The return type fo the implicit casting operator.</param>
+            <returns>True if the implicit casting operator exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.ConvertToCsharpSourceDefinition(System.Type)">
+            <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
+            <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
+            <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetEnumAttribute``1(System.Enum)">
+            <summary>Gets a custom attribute on an enum value by generic type.</summary>
+            <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+            <param name="enum">The enum value to get the attribute of.</param>
+            <returns>The attribute on the enum value of the provided type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetEnumAttributes``1(System.Enum)">
+            <summary>Gets custom attributes on an enum value by generic type.</summary>
+            <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+            <param name="enum">The enum value to get the attribute of.</param>
+            <returns>The attributes on the enum value of the provided type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetLastEnumValue``1">
+            <summary>Gets the maximum value of an enum.</summary>
+            <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
+            <returns>The maximum enum value of the provided type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetEventInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the events with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the events of.</param>
+            <returns>The IEnumerable of the events with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetConstructorInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the constructors with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the constructors of.</param>
+            <returns>The IEnumerable of the constructors with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetPropertyInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the properties with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the properties of.</param>
+            <returns>The IEnumerable of the properties with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetFieldInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the fields with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the fields of.</param>
+            <returns>The IEnumerable of the fields with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetMethodInfosWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the methods with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the methods of.</param>
+            <returns>The IEnumerable of the methods with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetTypesWithAttribute``1(System.Reflection.Assembly)">
+            <summary>Enumerates through all the types with a custom attribute.</summary>
+            <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+            <param name="assembly">The assembly to iterate through the types of.</param>
+            <returns>The IEnumerable of the types with the provided attribute type.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetDerivedTypes``1(System.Reflection.Assembly)">
+            <summary>Gets all the types in an assembly that derive from a base.</summary>
+            <typeparam name="Base">The base type to get the deriving types of.</typeparam>
+            <param name="assembly">The assmebly to perform the search on.</param>
+            <returns>The IEnumerable of the types that derive from the provided base.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetDirectoryPath(System.Reflection.Assembly)">
+            <summary>Gets the file path of an assembly.</summary>
+            <param name="assembly">The assembly to get the file path of.</param>
+            <returns>The file path of the assembly.</returns>
+        </member>
+        <member name="M:Towel.Meta.LoadXmlDocumentation(System.String)">
+            <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+            <param name="xmlDocumentation">The content of the XML code documentation.</param>
+        </member>
+        <member name="M:Towel.Meta.LoadXmlDocumentation(System.IO.TextReader)">
+            <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+            <param name="textReader">The text reader to process in an XmlReader.</param>
+        </member>
+        <member name="M:Towel.Meta.ClearXmlDocumentation">
+            <summary>Clears the currently loaded XML documentation.</summary>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Type)">
+            <summary>Gets the XML documentation on a type.</summary>
+            <param name="type">The type to get the XML documentation of.</param>
+            <returns>The XML documentation on the type.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.MethodInfo)">
+            <summary>Gets the XML documentation on a method.</summary>
+            <param name="methodInfo">The method to get the XML documentation of.</param>
+            <returns>The XML documentation on the method.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.ConstructorInfo)">
+            <summary>Gets the XML documentation on a constructor.</summary>
+            <param name="constructorInfo">The constructor to get the XML documentation of.</param>
+            <returns>The XML documentation on the constructor.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.PropertyInfo)">
+            <summary>Gets the XML documentation on a property.</summary>
+            <param name="propertyInfo">The property to get the XML documentation of.</param>
+            <returns>The XML documentation on the property.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.FieldInfo)">
+            <summary>Gets the XML documentation on a field.</summary>
+            <param name="fieldInfo">The field to get the XML documentation of.</param>
+            <returns>The XML documentation on the field.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.EventInfo)">
+            <summary>Gets the XML documentation on an event.</summary>
+            <param name="eventInfo">The event to get the XML documentation of.</param>
+            <returns>The XML documentation on the event.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.MemberInfo)">
+            <summary>Gets the XML documentation on a member.</summary>
+            <param name="memberInfo">The member to get the XML documentation of.</param>
+            <returns>The XML documentation on the member.</returns>
+            <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+        </member>
+        <member name="M:Towel.Meta.GetDocumentation(System.Reflection.ParameterInfo)">
+            <summary>Gets the XML documentation for a parameter.</summary>
+            <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+            <returns>The XML documenation of the parameter.</returns>
+        </member>
+        <member name="M:Towel.Meta.IsLocalFunction(System.Reflection.MethodInfo)">
+            <summary>Determines if a MethodInfo is a local function.</summary>
+            <param name="methodInfo">The method info to determine if it is a local function.</param>
+            <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
         <member name="T:Towel.Serialization.Serialization">
             <summary>Static class containing serialization code.</summary>

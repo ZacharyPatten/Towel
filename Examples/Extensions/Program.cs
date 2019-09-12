@@ -43,9 +43,9 @@ namespace Extensions
 			Console.WriteLine("    Note: this can be useful for runtime compilation from strings");
 			Console.WriteLine();
 
-			Console.WriteLine("    " + typeof(IOmnitreePoints<Vector<double>, double, double, double>).ConvertToCsharpSource());
+			Console.WriteLine("    " + typeof(IOmnitreePoints<Vector<double>, double, double, double>).ConvertToCsharpSourceDefinition());
 			Console.WriteLine();
-			Console.WriteLine("    " + typeof(Symbolics.Add).ConvertToCsharpSource());
+			Console.WriteLine("    " + typeof(Symbolics.Add).ConvertToCsharpSourceDefinition());
 			Console.WriteLine();
 
 			#endregion
@@ -78,7 +78,7 @@ namespace Extensions
 			Console.WriteLine();
 
 			// This function loads in XML documentation so you can access it via reflection.
-			TowelDotNetExtensions.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
+			Meta.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 
 			Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
 			Console.WriteLine(typeof(Compute).GetDocumentation());

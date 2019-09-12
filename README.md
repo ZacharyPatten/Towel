@@ -509,9 +509,9 @@ DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
 
-// Type conversion to string as appears in C# source code
+// Type conversion to string definition as appears in C# source code
 // Note: useful for runtime compilation from strings
-string ConvertToCsharpSource(this Type type);
+string ConvertToCsharpSourceDefinition(this Type type);
 // Example: typeof(List<int>) -> "System.Collections.Generic.List<int>"
 
 string ToEnglishWords(this decimal @decimal);

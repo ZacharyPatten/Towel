@@ -3117,7 +3117,7 @@ namespace Towel.Mathematics
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
-					string operationName = type.ConvertToCsharpSource();
+					string operationName = type.Name;
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
@@ -3156,7 +3156,7 @@ namespace Towel.Mathematics
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
 					Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A, B).Compile();
-					string operationName = type.ConvertToCsharpSource();
+					string operationName = type.Name;
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
@@ -3189,7 +3189,7 @@ namespace Towel.Mathematics
 					ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B, C);
 					Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A, B, C).Compile();
-					string operationName = type.ConvertToCsharpSource();
+					string operationName = type.Name;
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
@@ -3214,7 +3214,7 @@ namespace Towel.Mathematics
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression[]));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
-					string operationName = type.ConvertToCsharpSource();
+					string operationName = type.Name;
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");

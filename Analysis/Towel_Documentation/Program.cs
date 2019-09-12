@@ -26,7 +26,7 @@ namespace Towel_Documenting
 			string Towel_xml_Path = @"..\..\..\..\..\Sources\Towel\Towel.xml";
 			using (StreamReader reader = new StreamReader(Towel_xml_Path))
 			{
-				TowelDotNetExtensions.LoadXmlDocumentation(reader);
+				Meta.LoadXmlDocumentation(reader);
 			}
 			Assembly assembly = typeof(Towel.Stepper).Assembly;
 
@@ -207,7 +207,7 @@ for (i = 0; i < coll.length; i++)
 			}
 			void ConvertTypeToHtml(Type type)
 			{
-				string typeToString = type.ConvertToCsharpSource();
+				string typeToString = type.ConvertToCsharpSourceDefinition();
 				if (!string.IsNullOrEmpty(typeToString))
 				{
 					string typeString =
