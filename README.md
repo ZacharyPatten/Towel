@@ -528,6 +528,13 @@ string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
 ```
 
+## Code Documentation
+
+_This feature still needs to be cleaned up, but you can see the code documentation here:_
+https://zacharypatten.github.io/Towel/Documentation
+
+_Using the extension methods in the Towel project, I was able to extract the XML documentation on the members, and dump them into a page on the GitHub Pages of this repository._
+
 ## Developer(s)
 
 Feel free to chat with the developer(s) via [Discord](https://discord.gg/4XbQbwF).
