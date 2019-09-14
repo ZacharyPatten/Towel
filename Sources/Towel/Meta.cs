@@ -82,21 +82,21 @@ namespace Towel
 		/// <summary>Converts a <see cref="System.Type"/> into a string as it would appear in C# source code.</summary>
 		/// <param name="type">The <see cref="System.Type"/> to convert to a string.</param>
 		/// <returns>The string as the <see cref="System.Type"/> would appear in C# source code.</returns>
-		public static string ConvertToCsharpSourceDefinition(this Type type)
+		public static string ConvertToCsharpSource(this Type type, bool showGenericParameters = false)
 		{
 			IQueue<Type> genericParameters = new QueueArray<Type>();
 			type.GetGenericArguments().Stepper(x => genericParameters.Enqueue(x));
-			return ConvertToCsharpSourceDefinition(type, genericParameters);
+			return ConvertToCsharpSource(type, genericParameters, showGenericParameters);
 		}
 
-		internal static string ConvertToCsharpSourceDefinition(Type type, IQueue<Type> genericParameters)
+		internal static string ConvertToCsharpSource(Type type, IQueue<Type> genericParameters, bool showGenericParameters)
 		{
 			if (type is null)
 			{
 				throw new ArgumentNullException(nameof(type));
 			}
 			string result = type.IsNested
-				? ConvertToCsharpSourceDefinition(type.DeclaringType, genericParameters) + "."
+				? ConvertToCsharpSource(type.DeclaringType, genericParameters, showGenericParameters) + "."
 				: type.Namespace + ".";
 			result += Regex.Replace(type.Name, "`.*", string.Empty);
 			if (type.IsGenericType)
@@ -110,9 +110,10 @@ namespace Towel
 						break;
 					}
 					Type correctGeneric = genericParameters.Dequeue();
-					result += correctGeneric.IsGenericParameter
-						? string.Empty
-						: (firstIteration ? string.Empty : ", ") + ConvertToCsharpSourceDefinition(correctGeneric);
+					result += (firstIteration ? string.Empty : ",") +
+						(correctGeneric.IsGenericParameter
+						? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
+						: (firstIteration ? string.Empty : " ") + ConvertToCsharpSource(correctGeneric));
 					firstIteration = false;
 				}
 				result += ">";

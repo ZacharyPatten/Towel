@@ -1,4 +1,4 @@
-<html lang="en-US">
+﻿<html lang="en-US">
 <head>
   <link rel="stylesheet" href="https://zacharypatten.github.io/Towel/assets/css/style.css?v=c04fff8004011496bd9056bd3be67ead4d0b3212">
   <meta charset="utf-8">
@@ -105,7 +105,7 @@
       <div class='content'>
         <button class='collapsible namespace'>Towel.Algorithms [Namespace]</button>
         <div class='content'>
-          <button class='collapsible type delegate'>Cost<> [delegate]</button>
+          <button class='collapsible type delegate'>Cost&lt;Node, Numeric&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the cost of moving from the current node to a specific neighbor.&lt;/summary&gt;
@@ -116,7 +116,7 @@
             &lt;returns&gt;The computed cost value of movign from current to neighbor.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>Goal<> [delegate]</button>
+          <button class='collapsible type delegate'>Goal&lt;Node&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Predicate for determining if we have reached the goal node.&lt;/summary&gt;
@@ -125,7 +125,7 @@
             &lt;returns&gt;True if the current node is a/the goal node; False if not.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>Heuristic<> [delegate]</button>
+          <button class='collapsible type delegate'>Heuristic&lt;Node, Numeric&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).&lt;/summary&gt;
@@ -135,7 +135,7 @@
             &lt;returns&gt;The computed heuristic value for this node.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>Neighbors<> [delegate]</button>
+          <button class='collapsible type delegate'>Neighbors&lt;Node&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Step function for all neigbors of a given node.&lt;/summary&gt;
@@ -149,7 +149,7 @@
 
             &lt;summary&gt;Static class taht constains algorithms for searching.&lt;/summary&gt;
 
-            <button class='collapsible type delegate'>Cost<> [delegate]</button>
+            <button class='collapsible type delegate'>Cost&lt;Node, Numeric&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the cost of moving from the current node to a specific neighbor.&lt;/summary&gt;
@@ -160,7 +160,7 @@
               &lt;returns&gt;The computed cost value of movign from current to neighbor.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Goal<> [delegate]</button>
+            <button class='collapsible type delegate'>Goal&lt;Node&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Predicate for determining if we have reached the goal node.&lt;/summary&gt;
@@ -169,7 +169,7 @@
               &lt;returns&gt;True if the current node is a/the goal node; False if not.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Heuristic<> [delegate]</button>
+            <button class='collapsible type delegate'>Heuristic&lt;Node, Numeric&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).&lt;/summary&gt;
@@ -179,7 +179,7 @@
               &lt;returns&gt;The computed heuristic value for this node.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Neighbors<> [delegate]</button>
+            <button class='collapsible type delegate'>Neighbors&lt;Node&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Step function for all neigbors of a given node.&lt;/summary&gt;
@@ -872,11 +872,11 @@
         </div>
         <button class='collapsible namespace'>Towel.DataStructures [Namespace]</button>
         <div class='content'>
-          <button class='collapsible type delegate'>Add<> [delegate]</button>
+          <button class='collapsible type delegate'>Add&lt;T&gt; [delegate]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type class'>Array<> [class]</button>
+          <button class='collapsible type class'>Array&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Contiguous fixed-sized data structure.&lt;/summary&gt;
@@ -959,7 +959,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>ArrayJagged<> [class]</button>
+          <button class='collapsible type class'>ArrayJagged&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An array implemented as a jagged array to allow for a number of elements &amp;gt; Int.MaxValue.&lt;/summary&gt;
@@ -1219,7 +1219,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>AvlTreeLinked<> [class]</button>
+          <button class='collapsible type class'>AvlTreeLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A self-sorting binary tree based on the heights of each node.&lt;/summary&gt;
@@ -1494,7 +1494,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bound<> [struct]</button>
+          <button class='collapsible type struct'>Bound&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a bound in ND space.&lt;/summary&gt;
@@ -1552,7 +1552,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 1D bounding box.&lt;/summary&gt;
@@ -1583,7 +1583,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 2D bounding box.&lt;/summary&gt;
@@ -1627,7 +1627,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2, A3&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 3D bounding box.&lt;/summary&gt;
@@ -1684,7 +1684,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 4D bounding box.&lt;/summary&gt;
@@ -1754,7 +1754,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 5D bounding box.&lt;/summary&gt;
@@ -1837,7 +1837,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5, A6&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 6D bounding box.&lt;/summary&gt;
@@ -1933,7 +1933,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Bounds<> [struct]</button>
+          <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5, A6, A7&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 7D bounding box.&lt;/summary&gt;
@@ -2048,13 +2048,13 @@
             &lt;summary&gt;Contains extensions methods for the BTree interface.&lt;/summary&gt;
 
           </div>
-          <button class='collapsible type class'>BTreeLinkedArray<> [class]</button>
+          <button class='collapsible type class'>BTreeLinkedArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A self-sorting binary tree based on grouping nodes together at the same height.&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic type of this data structure.&lt;/typeparam&gt;
 
-            <button class='collapsible type class'>Node<> [class]</button>
+            <button class='collapsible type class'>Node&lt;&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;A BTree node can contain multiple items and children.&lt;/summary&gt;
@@ -2269,7 +2269,7 @@
 
             &lt;summary&gt;Contains extension methods for the Structure interface.&lt;/summary&gt;
 
-            <button class='collapsible type interface'>IAddable<> [interface]</button>
+            <button class='collapsible type interface'>IAddable&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a Add method).&lt;/summary&gt;
@@ -2282,7 +2282,7 @@
 
               </div>
             </div>
-            <button class='collapsible type interface'>IAuditable<> [interface]</button>
+            <button class='collapsible type interface'>IAuditable&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a contains method).&lt;/summary&gt;
@@ -2308,7 +2308,7 @@
 
               </div>
             </div>
-            <button class='collapsible type interface'>IComparing<> [interface]</button>
+            <button class='collapsible type interface'>IComparing&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a Compare property).&lt;/summary&gt;
@@ -2332,7 +2332,7 @@
 
               </div>
             </div>
-            <button class='collapsible type interface'>IEquating<> [interface]</button>
+            <button class='collapsible type interface'>IEquating&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a Equate property).&lt;/summary&gt;
@@ -2344,7 +2344,7 @@
 
               </div>
             </div>
-            <button class='collapsible type interface'>IHashing<> [interface]</button>
+            <button class='collapsible type interface'>IHashing&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a Hash property).&lt;/summary&gt;
@@ -2356,7 +2356,7 @@
 
               </div>
             </div>
-            <button class='collapsible type interface'>IRemovable<> [interface]</button>
+            <button class='collapsible type interface'>IRemovable&lt;T&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Property of a data structure (does it have a Romove method).&lt;/summary&gt;
@@ -2404,7 +2404,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>DequeLinked<> [class]</button>
+          <button class='collapsible type class'>DequeLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements First-In-First-Out queue data structure.&lt;/summary&gt;
@@ -2506,7 +2506,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Edge<> [class]</button>
+          <button class='collapsible type class'>Edge&lt;&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents an edge in a graph.&lt;/summary&gt;
@@ -2532,7 +2532,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Edge<> [class]</button>
+          <button class='collapsible type class'>Edge&lt;&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents an edge in a graph.&lt;/summary&gt;
@@ -2558,7 +2558,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 1D bounding box of an item.&lt;/summary&gt;
@@ -2569,7 +2569,7 @@
             &lt;param name=&quot;max1&quot;&gt;The maximum bound of the item along the 1 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 2D bounding box of an item.&lt;/summary&gt;
@@ -2583,7 +2583,7 @@
             &lt;param name=&quot;max2&quot;&gt;The maximum bound of the item along the 2 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 3D bounding box of an item.&lt;/summary&gt;
@@ -2600,7 +2600,7 @@
             &lt;param name=&quot;max3&quot;&gt;The maximum bound of the item along the 3 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 4D bounding box of an item.&lt;/summary&gt;
@@ -2620,7 +2620,7 @@
             &lt;param name=&quot;max4&quot;&gt;The maximum bound of the item along the 4 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 5D bounding box of an item.&lt;/summary&gt;
@@ -2643,7 +2643,7 @@
             &lt;param name=&quot;max5&quot;&gt;The maximum bound of the item along the 5 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 6D bounding box of an item.&lt;/summary&gt;
@@ -2669,7 +2669,7 @@
             &lt;param name=&quot;max6&quot;&gt;The maximum bound of the item along the 6 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 7D bounding box of an item.&lt;/summary&gt;
@@ -2698,7 +2698,7 @@
             &lt;param name=&quot;max7&quot;&gt;The maximum bound of the item along the 7 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 1D bounding box of an item.&lt;/summary&gt;
@@ -2709,7 +2709,7 @@
             &lt;param name=&quot;max1&quot;&gt;The maximum bound of the item along the 1 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 2D bounding box of an item.&lt;/summary&gt;
@@ -2723,7 +2723,7 @@
             &lt;param name=&quot;max2&quot;&gt;The maximum bound of the item along the 2 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 3D bounding box of an item.&lt;/summary&gt;
@@ -2740,7 +2740,7 @@
             &lt;param name=&quot;max3&quot;&gt;The maximum bound of the item along the 3 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 4D bounding box of an item.&lt;/summary&gt;
@@ -2760,7 +2760,7 @@
             &lt;param name=&quot;max4&quot;&gt;The maximum bound of the item along the 4 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 5D bounding box of an item.&lt;/summary&gt;
@@ -2783,7 +2783,7 @@
             &lt;param name=&quot;max5&quot;&gt;The maximum bound of the item along the 5 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 6D bounding box of an item.&lt;/summary&gt;
@@ -2809,7 +2809,7 @@
             &lt;param name=&quot;max6&quot;&gt;The maximum bound of the item along the 6 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+          <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for getting the 7D bounding box of an item.&lt;/summary&gt;
@@ -2838,13 +2838,13 @@
             &lt;param name=&quot;max7&quot;&gt;The maximum bound of the item along the 7 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type class'>GraphMap<> [class]</button>
+          <button class='collapsible type class'>GraphMap&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Stores a graph as a map and nested map (adjacency matrix).&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic node type of this graph.&lt;/typeparam&gt;
 
-            <button class='collapsible type class'>Edge<> [class]</button>
+            <button class='collapsible type class'>Edge&lt;&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents an edge in a graph.&lt;/summary&gt;
@@ -2988,13 +2988,13 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>GraphSetOmnitree<> [class]</button>
+          <button class='collapsible type class'>GraphSetOmnitree&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Stores the graph as a set-hash of nodes and quadtree of edges.&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic type of this data structure.&lt;/typeparam&gt;
 
-            <button class='collapsible type class'>Edge<> [class]</button>
+            <button class='collapsible type class'>Edge&lt;&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents an edge in a graph.&lt;/summary&gt;
@@ -3138,11 +3138,11 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>HasSplit<> [delegate]</button>
+          <button class='collapsible type delegate'>HasSplit&lt;T&gt; [delegate]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type class'>HeapArray<> [class]</button>
+          <button class='collapsible type class'>HeapArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements a priority heap with static priorities using an array.&lt;/summary&gt;
@@ -3294,7 +3294,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>HyperRect<> [struct]</button>
+          <button class='collapsible type struct'>HyperRect&lt;T&gt; [struct]</button>
           <div class='content'>
 
             <button class='collapsible property'>MinPoint [Property]</button>
@@ -3318,7 +3318,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IAddable<> [interface]</button>
+          <button class='collapsible type interface'>IAddable&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a Add method).&lt;/summary&gt;
@@ -3331,14 +3331,14 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IArray<> [interface]</button>
+          <button class='collapsible type interface'>IArray&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;An indexed fixed-sized data structure.&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic type within the structure.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IArray<> [interface]</button>
+          <button class='collapsible type interface'>IArray&lt;T, Index&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;An indexed fixed-sized data structure.&lt;/summary&gt;
@@ -3356,7 +3356,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IAuditable<> [interface]</button>
+          <button class='collapsible type interface'>IAuditable&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a contains method).&lt;/summary&gt;
@@ -3370,7 +3370,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IAvlTree<> [interface]</button>
+          <button class='collapsible type interface'>IAvlTree&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A self-sorting binary tree based on the heights of each node.&lt;/summary&gt;
@@ -3533,7 +3533,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IBTree<> [interface]</button>
+          <button class='collapsible type interface'>IBTree&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A self-sorting binary tree based on grouping nodes together at the same height.&lt;/summary&gt;
@@ -3628,7 +3628,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IComparing<> [interface]</button>
+          <button class='collapsible type interface'>IComparing&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a Compare property).&lt;/summary&gt;
@@ -3652,7 +3652,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IDataStructure<> [interface]</button>
+          <button class='collapsible type interface'>IDataStructure&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Polymorphism base for all data structures in the Towel framework.&lt;/summary&gt;
@@ -3674,7 +3674,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IDeque<> [interface]</button>
+          <button class='collapsible type interface'>IDeque&lt;T&gt; [interface]</button>
           <div class='content'>
 
             <button class='collapsible method'>EnqueueBack [Method]</button>
@@ -3690,7 +3690,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IEquating<> [interface]</button>
+          <button class='collapsible type interface'>IEquating&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a Equate property).&lt;/summary&gt;
@@ -3702,7 +3702,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IGraph<> [interface]</button>
+          <button class='collapsible type interface'>IGraph&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A graph data structure that stores nodes and edges.&lt;/summary&gt;
@@ -3769,7 +3769,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IHashing<> [interface]</button>
+          <button class='collapsible type interface'>IHashing&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a Hash property).&lt;/summary&gt;
@@ -3781,7 +3781,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IHeap<> [interface]</button>
+          <button class='collapsible type interface'>IHeap&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Stores items based on priorities and allows access to the highest priority item.&lt;/summary&gt;
@@ -3809,11 +3809,11 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IKdTree<> [interface]</button>
+          <button class='collapsible type interface'>IKdTree&lt;T, K&gt; [interface]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type interface'>IList<> [interface]</button>
+          <button class='collapsible type interface'>IList&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A primitive dynamic sized data structure.&lt;/summary&gt;
@@ -3842,7 +3842,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IMap<> [interface]</button>
+          <button class='collapsible type interface'>IMap&lt;T, K&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A map between instances of two types. The polymorphism base for Map implementations in Towel.&lt;/summary&gt;
@@ -3924,7 +3924,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>INearestNeighbourList<> [interface]</button>
+          <button class='collapsible type interface'>INearestNeighbourList&lt;TItem, TDistance&gt; [interface]</button>
           <div class='content'>
 
             <button class='collapsible property'>MaxCapacity [Property]</button>
@@ -3948,7 +3948,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A Spacial Partitioning data structure.&lt;/summary&gt;
@@ -3963,7 +3963,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 1D omnitrees.&lt;/summary&gt;
@@ -3971,7 +3971,7 @@
             &lt;typeparam name=&quot;Axis1&quot;&gt;The type 1D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 2D omnitrees.&lt;/summary&gt;
@@ -3980,7 +3980,7 @@
             &lt;typeparam name=&quot;Axis2&quot;&gt;The type 2D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2, Axis3&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 3D omnitrees.&lt;/summary&gt;
@@ -3990,7 +3990,7 @@
             &lt;typeparam name=&quot;Axis3&quot;&gt;The type 3D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2, Axis3, Axis4&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 4D omnitrees.&lt;/summary&gt;
@@ -4001,7 +4001,7 @@
             &lt;typeparam name=&quot;Axis4&quot;&gt;The type 4D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 5D omnitrees.&lt;/summary&gt;
@@ -4013,7 +4013,7 @@
             &lt;typeparam name=&quot;Axis5&quot;&gt;The type 5D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 6D omnitrees.&lt;/summary&gt;
@@ -4026,7 +4026,7 @@
             &lt;typeparam name=&quot;Axis6&quot;&gt;The type 6D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitree<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitree&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 7D omnitrees.&lt;/summary&gt;
@@ -4040,7 +4040,7 @@
             &lt;typeparam name=&quot;Axis7&quot;&gt;The type 7D axis.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 1D omnitrees that store bounds.&lt;/summary&gt;
@@ -4227,7 +4227,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 2D omnitrees that store bounds.&lt;/summary&gt;
@@ -4449,7 +4449,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2, Axis3&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 3D omnitrees that store bounds.&lt;/summary&gt;
@@ -4706,7 +4706,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2, Axis3, Axis4&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 4D omnitrees that store bounds.&lt;/summary&gt;
@@ -4998,7 +4998,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 5D omnitrees that store bounds.&lt;/summary&gt;
@@ -5325,7 +5325,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 6D omnitrees that store bounds.&lt;/summary&gt;
@@ -5687,7 +5687,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreeBounds<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreeBounds&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 7D omnitrees that store bounds.&lt;/summary&gt;
@@ -6084,7 +6084,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 1D omnitrees that store points.&lt;/summary&gt;
@@ -6197,7 +6197,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 2D omnitrees that store points.&lt;/summary&gt;
@@ -6327,7 +6327,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2, Axis3&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 3D omnitrees that store points.&lt;/summary&gt;
@@ -6474,7 +6474,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2, Axis3, Axis4&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 4D omnitrees that store points.&lt;/summary&gt;
@@ -6638,7 +6638,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 5D omnitrees that store points.&lt;/summary&gt;
@@ -6819,7 +6819,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 6D omnitrees that store points.&lt;/summary&gt;
@@ -7017,7 +7017,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOmnitreePoints<> [interface]</button>
+          <button class='collapsible type interface'>IOmnitreePoints&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Inheritance base for 7D omnitrees that store points.&lt;/summary&gt;
@@ -7232,7 +7232,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IOrder<> [interface]</button>
+          <button class='collapsible type interface'>IOrder&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Sorted linear data structure.&lt;/summary&gt;
@@ -7261,7 +7261,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IPriorityQueue<> [interface]</button>
+          <button class='collapsible type interface'>IPriorityQueue&lt;TItem, TPriority&gt; [interface]</button>
           <div class='content'>
 
             <button class='collapsible property'>Count [Property]</button>
@@ -7277,7 +7277,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IQueue<> [interface]</button>
+          <button class='collapsible type interface'>IQueue&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements First-In-First-Out queue data structure.&lt;/summary&gt;
@@ -7317,7 +7317,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IRedBlackTree<> [interface]</button>
+          <button class='collapsible type interface'>IRedBlackTree&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A self sorting binary tree using the red-black tree algorithms.&lt;/summary&gt;
@@ -7480,7 +7480,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IRemovable<> [interface]</button>
+          <button class='collapsible type interface'>IRemovable&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Property of a data structure (does it have a Romove method).&lt;/summary&gt;
@@ -7493,18 +7493,18 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>ISet<> [interface]</button>
+          <button class='collapsible type interface'>ISet&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic type of the structure.&lt;/typeparam&gt;
 
           </div>
-          <button class='collapsible type interface'>ISkipList<> [interface]</button>
+          <button class='collapsible type interface'>ISkipList&lt;T&gt; [interface]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type interface'>IStack<> [interface]</button>
+          <button class='collapsible type interface'>IStack&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements a First-In-Last-Out stack data structure.&lt;/summary&gt;
@@ -7532,7 +7532,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>ITree<> [interface]</button>
+          <button class='collapsible type interface'>ITree&lt;T&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;A generic tree data structure.&lt;/summary&gt;
@@ -7570,7 +7570,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>ITrie<> [interface]</button>
+          <button class='collapsible type interface'>ITrie&lt;T&gt; [interface]</button>
           <div class='content'>
 
           </div>
@@ -7579,11 +7579,11 @@
 
             &lt;summary&gt;Contains extensions methods for the KdTree interface.&lt;/summary&gt;
 
-            <button class='collapsible type delegate'>Add<> [delegate]</button>
+            <button class='collapsible type delegate'>Add&lt;T&gt; [delegate]</button>
             <div class='content'>
 
             </div>
-            <button class='collapsible type delegate'>Locate<> [delegate]</button>
+            <button class='collapsible type delegate'>Locate&lt;T, M&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Locates an item along the given dimensions.&lt;/summary&gt;
@@ -7593,23 +7593,23 @@
               &lt;returns&gt;A delegate for getting the location along a given axis.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Multiply<> [delegate]</button>
+            <button class='collapsible type delegate'>Multiply&lt;T&gt; [delegate]</button>
             <div class='content'>
 
             </div>
-            <button class='collapsible type delegate'>Subtract<> [delegate]</button>
+            <button class='collapsible type delegate'>Subtract&lt;T&gt; [delegate]</button>
             <div class='content'>
 
             </div>
           </div>
-          <button class='collapsible type class'>KdTree_Linked<> [class]</button>
+          <button class='collapsible type class'>KdTree_Linked&lt;T, K&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A binary tree data structure for sorting items along multiple dimensions.&lt;/summary&gt;
             &lt;typeparam name=&quot;T&quot;&gt;The generic items to be stored in this data structure.&lt;/typeparam&gt;
             &lt;typeparam name=&quot;K&quot;&gt;The type of the axis dimensions to sort the &quot;T&quot; values upon.&lt;/typeparam&gt;
 
-            <button class='collapsible type class'>Node<> [class]</button>
+            <button class='collapsible type class'>Node&lt;&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Can be a leaf or a branch.&lt;/summary&gt;
@@ -7688,7 +7688,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -7775,7 +7775,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -7871,7 +7871,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2, T3&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -7976,7 +7976,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2, T3, T4&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8090,7 +8090,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2, T3, T4, T5&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8213,7 +8213,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2, T3, T4, T5, T6&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8345,7 +8345,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Link<> [class]</button>
+          <button class='collapsible type class'>Link&lt;T1, T2, T3, T4, T5, T6, T7&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8486,7 +8486,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8573,7 +8573,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8669,7 +8669,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2, T3&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8774,7 +8774,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2, T3, T4&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -8888,7 +8888,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2, T3, T4, T5&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -9011,7 +9011,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2, T3, T4, T5, T6&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -9143,7 +9143,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>LinkStruct<> [struct]</button>
+          <button class='collapsible type struct'>LinkStruct&lt;T1, T2, T3, T4, T5, T6, T7&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a link between objects.&lt;/summary&gt;
@@ -9343,7 +9343,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>ListArray<> [class]</button>
+          <button class='collapsible type class'>ListArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A list implemented as a growing array.&lt;/summary&gt;
@@ -9536,7 +9536,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>ListLinked<> [class]</button>
+          <button class='collapsible type class'>ListLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.&lt;/summary&gt;
@@ -9640,7 +9640,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Locate<> [delegate]</button>
+          <button class='collapsible type delegate'>Locate&lt;T, M&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Locates an item along the given dimensions.&lt;/summary&gt;
@@ -9650,7 +9650,7 @@
             &lt;returns&gt;A delegate for getting the location along a given axis.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 1D space.&lt;/summary&gt;
@@ -9660,7 +9660,7 @@
             &lt;param name=&quot;axis1&quot;&gt;The location of the item along the 1 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 2D space.&lt;/summary&gt;
@@ -9672,7 +9672,7 @@
             &lt;param name=&quot;axis2&quot;&gt;The location of the item along the 2 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 3D space.&lt;/summary&gt;
@@ -9686,7 +9686,7 @@
             &lt;param name=&quot;axis3&quot;&gt;The location of the item along the 3 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 4D space.&lt;/summary&gt;
@@ -9702,7 +9702,7 @@
             &lt;param name=&quot;axis4&quot;&gt;The location of the item along the 4 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 5D space.&lt;/summary&gt;
@@ -9720,7 +9720,7 @@
             &lt;param name=&quot;axis5&quot;&gt;The location of the item along the 5 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 6D space.&lt;/summary&gt;
@@ -9740,7 +9740,7 @@
             &lt;param name=&quot;axis6&quot;&gt;The location of the item along the 6 dimension.&lt;/param&gt;
 
           </div>
-          <button class='collapsible type delegate'>Location<> [delegate]</button>
+          <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Delegate for locating an item in 7D space.&lt;/summary&gt;
@@ -9782,7 +9782,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>MapHashArray<> [class]</button>
+          <button class='collapsible type class'>MapHashArray&lt;T, K&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
@@ -9983,7 +9983,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>MapHashLinked<> [class]</button>
+          <button class='collapsible type class'>MapHashLinked&lt;T, K&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
@@ -10177,11 +10177,11 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Multiply<> [delegate]</button>
+          <button class='collapsible type delegate'>Multiply&lt;T&gt; [delegate]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type class'>NearestNeighbourList<> [class]</button>
+          <button class='collapsible type class'>NearestNeighbourList&lt;TItem, TDistance&gt; [class]</button>
           <div class='content'>
 
             <button class='collapsible property'>IsCapacityReached [Property]</button>
@@ -10217,7 +10217,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Node<> [class]</button>
+          <button class='collapsible type class'>Node&lt;&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Can be a leaf or a branch.&lt;/summary&gt;
@@ -10231,7 +10231,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Node<> [class]</button>
+          <button class='collapsible type class'>Node&lt;&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A BTree node can contain multiple items and children.&lt;/summary&gt;
@@ -10243,7 +10243,7 @@
             &lt;summary&gt;Contains the necessary type definitions for the various omnitree types.&lt;/summary&gt;
             &lt;summary&gt;Contains the necessary type definitions for the various omnitree types.&lt;/summary&gt;
 
-            <button class='collapsible type struct'>Bound<> [struct]</button>
+            <button class='collapsible type struct'>Bound&lt;T&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a bound in ND space.&lt;/summary&gt;
@@ -10301,7 +10301,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 1D bounding box.&lt;/summary&gt;
@@ -10332,7 +10332,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 2D bounding box.&lt;/summary&gt;
@@ -10376,7 +10376,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2, A3&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 3D bounding box.&lt;/summary&gt;
@@ -10433,7 +10433,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 4D bounding box.&lt;/summary&gt;
@@ -10503,7 +10503,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 5D bounding box.&lt;/summary&gt;
@@ -10586,7 +10586,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5, A6&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 6D bounding box.&lt;/summary&gt;
@@ -10682,7 +10682,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Bounds<> [struct]</button>
+            <button class='collapsible type struct'>Bounds&lt;A1, A2, A3, A4, A5, A6, A7&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 7D bounding box.&lt;/summary&gt;
@@ -10791,7 +10791,7 @@
 
               </div>
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 1D bounding box of an item.&lt;/summary&gt;
@@ -10802,7 +10802,7 @@
               &lt;param name=&quot;max1&quot;&gt;The maximum bound of the item along the 1 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 2D bounding box of an item.&lt;/summary&gt;
@@ -10816,7 +10816,7 @@
               &lt;param name=&quot;max2&quot;&gt;The maximum bound of the item along the 2 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 3D bounding box of an item.&lt;/summary&gt;
@@ -10833,7 +10833,7 @@
               &lt;param name=&quot;max3&quot;&gt;The maximum bound of the item along the 3 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 4D bounding box of an item.&lt;/summary&gt;
@@ -10853,7 +10853,7 @@
               &lt;param name=&quot;max4&quot;&gt;The maximum bound of the item along the 4 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 5D bounding box of an item.&lt;/summary&gt;
@@ -10876,7 +10876,7 @@
               &lt;param name=&quot;max5&quot;&gt;The maximum bound of the item along the 5 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 6D bounding box of an item.&lt;/summary&gt;
@@ -10902,7 +10902,7 @@
               &lt;param name=&quot;max6&quot;&gt;The maximum bound of the item along the 6 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBoundings<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBoundings&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 7D bounding box of an item.&lt;/summary&gt;
@@ -10931,7 +10931,7 @@
               &lt;param name=&quot;max7&quot;&gt;The maximum bound of the item along the 7 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 1D bounding box of an item.&lt;/summary&gt;
@@ -10942,7 +10942,7 @@
               &lt;param name=&quot;max1&quot;&gt;The maximum bound of the item along the 1 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 2D bounding box of an item.&lt;/summary&gt;
@@ -10956,7 +10956,7 @@
               &lt;param name=&quot;max2&quot;&gt;The maximum bound of the item along the 2 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 3D bounding box of an item.&lt;/summary&gt;
@@ -10973,7 +10973,7 @@
               &lt;param name=&quot;max3&quot;&gt;The maximum bound of the item along the 3 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 4D bounding box of an item.&lt;/summary&gt;
@@ -10993,7 +10993,7 @@
               &lt;param name=&quot;max4&quot;&gt;The maximum bound of the item along the 4 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 5D bounding box of an item.&lt;/summary&gt;
@@ -11016,7 +11016,7 @@
               &lt;param name=&quot;max5&quot;&gt;The maximum bound of the item along the 5 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 6D bounding box of an item.&lt;/summary&gt;
@@ -11042,7 +11042,7 @@
               &lt;param name=&quot;max6&quot;&gt;The maximum bound of the item along the 6 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>GetBounds<> [delegate]</button>
+            <button class='collapsible type delegate'>GetBounds&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for getting the 7D bounding box of an item.&lt;/summary&gt;
@@ -11071,7 +11071,7 @@
               &lt;param name=&quot;max7&quot;&gt;The maximum bound of the item along the 7 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 1D space.&lt;/summary&gt;
@@ -11081,7 +11081,7 @@
               &lt;param name=&quot;axis1&quot;&gt;The location of the item along the 1 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 2D space.&lt;/summary&gt;
@@ -11093,7 +11093,7 @@
               &lt;param name=&quot;axis2&quot;&gt;The location of the item along the 2 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 3D space.&lt;/summary&gt;
@@ -11107,7 +11107,7 @@
               &lt;param name=&quot;axis3&quot;&gt;The location of the item along the 3 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 4D space.&lt;/summary&gt;
@@ -11123,7 +11123,7 @@
               &lt;param name=&quot;axis4&quot;&gt;The location of the item along the 4 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 5D space.&lt;/summary&gt;
@@ -11141,7 +11141,7 @@
               &lt;param name=&quot;axis5&quot;&gt;The location of the item along the 5 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5, A6&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 6D space.&lt;/summary&gt;
@@ -11161,7 +11161,7 @@
               &lt;param name=&quot;axis6&quot;&gt;The location of the item along the 6 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>Location<> [delegate]</button>
+            <button class='collapsible type delegate'>Location&lt;T, A1, A2, A3, A4, A5, A6, A7&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Delegate for locating an item in 7D space.&lt;/summary&gt;
@@ -11183,7 +11183,7 @@
               &lt;param name=&quot;axis7&quot;&gt;The location of the item along the 7 dimension.&lt;/param&gt;
 
             </div>
-            <button class='collapsible type delegate'>SubdivisionOverride<> [delegate]</button>
+            <button class='collapsible type delegate'>SubdivisionOverride&lt;T, A, BoundsType&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;A delegate for determining the point of subdivision in a set of values and current bounds.&lt;/summary&gt;
@@ -11220,7 +11220,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 1D vector.&lt;/summary&gt;
@@ -11246,7 +11246,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 2D vector.&lt;/summary&gt;
@@ -11280,7 +11280,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2, A3&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 3D vector.&lt;/summary&gt;
@@ -11322,7 +11322,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 4D vector.&lt;/summary&gt;
@@ -11372,7 +11372,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 5D vector.&lt;/summary&gt;
@@ -11430,7 +11430,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5, A6&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 6D vector.&lt;/summary&gt;
@@ -11496,7 +11496,7 @@
 
               </div>
             </div>
-            <button class='collapsible type struct'>Vector<> [struct]</button>
+            <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5, A6, A7&gt; [struct]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a 7D vector.&lt;/summary&gt;
@@ -11569,6 +11569,146 @@
                 &lt;param name=&quot;axis7&quot;&gt;The location along axis 7.&lt;/param&gt;
 
               </div>
+            </div>
+            <button class='collapsible method'>InclusionCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks a node for inclusion (overlap) between two bounds.&lt;/summary&gt;
+              &lt;returns&gt;True if the spaces overlap; False if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>EncapsulationCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks if a space encapsulates a point.&lt;/summary&gt;
+              &lt;returns&gt;True if the space encapsulates the point; False if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>EncapsulationCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks if a space (left) encapsulates another space (right).&lt;/summary&gt;
+              &lt;returns&gt;True if the left space encapsulates the right; False if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>EqualsCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks for equality between two locations.&lt;/summary&gt;
+              &lt;returns&gt;True if equal; False if not;&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>StraddlesLines [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks if a bounds straddles a point if the point extended as a plane along each dimension.&lt;/summary&gt;
+              &lt;typeparam name=&quot;Axis1&quot;&gt;The generic type of the 1 dimension.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis2&quot;&gt;The generic type of the 2 dimension.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis3&quot;&gt;The generic type of the 3 dimension.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis4&quot;&gt;The generic type of the 4 dimension.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis5&quot;&gt;The generic type of the 5 dimension.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis6&quot;&gt;The generic type of the 6 dimension.&lt;/typeparam&gt;
+              &lt;param name=&quot;bounds&quot;&gt;The bounds to determine if it straddles the extended point.&lt;/param&gt;
+              &lt;param name=&quot;vector&quot;&gt;The point representing an extended plan along each axis.&lt;/param&gt;
+              &lt;param name=&quot;compare1&quot;&gt;The delegate for comparing values along the the 1 dimension.&lt;/param&gt;
+              &lt;param name=&quot;compare2&quot;&gt;The delegate for comparing values along the the 2 dimension.&lt;/param&gt;
+              &lt;param name=&quot;compare3&quot;&gt;The delegate for comparing values along the the 3 dimension.&lt;/param&gt;
+              &lt;param name=&quot;compare4&quot;&gt;The delegate for comparing values along the the 4 dimension.&lt;/param&gt;
+              &lt;param name=&quot;compare5&quot;&gt;The delegate for comparing values along the the 5 dimension.&lt;/param&gt;
+              &lt;param name=&quot;compare6&quot;&gt;The delegate for comparing values along the the 6 dimension.&lt;/param&gt;
+              &lt;returns&gt;True if the extended point was straddled or false if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Remove [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
+              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
+              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>Remove [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
+              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
+              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
+              &lt;param name=&quot;equate&quot;&gt;The delegate for checking for equality.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>Remove [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
+              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
+              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>Remove [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
+              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
+              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
+              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
+              &lt;param name=&quot;equate&quot;&gt;The delegate for checking for equality.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>ConvertToGetBounds [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to get the bounds of.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A1&quot;&gt;The generic type of the 1 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A2&quot;&gt;The generic type of the 2 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A3&quot;&gt;The generic type of the 3 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A4&quot;&gt;The generic type of the 4 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A5&quot;&gt;The generic type of the 5 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A6&quot;&gt;The generic type of the 6 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A7&quot;&gt;The generic type of the 7 dimension.&lt;/typeparam&gt;		/// &lt;param name=&quot;getBoundings&quot;&gt;The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.&lt;/param&gt;
+              &lt;returns&gt;The converted Omnitree.GetBounds delegate.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>InclusionCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks a node for inclusion (overlap) between two bounds.&lt;/summary&gt;
+              &lt;returns&gt;True if the spaces overlap; False if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>EncapsulationCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks if a space encapsulates a point.&lt;/summary&gt;
+              &lt;returns&gt;True if the space encapsulates the point; False if not.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>EncapsulationCheck [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Checks if a space (left) encapsulates another space (right).&lt;/summary&gt;
+              &lt;returns&gt;True if the left space encapsulates the right; False if not.&lt;/returns&gt;
+
             </div>
             <button class='collapsible method'>EqualsCheck [Method]</button>
             <div class='content'>
@@ -12179,148 +12319,8 @@
               &lt;returns&gt;The converted Omnitree.GetBounds delegate.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible method'>InclusionCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks a node for inclusion (overlap) between two bounds.&lt;/summary&gt;
-              &lt;returns&gt;True if the spaces overlap; False if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>EncapsulationCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks if a space encapsulates a point.&lt;/summary&gt;
-              &lt;returns&gt;True if the space encapsulates the point; False if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>EncapsulationCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks if a space (left) encapsulates another space (right).&lt;/summary&gt;
-              &lt;returns&gt;True if the left space encapsulates the right; False if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>EqualsCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks for equality between two locations.&lt;/summary&gt;
-              &lt;returns&gt;True if equal; False if not;&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>StraddlesLines [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks if a bounds straddles a point if the point extended as a plane along each dimension.&lt;/summary&gt;
-              &lt;typeparam name=&quot;Axis1&quot;&gt;The generic type of the 1 dimension.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis2&quot;&gt;The generic type of the 2 dimension.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis3&quot;&gt;The generic type of the 3 dimension.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis4&quot;&gt;The generic type of the 4 dimension.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis5&quot;&gt;The generic type of the 5 dimension.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis6&quot;&gt;The generic type of the 6 dimension.&lt;/typeparam&gt;
-              &lt;param name=&quot;bounds&quot;&gt;The bounds to determine if it straddles the extended point.&lt;/param&gt;
-              &lt;param name=&quot;vector&quot;&gt;The point representing an extended plan along each axis.&lt;/param&gt;
-              &lt;param name=&quot;compare1&quot;&gt;The delegate for comparing values along the the 1 dimension.&lt;/param&gt;
-              &lt;param name=&quot;compare2&quot;&gt;The delegate for comparing values along the the 2 dimension.&lt;/param&gt;
-              &lt;param name=&quot;compare3&quot;&gt;The delegate for comparing values along the the 3 dimension.&lt;/param&gt;
-              &lt;param name=&quot;compare4&quot;&gt;The delegate for comparing values along the the 4 dimension.&lt;/param&gt;
-              &lt;param name=&quot;compare5&quot;&gt;The delegate for comparing values along the the 5 dimension.&lt;/param&gt;
-              &lt;param name=&quot;compare6&quot;&gt;The delegate for comparing values along the the 6 dimension.&lt;/param&gt;
-              &lt;returns&gt;True if the extended point was straddled or false if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Remove [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
-              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
-              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
-
-            </div>
-            <button class='collapsible method'>Remove [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
-              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
-              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
-              &lt;param name=&quot;equate&quot;&gt;The delegate for checking for equality.&lt;/param&gt;
-
-            </div>
-            <button class='collapsible method'>Remove [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
-              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
-              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
-
-            </div>
-            <button class='collapsible method'>Remove [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Removes all occurences of a value from the omnitree.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic value type being stored in the omnitree.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis1&quot;&gt;The geneic type of the 1D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis2&quot;&gt;The geneic type of the 2D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis3&quot;&gt;The geneic type of the 3D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis4&quot;&gt;The geneic type of the 4D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis5&quot;&gt;The geneic type of the 5D axis.&lt;/typeparam&gt;
-              &lt;typeparam name=&quot;Axis6&quot;&gt;The geneic type of the 6D axis.&lt;/typeparam&gt;
-              &lt;param name=&quot;omnitree&quot;&gt;The omnitree to remove from.&lt;/param&gt;
-              &lt;param name=&quot;removal&quot;&gt;The value to have all occurences removed.&lt;/param&gt;
-              &lt;param name=&quot;equate&quot;&gt;The delegate for checking for equality.&lt;/param&gt;
-
-            </div>
-            <button class='collapsible method'>ConvertToGetBounds [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to get the bounds of.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A1&quot;&gt;The generic type of the 1 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A2&quot;&gt;The generic type of the 2 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A3&quot;&gt;The generic type of the 3 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A4&quot;&gt;The generic type of the 4 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A5&quot;&gt;The generic type of the 5 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A6&quot;&gt;The generic type of the 6 dimension.&lt;/typeparam&gt;		/// &lt;typeparam name=&quot;A7&quot;&gt;The generic type of the 7 dimension.&lt;/typeparam&gt;		/// &lt;param name=&quot;getBoundings&quot;&gt;The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.&lt;/param&gt;
-              &lt;returns&gt;The converted Omnitree.GetBounds delegate.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>InclusionCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks a node for inclusion (overlap) between two bounds.&lt;/summary&gt;
-              &lt;returns&gt;True if the spaces overlap; False if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>EncapsulationCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks if a space encapsulates a point.&lt;/summary&gt;
-              &lt;returns&gt;True if the space encapsulates the point; False if not.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>EncapsulationCheck [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Checks if a space (left) encapsulates another space (right).&lt;/summary&gt;
-              &lt;returns&gt;True if the left space encapsulates the right; False if not.&lt;/returns&gt;
-
-            </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 1 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -12722,7 +12722,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 2 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -13190,7 +13190,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2, Axis3&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 3 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -13724,7 +13724,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2, Axis3, Axis4&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 4 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -14324,7 +14324,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 5 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -14990,7 +14990,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 6 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -15722,7 +15722,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreeBoundsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreeBoundsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores bounds along 7 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -16520,7 +16520,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 1 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -16816,7 +16816,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 2 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -17153,7 +17153,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2, Axis3&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 3 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -17531,7 +17531,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2, Axis3, Axis4&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 4 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -17950,7 +17950,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 5 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -18410,7 +18410,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 6 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -18911,7 +18911,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OmnitreePointsLinked<> [class]</button>
+          <button class='collapsible type class'>OmnitreePointsLinked&lt;T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Omnitree that stores points along 7 dimensions implemented as a linked tree.&lt;/summary&gt;
@@ -19453,7 +19453,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OrderListArray<> [class]</button>
+          <button class='collapsible type class'>OrderListArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Sorted linear data structure implemented using a list array.&lt;/summary&gt;
@@ -19557,7 +19557,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>OrderListLinked<> [class]</button>
+          <button class='collapsible type class'>OrderListLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Sorted linear data structure implemented using a list array.&lt;/summary&gt;
@@ -19651,7 +19651,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>PriorityQueue<> [class]</button>
+          <button class='collapsible type class'>PriorityQueue&lt;TItem, TPriority&gt; [class]</button>
           <div class='content'>
 
             <button class='collapsible property'>Count [Property]</button>
@@ -19679,7 +19679,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>QueueArray<> [class]</button>
+          <button class='collapsible type class'>QueueArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements First-In-First-Out queue data structure using an array.&lt;/summary&gt;
@@ -19814,7 +19814,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>QueueLinked<> [class]</button>
+          <button class='collapsible type class'>QueueLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements First-In-First-Out queue data structure using a linked list.&lt;/summary&gt;
@@ -20118,7 +20118,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>RedBlackTreeLinked<> [class]</button>
+          <button class='collapsible type class'>RedBlackTreeLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A self sorting binary tree using the red-black tree algorithms.&lt;/summary&gt;
@@ -20388,7 +20388,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Set<> [class]</button>
+          <button class='collapsible type class'>Set&lt;STRUCTURE, T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
@@ -20516,7 +20516,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>SetHashArray<> [class]</button>
+          <button class='collapsible type class'>SetHashArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
@@ -20623,7 +20623,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>SetHashLinked<> [class]</button>
+          <button class='collapsible type class'>SetHashLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;An unsorted structure of unique items.&lt;/summary&gt;
@@ -20751,7 +20751,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>SkipListLinked<> [class]</button>
+          <button class='collapsible type class'>SkipListLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a collection of key-and-value pairs.&lt;/summary&gt;
@@ -20888,11 +20888,11 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Split<> [delegate]</button>
+          <button class='collapsible type delegate'>Split&lt;T&gt; [delegate]</button>
           <div class='content'>
 
           </div>
-          <button class='collapsible type class'>StackArray<> [class]</button>
+          <button class='collapsible type class'>StackArray&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements a First-In-Last-Out stack data structure using an array.&lt;/summary&gt;
@@ -21016,7 +21016,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>StackLinked<> [class]</button>
+          <button class='collapsible type class'>StackLinked&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Implements a First-In-Last-Out stack data structure using a linked list.&lt;/summary&gt;
@@ -21113,7 +21113,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>SubdivisionOverride<> [delegate]</button>
+          <button class='collapsible type delegate'>SubdivisionOverride&lt;T, A, BoundsType&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;A delegate for determining the point of subdivision in a set of values and current bounds.&lt;/summary&gt;
@@ -21125,7 +21125,7 @@
             &lt;returns&gt;&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>Subtract<> [delegate]</button>
+          <button class='collapsible type delegate'>Subtract&lt;T&gt; [delegate]</button>
           <div class='content'>
 
           </div>
@@ -21133,7 +21133,7 @@
           <div class='content'>
 
           </div>
-          <button class='collapsible type class'>TreeMap<> [class]</button>
+          <button class='collapsible type class'>TreeMap&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A generic tree data structure using a dictionary to store node data.&lt;/summary&gt;
@@ -21237,16 +21237,16 @@
           <button class='collapsible type class'>Trie [class]</button>
           <div class='content'>
 
-            <button class='collapsible type delegate'>HasSplit<> [delegate]</button>
+            <button class='collapsible type delegate'>HasSplit&lt;T&gt; [delegate]</button>
             <div class='content'>
 
             </div>
-            <button class='collapsible type delegate'>Split<> [delegate]</button>
+            <button class='collapsible type delegate'>Split&lt;T&gt; [delegate]</button>
             <div class='content'>
 
             </div>
           </div>
-          <button class='collapsible type class'>Trie_Linked<> [class]</button>
+          <button class='collapsible type class'>Trie_Linked&lt;T&gt; [class]</button>
           <div class='content'>
 
             <button class='collapsible constructor'>.ctor [Constructor]</button>
@@ -21323,7 +21323,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 1D vector.&lt;/summary&gt;
@@ -21349,7 +21349,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 2D vector.&lt;/summary&gt;
@@ -21383,7 +21383,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2, A3&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 3D vector.&lt;/summary&gt;
@@ -21425,7 +21425,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 4D vector.&lt;/summary&gt;
@@ -21475,7 +21475,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 5D vector.&lt;/summary&gt;
@@ -21533,7 +21533,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5, A6&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 6D vector.&lt;/summary&gt;
@@ -21599,7 +21599,7 @@
 
             </div>
           </div>
-          <button class='collapsible type struct'>Vector<> [struct]</button>
+          <button class='collapsible type struct'>Vector&lt;A1, A2, A3, A4, A5, A6, A7&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a 7D vector.&lt;/summary&gt;
@@ -21773,6 +21773,156 @@
 
             &lt;summary&gt;Static Generic Mathematics Computation.&lt;/summary&gt;
 
+            <button class='collapsible method'>InverseHyperbolicSecant [Method]</button>
+            <div class='content'>
+
+            </div>
+            <button class='collapsible method'>InverseHyperbolicCotangent [Method]</button>
+            <div class='content'>
+
+            </div>
+            <button class='collapsible method'>LinearRegression2D [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the best fit line from a set of points in 2D space [y = slope * x + y_intercept].&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
+              &lt;param name=&quot;points&quot;&gt;The points to compute the best fit line of.&lt;/param&gt;
+              &lt;param name=&quot;slope&quot;&gt;The slope of the computed best fit line [y = slope * x + y_intercept].&lt;/param&gt;
+              &lt;param name=&quot;y_intercept&quot;&gt;The y intercept of the computed best fit line [y = slope * x + y_intercept].&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>FactorPrimes [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Factors the primes numbers of a numeric integer value.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
+              &lt;param name=&quot;a&quot;&gt;The value to factor the prime numbers of.&lt;/param&gt;
+              &lt;param name=&quot;step&quot;&gt;The action to perform on all found prime factors.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>GreatestCommonFactor [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the greatest common factor of a set of numbers.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the computation.&lt;/typeparam&gt;
+              &lt;param name=&quot;stepper&quot;&gt;The set of numbers to compute the greatest common factor of.&lt;/param&gt;
+              &lt;returns&gt;The computed greatest common factor of the set of numbers.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>LeastCommonMultiple [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the least common multiple of a set of numbers.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
+              &lt;param name=&quot;a&quot;&gt;The first operand of the least common muiltiple computation.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The second operand of the least common muiltiple computation.&lt;/param&gt;
+              &lt;param name=&quot;c&quot;&gt;The remaining operands of the least common muiltiple computation.&lt;/param&gt;
+              &lt;returns&gt;The computed least common least common multiple of the set of numbers.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>LeastCommonMultiple [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the least common multiple of a set of numbers.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
+              &lt;param name=&quot;stepper&quot;&gt;The set of numbers to compute the least common multiple of.&lt;/param&gt;
+              &lt;returns&gt;The computed least common least common multiple of the set of numbers.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>LinearInterpolation [Method]</button>
+            <div class='content'>
+
+            </div>
+            <button class='collapsible method'>Factorial [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
+              &lt;param name=&quot;a&quot;&gt;The integer factorial to computer the value of.&lt;/param&gt;
+              &lt;returns&gt;The computed factorial value.&lt;/returns&gt;
+              &lt;exception cref=&quot;T:System.ArgumentOutOfRangeException&quot;&gt;Thrown when the parameter is not an integer value.&lt;/exception&gt;
+              &lt;exception cref=&quot;T:System.ArgumentOutOfRangeException&quot;&gt;Thrown when the parameter is less than zero.&lt;/exception&gt;
+
+            </div>
+            <button class='collapsible method'>Combinations [Method]</button>
+            <div class='content'>
+
+            </div>
+            <button class='collapsible method'>BinomialCoefficient [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Computes the Binomial coefficient (N choose n).&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the computation.&lt;/typeparam&gt;
+              &lt;param name=&quot;N&quot;&gt;The size of the entire set (N choose n).&lt;/param&gt;
+              &lt;param name=&quot;n&quot;&gt;The size of the subset (N choose n).&lt;/param&gt;
+              &lt;returns&gt;The computed binomial coefficient (N choose n).&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Occurences [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
+              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
+              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Occurences [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
+              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
+              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
+              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Occurences [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
+              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
+              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
+              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Occurences [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
+              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
+              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
+              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
+              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Occurences [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
+              &lt;param name=&quot;stepper&quot;&gt;The data to count the occurences of.&lt;/param&gt;
+              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
+              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
+              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Mode [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Gets the mode(s) of a data set.&lt;/summary&gt;
+              &lt;typeparam name=&quot;T&quot;&gt;The generic type of the data.&lt;/typeparam&gt;
+              &lt;param name=&quot;step&quot;&gt;The action to perform on every mode value found.&lt;/param&gt;
+              &lt;param name=&quot;a&quot;&gt;The first value of the data set.&lt;/param&gt;
+              &lt;param name=&quot;b&quot;&gt;The rest of the data set.&lt;/param&gt;
+
+            </div>
             <button class='collapsible method'>Mode [Method]</button>
             <div class='content'>
 
@@ -22107,33 +22257,6 @@
             </div>
             <button class='collapsible method'>InverseHyperbolicCosecant [Method]</button>
             <div class='content'>
-
-            </div>
-            <button class='collapsible method'>InverseHyperbolicSecant [Method]</button>
-            <div class='content'>
-
-            </div>
-            <button class='collapsible method'>InverseHyperbolicCotangent [Method]</button>
-            <div class='content'>
-
-            </div>
-            <button class='collapsible method'>LinearRegression2D [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the best fit line from a set of points in 2D space [y = slope * x + y_intercept].&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
-              &lt;param name=&quot;points&quot;&gt;The points to compute the best fit line of.&lt;/param&gt;
-              &lt;param name=&quot;slope&quot;&gt;The slope of the computed best fit line [y = slope * x + y_intercept].&lt;/param&gt;
-              &lt;param name=&quot;y_intercept&quot;&gt;The y intercept of the computed best fit line [y = slope * x + y_intercept].&lt;/param&gt;
-
-            </div>
-            <button class='collapsible method'>FactorPrimes [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Factors the primes numbers of a numeric integer value.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
-              &lt;param name=&quot;a&quot;&gt;The value to factor the prime numbers of.&lt;/param&gt;
-              &lt;param name=&quot;step&quot;&gt;The action to perform on all found prime factors.&lt;/param&gt;
 
             </div>
             <button class='collapsible method'>Pi [Method]</button>
@@ -22639,129 +22762,6 @@
               &lt;returns&gt;The computed greatest common factor of the set of numbers.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible method'>GreatestCommonFactor [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the greatest common factor of a set of numbers.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the computation.&lt;/typeparam&gt;
-              &lt;param name=&quot;stepper&quot;&gt;The set of numbers to compute the greatest common factor of.&lt;/param&gt;
-              &lt;returns&gt;The computed greatest common factor of the set of numbers.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>LeastCommonMultiple [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the least common multiple of a set of numbers.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
-              &lt;param name=&quot;a&quot;&gt;The first operand of the least common muiltiple computation.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The second operand of the least common muiltiple computation.&lt;/param&gt;
-              &lt;param name=&quot;c&quot;&gt;The remaining operands of the least common muiltiple computation.&lt;/param&gt;
-              &lt;returns&gt;The computed least common least common multiple of the set of numbers.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>LeastCommonMultiple [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the least common multiple of a set of numbers.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
-              &lt;param name=&quot;stepper&quot;&gt;The set of numbers to compute the least common multiple of.&lt;/param&gt;
-              &lt;returns&gt;The computed least common least common multiple of the set of numbers.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>LinearInterpolation [Method]</button>
-            <div class='content'>
-
-            </div>
-            <button class='collapsible method'>Factorial [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the operation.&lt;/typeparam&gt;
-              &lt;param name=&quot;a&quot;&gt;The integer factorial to computer the value of.&lt;/param&gt;
-              &lt;returns&gt;The computed factorial value.&lt;/returns&gt;
-              &lt;exception cref=&quot;T:System.ArgumentOutOfRangeException&quot;&gt;Thrown when the parameter is not an integer value.&lt;/exception&gt;
-              &lt;exception cref=&quot;T:System.ArgumentOutOfRangeException&quot;&gt;Thrown when the parameter is less than zero.&lt;/exception&gt;
-
-            </div>
-            <button class='collapsible method'>Combinations [Method]</button>
-            <div class='content'>
-
-            </div>
-            <button class='collapsible method'>BinomialCoefficient [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Computes the Binomial coefficient (N choose n).&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The numeric type of the computation.&lt;/typeparam&gt;
-              &lt;param name=&quot;N&quot;&gt;The size of the entire set (N choose n).&lt;/param&gt;
-              &lt;param name=&quot;n&quot;&gt;The size of the subset (N choose n).&lt;/param&gt;
-              &lt;returns&gt;The computed binomial coefficient (N choose n).&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Occurences [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
-              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
-              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Occurences [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
-              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
-              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
-              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Occurences [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
-              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
-              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
-              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Occurences [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
-              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
-              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
-              &lt;param name=&quot;a&quot;&gt;The first value in the data.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The rest of the data.&lt;/param&gt;
-              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Occurences [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Counts the number of occurences of each item.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type to count the occerences of.&lt;/typeparam&gt;
-              &lt;param name=&quot;stepper&quot;&gt;The data to count the occurences of.&lt;/param&gt;
-              &lt;param name=&quot;equate&quot;&gt;The equality delegate.&lt;/param&gt;
-              &lt;param name=&quot;hash&quot;&gt;The hash code delegate.&lt;/param&gt;
-              &lt;returns&gt;The occurence map of the data.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Mode [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Gets the mode(s) of a data set.&lt;/summary&gt;
-              &lt;typeparam name=&quot;T&quot;&gt;The generic type of the data.&lt;/typeparam&gt;
-              &lt;param name=&quot;step&quot;&gt;The action to perform on every mode value found.&lt;/param&gt;
-              &lt;param name=&quot;a&quot;&gt;The first value of the data set.&lt;/param&gt;
-              &lt;param name=&quot;b&quot;&gt;The rest of the data set.&lt;/param&gt;
-
-            </div>
           </div>
           <button class='collapsible type class'>Constant [class]</button>
           <div class='content'>
@@ -22811,7 +22811,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Constant<> [class]</button>
+          <button class='collapsible type class'>Constant&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a numeric constant.&lt;/summary&gt;
@@ -22890,7 +22890,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Constant<> [class]</button>
+          <button class='collapsible type class'>Constant&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Contains generic static numerical constant values.&lt;/summary&gt;
@@ -23097,7 +23097,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Cosine<> [delegate]</button>
+          <button class='collapsible type delegate'>Cosine&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the cosine ratio of an angle.&lt;/summary&gt;
@@ -23518,7 +23518,7 @@
             &lt;summary&gt;Interface for symbolic mathematics operations that involve numeric computation.&lt;/summary&gt;
 
           </div>
-          <button class='collapsible type delegate'>InverseCosine<> [delegate]</button>
+          <button class='collapsible type delegate'>InverseCosine&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the angle measurement from a cosine ratio.&lt;/summary&gt;
@@ -23527,7 +23527,7 @@
             &lt;returns&gt;The angle of the cosine ratio.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>InverseSine<> [delegate]</button>
+          <button class='collapsible type delegate'>InverseSine&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the angle measurement from a sine ratio.&lt;/summary&gt;
@@ -23536,7 +23536,7 @@
             &lt;returns&gt;The angle of the sine ratio.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible type delegate'>InverseTangent<> [delegate]</button>
+          <button class='collapsible type delegate'>InverseTangent&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the angle measurement from a tangent ratio.&lt;/summary&gt;
@@ -23588,7 +23588,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>KnownConstantOfKnownType<> [class]</button>
+          <button class='collapsible type class'>KnownConstantOfKnownType&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Abstract base class for known constants of unknown types.&lt;/summary&gt;
@@ -23710,7 +23710,7 @@
           <button class='collapsible type class'>MathematicsDelegates [class]</button>
           <div class='content'>
 
-            <button class='collapsible type delegate'>Cosine<> [delegate]</button>
+            <button class='collapsible type delegate'>Cosine&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the cosine ratio of an angle.&lt;/summary&gt;
@@ -23719,7 +23719,7 @@
               &lt;returns&gt;The cosine ratio of the angle.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>InverseCosine<> [delegate]</button>
+            <button class='collapsible type delegate'>InverseCosine&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the angle measurement from a cosine ratio.&lt;/summary&gt;
@@ -23728,7 +23728,7 @@
               &lt;returns&gt;The angle of the cosine ratio.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>InverseSine<> [delegate]</button>
+            <button class='collapsible type delegate'>InverseSine&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the angle measurement from a sine ratio.&lt;/summary&gt;
@@ -23737,7 +23737,7 @@
               &lt;returns&gt;The angle of the sine ratio.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>InverseTangent<> [delegate]</button>
+            <button class='collapsible type delegate'>InverseTangent&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the angle measurement from a tangent ratio.&lt;/summary&gt;
@@ -23746,7 +23746,7 @@
               &lt;returns&gt;The angle of the tangent ratio.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Sine<> [delegate]</button>
+            <button class='collapsible type delegate'>Sine&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the sine ratio of an angle.&lt;/summary&gt;
@@ -23755,7 +23755,7 @@
               &lt;returns&gt;The sine ratio of the angle.&lt;/returns&gt;
 
             </div>
-            <button class='collapsible type delegate'>Tangent<> [delegate]</button>
+            <button class='collapsible type delegate'>Tangent&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;Computes the cosine ratio of an angle.&lt;/summary&gt;
@@ -23792,7 +23792,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Matrix<> [class]</button>
+          <button class='collapsible type class'>Matrix&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;A matrix of arbitrary dimensions implemented as a flattened array.&lt;/summary&gt;
@@ -23909,6 +23909,44 @@
               &lt;param name=&quot;rows&quot;&gt;The number of rows to construct.&lt;/param&gt;
               &lt;param name=&quot;columns&quot;&gt;The number of columns to construct.&lt;/param&gt;
               &lt;param name=&quot;data&quot;&gt;The data of the matrix in ROW MAJOR ORDER.&lt;/param&gt;
+
+            </div>
+            <button class='collapsible method'>Stepper [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Invokes a delegate for each entry in the data structure.&lt;/summary&gt;
+              &lt;param name=&quot;step&quot;&gt;The delegate to invoke on each item in the structure.&lt;/param&gt;
+              &lt;returns&gt;The resulting status of the iteration.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Stepper [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Invokes a delegate for each entry in the data structure.&lt;/summary&gt;
+              &lt;param name=&quot;step&quot;&gt;The delegate to invoke on each item in the structure.&lt;/param&gt;
+              &lt;returns&gt;The resulting status of the iteration.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>ToString [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Prints out a string representation of this matrix.&lt;/summary&gt;
+              &lt;returns&gt;A string representing this matrix.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>GetHashCode [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Matrixs a hash code from the values of this matrix.&lt;/summary&gt;
+              &lt;returns&gt;A hash code for the matrix.&lt;/returns&gt;
+
+            </div>
+            <button class='collapsible method'>Equals [Method]</button>
+            <div class='content'>
+
+              &lt;summary&gt;Does an equality check by value.&lt;/summary&gt;
+              &lt;param name=&quot;b&quot;&gt;The object to compare to.&lt;/param&gt;
+              &lt;returns&gt;True if the references are equal, false if not.&lt;/returns&gt;
 
             </div>
             <button class='collapsible method'>FactoryZero [Method]</button>
@@ -24444,44 +24482,6 @@
               &lt;param name=&quot;step&quot;&gt;The delegate to invoke on each item in the structure.&lt;/param&gt;
 
             </div>
-            <button class='collapsible method'>Stepper [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Invokes a delegate for each entry in the data structure.&lt;/summary&gt;
-              &lt;param name=&quot;step&quot;&gt;The delegate to invoke on each item in the structure.&lt;/param&gt;
-              &lt;returns&gt;The resulting status of the iteration.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Stepper [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Invokes a delegate for each entry in the data structure.&lt;/summary&gt;
-              &lt;param name=&quot;step&quot;&gt;The delegate to invoke on each item in the structure.&lt;/param&gt;
-              &lt;returns&gt;The resulting status of the iteration.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>ToString [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Prints out a string representation of this matrix.&lt;/summary&gt;
-              &lt;returns&gt;A string representing this matrix.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>GetHashCode [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Matrixs a hash code from the values of this matrix.&lt;/summary&gt;
-              &lt;returns&gt;A hash code for the matrix.&lt;/returns&gt;
-
-            </div>
-            <button class='collapsible method'>Equals [Method]</button>
-            <div class='content'>
-
-              &lt;summary&gt;Does an equality check by value.&lt;/summary&gt;
-              &lt;param name=&quot;b&quot;&gt;The object to compare to.&lt;/param&gt;
-              &lt;returns&gt;True if the references are equal, false if not.&lt;/returns&gt;
-
-            </div>
           </div>
           <button class='collapsible type class'>Multinary [class]</button>
           <div class='content'>
@@ -24743,7 +24743,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>One<> [class]</button>
+          <button class='collapsible type class'>One&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents the value of one (1).&lt;/summary&gt;
@@ -24862,7 +24862,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Pi<> [class]</button>
+          <button class='collapsible type class'>Pi&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents the value of π (pi).&lt;/summary&gt;
@@ -24954,7 +24954,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Quaternion<> [class]</button>
+          <button class='collapsible type class'>Quaternion&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.&lt;/summary&gt;
@@ -25649,7 +25649,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Sine<> [delegate]</button>
+          <button class='collapsible type delegate'>Sine&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the sine ratio of an angle.&lt;/summary&gt;
@@ -25890,7 +25890,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>Constant<> [class]</button>
+            <button class='collapsible type class'>Constant&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents a numeric constant.&lt;/summary&gt;
@@ -26498,7 +26498,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>KnownConstantOfKnownType<> [class]</button>
+            <button class='collapsible type class'>KnownConstantOfKnownType&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Abstract base class for known constants of unknown types.&lt;/summary&gt;
@@ -26877,7 +26877,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>One<> [class]</button>
+            <button class='collapsible type class'>One&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents the value of one (1).&lt;/summary&gt;
@@ -26996,7 +26996,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>Pi<> [class]</button>
+            <button class='collapsible type class'>Pi&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents the value of π (pi).&lt;/summary&gt;
@@ -27485,7 +27485,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>Three<> [class]</button>
+            <button class='collapsible type class'>Three&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents the value of three (3).&lt;/summary&gt;
@@ -27587,7 +27587,7 @@
 
               </div>
             </div>
-            <button class='collapsible type delegate'>TryParseNumeric<> [delegate]</button>
+            <button class='collapsible type delegate'>TryParseNumeric&lt;T&gt; [delegate]</button>
             <div class='content'>
 
               &lt;summary&gt;A try-parsing function to parse a string that represents a numerical value.&lt;/summary&gt;
@@ -27650,7 +27650,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>Two<> [class]</button>
+            <button class='collapsible type class'>Two&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents the value of two (2).&lt;/summary&gt;
@@ -27835,7 +27835,7 @@
 
               </div>
             </div>
-            <button class='collapsible type class'>Zero<> [class]</button>
+            <button class='collapsible type class'>Zero&lt;T&gt; [class]</button>
             <div class='content'>
 
               &lt;summary&gt;Represents the value of zero (0).&lt;/summary&gt;
@@ -27955,7 +27955,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>Tangent<> [delegate]</button>
+          <button class='collapsible type delegate'>Tangent&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;Computes the cosine ratio of an angle.&lt;/summary&gt;
@@ -28058,7 +28058,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Three<> [class]</button>
+          <button class='collapsible type class'>Three&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents the value of three (3).&lt;/summary&gt;
@@ -28160,7 +28160,7 @@
 
             </div>
           </div>
-          <button class='collapsible type delegate'>TryParseNumeric<> [delegate]</button>
+          <button class='collapsible type delegate'>TryParseNumeric&lt;T&gt; [delegate]</button>
           <div class='content'>
 
             &lt;summary&gt;A try-parsing function to parse a string that represents a numerical value.&lt;/summary&gt;
@@ -28223,7 +28223,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Two<> [class]</button>
+          <button class='collapsible type class'>Two&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents the value of two (2).&lt;/summary&gt;
@@ -28355,7 +28355,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Vector<> [class]</button>
+          <button class='collapsible type class'>Vector&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents a vector with an arbitrary number of components of a generic type.&lt;/summary&gt;
@@ -29073,7 +29073,7 @@
 
             </div>
           </div>
-          <button class='collapsible type class'>Zero<> [class]</button>
+          <button class='collapsible type class'>Zero&lt;T&gt; [class]</button>
           <div class='content'>
 
             &lt;summary&gt;Represents the value of zero (0).&lt;/summary&gt;
@@ -29140,7 +29140,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Acceleration<> [struct]</button>
+          <button class='collapsible type struct'>Acceleration&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Acceleration measurement with a value and the units.&lt;/summary&gt;
@@ -29625,7 +29625,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Angle<> [struct]</button>
+          <button class='collapsible type struct'>Angle&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Angle measurement with a value and the units.&lt;/summary&gt;
@@ -30010,7 +30010,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>AngularAcceleration<> [struct]</button>
+          <button class='collapsible type struct'>AngularAcceleration&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;AngularAcceleration measurement with a value and the units.&lt;/summary&gt;
@@ -30403,7 +30403,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>AngularSpeed<> [struct]</button>
+          <button class='collapsible type struct'>AngularSpeed&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;AngularSpeed measurement with a value and the units.&lt;/summary&gt;
@@ -30800,7 +30800,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Area<> [struct]</button>
+          <button class='collapsible type struct'>Area&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Area measurement with a value and the units.&lt;/summary&gt;
@@ -31257,7 +31257,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>AreaDensity<> [struct]</button>
+          <button class='collapsible type struct'>AreaDensity&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;AreaDensity measurement with a value and the units.&lt;/summary&gt;
@@ -31743,7 +31743,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Density<> [struct]</button>
+          <button class='collapsible type struct'>Density&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Density measurement with a value and the units.&lt;/summary&gt;
@@ -32309,7 +32309,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>ElectricCharge<> [struct]</button>
+          <button class='collapsible type struct'>ElectricCharge&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;ElectricCharge measurement with a value and the units.&lt;/summary&gt;
@@ -32660,7 +32660,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>ElectricCurrent<> [struct]</button>
+          <button class='collapsible type struct'>ElectricCurrent&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;ElectricCurrent measurement with a value and the units.&lt;/summary&gt;
@@ -33023,7 +33023,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Energy<> [struct]</button>
+          <button class='collapsible type struct'>Energy&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Energy measurement with a value and the units.&lt;/summary&gt;
@@ -33578,7 +33578,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Force<> [struct]</button>
+          <button class='collapsible type struct'>Force&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Force measurement with a value and the units.&lt;/summary&gt;
@@ -34104,7 +34104,7 @@
 
             </div>
           </div>
-          <button class='collapsible type interface'>IUnits<> [interface]</button>
+          <button class='collapsible type interface'>IUnits&lt;UNITSTYPE&gt; [interface]</button>
           <div class='content'>
 
             &lt;summary&gt;Interface for unit conversion.&lt;/summary&gt;
@@ -34294,7 +34294,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Length<> [struct]</button>
+          <button class='collapsible type struct'>Length&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Length measurement with a value and the units.&lt;/summary&gt;
@@ -34815,7 +34815,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>LinearDensity<> [struct]</button>
+          <button class='collapsible type struct'>LinearDensity&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;LinearDensity measurement with a value and the units.&lt;/summary&gt;
@@ -35314,7 +35314,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>LinearMass<> [struct]</button>
+          <button class='collapsible type struct'>LinearMass&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;LinearMass measurement with a value and the units.&lt;/summary&gt;
@@ -35839,7 +35839,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>LinearMassFlow<> [struct]</button>
+          <button class='collapsible type struct'>LinearMassFlow&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;LinearMassFlow measurement with a value and the units.&lt;/summary&gt;
@@ -36519,7 +36519,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Mass<> [struct]</button>
+          <button class='collapsible type struct'>Mass&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Mass measurement with a value and the units.&lt;/summary&gt;
@@ -37007,7 +37007,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>MassRate<> [struct]</button>
+          <button class='collapsible type struct'>MassRate&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;MassRate measurement with a value and the units.&lt;/summary&gt;
@@ -37477,7 +37477,7 @@
 
             &lt;summary&gt;Static class with methods regarding measurements.&lt;/summary&gt;
 
-            <button class='collapsible type interface'>IUnits<> [interface]</button>
+            <button class='collapsible type interface'>IUnits&lt;UNITSTYPE&gt; [interface]</button>
             <div class='content'>
 
               &lt;summary&gt;Interface for unit conversion.&lt;/summary&gt;
@@ -38751,7 +38751,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Power<> [struct]</button>
+          <button class='collapsible type struct'>Power&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Power measurement with a value and the units.&lt;/summary&gt;
@@ -39268,7 +39268,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Pressure<> [struct]</button>
+          <button class='collapsible type struct'>Pressure&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Pressure measurement with a value and the units.&lt;/summary&gt;
@@ -39742,7 +39742,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Speed<> [struct]</button>
+          <button class='collapsible type struct'>Speed&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Speed measurement with a value and the units.&lt;/summary&gt;
@@ -40259,7 +40259,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Tempurature<> [struct]</button>
+          <button class='collapsible type struct'>Tempurature&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Tempurature measurement with a value and the units.&lt;/summary&gt;
@@ -40606,7 +40606,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Time<> [struct]</button>
+          <button class='collapsible type struct'>Time&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Time measurement with a value and the units.&lt;/summary&gt;
@@ -41094,7 +41094,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>TimeArea<> [struct]</button>
+          <button class='collapsible type struct'>TimeArea&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;TimeArea measurement with a value and the units.&lt;/summary&gt;
@@ -42271,7 +42271,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>Volume<> [struct]</button>
+          <button class='collapsible type struct'>Volume&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;Volume measurement with a value and the units.&lt;/summary&gt;
@@ -42741,7 +42741,7 @@
               </div>
             </div>
           </div>
-          <button class='collapsible type struct'>VolumeRate<> [struct]</button>
+          <button class='collapsible type struct'>VolumeRate&lt;T&gt; [struct]</button>
           <div class='content'>
 
             &lt;summary&gt;VolumeRate measurement with a value and the units.&lt;/summary&gt;
@@ -43444,7 +43444,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>Compare<> [delegate]</button>
+        <button class='collapsible type delegate'>Compare&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for comparing two instances of the same type.&lt;/summary&gt;
@@ -43454,7 +43454,7 @@
           &lt;returns&gt;The Comparison operator between the operands to form a true logic statement.&lt;/returns&gt;
 
         </div>
-        <button class='collapsible type delegate'>Compare<> [delegate]</button>
+        <button class='collapsible type delegate'>Compare&lt;Left, Right&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for comparing two instances of different types.&lt;/summary&gt;
@@ -43493,7 +43493,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>CompareToKnownValue<> [delegate]</button>
+        <button class='collapsible type delegate'>CompareToKnownValue&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for comparing a value to a known value.&lt;/summary&gt;
@@ -43527,7 +43527,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>Equate_params<> [delegate]</button>
+        <button class='collapsible type delegate'>Equate_params&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for equating multiple instances of the same type.&lt;/summary&gt;
@@ -43536,7 +43536,7 @@
           &lt;returns&gt;True if all the items are considered equal.&lt;/returns&gt;
 
         </div>
-        <button class='collapsible type delegate'>Equate<> [delegate]</button>
+        <button class='collapsible type delegate'>Equate&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for equating two instances of the same type.&lt;/summary&gt;
@@ -43546,7 +43546,7 @@
           &lt;returns&gt;Whether the equate is valid (true) or not (false).&lt;/returns&gt;
 
         </div>
-        <button class='collapsible type delegate'>Equate<> [delegate]</button>
+        <button class='collapsible type delegate'>Equate&lt;L, R&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for equating two instances of different types.&lt;/summary&gt;
@@ -43949,7 +43949,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>GetIndex<> [delegate]</button>
+        <button class='collapsible type delegate'>GetIndex&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for getting a value at a specified index.&lt;/summary&gt;
@@ -43972,7 +43972,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>Hash<> [delegate]</button>
+        <button class='collapsible type delegate'>Hash&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for hash code computation.&lt;/summary&gt;
@@ -44022,12 +44022,8 @@
             &lt;returns&gt;True if the implicit casting operator exists or false if not.&lt;/returns&gt;
 
           </div>
-          <button class='collapsible method'>ConvertToCsharpSourceDefinition [Method]</button>
+          <button class='collapsible method'>ConvertToCsharpSource [Method]</button>
           <div class='content'>
-
-            &lt;summary&gt;Converts a &lt;see cref=&quot;T:System.Type&quot; /&gt; into a string as it would appear in C# source code.&lt;/summary&gt;
-            &lt;param name=&quot;type&quot;&gt;The &lt;see cref=&quot;T:System.Type&quot; /&gt; to convert to a string.&lt;/param&gt;
-            &lt;returns&gt;The string as the &lt;see cref=&quot;T:System.Type&quot; /&gt; would appear in C# source code.&lt;/returns&gt;
 
           </div>
           <button class='collapsible method'>GetEnumAttribute [Method]</button>
@@ -44227,7 +44223,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>SetIndex<> [delegate]</button>
+        <button class='collapsible type delegate'>SetIndex&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for setting a value at a specified index.&lt;/summary&gt;
@@ -44251,7 +44247,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>Step<> [delegate]</button>
+        <button class='collapsible type delegate'>Step&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for data structure iteration.&lt;/summary&gt;
@@ -44259,7 +44255,7 @@
           &lt;param name=&quot;current&quot;&gt;The current instance of iteration through the data structure.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>Step<> [delegate]</button>
+        <button class='collapsible type delegate'>Step&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for an action to perform while stepping.&lt;/summary&gt;
@@ -44269,7 +44265,7 @@
           &lt;param name=&quot;b&quot;&gt;The second component of the step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepBreak&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for data structure iteration.&lt;/summary&gt;
@@ -44278,7 +44274,7 @@
           &lt;returns&gt;The status of the iteration. Allows breaking functionality.&lt;/returns&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepBreak&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for an action to perform while stepping.&lt;/summary&gt;
@@ -44434,7 +44430,7 @@
 
           </div>
         </div>
-        <button class='collapsible type delegate'>Stepper<> [delegate]</button>
+        <button class='collapsible type delegate'>Stepper&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for a traversal function on a data structure.&lt;/summary&gt;
@@ -44442,7 +44438,7 @@
           &lt;param name=&quot;step&quot;&gt;The foreach function to perform on each iteration.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>Stepper<> [delegate]</button>
+        <button class='collapsible type delegate'>Stepper&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for stepping through a collection.&lt;/summary&gt;
@@ -44451,7 +44447,7 @@
           &lt;param name=&quot;step&quot;&gt;The action to perform on every step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperBreak&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for a traversal function on a data structure.&lt;/summary&gt;
@@ -44459,7 +44455,7 @@
           &lt;param name=&quot;step&quot;&gt;The foreach function to perform on each iteration.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperBreak&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for stepping through a collection.&lt;/summary&gt;
@@ -44468,7 +44464,7 @@
           &lt;param name=&quot;step&quot;&gt;The action to perform on every step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperRef<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperRef&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for a traversal function on a data structure.&lt;/summary&gt;
@@ -44476,7 +44472,7 @@
           &lt;param name=&quot;step&quot;&gt;The foreach function to perform on each iteration.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperRef<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperRef&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for stepping through a collection.&lt;/summary&gt;
@@ -44485,7 +44481,7 @@
           &lt;param name=&quot;step&quot;&gt;The action to perform on every step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperRefBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperRefBreak&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for a traversal function on a data structure.&lt;/summary&gt;
@@ -44493,7 +44489,7 @@
           &lt;param name=&quot;step&quot;&gt;The foreach function to perform on each iteration.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepperRefBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepperRefBreak&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for stepping through a collection.&lt;/summary&gt;
@@ -44502,7 +44498,7 @@
           &lt;param name=&quot;step&quot;&gt;The action to perform on every step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepRef<> [delegate]</button>
+        <button class='collapsible type delegate'>StepRef&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for data structure iteration.&lt;/summary&gt;
@@ -44510,7 +44506,7 @@
           &lt;param name=&quot;current&quot;&gt;The current instance of iteration through the data structure.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepRef<> [delegate]</button>
+        <button class='collapsible type delegate'>StepRef&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for an action to perform while stepping.&lt;/summary&gt;
@@ -44520,7 +44516,7 @@
           &lt;param name=&quot;b&quot;&gt;The second component of the step.&lt;/param&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepRefBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepRefBreak&lt;T&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for data structure iteration.&lt;/summary&gt;
@@ -44529,7 +44525,7 @@
           &lt;returns&gt;The status of the iteration. Allows breaking functionality.&lt;/returns&gt;
 
         </div>
-        <button class='collapsible type delegate'>StepRefBreak<> [delegate]</button>
+        <button class='collapsible type delegate'>StepRefBreak&lt;T1, T2&gt; [delegate]</button>
         <div class='content'>
 
           &lt;summary&gt;Delegate for an action to perform while stepping.&lt;/summary&gt;

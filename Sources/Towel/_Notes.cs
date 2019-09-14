@@ -1,7 +1,5 @@
 ﻿// Runtime Complexities:
 //
-//   
-//
 //     O(...): upper bound
 //
 //     Ω(...): lower bound

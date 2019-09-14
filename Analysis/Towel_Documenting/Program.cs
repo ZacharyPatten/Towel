@@ -207,7 +207,7 @@ for (i = 0; i < coll.length; i++)
 			}
 			void ConvertTypeToHtml(Type type)
 			{
-				string typeToString = type.ConvertToCsharpSourceDefinition();
+				string typeToString = type.ConvertToCsharpSource(true);
 				if (!string.IsNullOrEmpty(typeToString))
 				{
 					string typeString =
@@ -219,7 +219,7 @@ for (i = 0; i < coll.length; i++)
 						throw new NotImplementedException();
 
 					output.Append("<button class='collapsible type " + typeString + "'>");
-					output.Append(typeToString.Substring(typeToString.LastIndexOf('.') + 1) + " [" + typeString + "]");
+					output.Append(HttpUtility.HtmlEncode(typeToString.Substring(typeToString.LastIndexOf('.') + 1) + " [" + typeString + "]"));
 					output.AppendLine("</button>");
 
 					output.AppendLine("<div class='content'>");

@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Exte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documenting", "Analysis\Towel_Documentation\Towel_Documenting.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documenting", "Analysis\Towel_Documenting\Towel_Documenting.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection3D", "Examples\CollisionDetection3D\CollisionDetection3D.csproj", "{F5AADBDA-FB69-4644-9BD6-832DE2855922}"
 EndProject
