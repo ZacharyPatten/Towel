@@ -1122,39 +1122,36 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<<#= chain_AxisX #>> DetermineMedians(Leaf leaf)
 		{
-			try
+<# for (int j = 1; j <= i; j++) { #>
+			Axis<#= j #> division<#= j #>;
+			if (_subdivisionOverride<#= j #> != null)
 			{
-				// extract the values<# for (int j = 1; j <= i; j++) { #>
-				Axis<#= j #>[] values<#= j #> = new Axis<#= j #>[leaf.Count];<# } #>
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i]<# for (int j = 2; j <= i; j++) { #>, out values<#= j #>[i]<# } #>);
-				// sort the values<# for (int j = 1; j <= i; j++) { #>
-				if (_defaultCompare<#= j #>) Array.Sort(values<#= j #>);
-				else Array.Sort(values<#= j #>, Compare.ToSystemComparison(this._compare<#= j #>));<# } #>
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<<#= chain_AxisX #>>(values1[index]<# for (int j = 2; j <= i; j++) { #>, values<#= j #>[index]<# } #>);
+				division<#= j #> = _subdivisionOverride<#= j #>(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values<# for (int j = 1; j <= i; j++) { #>
-				ArrayJagged<Axis<#= j #>> values<#= j #> = new ArrayJagged<Axis<#= j #>>(leaf.Count);<# } #>
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis<#= j #>[] values = new Axis<#= j #>[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{<# for (int j = 1; j <= i; j++) { #>
-					Axis<#= j #> value<#= j #>;<# } #>
-					this._locate(for_current.Value, out value1<# for (int j = 2; j <= i; j++) { #>, out value<#= j #><# } #>);<# for (int j = 1; j <= i; j++) { #>
-					values<#= j #>[i] = value<#= j #>;<# } #>
-				}
-				// sort the values<# for (int j = 1; j <= i; j++) { #>
-				if (_defaultCompare<#= j #>) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare<#= j #>, (int sorting_index) => { return values<#= j #>[sorting_index]; }, (int sorting_index, Axis<#= j #> axis<#= j #>) => { values<#= j #>[sorting_index] = axis<#= j #>; }, 0, (int)values1.Length);<# } #>
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value<# for (int k = 1; k <= i; k++) { #>
+					<#= j == k ? ", out values[i]" : ", out _" #><# } #>);
+				if (_defaultCompare<#= j #>) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare<#= j #>));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<<#= chain_AxisX #>>(values1[index]<# for (int j = 2; j <= i; j++) { #>, values<#= j #>[index]<# } #>);
+				division<#= j #> = values[index];
 			}
+<# } #>
+			return new Omnitree.Vector<<#= chain_AxisX #>>(
+				division1
+		<# for (int j = 2; j <= i; j++) { #>
+		, division<#= j #>
+		<# } #>		);
 		}
 
 		#endregion

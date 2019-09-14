@@ -2794,39 +2794,31 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1>(values1[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					this._locate(for_current.Value, out value1);
-					values1[i] = value1;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1>(values1[index]);
+				division1 = values[index];
 			}
+			return new Omnitree.Vector<Axis1>(
+				division1
+				);
 		}
 
 		#endregion
@@ -4310,47 +4302,54 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2>(values1[index], values2[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					this._locate(for_current.Value, out value1, out value2);
-					values1[i] = value1;
-					values2[i] = value2;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2>(values1[index], values2[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2>(
+				division1
+				, division2
+				);
 		}
 
 		#endregion
@@ -5932,55 +5931,77 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Axis3[] values3 = new Axis3[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i], out values3[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				if (_defaultCompare3) Array.Sort(values3);
-				else Array.Sort(values3, Compare.ToSystemComparison(this._compare3));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3>(values1[index], values2[index], values3[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				ArrayJagged<Axis3> values3 = new ArrayJagged<Axis3>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					Axis3 value3;
-					this._locate(for_current.Value, out value1, out value2, out value3);
-					values1[i] = value1;
-					values2[i] = value2;
-					values3[i] = value3;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				if (_defaultCompare3) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3>(values1[index], values2[index], values3[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]					, out _);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			Axis3 division3;
+			if (_subdivisionOverride3 != null)
+			{
+				division3 = _subdivisionOverride3(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis3[] values = new Axis3[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out values[i]);
+				if (_defaultCompare3) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
+				int index = (leaf.Count - 1) / 2;
+				division3 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2, Axis3>(
+				division1
+				, division2
+				, division3
+				);
 		}
 
 		#endregion
@@ -7660,63 +7681,100 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Axis3[] values3 = new Axis3[leaf.Count];
-				Axis4[] values4 = new Axis4[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i], out values3[i], out values4[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				if (_defaultCompare3) Array.Sort(values3);
-				else Array.Sort(values3, Compare.ToSystemComparison(this._compare3));
-				if (_defaultCompare4) Array.Sort(values4);
-				else Array.Sort(values4, Compare.ToSystemComparison(this._compare4));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(values1[index], values2[index], values3[index], values4[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				ArrayJagged<Axis3> values3 = new ArrayJagged<Axis3>(leaf.Count);
-				ArrayJagged<Axis4> values4 = new ArrayJagged<Axis4>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					Axis3 value3;
-					Axis4 value4;
-					this._locate(for_current.Value, out value1, out value2, out value3, out value4);
-					values1[i] = value1;
-					values2[i] = value2;
-					values3[i] = value3;
-					values4[i] = value4;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				if (_defaultCompare3) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				if (_defaultCompare4) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare4, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(values1[index], values2[index], values3[index], values4[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			Axis3 division3;
+			if (_subdivisionOverride3 != null)
+			{
+				division3 = _subdivisionOverride3(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis3[] values = new Axis3[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _);
+				if (_defaultCompare3) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
+				int index = (leaf.Count - 1) / 2;
+				division3 = values[index];
+			}
+			Axis4 division4;
+			if (_subdivisionOverride4 != null)
+			{
+				division4 = _subdivisionOverride4(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis4[] values = new Axis4[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]);
+				if (_defaultCompare4) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
+				int index = (leaf.Count - 1) / 2;
+				division4 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
+				division1
+				, division2
+				, division3
+				, division4
+				);
 		}
 
 		#endregion
@@ -9494,71 +9552,123 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Axis3[] values3 = new Axis3[leaf.Count];
-				Axis4[] values4 = new Axis4[leaf.Count];
-				Axis5[] values5 = new Axis5[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i], out values3[i], out values4[i], out values5[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				if (_defaultCompare3) Array.Sort(values3);
-				else Array.Sort(values3, Compare.ToSystemComparison(this._compare3));
-				if (_defaultCompare4) Array.Sort(values4);
-				else Array.Sort(values4, Compare.ToSystemComparison(this._compare4));
-				if (_defaultCompare5) Array.Sort(values5);
-				else Array.Sort(values5, Compare.ToSystemComparison(this._compare5));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(values1[index], values2[index], values3[index], values4[index], values5[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				ArrayJagged<Axis3> values3 = new ArrayJagged<Axis3>(leaf.Count);
-				ArrayJagged<Axis4> values4 = new ArrayJagged<Axis4>(leaf.Count);
-				ArrayJagged<Axis5> values5 = new ArrayJagged<Axis5>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					Axis3 value3;
-					Axis4 value4;
-					Axis5 value5;
-					this._locate(for_current.Value, out value1, out value2, out value3, out value4, out value5);
-					values1[i] = value1;
-					values2[i] = value2;
-					values3[i] = value3;
-					values4[i] = value4;
-					values5[i] = value5;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				if (_defaultCompare3) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				if (_defaultCompare4) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare4, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				if (_defaultCompare5) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare5, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(values1[index], values2[index], values3[index], values4[index], values5[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			Axis3 division3;
+			if (_subdivisionOverride3 != null)
+			{
+				division3 = _subdivisionOverride3(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis3[] values = new Axis3[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _);
+				if (_defaultCompare3) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
+				int index = (leaf.Count - 1) / 2;
+				division3 = values[index];
+			}
+			Axis4 division4;
+			if (_subdivisionOverride4 != null)
+			{
+				division4 = _subdivisionOverride4(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis4[] values = new Axis4[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _);
+				if (_defaultCompare4) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
+				int index = (leaf.Count - 1) / 2;
+				division4 = values[index];
+			}
+			Axis5 division5;
+			if (_subdivisionOverride5 != null)
+			{
+				division5 = _subdivisionOverride5(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis5[] values = new Axis5[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]);
+				if (_defaultCompare5) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
+				int index = (leaf.Count - 1) / 2;
+				division5 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
+				division1
+				, division2
+				, division3
+				, division4
+				, division5
+				);
 		}
 
 		#endregion
@@ -11434,79 +11544,146 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Axis3[] values3 = new Axis3[leaf.Count];
-				Axis4[] values4 = new Axis4[leaf.Count];
-				Axis5[] values5 = new Axis5[leaf.Count];
-				Axis6[] values6 = new Axis6[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i], out values3[i], out values4[i], out values5[i], out values6[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				if (_defaultCompare3) Array.Sort(values3);
-				else Array.Sort(values3, Compare.ToSystemComparison(this._compare3));
-				if (_defaultCompare4) Array.Sort(values4);
-				else Array.Sort(values4, Compare.ToSystemComparison(this._compare4));
-				if (_defaultCompare5) Array.Sort(values5);
-				else Array.Sort(values5, Compare.ToSystemComparison(this._compare5));
-				if (_defaultCompare6) Array.Sort(values6);
-				else Array.Sort(values6, Compare.ToSystemComparison(this._compare6));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				ArrayJagged<Axis3> values3 = new ArrayJagged<Axis3>(leaf.Count);
-				ArrayJagged<Axis4> values4 = new ArrayJagged<Axis4>(leaf.Count);
-				ArrayJagged<Axis5> values5 = new ArrayJagged<Axis5>(leaf.Count);
-				ArrayJagged<Axis6> values6 = new ArrayJagged<Axis6>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					Axis3 value3;
-					Axis4 value4;
-					Axis5 value5;
-					Axis6 value6;
-					this._locate(for_current.Value, out value1, out value2, out value3, out value4, out value5, out value6);
-					values1[i] = value1;
-					values2[i] = value2;
-					values3[i] = value3;
-					values4[i] = value4;
-					values5[i] = value5;
-					values6[i] = value6;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				if (_defaultCompare3) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				if (_defaultCompare4) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare4, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				if (_defaultCompare5) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare5, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				if (_defaultCompare6) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values6[sorting_index]; }, (int sorting_index, Axis6 axis6) => { values6[sorting_index] = axis6; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare6, (int sorting_index) => { return values6[sorting_index]; }, (int sorting_index, Axis6 axis6) => { values6[sorting_index] = axis6; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _					, out _);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			Axis3 division3;
+			if (_subdivisionOverride3 != null)
+			{
+				division3 = _subdivisionOverride3(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis3[] values = new Axis3[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _					, out _);
+				if (_defaultCompare3) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
+				int index = (leaf.Count - 1) / 2;
+				division3 = values[index];
+			}
+			Axis4 division4;
+			if (_subdivisionOverride4 != null)
+			{
+				division4 = _subdivisionOverride4(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis4[] values = new Axis4[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _					, out _);
+				if (_defaultCompare4) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
+				int index = (leaf.Count - 1) / 2;
+				division4 = values[index];
+			}
+			Axis5 division5;
+			if (_subdivisionOverride5 != null)
+			{
+				division5 = _subdivisionOverride5(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis5[] values = new Axis5[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]					, out _);
+				if (_defaultCompare5) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
+				int index = (leaf.Count - 1) / 2;
+				division5 = values[index];
+			}
+			Axis6 division6;
+			if (_subdivisionOverride6 != null)
+			{
+				division6 = _subdivisionOverride6(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis6[] values = new Axis6[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out values[i]);
+				if (_defaultCompare6) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare6));
+				int index = (leaf.Count - 1) / 2;
+				division6 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
+				division1
+				, division2
+				, division3
+				, division4
+				, division5
+				, division6
+				);
 		}
 
 		#endregion
@@ -13480,87 +13657,169 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> DetermineMedians(Leaf leaf)
 		{
-			try
+			Axis1 division1;
+			if (_subdivisionOverride1 != null)
 			{
-				// extract the values
-				Axis1[] values1 = new Axis1[leaf.Count];
-				Axis2[] values2 = new Axis2[leaf.Count];
-				Axis3[] values3 = new Axis3[leaf.Count];
-				Axis4[] values4 = new Axis4[leaf.Count];
-				Axis5[] values5 = new Axis5[leaf.Count];
-				Axis6[] values6 = new Axis6[leaf.Count];
-				Axis7[] values7 = new Axis7[leaf.Count];
-				Leaf.Node for_current = leaf.Head; // used in for loop
-				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value, out values1[i], out values2[i], out values3[i], out values4[i], out values5[i], out values6[i], out values7[i]);
-				// sort the values
-				if (_defaultCompare1) Array.Sort(values1);
-				else Array.Sort(values1, Compare.ToSystemComparison(this._compare1));
-				if (_defaultCompare2) Array.Sort(values2);
-				else Array.Sort(values2, Compare.ToSystemComparison(this._compare2));
-				if (_defaultCompare3) Array.Sort(values3);
-				else Array.Sort(values3, Compare.ToSystemComparison(this._compare3));
-				if (_defaultCompare4) Array.Sort(values4);
-				else Array.Sort(values4, Compare.ToSystemComparison(this._compare4));
-				if (_defaultCompare5) Array.Sort(values5);
-				else Array.Sort(values5, Compare.ToSystemComparison(this._compare5));
-				if (_defaultCompare6) Array.Sort(values6);
-				else Array.Sort(values6, Compare.ToSystemComparison(this._compare6));
-				if (_defaultCompare7) Array.Sort(values7);
-				else Array.Sort(values7, Compare.ToSystemComparison(this._compare7));
-				// pull out the lazy medians (if even # of items... just take the left)
-				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index], values7[index]);
+				division1 = _subdivisionOverride1(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
 			}
-			catch //(Exception exception)
+			else
 			{
-				System.Diagnostics.Debugger.Break();
-				// extract the values
-				ArrayJagged<Axis1> values1 = new ArrayJagged<Axis1>(leaf.Count);
-				ArrayJagged<Axis2> values2 = new ArrayJagged<Axis2>(leaf.Count);
-				ArrayJagged<Axis3> values3 = new ArrayJagged<Axis3>(leaf.Count);
-				ArrayJagged<Axis4> values4 = new ArrayJagged<Axis4>(leaf.Count);
-				ArrayJagged<Axis5> values5 = new ArrayJagged<Axis5>(leaf.Count);
-				ArrayJagged<Axis6> values6 = new ArrayJagged<Axis6>(leaf.Count);
-				ArrayJagged<Axis7> values7 = new ArrayJagged<Axis7>(leaf.Count);
-				Leaf.Node for_current = leaf.Head; // used in for loop
+				Axis1[] values = new Axis1[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-				{
-					Axis1 value1;
-					Axis2 value2;
-					Axis3 value3;
-					Axis4 value4;
-					Axis5 value5;
-					Axis6 value6;
-					Axis7 value7;
-					this._locate(for_current.Value, out value1, out value2, out value3, out value4, out value5, out value6, out value7);
-					values1[i] = value1;
-					values2[i] = value2;
-					values3[i] = value3;
-					values4[i] = value4;
-					values5[i] = value5;
-					values6[i] = value6;
-					values7[i] = value7;
-				}
-				// sort the values
-				if (_defaultCompare1) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-				if (_defaultCompare2) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-				if (_defaultCompare3) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
-				if (_defaultCompare4) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare4, (int sorting_index) => { return values4[sorting_index]; }, (int sorting_index, Axis4 axis4) => { values4[sorting_index] = axis4; }, 0, (int)values1.Length);
-				if (_defaultCompare5) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare5, (int sorting_index) => { return values5[sorting_index]; }, (int sorting_index, Axis5 axis5) => { values5[sorting_index] = axis5; }, 0, (int)values1.Length);
-				if (_defaultCompare6) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values6[sorting_index]; }, (int sorting_index, Axis6 axis6) => { values6[sorting_index] = axis6; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare6, (int sorting_index) => { return values6[sorting_index]; }, (int sorting_index, Axis6 axis6) => { values6[sorting_index] = axis6; }, 0, (int)values1.Length);
-				if (_defaultCompare7) Towel.Algorithms.Sort.Merge(Compare.Default, (int sorting_index) => { return values7[sorting_index]; }, (int sorting_index, Axis7 axis7) => { values7[sorting_index] = axis7; }, 0, (int)values1.Length);
-				else Towel.Algorithms.Sort.Merge(_compare7, (int sorting_index) => { return values7[sorting_index]; }, (int sorting_index, Axis7 axis7) => { values7[sorting_index] = axis7; }, 0, (int)values1.Length);
-				// pull out the lazy medians (if even # of items... just take the left)
+					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _					, out _					, out _);
+				if (_defaultCompare1) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(values1[index], values2[index], values3[index], values4[index], values5[index], values6[index], values7[index]);
+				division1 = values[index];
 			}
+			Axis2 division2;
+			if (_subdivisionOverride2 != null)
+			{
+				division2 = _subdivisionOverride2(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis2[] values = new Axis2[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _					, out _					, out _);
+				if (_defaultCompare2) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
+				int index = (leaf.Count - 1) / 2;
+				division2 = values[index];
+			}
+			Axis3 division3;
+			if (_subdivisionOverride3 != null)
+			{
+				division3 = _subdivisionOverride3(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis3[] values = new Axis3[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _					, out _					, out _);
+				if (_defaultCompare3) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
+				int index = (leaf.Count - 1) / 2;
+				division3 = values[index];
+			}
+			Axis4 division4;
+			if (_subdivisionOverride4 != null)
+			{
+				division4 = _subdivisionOverride4(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis4[] values = new Axis4[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _					, out _					, out _);
+				if (_defaultCompare4) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
+				int index = (leaf.Count - 1) / 2;
+				division4 = values[index];
+			}
+			Axis5 division5;
+			if (_subdivisionOverride5 != null)
+			{
+				division5 = _subdivisionOverride5(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis5[] values = new Axis5[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]					, out _					, out _);
+				if (_defaultCompare5) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
+				int index = (leaf.Count - 1) / 2;
+				division5 = values[index];
+			}
+			Axis6 division6;
+			if (_subdivisionOverride6 != null)
+			{
+				division6 = _subdivisionOverride6(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis6[] values = new Axis6[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out values[i]					, out _);
+				if (_defaultCompare6) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare6));
+				int index = (leaf.Count - 1) / 2;
+				division6 = values[index];
+			}
+			Axis7 division7;
+			if (_subdivisionOverride7 != null)
+			{
+				division7 = _subdivisionOverride7(leaf.Bounds, x =>
+					{
+						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						{
+							x(node.Value);
+						}
+					});
+			}
+			else
+			{
+				Axis7[] values = new Axis7[leaf.Count];
+				Leaf.Node for_current = leaf.Head;
+				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
+					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out _					, out values[i]);
+				if (_defaultCompare7) Array.Sort(values);
+				else Array.Sort(values, Compare.ToSystemComparison(this._compare7));
+				int index = (leaf.Count - 1) / 2;
+				division7 = values[index];
+			}
+			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
+				division1
+				, division2
+				, division3
+				, division4
+				, division5
+				, division6
+				, division7
+				);
 		}
 
 		#endregion
