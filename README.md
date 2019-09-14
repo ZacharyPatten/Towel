@@ -628,27 +628,6 @@ https://zacharypatten.github.io/Towel/Documentation
 
 _Using the extension methods in the Towel project, I was able to extract the XML documentation on the members, and dump them into a page on the GitHub Pages of this repository._
 
-## Notes
-
-<details>
- <summary>Runtime Complexities</summary>
-<p>
-
-One goal of the project is to have accurate runtime complexity documentation.
-
-```csharp
-//    O(...): upper bound
-//
-//    Ω(...): lower bound
-//
-//    Θ(...): upper and lower bound
-//
-//    ε(...): expected average
-```
-
-</p>
-</details>
-
 ## Developer(s)
 
 Feel free to chat with the developer(s) via [Discord](https://discord.gg/4XbQbwF).
