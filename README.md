@@ -258,6 +258,37 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 // and "sifting down" algorithms to move values vertically through the tree to keep items sorted.
 
 IHeap<T> heapArray = new HeapArray<T>();
+
+// Visualization:
+//
+//    Binary Tree
+//
+//                      -7
+//                      / \
+//                     /   \
+//                    /     \
+//                   /       \
+//                  /         \
+//                 /           \
+//                /             \
+//               /               \
+//             -4                 1
+//             / \               / \     
+//            /   \             /   \    
+//           /     \           /     \   
+//         -1       3         6       4
+//         / \     / \       / \     / \ 
+//        30  10  17  51    45  22  19  7
+//
+//    Flattened into an Array
+//
+//    Root = 1
+//    Left Child = 2 * Index
+//    Right Child = 2* Index + 1
+//     __________________________________________________________________________
+//    |0  |-7 |-4 |1  |-1 |3  |6  |4  |30 |10 |17 |51 |45 |22 |19 |7  |0  |0  |0  ...
+//     ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+//     0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
  
 </p>
@@ -276,6 +307,37 @@ IHeap<T> heapArray = new HeapArray<T>();
 // the balance of the tree.
 
 IAvlTree<int> avlTree = new AvlTreeLinked<int>();
+
+// Visualization:
+//
+//    Binary Tree
+//
+//        Depth 0 ------------------>    7
+//                                      / \
+//                                     /   \
+//                                    /     \
+//                                   /       \
+//                                  /         \
+//                                 /           \
+//                                /             \
+//                               /               \
+//        Depth 1 --------->    1                 22
+//                             / \               / \
+//                            /   \             /   \
+//                           /     \           /     \
+//        Depth 2 ---->    -4       4         17      45
+//                         / \     / \       / \     / \
+//        Depth 3 --->   -7  -1   3   6     10  19  30  51
+//
+//    Flattened into an Array
+//
+//        Root = 1
+//        Left Child = 2 * Index
+//        Right Child = 2* Index + 1
+//         __________________________________________________________________________
+//        |0  |7  |1  |22 |-4 |4  |17 |45 |-7 |-1 |3  |6  |10 |19 |30 |51 |0  |0  |0  ...
+//         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+//         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
 </p>
@@ -292,6 +354,37 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 // an AVL Tree, but uses different algorithms to maintain the balance of the tree.
 
 IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+
+// Visualization:
+//
+//    Binary Tree
+//
+//        Color Black ---------------->    7
+//                                        / \
+//                                       /   \
+//                                      /     \
+//                                     /       \
+//                                    /         \
+//                                   /           \
+//                                  /             \
+//                                 /               \
+//        Color Red --------->    1                 22
+//                               / \               / \
+//                              /   \             /   \
+//                             /     \           /     \
+//        Color Black --->   -4       4         17      45
+//                           / \     / \       / \     / \
+//        Color Red --->   -7  -1   3   6     10  19  30  51
+//
+//    Flattened into an Array
+//
+//        Root = 1
+//        Left Child = 2 * Index
+//        Right Child = 2* Index + 1
+//         __________________________________________________________________________
+//        |0  |7  |1  |22 |-4 |4  |17 |45 |-7 |-1 |3  |6  |10 |19 |30 |51 |0  |0  |0  ...
+//         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+//         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
 </p>
