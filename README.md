@@ -248,7 +248,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 ## Data Structures
 
 <details>
- <summary><strong>Heap</strong></summary>
+ <summary>Heap</summary>
 <p>
 
 ```csharp
@@ -295,7 +295,7 @@ IHeap<T> heapArray = new HeapArray<T>();
 </details>
 
 <details>
- <summary><strong>AVL Tree</strong></summary>
+ <summary>AVL Tree</summary>
 <p>
 
 ```csharp
@@ -344,7 +344,7 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 </details>
 
 <details>
- <summary><strong>Red-Black Tree</strong></summary>
+ <summary>Red-Black Tree</summary>
 <p>
 
 ```csharp
@@ -391,7 +391,7 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 </details>
 
 <details>
- <summary><strong>Omnitree</strong></summary>
+ <summary>Omnitree</summary>
 <p>
 
 ```csharp
@@ -525,7 +525,7 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 </details>
 
 <details>
- <summary><strong>Tree</strong></summary>
+ <summary>Tree</summary>
 <p>
 
 ```csharp
@@ -536,7 +536,7 @@ Tree<T> treeMap = new TreeMap<T>(...);
 </details>
 
 <details>
- <summary><strong>Graph</strong></summary>
+ <summary>Graph</summary>
 <p>
 
 ```csharp
@@ -627,6 +627,27 @@ _This feature still needs to be cleaned up, but you can see the code documentati
 https://zacharypatten.github.io/Towel/Documentation
 
 _Using the extension methods in the Towel project, I was able to extract the XML documentation on the members, and dump them into a page on the GitHub Pages of this repository._
+
+## Notes
+
+<details>
+ <summary>Runtime Complexities</summary>
+<p>
+
+One goal of the project is to have accurate runtime complexity documentation.
+
+```csharp
+//    O(...): upper bound
+//
+//    Ω(...): lower bound
+//
+//    Θ(...): upper and lower bound
+//
+//    ε(...): expected average
+```
+
+</p>
+</details>
 
 ## Developer(s)
 
