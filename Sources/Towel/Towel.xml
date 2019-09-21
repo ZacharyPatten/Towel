@@ -14677,7 +14677,7 @@
         </member>
         <member name="T:Towel.DataStructures.ISet`1">
             <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
+            <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.SetHashLinked`1">
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
@@ -14712,8 +14712,8 @@
             <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Add(`0)">
-            <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key value to use as the look-up reference in the hash table.</param>
+            <summary>Adds a value to the set.</summary>
+            <param name="value">The value to add to the set.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Remove(`0)">
@@ -14772,7 +14772,8 @@
         </member>
         <member name="T:Towel.DataStructures.Set`2">
             <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
+            <typeparam name="Structure">The type of structure to use for each index of the hash table.</typeparam>
+            <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.Set`2.StructureFactory">
             <summary>Factory for constructing new structures.</summary>
@@ -14787,6 +14788,7 @@
         </member>
         <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
+            <param name="factory">The factory delegate.</param>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
             <param name="expectedCount">The expected count of the set.</param>
@@ -14795,6 +14797,7 @@
         <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1},Towel.DataStructures.Set{`0,`1}.StructureClone)">
             <summary>This constructor is for cloning purposes.</summary>
             <param name="set">The set to clone.</param>
+            <param name="clone">A delegate for cloning the structures.</param>
             <runtime>O(n)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Set`2.TableSize">
@@ -14815,7 +14818,7 @@
         </member>
         <member name="M:Towel.DataStructures.Set`2.Add(`1)">
             <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key value to use as the look-up reference in the hash table.</param>
+            <param name="value">The key value to use as the look-up reference in the hash table.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Set`2.Remove(`1)">

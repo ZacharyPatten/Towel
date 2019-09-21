@@ -3,7 +3,7 @@
 namespace Towel.DataStructures
 {
 	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
+	/// <typeparam name="T">The type of values to store in the set.</typeparam>
 	public interface ISet<T> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.IAuditable<T>,
@@ -112,8 +112,8 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds a value to the hash table.</summary>
-		/// <param name="key">The key value to use as the look-up reference in the hash table.</param>
+		/// <summary>Adds a value to the set.</summary>
+		/// <param name="value">The value to add to the set.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Add(T value)
 		{
@@ -400,7 +400,8 @@ namespace Towel.DataStructures
 	}
 
 	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
+	/// <typeparam name="Structure">The type of structure to use for each index of the hash table.</typeparam>
+	/// <typeparam name="T">The type of values to store in the set.</typeparam>
 	public class Set<Structure, T> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
@@ -433,6 +434,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Constructs a hashed set.</summary>
+		/// <param name="factory">The factory delegate.</param>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
@@ -464,6 +466,7 @@ namespace Towel.DataStructures
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="set">The set to clone.</param>
+		/// <param name="clone">A delegate for cloning the structures.</param>
 		/// <runtime>O(n)</runtime>
 		private Set(Set<Structure, T> set, StructureClone clone)
 		{
@@ -508,7 +511,7 @@ namespace Towel.DataStructures
 		#region Add
 
 		/// <summary>Adds a value to the hash table.</summary>
-		/// <param name="key">The key value to use as the look-up reference in the hash table.</param>
+		/// <param name="value">The key value to use as the look-up reference in the hash table.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Add(T value)
 		{
