@@ -3544,15 +3544,15 @@
             <typeparam name="K">The generic key type of this map.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
-            <summary>Constructs a hashed set.</summary>
+            <summary>Constructs a hashed map.</summary>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
-            <param name="expectedCount">The expected count of the set.</param>
+            <param name="expectedCount">The expected count of the map.</param>
             <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.DataStructures.MapHashLinked{`0,`1})">
             <summary>This constructor is for cloning purposes.</summary>
-            <param name="map">The set to clone.</param>
+            <param name="map">The map to clone.</param>
             <runtime>O(n)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.TableSize">
@@ -3560,7 +3560,7 @@
             <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Count">
-            <summary>The current number of values in the set.</summary>
+            <summary>The current number of values in the map.</summary>
             <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Hash">
@@ -3618,18 +3618,18 @@
             <runtime>O(n), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
-            <summary>Creates a shallow clone of this set.</summary>
-            <returns>A shallow clone of this set.</returns>
+            <summary>Creates a shallow clone of this map.</summary>
+            <returns>A shallow clone of this map.</returns>
             <runtime>Θ(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Contains(`1)">
             <summary>Determines if a value has been added to a map.</summary>
             <param name="key">The key of the value to look for in the map.</param>
-            <returns>True if the value has been added to the set or false if not.</returns>
+            <returns>True if the value has been added to the map or false if not.</returns>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Clear">
-            <summary>Removes all the values in the set.</summary>
+            <summary>Removes all the values in the map.</summary>
             <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0})">
@@ -3643,13 +3643,13 @@
             <runtime>Θ(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0})">
-            <summary>Steps through all the values of the set.</summary>
+            <summary>Steps through all the values of the map.</summary>
             <param name="step">The action to perform on every value in the map.</param>
             <returns>The status of the stepper.</returns>
             <runtime>Θ(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Steps through all the values of the set.</summary>
+            <summary>Steps through all the values of the map.</summary>
             <param name="step">The action to perform on every value in the map.</param>
             <returns>The status of the stepper.</returns>
             <runtime>Θ(n * step)</runtime>
@@ -3688,13 +3688,13 @@
             <runtime>Θ(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.GetEnumerator">
-            <summary>Gets the enumerator for the set.</summary>
-            <returns>The enumerator for the set.</returns>
+            <summary>Gets the enumerator for the map.</summary>
+            <returns>The enumerator for the map.</returns>
             <runtime>O(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.ToArray">
-            <summary>Puts all the values in this set into an array.</summary>
-            <returns>An array with all the values in the set.</returns>
+            <summary>Puts all the values in this map into an array.</summary>
+            <returns>An array with all the values in the map.</returns>
             <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.Omnitree">

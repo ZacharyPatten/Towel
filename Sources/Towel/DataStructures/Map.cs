@@ -224,10 +224,10 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs a hashed set.</summary>
+		/// <summary>Constructs a hashed map.</summary>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
-		/// <param name="expectedCount">The expected count of the set.</param>
+		/// <param name="expectedCount">The expected count of the map.</param>
 		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
 			Equate<K> equate = null,
@@ -253,7 +253,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>This constructor is for cloning purposes.</summary>
-		/// <param name="map">The set to clone.</param>
+		/// <param name="map">The map to clone.</param>
 		/// <runtime>O(n)</runtime>
 		internal MapHashLinked(MapHashLinked<T, K> map)
 		{
@@ -271,7 +271,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public int TableSize => _table.Length;
 
-		/// <summary>The current number of values in the set.</summary>
+		/// <summary>The current number of values in the map.</summary>
 		/// <runtime>O(1)</runtime>
 		public int Count => _count;
 
@@ -320,7 +320,7 @@ namespace Towel.DataStructures
 			{
 				if (_equate(node.Key, key))
 				{
-					exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
+					exception = new ArgumentException("Attempting to add a duplicate keyed value to a map.", nameof(value));
 					return false;
 				}
 			}
@@ -577,8 +577,8 @@ namespace Towel.DataStructures
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this set.</summary>
-		/// <returns>A shallow clone of this set.</returns>
+		/// <summary>Creates a shallow clone of this map.</summary>
+		/// <returns>A shallow clone of this map.</returns>
 		/// <runtime>Θ(n)</runtime>
 		public MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
 
@@ -588,7 +588,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Determines if a value has been added to a map.</summary>
 		/// <param name="key">The key of the value to look for in the map.</param>
-		/// <returns>True if the value has been added to the set or false if not.</returns>
+		/// <returns>True if the value has been added to the map or false if not.</returns>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(K key)
 		{
@@ -611,7 +611,7 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Removes all the values in the set.</summary>
+		/// <summary>Removes all the values in the map.</summary>
 		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
@@ -651,7 +651,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the values of the set.</summary>
+		/// <summary>Steps through all the values of the map.</summary>
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
@@ -670,7 +670,7 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		/// <summary>Steps through all the values of the set.</summary>
+		/// <summary>Steps through all the values of the map.</summary>
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
@@ -790,8 +790,8 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the set.</summary>
-		/// <returns>The enumerator for the set.</returns>
+		/// <summary>Gets the enumerator for the map.</summary>
+		/// <returns>The enumerator for the map.</returns>
 		/// <runtime>O(n)</runtime>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
@@ -808,8 +808,8 @@ namespace Towel.DataStructures
 
 		#region ToArray
 
-		/// <summary>Puts all the values in this set into an array.</summary>
-		/// <returns>An array with all the values in the set.</returns>
+		/// <summary>Puts all the values in this map into an array.</summary>
+		/// <returns>An array with all the values in the map.</returns>
 		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
