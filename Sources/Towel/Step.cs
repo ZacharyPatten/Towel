@@ -221,6 +221,18 @@ namespace Towel
 				}
 			};
 
+		/// <summary>Steps through a set number of integers.</summary>
+		/// <typeparam name="T">The generic type of the stepper.</typeparam>
+		/// <param name="iterations">The number of times to iterate.</param>
+		/// <param name="step">The step function.</param>
+		public static void Iterate(int iterations, Step<int> step)
+		{
+			for (int i = 0; i < iterations; i++)
+			{
+				step(i);
+			}
+		}
+
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="enumerable">The Ienumerable to convert.</param>
@@ -300,7 +312,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Equate<T> equate, Hash<T> hash)
 		{
 			bool duplicateFound = false;
-			SetHashArray<T> set = new SetHashArray<T>(equate, hash);
+			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))
@@ -327,7 +339,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Equate<T> equate, Hash<T> hash)
 		{
 			bool duplicateFound = false;
-			SetHashArray<T> set = new SetHashArray<T>(equate, hash);
+			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))

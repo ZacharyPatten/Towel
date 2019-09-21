@@ -31,7 +31,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			Towel.DataStructures.ISet<char> set = new SetHashArray<char>();
+			ISet<char> set = new SetHashLinked<char>();
 			foreach (char c in chars)
 			{
 				set.Add(c);

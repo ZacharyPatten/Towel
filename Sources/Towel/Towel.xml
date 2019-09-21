@@ -14680,186 +14680,197 @@
             <typeparam name="T">The generic type of the structure.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.SetHashLinked`1">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
+            <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
+            <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0},System.Nullable{System.Int32})">
+            <summary>Constructs a hashed set.</summary>
+            <param name="equate">The equate delegate.</param>
+            <param name="hash">The hashing function.</param>
+            <param name="expectedCount">The expected count of the set.</param>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0},System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(stepper).</remarks>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.DataStructures.SetHashLinked{`0})">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="set">The set to clone.</param>
+            <runtime>O(n)</runtime>
         </member>
         <member name="P:Towel.DataStructures.SetHashLinked`1.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <summary>The current size of the hashed table.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.SetHashLinked`1.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <remarks>Runetime: O(1).</remarks>
+            <summary>The current number of values in the set.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.SetHashLinked`1.Hash">
-            <summary>The function for calculating hash codes for this table.</summary>
+            <summary>The delegate for computing hash codes.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.SetHashLinked`1.Equate">
-            <summary>The function for equating keys in this table.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Contains(`0)">
-            <summary>Determines if this structure contains a given item.</summary>
-            <param name="item">The item to see if theis structure contains.</param>
-            <returns>True if the item is in the structure; False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Remove(`0)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.RemoveWithoutTrim(`0)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+            <summary>The delegate for equality checking.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Add(`0)">
             <summary>Adds a value to the hash table.</summary>
             <param name="key">The key value to use as the look-up reference in the hash table.</param>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Remove(`0)">
+            <summary>Removes a value from the set.</summary>
+            <param name="value">The value to remove.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.RemoveWithoutTrim(`0)">
+            <summary>Removes a value from the set.</summary>
+            <param name="value">The value to remove.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Resize(System.Int32)">
+            <summary>Resizes the table.</summary>
+            <param name="tableSize">The desired size of the table.</param>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Trim">
+            <summary>Trims the table to an appropriate size based on the current count.</summary>
+            <runtime>O(n), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Clone">
+            <summary>Creates a shallow clone of this set.</summary>
+            <returns>A shallow clone of this set.</returns>
+            <runtime>Θ(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Contains(`0)">
+            <summary>Determines if a value has been added to a set.</summary>
+            <param name="value">The value to look for in the set.</param>
+            <returns>True if the value has been added to the set or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.Clear">
+            <summary>Removes all the values in the set.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Remove_private(`0)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for the set.</summary>
+            <returns>The enumerator for the set.</returns>
+            <runtime>O(n)</runtime>
         </member>
-        <member name="T:Towel.DataStructures.SetHashArray`1">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashArray`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashArray`1.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashArray`1.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <remarks>Runetime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashArray`1.Hash">
-            <summary>The function for calculating hash codes for this table.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashArray`1.Equate">
-            <summary>The function for equating keys in this table.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashArray`1.GetEnumerator">
-            <summary>Gets the enumerator for this set.</summary>
-            <returns>The enumerator for this set.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashArray`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashArray`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.ToArray">
+            <summary>Puts all the values in this set into an array.</summary>
+            <returns>An array with all the values in the set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.Set`2">
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
+        <member name="T:Towel.DataStructures.Set`2.StructureFactory">
+            <summary>Factory for constructing new structures.</summary>
+            <param name="equate">A delegate for equality checks.</param>
+            <param name="hash">A delegate for computing hash codes.</param>
+            <returns>The constructed structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
+        <member name="T:Towel.DataStructures.Set`2.StructureClone">
+            <summary>Clones a structure.</summary>
+            <param name="structure">The structure to clone.</param>
+            <returns>A clone of the structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.Equate{`1},Towel.Hash{`1})">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
+        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
+            <summary>Constructs a hashed set.</summary>
+            <param name="equate">The equate delegate.</param>
+            <param name="hash">The hashing function.</param>
+            <param name="expectedCount">The expected count of the set.</param>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(stepper).</remarks>
+        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1},Towel.DataStructures.Set{`0,`1}.StructureClone)">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="set">The set to clone.</param>
+            <runtime>O(n)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Set`2.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <summary>The current size of the hashed table.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Set`2.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <remarks>Runetime: O(1).</remarks>
+            <summary>The current number of values in the set.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Set`2.Hash">
-            <summary>The function for calculating hash codes for this table.</summary>
+            <summary>The delegate for computing hash codes.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Set`2.Equate">
-            <summary>The function for equating keys in this table.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Contains(`1)">
-            <summary>Determines if this structure contains a given item.</summary>
-            <param name="item">The item to see if theis structure contains.</param>
-            <returns>True if the item is in the structure; False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Remove(`1)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.RemoveWithoutTrim(`1)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+            <summary>The delegate for equality checking.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Set`2.Add(`1)">
             <summary>Adds a value to the hash table.</summary>
             <param name="key">The key value to use as the look-up reference in the hash table.</param>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Remove(`1)">
+            <summary>Removes a value from the set.</summary>
+            <param name="value">The value to remove.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.RemoveWithoutTrim(`1)">
+            <summary>Removes a value from the set.</summary>
+            <param name="value">The value to remove.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Resize(System.Int32)">
+            <summary>Resizes the table.</summary>
+            <param name="tableSize">The desired size of the table.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Clone(Towel.DataStructures.Set{`0,`1}.StructureClone)">
+            <summary>Creates a shallow clone of this set.</summary>
+            <returns>A shallow clone of this set.</returns>
+            <runtime>Θ(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Contains(`1)">
+            <summary>Determines if a value has been added to a set.</summary>
+            <param name="value">The value to look for in the set.</param>
+            <returns>True if the value has been added to the set or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Clear">
+            <summary>Removes all the values in the set.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.Trim">
+            <summary>Trims the table to an appropriate size based on the current count.</summary>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Set`2.Stepper(Towel.Step{`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Set`2.Stepper(Towel.StepBreak{`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.Remove_private(`1)">
-            <summary>Removes a value from the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <remarks>Runtime: N/A. (I'm still editing this structure)</remarks>
+        <member name="M:Towel.DataStructures.Set`2.GetEnumerator">
+            <summary>Gets the enumerator for the set.</summary>
+            <returns>The enumerator for the set.</returns>
+            <runtime>O(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.Set`2.ToArray">
+            <summary>Puts all the values in this set into an array.</summary>
+            <returns>An array with all the values in the set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.SkipListLinked`1">
             <summary>Represents a collection of key-and-value pairs.</summary>
@@ -30512,7 +30523,7 @@
             <param name="toType">The return type fo the implicit casting operator.</param>
             <returns>True if the implicit casting operator exists or false if not.</returns>
         </member>
-        <member name="M:Towel.Meta.ConvertToCsharpSourceDefinition(System.Type)">
+        <member name="M:Towel.Meta.ConvertToCsharpSource(System.Type,System.Boolean)">
             <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
             <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
             <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
@@ -30918,6 +30929,12 @@
             <param name="iterations">The number of times to iterate.</param>
             <param name="func">The generation pattern for the iteration.</param>
             <returns>A stepper build from the iteration pattern.</returns>
+        </member>
+        <member name="M:Towel.Stepper.Iterate(System.Int32,Towel.Step{System.Int32})">
+            <summary>Steps through a set number of integers.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="iterations">The number of times to iterate.</param>
+            <param name="step">The step function.</param>
         </member>
         <member name="M:Towel.Stepper.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an IEnumerable into a stepper delegate./></summary>
