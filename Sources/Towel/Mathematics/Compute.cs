@@ -1713,7 +1713,7 @@ namespace Towel.Mathematics
 					maxOccurences = Math.Max(1, maxOccurences);
 				}
 			});
-			map.Pairs((value, key) =>
+			map.Stepper((value, key) =>
 			{
 				if (value == maxOccurences)
 				{

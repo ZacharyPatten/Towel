@@ -3416,51 +3416,119 @@
             <param name="key">The "index" to access of the structure.</param>
             <returns>The value at the index of the requested key.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.TryGet(`1,`0@)">
+        <member name="M:Towel.DataStructures.IMap`2.TryGet(`1,`0@,System.Exception@)">
             <summary>Tries to get a value by key.</summary>
             <param name="key">The key of the value to get.</param>
-            <param name="value">The value if it is found or default if not found.</param>
-            <returns>True if the value was found. False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.IMap`2.Get(`1)">
-            <summary>Gets an item by key.</summary>
-            <param name="key">The key of the pair to get.</param>
-            <returns>The by the provided key.</returns>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occured if not found.</param>
+            <returns>True if the key was found or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Set(`1,`0)">
-            <summary>Gets an item by key.</summary>
-            <param name="key">The key of the pair to set.</param>
-            <param name="value">The value of the pair to set.</param>
-            <returns>The by the provided key.</returns>
+            <summary>Sets value in the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be set.</param>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Add(`1,`0)">
-            <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key to use as the look-up reference in the hash table.</param>
-            <param name="value">The value to store in the hash table.</param>
+        <member name="M:Towel.DataStructures.IMap`2.TryAdd(`1,`0,System.Exception@)">
+            <summary>Tries to add a value to the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occured if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.TryRemove(`1)">
+        <member name="M:Towel.DataStructures.IMap`2.TryRemove(`1,System.Exception@)">
             <summary>Tries to remove a key-value pair from the map.</summary>
             <param name="key">The key of the key-value pair to remove.</param>
+            <param name="exception">The exception that occurred if the removal failed.</param>
             <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRef{`0})">
+            <summary>Steps through all the values in the map.</summary>
+            <param name="step">The action to perform on all the values.</param>
+        </member>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRefBreak{`0})">
+            <summary>Steps through all the values in the map.</summary>
+            <param name="step">The action to perform on all the values.</param>
+            <returns>The status of the stepper.</returns>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Keys(Towel.Step{`1})">
             <summary>Steps through all the keys.</summary>
-            <param name="step">The step function.</param>
+            <param name="step">The action to perform on all the keys.</param>
         </member>
         <member name="M:Towel.DataStructures.IMap`2.Keys(Towel.StepBreak{`1})">
             <summary>Steps through all the keys.</summary>
-            <param name="step">The step function.</param>
+            <param name="step">The action to perform on all the keys.</param>
+            <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Pairs(Towel.Step{`0,`1})">
-            <summary>Steps through all the pairs.</summary>
-            <param name="step">The step function.</param>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.Step{`0,`1})">
+            <summary>Steps through all the keys and values.</summary>
+            <param name="step">The action to perform on all the keys and values.</param>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Pairs(Towel.StepBreak{`0,`1})">
-            <summary>Steps through all the pairs.</summary>
-            <param name="step">The step function.</param>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepBreak{`0,`1})">
+            <summary>Steps through all the keys and values.</summary>
+            <param name="step">The action to perform on all the keys and values.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRef1{`0,`1})">
+            <summary>Steps through all the keys and values.</summary>
+            <param name="step">The action to perform on all the keys and values.</param>
+        </member>
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRefBreak1{`0,`1})">
+            <summary>Steps through all the keys and values.</summary>
+            <param name="step">The action to perform on all the keys and values.</param>
+            <returns>The status of the stepper.</returns>
         </member>
         <member name="T:Towel.DataStructures.Map">
             <summary>Static Extension class for Map interface implementers.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Map.TryAdd``2(Towel.DataStructures.IMap{``0,``1},``1,``0)">
+            <summary>Tries to get a value in a map by key.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to get the value from.</param>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value of the provided key in the map or default.</param>
+            <returns>True if the key was found or false if not found.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.Add``2(Towel.DataStructures.IMap{``0,``1},``1,``0)">
+            <summary>Gets a value in a map by key.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to get the value from.</param>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value to add to the map.</param>
+            <returns>The value of the provided key in the map.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0@)">
+            <summary>Tries to get a value in a map by key.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to get the value from.</param>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value of the provided key in the map or default.</param>
+            <returns>True if the key was found or false if not found.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.Get``2(Towel.DataStructures.IMap{``0,``1},``1)">
+            <summary>Gets a value in a map by key.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to get the value from.</param>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value of the provided key in the map.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.TryRemove``2(Towel.DataStructures.IMap{``0,``1},``1)">
+            <summary>Tries to remove a keyed value.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to remove the value from.</param>
+            <param name="key">The key of the value to remove.</param>
+            <returns>True if the removal was successful for false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.Remove``2(Towel.DataStructures.IMap{``0,``1},``1)">
+            <summary>Tries to remove a keyed value.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to remove the value from.</param>
+            <param name="key">The key of the value to remove.</param>
         </member>
         <member name="M:Towel.DataStructures.Map.Keys``2(Towel.DataStructures.IMap{``0,``1})">
             <summary>Gets the stepper for this data structure.</summary>
@@ -3475,238 +3543,159 @@
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(stepper).</remarks>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
+            <summary>Constructs a hashed set.</summary>
+            <param name="equate">The equate delegate.</param>
+            <param name="hash">The hashing function.</param>
+            <param name="expectedCount">The expected count of the set.</param>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.Item(`1)">
-            <summary>Gets the value of the specified key.</summary>
-            <param name="key">The key to get the value of.</param>
-            <returns>The value relative to the provided key.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.DataStructures.MapHashLinked{`0,`1})">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="map">The set to clone.</param>
+            <runtime>O(n)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <summary>The current size of the hashed table.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <remarks>Runetime: O(1).</remarks>
+            <summary>The current number of values in the set.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Hash">
-            <summary>The function for calculating hash codes for this table.</summary>
+            <summary>The delegate for computing hash codes.</summary>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Equate">
-            <summary>The function for equating keys in this table.</summary>
+            <summary>The delegate for equality checking.</summary>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Add(`1,`0)">
-            <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key value to use as the look-up reference in the hash table.</param>
-            <param name="value">The value to store relative to the key.</param>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
+        <member name="P:Towel.DataStructures.MapHashLinked`2.Item(`1)">
+            <summary>Gets the value of a specified key.</summary>
+            <param name="key">The key to get the value of.</param>
+            <returns>The value of the key.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Clear">
-            <summary>Returns the data structure to an empty state.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.TryAdd(`1,`0,System.Exception@)">
+            <summary>Tries to add a value to the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occured if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Contains(`1)">
-            <summary>Determines if this structure contains a given key.</summary>
-            <param name="key">The key to see if theis structure contains.</param>
-            <returns>True if the key is in the structure. False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Get(`1)">
-            <summary>Gets an item by key.</summary>
-            <param name="key">The key of the item to get.</param>
-            <returns>The by the provided key.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryGet(`1,`0@)">
+        <member name="M:Towel.DataStructures.MapHashLinked`2.TryGet(`1,`0@,System.Exception@)">
             <summary>Tries to get a value by key.</summary>
             <param name="key">The key of the value to get.</param>
-            <param name="value">The value if it was found or default if not found.</param>
-            <returns>True if the value was found. False if not.</returns>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occured if not found.</param>
+            <returns>True if the key was found or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Set(`1,`0)">
-            <summary>Sets an item by key.</summary>
-            <param name="key">The key of the item to set.</param>
-            <param name="value">The value to set relative to the key.</param>
+            <summary>Sets value in the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be set.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Remove(`1)">
-            <summary>Removes a value from the hash table.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemove(`1,System.Exception@)">
+            <summary>Tries to remove a keyed value.</summary>
             <param name="key">The key of the value to remove.</param>
+            <param name="exception">The exception that occurred if the removal failed.</param>
+            <returns>True if the removal was successful for false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.RemoveWithoutTrim(`1)">
-            <summary>Removes a value from the hash table.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemoveWithoutTrim(`1,System.Exception@)">
+            <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
             <param name="key">The key of the value to remove.</param>
+            <param name="exception">The exception that occurred if the removal failed.</param>
+            <returns>True if the removal was successful for false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemove(`1)">
-            <summary>Tries to remove a key-value pair from the map.</summary>
-            <param name="key">The key of the key-value pair to remove.</param>
-            <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemoveWithoutTrim(`1)">
-            <summary>Tries to remove a key-value pair from the map.</summary>
-            <param name="key">The key of the key-value pair to remove.</param>
-            <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.Step{`1})">
-            <summary>Steps through all the keys.</summary>
-            <param name="function">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.StepBreak{`1})">
-            <summary>Steps through all the keys.</summary>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Pairs(Towel.Step{`0,`1})">
-            <summary>Steps through all the pairs.</summary>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Pairs(Towel.StepBreak{`0,`1})">
-            <summary>Steps through all the pairs.</summary>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.GetEnumerator">
-            <summary>Gets the enumerator for the data structure.</summary>
-            <returns>The enumerator for the data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.ToArray">
-            <summary>Places all the values of the data structure into an array.</summary>
-            <returns>An array with all the values in the data structure.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Resize(System.Int32)">
+            <summary>Resizes the table.</summary>
+            <param name="tableSize">The desired size of the table.</param>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Trim">
-            <summary>Trims the map table size to the first prime number following the current count.</summary>
+            <summary>Trims the table to an appropriate size based on the current count.</summary>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="T:Towel.DataStructures.MapHashArray`2">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
-            <typeparam name="K">The generic key type of this map.</typeparam>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
+            <summary>Creates a shallow clone of this set.</summary>
+            <returns>A shallow clone of this set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.#ctor">
-            <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Contains(`1)">
+            <summary>Determines if a value has been added to a map.</summary>
+            <param name="key">The key of the value to look for in the map.</param>
+            <returns>True if the value has been added to the set or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.#ctor(Towel.Equate{`1},Towel.Hash{`1})">
-            <summary>Constructs a new hash table instance.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Clear">
+            <summary>Removes all the values in the set.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashArray`2.Item(`1)">
-            <summary>Gets/Sets the value relative to a key.</summary>
-            <param name="key">The key to get/set teh value of.</param>
-            <returns>The value relative to the provided key.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashArray`2.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <runtime>O(1)</runtime>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRef{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashArray`2.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <runtime>O(1)</runtime>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0})">
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashArray`2.Hash">
-            <summary>The function for calculating hash codes for this table.</summary>
-            <runtime>O(1)</runtime>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRefBreak{`0})">
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashArray`2.Equate">
-            <summary>The function for equating keys in this table.</summary>
-            <runtime>O(1)</runtime>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.Step{`1})">
+            <summary>Steps through all the keys of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Add(`1,`0)">
-            <summary>Adds a key value pair to the map.</summary>
-            <param name="key">The key of the pair to add.</param>
-            <param name="value">The value of the pair to add.</param>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.StepBreak{`1})">
+            <summary>Steps through all the keys of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.TryAdd(`1,`0)">
-            <summary>Adds a key value pair to the map.</summary>
-            <param name="key">The key of the pair to add.</param>
-            <param name="value">The value of the pair to add.</param>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Clear">
-            <summary>Returns the data structure to an empty state.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.ClearWithoutShrink">
-            <summary>Returns the data structure to an empty state.</summary>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRef1{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Contains(`1)">
-            <summary>Checks if a key exists in the map.</summary>
-            <param name="key">The key to look for.</param>
-            <returns>True if the key exists in the map. False if not.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRefBreak1{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Get(`1)">
-            <summary>Gets an item by key.</summary>
-            <param name="key">The key of the item to get.</param>
-            <returns>The value of the provided key.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.GetEnumerator">
+            <summary>Gets the enumerator for the set.</summary>
+            <returns>The enumerator for the set.</returns>
+            <runtime>O(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.TryGet(`1,`0@)">
-            <summary>Tries to get a value by key.</summary>
-            <param name="key">The key of the value to get.</param>
-            <param name="value">The value if found or default if not found.</param>
-            <returns>True if the value is found. False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Set(`1,`0)">
-            <summary>Sets the value of a given key in the map.</summary>
-            <param name="key">The key to set the value of in the map.</param>
-            <param name="value">The value to set relative to the key in the map.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Remove(`1)">
-            <summary>Removes a pair from the map.</summary>
-            <param name="removal">The key of the pair to remove from the map.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.RemoveWithoutShrink(`1)">
-            <summary>Removes a pair from the map without triggering a shrink in the data structure.</summary>
-            <param name="removal">The key of the pair to remove from the map.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.TryRemove(`1)">
-            <summary>Tries to remove a key-value pair from the map.</summary>
-            <param name="key">The key of the key-value pair to remove.</param>
-            <returns>True if the item was removed. False if the item was not found.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.ToArray">
-            <summary>Puts all the values of this structure into an array.</summary>
-            <returns>An array with all the values of this structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Trim">
-            <summary>Trims the data structure to only the necessary size.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Keys(Towel.Step{`1})">
-            <summary>Steps through all the keys.</summary>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Keys(Towel.StepBreak{`1})">
-            <summary>Steps through all the keys.</summary>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Pairs(Towel.Step{`0,`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.Pairs(Towel.StepBreak{`0,`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashArray`2.GetEnumerator">
-            <summary>Gets the enumerator for the data structure.</summary>
-            <returns>The enumerator for the data structure.</returns>
+        <member name="M:Towel.DataStructures.MapHashLinked`2.ToArray">
+            <summary>Puts all the values in this set into an array.</summary>
+            <returns>An array with all the values in the set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.Omnitree">
             <summary>Contains the necessary type definitions for the various omnitree types.</summary>
@@ -30777,10 +30766,10 @@
             <summary>Status of data structure iteration.</summary>
         </member>
         <member name="F:Towel.StepStatus.Continue">
-            <summary>Continue normal iteration.</summary>
+            <summary>Stepper was not broken.</summary>
         </member>
         <member name="F:Towel.StepStatus.Break">
-            <summary>Iteration cancelation.</summary>
+            <summary>Stepper was broken.</summary>
         </member>
         <member name="T:Towel.Step`1">
             <summary>Delegate for data structure iteration.</summary>
@@ -30838,6 +30827,20 @@
             <param name="a">The first component of the step.</param>
             <param name="b">The second component of the step.</param>
         </member>
+        <member name="T:Towel.StepRef1`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+        </member>
+        <member name="T:Towel.StepRef2`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+        </member>
         <member name="T:Towel.StepBreak`2">
             <summary>Delegate for an action to perform while stepping.</summary>
             <typeparam name="T1">The type of the object to step on.</typeparam>
@@ -30847,6 +30850,22 @@
             <returns>The status of the iteration. Allows breaking functionality.</returns>
         </member>
         <member name="T:Towel.StepRefBreak`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepRefBreak1`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepRefBreak2`2">
             <summary>Delegate for an action to perform while stepping.</summary>
             <typeparam name="T1">The type of the object to step on.</typeparam>
             <typeparam name="T2">The type of the object to step on.</typeparam>
@@ -30925,13 +30944,6 @@
             <param name="stepper">The stepper to filter.</param>
             <param name="predicate">The predicate of the where filter.</param>
             <returns>The filtered stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Iterate``1(System.Int32,System.Func{System.Int32,``0})">
-            <summary>Creates a stepper from an iteration pattern.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="iterations">The number of times to iterate.</param>
-            <param name="func">The generation pattern for the iteration.</param>
-            <returns>A stepper build from the iteration pattern.</returns>
         </member>
         <member name="M:Towel.Stepper.Iterate(System.Int32,Towel.Step{System.Int32})">
             <summary>Steps through a set number of integers.</summary>

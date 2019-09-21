@@ -496,13 +496,13 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Traversal: ");
-				mapHashLinked.Keys(i => Console.WriteLine("      " + i + "->" + mapHashLinked[i]));
+				mapHashLinked.Stepper((value, key) => Console.WriteLine("      " + key + "->" + value));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				mapHashLinked.Remove(a);
 				Console.Write("    Remove(" + a + "): ");
-				mapHashLinked.Keys(i => Console.Write(i));
+				mapHashLinked.Keys(key => Console.Write(key));
 				Console.WriteLine();
 
 				int b = random.Next(0, test);

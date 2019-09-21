@@ -127,35 +127,36 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
-			for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
+			for (Node node = _table[location]; node != null; node = node.Next)
 			{
-				if (_equate(bucket.Value, value))
+				if (_equate(node.Value, value))
 				{
 					throw new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
 				}
 			}
 
-			// add the value
-			Node node = new Node(value, _table[location]);
-			_table[location] = node;
+			{
+				// add the value
+				Node node = new Node(value, _table[location]);
+				_table[location] = node;
+			}
 
 			// check if the table needs to grow
 			if (++_count > _table.Length * _maxLoadFactor)
 			{
-				if (_count == int.MaxValue)
-				{
-					throw new InvalidOperationException("maximum size of hash table reached.");
-				}
-
 				// calculate new table size
-				int tableSize = (int)((_count * 2) * (1 / _maxLoadFactor));
-				while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
+				if (tableSizeFloat <= int.MaxValue)
 				{
-					tableSize++;
-				}
+					int tableSize = (int)tableSizeFloat;
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					{
+						tableSize++;
+					}
 
-				// resize the table
-				Resize(tableSize);
+					// resize the table
+					Resize(tableSize);
+				}
 			}
 		}
 
@@ -298,9 +299,9 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
-			for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
+			for (Node node = _table[location]; node != null; node = node.Next)
 			{
-				if (_equate(bucket.Value, value))
+				if (_equate(node.Value, value))
 				{
 					return true;
 				}

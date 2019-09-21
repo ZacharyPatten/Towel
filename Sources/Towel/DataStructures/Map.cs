@@ -12,7 +12,7 @@ namespace Towel.DataStructures
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<K>,
-		DataStructure.IRemovable<K>,
+		//DataStructure.IRemovable<K>,
 		DataStructure.IEquating<K>
 	{
 		#region Properties
@@ -28,38 +28,53 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value if it is found or default if not found.</param>
-		/// <returns>True if the value was found. False if not.</returns>
-		bool TryGet(K key, out T value);
-		/// <summary>Gets an item by key.</summary>
-		/// <param name="key">The key of the pair to get.</param>
-		/// <returns>The by the provided key.</returns>
-		T Get(K key);
-		/// <summary>Gets an item by key.</summary>
-		/// <param name="key">The key of the pair to set.</param>
-		/// <param name="value">The value of the pair to set.</param>
-		/// <returns>The by the provided key.</returns>
+		/// <param name="value">The value if found or default.</param>
+		/// <param name="exception">The exception that occured if not found.</param>
+		/// <returns>True if the key was found or false if not.</returns>
+		bool TryGet(K key, out T value, out Exception exception);
+		/// <summary>Sets value in the map.</summary>
+		/// <param name="key">The key of the value.</param>
+		/// <param name="value">The value to be set.</param>
 		void Set(K key, T value);
-		/// <summary>Adds a value to the hash table.</summary>
-		/// <param name="key">The key to use as the look-up reference in the hash table.</param>
-		/// <param name="value">The value to store in the hash table.</param>
-		void Add(K key, T value);
+		/// <summary>Tries to add a value to the map.</summary>
+		/// <param name="key">The key of the value.</param>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occured if the add failed.</param>
+		/// <returns>True if the value was added or false if not.</returns>
+		bool TryAdd(K key, T value, out Exception exception);
 		/// <summary>Tries to remove a key-value pair from the map.</summary>
 		/// <param name="key">The key of the key-value pair to remove.</param>
+		/// <param name="exception">The exception that occurred if the removal failed.</param>
 		/// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-		bool TryRemove(K key);
+		bool TryRemove(K key, out Exception exception);
+		/// <summary>Steps through all the values in the map.</summary>
+		/// <param name="step">The action to perform on all the values.</param>
+		void Stepper(StepRef<T> step);
+		/// <summary>Steps through all the values in the map.</summary>
+		/// <param name="step">The action to perform on all the values.</param>
+		/// <returns>The status of the stepper.</returns>
+		StepStatus Stepper(StepRefBreak<T> step);
 		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The step function.</param>
+		/// <param name="step">The action to perform on all the keys.</param>
 		void Keys(Step<K> step);
 		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The step function.</param>
+		/// <param name="step">The action to perform on all the keys.</param>
+		/// <returns>The status of the stepper.</returns>
 		StepStatus Keys(StepBreak<K> step);
-		/// <summary>Steps through all the pairs.</summary>
-		/// <param name="step">The step function.</param>
-		void Pairs(Step<T, K> step);
-		/// <summary>Steps through all the pairs.</summary>
-		/// <param name="step">The step function.</param>
-		StepStatus Pairs(StepBreak<T, K> step);
+		/// <summary>Steps through all the keys and values.</summary>
+		/// <param name="step">The action to perform on all the keys and values.</param>
+		void Stepper(Step<T, K> step);
+		/// <summary>Steps through all the keys and values.</summary>
+		/// <param name="step">The action to perform on all the keys and values.</param>
+		/// <returns>The status of the stepper.</returns>
+		StepStatus Stepper(StepBreak<T, K> step);
+		/// <summary>Steps through all the keys and values.</summary>
+		/// <param name="step">The action to perform on all the keys and values.</param>
+		void Stepper(StepRef1<T, K> step);
+		/// <summary>Steps through all the keys and values.</summary>
+		/// <param name="step">The action to perform on all the keys and values.</param>
+		/// <returns>The status of the stepper.</returns>
+		StepStatus Stepper(StepRefBreak1<T, K> step);
 
 		#endregion
 	}
@@ -69,6 +84,98 @@ namespace Towel.DataStructures
 	{
 		#region Extensions
 
+		#region Add
+
+		/// <summary>Tries to get a value in a map by key.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to get the value from.</param>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value of the provided key in the map or default.</param>
+		/// <returns>True if the key was found or false if not found.</returns>
+		public static bool TryAdd<T, K>(this IMap<T, K> map, K key, T value)
+		{
+			return map.TryAdd(key, value, out _);
+		}
+
+		/// <summary>Gets a value in a map by key.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to get the value from.</param>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value to add to the map.</param>
+		/// <returns>The value of the provided key in the map.</returns>
+		public static void Add<T, K>(this IMap<T, K> map, K key, T value)
+		{
+			if (!map.TryAdd(key, value, out Exception exception))
+			{
+				throw exception;
+			}
+		}
+
+		#endregion
+
+		#region Get
+
+		/// <summary>Tries to get a value in a map by key.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to get the value from.</param>
+		/// <param name="key">The key of the value to get.</param>
+		/// <param name="value">The value of the provided key in the map or default.</param>
+		/// <returns>True if the key was found or false if not found.</returns>
+		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T value)
+		{
+			return map.TryGet(key, out value, out _);
+		}
+
+		/// <summary>Gets a value in a map by key.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to get the value from.</param>
+		/// <param name="key">The key of the value to get.</param>
+		/// <returns>The value of the provided key in the map.</returns>
+		public static T Get<T, K>(this IMap<T, K> map, K key)
+		{
+			if (!map.TryGet(key, out T value, out Exception exception))
+			{
+				throw exception;
+			}
+			return value;
+		}
+
+		#endregion
+
+		#region Remove
+
+		/// <summary>Tries to remove a keyed value.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to remove the value from.</param>
+		/// <param name="key">The key of the value to remove.</param>
+		/// <returns>True if the removal was successful for false if not.</returns>
+		public static bool TryRemove<T, K>(this IMap<T, K> map, K key)
+		{
+			return map.TryRemove(key, out _);
+		}
+
+		/// <summary>Tries to remove a keyed value.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to remove the value from.</param>
+		/// <param name="key">The key of the value to remove.</param>
+		public static void Remove<T, K>(this IMap<T, K> map, K key)
+		{
+			if (!map.TryRemove(key, out Exception exception))
+			{
+				throw exception;
+			}
+		}
+
+		#endregion
+
+		#region Stepper and IEnumerable
+
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
 		public static Stepper<K> Keys<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
@@ -76,6 +183,8 @@ namespace Towel.DataStructures
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
 		public static StepperBreak<K> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+
+		#endregion
 
 		#endregion
 	}
@@ -115,610 +224,69 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <remarks>Runtime: O(stepper).</remarks>
-		public MapHashLinked(Equate<K> equate = null, Hash<K> hash = null, int expectedCount = 0)
+		/// <summary>Constructs a hashed set.</summary>
+		/// <param name="equate">The equate delegate.</param>
+		/// <param name="hash">The hashing function.</param>
+		/// <param name="expectedCount">The expected count of the set.</param>
+		/// <runtime>O(1)</runtime>
+		public MapHashLinked(
+			Equate<K> equate = null,
+			Hash<K> hash = null,
+			int? expectedCount = null)
 		{
-			if (expectedCount > 0)
+			if (expectedCount.HasValue && expectedCount.Value > 0)
 			{
-				int prime = (int)(expectedCount * (1 / _maxLoadFactor));
-				while (!Compute.IsPrime(prime))
+				int tableSize = (int)(expectedCount.Value * (1 / _maxLoadFactor));
+				while (!Towel.Mathematics.Compute.IsPrime(tableSize))
 				{
-					prime++;
+					tableSize++;
 				}
-				_table = new Node[prime];
+				_table = new Node[tableSize];
 			}
 			else
 			{
-				_table = new Node[Towel.Hash.TableSizes[0]];
+				_table = new Node[2];
 			}
 			_equate = equate ?? Towel.Equate.Default;
 			_hash = hash ?? Towel.Hash.Default;
 			_count = 0;
 		}
 
-		private MapHashLinked(MapHashLinked<T, K> setHashList)
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="map">The set to clone.</param>
+		/// <runtime>O(n)</runtime>
+		internal MapHashLinked(MapHashLinked<T, K> map)
 		{
-			_equate = setHashList._equate;
-			_hash = setHashList._hash;
-			_table = setHashList._table.Clone() as Node[];
-			_count = setHashList._count;
+			_equate = map._equate;
+			_hash = map._hash;
+			_table = (Node[])map._table.Clone();
+			_count = map._count;
 		}
 
 		#endregion
 
 		#region Properties
 
-		/// <summary>Gets the value of the specified key.</summary>
+		/// <summary>The current size of the hashed table.</summary>
+		/// <runtime>O(1)</runtime>
+		public int TableSize => _table.Length;
+
+		/// <summary>The current number of values in the set.</summary>
+		/// <runtime>O(1)</runtime>
+		public int Count => _count;
+
+		/// <summary>The delegate for computing hash codes.</summary>
+		/// <runtime>O(1)</runtime>
+		public Hash<K> Hash => _hash;
+
+		/// <summary>The delegate for equality checking.</summary>
+		/// <runtime>O(1)</runtime>
+		public Equate<K> Equate => _equate;
+
+		/// <summary>Gets the value of a specified key.</summary>
 		/// <param name="key">The key to get the value of.</param>
-		/// <returns>The value relative to the provided key.</returns>
-		public T this[K key]
-		{
-			get { return Get(key); }
-			set { Set(key, value); }
-		}
-
-		/// <summary>Returns the current size of the actual table. You will want this if you 
-		/// wish to multithread structure traversals.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
-		public int TableSize => _table.Length;
-
-		/// <summary>Returns the current number of items in the structure.</summary>
-		/// <remarks>Runetime: O(1).</remarks>
-		public int Count => _count;
-
-		/// <summary>The function for calculating hash codes for this table.</summary>
-		public Hash<K> Hash => _hash;
-
-		/// <summary>The function for equating keys in this table.</summary>
-		public Equate<K> Equate => _equate;
-
-		#endregion
-
-		#region Method
-
-		#region Add
-
-		/// <summary>Adds a value to the hash table.</summary>
-		/// <param name="key">The key value to use as the look-up reference in the hash table.</param>
-		/// <param name="value">The value to store relative to the key.</param>
-		/// <remarks>Runtime: O(n), Omega(1).</remarks>
-		public void Add(K key, T value)
-		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
-			int location = ComputeIndex(key);
-			if (Find(key, location) == null)
-			{
-				if (++_count > _table.Length * _maxLoadFactor)
-				{
-					if (Count == int.MaxValue)
-					{
-						throw new InvalidOperationException("maximum size of hash table reached.");
-					}
-
-					Resize(GetLargerSize());
-					location = ComputeIndex(key);
-				}
-				Node p = new Node(key, value, null);
-				Add(p, location);
-			}
-			else
-			{
-				throw new InvalidOperationException("\nMember: \"Add(TKey key, TValue value)\"\nThe key is already in the table.");
-			}
-		}
-
-		internal void Add(Node cell, int location)
-		{
-			cell.Next = _table[location];
-			_table[location] = cell;
-		}
-
-		#endregion
-
-		#region Clear
-
-		/// <summary>Returns the data structure to an empty state.</summary>
-		public void Clear()
-		{
-			_table = new Node[Towel.Hash.TableSizes[0]];
-			_count = 0;
-		}
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public MapHashLinked<T, K> Clone()
-		{
-			return new MapHashLinked<T, K>(this);
-		}
-
-		#endregion
-
-		#region Contains
-
-		/// <summary>Determines if this structure contains a given key.</summary>
-		/// <param name="key">The key to see if theis structure contains.</param>
-		/// <returns>True if the key is in the structure. False if not.</returns>
-		public bool Contains(K key)
-		{
-			if (Find(key, ComputeIndex(key)) == null)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-
-		#endregion
-
-		#region Get
-
-		/// <summary>Gets an item by key.</summary>
-		/// <param name="key">The key of the item to get.</param>
-		/// <returns>The by the provided key.</returns>
-		public T Get(K key)
-		{
-			if (TryGet(key, out T value))
-			{
-				return value;
-			}
-			throw new InvalidOperationException("attempting to get a non-existing key from a map");
-		}
-
-		/// <summary>Tries to get a value by key.</summary>
-		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value if it was found or default if not found.</param>
-		/// <returns>True if the value was found. False if not.</returns>
-		public bool TryGet(K key, out T value)
-		{
-			int hashCode = ComputeIndex(key);
-			int table_index = Math.Abs(hashCode) % _table.Length;
-			for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
-			{
-				if (_equate(bucket.Key, key))
-				{
-					value = bucket.Value;
-					return true;
-				}
-			}
-			value = default;
-			return false;
-		}
-
-		#endregion
-
-		#region Set
-
-		/// <summary>Sets an item by key.</summary>
-		/// <param name="key">The key of the item to set.</param>
-		/// <param name="value">The value to set relative to the key.</param>
-		public void Set(K key, T value)
-		{
-			if (Contains(key))
-			{
-				int table_index = ComputeIndex(key);
-				for (Node bucket = _table[table_index]; bucket != null; bucket = bucket.Next)
-				{
-					if (_equate(bucket.Key, key))
-					{
-						bucket.Value = value;
-					}
-				}
-			}
-			else
-			{
-				Add(key, value);
-			}
-		}
-
-		#endregion
-
-		#region Remove
-
-		/// <summary>Removes a value from the hash table.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		public void Remove(K key)
-		{
-			RemoveWithoutTrim(key);
-			if (_count > Towel.Hash.TableSizes[0] && _count < _table.Length * _minLoadFactor)
-			{
-				Resize(GetSmallerSize());
-			}
-		}
-
-		/// <summary>Removes a value from the hash table.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		public void RemoveWithoutTrim(K key)
-		{
-			if (!TryRemoveWithoutTrim(key))
-			{
-				throw new InvalidOperationException("attempting to remove a non-existing value.");
-			}
-		}
-
-		/// <summary>Tries to remove a key-value pair from the map.</summary>
-		/// <param name="key">The key of the key-value pair to remove.</param>
-		/// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-		public bool TryRemove(K key)
-		{
-			if (TryRemoveWithoutTrim(key))
-			{
-				if (_count > Towel.Hash.TableSizes[0] && _count < _table.Length * _minLoadFactor)
-				{
-					Resize(GetSmallerSize());
-				}
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		/// <summary>Tries to remove a key-value pair from the map.</summary>
-		/// <param name="key">The key of the key-value pair to remove.</param>
-		/// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-		public bool TryRemoveWithoutTrim(K key)
-		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
-			int location = ComputeIndex(key);
-			if (_equate(_table[location].Key, key))
-			{
-				_table[location] = _table[location].Next;
-			}
-			for (Node bucket = _table[location]; bucket != null; bucket = bucket.Next)
-			{
-				if (bucket.Next == null)
-				{
-					return false;
-				}
-				else if (_equate(bucket.Next.Key, key))
-				{
-					bucket.Next = bucket.Next.Next;
-				}
-			}
-			_count--;
-			return true;
-		}
-
-		internal Node RemoveFirst(Node[] t, int i)
-		{
-			Node first = t[i];
-			t[i] = first.Next;
-			return first;
-		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
-
-		/// <summary>Steps through all the keys.</summary>
-		/// <param name="function">The step function.</param>
-		public void Keys(Step<K> function)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						function(node.Key);
-					} while ((node = node.Next) != null);
-				}
-			}
-		}
-
-		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The step function.</param>
-		public StepStatus Keys(StepBreak<K> step)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						if (step(node.Key) == StepStatus.Break)
-						{
-							return StepStatus.Break;
-						}
-					} while ((node = node.Next) != null);
-				}
-			}
-			return StepStatus.Continue;
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						function(node.Value);
-					} while ((node = node.Next) != null);
-				}
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-				if ((node = _table[i]) != null)
-					do
-					{
-						if (step(node.Value) == StepStatus.Break)
-						{
-							return StepStatus.Break;
-						}
-					} while ((node = node.Next) != null);
-			return StepStatus.Continue;
-		}
-
-		/// <summary>Steps through all the pairs.</summary>
-		/// <param name="step">The step function.</param>
-		public void Pairs(Step<T, K> step)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						step(node.Value, node.Key);
-					} while ((node = node.Next) != null);
-				}
-			}
-		}
-
-		/// <summary>Steps through all the pairs.</summary>
-		/// <param name="step">The step function.</param>
-		public StepStatus Pairs(StepBreak<T, K> step)
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-					do
-					{
-						if (step(node.Value, node.Key) == StepStatus.Break)
-						{
-							return StepStatus.Break;
-						}
-					} while ((node = node.Next) != null);
-			}
-			return StepStatus.Continue;
-		}
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		/// <summary>Gets the enumerator for the data structure.</summary>
-		/// <returns>The enumerator for the data structure.</returns>
-		public IEnumerator<T> GetEnumerator()
-		{
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						yield return node.Value;
-					} while ((node = node.Next) != null);
-				}
-			}
-		}
-
-		#endregion
-
-		#region ToArray
-
-		/// <summary>Places all the values of the data structure into an array.</summary>
-		/// <returns>An array with all the values in the data structure.</returns>
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			int index = 0;
-			Node node;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if ((node = _table[i]) != null)
-				{
-					do
-					{
-						array[index++] = node.Value;
-					} while ((node = node.Next) != null);
-				}
-			}
-			return array;
-		}
-
-		#endregion
-
-		#region Trim
-
-		/// <summary>Trims the map table size to the first prime number following the current count.</summary>
-		public void Trim()
-		{
-			int prime = _count;
-			while (!Compute.IsPrime(prime))
-			{
-				prime++;
-			}
-			if (prime != _table.Length)
-			{
-				Resize(prime);
-			}
-		}
-		#endregion
-
-		#region Helpers
-
-		internal int ComputeIndex(K key) => Math.Abs(_hash(key)) % _table.Length;
-
-		internal Node Find(K key, int loc)
-		{
-			for (Node node = _table[loc]; node != null; node = node.Next)
-			{
-				if (_equate(node.Key, key))
-				{
-					return node;
-				}
-			}
-			return null;
-		}
-
-		internal int GetLargerSize()
-		{
-			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
-			{
-				if (_table.Length < Towel.Hash.TableSizes[i])
-				{
-					return Towel.Hash.TableSizes[i];
-				}
-			}
-			return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
-		}
-
-		internal int GetSmallerSize()
-		{
-			for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-			{
-				if (_table.Length > Towel.Hash.TableSizes[i])
-				{
-					return Towel.Hash.TableSizes[i];
-				}
-			}
-			return Towel.Hash.TableSizes[0];
-		}
-
-		internal void Resize(int size)
-		{
-			Node[] temp = _table;
-			_table = new Node[size];
-			for (int i = 0; i < temp.Length; i++)
-			{
-				while (temp[i] != null)
-				{
-					Node cell = RemoveFirst(temp, i);
-					Add(cell, ComputeIndex(cell.Key));
-				}
-			}
-		}
-
-		#endregion
-
-		#endregion
-	}
-
-	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashArray<T, K> : IMap<T, K>,
-		// Structure Properties
-		DataStructure.IHashing<K>
-	{
-		internal Equate<K> _equate;
-		internal Hash<K> _hash;
-		internal int[] _table;
-		internal Node[] _nodes;
-		internal int _count;
-		internal int _lastIndex;
-		internal int _freeList;
-
-		#region Node
-
-		internal struct Node
-		{
-			internal int Hash;
-			internal K Key;
-			internal T Value;
-			internal int Next;
-
-			internal Node(int hash, K key, T value, int next)
-			{
-				Hash = hash;
-				Key = key;
-				Value = value;
-				Next = next;
-			}
-		}
-
-		#endregion
-
-		#region  Constructors
-
-		/// <summary>Constructs a new MapHashArray using the default Equate and Hash functions.</summary>
-		public MapHashArray() : this(null, null) { }
-
-		/// <summary>Constructs a new hash table instance.</summary>
-		/// <runtime>O(1)</runtime>
-		public MapHashArray(Equate<K> equate = null, Hash<K> hash = null)
-		{
-			_nodes = new Node[Towel.Hash.TableSizes[0]];
-			_table = new int[Towel.Hash.TableSizes[0]];
-			_equate = equate ?? Towel.Equate.Default;
-			_hash = hash ?? Towel.Hash.Default;
-			_lastIndex = 0;
-			_count = 0;
-			_freeList = -1;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>Gets/Sets the value relative to a key.</summary>
-		/// <param name="key">The key to get/set teh value of.</param>
-		/// <returns>The value relative to the provided key.</returns>
-		public T this[K key]
-		{
-			get { return Get(key); }
-			set { Set(key, value); }
-		}
-
-		/// <summary>Returns the current size of the actual table. You will want this if you 
-		/// wish to multithread structure traversals.</summary>
-		/// <runtime>O(1)</runtime>
-		public int TableSize => _table.Length;
-
-		/// <summary>Returns the current number of items in the structure.</summary>
-		/// <runtime>O(1)</runtime>
-		public int Count => _count;
-
-		/// <summary>The function for calculating hash codes for this table.</summary>
-		/// <runtime>O(1)</runtime>
-		public Hash<K> Hash => _hash;
-
-		/// <summary>The function for equating keys in this table.</summary>
-		/// <runtime>O(1)</runtime>
-		public Equate<K> Equate => _equate;
+		/// <returns>The value of the key.</returns>
+		public T this[K key] { get => this.Get(key); set => Set(key, value); }
 
 		#endregion
 
@@ -726,141 +294,99 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds a key value pair to the map.</summary>
-		/// <param name="key">The key of the pair to add.</param>
-		/// <param name="value">The value of the pair to add.</param>
-		public void Add(K key, T value)
+		/// <summary>Tries to add a value to the map.</summary>
+		/// <param name="key">The key of the value.</param>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occured if the add failed.</param>
+		/// <returns>True if the value was added or false if not.</returns>
+		/// <runtime>O(n), Ω(1), ε(1)</runtime>
+		public bool TryAdd(K key, T value, out Exception exception)
 		{
-			if (!TryAdd(key, value))
+			if (key == null)
 			{
-				throw new InvalidOperationException("attempting to add an already existing value in the MapHashArray.");
+				throw new ArgumentNullException(nameof(key));
 			}
-		}
-
-		/// <summary>Adds a key value pair to the map.</summary>
-		/// <param name="key">The key of the pair to add.</param>
-		/// <param name="value">The value of the pair to add.</param>
-		public bool TryAdd(K key, T value)
-		{
-			int hashCode = _hash(key);
-			int tableIndex = Math.Abs(hashCode) % _table.Length;
-			int num = 0;
-			for (int index2 = _table[tableIndex] - 1; index2 >= 0; index2 = _nodes[index2].Next)
+			if (value == null)
 			{
-				if (_nodes[index2].Hash == hashCode && _equate(_nodes[index2].Key, key))
+				throw new ArgumentNullException(nameof(value));
+			}
+
+			// compute the hash code and relate it to the current table
+			int hashCode = _hash(key);
+			int location = (hashCode & int.MaxValue) % _table.Length;
+
+			// duplicate value check
+			for (Node node = _table[location]; node != null; node = node.Next)
+			{
+				if (_equate(node.Key, key))
 				{
+					exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
 					return false;
 				}
-				++num;
 			}
-			int index3;
-			if (_freeList >= 0)
+
 			{
-				index3 = _freeList;
-				_freeList = _nodes[index3].Next;
+				// add the value
+				Node node = new Node(key, value, _table[location]);
+				_table[location] = node;
+				_count++;
 			}
-			else
+
+			// check if the table needs to grow
+			if (_count > _table.Length * _maxLoadFactor)
 			{
-				if (_lastIndex == _nodes.Length)
+				// calculate new table size
+				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
+				if (tableSizeFloat <= int.MaxValue)
 				{
-					GrowTableSize(GetLargerSize());
+					int tableSize = (int)tableSizeFloat;
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					{
+						tableSize++;
+					}
+
+					// resize the table
+					Resize(tableSize);
 				}
-				index3 = _lastIndex;
-				_lastIndex += 1;
 			}
-			_nodes[index3].Hash = hashCode;
-			_nodes[index3].Key = key;
-			_nodes[index3].Value = value;
-			_nodes[index3].Next = _table[tableIndex] - 1;
-			_table[tableIndex] = index3 + 1;
-			_count += 1;
+
+			exception = null;
 			return true;
-		}
-
-		#endregion
-
-		#region Clear
-
-		/// <summary>Returns the data structure to an empty state.</summary>
-		public void Clear()
-		{
-			if (_lastIndex > 0)
-			{
-				_nodes = new Node[Towel.Hash.TableSizes[0]];
-				_table = new int[Towel.Hash.TableSizes[0]];
-				_lastIndex = 0;
-				_count = 0;
-				_freeList = -1;
-			}
-		}
-
-		/// <summary>Returns the data structure to an empty state.</summary>
-		public void ClearWithoutShrink()
-		{
-			if (_lastIndex > 0)
-			{
-				Array.Clear(_nodes, 0, _lastIndex);
-				Array.Clear(_table, 0, _table.Length);
-				_lastIndex = 0;
-				_count = 0;
-				_freeList = -1;
-			}
-		}
-
-		#endregion
-
-		#region Contains
-
-		/// <summary>Checks if a key exists in the map.</summary>
-		/// <param name="key">The key to look for.</param>
-		/// <returns>True if the key exists in the map. False if not.</returns>
-		public bool Contains(K key)
-		{
-			int hashCode = _hash(key);
-			int tableIndex = Math.Abs(hashCode) % _table.Length;
-			for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
-			{
-				if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 
 		#endregion
 
 		#region Get
 
-		/// <summary>Gets an item by key.</summary>
-		/// <param name="key">The key of the item to get.</param>
-		/// <returns>The value of the provided key.</returns>
-		public T Get(K key)
-		{
-			if (TryGet(key, out T value))
-			{
-				return value;
-			}
-			throw new InvalidOperationException("attempting to get a non-existing key from a map");
-		}
-
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value if found or default if not found.</param>
-		/// <returns>True if the value is found. False if not.</returns>
-		public bool TryGet(K key, out T value)
+		/// <param name="value">The value if found or default.</param>
+		/// <param name="exception">The exception that occured if not found.</param>
+		/// <returns>True if the key was found or false if not.</returns>
+		public bool TryGet(K key, out T value, out Exception exception)
 		{
-			int hashCode = _hash(key);
-			int tableIndex = Math.Abs(hashCode) % _table.Length;
-			for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
+			if (key == null)
 			{
-				if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
+				throw new ArgumentNullException(nameof(key));
+			}
+
+			// compute the hash code and relate it to the current table
+			int hashCode = _hash(key);
+			int location = (hashCode & int.MaxValue) % _table.Length;
+
+			// look for the value
+			for (Node node = _table[location]; node != null; node = node.Next)
+			{
+				if (_equate(node.Key, key))
 				{
-					value = _nodes[index].Value;
+					value = node.Value;
+					exception = null;
 					return true;
 				}
 			}
+
 			value = default;
+			exception = new ArgumentException("Attempting to get a value from the map that has not been added.", nameof(key));
 			return false;
 		}
 
@@ -868,26 +394,58 @@ namespace Towel.DataStructures
 
 		#region Set
 
-		/// <summary>Sets the value of a given key in the map.</summary>
-		/// <param name="key">The key to set the value of in the map.</param>
-		/// <param name="value">The value to set relative to the key in the map.</param>
+		/// <summary>Sets value in the map.</summary>
+		/// <param name="key">The key of the value.</param>
+		/// <param name="value">The value to be set.</param>
+		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Set(K key, T value)
 		{
-			if (Contains(key))
+			if (key == null)
 			{
-				int hashCode = _hash(key);
-				int tableIndex = Math.Abs(hashCode) % _table.Length;
-				for (int index = _table[tableIndex] - 1; index >= 0; index = _nodes[index].Next)
+				throw new ArgumentNullException(nameof(key));
+			}
+			if (value == null)
+			{
+				throw new ArgumentNullException(nameof(value));
+			}
+
+			// compute the hash code and relate it to the current table
+			int hashCode = _hash(key);
+			int location = (hashCode & int.MaxValue) % _table.Length;
+
+			// duplicate value check
+			for (Node node = _table[location]; node != null; node = node.Next)
+			{
+				if (_equate(node.Key, key))
 				{
-					if (_nodes[index].Hash == hashCode && _equate(_nodes[index].Key, key))
-					{
-						_nodes[index].Value = value;
-					}
+					node.Value = value;
+					return;
 				}
 			}
-			else
+
 			{
-				Add(key, value);
+				// add the value
+				Node node = new Node(key, value, _table[location]);
+				_table[location] = node;
+				_count++;
+			}
+
+			// check if the table needs to grow
+			if (_count > _table.Length * _maxLoadFactor)
+			{
+				// calculate new table size
+				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
+				if (tableSizeFloat <= int.MaxValue)
+				{
+					int tableSize = (int)tableSizeFloat;
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					{
+						tableSize++;
+					}
+
+					// resize the table
+					Resize(tableSize);
+				}
 			}
 		}
 
@@ -895,66 +453,155 @@ namespace Towel.DataStructures
 
 		#region Remove
 
-		/// <summary>Removes a pair from the map.</summary>
-		/// <param name="removal">The key of the pair to remove from the map.</param>
-		public void Remove(K removal)
+		/// <summary>Tries to remove a keyed value.</summary>
+		/// <param name="key">The key of the value to remove.</param>
+		/// <param name="exception">The exception that occurred if the removal failed.</param>
+		/// <returns>True if the removal was successful for false if not.</returns>
+		public bool TryRemove(K key, out Exception exception)
 		{
-			RemoveWithoutShrink(removal);
-			int smallerSize = GetSmallerSize();
-			if (_count < smallerSize)
+			if (TryRemoveWithoutTrim(key, out exception))
 			{
-				ShrinkTableSize(smallerSize);
-			}
-		}
-
-		/// <summary>Removes a pair from the map without triggering a shrink in the data structure.</summary>
-		/// <param name="removal">The key of the pair to remove from the map.</param>
-		public void RemoveWithoutShrink(K removal)
-		{
-			if (!TryRemove(removal))
-			{
-				throw new InvalidOperationException("attempting to remove a non-existing value in a MapHashArray");
-			}
-		}
-
-		/// <summary>Tries to remove a key-value pair from the map.</summary>
-		/// <param name="key">The key of the key-value pair to remove.</param>
-		/// <returns>True if the item was removed. False if the item was not found.</returns>
-		public bool TryRemove(K key)
-		{
-			int hashCode = _hash(key);
-			int tableIndex = Math.Abs(hashCode) % _table.Length;
-			int index2 = -1;
-			for (int index3 = _table[tableIndex] - 1; index3 >= 0; index3 = _nodes[index3].Next)
-			{
-				if (_nodes[index3].Hash == hashCode && _equate(_nodes[index3].Key, key))
+				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
 				{
-					if (index2 < 0)
+					// calculate new table size
+					int tableSize = (int)(_count * (1 / _maxLoadFactor));
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
 					{
-						_table[tableIndex] = _nodes[index3].Next + 1;
+						tableSize++;
 					}
-					else
-					{
-						_nodes[index2].Next = _nodes[index3].Next;
-					}
-					_nodes[index3].Hash = -1;
-					_nodes[index3].Value = default(T);
-					_nodes[index3].Next = _freeList;
-					_count -= 1;
-					if (_count == 0)
-					{
-						_lastIndex = 0;
-						_freeList = -1;
-					}
-					else
-					{
-						_freeList = index3;
-					}
-					return true;
+
+					// resize the table
+					Resize(tableSize);
 				}
-				else
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
+		/// <param name="key">The key of the value to remove.</param>
+		/// <param name="exception">The exception that occurred if the removal failed.</param>
+		/// <returns>True if the removal was successful for false if not.</returns>
+		public bool TryRemoveWithoutTrim(K key, out Exception exception)
+		{
+			if (key == null)
+			{
+				throw new ArgumentNullException(nameof(key));
+			}
+
+			// compute the hash code and relate it to the current table
+			int hashCode = _hash(key);
+			int location = (hashCode & int.MaxValue) % _table.Length;
+
+			// find and remove the node
+			if (_equate(_table[location].Key, key))
+			{
+				// the value was the head node of the table index
+				_table[location] = _table[location].Next;
+				_count--;
+				exception = null;
+				return true;
+			}
+			else
+			{
+				// that value is a child node of the table index
+				for (Node node = _table[location]; node.Next != null; node = node.Next)
 				{
-					index2 = index3;
+					if (_equate(node.Next.Key, key))
+					{
+						node.Next = node.Next.Next;
+						_count--;
+						exception = null;
+						return true;
+					}
+				}
+				exception = new ArgumentException("Attempting to remove a keyed value that is no in a value.", nameof(key));
+				return false;
+			}
+		}
+
+		#endregion
+
+		#region Resize
+
+		/// <summary>Resizes the table.</summary>
+		/// <param name="tableSize">The desired size of the table.</param>
+		internal void Resize(int tableSize)
+		{
+			// ensure the desired size is different than the current
+			if (tableSize == _table.Length)
+			{
+				return;
+			}
+
+			Node[] temp = _table;
+			_table = new Node[tableSize];
+
+			// iterate through all the values
+			for (int i = 0; i < temp.Length; i++)
+			{
+				while (temp[i] != null)
+				{
+					// grab the value from the old table
+					Node node = temp[i];
+					temp[i] = node.Next;
+
+					// compute the hash code and relate it to the current table
+					int hashCode = _hash(node.Key);
+					int location = (hashCode & int.MaxValue) % _table.Length;
+
+					// add the value to the new table
+					node.Next = _table[location];
+					_table[location] = node;
+				}
+			}
+		}
+
+		#endregion
+
+		#region Trim
+
+		/// <summary>Trims the table to an appropriate size based on the current count.</summary>
+		/// <runtime>O(n), Ω(1)</runtime>
+		public void Trim()
+		{
+			int tableSize = _count;
+			while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+			{
+				tableSize++;
+			}
+			Resize(tableSize);
+		}
+
+		#endregion
+
+		#region Clone
+
+		/// <summary>Creates a shallow clone of this set.</summary>
+		/// <returns>A shallow clone of this set.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
+
+		#endregion
+
+		#region Contains
+
+		/// <summary>Determines if a value has been added to a map.</summary>
+		/// <param name="key">The key of the value to look for in the map.</param>
+		/// <returns>True if the value has been added to the set or false if not.</returns>
+		/// <runtime>O(n), Ω(1), ε(1)</runtime>
+		public bool Contains(K key)
+		{
+			// compute the hash code and relate it to the current table
+			int hashCode = _hash(key);
+			int location = (hashCode & int.MaxValue) % _table.Length;
+
+			// look for the value
+			for (Node node = _table[location]; node != null; node = node.Next)
+			{
+				if (_equate(node.Key, key))
+				{
+					return true;
 				}
 			}
 			return false;
@@ -962,108 +609,59 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region ToArray
+		#region Clear
 
-		/// <summary>Puts all the values of this structure into an array.</summary>
-		/// <returns>An array with all the values of this structure.</returns>
-		public T[] ToArray()
+		/// <summary>Removes all the values in the set.</summary>
+		/// <runtime>O(1)</runtime>
+		public void Clear()
 		{
-			T[] array = new T[_count];
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
-			{
-				if (_nodes[index].Hash >= 0)
-				{
-					array[num] = _nodes[index].Value;
-					++num;
-				}
-			}
-			return array;
-		}
-
-		#endregion
-
-		#region Trim
-
-		/// <summary>Trims the data structure to only the necessary size.</summary>
-		public void Trim()
-		{
-			int prime = _count;
-			while (Compute.IsPrime(prime))
-			{
-				prime++;
-			}
-			if (prime != _table.Length)
-			{
-				ShrinkTableSize(prime);
-			}
+			_table = new Node[2];
+			_count = 0;
 		}
 
 		#endregion
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The step function.</param>
-		public void Keys(Step<K> step)
+		/// <summary>Steps through all the values of the map.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <runtime>Θ(n * step)</runtime>
+		public void Stepper(Step<T> step)
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					step(_nodes[index].Key);
+					step(node.Value);
 				}
 			}
 		}
 
-		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The step function.</param>
-		public StepStatus Keys(StepBreak<K> step)
+		/// <summary>Steps through all the values of the map.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <runtime>Θ(n * step)</runtime>
+		public void Stepper(StepRef<T> step)
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					if (step(_nodes[index].Key) == StepStatus.Break)
-					{
-						return StepStatus.Break;
-					}
-				}
-			}
-			return StepStatus.Continue;
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
-		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
-			{
-				if (_nodes[index].Hash >= 0)
-				{
-					++num;
-					function(_nodes[index].Value);
+					step(ref node.Value);
 				}
 			}
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
+		/// <summary>Steps through all the values of the set.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <returns>The status of the stepper.</returns>
+		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Stepper(StepBreak<T> step)
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					if (step(_nodes[index].Value) == StepStatus.Break)
+					if (step(node.Value) == StepStatus.Break)
 					{
 						return StepStatus.Break;
 					}
@@ -1072,33 +670,116 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Pairs(Step<T, K> step)
+		/// <summary>Steps through all the values of the set.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <returns>The status of the stepper.</returns>
+		/// <runtime>Θ(n * step)</runtime>
+		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					step(_nodes[index].Value, _nodes[index].Key);
+					if (step(ref node.Value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Steps through all the keys of the map.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <runtime>Θ(n * step)</runtime>
+		public void Keys(Step<K> step)
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = _table[i]; node != null; node = node.Next)
+				{
+					step(node.Key);
 				}
 			}
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Pairs(StepBreak<T, K> step)
+		/// <summary>Steps through all the keys of the map.</summary>
+		/// <param name="step">The action to perform on every value in the map.</param>
+		/// <returns>The status of the stepper.</returns>
+		/// <runtime>Θ(n * step)</runtime>
+		public StepStatus Keys(StepBreak<K> step)
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					if (step(_nodes[index].Value, _nodes[index].Key) == StepStatus.Break)
+					if (step(node.Key) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Steps through all the keys and values of the map.</summary>
+		/// <param name="step">The action to perform on every key and value in the map.</param>
+		/// <runtime>Θ(n * step)</runtime>
+		public void Stepper(Step<T, K> step)
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = _table[i]; node != null; node = node.Next)
+				{
+					step(node.Value, node.Key);
+				}
+			}
+		}
+
+		/// <summary>Steps through all the keys and values of the map.</summary>
+		/// <param name="step">The action to perform on every key and value in the map.</param>
+		/// <returns>The status of the stepper.</returns>
+		/// <runtime>Θ(n * step)</runtime>
+		public StepStatus Stepper(StepBreak<T, K> step)
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = _table[i]; node != null; node = node.Next)
+				{
+					if (step(node.Value, node.Key) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					}
+				}
+			}
+			return StepStatus.Continue;
+		}
+
+		/// <summary>Steps through all the keys and values of the map.</summary>
+		/// <param name="step">The action to perform on every key and value in the map.</param>
+		/// <runtime>Θ(n * step)</runtime>
+		public void Stepper(StepRef1<T, K> step)
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = _table[i]; node != null; node = node.Next)
+				{
+					step(ref node.Value, node.Key);
+				}
+			}
+		}
+
+		/// <summary>Steps through all the keys and values of the map.</summary>
+		/// <param name="step">The action to perform on every key and value in the map.</param>
+		/// <returns>The status of the stepper.</returns>
+		/// <runtime>Θ(n * step)</runtime>
+		public StepStatus Stepper(StepRefBreak1<T, K> step)
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = _table[i]; node != null; node = node.Next)
+				{
+					if (step(ref node.Value, node.Key) == StepStatus.Break)
 					{
 						return StepStatus.Break;
 					}
@@ -1109,94 +790,39 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the data structure.</summary>
-		/// <returns>The enumerator for the data structure.</returns>
-		public IEnumerator<T> GetEnumerator()
+		/// <summary>Gets the enumerator for the set.</summary>
+		/// <returns>The enumerator for the set.</returns>
+		/// <runtime>O(n)</runtime>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			int num = 0;
-			for (int index = 0; index < _lastIndex && num < _count; ++index)
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_nodes[index].Hash >= 0)
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					++num;
-					yield return _nodes[index].Value;
+					yield return node.Value;
 				}
 			}
 		}
 
 		#endregion
 
-		#region Helpers
+		#region ToArray
 
-		internal int ComputeIndex(K key) => Math.Abs(_hash(key)) % _table.Length;
-
-		private int GetLargerSize()
+		/// <summary>Puts all the values in this set into an array.</summary>
+		/// <returns>An array with all the values in the set.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public T[] ToArray()
 		{
-			for (int i = 0; i < Towel.Hash.TableSizes.Length; i++)
+			T[] array = new T[_count];
+			int index = 0;
+			for (int i = 0; i < _table.Length; i++)
 			{
-				if (_table.Length < Towel.Hash.TableSizes[i])
+				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					return Towel.Hash.TableSizes[i];
+					array[index++] = node.Value;
 				}
 			}
-			return Towel.Hash.TableSizes[Towel.Hash.TableSizes[Towel.Hash.TableSizes.Length - 1]];
-		}
-
-		private int GetSmallerSize()
-		{
-			for (int i = Towel.Hash.TableSizes.Length - 1; i > -1; i--)
-			{
-				if (_table.Length > Towel.Hash.TableSizes[i])
-				{
-					return Towel.Hash.TableSizes[i];
-				}
-			}
-			return Towel.Hash.TableSizes[0];
-		}
-
-		private void GrowTableSize(int newSize)
-		{
-			Node[] slotArray = new Node[newSize];
-			if (_nodes != null)
-			{
-				//System.Array.Copy((System.Array)this._nodes, 0, (System.Array)slotArray, 0, this._lastIndex);
-
-				for (int i = 0; i < _lastIndex; i++)
-				{
-					slotArray[i] = _nodes[i];
-				}
-			}
-			int[] numArray = new int[newSize];
-			for (int index1 = 0; index1 < _lastIndex; ++index1)
-			{
-				int index2 = Math.Abs(slotArray[index1].Hash) % newSize;
-				slotArray[index1].Next = numArray[index2] - 1;
-				numArray[index2] = index1 + 1;
-			}
-			_nodes = slotArray;
-			_table = numArray;
-		}
-
-		private void ShrinkTableSize(int newSize)
-		{
-			Node[] slotArray = new Node[newSize];
-			int[] numArray = new int[newSize];
-			int index1 = 0;
-			for (int index2 = 0; index2 < _lastIndex; ++index2)
-			{
-				if (_nodes[index2].Hash >= 0)
-				{
-					slotArray[index1] = _nodes[index2];
-					int index3 = Math.Abs(slotArray[index1].Hash) % newSize;
-					slotArray[index1].Next = numArray[index3] - 1;
-					numArray[index3] = index1 + 1;
-					++index1;
-				}
-			}
-			_lastIndex = index1;
-			_nodes = slotArray;
-			_table = numArray;
-			_freeList = -1;
+			return array;
 		}
 
 		#endregion

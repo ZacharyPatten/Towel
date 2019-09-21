@@ -8,13 +8,17 @@ namespace Towel
 	[Serializable]
 	public enum StepStatus
 	{
-		/// <summary>Continue normal iteration.</summary>
+		#region Members
+
+		/// <summary>Stepper was not broken.</summary>
 		Continue = 0,
-		/// <summary>Iteration cancelation.</summary>
+		/// <summary>Stepper was broken.</summary>
 		Break = 1,
+
+		#endregion
 	};
 
-	#region <T>
+	#region 1 Dimensional
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
@@ -60,7 +64,7 @@ namespace Towel
 
 	#endregion
 
-	#region <T1, T2>
+	#region 2 Dimensional
 
 	/// <summary>Delegate for an action to perform while stepping.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
@@ -81,6 +85,20 @@ namespace Towel
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
+	public delegate void StepRef1<T1, T2>(ref T1 a, T2 b);
+
+	/// <summary>Delegate for an action to perform while stepping.</summary>
+	/// <typeparam name="T1">The type of the object to step on.</typeparam>
+	/// <typeparam name="T2">The type of the object to step on.</typeparam>
+	/// <param name="a">The first component of the step.</param>
+	/// <param name="b">The second component of the step.</param>
+	public delegate void StepRef2<T1, T2>(T1 a, ref T2 b);
+
+	/// <summary>Delegate for an action to perform while stepping.</summary>
+	/// <typeparam name="T1">The type of the object to step on.</typeparam>
+	/// <typeparam name="T2">The type of the object to step on.</typeparam>
+	/// <param name="a">The first component of the step.</param>
+	/// <param name="b">The second component of the step.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
 	public delegate StepStatus StepBreak<T1, T2>(T1 a, T2 b);
 
@@ -91,6 +109,22 @@ namespace Towel
 	/// <param name="b">The second component of the step.</param>
 	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
 	public delegate StepStatus StepRefBreak<T1, T2>(ref T1 a, ref T2 b);
+
+	/// <summary>Delegate for an action to perform while stepping.</summary>
+	/// <typeparam name="T1">The type of the object to step on.</typeparam>
+	/// <typeparam name="T2">The type of the object to step on.</typeparam>
+	/// <param name="a">The first component of the step.</param>
+	/// <param name="b">The second component of the step.</param>
+	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
+	public delegate StepStatus StepRefBreak1<T1, T2>(ref T1 a, T2 b);
+
+	/// <summary>Delegate for an action to perform while stepping.</summary>
+	/// <typeparam name="T1">The type of the object to step on.</typeparam>
+	/// <typeparam name="T2">The type of the object to step on.</typeparam>
+	/// <param name="a">The first component of the step.</param>
+	/// <param name="b">The second component of the step.</param>
+	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
+	public delegate StepStatus StepRefBreak2<T1, T2>(T1 a, ref T2 b);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
@@ -121,6 +155,8 @@ namespace Towel
 	/// <summary>Extension methods.</summary>
 	public static class Step
 	{
+		#region Members
+
 		/// <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>
 		/// <typeparam name="T">The generic type of the step function.</typeparam>
 		/// <param name="step">The step to add a gap step to.</param>
@@ -140,11 +176,15 @@ namespace Towel
 					first = false;
 				};
 		}
+
+		#endregion
 	}
 
 	/// <summary>Extension methods.</summary>
 	public static class Stepper
 	{
+		#region Members
+
 		/// <summary>Converts the values in this stepper to another type.</summary>
 		/// <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
 		/// <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
@@ -205,20 +245,6 @@ namespace Towel
 						step(x);
 					}
 				});
-			};
-
-		/// <summary>Creates a stepper from an iteration pattern.</summary>
-		/// <typeparam name="T">The generic type of the stepper.</typeparam>
-		/// <param name="iterations">The number of times to iterate.</param>
-		/// <param name="func">The generation pattern for the iteration.</param>
-		/// <returns>A stepper build from the iteration pattern.</returns>
-		public static Stepper<T> Iterate<T>(int iterations, Func<int, T> func) =>
-			step =>
-			{
-				for (int i = 0; i < iterations; i++)
-				{
-					step(func(i));
-				}
 			};
 
 		/// <summary>Steps through a set number of integers.</summary>
@@ -368,5 +394,7 @@ namespace Towel
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
 		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
 			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
+
+		#endregion
 	}
 }
