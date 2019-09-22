@@ -56,7 +56,7 @@ namespace Towel.DataStructures
 		internal SetHashLinked<T> _nodes;
 		internal OmnitreePointsLinked<Edge, T, T> _edges;
 
-		#region Nested Types
+		#region Edge
 
 		/// <summary>Represents an edge in a graph.</summary>
 		public class Edge
@@ -78,9 +78,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Constructor
+		#region Constructors
 
-		/// <summary>Constructs a new GraphSetOmnitree by cloning an existing instance.</summary>
+		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="graph">The graph to construct a clone of.</param>
 		internal GraphSetOmnitree(GraphSetOmnitree<T> graph)
 		{
@@ -92,8 +92,15 @@ namespace Towel.DataStructures
 		/// <param name="equate">The equate delegate for the data structure to use.</param>
 		/// <param name="compare">The compare delegate for the data structure to use.</param>
 		/// <param name="hash">The hash delegate for the datastructure to use.</param>
-		public GraphSetOmnitree(Equate<T> equate, Compare<T> compare, Hash<T> hash)
+		public GraphSetOmnitree(
+			Equate<T> equate = null,
+			Compare<T> compare = null,
+			Hash<T> hash = null)
 		{
+			equate = equate ?? Equate.Default;
+			compare = compare ?? Compare.Default;
+			hash = hash ?? Hash.Default;
+
 			_nodes = new SetHashLinked<T>(equate, hash);
 			_edges = new OmnitreePointsLinked<Edge, T, T>(
 				(Edge a, out T start, out T end) =>
@@ -103,11 +110,6 @@ namespace Towel.DataStructures
 				},
 				compare, compare);
 		}
-
-		/// <summary>Constructs a new GraphSetOmnitree.</summary>
-		public GraphSetOmnitree() :
-			this(Equate.Default, Compare.Default, Hash.Default)
-		{ }
 
 		#endregion
 
@@ -123,18 +125,12 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Adds a node to the graph.</summary>
+		/// <summary>Tries to add a node to the graph.</summary>
 		/// <param name="node">The node to add to the graph.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
 		public bool TryAdd(T node, out Exception exception)
 		{
-			if (_nodes.Contains(node))
-			{
-				exception = new InvalidOperationException("Adding an already-existing node to a graph");
-				return false;
-			}
-			_nodes.Add(node);
-			exception = null;
-			return true;
+			return _nodes.TryAdd(node, out exception);
 		}
 
 		/// <summary>Adds an edge to the graph.</summary>
@@ -163,14 +159,12 @@ namespace Towel.DataStructures
 		/// <returns>True if the remove succeeded or false if not.</returns>
 		public bool TryRemove(T node, out Exception exception)
 		{
-			if (_nodes.Contains(node))
+			if (!_nodes.TryRemove(node, out exception))
 			{
-				exception = new InvalidOperationException("Removing non-existing node from a graph");
 				return false;
 			}
 			_edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
 			_edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
-			_nodes.Add(node);
 			exception = null;
 			return true;
 		}
@@ -225,10 +219,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Clones this data structure.</summary>
 		/// <returns>A clone of this data structure.</returns>
-		public IDataStructure<T> Clone()
-		{
-			return new GraphSetOmnitree<T>(this);
-		}
+		public IDataStructure<T> Clone() => new GraphSetOmnitree<T>(this);
 
 		/// <summary>Returns this data structure to an empty state.</summary>
 		public void Clear()
@@ -239,45 +230,27 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
-		public void Stepper(Step<T> step)
-		{
-			_nodes.Stepper(step);
-		}
+		public void Stepper(Step<T> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			return _nodes.Stepper(step);
-		}
+		public StepStatus Stepper(StepBreak<T> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
-		public void Stepper(Step<T, T> step)
-		{
-			_edges.Stepper(edge => step(edge.Start, edge.End));
-		}
+		public void Stepper(Step<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(StepBreak<T, T> step)
-		{
-			return _edges.Stepper(edge => step(edge.Start, edge.End));
-		}
+		public StepStatus Stepper(StepBreak<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			return (_nodes as System.Collections.Generic.IEnumerable<T>).GetEnumerator();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			return (_nodes as System.Collections.Generic.IEnumerable<T>).GetEnumerator();
-		}
+		/// <summary>Gets the enumerator for the nodes in the graph.</summary>
+		/// <returns>The enumerator for the nodes in the graph.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
 
 		#endregion
 	}
@@ -344,14 +317,8 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		public bool TryAdd(T node, out Exception exception)
 		{
-			if (_map.Count == int.MaxValue)
-			{
-				exception = new InvalidOperationException("This graph has reach its node capacity.");
-				return false;
-			}
-			_map.Add(node, new MapHashLinked<bool, T>(_map.Equate, _map.Hash));
-			exception = null;
-			return true;
+			
+			return _map.TryAdd(node, new MapHashLinked<bool, T>(_map.Equate, _map.Hash), out exception);
 		}
 
 		/// <summary>Adds an edge to the graph.</summary>

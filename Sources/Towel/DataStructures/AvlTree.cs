@@ -5,254 +5,10 @@ namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface IAvlTree<T> : IDataStructure<T>,
-		// Structure Properties
-		DataStructure.IAddable<T>,
-		DataStructure.IRemovable<T>,
-		DataStructure.ICountable,
-		DataStructure.IClearable,
-		DataStructure.IComparing<T>,
-		DataStructure.IAuditable<T>
-	{
-		#region Properties
-
-		/// <summary>Gets the current least item in the avl tree.</summary>
-		T CurrentLeast { get; }
-		/// <summary>Gets the current greated item in the avl tree.</summary>
-		T CurrentGreatest { get; }
-
-		#endregion
-
-		#region Methods
-
-		/// <summary>Determines if this structure contains a given item.</summary>
-		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-		/// <returns>True if contained, False if not.</returns>
-		bool Contains(CompareToKnownValue<T> compare);
-		/// <summary>Gets an item based on a given key.</summary>
-		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-		/// <returns>The found item.</returns>
-		bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception);
-		/// <summary>Removes and item based on a given key.</summary>
-		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove succeeded or false if not.</returns>
-		bool TryRemove(CompareToKnownValue<T> compare, out Exception exception);
-		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(StepRef<T> step);
-		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(StepRefBreak<T> step);
-		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void StepperReverse(Step<T> step);
-		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void StepperReverse(StepRef<T> step);
-		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus StepperReverse(StepBreak<T> step);
-		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus StepperReverse(StepRefBreak<T> step);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		void Stepper(Step<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		void Stepper(StepRef<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The result status of the stepper function.</returns>
-		StepStatus Stepper(StepBreak<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The result status of the stepper function.</returns>
-		StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		void StepperReverse(Step<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		void StepperReverse(StepRef<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The result status of the stepper function.</returns>
-		StepStatus StepperReverse(StepBreak<T> step, T minimum, T maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <param name="step">The step function.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The result status of the stepper function.</returns>
-		StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum);
-
-		#endregion
-	}
+	public interface IAvlTree<T> : ISortedBinaryTree<T> { }
 
 	/// <summary>Contains extensions methods for the AvlTree interface.</summary>
-	public static class AvlTree
-	{
-		#region Extensions
-
-		/// <summary>Gets a traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this IAvlTree<T> avlTree) => avlTree.Stepper;
-		/// <summary>Gets a traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this IAvlTree<T> avlTree) => avlTree.Stepper;
-		/// <summary>Gets a traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this IAvlTree<T> avlTree) => avlTree.Stepper;
-		/// <summary>Gets a traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this IAvlTree<T> avlTree) => avlTree.Stepper;
-		/// <summary>Gets a reverse traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-		/// <summary>Gets a reverse traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-		/// <summary>Gets a reverse traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-		/// <summary>Gets a reverse traversal stepper for the AVL tree.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree) => avlTree.StepperReverse;
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(y), minimum, maximum);
-		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.Stepper(y => x(ref y), minimum, maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(y), minimum, maximum);
-		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">The AVL tree to traverse.</param>
-		/// <param name="minimum">The minimum step value.</param>
-		/// <param name="maximum">The maximum step value.</param>
-		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this IAvlTree<T> avlTree, T minimum, T maximum) => x => avlTree.StepperReverse(y => x(ref y), minimum, maximum);
-
-		/// <summary>Wrapper for the get function to handle exceptions.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">This structure.</param>
-		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <param name="item">The item if found.</param>
-		/// <returns>True if successful, False if not.</returns>
-		public static bool TryGet<T>(this IAvlTree<T> tree, CompareToKnownValue<T> compare, out T item)
-		{
-			return tree.TryGet(compare, out item, out _);
-		}
-
-		public static T Get<T>(this IAvlTree<T> tree, CompareToKnownValue<T> compare)
-		{
-			if (!tree.TryGet(compare, out T value, out Exception exception))
-			{
-				throw exception;
-			}
-			return value;
-		}
-
-		/// <summary>Removes a value from an AVL tree.</summary>
-		/// <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
-		/// <param name="avlTree">The AVL tree to remove the values from.</param>
-		/// <param name="compare">The compare delegate.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
-		{
-			return avlTree.TryRemove(compare, out _);
-		}
-
-		/// <summary>Removes a value from an AVL tree.</summary>
-		/// <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
-		/// <param name="avlTree">The AVL tree to remove the values from.</param>
-		/// <param name="compare">The compare delegate.</param>
-		public static void Remove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
-		{
-			if (!avlTree.TryRemove(compare, out Exception exception))
-			{
-				throw exception;
-			}
-		}
-
-		#endregion
-	}
+	public static class AvlTree { }
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <citation>
@@ -310,22 +66,20 @@ namespace Towel.DataStructures
 		/// <summary>Constructs an AVL Tree.</summary>
 		/// <param name="compare">The comparison function for sorting the items.</param>
 		/// <runtime>θ(1)</runtime>
-		public AvlTreeLinked(Compare<T> compare)
+		public AvlTreeLinked(Compare<T> compare = null)
 		{
-			this._root = null;
-			this._count = 0;
-			this._compare = compare;
+			_root = null;
+			_count = 0;
+			_compare = compare ?? Towel.Compare.Default;
 		}
 
-		/// <summary>Constructs an AVL Tree.</summary>
-		/// <runtime>θ(1)</runtime>
-		public AvlTreeLinked() : this(Towel.Compare.Default) { }
-
+		/// <summary>This constructor if for cloning purposes.</summary>
+		/// <param name="tree">The tree to clone.</param>
 		internal AvlTreeLinked(AvlTreeLinked<T> tree)
 		{
-			this._root = tree._root?.Clone();
-			this._count = tree._count;
-			this._compare = tree._compare;
+			_root = tree._root?.Clone();
+			_count = tree._count;
+			_compare = tree._compare;
 		}
 
 		#endregion
