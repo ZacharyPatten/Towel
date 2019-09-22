@@ -311,13 +311,13 @@ namespace Towel.DataStructures
 		#region HeapLinkedStaticNode
 
 		/// <summary>This is just a storage class, it stores an entry in the priority heap and its priority.</summary>
-		private class HeapLinkedStaticNode
+		internal class HeapLinkedStaticNode
 		{
-			private HeapLinkedStaticNode _parent;
-			private HeapLinkedStaticNode _leftChild;
-			private HeapLinkedStaticNode _rightChild;
-			private int _priority;
-			private Type _value;
+			internal HeapLinkedStaticNode _parent;
+			internal HeapLinkedStaticNode _leftChild;
+			internal HeapLinkedStaticNode _rightChild;
+			internal int _priority;
+			internal Type _value;
 
 			internal HeapLinkedStaticNode Parent { get { return _parent; } set { _parent = value; } }
 			internal HeapLinkedStaticNode LeftChild { get { return _leftChild; } set { _leftChild = value; } }
@@ -335,12 +335,12 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		private HeapLinkedStaticNode[] _heapArray;
-		private int _count;
+		internal HeapLinkedStaticNode[] _heapArray;
+		internal int _count;
 
-		private object _lock;
-		private int _readers;
-		private int _writers;
+		internal object _lock;
+		internal int _readers;
+		internal int _writers;
 
 		/// <summary>The maximum items the queue can hold.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
@@ -424,7 +424,7 @@ namespace Towel.DataStructures
 		/// <summary>Standard priority queue algorithm for up sifting.</summary>
 		/// <param name="index">The index to be up sifted.</param>
 		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-		private void ShiftUp(int index)
+		internal void ShiftUp(int index)
 		{
 			// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
 			while (_heapArray[index].Priority > _heapArray[index / 2].Priority)
@@ -437,7 +437,7 @@ namespace Towel.DataStructures
 		/// <summary>Standard priority queue algorithm for sifting down.</summary>
 		/// <param name="index">The index to be down sifted.</param>
 		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-		private void ShiftDown(int index)
+		internal void ShiftDown(int index)
 		{
 			// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
 			while ((index * 2) <= _count)
@@ -455,7 +455,7 @@ namespace Towel.DataStructures
 		/// <param name="indexOne">The first index of the swap.</param>
 		/// <param name="indexTwo">The second index of the swap.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		private void ArraySwap(int indexOne, int indexTwo)
+		internal void ArraySwap(int indexOne, int indexTwo)
 		{
 			HeapLinkedStaticNode swapStorage = _heapArray[indexTwo];
 			_heapArray[indexTwo] = _heapArray[indexOne];
@@ -515,16 +515,16 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Thread safe enterance for readers.</summary>
-		private void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
+		internal void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
 		/// <summary>Thread safe exit for readers.</summary>
-		private void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
+		internal void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
 		/// <summary>Thread safe enterance for writers.</summary>
-		private void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
+		internal void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
 		/// <summary>Thread safe exit for readers.</summary>
-		private void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
+		internal void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
 
 		/// <summary>This is used for throwing imutable priority queue exceptions only to make debugging faster.</summary>
-		private class HeapArrayStaticException : Exception { public HeapArrayStaticException(string message) : base(message) { } }
+		internal class HeapArrayStaticException : Exception { public HeapArrayStaticException(string message) : base(message) { } }
 	}
 
 	*/
@@ -541,10 +541,10 @@ namespace Towel.DataStructures
 	//	#region HeapArrayLink
 
 	//	/// <summary>This is just a storage class, it stores an entry in the priority heap and its priority.</summary>
-	//	private class HeapArrayLink
+	//	internal class HeapArrayLink
 	//	{
-	//		private int _priority;
-	//		private Type _value;
+	//		internal int _priority;
+	//		internal Type _value;
 
 	//		internal int Priority { get { return _priority; } set { _priority = value; } }
 	//		internal Type Value { get { return _value; } set { _value = value; } }
@@ -558,12 +558,12 @@ namespace Towel.DataStructures
 
 	//	#endregion
 
-	//	private HeapArrayLink[] _heapArray;
-	//	private int _count;
+	//	internal HeapArrayLink[] _heapArray;
+	//	internal int _count;
 
-	//	private object _lock;
-	//	private int _readers;
-	//	private int _writers;
+	//	internal object _lock;
+	//	internal int _readers;
+	//	internal int _writers;
 
 	//	/// <summary>The maximum items the queue can hold.</summary>
 	//	/// <remarks>Runtime: O(1).</remarks>
@@ -647,7 +647,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard priority queue algorithm for up sifting.</summary>
 	//	/// <param name="index">The index to be up sifted.</param>
 	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-	//	private void ShiftUp(int index)
+	//	internal void ShiftUp(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
 	//		while (_heapArray[index].Priority > _heapArray[index / 2].Priority)
@@ -660,7 +660,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard priority queue algorithm for sifting down.</summary>
 	//	/// <param name="index">The index to be down sifted.</param>
 	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-	//	private void ShiftDown(int index)
+	//	internal void ShiftDown(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
 	//		while ((index * 2) <= _count)
@@ -678,7 +678,7 @@ namespace Towel.DataStructures
 	//	/// <param name="indexOne">The first index of the swap.</param>
 	//	/// <param name="indexTwo">The second index of the swap.</param>
 	//	/// <remarks>Runtime: O(1).</remarks>
-	//	private void ArraySwap(int indexOne, int indexTwo)
+	//	internal void ArraySwap(int indexOne, int indexTwo)
 	//	{
 	//		HeapArrayLink swapStorage = _heapArray[indexTwo];
 	//		_heapArray[indexTwo] = _heapArray[indexOne];
@@ -738,13 +738,13 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>Thread safe enterance for readers.</summary>
-	//	private void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
+	//	internal void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
 	//	/// <summary>Thread safe exit for readers.</summary>
-	//	private void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
+	//	internal void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
 	//	/// <summary>Thread safe enterance for writers.</summary>
-	//	private void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
+	//	internal void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
 	//	/// <summary>Thread safe exit for readers.</summary>
-	//	private void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
+	//	internal void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
 
 	//	#region Structure<T>
 
@@ -846,7 +846,7 @@ namespace Towel.DataStructures
 	//	#endregion
 
 	//	/// <summary>This is used for throwing imutable priority queue exceptions only to make debugging faster.</summary>
-	//	private class HeapArrayStaticException : System.Exception
+	//	internal class HeapArrayStaticException : System.Exception
 	//	{
 	//		public HeapArrayStaticException(string message) : base(message) { }
 	//	}
@@ -865,10 +865,10 @@ namespace Towel.DataStructures
 	//	#region HeapArrayDynamicLink
 
 	//	/// <summary>This is just a storage class, it stores an entry in the priority heap and its priority.</summary>
-	//	private class HeapArrayDynamicLink
+	//	internal class HeapArrayDynamicLink
 	//	{
-	//		private int _priority;
-	//		private Type _value;
+	//		internal int _priority;
+	//		internal Type _value;
 
 	//		internal int Priority { get { return _priority; } set { _priority = value; } }
 	//		internal Type Value { get { return _value; } set { _value = value; } }
@@ -882,13 +882,13 @@ namespace Towel.DataStructures
 
 	//	#endregion
 
-	//	private int _count;
-	//	private HeapArrayDynamicLink[] _heapArray;
-	//	private HashTableLinked<int, Type> _indexingReference;
+	//	internal int _count;
+	//	internal HeapArrayDynamicLink[] _heapArray;
+	//	internal HashTableLinked<int, Type> _indexingReference;
 
-	//	private object _lock;
-	//	private int _readers;
-	//	private int _writers;
+	//	internal object _lock;
+	//	internal int _readers;
+	//	internal int _writers;
 
 	//	/// <summary>The maximum items the queue can hold.</summary>
 	//	/// <remarks>Runtime: O(1).</remarks>
@@ -1010,7 +1010,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard priority queue algorithm for up sifting.</summary>
 	//	/// <param name="index">The index to be up sifted.</param>
 	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-	//	private void ShiftUp(int index)
+	//	internal void ShiftUp(int index)
 	//	{
 	//		// NOTE: "index / 2" is the index of the parent of the item at location "index"
 	//		while (_heapArray[index].Priority > _heapArray[index / 2].Priority)
@@ -1023,7 +1023,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard priority queue algorithm for sifting down.</summary>
 	//	/// <param name="index">The index to be down sifted.</param>
 	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
-	//	private void ShiftDown(int index)
+	//	internal void ShiftDown(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
 	//		while ((index * 2) <= _count)
@@ -1041,7 +1041,7 @@ namespace Towel.DataStructures
 	//	/// <param name="indexOne">The first index of the swap.</param>
 	//	/// <param name="indexTwo">The second index of the swap.</param>
 	//	/// <remarks>Runtime: O(1).</remarks>
-	//	private void ArraySwap(int indexOne, int indexTwo)
+	//	internal void ArraySwap(int indexOne, int indexTwo)
 	//	{
 	//		HeapArrayDynamicLink swapStorage = _heapArray[indexTwo];
 	//		_heapArray[indexTwo] = _heapArray[indexOne];
@@ -1104,13 +1104,13 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>Thread safe enterance for readers.</summary>
-	//	private void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
+	//	internal void ReaderLock() { lock (_lock) { while (!(_writers == 0)) Monitor.Wait(_lock); _readers++; } }
 	//	/// <summary>Thread safe exit for readers.</summary>
-	//	private void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
+	//	internal void ReaderUnlock() { lock (_lock) { _readers--; Monitor.Pulse(_lock); } }
 	//	/// <summary>Thread safe enterance for writers.</summary>
-	//	private void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
+	//	internal void WriterLock() { lock (_lock) { while (!(_writers == 0) && !(_readers == 0)) Monitor.Wait(_lock); _writers++; } }
 	//	/// <summary>Thread safe exit for readers.</summary>
-	//	private void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
+	//	internal void WriterUnlock() { lock (_lock) { _writers--; Monitor.PulseAll(_lock); } }
 
 	//	#region Structure<T>
 
@@ -1212,7 +1212,7 @@ namespace Towel.DataStructures
 	//	#endregion
 
 	//	/// <summary>This is used for throwing mutable priority queue exceptions only to make debugging faster.</summary>
-	//	private class HeapArrayDynamicException : System.Exception
+	//	internal class HeapArrayDynamicException : System.Exception
 	//	{
 	//		public HeapArrayDynamicException(string message) : base(message) { }
 	//	}

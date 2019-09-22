@@ -164,7 +164,7 @@ namespace Towel.Mathematics
 			}
 		}
 
-		private Vector(Vector<T> vector)
+		internal Vector(Vector<T> vector)
 		{
 			this._vector = vector._vector.Clone() as T[];
 		}

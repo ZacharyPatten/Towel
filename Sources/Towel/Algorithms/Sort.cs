@@ -202,7 +202,7 @@ namespace Towel.Algorithms
 		public static void Quick<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
 			Quick_Recursive(compare, get, set, start, end - start + 1);
 
-		private static void Quick_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
+		internal static void Quick_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
 		{
 			if (len > 1)
 			{
@@ -274,7 +274,7 @@ namespace Towel.Algorithms
 		public static void Merge<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
 			Merge_Recursive(compare, get, set, start, end - start);
 
-		private static void Merge_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
+		internal static void Merge_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
 		{
 			if (len > 1)
 			{
@@ -359,7 +359,7 @@ namespace Towel.Algorithms
 			}
 		}
 
-		private static void MaxHeapify<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int heapSize, int index)
+		internal static void MaxHeapify<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int heapSize, int index)
 		{
 			int left = (index + 1) * 2 - 1;
 			int right = (index + 1) * 2;
@@ -688,7 +688,7 @@ namespace Towel.Algorithms
 		//    Slow_Recursive(compare, get, set, start, end);
 		//}
 
-		//private static void Slow_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int i, int j)
+		//internal static void Slow_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int i, int j)
 		//{
 		//    if (i >= j)
 		//    {

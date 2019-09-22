@@ -21,8 +21,8 @@ namespace Towel
 	[Serializable]
 	public struct Fraction32
 	{
-		private short _numerator;
-		private short _denominator;
+		internal short _numerator;
+		internal short _denominator;
 
 		/// <summary>The maximum Fraction32 value.</summary>
 		public static readonly Fraction32 MaxValue = new Fraction32(short.MaxValue, 1);
@@ -332,7 +332,7 @@ namespace Towel
 		/// <param name="left">The left operand of the equality check.</param>
 		/// <param name="right">The right operand of the equality check.</param>
 		/// <returns>True if equal; false if not.</returns>
-		private static bool Equals(Fraction32 left, Fraction32 right)
+		internal static bool Equals(Fraction32 left, Fraction32 right)
 		{
 			return (left._numerator == right._numerator && left._denominator == right._denominator);
 		}
@@ -356,7 +356,7 @@ namespace Towel
 		/// <summary>Negates a fraction.</summary>
 		/// <param name="frac1">The fraction to negate.</param>
 		/// <returns>The result of the negation.</returns>
-		private static Fraction32 Negate(Fraction32 frac1)
+		internal static Fraction32 Negate(Fraction32 frac1)
 		{
 			short iNumerator = (short)(-frac1.Numerator);
 			short iDenominator = frac1.Denominator;
@@ -367,7 +367,7 @@ namespace Towel
 		/// <param name="frac1">The left operand of the addition.</param>
 		/// <param name="frac2">The right operand of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		private static Fraction32 Add(Fraction32 frac1, Fraction32 frac2)
+		internal static Fraction32 Add(Fraction32 frac1, Fraction32 frac2)
 		{
 			try
 			{
@@ -389,7 +389,7 @@ namespace Towel
 		/// <param name="frac1">The left operand of the multiplication.</param>
 		/// <param name="frac2">The right operand of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		private static Fraction32 Multiply(Fraction32 frac1, Fraction32 frac2)
+		internal static Fraction32 Multiply(Fraction32 frac1, Fraction32 frac2)
 		{
 			try
 			{
@@ -407,7 +407,7 @@ namespace Towel
 			}
 		}
 
-		private double ToDouble()
+		internal double ToDouble()
 		{
 			return this.Numerator / (double)this.Denominator;
 		}
@@ -506,8 +506,8 @@ namespace Towel
 	[Serializable]
 	public struct Fraction64
 	{
-		private int _numerator;
-		private int _denominator;
+		internal int _numerator;
+		internal int _denominator;
 
 		/// <summary>The maximum Fraction64 value.</summary>
 		public static readonly Fraction64 MaxValue = new Fraction64(int.MaxValue, 1);
@@ -815,7 +815,7 @@ namespace Towel
 		/// <param name="left">The left operand of the equality check.</param>
 		/// <param name="right">The right operand of the equality check.</param>
 		/// <returns>True if equal; false if not.</returns>
-		private static bool Equals(Fraction64 left, Fraction64 right)
+		internal static bool Equals(Fraction64 left, Fraction64 right)
 		{
 			return (left._numerator == right._numerator && left._denominator == right._denominator);
 		}
@@ -839,7 +839,7 @@ namespace Towel
 		/// <summary>Negates a fraction.</summary>
 		/// <param name="frac1">The fraction to negate.</param>
 		/// <returns>The result of the negation.</returns>
-		private static Fraction64 Negate(Fraction64 frac1)
+		internal static Fraction64 Negate(Fraction64 frac1)
 		{
 			int iNumerator = -frac1.Numerator;
 			int iDenominator = frac1.Denominator;
@@ -850,7 +850,7 @@ namespace Towel
 		/// <param name="frac1">The left operand of the addition.</param>
 		/// <param name="frac2">The right operand of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		private static Fraction64 Add(Fraction64 frac1, Fraction64 frac2)
+		internal static Fraction64 Add(Fraction64 frac1, Fraction64 frac2)
 		{
 			try
 			{
@@ -872,7 +872,7 @@ namespace Towel
 		/// <param name="frac1">The left operand of the multiplication.</param>
 		/// <param name="frac2">The right operand of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		private static Fraction64 Multiply(Fraction64 frac1, Fraction64 frac2)
+		internal static Fraction64 Multiply(Fraction64 frac1, Fraction64 frac2)
 		{
 			try
 			{
@@ -890,7 +890,7 @@ namespace Towel
 			}
 		}
 
-		private double ToDouble()
+		internal double ToDouble()
 		{
 			return this.Numerator / (double)this.Denominator;
 		}
@@ -986,8 +986,8 @@ namespace Towel
 	[Serializable]
 	public struct Fraction128
 	{
-		private long _numerator;
-		private long _denominator;
+		internal long _numerator;
+		internal long _denominator;
 
 		/// <summary>The maximum Fraction128 value.</summary>
 		public readonly static Fraction128 MaxValue = new Fraction128(long.MaxValue, 1);
@@ -1271,7 +1271,7 @@ namespace Towel
 			else return 0;
 		}
 
-		private static bool Equals(Fraction128 left, Fraction128 right)
+		internal static bool Equals(Fraction128 left, Fraction128 right)
 		{
 			return (left._numerator == right._numerator && left._denominator == right._denominator);
 		}
@@ -1295,14 +1295,14 @@ namespace Towel
 		/// <summary>
 		/// longernal function for negation
 		/// </summary>
-		private static Fraction128 Negate(Fraction128 frac1)
+		internal static Fraction128 Negate(Fraction128 frac1)
 		{
 			long iNumerator = -frac1.Numerator;
 			long iDenominator = frac1.Denominator;
 			return (new Fraction128(iNumerator, iDenominator));
 		}
 
-		private static Fraction128 Add(Fraction128 frac1, Fraction128 frac2)
+		internal static Fraction128 Add(Fraction128 frac1, Fraction128 frac2)
 		{
 			try
 			{
@@ -1320,7 +1320,7 @@ namespace Towel
 			}
 		}
 
-		private static Fraction128 Multiply(Fraction128 frac1, Fraction128 frac2)
+		internal static Fraction128 Multiply(Fraction128 frac1, Fraction128 frac2)
 		{
 			try
 			{
@@ -1338,7 +1338,7 @@ namespace Towel
 			}
 		}
 
-		//private static long GreatestCommonDenominator(long first, long second)
+		//internal static long GreatestCommonDenominator(long first, long second)
 		//{
 		//	// take absolute values
 		//	if (first < 0) first = -first;
@@ -1356,7 +1356,7 @@ namespace Towel
 		//	return second;
 		//}
 
-		private double ToDouble()
+		internal double ToDouble()
 		{
 			return this.Numerator / (double)this.Denominator;
 		}

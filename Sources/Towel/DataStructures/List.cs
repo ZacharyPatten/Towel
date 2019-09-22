@@ -154,8 +154,20 @@ namespace Towel.DataStructures
 		#region Add
 
 		/// <summary>Adds an item to the list.</summary>
+		/// <param name="value">The item to add to the list.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if the add succeeded or false if not.</returns>
+		/// <runtime>O(1)</runtime>
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
+		/// <summary>Adds an item to the list.</summary>
 		/// <param name="addition">The item to add to the list.</param>
-		/// <runtime>θ(1)</runtime>
+		/// <runtime>O(1)</runtime>
 		public void Add(T addition)
 		{
 			if (_tail == null)
@@ -468,22 +480,27 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds an item to the end of the list.</summary>
-		/// <param name="addition">The item to be added.</param>
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurrs if the add fails.</param>
+		/// <returns>True if the add succeds or false if not.</returns>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void Add(T addition)
+		public bool TryAdd(T value, out Exception exception)
 		{
 			if (_count == _list.Length)
 			{
 				if (_list.Length > int.MaxValue / 2)
 				{
-					throw new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+					exception = new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+					return false;
 				}
 				T[] newList = new T[_list.Length * 2];
 				_list.CopyTo(newList, 0);
 				_list = newList;
 			}
-			_list[_count++] = addition;
+			_list[_count++] = value;
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Adds an item at a given index.</summary>

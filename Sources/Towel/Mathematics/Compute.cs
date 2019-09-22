@@ -104,7 +104,7 @@ namespace Towel.Mathematics
 
 		// Note sure if this method will be necessary.
 
-		//private static T ComputeEpsilon<T>()
+		//internal static T ComputeEpsilon<T>()
 		//{
 		//    if (typeof(T) == typeof(float))
 		//    {
@@ -1842,7 +1842,7 @@ namespace Towel.Mathematics
 		//}
 
 		///// <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
-		//private static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Compare<T> compare)
+		//internal static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Compare<T> compare)
 		//{
 		//    int L = 0;
 		//    int R = n - 1;
@@ -1858,7 +1858,7 @@ namespace Towel.Mathematics
 		//    }
 		//}
 
-		//private static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Compare<T> compare)
+		//internal static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Compare<T> compare)
 		//{
 		//    do
 		//    {
@@ -2040,11 +2040,11 @@ namespace Towel.Mathematics
 		#region Correlation
 
 		//        /// <summary>Computes the median of a set of values.</summary>
-		//        private static Compute.Delegates.Correlation Correlation_private = (Stepper<T> a, Stepper<T> b) =>
+		//        internal static Compute.Delegates.Correlation Correlation_internal = (Stepper<T> a, Stepper<T> b) =>
 		//        {
 		//            throw new System.NotImplementedException("I introduced an error here when I removed the stepref off of structure. will fix soon");
 
-		//            Compute.Correlation_private =
+		//            Compute.Correlation_internal =
 		//        Meta.Compile<Compute.Delegates.Correlation>(
 		//        string.Concat(
 		//        @"(Stepper<", Meta.ConvertTypeToCsharpSource(typeof(T)), "> _a, Stepper<", Meta.ConvertTypeToCsharpSource(typeof(T)), @"> _b) =>
@@ -2076,12 +2076,12 @@ namespace Towel.Mathematics
 		//	return sum_a_cross_b / Compute<", Meta.ConvertTypeToCsharpSource(typeof(T)), @">.sqrt(sum_a_temp * sum_b_temp);
 		//}"));
 
-		//            return Compute.Correlation_private(a, b);
+		//            return Compute.Correlation_internal(a, b);
 		//        };
 
 		//        public static T Correlation(Stepper<T> a, Stepper<T> b)
 		//        {
-		//            return Correlation_private(a, b);
+		//            return Correlation_internal(a, b);
 		//        }
 		#endregion
 

@@ -390,7 +390,7 @@ namespace Towel.Mathematics
 			/// <summary>The default hash code for this instance.</summary>
 			/// <returns>The computed hash code.</returns>
 			public override int GetHashCode() => HashCode;
-			private static readonly int HashCode = nameof(Pi).GetHashCode();
+			internal static readonly int HashCode = nameof(Pi).GetHashCode();
 		}
 
 		#endregion
@@ -436,7 +436,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Zero).GetHashCode();
+			internal static readonly int HashCode = nameof(Zero).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -486,7 +486,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(One).GetHashCode();
+			internal static readonly int HashCode = nameof(One).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -536,7 +536,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Two).GetHashCode();
+			internal static readonly int HashCode = nameof(Two).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -586,7 +586,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Three).GetHashCode();
+			internal static readonly int HashCode = nameof(Three).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -654,7 +654,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Constant<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(Constant<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -718,7 +718,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Pi<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(Pi<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -764,7 +764,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Zero<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(Zero<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -810,7 +810,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(One<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(One<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -856,7 +856,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Two<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(Two<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -902,7 +902,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(Three<T>).GetHashCode();
+			internal static readonly int HashCode = nameof(Three<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -944,7 +944,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(True).GetHashCode();
+			internal static readonly int HashCode = nameof(True).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -986,7 +986,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			private static readonly int HashCode = nameof(False).GetHashCode();
+			internal static readonly int HashCode = nameof(False).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -3076,25 +3076,25 @@ namespace Towel.Mathematics
 		#region Runtime Built Parsing Libary
 
 		// Library Building Fields
-		private static bool ParseableLibraryBuilt = false;
-		private static readonly object ParseableLibraryLock = new object();
+		internal static bool ParseableLibraryBuilt = false;
+		internal static readonly object ParseableLibraryLock = new object();
 		// Regex Expressions
 		internal const string ParenthesisPattern = @"\(.*\)";
-		private static string ParsableOperationsRegexPattern;
-		private static string ParsableOperatorsRegexPattern;
-		private static string ParsableKnownConstantsRegexPattern;
-		private static string SpecialStringsPattern;
+		internal static string ParsableOperationsRegexPattern;
+		internal static string ParsableOperatorsRegexPattern;
+		internal static string ParsableKnownConstantsRegexPattern;
+		internal static string SpecialStringsPattern;
 		// Operation Refrences
-		private static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
-		private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
-		private static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>> ParsableTernaryOperations;
-		private static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>> ParsableMultinaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>> ParsableTernaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>> ParsableMultinaryOperations;
 		// Operator References
-		private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableLeftUnaryOperators;
-		private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
-		private static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableLeftUnaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
 		// Known Constant References
-		private static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>> ParsableKnownConstants;
+		internal static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>> ParsableKnownConstants;
 
 		#region Reflection Code (Actually Building the Parsing Library)
 

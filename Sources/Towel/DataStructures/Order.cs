@@ -76,6 +76,13 @@ namespace Towel.DataStructures
 
 		#region Methods
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the end of this list.</summary>
 		/// <param name="addition">The item to add to the list.</param>
 		public void Add(T addition)
@@ -193,6 +200,11 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
+
+		public bool TryAdd(T value, out Exception exception)
+		{
+			throw new System.NotImplementedException();
+		}
 
 		/// <summary>Adds an item to the end of this list.</summary>
 		/// <param name="addition">The item to add to the list.</param>

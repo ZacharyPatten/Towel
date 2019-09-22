@@ -82,7 +82,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new GraphSetOmnitree by cloning an existing instance.</summary>
 		/// <param name="graph">The graph to construct a clone of.</param>
-		private GraphSetOmnitree(GraphSetOmnitree<T> graph)
+		internal GraphSetOmnitree(GraphSetOmnitree<T> graph)
 		{
 			_edges = graph._edges.Clone() as OmnitreePointsLinked<Edge, T, T>;
 			_nodes = graph._nodes.Clone() as SetHashLinked<T>;
@@ -125,13 +125,16 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a node to the graph.</summary>
 		/// <param name="node">The node to add to the graph.</param>
-		public void Add(T node)
+		public bool TryAdd(T node, out Exception exception)
 		{
 			if (_nodes.Contains(node))
 			{
-				throw new InvalidOperationException("Adding an already-existing node to a graph");
+				exception = new InvalidOperationException("Adding an already-existing node to a graph");
+				return false;
 			}
 			_nodes.Add(node);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Adds an edge to the graph.</summary>
@@ -148,23 +151,28 @@ namespace Towel.DataStructures
 				throw new InvalidOperationException("Adding an edge to a graph to a node that does not exists");
 			}
 			_edges.Stepper(
-					(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
-					start, start, end, end);
+				(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
+				start, start, end, end);
 
 			_edges.Add(new Edge(start, end));
 		}
 
 		/// <summary>Removes a node from the graph and all attached edges.</summary>
 		/// <param name="node">The edge to remove from the graph.</param>
-		public void Remove(T node)
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove succeeded or false if not.</returns>
+		public bool TryRemove(T node, out Exception exception)
 		{
 			if (_nodes.Contains(node))
 			{
-				throw new InvalidOperationException("Removing non-existing node from a graph");
+				exception = new InvalidOperationException("Removing non-existing node from a graph");
+				return false;
 			}
 			_edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
 			_edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
 			_nodes.Add(node);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes an edge from the graph.</summary>
@@ -281,7 +289,7 @@ namespace Towel.DataStructures
 		internal MapHashLinked<MapHashLinked<bool, T>, T> _map;
 		internal int _edges;
 
-		#region Nested Types
+		#region Edge
 
 		/// <summary>Represents an edge in a graph.</summary>
 		public class Edge
@@ -313,8 +321,8 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hash function for the data structure to use.</param>
 		public GraphMap(Equate<T> equate, Hash<T> hash)
 		{
-			this._edges = 0;
-			this._map = new MapHashLinked<MapHashLinked<bool, T>, T>(equate, hash);
+			_edges = 0;
+			_map = new MapHashLinked<MapHashLinked<bool, T>, T>(equate, hash);
 		}
 
 		#endregion
@@ -333,11 +341,17 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a node to the graph.</summary>
 		/// <param name="node">The node to add to the graph.</param>
-		public void Add(T node)
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		public bool TryAdd(T node, out Exception exception)
 		{
-			if (this._map.Count == int.MaxValue)
-				throw new System.InvalidOperationException("This graph has reach its node capacity.");
-			this._map.Add(node, new MapHashLinked<bool, T>(this._map.Equate, this._map.Hash));
+			if (_map.Count == int.MaxValue)
+			{
+				exception = new InvalidOperationException("This graph has reach its node capacity.");
+				return false;
+			}
+			_map.Add(node, new MapHashLinked<bool, T>(_map.Equate, _map.Hash));
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Adds an edge to the graph.</summary>
@@ -345,21 +359,23 @@ namespace Towel.DataStructures
 		/// <param name="end">The ending point of the edge.</param>
 		public void Add(T start, T end)
 		{
-			if (!this._map.Contains(start))
-				throw new System.InvalidOperationException("Adding an edge to a non-existing starting node.");
-			if (!this._map[start].Contains(end))
-				throw new System.InvalidOperationException("Adding an edge to a non-existing ending node.");
-			if (this._map[start] == null)
-				this._map[start] = new MapHashLinked<bool, T>(this._map.Equate, this._map.Hash);
+			if (!_map.Contains(start))
+				throw new InvalidOperationException("Adding an edge to a non-existing starting node.");
+			if (!_map[start].Contains(end))
+				throw new InvalidOperationException("Adding an edge to a non-existing ending node.");
+			if (_map[start] == null)
+				_map[start] = new MapHashLinked<bool, T>(_map.Equate, _map.Hash);
 
-			this._map[start].Add(end, true);
+			_map[start].Add(end, true);
 		}
 
 		/// <summary>Removes a node from the graph.</summary>
 		/// <param name="node">The node to remove from the graph.</param>
-		public void Remove(T node)
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove succeeded or false if not.</returns>
+		public bool TryRemove(T node, out Exception exception)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		/// <summary>Removes an edge from the graph.</summary>
@@ -380,11 +396,11 @@ namespace Towel.DataStructures
 		/// <returns>True if ajacent. False if not.</returns>
 		public bool Adjacent(T a, T b)
 		{
-			if (this._map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+			if (_map.TryGet(a, out MapHashLinked<bool, T> map))
 			{
-				if (tryGetMap.TryGet(a, out bool tryGetBool))
+				if (map.TryGet(a, out bool boolean))
 				{
-					return tryGetBool;
+					return boolean;
 				}
 			}
 			return false;
@@ -395,78 +411,78 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on all the neighbors of the provided node.</param>
 		public void Neighbors(T a, Step<T> step)
 		{
-			if (_map.TryGet(a, out MapHashLinked<bool, T> tryGetMap))
+			if (_map.TryGet(a, out MapHashLinked<bool, T> map))
 			{
-				tryGetMap.Keys(step);
+				map.Keys(step);
 			}
 		}
 
-		public void Stepper(Step<T> function)
+		public void Stepper(Step<T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public void Stepper(StepRef<T> function)
+		public void Stepper(StepRef<T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public StepStatus Stepper(StepBreak<T> function)
+		public StepStatus Stepper(StepBreak<T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public StepStatus Stepper(StepRefBreak<T> function)
+		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public void Stepper(Step<T, T> function)
+		public void Stepper(Step<T, T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public void Stepper(StepRef<T, T> function)
+		public void Stepper(StepRef<T, T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public StepStatus Stepper(StepBreak<T, T> function)
+		public StepStatus Stepper(StepBreak<T, T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
-		public StepStatus Stepper(StepRefBreak<T, T> function)
+		public StepStatus Stepper(StepRefBreak<T, T> step)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		public IDataStructure<T> Clone()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		public T[] ToArray()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		System.Collections.Generic.IEnumerator<T>
 			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		public void Clear()
 		{
-			this._edges = 0;
-			this._map = new MapHashLinked<MapHashLinked<bool, T>, T>(this._map.Equate, this._map.Hash);
+			_edges = 0;
+			_map = new MapHashLinked<MapHashLinked<bool, T>, T>(_map.Equate, _map.Hash);
 		}
 
 		#endregion

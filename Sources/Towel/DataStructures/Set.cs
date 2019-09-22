@@ -114,8 +114,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a value to the set.</summary>
 		/// <param name="value">The value to add to the set.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void Add(T value)
+		public bool TryAdd(T value, out Exception exception)
 		{
 			if (value == null)
 			{
@@ -131,7 +132,8 @@ namespace Towel.DataStructures
 			{
 				if (_equate(node.Value, value))
 				{
-					throw new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
+					exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
+					return false;
 				}
 			}
 
@@ -158,36 +160,45 @@ namespace Towel.DataStructures
 					Resize(tableSize);
 				}
 			}
+
+			exception = null;
+			return true;
 		}
 
 		#endregion
 
 		#region Remove
 
-		/// <summary>Removes a value from the set.</summary>
+		/// <summary>Tries to remove a value from the set.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void Remove(T value)
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove(T value, out Exception exception)
 		{
-			RemoveWithoutTrim(value);
-			if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
+			if (TryRemoveWithoutTrim(value, out exception))
 			{
-				// calculate new table size
-				int tableSize = (int)(_count * (1 / _maxLoadFactor));
-				while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
 				{
-					tableSize++;
-				}
+					// calculate new table size
+					int tableSize = (int)(_count * (1 / _maxLoadFactor));
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					{
+						tableSize++;
+					}
 
-				// resize the table
-				Resize(tableSize);
+					// resize the table
+					Resize(tableSize);
+				}
+				return true;
 			}
+			return false;
 		}
 
-		/// <summary>Removes a value from the set.</summary>
+		/// <summary>Tries to remove a value from the set without shrinking the hash table.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void RemoveWithoutTrim(T value)
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemoveWithoutTrim(T value, out Exception exception)
 		{
 			if (value == null)
 			{
@@ -204,7 +215,8 @@ namespace Towel.DataStructures
 				// the value was the head node of the table index
 				_table[location] = _table[location].Next;
 				_count--;
-				return;
+				exception = null;
+				return true;
 			}
 			else
 			{
@@ -215,10 +227,12 @@ namespace Towel.DataStructures
 					{
 						node.Next = node.Next.Next;
 						_count--;
-						return;
+						exception = null;
+						return true;
 					}
 				}
-				throw new ArgumentException("Attempting to remove a value that is no in a set.", nameof(value));
+				exception = new ArgumentException("Attempting to remove a value that is no in a set.", nameof(value));
+				return false;
 			}
 		}
 
@@ -406,7 +420,12 @@ namespace Towel.DataStructures
 	public class Set<Structure, T> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
-		where Structure : class, IDataStructure<T>, DataStructure.IAddable<T>, DataStructure.IRemovable<T>, DataStructure.IAuditable<T>
+		where Structure :
+			class,
+			IDataStructure<T>,
+			DataStructure.IAddable<T>,
+			DataStructure.IRemovable<T>,
+			DataStructure.IAuditable<T>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;
@@ -469,7 +488,7 @@ namespace Towel.DataStructures
 		/// <param name="set">The set to clone.</param>
 		/// <param name="clone">A delegate for cloning the structures.</param>
 		/// <runtime>O(n)</runtime>
-		private Set(Set<Structure, T> set, StructureClone clone)
+		internal Set(Set<Structure, T> set, StructureClone clone)
 		{
 			_factory = set._factory;
 			_equate = set._equate;
@@ -513,8 +532,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a value to the hash table.</summary>
 		/// <param name="value">The key value to use as the look-up reference in the hash table.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void Add(T value)
+		public bool TryAdd(T value, out Exception exception)
 		{
 			if (value == null)
 			{
@@ -528,7 +548,8 @@ namespace Towel.DataStructures
 			// duplicate value check
 			if (_table[location].Contains(value))
 			{
-				throw new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
+				exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
+				return false;
 			}
 
 			// add the value
@@ -556,6 +577,9 @@ namespace Towel.DataStructures
 				// resize the table
 				Resize(tableSize);
 			}
+
+			exception = null;
+			return true;
 		}
 
 		#endregion
@@ -564,28 +588,34 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes a value from the set.</summary>
 		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void Remove(T value)
+		public bool TryRemove(T value, out Exception exception)
 		{
-			RemoveWithoutTrim(value);
-			if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
+			if (TryRemoveWithoutTrim(value, out exception))
 			{
-				// calculate new table size
-				int tableSize = (int)(_count * (1 / _maxLoadFactor));
-				while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
 				{
-					tableSize++;
-				}
+					// calculate new table size
+					int tableSize = (int)(_count * (1 / _maxLoadFactor));
+					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					{
+						tableSize++;
+					}
 
-				// resize the table
-				Resize(tableSize);
+					// resize the table
+					Resize(tableSize);
+				}
+				return true;
 			}
+			return false;
 		}
 
 		/// <summary>Removes a value from the set.</summary>
 		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public void RemoveWithoutTrim(T value)
+		public bool TryRemoveWithoutTrim(T value, out Exception exception)
 		{
 			if (value == null)
 			{
@@ -597,8 +627,15 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// remove the value
-			_table[location].Remove(value);
-			_count--;
+			if (_table[location].TryRemove(value, out exception))
+			{
+				_count--;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		#endregion

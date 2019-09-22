@@ -395,27 +395,27 @@ namespace Towel.DataStructures
 
 	//public class OmnitreePointsLinked<T> : OmnitreePoints<T>
 	//{
-	//    private int _dimensions;
-	//    private int _children_per_node;
-	//    private int _default_depth_load = 1; // starting and minimum depth load
+	//    internal int _dimensions;
+	//    internal int _children_per_node;
+	//    internal int _default_depth_load = 1; // starting and minimum depth load
 
-	//    private Node _top;
+	//    internal Node _top;
 
-	//    private int _depth_load; // ln(count); min = _defaultLoad
-	//    private int _node_load; // ln(count); min = _children_per_node
-	//    private Omnitree.Location<T> _locate;
+	//    internal int _depth_load; // ln(count); min = _defaultLoad
+	//    internal int _node_load; // ln(count); min = _children_per_node
+	//    internal Omnitree.Location<T> _locate;
 
-	//    private bool _defaultEquate;
-	//    private Equate<T> _equate;
+	//    internal bool _defaultEquate;
+	//    internal Equate<T> _equate;
 
-	//    private bool[] _defaultEquates;
-	//    private Equate<object>[] _equates;
+	//    internal bool[] _defaultEquates;
+	//    internal Equate<object>[] _equates;
 
-	//    private bool[] _defaultCompares;
-	//    private Compare<object>[] _compares;
+	//    internal bool[] _defaultCompares;
+	//    internal Compare<object>[] _compares;
 
 	//    // allows median overriding for custom optimizations
-	//    private Omnitree.MedianOverride<T, object, Omnitree.Bounds>[] _medianOverrides;
+	//    internal Omnitree.MedianOverride<T, object, Omnitree.Bounds>[] _medianOverrides;
 
 	//    #region Nested Types
 
@@ -473,9 +473,9 @@ namespace Towel.DataStructures
 	//    /// <summary>A branch in the tree. Only contains nodes.</summary>
 	//    public class Branch : Node
 	//    {
-	//        private Node[] _children;
-	//        private Omnitree.Vector _pointOfDivision;
-	//        private int _children_per_node;
+	//        internal Node[] _children;
+	//        internal Omnitree.Vector _pointOfDivision;
+	//        internal int _children_per_node;
 
 	//        public Node[] Children { get { return this._children; } set { this._children = value; } }
 	//        public Omnitree.Vector PointOfDivision { get { return this._pointOfDivision; } internal set { this._pointOfDivision = value; } }
@@ -581,7 +581,7 @@ namespace Towel.DataStructures
 	//            }
 	//        }
 
-	//        private Leaf.Node _head;
+	//        internal Leaf.Node _head;
 
 	//        public Leaf.Node Head { get { return this._head; } set { this._head = value; } }
 
@@ -622,7 +622,7 @@ namespace Towel.DataStructures
 	//    #region Constructors
 
 	//    /// <summary>This constructor is for cloning purposes</summary>
-	//    private OmnitreePointsLinked(OmnitreePointsLinked<T> omnitree)
+	//    internal OmnitreePointsLinked(OmnitreePointsLinked<T> omnitree)
 	//    {
 	//        this._top = omnitree._top.Clone();
 	//        this._depth_load = omnitree._depth_load;
@@ -637,7 +637,7 @@ namespace Towel.DataStructures
 	//        this._medianOverrides = omnitree._medianOverrides.Clone() as Omnitree.MedianOverride<T, object, Omnitree.Bounds>[];
 	//    }
 
-	//    private OmnitreePointsLinked(
+	//    internal OmnitreePointsLinked(
 	//        Omnitree.Location<T> locate,
 	//        bool defaultEquate,
 	//        Equate<T> equate,
@@ -672,7 +672,7 @@ namespace Towel.DataStructures
 	//        ComputeLoads(0);
 	//    }
 
-	//    //private OmnitreePointsLinked(
+	//    //internal OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
 	//    //    Equate<T> equate,
 	//    //    Equate<Axis1> equateAxis1,
@@ -984,7 +984,7 @@ namespace Towel.DataStructures
 	//    /// <summary>The current number of items in the tree.</summary>
 	//    public int Count { get { return this._top.Count; } }
 
-	//    private delegate void MaxDepthFinder(Node node, int current_depth, ref int max_depth);
+	//    internal delegate void MaxDepthFinder(Node node, int current_depth, ref int max_depth);
 	//    /// <summary>Finds the current maximum depth of the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
 	//    public int MaxDepth
 	//    {
@@ -1006,7 +1006,7 @@ namespace Towel.DataStructures
 	//        }
 	//    }
 
-	//    private delegate void NodeCountFinder(Node node, ref int current_count);
+	//    internal delegate void NodeCountFinder(Node node, ref int current_count);
 	//    /// <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
 	//    public int NodeCount
 	//    {
@@ -1028,7 +1028,7 @@ namespace Towel.DataStructures
 	//        }
 	//    }
 
-	//    private delegate void BranchCountFinder(Node node, ref int current_count);
+	//    internal delegate void BranchCountFinder(Node node, ref int current_count);
 	//    /// <summary>Counts the current number of branches in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
 	//    public int BranchCount
 	//    {
@@ -1052,7 +1052,7 @@ namespace Towel.DataStructures
 	//        }
 	//    }
 
-	//    private delegate void LeafCountFinder(Node node, ref int current_count);
+	//    internal delegate void LeafCountFinder(Node node, ref int current_count);
 	//    /// <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
 	//    public int LeafCount
 	//    {
@@ -1276,7 +1276,7 @@ namespace Towel.DataStructures
 	//    }
 
 
-	//    private int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
+	//    internal int Add(Branch parent, int depth, int child, Stepper<T> additions, int parent_count, int prevmed1, int prevmed2, int prevmed3, int initial_count, Get<Axis1> values1, Get<Axis2> values2, Get<Axis3> values3, bool allowMultithreading)
 	//    {
 	//        Axis1 pointOfDivision1;
 	//        Axis2 pointOfDivision2;
@@ -1381,7 +1381,7 @@ namespace Towel.DataStructures
 	//    }
 
 	//    /// <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-	//    private void GetMedianIndexes(int count, int child_index, int depth, int previous1, int previous2, int previous3, out int index1, out int index2, out int index3)
+	//    internal void GetMedianIndexes(int count, int child_index, int depth, int previous1, int previous2, int previous3, out int index1, out int index2, out int index3)
 	//    {
 	//        if (depth == 1)
 	//        {
@@ -1463,7 +1463,7 @@ namespace Towel.DataStructures
 	//    /// <param name="node">The current node for tree trversal.</param>
 	//    /// <param name="ms">The location of the addition.</param>
 	//    /// <param name="depth">The current depth of iteration.</param>
-	//    private void Add(T addition, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> location, int depth)
+	//    internal void Add(T addition, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> location, int depth)
 	//    {
 	//        if (node is Leaf)
 	//        {
@@ -1523,7 +1523,7 @@ namespace Towel.DataStructures
 	//    /// <param name="median1">The computed minimum dimensions of the child node along the 1D axis.</param>
 	//    /// <param name="median2">The computed minimum dimensions of the child node along the 2D axis.</param>
 	//    /// <param name="median3">The computed minimum dimensions of the child node along the 3D axis.</param>
-	//    private Omnitree.Vector<Axis1, Axis2, Axis3> DetermineMedians(Leaf leaf)
+	//    internal Omnitree.Vector<Axis1, Axis2, Axis3> DetermineMedians(Leaf leaf)
 	//    {
 	//        try
 	//        {
@@ -1579,7 +1579,7 @@ namespace Towel.DataStructures
 
 	//    #region Add Helpers
 
-	//    private Omnitree.Bounds<Axis1, Axis2, Axis3> DetermineChildBounds(Branch branch, int child_index)
+	//    internal Omnitree.Bounds<Axis1, Axis2, Axis3> DetermineChildBounds(Branch branch, int child_index)
 	//    {
 	//        Omnitree.Bound<Axis3> min3, max3;
 	//        if (child_index >= 1 << 2)
@@ -1693,7 +1693,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Counts the number of items in a sub space.</summary>
 	//    /// <param name="node">The current traversal node.</param>
 	//    /// <returns>The number of items in the provided sub space.</returns>
-	//    private int CountSubSpace(Node node, Omnitree.Bounds bounds)
+	//    internal int CountSubSpace(Node node, Omnitree.Bounds bounds)
 	//    {
 	//        // adjust min/max values
 	//        int count = 0;
@@ -1726,7 +1726,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Recursive version of the Update method.</summary>
 	//    /// <param name="node">The current node of iteration.</param>
 	//    /// <param name="depth">The current depth of iteration.</param>
-	//    private int Update(Node node, int depth)
+	//    internal int Update(Node node, int depth)
 	//    {
 	//        int removals = 0;
 
@@ -1827,7 +1827,7 @@ namespace Towel.DataStructures
 	//    {
 	//        this.Update(new Omnitree.Bounds(location), this._top, 0);
 	//    }
-	//    private int Update(Omnitree.Bounds bounds, Node node, int depth)
+	//    internal int Update(Omnitree.Bounds bounds, Node node, int depth)
 	//    {
 	//        if (!InclusionCheck(bounds, node.Bounds))
 	//            return 0;
@@ -1905,7 +1905,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Recursive version of the remove method.</summary>
 	//    /// <param name="node">The current node of traversal.</param>
 	//    /// <param name="where">The predicate to qualify removals.</param>
-	//    private int Remove(Node node, Predicate<T> where)
+	//    internal int Remove(Node node, Predicate<T> where)
 	//    {
 	//        int removals = 0;
 	//        if (node is Leaf)
@@ -1991,7 +1991,7 @@ namespace Towel.DataStructures
 	//    {
 	//        this.Remove(this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1, axis2, axis2, axis3, axis3));
 	//    }
-	//    private int Remove(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
+	//    internal int Remove(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 	//    {
 	//        int removals = 0;
 	//        if (InclusionCheck(bounds, node.Bounds))
@@ -2082,7 +2082,7 @@ namespace Towel.DataStructures
 	//    {
 	//        this.Remove(this._top, new Omnitree.Bounds(location, location), where);
 	//    }
-	//    private int Remove(Node node, Omnitree.Bounds bounds, Predicate<T> where)
+	//    internal int Remove(Node node, Omnitree.Bounds bounds, Predicate<T> where)
 	//    {
 	//        if (!InclusionCheck(node.Bounds, bounds))
 	//            return 0;
@@ -2157,7 +2157,7 @@ namespace Towel.DataStructures
 	//        this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 	//        ComputeLoads(this._top.Count);
 	//    }
-	//    private int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        int removals = 0;
 	//        if (node is Leaf)
@@ -2209,7 +2209,7 @@ namespace Towel.DataStructures
 	//        this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3), where);
 	//        ComputeLoads(this._top.Count);
 	//    }
-	//    private int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector, Predicate<T> where)
+	//    internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector, Predicate<T> where)
 	//    {
 	//        int removals = 0;
 	//        if (node is Leaf)
@@ -2260,7 +2260,7 @@ namespace Towel.DataStructures
 	//    {
 	//        this.Stepper(function, this._top);
 	//    }
-	//    private void Stepper(Step<T> function, Node node)
+	//    internal void Stepper(Step<T> function, Node node)
 	//    {
 	//        if (node is Leaf)
 	//        {
@@ -2289,7 +2289,7 @@ namespace Towel.DataStructures
 	//        } while (status == StepStatus.Restart);
 	//        return status;
 	//    }
-	//    private StepStatus Stepper(StepBreak<T> function, Node node)
+	//    internal StepStatus Stepper(StepBreak<T> function, Node node)
 	//    {
 	//        StepStatus status = StepStatus.Continue;
 	//        if (node is Leaf)
@@ -2331,7 +2331,7 @@ namespace Towel.DataStructures
 	//    {
 	//        Stepper(function, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 	//    }
-	//    private void Stepper(Step<T> function, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
+	//    internal void Stepper(Step<T> function, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 	//    {
 	//        if (node is Leaf)
 	//        {
@@ -2382,7 +2382,7 @@ namespace Towel.DataStructures
 	//        } while (status == StepStatus.Restart);
 	//        return status;
 	//    }
-	//    private StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
+	//    internal StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 	//    {
 	//        StepStatus status = StepStatus.Continue;
 	//        if (node is Leaf)
@@ -2414,7 +2414,7 @@ namespace Towel.DataStructures
 	//    {
 	//        Stepper(function, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 	//    }
-	//    private void Stepper(Step<T> function, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal void Stepper(Step<T> function, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        Node current = node;
 	//        while (current != null)
@@ -2449,7 +2449,7 @@ namespace Towel.DataStructures
 	//        } while (status == StepStatus.Restart);
 	//        return status;
 	//    }
-	//    private StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal StepStatus Stepper(StepBreak<T> function, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        Node current = node;
 	//        while (current != null)
@@ -2496,7 +2496,7 @@ namespace Towel.DataStructures
 	//    /// <param name="node">The branch .</param>
 	//    /// <param name="vector">The dimensions to determine the child index.</param>
 	//    /// <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
-	//    private int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        int child = 0;
 	//        if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == Comparison.Less))
@@ -2511,7 +2511,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Converts a branch back into a leaf when the count is reduced.</summary>
 	//    /// <param name="parent">The parent to shrink a child of.</param>
 	//    /// <param name="child">The index of the child to shrink.</param>
-	//    private void ShrinkChild(Branch parent, int child_index)
+	//    internal void ShrinkChild(Branch parent, int child_index)
 	//    {
 	//        Leaf leaf;
 	//        Node removal = null;
@@ -2534,7 +2534,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Reduces the counts of all the parents of a given node by a given amount.</summary>
 	//    /// <param name="parent">The starting parent of the reduction.</param>
 	//    /// <param name="reduction">The amount to reduce the parent counts by.</param>
-	//    private void ReduceParentCounts(Node parent, int reduction)
+	//    internal void ReduceParentCounts(Node parent, int reduction)
 	//    {
 	//        IncreaseParentCounts(parent, -reduction);
 	//    }
@@ -2542,7 +2542,7 @@ namespace Towel.DataStructures
 	//    /// <summary>Increases the counts of all the parents of a given node by a given amount.</summary>
 	//    /// <param name="parent">The starting parent of the increase.</param>
 	//    /// <param name="increase">The amount to increase the parent counts by.</param>
-	//    private void IncreaseParentCounts(Node parent, int increase)
+	//    internal void IncreaseParentCounts(Node parent, int increase)
 	//    {
 	//        Node looper = parent;
 	//        while (looper != null)
@@ -2554,7 +2554,7 @@ namespace Towel.DataStructures
 
 	//    /// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
 	//    /// <returns>True if the spaces overlap; False if not.</returns>
-	//    private bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
+	//    internal bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
 	//    {
 	//        if (a.Max1.Exists && b.Min1.Exists && this._compare1(a.Max1.Value, b.Min1.Value) == Comparison.Less)
 	//            return false;
@@ -2573,7 +2573,7 @@ namespace Towel.DataStructures
 
 	//    /// <summary>Checks if a space encapsulates a point.</summary>
 	//    /// <returns>True if the space encapsulates the point; False if not.</returns>
-	//    private bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        // if the location is not outside the bounds, it must be inside
 	//        if (bounds.Min1.Exists && this._compare1(vector.Axis1, bounds.Min1.Value) == Comparison.Less)
@@ -2593,7 +2593,7 @@ namespace Towel.DataStructures
 
 	//    /// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 	//    /// <returns>True if the left space encapsulates the right; False if not.</returns>
-	//    private bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
+	//    internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b)
 	//    {
 	//        if ((a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists))
 	//            return false;
@@ -2614,7 +2614,7 @@ namespace Towel.DataStructures
 
 	//    /// <summary>Checks for equality between two locations.</summary>
 	//    /// <returns>True if equal; False if not;</returns>
-	//    private bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b)
+	//    internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b)
 	//    {
 	//        if (!this._equate1(a.Axis1, b.Axis1))
 	//            return false;
@@ -2631,7 +2631,7 @@ namespace Towel.DataStructures
 	//    /// <param name="coordinate2">The coordinate along the 2D axis.</param>
 	//    /// <param name="coordinate3">The coordinate along the 3D axis.</param>
 	//    /// <returns>The nearest node that encapsulates the given location.</returns>
-	//    private Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+	//    internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 	//    {
 	//        while (node != null && !EncapsulationCheck(node.Bounds, vector))
 	//            node = node.Parent;
@@ -2639,7 +2639,7 @@ namespace Towel.DataStructures
 	//    }
 
 	//    /// <summary>Checks for required load reduction.</summary>
-	//    private void ComputeLoads(int count)
+	//    internal void ComputeLoads(int count)
 	//    {
 	//        int natural_log = (int)Math.Log(count);
 	//        this._depth_load = Compute<int>.Maximum(natural_log, _default_depth_load);
@@ -2647,7 +2647,7 @@ namespace Towel.DataStructures
 	//        this._node_load = (int)Compute<int>.Maximum(natural_log, 8);
 	//    }
 
-	//    private Omnitree.Vector<Axis1, Axis2, Axis3> LocateVector(T value)
+	//    internal Omnitree.Vector<Axis1, Axis2, Axis3> LocateVector(T value)
 	//    {
 	//        Axis1 axis1;
 	//        Axis2 axis2;

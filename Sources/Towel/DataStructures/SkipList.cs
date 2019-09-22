@@ -28,7 +28,7 @@ namespace Towel.DataStructures
 		internal int _listLevel; // Current maximum list level.
 		internal int _count; // Current number of elements in the skip list.
 							 // nested types
-		#region private class Node
+		#region internal class Node
 		internal class Node
 		{
 			// References to nodes further along in the skip list.
@@ -93,20 +93,20 @@ namespace Towel.DataStructures
 			//		this.GetType().Assembly);
 		}
 		#endregion
-		#region private class SkipListEnumerator
+		#region internal class SkipListEnumerator
 
 		/// <summary>Enumerates the elements of a skip list.</summary>
-		private class SkipListEnumerator : System.Collections.IDictionaryEnumerator
+		internal class SkipListEnumerator : System.Collections.IDictionaryEnumerator
 		{
 			// The skip list to enumerate.
-			private readonly SkipListLinked<T> _skiplist;
+			internal readonly SkipListLinked<T> _skiplist;
 
 			// The current node.
-			private Node _current;
+			internal Node _current;
 
 			// Keeps track of previous move result so that we can know 
 			// whether or not we are at the end of the skip list.
-			private bool _moveResult = true;
+			internal bool _moveResult = true;
 
 			/// <summary>Initializes an instance of a SkipListEnumerator.</summary>
 			/// <param name="list"></param>
@@ -391,12 +391,12 @@ namespace Towel.DataStructures
 		//	return new SkipListEnumerator(this);
 		//}
 		#endregion
-		// method (private)
-		#region private void Initialize()
+		// method (internal)
+		#region internal void Initialize()
 		/// <summary>
 		/// Initializes the SkipList.
 		/// </summary>
-		private void Initialize()
+		internal void Initialize()
 		{
 			_listLevel = 1;
 			_count = 0;
@@ -410,14 +410,14 @@ namespace Towel.DataStructures
 			}
 		}
 		#endregion
-		#region private int GetNewLevel()
+		#region internal int GetNewLevel()
 		/// <summary>
 		/// Returns a level value for a new SkipList node.
 		/// </summary>
 		/// <returns>
 		/// The level value for a new SkipList node.
 		/// </returns>
-		private int GetNewLevel()
+		internal int GetNewLevel()
 		{
 			int level = 1;
 
@@ -431,7 +431,7 @@ namespace Towel.DataStructures
 			return level;
 		}
 		#endregion
-		#region private bool Search(object key)
+		#region internal bool Search(object key)
 		/// <summary>
 		/// Searches for the specified key.
 		/// </summary>
@@ -441,13 +441,13 @@ namespace Towel.DataStructures
 		/// <returns>
 		/// Returns true if the specified key is in the SkipList.
 		/// </returns>
-		private bool Search(object key)
+		internal bool Search(object key)
 		{
 			Node[] dummy = new Node[MaxLevel];
 			return Search(key, out Node curr, dummy);
 		}
 		#endregion
-		#region private bool Search(object key, out Node curr)
+		#region internal bool Search(object key, out Node curr)
 		/// <summary>
 		/// Searches for the specified key.
 		/// </summary>
@@ -460,14 +460,14 @@ namespace Towel.DataStructures
 		/// <returns>
 		/// Returns true if the specified key is in the SkipList.
 		/// </returns>
-		private bool Search(object key, out Node curr)
+		internal bool Search(object key, out Node curr)
 		{
 			Node[] dummy = new Node[MaxLevel];
 
 			return Search(key, out curr, dummy);
 		}
 		#endregion
-		#region private bool Search(object key, Node[] update)
+		#region internal bool Search(object key, Node[] update)
 		/// <summary>	
 		/// Searches for the specified key.
 		/// </summary>
@@ -481,12 +481,12 @@ namespace Towel.DataStructures
 		/// <returns>
 		/// Returns true if the specified key is in the SkipList.
 		/// </returns>
-		private bool Search(object key, Node[] update)
+		internal bool Search(object key, Node[] update)
 		{
 			return Search(key, out Node curr, update);
 		}
 		#endregion
-		#region private bool Search(object key, out Node curr, Node[] update)
+		#region internal bool Search(object key, out Node curr, Node[] update)
 		/// <summary>
 		/// Searches for the specified key.
 		/// </summary>
@@ -503,7 +503,7 @@ namespace Towel.DataStructures
 		/// <returns>
 		/// Returns true if the specified key is in the SkipList.
 		/// </returns>
-		private bool Search(object key, out Node curr, Node[] update)
+		internal bool Search(object key, out Node curr, Node[] update)
 		{
 			// Make sure key isn't null.
 			if (key == null)
@@ -528,7 +528,7 @@ namespace Towel.DataStructures
 			return result;
 		}
 		#endregion
-		#region private bool SearchWithComparer(object key, out Node curr, Node[] update)
+		#region internal bool SearchWithComparer(object key, out Node curr, Node[] update)
 		/// <summary>
 		/// Search for the specified key using a comparer.
 		/// </summary>
@@ -545,7 +545,7 @@ namespace Towel.DataStructures
 		/// <returns>
 		/// Returns true if the specified key is in the SkipList.
 		/// </returns>
-		private bool SearchWithComparer(object key, out Node curr,
+		internal bool SearchWithComparer(object key, out Node curr,
 				Node[] update)
 		{
 			bool found = false;
@@ -589,7 +589,7 @@ namespace Towel.DataStructures
 			return found;
 		}
 		#endregion
-		#region private bool SearchWithComparable(object key, out Node curr, Node[] update)
+		#region internal bool SearchWithComparable(object key, out Node curr, Node[] update)
 		/// <summary>
 		/// Search for the specified key using the IComparable interface 
 		/// implemented by each key.
@@ -617,7 +617,7 @@ namespace Towel.DataStructures
 		/// first key value greater than the specified key or null indicating 
 		/// that the search reached the end of the SkipList.
 		/// </remarks>
-		private bool SearchWithComparable(object key, out Node curr,
+		internal bool SearchWithComparable(object key, out Node curr,
 				Node[] update)
 		{
 			// Make sure key is comparable.
@@ -675,7 +675,7 @@ namespace Towel.DataStructures
 			return found;
 		}
 		#endregion
-		#region private void Insert(object key, object val, Node[] update)
+		#region internal void Insert(object key, object val, Node[] update)
 		/// <summary>Inserts a key/value pair into the SkipList.</summary>
 		/// <param name="key">The key to insert into the SkipList.</param>
 		/// <param name="val">The value to insert into the SkipList.</param>
@@ -684,7 +684,7 @@ namespace Towel.DataStructures
 		/// which the search for the place to insert the new key/value pair 
 		/// dropped down one level.
 		/// </param>
-		private void Insert(object key, object val, Node[] update)
+		internal void Insert(object key, object val, Node[] update)
 		{
 			// Get the level for the new node.
 			int newLevel = GetNewLevel();

@@ -38,9 +38,9 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class QueueLinked<T> : IQueue<T>
 	{
-		private Node _head;
-		private Node _tail;
-		private int _count;
+		internal Node _head;
+		internal Node _tail;
+		internal int _count;
 
 		#region Node
 
@@ -61,7 +61,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Creates an instance of a queue.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <runtime>O(1)</runtime>
 		public QueueLinked()
 		{
 			_head = _tail = null;
@@ -74,37 +74,17 @@ namespace Towel.DataStructures
 
 		/// <summary>The newest item currently in the queue.</summary>
 		/// <runtime>O(1)</runtime>
-		public T Newest
-		{
-			get
-			{
-				if (_count > 0)
-				{
-					return _tail.Value;
-				}
-				else
-				{
-					throw new InvalidOperationException("attempting to get the newest item in an empty queue");
-				}
-			}
-		}
+		public T Newest =>
+			_count > 0
+			? _tail.Value
+			: throw new InvalidOperationException("attempting to get the newest item in an empty queue");
 
 		/// <summary>The oldest item currently in the queue.</summary>
 		/// <runtime>O(1)</runtime>
-		public T Oldest
-		{
-			get
-			{
-				if (_count > 0)
-				{
-					return _head.Value;
-				}
-				else
-				{
-					throw new InvalidOperationException("attempting to get the oldet item in an empty queue");
-				}
-			}
-		}
+		public T Oldest =>
+			_count > 0
+			? _head.Value
+			: throw new InvalidOperationException("attempting to get the oldet item in an empty queue");
 
 		/// <summary>Returns the number of items in the queue.</summary>
 		/// <runtime>O(1)</runtime>

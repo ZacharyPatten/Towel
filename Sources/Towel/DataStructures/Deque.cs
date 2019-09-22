@@ -21,18 +21,18 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class DequeLinked<T> : IDeque<T>
 	{
-		private Node _head;
-		private Node _tail;
-		private int _count;
+		internal Node _head;
+		internal Node _tail;
+		internal int _count;
 
-		#region Nested Types
+		#region Node
 
 		/// <summary>This class just holds the data for each individual node of the list.</summary>
 		[Serializable]
-		private class Node
+		internal class Node
 		{
-			public T Value;
-			public Node Next;
+			internal T Value;
+			internal Node Next;
 
 			internal Node(T data)
 			{

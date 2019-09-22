@@ -89,9 +89,9 @@ namespace Towel.DataStructures
 		/// <summary>Can be a leaf or a branch.</summary>
 		public class Node
 		{
-			private T _value;
-			private Node _leftChild;
-			private Node _rightChild;
+			internal T _value;
+			internal Node _leftChild;
+			internal Node _rightChild;
 
 			public T Value { get { return this._value; } }
 			internal Node LeftChild { get { return this._leftChild; } set { this._leftChild = value; } }
@@ -189,8 +189,8 @@ namespace Towel.DataStructures
 			return true;
 		}
 		#endregion
-		#region private void ReaddChildNodes(Node removedNode)
-		private void ReaddChildNodes(Node removedNode)
+		#region internal void ReaddChildNodes(Node removedNode)
+		internal void ReaddChildNodes(Node removedNode)
 		{
 			// Leaf Check
 			if (removedNode.LeftChild == null && removedNode.RightChild == null)
@@ -345,8 +345,8 @@ namespace Towel.DataStructures
 			return neighbourArray;
 		}
 		#endregion
-		#region private void AddNearestNeighbours(Node node, Get<K> target, HyperRect<K> rect, int depth, NearestNeighbourList<Node, K> nearestNeighbours, K maxSearchRadiusSquared)
-		private void AddNearestNeighbours(
+		#region internal void AddNearestNeighbours(Node node, Get<K> target, HyperRect<K> rect, int depth, NearestNeighbourList<Node, K> nearestNeighbours, K maxSearchRadiusSquared)
+		internal void AddNearestNeighbours(
 			Node node,
 			GetIndex<K> target,
 			HyperRect<K> rect,
@@ -444,8 +444,8 @@ namespace Towel.DataStructures
 				nearestNeighbours.Add(node, distanceSquaredToTarget);
 		}
 		#endregion
-		#region private K DistanceSquaredBetweenPoints(Get<K> a, Get<K> b)
-		private K DistanceSquaredBetweenPoints(GetIndex<K> a, GetIndex<K> b)
+		#region internal K DistanceSquaredBetweenPoints(Get<K> a, Get<K> b)
+		internal K DistanceSquaredBetweenPoints(GetIndex<K> a, GetIndex<K> b)
 		{
 			K distance = this._zero;
 
@@ -567,8 +567,8 @@ namespace Towel.DataStructures
 				return null;
 		}
 		#endregion
-		#region private void AddNodesToList(Node node, System.Collections.Generic.List<Node> nodes)
-		private void AddNodesToList(Node node, System.Collections.Generic.List<Node> nodes)
+		#region internal void AddNodesToList(Node node, System.Collections.Generic.List<Node> nodes)
+		internal void AddNodesToList(Node node, System.Collections.Generic.List<Node> nodes)
 		{
 			if (node == null)
 				return;
@@ -587,8 +587,8 @@ namespace Towel.DataStructures
 			}
 		}
 		#endregion
-		#region private void SortNodesArray(Node[] nodes, int byDimension, int fromIndex, int toIndex)
-		private void SortNodesArray(Node[] nodes, int byDimension, int fromIndex, int toIndex)
+		#region internal void SortNodesArray(Node[] nodes, int byDimension, int fromIndex, int toIndex)
+		internal void SortNodesArray(Node[] nodes, int byDimension, int fromIndex, int toIndex)
 		{
 			for (var index = fromIndex + 1; index <= toIndex; index++)
 			{
@@ -609,8 +609,8 @@ namespace Towel.DataStructures
 			}
 		}
 		#endregion
-		#region private void AddNodesBalanced(Node[] nodes, int byDimension, int fromIndex, int toIndex)
-		private void AddNodesBalanced(Node[] nodes, int byDimension, int fromIndex, int toIndex)
+		#region internal void AddNodesBalanced(Node[] nodes, int byDimension, int fromIndex, int toIndex)
+		internal void AddNodesBalanced(Node[] nodes, int byDimension, int fromIndex, int toIndex)
 		{
 			if (fromIndex == toIndex)
 			{
@@ -650,8 +650,8 @@ namespace Towel.DataStructures
 			AddNodesBalanced(nodeList.ToArray(), 0, 0, nodeList.Count - 1);
 		}
 		#endregion
-		#region private void RemoveChildNodes(Node node)
-		private void RemoveChildNodes(Node node)
+		#region internal void RemoveChildNodes(Node node)
+		internal void RemoveChildNodes(Node node)
 		{
 			if (node.LeftChild != null)
 			{
@@ -676,9 +676,9 @@ namespace Towel.DataStructures
 
 	public struct HyperRect<T>
 	{
-		Compare<T> _compareT;
-		private T[] _maxPoint;
-		private T[] _minPoint;
+		internal Compare<T> _compareT;
+		internal T[] _maxPoint;
+		internal T[] _minPoint;
 
 		public T[] MinPoint
 		{
@@ -772,11 +772,11 @@ namespace Towel.DataStructures
 
 	public class PriorityQueue<TItem, TPriority> : IPriorityQueue<TItem, TPriority>
 	{
-		private Compare<TPriority> _comparePriority;
-		private TPriority _minvalue;
-		private ItemPriority<TItem, TPriority>[] queue;
-		private int capacity;
-		private int count;
+		internal Compare<TPriority> _comparePriority;
+		internal TPriority _minvalue;
+		internal ItemPriority<TItem, TPriority>[] queue;
+		internal int capacity;
+		internal int count;
 
 		public PriorityQueue(int capacity, Compare<TPriority> comparePriority, TPriority minValue)//, ITypeMath<TPriority> priorityMath = null)
 		{
@@ -798,7 +798,7 @@ namespace Towel.DataStructures
 		public int Count { get { return count; } }
 
 		// Try to avoid unnecessary slow memory reallocations by creating your queue with an ample capacity
-		private void ExpandCapacity()
+		internal void ExpandCapacity()
 		{
 			// Double our capacity
 			capacity *= 2;
@@ -839,7 +839,7 @@ namespace Towel.DataStructures
 			return item;
 		}
 
-		private void ReorderItem(int index, int direction)
+		internal void ReorderItem(int index, int direction)
 		{
 			if ((direction != -1) && (direction != 1))
 				throw new ArgumentException("Invalid Direction");
@@ -902,10 +902,10 @@ namespace Towel.DataStructures
 
 	public class NearestNeighbourList<TItem, TDistance> : INearestNeighbourList<TItem, TDistance>
 	{
-		Compare<TDistance> _compareKey;
-		private TDistance _minValue;
-		private int maxCapacity;
-		private PriorityQueue<TItem, TDistance> _queue;
+		internal Compare<TDistance> _compareKey;
+		internal TDistance _minValue;
+		internal int maxCapacity;
+		internal PriorityQueue<TItem, TDistance> _queue;
 
 		public bool IsCapacityReached { get { return Count == MaxCapacity; } }
 

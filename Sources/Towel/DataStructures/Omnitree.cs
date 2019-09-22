@@ -2705,6 +2705,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -3317,6 +3324,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -4213,6 +4227,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -4881,6 +4902,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -5842,6 +5870,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -6566,6 +6601,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -7592,6 +7634,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -8372,6 +8421,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -9463,6 +9519,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -10299,6 +10362,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -11455,6 +11525,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -12347,6 +12424,13 @@ namespace Towel.DataStructures
 
 				return removals;
 			}
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -13568,6 +13652,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -14518,6 +14609,13 @@ namespace Towel.DataStructures
 			}
 		}
 
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Removes all instances of a given value.</summary>
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
@@ -15466,6 +15564,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -16178,6 +16283,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -16990,6 +17102,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -17758,6 +17877,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -18668,6 +18794,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -19492,6 +19625,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -20500,6 +20640,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -21380,6 +21527,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -22486,6 +22640,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -23422,6 +23583,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -24626,6 +24794,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -25618,6 +25793,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -26920,6 +27102,13 @@ namespace Towel.DataStructures
 
 		#region single
 
+		public bool TryAdd(T value, out Exception exception)
+		{
+			Add(value);
+			exception = null;
+			return true;
+		}
+
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
@@ -27968,6 +28157,13 @@ namespace Towel.DataStructures
 
 			node.Count -= removals;
 			return removals;
+		}
+
+		public bool TryRemove(T value, out Exception exception)
+		{
+			Remove(value);
+			exception = null;
+			return true;
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>

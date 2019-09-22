@@ -98,7 +98,7 @@ namespace Towel.Serialization
 
 		#region Shared
 
-		private static partial class StaticDelegateConstants
+		internal static partial class StaticDelegateConstants
 		{
 			internal const string NAME = "Delegate";
 			internal const string DECLARING_TYPE = "Method.DeclaringType.AssemblyQualifiedName";

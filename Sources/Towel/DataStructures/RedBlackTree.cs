@@ -32,10 +32,11 @@ namespace Towel.DataStructures
 		/// <summary>Gets an item based on a given key.</summary>
 		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
 		/// <returns>The found item.</returns>
-		T Get(CompareToKnownValue<T> compare);
+		bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception);
 		/// <summary>Removes and item based on a given key.</summary>
 		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-		void Remove(CompareToKnownValue<T> compare);
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		bool TryRemove(CompareToKnownValue<T> compare, out Exception exception);
 		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void Stepper(StepRef<T> step);
@@ -209,43 +210,39 @@ namespace Towel.DataStructures
 		
 		/// <summary>Wrapper for the get function to handle exceptions.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="redBlackTree">This structure.</param>
+		/// <param name="tree">This structure.</param>
 		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <param name="item">The item if found.</param>
 		/// <returns>True if successful, False if not.</returns>
-		public static bool TryGet<T>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare, out T item)
+		public static bool TryGet<T>(this IRedBlackTree<T> tree, CompareToKnownValue<T> compare, out T item)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
+			return tree.TryGet(compare, out item, out _);
+		}
 
-			try
+		public static T Get<T>(this IRedBlackTree<T> tree, CompareToKnownValue<T> compare)
+		{
+			if (!tree.TryGet(compare, out T value, out Exception exception))
 			{
-				item = redBlackTree.Get(compare);
-				return true;
+				throw exception;
 			}
-			catch
-			{
-				item = default(T);
-				return false;
-			}
+			return value;
 		}
 
 		/// <summary>Wrapper for the remove function to handle exceptions.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="redBlackTree">This structure.</param>
+		/// <param name="tree">This structure.</param>
 		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <returns>True if successful, False if not.</returns>
-		public static bool TryRemove<T>(this IRedBlackTree<T> redBlackTree, CompareToKnownValue<T> compare)
+		public static bool TryRemove<T>(this IRedBlackTree<T> tree, CompareToKnownValue<T> compare)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
+			return tree.TryRemove(compare, out _);
+		}
 
-			try
+		public static void Remove<T>(this IRedBlackTree<T> tree, CompareToKnownValue<T> compare)
+		{
+			if (!tree.TryRemove(compare, out Exception exception))
 			{
-				redBlackTree.Remove(compare);
-				return true;
-			}
-			catch
-			{
-				return false;
+				throw exception;
 			}
 		}
 
@@ -385,51 +382,67 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds a value to the tree.</summary>
-		/// <param name="value">The value to be added to the tree.</param>
-		public void Add(T value)
+		/// <summary>Tries to add a value to the Red-Black tree.</summary>
+		/// <param name="value">The value to be added to the Red-Black tree.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if the add was successful or false if not.</returns>
+		public bool TryAdd(T value, out Exception exception)
 		{
+			Exception capturedException = null;
 			Node addition = new Node();
 			Node temp = _root;
 			while (temp != _sentinelNode)
 			{
 				addition.Parent = temp;
-
-				switch (_compare(value, temp.Value))
+				CompareResult compareResult = _compare(value, temp.Value);
+				if (compareResult == CompareResult.Greater)
 				{
-					case CompareResult.Equal:
-						throw new InvalidOperationException("A Node with the same key already exists");
-					case CompareResult.Greater:
-						temp = temp.RightChild;
-						break;
-					case CompareResult.Less:
-						temp = temp.LeftChild;
-						break;
-					default:
-						throw new NotImplementedException();
+					temp = temp.RightChild;
+				}
+				else if (compareResult == CompareResult.Less)
+				{
+					temp = temp.LeftChild;
+				}
+				else
+				{
+					capturedException = new ArgumentException("Attempting to add duplicate value to a Red-Black tree.", nameof(value));
+					break;
 				}
 			}
+
+			if (capturedException != null)
+			{
+				exception = capturedException;
+				return false;
+			}
+
 			addition.Value = value;
 			addition.LeftChild = _sentinelNode;
 			addition.RightChild = _sentinelNode;
 			if (addition.Parent != null)
 			{
-				switch (_compare(addition.Value, addition.Parent.Value))
+				CompareResult compareResult = _compare(addition.Value, addition.Parent.Value);
+				if (compareResult == CompareResult.Greater)
 				{
-					case CompareResult.Greater:
-						addition.Parent.RightChild = addition;
-						break;
-					case CompareResult.Less:
-						addition.Parent.LeftChild = addition;
-						break;
-					default:
-						throw new NotImplementedException();
+					addition.Parent.RightChild = addition;
+				}
+				else if (compareResult == CompareResult.Less)
+				{
+					addition.Parent.LeftChild = addition;
+				}
+				else
+				{
+					throw new NotImplementedException();
 				}
 			}
 			else
+			{
 				_root = addition;
+			}
 			BalanceAddition(addition);
 			_count += 1;
+			exception = null;
+			return true;
 		}
 
 		#endregion
@@ -490,72 +503,110 @@ namespace Towel.DataStructures
 
 		#region Get
 
-		/// <summary>Gets the item with the designated by the string.</summary>
-		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>The object with the desired string ID if it exists.</returns>
-		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public T Get(CompareToKnownValue<T> compare)
+		/// <summary>Tries to get a value.</summary>
+		/// <param name="compare">The compare delegate.</param>
+		/// <param name="value">The value if it was found or default.</param>
+		/// <param name="exception">The exception that occurred if the get failed.</param>
+		/// <returns>True if the value was found or false if not.</returns>
+		public bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception)
 		{
 			Node treeNode = _root;
 			while (treeNode != _sentinelNode)
 			{
-				switch (compare(treeNode.Value))
+				CompareResult compareResult = compare(treeNode.Value);
+				if (compareResult == CompareResult.Greater)
 				{
-					case CompareResult.Equal:
-						return treeNode.Value;
-					case CompareResult.Greater:
-						treeNode = treeNode.RightChild;
-						break;
-					case CompareResult.Less:
-						treeNode = treeNode.LeftChild;
-						break;
-					default:
-						throw new NotImplementedException();
+					treeNode = treeNode.RightChild;
+				}
+				else if (compareResult == CompareResult.Less)
+				{
+					treeNode = treeNode.LeftChild;
+				}
+				else
+				{
+					value = treeNode.Value;
+					exception = null;
+					return true;
 				}
 			}
-			throw new InvalidOperationException("attempting to get a non-existing value.");
+			value = default;
+			exception = new ArgumentException("Attempting to get a non-existing value.");
+			return false;
 		}
+
+		///// <summary>Gets the item with the designated by the string.</summary>
+		///// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+		///// <returns>The object with the desired string ID if it exists.</returns>
+		///// <runtime>O(ln(Count)) Ω(1)</runtime>
+		//public T Get(CompareToKnownValue<T> compare)
+		//{
+		//	Node treeNode = _root;
+		//	while (treeNode != _sentinelNode)
+		//	{
+		//		switch (compare(treeNode.Value))
+		//		{
+		//			case CompareResult.Equal:
+		//				return treeNode.Value;
+		//			case CompareResult.Greater:
+		//				treeNode = treeNode.RightChild;
+		//				break;
+		//			case CompareResult.Less:
+		//				treeNode = treeNode.LeftChild;
+		//				break;
+		//			default:
+		//				throw new NotImplementedException();
+		//		}
+		//	}
+		//	throw new InvalidOperationException("attempting to get a non-existing value.");
+		//}
 
 		#endregion
 
 		#region Remove
 
-		/// <summary>Removes a value from the tree.</summary>
-		/// <param name="value">The value to be removed.</param>
-		public void Remove(T value) => Remove(x => _compare(value, x));
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove(T value, out Exception exception) => TryRemove(x => _compare(value, x), out exception);
 
-		/// <summary>Removes an item from this structure by a given key.</summary>
-		/// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
-		/// <runtime>O(ln(n))</runtime>
-		public void Remove(CompareToKnownValue<T> compare)
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="compare">The compare delegate.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove(CompareToKnownValue<T> compare, out Exception exception)
 		{
 			Node node;
 			node = _root;
 			while (node != _sentinelNode)
 			{
-				switch (compare(node.Value))
+				CompareResult compareResult = compare(node.Value);
+				if (compareResult == CompareResult.Less)
 				{
-					case CompareResult.Equal:
-						if (node == _sentinelNode)
-						{
-							return;
-						}
-						Remove(node);
-						_count -= 1;
-						return;
-					case CompareResult.Greater:
-						node = node.RightChild;
-						break;
-					case CompareResult.Less:
-						node = node.LeftChild;
-						break;
-					default:
-						throw new System.NotImplementedException();
+					node = node.LeftChild;
+				}
+				else if (compareResult == CompareResult.Greater)
+				{
+					node = node.RightChild;
+				}
+				else // (compareResult == CompareResult.Equal)
+				{
+					if (node == _sentinelNode)
+					{
+						exception = new ArgumentException("Attempting to remove a non-existing entry.");
+						return false;
+					}
+					Remove(node);
+					_count -= 1;
+					exception = null;
+					return true;
 				}
 			}
+			exception = new ArgumentException("Attempting to remove a non-existing entry.");
+			return false;
 		}
 
-		private void Remove(Node removal)
+		internal void Remove(Node removal)
 		{
 			Node x;
 			Node temp;

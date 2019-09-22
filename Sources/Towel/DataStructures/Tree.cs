@@ -167,34 +167,39 @@ namespace Towel.DataStructures
 			}
 		}
 
+
 		/// <summary>Removes a node from the tree and all the child nodes.</summary>
 		/// <param name="removal">The node to be removed.</param>
-		public void Remove(T removal)
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		public bool TryRemove(T removal, out Exception exception)
 		{
 			if (_tree.TryGet(removal, out Node nodeData))
 			{
 				_tree[nodeData.Parent].Children.Remove(removal);
 				RemoveRecursive(removal);
+				exception = null;
+				return true;
 			}
 			else
 			{
-				throw new InvalidOperationException("Attempting to remove a non-existing node");
+				exception = new InvalidOperationException("Attempting to remove a non-existing node");
+				return false;
 			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step_function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<T> step)
 		{
-			this._tree.Keys(step_function);
+			_tree.Keys(step);
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step_function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step_function)
+		public StepStatus Stepper(StepBreak<T> step)
 		{
-			return _tree.Keys(step_function);
+			return _tree.Keys(step);
 		}
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -216,7 +221,7 @@ namespace Towel.DataStructures
 			throw new NotImplementedException();
 		}
 
-		private void RemoveRecursive(T current)
+		internal void RemoveRecursive(T current)
 		{
 			_tree[current].Children.Stepper(child => RemoveRecursive(child));
 			_tree.Remove(current);

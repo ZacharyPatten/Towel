@@ -268,9 +268,9 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class StackArray<T> : IStack<T>
 	{
-		private T[] _array;
-		private int _count;
-		private int _minimumCapacity;
+		internal T[] _array;
+		internal int _count;
+		internal int _minimumCapacity;
 
 		#region Constructors
 

@@ -22,7 +22,7 @@ namespace Towel.DataStructures
 	public class Link<T1> : Link
 	{
 		// Fields
-		private T1 __1;
+		internal T1 __1;
 
 		#region Constructors
 		
@@ -177,7 +177,7 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1> : Link
 	{
 		// Fields
-		private T1 __1;
+		internal T1 __1;
 
 		#region Constructors
 		
@@ -340,8 +340,8 @@ namespace Towel.DataStructures
 	public class Link<T1, T2> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
+		internal T1 __1;
+		internal T2 __2;
 
 		#region Constructors
 		
@@ -514,8 +514,8 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
+		internal T1 __1;
+		internal T2 __2;
 
 		#region Constructors
 		
@@ -696,9 +696,9 @@ namespace Towel.DataStructures
 	public class Link<T1, T2, T3> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
 
 		#region Constructors
 		
@@ -889,9 +889,9 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2, T3> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
 
 		#region Constructors
 		
@@ -1090,10 +1090,10 @@ namespace Towel.DataStructures
 	public class Link<T1, T2, T3, T4> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
 
 		#region Constructors
 		
@@ -1302,10 +1302,10 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2, T3, T4> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
 
 		#region Constructors
 		
@@ -1522,11 +1522,11 @@ namespace Towel.DataStructures
 	public class Link<T1, T2, T3, T4, T5> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
 
 		#region Constructors
 		
@@ -1753,11 +1753,11 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2, T3, T4, T5> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
 
 		#region Constructors
 		
@@ -1992,12 +1992,12 @@ namespace Towel.DataStructures
 	public class Link<T1, T2, T3, T4, T5, T6> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
-		private T6 __6;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
+		internal T6 __6;
 
 		#region Constructors
 		
@@ -2242,12 +2242,12 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
-		private T6 __6;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
+		internal T6 __6;
 
 		#region Constructors
 		
@@ -2500,13 +2500,13 @@ namespace Towel.DataStructures
 	public class Link<T1, T2, T3, T4, T5, T6, T7> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
-		private T6 __6;
-		private T7 __7;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
+		internal T6 __6;
+		internal T7 __7;
 
 		#region Constructors
 		
@@ -2769,13 +2769,13 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link
 	{
 		// Fields
-		private T1 __1;
-		private T2 __2;
-		private T3 __3;
-		private T4 __4;
-		private T5 __5;
-		private T6 __6;
-		private T7 __7;
+		internal T1 __1;
+		internal T2 __2;
+		internal T3 __3;
+		internal T4 __4;
+		internal T5 __5;
+		internal T6 __6;
+		internal T7 __7;
 
 		#region Constructors
 		

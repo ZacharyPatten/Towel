@@ -197,7 +197,7 @@ namespace Towel.Mathematics
 			_matrix = data;
 		}
 
-		private Matrix(Matrix<T> matrix)
+		internal Matrix(Matrix<T> matrix)
 		{
 			_rows = matrix._rows;
 			_columns = matrix.Columns;
@@ -321,7 +321,7 @@ namespace Towel.Mathematics
 
 		#region RowMultiplication
 
-		private static void RowMultiplication(Matrix<T> matrix, int row, T scalar)
+		internal static void RowMultiplication(Matrix<T> matrix, int row, T scalar)
 		{
 			int columns = matrix.Columns;
 			for (int i = 0; i < columns; i++)
@@ -334,7 +334,7 @@ namespace Towel.Mathematics
 
 		#region RowAddition
 
-		private static void RowAddition(Matrix<T> matrix, int target, int second, T scalar)
+		internal static void RowAddition(Matrix<T> matrix, int target, int second, T scalar)
 		{
 			int columns = matrix.Columns;
 			for (int i = 0; i < columns; i++)
@@ -347,7 +347,7 @@ namespace Towel.Mathematics
 
 		#region SwapRows
 
-		private static void SwapRows(Matrix<T> matrix, int row1, int row2)
+		internal static void SwapRows(Matrix<T> matrix, int row1, int row2)
 		{
 			int columns = matrix.Columns;
 			for (int i = 0; i < columns; i++)
@@ -362,7 +362,7 @@ namespace Towel.Mathematics
 
 		#region GetCofactor
 
-		private static void GetCofactor(Matrix<T> a, Matrix<T> temp, int p, int q, int n)
+		internal static void GetCofactor(Matrix<T> a, Matrix<T> temp, int p, int q, int n)
 		{
 			int i = 0, j = 0;
 			for (int row = 0; row < n; row++)
@@ -386,7 +386,7 @@ namespace Towel.Mathematics
 
 		#region GetDeterminant
 
-		private static T GetDeterminant(Matrix<T> a, int n)
+		internal static T GetDeterminant(Matrix<T> a, int n)
 		{
 			T determinent = Constant<T>.Zero;
 			if (n == 1)
@@ -457,7 +457,7 @@ namespace Towel.Mathematics
 		/// <summary>Negates all the values in a matrix.</summary>
 		/// <param name="a">The matrix to have its values negated.</param>
 		/// <param name="b">The resulting matrix after the negation.</param>
-		private static void Negate(Matrix<T> a, ref Matrix<T> b)
+		public static void Negate(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -523,7 +523,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the addition.</param>
 		/// <param name="b">The right matrix of the addition.</param>
 		/// <param name="c">The resulting matrix after the addition.</param>
-		private static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -604,7 +604,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the subtraction.</param>
 		/// <param name="b">The right matrix of the subtraction.</param>
 		/// <param name="c">The resulting matrix after the subtraction.</param>
-		private static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -791,7 +791,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the multiplication.</param>
 		/// <param name="b">The right vector of the multiplication.</param>
 		/// <param name="c">The resulting vector of the multiplication.</param>
-		private static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T> c)
 		{
 			if (a is null)
 			{
@@ -876,7 +876,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to have the values multiplied.</param>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting matrix after the multiplications.</param>
-		private static void Multiply(Matrix<T> a, T b, ref Matrix<T> c)
+		public static void Multiply(Matrix<T> a, T b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -964,7 +964,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to divide the values of.</param>
 		/// <param name="b">The scalar to divide all the matrix values by.</param>
 		/// <param name="c">The resulting matrix after the division.</param>
-		private static void Divide(Matrix<T> a, T b, ref Matrix<T> c)
+		public static void Divide(Matrix<T> a, T b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -1035,7 +1035,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to be powered by.</param>
 		/// <param name="b">The power to apply to the matrix.</param>
 		/// <param name="c">The resulting matrix of the power operation.</param>
-		private static void Power(Matrix<T> a, int b, ref Matrix<T> c)
+		public static void Power(Matrix<T> a, int b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -1242,7 +1242,7 @@ namespace Towel.Mathematics
 		/// <param name="row">The restricted row to form the minor.</param>
 		/// <param name="column">The restricted column to form the minor.</param>
 		/// <param name="b">The minor of the matrix.</param>
-		private static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
+		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -1343,7 +1343,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <param name="c">The resulting matrix of the concatenation.</param>
-		private static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
 			if (a is null)
 			{
@@ -1434,7 +1434,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
 		/// <param name="b">The echelon of the matrix (aka REF).</param>
 		/// <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
-		private static void Echelon(Matrix<T> a, ref Matrix<T> b)
+		public static void Echelon(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -1522,7 +1522,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
 		/// <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>
 		/// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
-		private static void ReducedEchelon(Matrix<T> a, ref Matrix<T> b)
+		public static void ReducedEchelon(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -1686,7 +1686,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the inverse of a matrix.</summary>
 		/// <param name="a">The matrix to calculate the inverse of.</param>
 		/// <param name="b">The inverse of the matrix.</param>
-		private static void Inverse(Matrix<T> a, ref Matrix<T> b)
+		public static void Inverse(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -1825,7 +1825,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the adjoint of a matrix.</summary>
 		/// <param name="a">The matrix to calculate the adjoint of.</param>
 		/// <param name="b">The adjoint of the matrix.</param>
-		private static void Adjoint(Matrix<T> a, ref Matrix<T> b)
+		public static void Adjoint(Matrix<T> a, ref Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -1943,7 +1943,7 @@ namespace Towel.Mathematics
 		/// <summary>Returns the transpose of a matrix.</summary>
 		/// <param name="a">The matrix to transpose.</param>
 		/// <param name="b">The transpose of the matrix.</param>
-		private static void Transpose(Matrix<T> a, ref Matrix<T> b)
+		public static void Transpose(Matrix<T> a, ref Matrix<T> b)
 		{
 
 			if (a is null)
@@ -2257,7 +2257,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first matrix to check for equality.</param>
 		/// <param name="b">The second matrix to check for equality.</param>
 		/// <returns>True if values are equal, false if not.</returns>
-		private static bool Equal(Matrix<T> a, Matrix<T> b)
+		public static bool Equal(Matrix<T> a, Matrix<T> b)
 		{
 			if (a is null)
 			{
@@ -2328,7 +2328,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second matrix to check for equality.</param>
 		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
 		/// <returns>True if values are equal, false if not.</returns>
-		private static bool Equal(Matrix<T> a, Matrix<T> b, T leniency)
+		public static bool Equal(Matrix<T> a, Matrix<T> b, T leniency)
 		{
 			if (a is null)
 			{

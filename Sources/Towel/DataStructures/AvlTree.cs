@@ -32,10 +32,12 @@ namespace Towel.DataStructures
 		/// <summary>Gets an item based on a given key.</summary>
 		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
 		/// <returns>The found item.</returns>
-		T Get(CompareToKnownValue<T> compare);
+		bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception);
 		/// <summary>Removes and item based on a given key.</summary>
 		/// <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
-		void Remove(CompareToKnownValue<T> compare);
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove succeeded or false if not.</returns>
+		bool TryRemove(CompareToKnownValue<T> compare, out Exception exception);
 		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void Stepper(StepRef<T> step);
@@ -213,39 +215,39 @@ namespace Towel.DataStructures
 		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <param name="item">The item if found.</param>
 		/// <returns>True if successful, False if not.</returns>
-		public static bool TryGet<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare, out T item)
+		public static bool TryGet<T>(this IAvlTree<T> tree, CompareToKnownValue<T> compare, out T item)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
-
-			try
-			{
-				item = avlTree.Get(compare);
-				return true;
-			}
-			catch
-			{
-				item = default(T);
-				return false;
-			}
+			return tree.TryGet(compare, out item, out _);
 		}
 
-		/// <summary>Wrapper for the remove function to handle exceptions.</summary>
-		/// <typeparam name="T">The generic type of this data structure.</typeparam>
-		/// <param name="avlTree">This structure.</param>
-		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>True if successful, False if not.</returns>
+		public static T Get<T>(this IAvlTree<T> tree, CompareToKnownValue<T> compare)
+		{
+			if (!tree.TryGet(compare, out T value, out Exception exception))
+			{
+				throw exception;
+			}
+			return value;
+		}
+
+		/// <summary>Removes a value from an AVL tree.</summary>
+		/// <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
+		/// <param name="avlTree">The AVL tree to remove the values from.</param>
+		/// <param name="compare">The compare delegate.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
 		public static bool TryRemove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
+			return avlTree.TryRemove(compare, out _);
+		}
 
-			try
+		/// <summary>Removes a value from an AVL tree.</summary>
+		/// <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
+		/// <param name="avlTree">The AVL tree to remove the values from.</param>
+		/// <param name="compare">The compare delegate.</param>
+		public static void Remove<T>(this IAvlTree<T> avlTree, CompareToKnownValue<T> compare)
+		{
+			if (!avlTree.TryRemove(compare, out Exception exception))
 			{
-				avlTree.Remove(compare);
-				return true;
-			}
-			catch
-			{
-				return false;
+				throw exception;
 			}
 		}
 
@@ -382,18 +384,21 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds an object to the AVL Tree.</summary>
-		/// <param name="addition">The object to add.</param>
+		/// <summary>Tries to add a value to the AVL tree.</summary>
+		/// <param name="value">The value to add.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if the add succeeded or false if not.</returns>
 		/// <runtime>O(ln(n))</runtime>
-		public void Add(T addition)
+		public bool TryAdd(T value, out Exception exception)
 		{
+			Exception capturedException = null;
 			Node Add(Node node)
 			{
 				if (node is null)
 				{
-					return new Node(addition);
+					return new Node(value);
 				}
-				CompareResult comparison = _compare(node.Value, addition);
+				CompareResult comparison = _compare(node.Value, value);
 				if (comparison == CompareResult.Less)
 				{
 					node.RightChild = Add(node.RightChild);
@@ -404,13 +409,15 @@ namespace Towel.DataStructures
 				}
 				else // (comparison == CompareResult.Equal)
 				{
-					throw new InvalidOperationException("Adding to add a duplicate value to an AVL tree.");
+					capturedException = new ArgumentException("Adding to add a duplicate value to an AVL tree.", nameof(value));
 				}
 				return Balance(node);
 			}
 
+			exception = capturedException;
 			_root = Add(_root);
 			_count++;
+			return exception is null;
 		}
 
 		#endregion
@@ -478,13 +485,15 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Get (Known Value)
+		#region Get
 
-		/// <summary>Gets the item with the designated by the string.</summary>
-		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>The object with the desired string ID if it exists.</returns>
+		/// <summary>Tries to get a value.</summary>
+		/// <param name="compare">The compare delegate.</param>
+		/// <param name="value">The value if found or default.</param>
+		/// <param name="exception">The exception that occurred if the get failed.</param>
+		/// <returns>True if the get succeeded or false if not.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public T Get(CompareToKnownValue<T> compare)
+		public bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception)
 		{
 			Node node = _root;
 			while (node != null)
@@ -500,75 +509,33 @@ namespace Towel.DataStructures
 				}
 				else // (compareResult == Copmarison.Equal)
 				{
-					return node.Value;
+					value = node.Value;
+					exception = null;
+					return true;
 				}
 			}
-			throw new InvalidOperationException("Attempting to get a non-existing value from an AVL tree.");
+			value = default;
+			exception = new InvalidOperationException("Attempting to get a non-existing value from an AVL tree.");
+			return false;
 		}
 
 		#endregion
 
 		#region Remove
 
-		/// <summary>Removes an item from this structure.</summary>
-		/// <param name="removal">The item to remove.</param>
-		/// <runtime>O(ln(n))</runtime>
-		public void Remove(T removal)
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove(T value, out Exception exception) => TryRemove(x => _compare(x, value), out exception);
+
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="compare">The compare delegate.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove(CompareToKnownValue<T> compare, out Exception exception)
 		{
-			Node Remove(Node node)
-			{
-				if (node != null)
-				{
-					CompareResult compareResult = _compare(node.Value, removal);
-					if (compareResult == CompareResult.Less)
-					{
-						node.RightChild = Remove(node.RightChild);
-					}
-					else if (compareResult == CompareResult.Greater)
-					{
-						node.LeftChild = Remove(node.LeftChild);
-					}
-					else // (compareResult == Comparison.Equal)
-					{
-						if (node.RightChild != null)
-						{
-							node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
-							leftMostOfRight.RightChild = node.RightChild;
-							leftMostOfRight.LeftChild = node.LeftChild;
-							node = leftMostOfRight;
-						}
-						else if (node.LeftChild != null)
-						{
-							node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
-							rightMostOfLeft.RightChild = node.RightChild;
-							rightMostOfLeft.LeftChild = node.LeftChild;
-							node = rightMostOfLeft;
-						}
-						else
-						{
-							return null;
-						}
-						SetHeight(node);
-						return Balance(node);
-					}
-					SetHeight(node);
-					return Balance(node);
-				}
-				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
-			}
-			_root = Remove(_root);
-			_count--;
-		}
-
-		#endregion
-
-		#region Remove (Known Value)
-
-		/// <summary>Removes an item from this structure by a given key.</summary>
-		/// <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
-		/// <runtime>O(ln(n))</runtime>
-		public void Remove(CompareToKnownValue<T> compare)
-		{
+			Exception capturedException = null;
 			Node Remove(Node node)
 			{
 				if (node != null)
@@ -606,11 +573,14 @@ namespace Towel.DataStructures
 					SetHeight(node);
 					return Balance(node);
 				}
-				throw new InvalidOperationException("Attempting to remove a non-existing entry.");
+				capturedException = new ArgumentException("Attempting to remove a non-existing entry.");
+				return node;
 			}
 
+			exception = capturedException;
 			_root = Remove(_root);
 			_count--;
+			return exception is null;
 		}
 
 		#endregion
@@ -1107,7 +1077,7 @@ namespace Towel.DataStructures
 		/// <param name="node">The tree to check the balancing of.</param>
 		/// <returns>The result of the possible balancing.</returns>
 		/// <runtime>θ(1)</runtime>
-		private Node Balance(Node node)
+		internal Node Balance(Node node)
 		{
 			Node RotateSingleLeft(Node NODE)
 			{
@@ -1185,7 +1155,7 @@ namespace Towel.DataStructures
 		/// <param name="node">The node to find the hight of.</param>
 		/// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
 		/// <runtime>θ(1)</runtime>
-		private int Height(Node node)
+		internal int Height(Node node)
 		{
 			if (node is null)
 			{
@@ -1202,7 +1172,7 @@ namespace Towel.DataStructures
 		/// <param name="node">The tree to remove the left-most child from.</param>
 		/// <param name="leftMost">The left-most child of this AVL tree.</param>
 		/// <returns>The updated tree with the removal.</returns>
-		private Node RemoveLeftMost(Node node, out Node leftMost)
+		internal Node RemoveLeftMost(Node node, out Node leftMost)
 		{
 			if (node.LeftChild is null)
 			{
@@ -1219,7 +1189,7 @@ namespace Towel.DataStructures
 		/// <param name="node">The tree to remove the right-most child from.</param>
 		/// <param name="rightMost">The right-most child of this AVL tree.</param>
 		/// <returns>The updated tree with the removal.</returns>
-		private Node RemoveRightMost(Node node, out Node rightMost)
+		internal Node RemoveRightMost(Node node, out Node rightMost)
 		{
 			if (node.RightChild is null)
 			{
@@ -1234,7 +1204,7 @@ namespace Towel.DataStructures
 		/// <summary>Sets the height of a tree based on its children's heights.</summary>
 		/// <param name="node">The tree to have its height adjusted.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		private void SetHeight(Node node)
+		internal void SetHeight(Node node)
 		{
 			if (node.LeftChild is null && node.RightChild is null)
 			{

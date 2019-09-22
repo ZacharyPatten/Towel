@@ -461,7 +461,7 @@ namespace Towel
 		}
 
 		// convert types to strings as they appear as keys in the XML documentation files
-		private static string GetXmlDocumenationFormattedString(
+		internal static string GetXmlDocumenationFormattedString(
 			Type type, bool isMethodParameter,
 			System.Collections.Generic.Dictionary<string, int> typeGenericMap,
 			System.Collections.Generic.Dictionary<string, int> methodGenericMap)
@@ -601,7 +601,7 @@ namespace Towel
 			return documentation;
 		}
 
-		private static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
+		internal static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
 		{
 			string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
 			if (memberNameString != null)

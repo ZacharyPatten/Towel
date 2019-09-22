@@ -753,14 +753,16 @@
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
             <returns>True if contained, False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IAvlTree`1.Get(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.IAvlTree`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
             <summary>Gets an item based on a given key.</summary>
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
             <returns>The found item.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IAvlTree`1.Remove(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.IAvlTree`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
             <summary>Removes and item based on a given key.</summary>
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove succeeded or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.IAvlTree`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
@@ -965,11 +967,17 @@
             <returns>True if successful, False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.AvlTree.TryRemove``1(Towel.DataStructures.IAvlTree{``0},Towel.CompareToKnownValue{``0})">
-            <summary>Wrapper for the remove function to handle exceptions.</summary>
-            <typeparam name="T">The generic type of this data structure.</typeparam>
-            <param name="avlTree">This structure.</param>
-            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-            <returns>True if successful, False if not.</returns>
+            <summary>Removes a value from an AVL tree.</summary>
+            <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
+            <param name="avlTree">The AVL tree to remove the values from.</param>
+            <param name="compare">The compare delegate.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTree.Remove``1(Towel.DataStructures.IAvlTree{``0},Towel.CompareToKnownValue{``0})">
+            <summary>Removes a value from an AVL tree.</summary>
+            <typeparam name="T">The type of values stored in the AVL tree.</typeparam>
+            <param name="avlTree">The AVL tree to remove the values from.</param>
+            <param name="compare">The compare delegate.</param>
         </member>
         <member name="T:Towel.DataStructures.AvlTreeLinked`1">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
@@ -1004,9 +1012,11 @@
             <summary>Gets the number of elements in the collection.</summary>
             <runtime>θ(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Add(`0)">
-            <summary>Adds an object to the AVL Tree.</summary>
-            <param name="addition">The object to add.</param>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value to the AVL tree.</summary>
+            <param name="value">The value to add.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the add succeeded or false if not.</returns>
             <runtime>O(ln(n))</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Clear">
@@ -1030,21 +1040,25 @@
             <returns>True of contained, False if not.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Get(Towel.CompareToKnownValue{`0})">
-            <summary>Gets the item with the designated by the string.</summary>
-            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-            <returns>The object with the desired string ID if it exists.</returns>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the get succeeded or false if not.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Remove(`0)">
-            <summary>Removes an item from this structure.</summary>
-            <param name="removal">The item to remove.</param>
-            <runtime>O(ln(n))</runtime>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Remove(Towel.CompareToKnownValue{`0})">
-            <summary>Removes an item from this structure by a given key.</summary>
-            <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
-            <runtime>O(ln(n))</runtime>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -1410,16 +1424,14 @@
         <member name="T:Towel.DataStructures.DataStructure.IAddable`1">
             <summary>Property of a data structure (does it have a Add method).</summary>
         </member>
-        <member name="M:Towel.DataStructures.DataStructure.IAddable`1.Add(`0)">
-            <summary>Adds a value to the data structure.</summary>
-            <param name="value">The value to be added.</param>
+        <member name="M:Towel.DataStructures.DataStructure.IAddable`1.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value to a data structure.</summary>
+            <param name="value">The value to add to the data structure.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IRemovable`1">
             <summary>Property of a data structure (does it have a Romove method).</summary>
-        </member>
-        <member name="M:Towel.DataStructures.DataStructure.IRemovable`1.Remove(`0)">
-            <summary>Removes the first instance found in the data structure.</summary>
-            <param name="removal">The value to be removed.</param>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.ICountable">
             <summary>Property of a data structure (does it have a Count method).</summary>
@@ -1451,14 +1463,20 @@
             <summary>Wrapper for the "Add" method to help with exceptions.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
             <param name="structure">The data structure.</param>
-            <param name="addition">The item to be added.</param>
+            <param name="value">The value to be added.</param>
             <returns>True if successful, False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.Add``1(Towel.DataStructures.DataStructure.IAddable{``0},``0)">
+            <summary>Adds a value to a data structure.</summary>
+            <typeparam name="T">The type of values in the data structure.</typeparam>
+            <param name="structure">The data structure to add the value to.</param>
+            <param name="value">The value to be added.</param>
         </member>
         <member name="M:Towel.DataStructures.DataStructure.TryRemove``1(Towel.DataStructures.DataStructure.IRemovable{``0},``0)">
             <summary>Wrapper for the "Remove" method to help with exceptions.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
             <param name="structure">The data structure.</param>
-            <param name="removal">The item to be removed.</param>
+            <param name="value">The item to be removed.</param>
             <returns>True if successful, False if not.</returns>
         </member>
         <member name="T:Towel.DataStructures.DequeLinked`1">
@@ -1601,7 +1619,7 @@
         <member name="P:Towel.DataStructures.GraphSetOmnitree`1.NodeCount">
             <summary>Gets the number of nodes in the graph.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Add(`0)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.TryAdd(`0,System.Exception@)">
             <summary>Adds a node to the graph.</summary>
             <param name="node">The node to add to the graph.</param>
         </member>
@@ -1610,9 +1628,11 @@
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Remove(`0)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the graph and all attached edges.</summary>
             <param name="node">The edge to remove from the graph.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove succeeded or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Remove(`0,`0)">
             <summary>Removes an edge from the graph.</summary>
@@ -1687,18 +1707,21 @@
         <member name="P:Towel.DataStructures.GraphMap`1.NodeCount">
             <summary>Gets the number of nodes in the graph.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Add(`0)">
+        <member name="M:Towel.DataStructures.GraphMap`1.TryAdd(`0,System.Exception@)">
             <summary>Adds a node to the graph.</summary>
             <param name="node">The node to add to the graph.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
         </member>
         <member name="M:Towel.DataStructures.GraphMap`1.Add(`0,`0)">
             <summary>Adds an edge to the graph.</summary>
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Remove(`0)">
+        <member name="M:Towel.DataStructures.GraphMap`1.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the graph.</summary>
             <param name="node">The node to remove from the graph.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove succeeded or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.GraphMap`1.Remove(`0,`0)">
             <summary>Removes an edge from the graph.</summary>
@@ -3237,10 +3260,17 @@
             <summary>Returns the number of items in the list.</summary>
             <runtime>θ(1)</runtime>
         </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.TryAdd(`0,System.Exception@)">
+            <summary>Adds an item to the list.</summary>
+            <param name="value">The item to add to the list.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the add succeeded or false if not.</returns>
+            <runtime>O(1)</runtime>
+        </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Add(`0)">
             <summary>Adds an item to the list.</summary>
             <param name="addition">The item to add to the list.</param>
-            <runtime>θ(1)</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Clear">
             <summary>Resets the list to an empty state.</summary>
@@ -3313,9 +3343,11 @@
             <summary>Gets the current capacity of the list.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.Add(`0)">
-            <summary>Adds an item to the end of the list.</summary>
-            <param name="addition">The item to be added.</param>
+        <member name="M:Towel.DataStructures.ListArray`1.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurrs if the add fails.</param>
+            <returns>True if the add succeds or false if not.</returns>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Add(`0,System.Int32)">
@@ -14108,7 +14140,7 @@
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.#ctor">
             <summary>Creates an instance of a queue.</summary>
-            <runtime>θ(1)</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Newest">
             <summary>The newest item currently in the queue.</summary>
@@ -14264,14 +14296,15 @@
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
             <returns>True if contained, False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IRedBlackTree`1.Get(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.IRedBlackTree`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
             <summary>Gets an item based on a given key.</summary>
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
             <returns>The found item.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IRedBlackTree`1.Remove(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.IRedBlackTree`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
             <summary>Removes and item based on a given key.</summary>
             <param name="compare">Comparison technique (must match the sorting technique of the structure).</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
         </member>
         <member name="M:Towel.DataStructures.IRedBlackTree`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
@@ -14470,7 +14503,7 @@
         <member name="M:Towel.DataStructures.RedBlackTree.TryGet``1(Towel.DataStructures.IRedBlackTree{``0},Towel.CompareToKnownValue{``0},``0@)">
             <summary>Wrapper for the get function to handle exceptions.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
-            <param name="redBlackTree">This structure.</param>
+            <param name="tree">This structure.</param>
             <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
             <param name="item">The item if found.</param>
             <returns>True if successful, False if not.</returns>
@@ -14478,7 +14511,7 @@
         <member name="M:Towel.DataStructures.RedBlackTree.TryRemove``1(Towel.DataStructures.IRedBlackTree{``0},Towel.CompareToKnownValue{``0})">
             <summary>Wrapper for the remove function to handle exceptions.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
-            <param name="redBlackTree">This structure.</param>
+            <param name="tree">This structure.</param>
             <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
             <returns>True if successful, False if not.</returns>
         </member>
@@ -14516,9 +14549,11 @@
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.Compare">
             <summary>The sorting technique.</summary>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Add(`0)">
-            <summary>Adds a value to the tree.</summary>
-            <param name="value">The value to be added to the tree.</param>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value to the Red-Black tree.</summary>
+            <param name="value">The value to be added to the Red-Black tree.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the add was successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clear">
             <summary>Returns the tree to an empty state.</summary>
@@ -14538,20 +14573,24 @@
             <returns>True of contained, False if not.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Get(Towel.CompareToKnownValue{`0})">
-            <summary>Gets the item with the designated by the string.</summary>
-            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-            <returns>The object with the desired string ID if it exists.</returns>
-            <runtime>O(ln(Count)) Ω(1)</runtime>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="value">The value if it was found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Remove(`0)">
-            <summary>Removes a value from the tree.</summary>
-            <param name="value">The value to be removed.</param>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Remove(Towel.CompareToKnownValue{`0})">
-            <summary>Removes an item from this structure by a given key.</summary>
-            <param name="compare">The sorting technique (must synchronize with the structure's sorting).</param>
-            <runtime>O(ln(n))</runtime>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -14700,20 +14739,23 @@
             <summary>The delegate for equality checking.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Add(`0)">
+        <member name="M:Towel.DataStructures.SetHashLinked`1.TryAdd(`0,System.Exception@)">
             <summary>Adds a value to the set.</summary>
             <param name="value">The value to add to the set.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Remove(`0)">
-            <summary>Removes a value from the set.</summary>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value from the set.</summary>
             <param name="value">The value to remove.</param>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.RemoveWithoutTrim(`0)">
-            <summary>Removes a value from the set.</summary>
+        <member name="M:Towel.DataStructures.SetHashLinked`1.TryRemoveWithoutTrim(`0,System.Exception@)">
+            <summary>Tries to remove a value from the set without shrinking the hash table.</summary>
             <param name="value">The value to remove.</param>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Resize(System.Int32)">
             <summary>Resizes the table.</summary>
@@ -14805,19 +14847,22 @@
             <summary>The delegate for equality checking.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.Add(`1)">
+        <member name="M:Towel.DataStructures.Set`2.TryAdd(`1,System.Exception@)">
             <summary>Adds a value to the hash table.</summary>
             <param name="value">The key value to use as the look-up reference in the hash table.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.Remove(`1)">
+        <member name="M:Towel.DataStructures.Set`2.TryRemove(`1,System.Exception@)">
             <summary>Removes a value from the set.</summary>
             <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.RemoveWithoutTrim(`1)">
+        <member name="M:Towel.DataStructures.Set`2.TryRemoveWithoutTrim(`1,System.Exception@)">
             <summary>Removes a value from the set.</summary>
             <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
             <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Set`2.Resize(System.Int32)">
@@ -15333,17 +15378,18 @@
             <param name="addition">The node to be added.</param>
             <param name="parent">The parent of the node to be added.</param>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Remove(`0)">
+        <member name="M:Towel.DataStructures.TreeMap`1.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the tree and all the child nodes.</summary>
             <param name="removal">The node to be removed.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
         </member>
         <member name="M:Towel.DataStructures.TreeMap`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.TreeMap`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step_function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.TreeMap`1.Clone">
@@ -16372,41 +16418,6 @@
         </member>
         <member name="F:Towel.Hash.TableSizes">
             <summary>used for hash tables in this project. NOTE: CHANGING THESE VALUES MIGHT BREAK HASH TABLES</summary>
-        </member>
-        <member name="T:Towel.Hash.HashLinked`1">
-            <summary>A base for all hash tables of linked lists.</summary>
-            <typeparam name="NODE">The generic type of the structure.</typeparam>
-        </member>
-        <member name="M:Towel.Hash.HashLinked`1.#ctor">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.Hash.HashLinked`1.#ctor(System.Int32)">
-            <summary>Constructs a new hash table instance.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.Hash.HashLinked`1.TableSize">
-            <summary>Returns the current size of the actual table. You will want this if you 
-            wish to multithread structure traversals.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.Hash.HashLinked`1.Count">
-            <summary>Returns the current number of items in the structure.</summary>
-            <remarks>Runetime: O(1).</remarks>
-        </member>
-        <member name="M:Towel.Hash.HashLinked`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
-        <member name="M:Towel.Hash.HashLinked`1.Contains(`0)">
-            <summary>Determines if this structure contains a given item.</summary>
-            <param name="item">The item to see if theis structure contains.</param>
-            <returns>True if the item is in the structure; False if not.</returns>
-        </member>
-        <member name="M:Towel.Hash.HashLinked`1.Add(`0)">
-            <summary>Adds a value to the hash table.</summary>
-            <param name="key">The key value to use as the look-up reference in the hash table.</param>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
         </member>
         <member name="T:Towel.GetIndex`1">
             <summary>Delegate for getting a value at a specified index.</summary>

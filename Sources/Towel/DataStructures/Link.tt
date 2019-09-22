@@ -22,7 +22,7 @@ namespace Towel.DataStructures
 	public class Link<T1<# for (int j = 2; j <= i; j++) { #>, T<#= j #><# } #>> : Link
 	{
 		// Fields<# for (int j = 1; j <= i; j++) { #>
-		private T<#= j #> __<#= j #>;<# } #>
+		internal T<#= j #> __<#= j #>;<# } #>
 
 		#region Constructors
 		
@@ -180,7 +180,7 @@ namespace Towel.DataStructures
 	public struct LinkStruct<T1<# for (int j = 2; j <= i; j++) { #>, T<#= j #><# } #>> : Link
 	{
 		// Fields<# for (int j = 1; j <= i; j++) { #>
-		private T<#= j #> __<#= j #>;<# } #>
+		internal T<#= j #> __<#= j #>;<# } #>
 
 		#region Constructors
 		

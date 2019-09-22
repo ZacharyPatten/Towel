@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Towel.DataStructures
 {
@@ -51,17 +52,17 @@ namespace Towel.DataStructures
 		/// <summary>Property of a data structure (does it have a Add method).</summary>
 		public interface IAddable<T>
 		{
-			/// <summary>Adds a value to the data structure.</summary>
-			/// <param name="value">The value to be added.</param>
-			void Add(T value);
+			/// <summary>Tries to add a value to a data structure.</summary>
+			/// <param name="value">The value to add to the data structure.</param>
+			/// <param name="exception">The exception that occurred if the add failed.</param>
+			/// <returns>True if the value was added or false if not.</returns>
+			bool TryAdd(T value, out Exception exception);
 		}
 
 		/// <summary>Property of a data structure (does it have a Romove method).</summary>
 		public interface IRemovable<T>
 		{
-			/// <summary>Removes the first instance found in the data structure.</summary>
-			/// <param name="removal">The value to be removed.</param>
-			void Remove(T removal);
+			bool TryRemove(T value, out Exception exception);
 		}
 
 		/// <summary>Property of a data structure (does it have a Count method).</summary>
@@ -100,40 +101,40 @@ namespace Towel.DataStructures
 		/// <summary>Wrapper for the "Add" method to help with exceptions.</summary>
 		/// <typeparam name="T">The generic type of the structure.</typeparam>
 		/// <param name="structure">The data structure.</param>
-		/// <param name="addition">The item to be added.</param>
+		/// <param name="value">The value to be added.</param>
 		/// <returns>True if successful, False if not.</returns>
-		public static bool TryAdd<T>(this IAddable<T> structure, T addition)
+		public static bool TryAdd<T>(this IAddable<T> structure, T value)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
+			return structure.TryAdd(value, out _);
+		}
 
-			try
+		/// <summary>Adds a value to a data structure.</summary>
+		/// <typeparam name="T">The type of values in the data structure.</typeparam>
+		/// <param name="structure">The data structure to add the value to.</param>
+		/// <param name="value">The value to be added.</param>
+		public static void Add<T>(this IAddable<T> structure, T value)
+		{
+			if (!structure.TryAdd(value, out Exception exception))
 			{
-				structure.Add(addition);
-				return true;
-			}
-			catch
-			{
-				return false;
+				throw exception;
 			}
 		}
 
 		/// <summary>Wrapper for the "Remove" method to help with exceptions.</summary>
 		/// <typeparam name="T">The generic type of the structure.</typeparam>
 		/// <param name="structure">The data structure.</param>
-		/// <param name="removal">The item to be removed.</param>
+		/// <param name="value">The item to be removed.</param>
 		/// <returns>True if successful, False if not.</returns>
-		public static bool TryRemove<T>(this IRemovable<T> structure, T removal)
+		public static bool TryRemove<T>(this IRemovable<T> structure, T value)
 		{
-			// TODO: kill this function (try-catch should not be used for control flow)
+			return structure.TryRemove(value, out _);
+		}
 
-			try
+		public static void Remove<T>(this IRemovable<T> structure, T value)
+		{
+			if (!structure.TryRemove(value, out Exception exception))
 			{
-				structure.Remove(removal);
-				return true;
-			}
-			catch
-			{
-				return false;
+				throw exception;
 			}
 		}
 

@@ -396,7 +396,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first quaternion of the multiplication.</param>
 		/// <param name="b">The second quaternion of the multiplication.</param>
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
-		private static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+		internal static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
 		{
 			if (a is null)
 			{
@@ -652,7 +652,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The quaternion to have the values multiplied.</param>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting quaternion after the multiplications.</param>
-		private static void Multiply(Quaternion<T> a, T b, ref Quaternion<T> c)
+		internal static void Multiply(Quaternion<T> a, T b, ref Quaternion<T> c)
 		{
 			if (a is null)
 			{
@@ -1205,7 +1205,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first quaternion to check for equality.</param>
 		/// <param name="b">The second quaternion to check for equality.</param>
 		/// <returns>True if values are equal, false if not.</returns>
-		private static bool Equal(Quaternion<T> a, Quaternion<T> b)
+		internal static bool Equal(Quaternion<T> a, Quaternion<T> b)
 		{
 			if (a is null)
 			{
@@ -1264,7 +1264,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second quaternion to check for equality.</param>
 		/// <param name="leniency">How much the values can vary but still be considered equal.</param>
 		/// <returns>True if values are equal, false if not.</returns>
-		private static bool Equal(Quaternion<T> a, Quaternion<T> b, T leniency)
+		internal static bool Equal(Quaternion<T> a, Quaternion<T> b, T leniency)
 		{
 			if (a is null)
 			{
