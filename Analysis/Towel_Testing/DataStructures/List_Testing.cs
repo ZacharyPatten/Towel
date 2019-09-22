@@ -65,6 +65,9 @@ namespace Towel_Testing.DataStructures
 
 			// check count
 			Assert.IsTrue(list.Count == 0);
+
+			// exception
+			Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(0));
 		}
 	}
 
@@ -128,6 +131,9 @@ namespace Towel_Testing.DataStructures
 
 			// check count
 			Assert.IsTrue(list.Count == 0);
+
+			// exception
+			Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(0));
 		}
 	}
 }

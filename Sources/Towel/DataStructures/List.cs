@@ -215,7 +215,7 @@ namespace Towel.DataStructures
 		{
 			if (!TryRemoveFirst(predicate))
 			{
-				throw new InvalidOperationException("Attempting to remove a non-existing value from a list.");
+				throw new ArgumentException("Attempting to remove a non-existing value from a list.");
 			}
 		}
 
@@ -634,7 +634,7 @@ namespace Towel.DataStructures
 		{
 			if (!TryRemoveFirst(predicate))
 			{
-				throw new InvalidOperationException("Attempting to remove a non-existing item from this list.");
+				throw new ArgumentException("Attempting to remove a non-existing item from this list.");
 			}
 		}
 
@@ -662,7 +662,7 @@ namespace Towel.DataStructures
 		{
 			if (!TryRemoveFirst(predicate))
 			{
-				throw new InvalidOperationException("Attempting to remove a non-existing item from this list.");
+				throw new ArgumentException("Attempting to remove a non-existing item from this list.");
 			}
 		}
 
