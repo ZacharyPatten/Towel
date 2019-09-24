@@ -214,6 +214,18 @@ namespace Algorithms
 				Console.WriteLine("    Debug the code. The path is to large to write to the console.");
 				Console.WriteLine();
 
+				// Visualization:
+				//
+				//                        BOULDER
+				//                          ____
+				//        ENEMY           /      \          PLAYER
+				//          X            |        |           X
+				//                        \______/
+				//                      /##########\
+				//                     |############|
+				//                      \##########/
+				//                          MUD
+
 				// Lets say you are coding enemy AI and you want the AI to find a path towards the player
 				// in order to attack them. Here are their starting positions:
 				Vector<float> enemyLocation = new Vector<float>(-100f, 0f, -50f);
