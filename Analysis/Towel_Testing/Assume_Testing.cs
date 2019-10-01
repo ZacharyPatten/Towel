@@ -37,5 +37,34 @@ namespace Towel_Testing
 				Assert.IsTrue(Assume.TryParse<decimal>("1.234", Default: -1) == 1.234m);
 			}
 		}
+
+		[TestMethod]
+		public void Convert_Testing()
+		{
+			{ // int
+				Assert.IsTrue(Assume.Convert<int, int>(7) == 7);
+				Assert.IsTrue(Assume.Convert<int, float>(7) == 7f);
+				Assert.IsTrue(Assume.Convert<int, double>(7) == 7d);
+				Assert.IsTrue(Assume.Convert<int, decimal>(7) == 7m);
+			}
+			{ // float
+				Assert.IsTrue(Assume.Convert<float, int>(7f) == 7);
+				Assert.IsTrue(Assume.Convert<float, float>(7f) == 7f);
+				Assert.IsTrue(Assume.Convert<float, double>(7f) == 7d);
+				Assert.IsTrue(Assume.Convert<float, decimal>(7f) == 7m);
+			}
+			{ // double
+				Assert.IsTrue(Assume.Convert<double, int>(7d) == 7);
+				Assert.IsTrue(Assume.Convert<double, float>(7d) == 7f);
+				Assert.IsTrue(Assume.Convert<double, double>(7d) == 7d);
+				Assert.IsTrue(Assume.Convert<double, decimal>(7d) == 7m);
+			}
+			{ // decimal
+				Assert.IsTrue(Assume.Convert<decimal, int>(7m) == 7);
+				Assert.IsTrue(Assume.Convert<decimal, float>(7m) == 7f);
+				Assert.IsTrue(Assume.Convert<decimal, double>(7m) == 7d);
+				Assert.IsTrue(Assume.Convert<decimal, decimal>(7m) == 7m);
+			}
+		}
 	}
 }

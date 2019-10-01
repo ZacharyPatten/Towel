@@ -5,19 +5,19 @@
 	public static class Constant<T>
 	{
 		/// <summary>Zero [0]</summary>
-		public static readonly T Zero = Compute.Convert<int, T>(0);
+		public static readonly T Zero = Assume.Convert<int, T>(0);
 		/// <summary>One [1]</summary>
-		public static readonly T One = Compute.Convert<int, T>(1);
+		public static readonly T One = Assume.Convert<int, T>(1);
 		/// <summary>Two [2]</summary>
-		public static readonly T Two = Compute.Convert<int, T>(2);
+		public static readonly T Two = Assume.Convert<int, T>(2);
 		/// <summary>Three [3]</summary>
-		public static readonly T Three = Compute.Convert<int, T>(3);
+		public static readonly T Three = Assume.Convert<int, T>(3);
 		/// <summary>Four [4]</summary>
-		public static readonly T Four = Compute.Convert<int, T>(4);
+		public static readonly T Four = Assume.Convert<int, T>(4);
 		/// <summary>Ten [10]</summary>
-		public static readonly T Ten = Compute.Convert<int, T>(10);
+		public static readonly T Ten = Assume.Convert<int, T>(10);
 		/// <summary>Negative One [-1]</summary>
-		public static readonly T NegativeOne = Compute.Convert<int, T>(-1);
+		public static readonly T NegativeOne = Assume.Convert<int, T>(-1);
 
 		/// <summary>π [3.14...]</summary>
 		public static readonly T Pi = Compute.Pi<T>();

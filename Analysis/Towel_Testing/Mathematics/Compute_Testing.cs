@@ -988,35 +988,6 @@ namespace Towel_Testing.Mathematics
 		}
 
 		[TestMethod]
-		public void Convert_Testing()
-		{
-			{ // int
-				Assert.IsTrue(Convert<int, int>(7) == 7);
-				Assert.IsTrue(Convert<int, float>(7) == 7f);
-				Assert.IsTrue(Convert<int, double>(7) == 7d);
-				Assert.IsTrue(Convert<int, decimal>(7) == 7m);
-			}
-			{ // float
-				Assert.IsTrue(Convert<float, int>(7f) == 7);
-				Assert.IsTrue(Convert<float, float>(7f) == 7f);
-				Assert.IsTrue(Convert<float, double>(7f) == 7d);
-				Assert.IsTrue(Convert<float, decimal>(7f) == 7m);
-			}
-			{ // double
-				Assert.IsTrue(Convert<double, int>(7d) == 7);
-				Assert.IsTrue(Convert<double, float>(7d) == 7f);
-				Assert.IsTrue(Convert<double, double>(7d) == 7d);
-				Assert.IsTrue(Convert<double, decimal>(7d) == 7m);
-			}
-			{ // decimal
-				Assert.IsTrue(Convert<decimal, int>(7m) == 7);
-				Assert.IsTrue(Convert<decimal, float>(7m) == 7f);
-				Assert.IsTrue(Convert<decimal, double>(7m) == 7d);
-				Assert.IsTrue(Convert<decimal, decimal>(7m) == 7m);
-			}
-		}
-
-		[TestMethod]
 		public void Clamp_Testing()
 		{
 			{ // int

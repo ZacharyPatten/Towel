@@ -509,7 +509,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Acceleration<T> Add(Acceleration<T> a, Acceleration<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Acceleration measurements.</summary>
@@ -539,7 +539,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Acceleration<T> Subtract(Acceleration<T> a, Acceleration<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Acceleration measurements.</summary>
@@ -569,7 +569,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Acceleration<T> Multiply(Acceleration<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Acceleration by a scalar numeric value.</summary>
@@ -873,7 +873,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Acceleration<T> Divide(Acceleration<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Acceleration measurement by a numaric scalar value.</summary>
@@ -920,7 +920,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Acceleration measurement is less than another Acceleration measurement.</summary>
@@ -950,7 +950,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Acceleration measurement is greater than another Acceleration measurement.</summary>
@@ -980,7 +980,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Acceleration measurement is less than or equal to another Acceleration measurement.</summary>
@@ -1010,7 +1010,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Acceleration measurement is greater than or equal to another Acceleration measurement.</summary>
@@ -1040,7 +1040,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
@@ -1070,7 +1070,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
@@ -1433,7 +1433,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static AngularAcceleration<T> Add(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two AngularAcceleration measurements.</summary>
@@ -1463,7 +1463,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static AngularAcceleration<T> Subtract(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two AngularAcceleration measurements.</summary>
@@ -1493,7 +1493,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static AngularAcceleration<T> Multiply(AngularAcceleration<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an AngularAcceleration by a scalar numeric value.</summary>
@@ -1633,7 +1633,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static AngularAcceleration<T> Divide(AngularAcceleration<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this AngularAcceleration measurement by a numaric scalar value.</summary>
@@ -1680,7 +1680,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is less than another AngularAcceleration measurement.</summary>
@@ -1710,7 +1710,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is greater than another AngularAcceleration measurement.</summary>
@@ -1740,7 +1740,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is less than or equal to another AngularAcceleration measurement.</summary>
@@ -1770,7 +1770,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is greater than or equal to another AngularAcceleration measurement.</summary>
@@ -1800,7 +1800,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is equal to another AngularAcceleration measurement.</summary>
@@ -1830,7 +1830,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is not equal to another AngularAcceleration measurement.</summary>
@@ -2093,7 +2093,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Angle<T> Add(Angle<T> a, Angle<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Angle measurements.</summary>
@@ -2123,7 +2123,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Angle<T> Subtract(Angle<T> a, Angle<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Angle measurements.</summary>
@@ -2153,7 +2153,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Angle<T> Multiply(Angle<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Angle by a scalar numeric value.</summary>
@@ -2213,7 +2213,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Angle<T> Divide(Angle<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Angle measurement by a numaric scalar value.</summary>
@@ -2418,7 +2418,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Angle measurement is less than another Angle measurement.</summary>
@@ -2448,7 +2448,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Angle measurement is greater than another Angle measurement.</summary>
@@ -2478,7 +2478,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Angle measurement is less than or equal to another Angle measurement.</summary>
@@ -2508,7 +2508,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Angle measurement is greater than or equal to another Angle measurement.</summary>
@@ -2538,7 +2538,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Angle measurement is equal to another Angle measurement.</summary>
@@ -2568,7 +2568,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Angle measurement is not equal to another Angle measurement.</summary>
@@ -2881,7 +2881,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static AngularSpeed<T> Add(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two AngularSpeed measurements.</summary>
@@ -2911,7 +2911,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static AngularSpeed<T> Subtract(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two AngularSpeed measurements.</summary>
@@ -2941,7 +2941,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static AngularSpeed<T> Multiply(AngularSpeed<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an AngularSpeed by a scalar numeric value.</summary>
@@ -3040,7 +3040,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static AngularSpeed<T> Divide(AngularSpeed<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this AngularSpeed measurement by a numaric scalar value.</summary>
@@ -3167,7 +3167,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is less than another AngularSpeed measurement.</summary>
@@ -3197,7 +3197,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is greater than another AngularSpeed measurement.</summary>
@@ -3227,7 +3227,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is less than or equal to another AngularSpeed measurement.</summary>
@@ -3257,7 +3257,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is greater than or equal to another AngularSpeed measurement.</summary>
@@ -3287,7 +3287,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is equal to another AngularSpeed measurement.</summary>
@@ -3317,7 +3317,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is not equal to another AngularSpeed measurement.</summary>
@@ -3632,7 +3632,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Area<T> Add(Area<T> a, Area<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Area measurements.</summary>
@@ -3662,7 +3662,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Area<T> Subtract(Area<T> a, Area<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Area measurements.</summary>
@@ -3692,7 +3692,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Area<T> Multiply(Area<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Area by a scalar numeric value.</summary>
@@ -3991,7 +3991,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Area<T> Divide(Area<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Area measurement by a numaric scalar value.</summary>
@@ -4077,7 +4077,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Area measurement is less than another Area measurement.</summary>
@@ -4107,7 +4107,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Area measurement is greater than another Area measurement.</summary>
@@ -4137,7 +4137,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Area measurement is less than or equal to another Area measurement.</summary>
@@ -4167,7 +4167,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Area measurement is greater than or equal to another Area measurement.</summary>
@@ -4197,7 +4197,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Area measurement is equal to another Area measurement.</summary>
@@ -4227,7 +4227,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Area measurement is not equal to another Area measurement.</summary>
@@ -4588,7 +4588,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static AreaDensity<T> Add(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two AreaDensity measurements.</summary>
@@ -4618,7 +4618,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static AreaDensity<T> Subtract(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two AreaDensity measurements.</summary>
@@ -4648,7 +4648,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static AreaDensity<T> Multiply(AreaDensity<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an AreaDensity by a scalar numeric value.</summary>
@@ -4910,7 +4910,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static AreaDensity<T> Divide(AreaDensity<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this AreaDensity measurement by a numaric scalar value.</summary>
@@ -5039,7 +5039,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an AreaDensity measurement is less than another AreaDensity measurement.</summary>
@@ -5069,7 +5069,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an AreaDensity measurement is greater than another AreaDensity measurement.</summary>
@@ -5099,7 +5099,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an AreaDensity measurement is less than or equal to another AreaDensity measurement.</summary>
@@ -5129,7 +5129,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an AreaDensity measurement is greater than or equal to another AreaDensity measurement.</summary>
@@ -5159,7 +5159,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an AreaDensity measurement is equal to another AreaDensity measurement.</summary>
@@ -5189,7 +5189,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an AreaDensity measurement is not equal to another AreaDensity measurement.</summary>
@@ -5599,7 +5599,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Density<T> Add(Density<T> a, Density<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Density measurements.</summary>
@@ -5629,7 +5629,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Density<T> Subtract(Density<T> a, Density<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Density measurements.</summary>
@@ -5659,7 +5659,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Density<T> Multiply(Density<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Density by a scalar numeric value.</summary>
@@ -5883,7 +5883,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Density<T> Divide(Density<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Density measurement by a numaric scalar value.</summary>
@@ -5930,7 +5930,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Density measurement is less than another Density measurement.</summary>
@@ -5960,7 +5960,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Density measurement is greater than another Density measurement.</summary>
@@ -5990,7 +5990,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Density measurement is less than or equal to another Density measurement.</summary>
@@ -6020,7 +6020,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Density measurement is greater than or equal to another Density measurement.</summary>
@@ -6050,7 +6050,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Density measurement is equal to another Density measurement.</summary>
@@ -6080,7 +6080,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Density measurement is not equal to another Density measurement.</summary>
@@ -6344,7 +6344,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static ElectricCharge<T> Add(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two ElectricCharge measurements.</summary>
@@ -6374,7 +6374,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static ElectricCharge<T> Subtract(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two ElectricCharge measurements.</summary>
@@ -6404,7 +6404,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static ElectricCharge<T> Multiply(ElectricCharge<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an ElectricCharge by a scalar numeric value.</summary>
@@ -6464,7 +6464,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static ElectricCharge<T> Divide(ElectricCharge<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this ElectricCharge measurement by a numaric scalar value.</summary>
@@ -6589,7 +6589,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is less than another ElectricCharge measurement.</summary>
@@ -6619,7 +6619,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is greater than another ElectricCharge measurement.</summary>
@@ -6649,7 +6649,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is less than or equal to another ElectricCharge measurement.</summary>
@@ -6679,7 +6679,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is greater than or equal to another ElectricCharge measurement.</summary>
@@ -6709,7 +6709,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is equal to another ElectricCharge measurement.</summary>
@@ -6739,7 +6739,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is not equal to another ElectricCharge measurement.</summary>
@@ -7052,7 +7052,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static ElectricCurrent<T> Add(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two ElectricCurrent measurements.</summary>
@@ -7082,7 +7082,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static ElectricCurrent<T> Subtract(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two ElectricCurrent measurements.</summary>
@@ -7112,7 +7112,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static ElectricCurrent<T> Multiply(ElectricCurrent<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an ElectricCurrent by a scalar numeric value.</summary>
@@ -7211,7 +7211,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static ElectricCurrent<T> Divide(ElectricCurrent<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this ElectricCurrent measurement by a numaric scalar value.</summary>
@@ -7258,7 +7258,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is less than another ElectricCurrent measurement.</summary>
@@ -7288,7 +7288,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is greater than another ElectricCurrent measurement.</summary>
@@ -7318,7 +7318,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is less than or equal to another ElectricCurrent measurement.</summary>
@@ -7348,7 +7348,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is greater than or equal to another ElectricCurrent measurement.</summary>
@@ -7378,7 +7378,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is equal to another ElectricCurrent measurement.</summary>
@@ -7408,7 +7408,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is not equal to another ElectricCurrent measurement.</summary>
@@ -7864,7 +7864,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Energy<T> Add(Energy<T> a, Energy<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Energy measurements.</summary>
@@ -7894,7 +7894,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Energy<T> Subtract(Energy<T> a, Energy<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Energy measurements.</summary>
@@ -7924,7 +7924,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Energy<T> Multiply(Energy<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Energy by a scalar numeric value.</summary>
@@ -7988,7 +7988,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Energy<T> Divide(Energy<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Energy measurement by a numaric scalar value.</summary>
@@ -8459,7 +8459,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Energy measurement is less than another Energy measurement.</summary>
@@ -8489,7 +8489,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Energy measurement is greater than another Energy measurement.</summary>
@@ -8519,7 +8519,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Energy measurement is less than or equal to another Energy measurement.</summary>
@@ -8549,7 +8549,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Energy measurement is greater than or equal to another Energy measurement.</summary>
@@ -8579,7 +8579,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Energy measurement is equal to another Energy measurement.</summary>
@@ -8609,7 +8609,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Energy measurement is not equal to another Energy measurement.</summary>
@@ -9021,7 +9021,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Force<T> Add(Force<T> a, Force<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Force measurements.</summary>
@@ -9051,7 +9051,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Force<T> Subtract(Force<T> a, Force<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Force measurements.</summary>
@@ -9081,7 +9081,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Force<T> Multiply(Force<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Force by a scalar numeric value.</summary>
@@ -9307,7 +9307,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Force<T> Divide(Force<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Force measurement by a numaric scalar value.</summary>
@@ -9602,7 +9602,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Force measurement is less than another Force measurement.</summary>
@@ -9632,7 +9632,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Force measurement is greater than another Force measurement.</summary>
@@ -9662,7 +9662,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Force measurement is less than or equal to another Force measurement.</summary>
@@ -9692,7 +9692,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Force measurement is greater than or equal to another Force measurement.</summary>
@@ -9722,7 +9722,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Force measurement is equal to another Force measurement.</summary>
@@ -9752,7 +9752,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Force measurement is not equal to another Force measurement.</summary>
@@ -10016,7 +10016,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Length<T> Add(Length<T> a, Length<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Length measurements.</summary>
@@ -10046,7 +10046,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Length<T> Subtract(Length<T> a, Length<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Length measurements.</summary>
@@ -10076,7 +10076,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Length<T> Multiply(Length<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Length by a scalar numeric value.</summary>
@@ -10448,7 +10448,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Length<T> Divide(Length<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Length measurement by a numaric scalar value.</summary>
@@ -10653,7 +10653,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Length measurement is less than another Length measurement.</summary>
@@ -10683,7 +10683,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Length measurement is greater than another Length measurement.</summary>
@@ -10713,7 +10713,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Length measurement is less than or equal to another Length measurement.</summary>
@@ -10743,7 +10743,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Length measurement is greater than or equal to another Length measurement.</summary>
@@ -10773,7 +10773,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Length measurement is equal to another Length measurement.</summary>
@@ -10803,7 +10803,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Length measurement is not equal to another Length measurement.</summary>
@@ -11116,7 +11116,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static LinearDensity<T> Add(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two LinearDensity measurements.</summary>
@@ -11146,7 +11146,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static LinearDensity<T> Subtract(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two LinearDensity measurements.</summary>
@@ -11176,7 +11176,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static LinearDensity<T> Multiply(LinearDensity<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an LinearDensity by a scalar numeric value.</summary>
@@ -11353,7 +11353,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static LinearDensity<T> Divide(LinearDensity<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this LinearDensity measurement by a numaric scalar value.</summary>
@@ -11644,7 +11644,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an LinearDensity measurement is less than another LinearDensity measurement.</summary>
@@ -11674,7 +11674,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an LinearDensity measurement is greater than another LinearDensity measurement.</summary>
@@ -11704,7 +11704,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an LinearDensity measurement is less than or equal to another LinearDensity measurement.</summary>
@@ -11734,7 +11734,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an LinearDensity measurement is greater than or equal to another LinearDensity measurement.</summary>
@@ -11764,7 +11764,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an LinearDensity measurement is equal to another LinearDensity measurement.</summary>
@@ -11794,7 +11794,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an LinearDensity measurement is not equal to another LinearDensity measurement.</summary>
@@ -12109,7 +12109,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static LinearMass<T> Add(LinearMass<T> a, LinearMass<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two LinearMass measurements.</summary>
@@ -12139,7 +12139,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static LinearMass<T> Subtract(LinearMass<T> a, LinearMass<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two LinearMass measurements.</summary>
@@ -12169,7 +12169,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static LinearMass<T> Multiply(LinearMass<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an LinearMass by a scalar numeric value.</summary>
@@ -12271,7 +12271,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static LinearMass<T> Divide(LinearMass<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this LinearMass measurement by a numaric scalar value.</summary>
@@ -12720,7 +12720,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an LinearMass measurement is less than another LinearMass measurement.</summary>
@@ -12750,7 +12750,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an LinearMass measurement is greater than another LinearMass measurement.</summary>
@@ -12780,7 +12780,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an LinearMass measurement is less than or equal to another LinearMass measurement.</summary>
@@ -12810,7 +12810,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an LinearMass measurement is greater than or equal to another LinearMass measurement.</summary>
@@ -12840,7 +12840,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an LinearMass measurement is equal to another LinearMass measurement.</summary>
@@ -12870,7 +12870,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an LinearMass measurement is not equal to another LinearMass measurement.</summary>
@@ -13231,7 +13231,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static LinearMassFlow<T> Add(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two LinearMassFlow measurements.</summary>
@@ -13261,7 +13261,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static LinearMassFlow<T> Subtract(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two LinearMassFlow measurements.</summary>
@@ -13291,7 +13291,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static LinearMassFlow<T> Multiply(LinearMassFlow<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an LinearMassFlow by a scalar numeric value.</summary>
@@ -13475,7 +13475,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static LinearMassFlow<T> Divide(LinearMassFlow<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this LinearMassFlow measurement by a numaric scalar value.</summary>
@@ -13848,7 +13848,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is less than another LinearMassFlow measurement.</summary>
@@ -13878,7 +13878,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is greater than another LinearMassFlow measurement.</summary>
@@ -13908,7 +13908,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is less than or equal to another LinearMassFlow measurement.</summary>
@@ -13938,7 +13938,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is greater than or equal to another LinearMassFlow measurement.</summary>
@@ -13968,7 +13968,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is equal to another LinearMassFlow measurement.</summary>
@@ -13998,7 +13998,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is not equal to another LinearMassFlow measurement.</summary>
@@ -14261,7 +14261,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Mass<T> Add(Mass<T> a, Mass<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Mass measurements.</summary>
@@ -14291,7 +14291,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Mass<T> Subtract(Mass<T> a, Mass<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Mass measurements.</summary>
@@ -14321,7 +14321,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Mass<T> Multiply(Mass<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Mass by a scalar numeric value.</summary>
@@ -14498,7 +14498,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Mass<T> Divide(Mass<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Mass measurement by a numaric scalar value.</summary>
@@ -14863,7 +14863,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Mass measurement is less than another Mass measurement.</summary>
@@ -14893,7 +14893,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Mass measurement is greater than another Mass measurement.</summary>
@@ -14923,7 +14923,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Mass measurement is less than or equal to another Mass measurement.</summary>
@@ -14953,7 +14953,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Mass measurement is greater than or equal to another Mass measurement.</summary>
@@ -14983,7 +14983,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Mass measurement is equal to another Mass measurement.</summary>
@@ -15013,7 +15013,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Mass measurement is not equal to another Mass measurement.</summary>
@@ -15326,7 +15326,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static MassRate<T> Add(MassRate<T> a, MassRate<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two MassRate measurements.</summary>
@@ -15356,7 +15356,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static MassRate<T> Subtract(MassRate<T> a, MassRate<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two MassRate measurements.</summary>
@@ -15386,7 +15386,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static MassRate<T> Multiply(MassRate<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an MassRate by a scalar numeric value.</summary>
@@ -15564,7 +15564,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static MassRate<T> Divide(MassRate<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this MassRate measurement by a numaric scalar value.</summary>
@@ -15775,7 +15775,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an MassRate measurement is less than another MassRate measurement.</summary>
@@ -15805,7 +15805,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an MassRate measurement is greater than another MassRate measurement.</summary>
@@ -15835,7 +15835,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an MassRate measurement is less than or equal to another MassRate measurement.</summary>
@@ -15865,7 +15865,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an MassRate measurement is greater than or equal to another MassRate measurement.</summary>
@@ -15895,7 +15895,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an MassRate measurement is equal to another MassRate measurement.</summary>
@@ -15925,7 +15925,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an MassRate measurement is not equal to another MassRate measurement.</summary>
@@ -16428,7 +16428,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Power<T> Add(Power<T> a, Power<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Power measurements.</summary>
@@ -16458,7 +16458,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Power<T> Subtract(Power<T> a, Power<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Power measurements.</summary>
@@ -16488,7 +16488,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Power<T> Multiply(Power<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Power by a scalar numeric value.</summary>
@@ -16595,7 +16595,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Power<T> Divide(Power<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Power measurement by a numaric scalar value.</summary>
@@ -16902,7 +16902,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Power measurement is less than another Power measurement.</summary>
@@ -16932,7 +16932,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Power measurement is greater than another Power measurement.</summary>
@@ -16962,7 +16962,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Power measurement is less than or equal to another Power measurement.</summary>
@@ -16992,7 +16992,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Power measurement is greater than or equal to another Power measurement.</summary>
@@ -17022,7 +17022,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
@@ -17052,7 +17052,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
@@ -17465,7 +17465,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Pressure<T> Add(Pressure<T> a, Pressure<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Pressure measurements.</summary>
@@ -17495,7 +17495,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Pressure<T> Subtract(Pressure<T> a, Pressure<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Pressure measurements.</summary>
@@ -17525,7 +17525,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Pressure<T> Multiply(Pressure<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Pressure by a scalar numeric value.</summary>
@@ -17754,7 +17754,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Pressure<T> Divide(Pressure<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Pressure measurement by a numaric scalar value.</summary>
@@ -17885,7 +17885,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Pressure measurement is less than another Pressure measurement.</summary>
@@ -17915,7 +17915,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Pressure measurement is greater than another Pressure measurement.</summary>
@@ -17945,7 +17945,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Pressure measurement is less than or equal to another Pressure measurement.</summary>
@@ -17975,7 +17975,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Pressure measurement is greater than or equal to another Pressure measurement.</summary>
@@ -18005,7 +18005,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
@@ -18035,7 +18035,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
@@ -18352,7 +18352,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Speed<T> Add(Speed<T> a, Speed<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Speed measurements.</summary>
@@ -18382,7 +18382,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Speed<T> Subtract(Speed<T> a, Speed<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Speed measurements.</summary>
@@ -18412,7 +18412,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Speed<T> Multiply(Speed<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Speed by a scalar numeric value.</summary>
@@ -18752,7 +18752,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Speed<T> Divide(Speed<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Speed measurement by a numaric scalar value.</summary>
@@ -18879,7 +18879,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Speed measurement is less than another Speed measurement.</summary>
@@ -18909,7 +18909,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Speed measurement is greater than another Speed measurement.</summary>
@@ -18939,7 +18939,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Speed measurement is less than or equal to another Speed measurement.</summary>
@@ -18969,7 +18969,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Speed measurement is greater than or equal to another Speed measurement.</summary>
@@ -18999,7 +18999,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Speed measurement is equal to another Speed measurement.</summary>
@@ -19029,7 +19029,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Speed measurement is not equal to another Speed measurement.</summary>
@@ -19291,7 +19291,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Tempurature<T> Add(Tempurature<T> a, Tempurature<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Tempurature measurements.</summary>
@@ -19321,7 +19321,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Tempurature<T> Subtract(Tempurature<T> a, Tempurature<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Tempurature measurements.</summary>
@@ -19351,7 +19351,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Tempurature<T> Multiply(Tempurature<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Tempurature by a scalar numeric value.</summary>
@@ -19411,7 +19411,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Tempurature<T> Divide(Tempurature<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Tempurature measurement by a numaric scalar value.</summary>
@@ -19458,7 +19458,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Tempurature measurement is less than another Tempurature measurement.</summary>
@@ -19488,7 +19488,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Tempurature measurement is greater than another Tempurature measurement.</summary>
@@ -19518,7 +19518,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Tempurature measurement is less than or equal to another Tempurature measurement.</summary>
@@ -19548,7 +19548,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Tempurature measurement is greater than or equal to another Tempurature measurement.</summary>
@@ -19578,7 +19578,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Tempurature measurement is equal to another Tempurature measurement.</summary>
@@ -19608,7 +19608,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Tempurature measurement is not equal to another Tempurature measurement.</summary>
@@ -19868,7 +19868,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Time<T> Add(Time<T> a, Time<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Time measurements.</summary>
@@ -19898,7 +19898,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Time<T> Subtract(Time<T> a, Time<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Time measurements.</summary>
@@ -19928,7 +19928,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Time<T> Multiply(Time<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Time by a scalar numeric value.</summary>
@@ -20417,7 +20417,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Time<T> Divide(Time<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Time measurement by a numaric scalar value.</summary>
@@ -20464,7 +20464,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Time measurement is less than another Time measurement.</summary>
@@ -20494,7 +20494,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Time measurement is greater than another Time measurement.</summary>
@@ -20524,7 +20524,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Time measurement is less than or equal to another Time measurement.</summary>
@@ -20554,7 +20554,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Time measurement is greater than or equal to another Time measurement.</summary>
@@ -20584,7 +20584,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Time measurement is equal to another Time measurement.</summary>
@@ -20614,7 +20614,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Time measurement is not equal to another Time measurement.</summary>
@@ -20927,7 +20927,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static TimeArea<T> Add(TimeArea<T> a, TimeArea<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two TimeArea measurements.</summary>
@@ -20957,7 +20957,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static TimeArea<T> Subtract(TimeArea<T> a, TimeArea<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two TimeArea measurements.</summary>
@@ -20987,7 +20987,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static TimeArea<T> Multiply(TimeArea<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an TimeArea by a scalar numeric value.</summary>
@@ -21206,7 +21206,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static TimeArea<T> Divide(TimeArea<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this TimeArea measurement by a numaric scalar value.</summary>
@@ -21292,7 +21292,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an TimeArea measurement is less than another TimeArea measurement.</summary>
@@ -21322,7 +21322,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an TimeArea measurement is greater than another TimeArea measurement.</summary>
@@ -21352,7 +21352,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an TimeArea measurement is less than or equal to another TimeArea measurement.</summary>
@@ -21382,7 +21382,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an TimeArea measurement is greater than or equal to another TimeArea measurement.</summary>
@@ -21412,7 +21412,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an TimeArea measurement is equal to another TimeArea measurement.</summary>
@@ -21442,7 +21442,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an TimeArea measurement is not equal to another TimeArea measurement.</summary>
@@ -21803,7 +21803,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static Volume<T> Add(Volume<T> a, Volume<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two Volume measurements.</summary>
@@ -21833,7 +21833,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static Volume<T> Subtract(Volume<T> a, Volume<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two Volume measurements.</summary>
@@ -21863,7 +21863,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static Volume<T> Multiply(Volume<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an Volume by a scalar numeric value.</summary>
@@ -22047,7 +22047,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static Volume<T> Divide(Volume<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this Volume measurement by a numaric scalar value.</summary>
@@ -22256,7 +22256,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an Volume measurement is less than another Volume measurement.</summary>
@@ -22286,7 +22286,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an Volume measurement is greater than another Volume measurement.</summary>
@@ -22316,7 +22316,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an Volume measurement is less than or equal to another Volume measurement.</summary>
@@ -22346,7 +22346,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an Volume measurement is greater than or equal to another Volume measurement.</summary>
@@ -22376,7 +22376,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an Volume measurement is equal to another Volume measurement.</summary>
@@ -22406,7 +22406,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an Volume measurement is not equal to another Volume measurement.</summary>
@@ -22815,7 +22815,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static VolumeRate<T> Add(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two VolumeRate measurements.</summary>
@@ -22845,7 +22845,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static VolumeRate<T> Subtract(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two VolumeRate measurements.</summary>
@@ -22875,7 +22875,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static VolumeRate<T> Multiply(VolumeRate<T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an VolumeRate by a scalar numeric value.</summary>
@@ -23103,7 +23103,7 @@ namespace Towel.Measurements
         /// <returns>The result of the division.</returns>
         public static VolumeRate<T> Divide(VolumeRate<T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this VolumeRate measurement by a numaric scalar value.</summary>
@@ -23232,7 +23232,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an VolumeRate measurement is less than another VolumeRate measurement.</summary>
@@ -23262,7 +23262,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an VolumeRate measurement is greater than another VolumeRate measurement.</summary>
@@ -23292,7 +23292,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an VolumeRate measurement is less than or equal to another VolumeRate measurement.</summary>
@@ -23322,7 +23322,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an VolumeRate measurement is greater than or equal to another VolumeRate measurement.</summary>
@@ -23352,7 +23352,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an VolumeRate measurement is equal to another VolumeRate measurement.</summary>
@@ -23382,7 +23382,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an VolumeRate measurement is not equal to another VolumeRate measurement.</summary>

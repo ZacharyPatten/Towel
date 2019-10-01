@@ -419,7 +419,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Compute.AddImplementation<T>.Function);
+            return MathBase(a, b, Compute.Add);
         }
 
         /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
@@ -449,7 +449,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Compute.SubtractImplementation<T>.Function);
+            return MathBase(a, b, Compute.Subtract);
         }
 
         /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
@@ -479,7 +479,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static <#= measurement.Item1 #><T> Multiply(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Compute.MultiplyImplementation<T>.Function);
+            return MathBase(a, b, Compute.Multiply);
         }
 
         /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
@@ -725,7 +725,7 @@ string bIndexString = null;
         /// <returns>The result of the division.</returns>
         public static <#= measurement.Item1 #><T> Divide(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Compute.DivideImplementation<T>.Function);
+            return MathBase(a, b, Compute.Divide);
         }
 
         /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
@@ -954,7 +954,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.LessThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThan);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
@@ -984,7 +984,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThan);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
@@ -1014,7 +1014,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.LessThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.LessThanOrEqual);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1044,7 +1044,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.GreaterThanOrEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1074,7 +1074,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.EqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.Equal);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1104,7 +1104,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Compute.NotEqualImplementation<T>.Function);
+            return LogicBase(a, b, Compute.NotEqual);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>

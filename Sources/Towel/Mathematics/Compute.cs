@@ -68,7 +68,7 @@ namespace Towel.Mathematics
 
 					#endregion
 
-					pi = AddMultiplyDivideAddImplementation<T>.Function(Convert<int, T>(j), pi);
+					pi = AddMultiplyDivideAddImplementation<T>.Function(Assume.Convert<int, T>(j), pi);
 				}
 				pi = Multiply(Constant<T>.Two, pi);
 			}
@@ -115,29 +115,6 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Convert
-
-		/// <summary>Converts a value from one type to another.</summary>
-		/// <typeparam name="A">The generic type to convert from.</typeparam>
-		/// <typeparam name="B">The generic type to convert to.</typeparam>
-		/// <param name="a">The value to convert.</param>
-		/// <returns>The result of the conversion.</returns>
-		public static B Convert<A, B>(A a) =>
-			ConvertImplementation<A, B>.Function(a);
-
-		internal static class ConvertImplementation<A, B>
-		{
-			internal static Func<A, B> Function = a =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				Expression BODY = Expression.Convert(A, typeof(B));
-				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
-				return Function(a);
-			};
-		}
-
-		#endregion
-
 		#region Negate
 
 		/// <summary>Negates a numeric value [-a].</summary>
@@ -145,18 +122,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The value to negate.</param>
 		/// <returns>The result of the negation.</returns>
 		public static T Negate<T>(T a) =>
-			NegateImplementation<T>.Function(a);
-
-		internal static class NegateImplementation<T>
-		{
-			internal static Func<T, T> Function = a =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Negate(A);
-				Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-				return Function(a);
-			};
-		}
+			Assume.Negation<T, T>(a);
 
 		#endregion
 
@@ -168,7 +134,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the addition.</param>
 		/// <returns>The result of the addition.</returns>
 		public static T Add<T>(T a, T b) =>
-			AddImplementation<T>.Function(a, b);
+			Assume.Addition<T, T, T>(a, b);
 
 		/// <summary>Adds multiple numeric values [a + b + c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -207,18 +173,6 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		internal static class AddImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Add(A, B);
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
 		#endregion
 
 		#region Subtract
@@ -229,7 +183,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the subtraction.</param>
 		/// <returns>The result of the subtraction.</returns>
 		public static T Subtract<T>(T a, T b) =>
-			SubtractImplementation<T>.Function(a, b);
+			Assume.Subtraction<T, T, T>(a, b);
 
 		/// <summary>Subtracts multiple numeric values [a - b - c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -268,18 +222,6 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		internal static class SubtractImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Subtract(A, B);
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
 		#endregion
 
 		#region Multiply
@@ -290,7 +232,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
 		public static T Multiply<T>(T a, T b) =>
-			MultiplyImplementation<T>.Function(a, b);
+			Assume.Multiplication<T, T, T>(a, b);
 
 		/// <summary>Multiplies multiple numeric values [a * b * c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -330,18 +272,6 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		internal static class MultiplyImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Multiply(A, B);
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
 		#endregion
 
 		#region Divide
@@ -352,7 +282,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the division.</param>
 		/// <returns>The result of the division.</returns>
 		public static T Divide<T>(T a, T b) =>
-			DivideImplementation<T>.Function(a, b);
+			Assume.Division<T, T, T>(a, b);
 
 		/// <summary>Divides multiple numeric values [a / b / c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -391,18 +321,6 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		internal static class DivideImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Divide(A, B);
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
 		#endregion
 
 		#region Invert
@@ -435,7 +353,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the modulation.</param>
 		/// <returns>The result of the modulation.</returns>
 		public static T Modulo<T>(T a, T b) =>
-			ModuloImplementation<T>.Function(a, b);
+			Assume.Remainder<T, T, T>(a, b);
 
 		/// <summary>Modulos multiple numeric values [a % b % c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -476,18 +394,6 @@ namespace Towel.Mathematics
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
 			}
 			return result;
-		}
-
-		internal static class ModuloImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Modulo(A, B);
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
 		}
 
 		#endregion
@@ -564,7 +470,7 @@ namespace Towel.Mathematics
 						if (IsInteger(B) && IsPositive(B))
 						{
 							T result = A;
-							int power = Convert<T, int>(B);
+							int power = Assume.Convert<T, int>(B);
 							for (int i = 0; i < power; i++)
 							{
 								result = Multiply(result, A);
@@ -1148,7 +1054,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equal<T>(T a, T b) =>
-			EqualImplementation<T>.Function(a, b);
+			Assume.Equality<T, T, bool>(a, b);
 
 		/// <summary>Checks for equality among multiple numeric operands.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1214,18 +1120,6 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		internal static class EqualImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Equal(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
 		#endregion
 
 		#region NotEqual
@@ -1236,19 +1130,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the inequality check.</param>
 		/// <returns>The result of the inequality check.</returns>
 		public static bool NotEqual<T>(T a, T b) =>
-			NotEqualImplementation<T>.Function(a, b);
-
-		internal static class NotEqualImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.NotEqual(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
+			Assume.Inequality<T, T, bool>(a, b);
 
 		#endregion
 
@@ -1260,19 +1142,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the less than check.</param>
 		/// <returns>The result of the less than check.</returns>
 		public static bool LessThan<T>(T a, T b) =>
-			LessThanImplementation<T>.Function(a, b);
-
-		internal static class LessThanImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.LessThan(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
+			Assume.LessThan<T, T, bool>(a, b);
 
 		#endregion
 
@@ -1284,19 +1154,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the greater than check.</param>
 		/// <returns>The result of the greater than check.</returns>
 		public static bool GreaterThan<T>(T a, T b) =>
-			GreaterThanImplementation<T>.Function(a, b);
-
-		internal static class GreaterThanImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.GreaterThan(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
+			Assume.GreaterThan<T, T, bool>(a, b);
 
 		#endregion
 
@@ -1308,19 +1166,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the less than or equal to check.</param>
 		/// <returns>The result of the less than or equal to check.</returns>
 		public static bool LessThanOrEqual<T>(T a, T b) =>
-			LessThanOrEqualImplementation<T>.Function(a, b);
-
-		internal static class LessThanOrEqualImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.LessThanOrEqual(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
+			Assume.LessThanOrEqual<T, T, bool>(a, b);
 
 		#endregion
 
@@ -1332,19 +1178,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the greater than or equal to check.</param>
 		/// <returns>The result of the greater than or equal to check.</returns>
 		public static bool GreaterThanOrEqual<T>(T a, T b) =>
-			GreaterThanOrEqualImplementation<T>.Function(a, b);
-
-		internal static class GreaterThanOrEqualImplementation<T>
-		{
-			internal static Func<T, T, bool> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.GreaterThanOrEqual(A, B);
-				Function = Expression.Lambda<Func<T, T, bool>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
+			Assume.GreaterThanOrEqual<T, T, bool>(a, b);
 
 		#endregion
 
@@ -2017,19 +1851,19 @@ namespace Towel.Mathematics
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];
-			T QUANTILES_PLUS_1 = Convert<int, T>(quantiles + 1);
-			T ORDERED_LENGTH = Convert<int, T>(ordered.Length);
+			T QUANTILES_PLUS_1 = Assume.Convert<int, T>(quantiles + 1);
+			T ORDERED_LENGTH = Assume.Convert<int, T>(ordered.Length);
 			for (int i = 1; i < quantiles; i++)
 			{
-				T I = Convert<int, T>(i);
+				T I = Assume.Convert<int, T>(i);
 				T temp = Divide(ORDERED_LENGTH, Multiply<T>(QUANTILES_PLUS_1, I));
 				if (IsInteger(temp))
 				{
-					resultingQuantiles[i] = ordered[Convert<T, int>(temp)];
+					resultingQuantiles[i] = ordered[Assume.Convert<T, int>(temp)];
 				}
 				else
 				{
-					resultingQuantiles[i] = Divide(Add(ordered[Convert<T, int>(temp)], ordered[Convert<T, int>(temp) + 1]), Constant<T>.Two);
+					resultingQuantiles[i] = Divide(Add(ordered[Assume.Convert<T, int>(temp)], ordered[Assume.Convert<T, int>(temp) + 1]), Constant<T>.Two);
 				}
 			}
 			return resultingQuantiles;
@@ -2170,9 +2004,9 @@ namespace Towel.Mathematics
 		public static T SineSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Convert<T, double>(b);
+			double c = Assume.Convert<T, double>(b);
 			double d = Math.Sin(c);
-			T e = Convert<double, T>(d);
+			T e = Assume.Convert<double, T>(d);
 			return e;
 		}
 
@@ -2256,9 +2090,9 @@ namespace Towel.Mathematics
 		public static T CosineSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Convert<T, double>(b);
+			double c = Assume.Convert<T, double>(b);
 			double d = Math.Cos(c);
-			T e = Convert<double, T>(d);
+			T e = Assume.Convert<double, T>(d);
 			return e;
 		}
 
@@ -2293,9 +2127,9 @@ namespace Towel.Mathematics
 		public static T TangentSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Convert<T, double>(b);
+			double c = Assume.Convert<T, double>(b);
 			double d = Math.Tan(c);
-			T e = Convert<double, T>(d);
+			T e = Assume.Convert<double, T>(d);
 			return e;
 		}
 
@@ -2665,7 +2499,7 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count() >= 2)");
 			}
-			T tcount = Convert<int, T>(count);
+			T tcount = Assume.Convert<int, T>(count);
 			T meanx = Divide(sumx, tcount);
 			T meany = Divide(sumy, tcount);
 			T variancex = Constant<T>.Zero;
@@ -2704,7 +2538,7 @@ namespace Towel.Mathematics
 					if (IsNegative(A))
 					{
 						A = AbsoluteValue(A);
-						step(Convert<int, T>(-1));
+						step(Assume.Convert<int, T>(-1));
 					}
 					while (IsEven(A))
 					{

@@ -540,12 +540,136 @@
         <member name="T:Towel.Assume">
             <summary>Breaks type safeness by making assumptions about types.</summary>
         </member>
+        <member name="M:Towel.Assume.TryParse``1(System.String,``0)">
+            <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
+            <typeparam name="T">The generic type to make assumptions about.</typeparam>
+            <param name="string">The string to be parsed.</param>
+            <param name="Default">The default value if the parse fails.</param>
+            <returns>The parsed value or the default value if the parse fails.</returns>
+        </member>
         <member name="M:Towel.Assume.TryParse``1(System.String,``0@)">
             <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
             <typeparam name="T">The generic type to make assumptions about.</typeparam>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value if successful or default if not.</param>
             <returns>True if successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.Assume.Convert``2(``0)">
+            <summary>Assumes a conversion exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Towel.Assume.Negation``2(``0)">
+            <summary>Assumes the addition operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the addition.</returns>
+        </member>
+        <member name="M:Towel.Assume.Addition``3(``0,``1)">
+            <summary>Assumes the addition operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the addition.</returns>
+        </member>
+        <member name="M:Towel.Assume.Subtraction``3(``0,``1)">
+            <summary>Assumes the subtraction operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the subtraction.</returns>
+        </member>
+        <member name="M:Towel.Assume.Multiplication``3(``0,``1)">
+            <summary>Assumes the multiplication operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Assume.Division``3(``0,``1)">
+            <summary>Assumes the division operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the division.</returns>
+        </member>
+        <member name="M:Towel.Assume.Remainder``3(``0,``1)">
+            <summary>Assumes the remainder operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the remainder operation.</returns>
+        </member>
+        <member name="M:Towel.Assume.Equality``3(``0,``1)">
+            <summary>Assumes the equality operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the equality.</returns>
+        </member>
+        <member name="M:Towel.Assume.Inequality``3(``0,``1)">
+            <summary>Assumes the inequality operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the inequality.</returns>
+        </member>
+        <member name="M:Towel.Assume.LessThan``3(``0,``1)">
+            <summary>Assumes the less than operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the less than operation.</returns>
+        </member>
+        <member name="M:Towel.Assume.GreaterThan``3(``0,``1)">
+            <summary>Assumes the greater than operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Assume.LessThanOrEqual``3(``0,``1)">
+            <summary>Assumes the less than or equal to operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the less than or equal to operation.</returns>
+        </member>
+        <member name="M:Towel.Assume.GreaterThanOrEqual``3(``0,``1)">
+            <summary>Assumes the greater than or equal to operator exists between types.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the greater than or equal to operation.</returns>
         </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
@@ -16259,13 +16383,6 @@
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="predicate">The cancellation token for cutting off computation.</param>
             <returns>The computed value of pi.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Compute.Convert``2(``0)">
-            <summary>Converts a value from one type to another.</summary>
-            <typeparam name="A">The generic type to convert from.</typeparam>
-            <typeparam name="B">The generic type to convert to.</typeparam>
-            <param name="a">The value to convert.</param>
-            <returns>The result of the conversion.</returns>
         </member>
         <member name="M:Towel.Mathematics.Compute.Negate``1(``0)">
             <summary>Negates a numeric value [-a].</summary>

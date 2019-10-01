@@ -3947,8 +3947,8 @@ namespace Towel.Mathematics
 				if (int.TryParse(wholeNumberString, out int wholeNumberInt) &&
 					int.TryParse(decimalPlacesString, out int decimalPlacesInt))
 				{
-					T wholeNumber = Compute.Convert<int, T>(wholeNumberInt);
-					T decimalPlaces = Compute.Convert<int, T>(decimalPlacesInt);
+					T wholeNumber = Assume.Convert<int, T>(wholeNumberInt);
+					T decimalPlaces = Assume.Convert<int, T>(decimalPlacesInt);
 					while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.One))
 					{
 						decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
@@ -3965,7 +3965,7 @@ namespace Towel.Mathematics
 			{
 				if (int.TryParse(@string, out int parsedInt))
 				{
-					parsedExpression = new Constant<T>(Compute.Convert<int, T>(parsedInt));
+					parsedExpression = new Constant<T>(Assume.Convert<int, T>(parsedInt));
 					return true;
 				}
 			}
