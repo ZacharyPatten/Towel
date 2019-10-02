@@ -381,7 +381,6 @@ namespace Towel
 		{
 			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
 
-			// build the generic index mappings
 			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
 			int tempTypeGeneric = 0;
 			Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
@@ -412,9 +411,8 @@ namespace Towel
 				methodGenericArgumentsString +
 				parametersString;
 
-			// handle casting operators witch include the return type in the XML key
-			if (methodInfo.Name.Equals("op_Implicit") ||
-				methodInfo.Name.Equals("op_Explicit"))
+			if (methodInfo.Name == "op_Implicit" ||
+				methodInfo.Name == "op_Explicit")
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
@@ -431,7 +429,6 @@ namespace Towel
 		{
 			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
 
-			// build the generic index mappings
 			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
 			int tempTypeGeneric = 0;
 			Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
@@ -460,109 +457,81 @@ namespace Towel
 			return documentation;
 		}
 
-		// convert types to strings as they appear as keys in the XML documentation files
 		internal static string GetXmlDocumenationFormattedString(
-			Type type, bool isMethodParameter,
+			Type type,
+			bool isMethodParameter,
 			System.Collections.Generic.Dictionary<string, int> typeGenericMap,
 			System.Collections.Generic.Dictionary<string, int> methodGenericMap)
 		{
-			string result;
-
 			if (type.IsGenericParameter)
 			{
-				if (methodGenericMap.TryGetValue(type.Name, out int methodIndex))
-				{
-					result = "``" + methodIndex;
-				}
-				else
-				{
-					result = "`" + typeGenericMap[type.Name];
-				}
-				goto FormatComplete;
+				return methodGenericMap.TryGetValue(type.Name, out int methodIndex)
+					? "``" + methodIndex
+					: "`" + typeGenericMap[type.Name];
 			}
-
-			// ref types
-			string refTypeString = string.Empty;
-			if (type.IsByRef)
+			else if (type.HasElementType)
 			{
-				refTypeString = "@";
-			}
-
-			// element type
-			Type elementType = null;
-			string elementTypeString = string.Empty;
-			if (type.HasElementType)
-			{
-				elementType = type.GetElementType();
-				elementTypeString = GetXmlDocumenationFormattedString(
-					elementType,
+				string elementTypeString = GetXmlDocumenationFormattedString(
+					type.GetElementType(),
 					isMethodParameter,
 					typeGenericMap,
 					methodGenericMap);
-			}
 
-			// pointer types
-			if (type.IsPointer)
-			{
-				result = elementTypeString + "*" + refTypeString;
-				goto FormatComplete;
-			}
-
-			// array types
-			if (type.IsArray)
-			{
-				int rank = type.GetArrayRank();
-				string arrayDimensionsString =
-					rank > 1 ?
-					"[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
-					"[]";
-				result = elementTypeString + arrayDimensionsString + refTypeString;
-				goto FormatComplete;
-			}
-
-			// generic types
-			string genericArgumentsString = string.Empty;
-			if (type.IsGenericType && isMethodParameter)
-			{
-				System.Collections.Generic.IEnumerable<string> formattedStrings = type.GetGenericArguments().Select(x =>
-					methodGenericMap.TryGetValue(x.Name, out int methodIndex) ?
-					"``" + methodIndex :
-					typeGenericMap.TryGetValue(x.Name, out int typeIndex) ?
-					"`" + typeIndex :
-					GetXmlDocumenationFormattedString(x, isMethodParameter, typeGenericMap, methodGenericMap));
-				genericArgumentsString = "{" + string.Join(",", formattedStrings) + "}";
-			}
-
-			// preface string
-			string prefaceString;
-			if (type.IsNested)
-			{
-				prefaceString = GetXmlDocumenationFormattedString(
-					type.DeclaringType,
-					isMethodParameter,
-					typeGenericMap,
-					methodGenericMap) + ".";
+				if (type.IsPointer)
+				{
+					return elementTypeString + "*";
+				}
+				else if (type.IsArray)
+				{
+					int rank = type.GetArrayRank();
+					string arrayDimensionsString =
+						rank > 1 ?
+						"[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
+						"[]";
+					return elementTypeString + arrayDimensionsString;
+				}
+				else if (type.IsByRef)
+				{
+					return elementTypeString + "@";
+				}
+				else
+				{
+					// Hopefully this will never hit. At the time of writing
+					// this code, type.HasElementType is only true if the type
+					// is a pointer, array, or by reference.
+					throw new NotImplementedException(nameof(GetXmlDocumenationFormattedString) + 
+						" encountered an unhandled element type. " +
+						"Please submit this issue to the Towel GitHub repository. " +
+						"https://github.com/ZacharyPatten/Towel/issues/new/choose");
+				}
 			}
 			else
 			{
-				prefaceString = type.Namespace + ".";
-			}
+				string prefaceString = type.IsNested
+					? GetXmlDocumenationFormattedString(
+						type.DeclaringType,
+						isMethodParameter,
+						typeGenericMap,
+						methodGenericMap) + "."
+					: type.Namespace + ".";
 
-			if (type.IsByRef)
-			{
-				result = elementTypeString + genericArgumentsString + "@";
-			}
-			else
-			{
-				string typeNameString =
-					isMethodParameter ?
-					typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty) :
-					typeNameString = type.Name;
-				result = prefaceString + typeNameString + genericArgumentsString;
-			}
+				string typeNameString = isMethodParameter
+					? typeNameString = Regex.Replace(type.Name, @"`\d+", string.Empty)
+					: typeNameString = type.Name;
 
-			FormatComplete:
-			return result;
+				string genericArgumentsString = type.IsGenericType && isMethodParameter
+					? "{" + string.Join(",",
+						type.GetGenericArguments().Select(argument =>
+							GetXmlDocumenationFormattedString(
+								argument,
+								isMethodParameter,
+								typeGenericMap,
+								methodGenericMap))
+						) + "}"
+					: string.Empty;
+
+				return prefaceString + typeNameString + genericArgumentsString;
+			}
 		}
 
 		/// <summary>Gets the XML documentation on a property.</summary>
@@ -617,34 +586,40 @@ namespace Towel
 		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 		public static string GetDocumentation(this MemberInfo memberInfo)
 		{
-			if (memberInfo.MemberType.HasFlag(MemberTypes.Field))
+			if (memberInfo is FieldInfo fieldInfo)
 			{
-				return ((FieldInfo)memberInfo).GetDocumentation();
+				return fieldInfo.GetDocumentation();
 			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Property))
+			else if (memberInfo is PropertyInfo propertyInfo)
 			{
-				return ((PropertyInfo)memberInfo).GetDocumentation();
+				return propertyInfo.GetDocumentation();
 			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Event))
+			else if (memberInfo is EventInfo eventInfo)
 			{
-				return ((EventInfo)memberInfo).GetDocumentation();
+				return eventInfo.GetDocumentation();
 			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Constructor))
+			else if (memberInfo is ConstructorInfo constructorInfo)
 			{
-				return ((ConstructorInfo)memberInfo).GetDocumentation();
+				return constructorInfo.GetDocumentation();
 			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Method))
+			else if (memberInfo is MethodInfo methodInfo)
 			{
-				return ((MethodInfo)memberInfo).GetDocumentation();
+				return methodInfo.GetDocumentation();
 			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.TypeInfo) ||
-				memberInfo.MemberType.HasFlag(MemberTypes.NestedType))
+			else if (memberInfo is Type type) // + TypeInfo
 			{
-				return ((TypeInfo)memberInfo).GetDocumentation();
+				return type.GetDocumentation();
 			}
 			else
 			{
-				return null;
+				// Hopefully this will never hit. At the time of writing
+				// this code, I am only aware of the following Member types:
+				// FieldInfo, PropertyInfo, EventInfo, ConstructorInfo,
+				// MethodInfo, and Type.
+				throw new NotImplementedException(nameof(GetDocumentation) +
+					" encountered an unhandled type [" + memberInfo.GetType().FullName + "]. " +
+					"Please submit this issue to the Towel GitHub repository. " +
+					"https://github.com/ZacharyPatten/Towel/issues/new/choose");
 			}
 		}
 

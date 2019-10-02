@@ -105,12 +105,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
@@ -124,12 +132,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = type.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = type.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
@@ -143,12 +159,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = fieldInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = fieldInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
@@ -162,12 +186,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = constructorInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = constructorInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
@@ -181,12 +213,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = propertyInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = propertyInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
@@ -200,12 +240,20 @@ namespace Towel_Testing
 				{
 					string xmlDocumentation = eventInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
 					string xmlDocumentation = eventInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+
+					string xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
 		}
