@@ -610,6 +610,13 @@ namespace Towel
 			{
 				return type.GetDocumentation();
 			}
+			else if (memberInfo.MemberType.HasFlag(MemberTypes.Custom))
+			{
+				// This represents a cutom type that is not part of
+				// the standard .NET languages as far as I'm aware.
+				// This will never be supported so return null.
+				return null;
+			}
 			else
 			{
 				// Hopefully this will never hit. At the time of writing
