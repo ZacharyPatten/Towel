@@ -630,6 +630,10 @@ https://zacharypatten.github.io/Towel/Documentation
 
 _Using the extension methods in the Towel project, I was able to extract the XML documentation on the members, and dump them into a page on the GitHub Pages of this repository._
 
+## Resources
+
+- [MSDN Magazine volume 34 number 10 - Accessing XML Documentation via Reflection](https://msdn.microsoft.com/en-us/magazine/mt833526)
+
 ## Developer(s)
 
 Feel free to chat with the developer(s) via [Discord](https://discord.gg/4XbQbwF).
