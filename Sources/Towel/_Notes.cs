@@ -30,7 +30,7 @@
 //       User Members - Enum Members      = RBG(220, 220, 220)
 //       User Members - Constants         = RBG(220, 220, 220)
 //       User Members - Events            = RBG(220, 220, 220)
-//       User Members - Extension Methods = RBG(220, 220, 220)
+//       User Members - Extension Methods = RBG(203, 133, 155)
 //       User Members - Fields            = RBG(220, 220, 220)
 //       User Members - Labels            = RBG(220, 220, 220)
 //       User Members - Locals            = RBG(156, 220, 254)

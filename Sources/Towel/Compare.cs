@@ -17,24 +17,24 @@ namespace Towel
 
 	/// <summary>Delegate for comparing two instances of the same type.</summary>
 	/// <typeparam name="T">The type of the istances to compare.</typeparam>
-	/// <param name="left">The left operand of the comparison.</param>
-	/// <param name="right">The right operand of the comparison.</param>
+	/// <param name="a">The left operand of the comparison.</param>
+	/// <param name="b">The right operand of the comparison.</param>
 	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	public delegate CompareResult Compare<T>(T left, T right);
+	public delegate CompareResult Compare<T>(T a, T b);
 
 	/// <summary>Delegate for comparing two instances of different types.</summary>
-	/// <typeparam name="Left">The type of the left istance to compare.</typeparam>
-	/// <typeparam name="Right">The type of the right instance to compare.</typeparam>
-	/// <param name="left">The left operand of the comparison.</param>
-	/// <param name="right">The right operand of the comparison.</param>
+	/// <typeparam name="A">The type of the left istance to compare.</typeparam>
+	/// <typeparam name="B">The type of the right instance to compare.</typeparam>
+	/// <param name="a">The left operand of the comparison.</param>
+	/// <param name="b">The right operand of the comparison.</param>
 	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	public delegate CompareResult Compare<Left, Right>(Left left, Right right);
+	public delegate CompareResult Compare<A, B>(A a, B b);
 
 	/// <summary>Delegate for comparing a value to a known value.</summary>
 	/// <typeparam name="T">The generic types to compare.</typeparam>
-	/// <param name="value">The value to compare to the known value.</param>
+	/// <param name="b">The value to compare to the known value.</param>
 	/// <returns>The result of the comparison.</returns>
-	public delegate CompareResult CompareToKnownValue<T>(T value);
+	public delegate CompareResult CompareToKnownValue<T>(T b);
 
 	/// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
 	public static class Compare
@@ -43,11 +43,11 @@ namespace Towel
 		/// <param name="compareResult">The integer comparison result to convert into a Comparison.</param>
 		/// <returns>The converted Comparison value.</returns>
 		public static CompareResult Wrap(int compareResult) =>
-			compareResult < 0 ?
-				CompareResult.Less :
-				compareResult > 0 ?
-					CompareResult.Greater :
-					CompareResult.Equal;
+			compareResult < 0
+			? CompareResult.Less
+			: compareResult > 0
+				? CompareResult.Greater
+				: CompareResult.Equal;
 
 		internal class DefaultImplementation<T>
 		{
@@ -68,13 +68,13 @@ namespace Towel
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
-		public static Compare<L, R> Invert<L, R>(this Compare<L, R> comparison) =>
-			(L left, R right) => Invert(comparison(left, right));
+		public static Compare<A, B> Invert<A, B>(this Compare<A, B> compare) =>
+			(A a, B b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
-		public static Compare<T> Invert<T>(this Compare<T> comparison) =>
-			(T left, T right) => Invert(comparison(left, right));
+		public static Compare<T> Invert<T>(this Compare<T> compare) =>
+			(T a, T b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison value.</summary>
 		/// <returns>The invert of the comparison value.</returns>

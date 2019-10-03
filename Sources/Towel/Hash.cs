@@ -2,9 +2,9 @@
 {
 	/// <summary>Delegate for hash code computation.</summary>
 	/// <typeparam name="T">The type of this hash function.</typeparam>
-	/// <param name="item">The instance to compute the hash of.</param>
+	/// <param name="value">The instance to compute the hash of.</param>
 	/// <returns>The computed hash of the given item.</returns>
-	public delegate int Hash<T>(T item);
+	public delegate int Hash<T>(T value);
 
 	/// <summary>Static wrapper for the based "object.GetHashCode" fuction.</summary>
 	public static class Hash

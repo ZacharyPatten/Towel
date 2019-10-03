@@ -484,10 +484,9 @@ namespace Towel
 				else if (type.IsArray)
 				{
 					int rank = type.GetArrayRank();
-					string arrayDimensionsString =
-						rank > 1 ?
-						"[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]" :
-						"[]";
+					string arrayDimensionsString = rank > 1
+						? "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]"
+						: "[]";
 					return elementTypeString + arrayDimensionsString;
 				}
 				else if (type.IsByRef)

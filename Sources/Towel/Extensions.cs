@@ -10,7 +10,7 @@ namespace Towel
 	/// <summary>Contains Extension methods on common System types.</summary>
 	public static class TowelDotNetExtensions
 	{
-		#region string
+		#region System.String
 
 		/// <summary>Checks if a string contains any of a collections on characters.</summary>
 		/// <param name="string">The string to see if it contains any of the specified characters.</param>
@@ -337,7 +337,7 @@ namespace Towel
 
 		#endregion
 
-		#region Random
+		#region System.Random
 
 		/// <summary>Generates a random string of a given length using the System.Random generator.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -823,7 +823,7 @@ namespace Towel
 
 		#endregion
 
-		#region Decimal
+		#region System.Decimal
 
 		#region To English Words
 
@@ -1039,7 +1039,7 @@ namespace Towel
 
 		#endregion
 
-		#region Action
+		#region System.Action
 
 		/// <summary>Times an action using System.DateTime.</summary>
 		/// <param name="action">The action to time.</param>
@@ -1062,6 +1062,35 @@ namespace Towel
 			action();
 			watch.Stop();
 			return watch.Elapsed;
+		}
+
+		#endregion
+
+		#region System.Collections.Generic.IEnumerable<T>
+
+		/// <summary>Tries to get the first value in an IEnumerable.</summary>
+		/// <typeparam name="T">The generic type of IEnumerable.</typeparam>
+		/// <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
+		/// <param name="first">The first value of the IEnumerable or default if empty.</param>
+		/// <returns>True if the IEnumerable has a first value or false if it is empty.</returns>
+		public static bool TryFirst<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable, out T first)
+		{
+			foreach (T value in iEnumerable)
+			{
+				first = value;
+				return true;
+			}
+			first = default;
+			return false;
+		}
+
+		/// <summary>Converts a value to an IEnumerable.</summary>
+		/// <typeparam name="T">The type of the value.</typeparam>
+		/// <param name="value">The value to convert into an IEnumerable.</param>
+		/// <returns>The IEnumerable of the value.</returns>
+		public static System.Collections.Generic.IEnumerable<T> ToIEnumerable<T>(this T value)
+		{
+			yield return value;
 		}
 
 		#endregion

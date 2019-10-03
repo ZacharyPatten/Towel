@@ -1061,34 +1061,75 @@ namespace Towel.Mathematics
 		/// <param name="a">The first operand of the equality check.</param>
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="c">The remaining operands of the equality check.</param>
-		/// <returns>True if all operand are equal. False if not.</returns>
+		/// <returns>True if all operands are equal or false if not.</returns>
 		public static bool Equal<T>(T a, T b, params T[] c)
 		{
-			if (NotEqual(a, b))
+			return Equal((StepBreak<T> x) =>
 			{
-				return false;
-			}
-			if (c.Length > 0)
-			{
-				if (NotEqual(a, c[0]))
-				{
-					return false;
-				}
-				for (int i = 1; i < c.Length; i++)
-				{
-					if (NotEqual(c[i - 1], c[i]))
-					{
-						return false;
-					}
-				}
-			}
-			return true;
+				return x(a) == StepStatus.Break
+					? StepStatus.Break
+					: x(b) == StepStatus.Break
+						? StepStatus.Break
+						: c.ToStepperBreak()(x);
+			});
+
+			#region Alternative
+
+			//if (NotEqual(a, b))
+			//{
+			//	return false;
+			//}
+			//if (c.Length > 0)
+			//{
+			//	for (int i = 0; i < c.Length; i++)
+			//	{
+			//		if (NotEqual(a, c[i]))
+			//		{
+			//			return false;
+			//		}
+			//	}
+			//}
+			//return true;
+
+			#endregion
 		}
+
+		#region System.Collections.Generic.IEnumerable<T>
+
+		// I'm not sure it I want to add IEnumerable overloads or not...
+
+		///// <summary>Checks for equality among multiple numeric operands.</summary>
+		///// <typeparam name="T">The numeric type of the operation.</typeparam>
+		///// <param name="iEnumerable">The operands.</param>
+		///// <returns>True if all operands are equal or false if not.</returns>
+		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
+		//{
+		//	return Equal(iEnumerable.ToStepperBreak());
+
+		//	#region Alternative
+
+		//	//if (!iEnumerable.TryFirst(out T first))
+		//	//{
+		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
+		//	//}
+		//	//foreach (T value in iEnumerable)
+		//	//{
+		//	//	if (!Equal(first, value))
+		//	//	{
+		//	//		return false;
+		//	//	}
+		//	//}
+		//	//return true;
+
+		//	#endregion
+		//}
+
+		#endregion
 
 		/// <summary>Checks for equality among multiple numeric operands.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal. False if not.</returns>
+		/// <returns>True if all operand are equal or false if not.</returns>
 		public static bool Equal<T>(Stepper<T> stepper)
 		{
 			if (stepper is null)
@@ -1112,6 +1153,43 @@ namespace Towel.Mathematics
 					value = a;
 					assigned = true;
 				}
+			});
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
+		}
+
+		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The operands of the equality check.</param>
+		/// <returns>True if all operand are equal or false if not.</returns>
+		public static bool Equal<T>(StepperBreak<T> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			bool result = true;
+			T value = default;
+			bool assigned = false;
+			stepper(a =>
+			{
+				if (assigned)
+				{
+					if (!Equal(value, a))
+					{
+						result = false;
+						return StepStatus.Break;
+					}
+				}
+				else
+				{
+					value = a;
+					assigned = true;
+				}
+				return StepStatus.Continue;
 			});
 			if (!assigned)
 			{

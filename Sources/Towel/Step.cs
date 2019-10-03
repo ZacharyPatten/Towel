@@ -261,15 +261,32 @@ namespace Towel
 
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
-		/// <param name="enumerable">The Ienumerable to convert.</param>
+		/// <param name="iEnumerable">The Ienumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static Stepper<T> ToStepper<T>(this IEnumerable<T> enumerable) =>
+		public static Stepper<T> ToStepper<T>(this IEnumerable<T> iEnumerable) =>
 			step =>
 			{
-				foreach (T x in enumerable)
+				foreach (T value in iEnumerable)
 				{
-					step(x);
+					step(value);
 				}
+			};
+
+		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
+		/// <typeparam name="T">The generic type being iterated.</typeparam>
+		/// <param name="iEnumerable">The Ienumerable to convert.</param>
+		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
+		public static StepperBreak<T> ToStepperBreak<T>(this IEnumerable<T> iEnumerable) =>
+			step =>
+			{
+				foreach (T value in iEnumerable)
+				{
+					if (step(value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					};
+				}
+				return StepStatus.Continue;
 			};
 
 		/// <summary>Converts the stepper into an array.</summary>

@@ -686,22 +686,22 @@
         <member name="T:Towel.Compare`1">
             <summary>Delegate for comparing two instances of the same type.</summary>
             <typeparam name="T">The type of the istances to compare.</typeparam>
-            <param name="left">The left operand of the comparison.</param>
-            <param name="right">The right operand of the comparison.</param>
+            <param name="a">The left operand of the comparison.</param>
+            <param name="b">The right operand of the comparison.</param>
             <returns>The Comparison operator between the operands to form a true logic statement.</returns>
         </member>
         <member name="T:Towel.Compare`2">
             <summary>Delegate for comparing two instances of different types.</summary>
-            <typeparam name="Left">The type of the left istance to compare.</typeparam>
-            <typeparam name="Right">The type of the right instance to compare.</typeparam>
-            <param name="left">The left operand of the comparison.</param>
-            <param name="right">The right operand of the comparison.</param>
+            <typeparam name="A">The type of the left istance to compare.</typeparam>
+            <typeparam name="B">The type of the right instance to compare.</typeparam>
+            <param name="a">The left operand of the comparison.</param>
+            <param name="b">The right operand of the comparison.</param>
             <returns>The Comparison operator between the operands to form a true logic statement.</returns>
         </member>
         <member name="T:Towel.CompareToKnownValue`1">
             <summary>Delegate for comparing a value to a known value.</summary>
             <typeparam name="T">The generic types to compare.</typeparam>
-            <param name="value">The value to compare to the known value.</param>
+            <param name="b">The value to compare to the known value.</param>
             <returns>The result of the comparison.</returns>
         </member>
         <member name="T:Towel.Compare">
@@ -15368,22 +15368,16 @@
         <member name="T:Towel.Equate`1">
             <summary>Delegate for equating two instances of the same type.</summary>
             <typeparam name="T">The types of the instances to compare.</typeparam>
-            <param name="left">The left operand of the comparison.</param>
-            <param name="right">The right operand of the comparison.</param>
+            <param name="a">The left operand of the comparison.</param>
+            <param name="b">The right operand of the comparison.</param>
             <returns>Whether the equate is valid (true) or not (false).</returns>
-        </member>
-        <member name="T:Towel.Equate_params`1">
-            <summary>Delegate for equating multiple instances of the same type.</summary>
-            <typeparam name="T">The types of the instances to compare.</typeparam>
-            <param name="items">The items to be compared.</param>
-            <returns>True if all the items are considered equal.</returns>
         </member>
         <member name="T:Towel.Equate`2">
             <summary>Delegate for equating two instances of different types.</summary>
-            <typeparam name="L">The type of the left instance to compare.</typeparam>
-            <typeparam name="R">The type of the right instance to compare.</typeparam>
-            <param name="left">The left operand of the equating.</param>
-            <param name="right">The right operand of the equating.</param>
+            <typeparam name="A">The type of the left instance to compare.</typeparam>
+            <typeparam name="B">The type of the right instance to compare.</typeparam>
+            <param name="a">The left operand of the equating.</param>
+            <param name="b">The right operand of the equating.</param>
             <returns>Whether the equate is valid (true) or not (false).</returns>
         </member>
         <member name="T:Towel.Equate">
@@ -15798,6 +15792,19 @@
             <summary>Times an action using System.Diagnostics.Stopwatch.</summary>
             <param name="action">The action to time.</param>
             <returns>The TimeSpan the action took to complete.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.TryFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
+            <summary>Tries to get the first value in an IEnumerable.</summary>
+            <typeparam name="T">The generic type of IEnumerable.</typeparam>
+            <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
+            <param name="first">The first value of the IEnumerable or default if empty.</param>
+            <returns>True if the IEnumerable has a first value or false if it is empty.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToIEnumerable``1(``0)">
+            <summary>Converts a value to an IEnumerable.</summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="value">The value to convert into an IEnumerable.</param>
+            <returns>The IEnumerable of the value.</returns>
         </member>
         <member name="T:Towel.Fraction32">
             <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
@@ -16347,7 +16354,7 @@
         <member name="T:Towel.Hash`1">
             <summary>Delegate for hash code computation.</summary>
             <typeparam name="T">The type of this hash function.</typeparam>
-            <param name="item">The instance to compute the hash of.</param>
+            <param name="value">The instance to compute the hash of.</param>
             <returns>The computed hash of the given item.</returns>
         </member>
         <member name="T:Towel.Hash">
@@ -16669,13 +16676,19 @@
             <param name="a">The first operand of the equality check.</param>
             <param name="b">The second operand of the equality check.</param>
             <param name="c">The remaining operands of the equality check.</param>
-            <returns>True if all operand are equal. False if not.</returns>
+            <returns>True if all operands are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Mathematics.Compute.Equal``1(Towel.Stepper{``0})">
             <summary>Checks for equality among multiple numeric operands.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
-            <returns>True if all operand are equal. False if not.</returns>
+            <returns>True if all operand are equal or false if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Compute.Equal``1(Towel.StepperBreak{``0})">
+            <summary>Checks for equality among multiple numeric operands.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="stepper">The operands of the equality check.</param>
+            <returns>True if all operand are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Mathematics.Compute.NotEqual``1(``0,``0)">
             <summary>Checks two numeric values for inequality [a != b].</summary>
@@ -30901,7 +30914,13 @@
         <member name="M:Towel.Stepper.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an IEnumerable into a stepper delegate./></summary>
             <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="enumerable">The Ienumerable to convert.</param>
+            <param name="iEnumerable">The Ienumerable to convert.</param>
+            <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
+        </member>
+        <member name="M:Towel.Stepper.ToStepperBreak``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>Converts an IEnumerable into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="iEnumerable">The Ienumerable to convert.</param>
             <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
         </member>
         <member name="M:Towel.Stepper.ToArray``1(Towel.Stepper{``0})">
