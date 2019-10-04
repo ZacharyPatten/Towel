@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Measurements
 {
@@ -707,16 +708,16 @@ namespace Towel.Measurements
 			Func<T, T>[][] table = TowelDotNetExtensions.ConstructSquareJaggedArray<Func<T, T>>(3);
 
 			table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
-			table[(int)Units.Kelvin][(int)Units.Celsius] = x => Compute.Subtract(x, A);
-			table[(int)Units.Kelvin][(int)Units.Fahrenheit] = x => Compute.Subtract(Compute.Multiply(x, B), C);
+			table[(int)Units.Kelvin][(int)Units.Celsius] = x => Subtraction(x, A);
+			table[(int)Units.Kelvin][(int)Units.Fahrenheit] = x => Subtraction(Multiplication(x, B), C);
 
 			table[(int)Units.Celsius][(int)Units.Celsius] = x => x;
-			table[(int)Units.Celsius][(int)Units.Kelvin] = x => Compute.Add(x, A);
-			table[(int)Units.Celsius][(int)Units.Fahrenheit] = x => Compute.Add(Compute.Multiply(x, B), D);
+			table[(int)Units.Celsius][(int)Units.Kelvin] = x => Addition(x, A);
+			table[(int)Units.Celsius][(int)Units.Fahrenheit] = x => Addition(Multiplication(x, B), D);
 
 			table[(int)Units.Fahrenheit][(int)Units.Fahrenheit] = x => x;
-			table[(int)Units.Fahrenheit][(int)Units.Celsius] = x => Compute.Divide(Compute.Subtract(x, D), B);
-			table[(int)Units.Fahrenheit][(int)Units.Kelvin] = x => Compute.Divide(Compute.Add(x, C), B);
+			table[(int)Units.Fahrenheit][(int)Units.Celsius] = x => Division(Subtraction(x, D), B);
+			table[(int)Units.Fahrenheit][(int)Units.Kelvin] = x => Division(Addition(x, C), B);
 
 			return table;
 		}
@@ -869,15 +870,15 @@ namespace Towel.Measurements
 				return Tempurature.BuildConversionTable<T>();
 			}
 
-			int size = Convert.ToInt32(Meta.GetLastEnumValue<UNITS>());
+			int size = Convert<UNITS, int>(Meta.GetLastEnumValue<UNITS>());
 			Func<T, T>[][] conversionFactorTable = TowelDotNetExtensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
 			foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
 			{
-				int A = Convert.ToInt32(A_unit);
+				int A = System.Convert.ToInt32(A_unit);
 
 				foreach (Enum B_unit in Enum.GetValues(typeof(UNITS)))
 				{
-					int B = Convert.ToInt32(B_unit);
+					int B = System.Convert.ToInt32(B_unit);
 
 					MetricUnitAttribute A_metric = A_unit.GetEnumAttribute<MetricUnitAttribute>();
 					MetricUnitAttribute B_metric = B_unit.GetEnumAttribute<MetricUnitAttribute>();
@@ -892,29 +893,29 @@ namespace Towel.Measurements
 						if (metricDifference < 0)
 						{
 							metricDifference = -metricDifference;
-							T factor = Compute.Power(Constant<T>.Ten, Assume.Convert<int, T>(metricDifference));
-							conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
+							T factor = Power(Constant<T>.Ten, Convert<int, T>(metricDifference));
+							conversionFactorTable[A][B] = x => Multiplication(factor, x);
 						}
 						else
 						{
-							T factor = Compute.Power(Constant<T>.Ten, Assume.Convert<int, T>(metricDifference));
-							conversionFactorTable[A][B] = x => Compute.Multiply(factor, x);
+							T factor = Power(Constant<T>.Ten, Convert<int, T>(metricDifference));
+							conversionFactorTable[A][B] = x => Multiplication(factor, x);
 						}
 					}
 					else if (A < B)
 					{
-						foreach (ConversionFactorAttribute conversionFactor in B_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => Convert.ToInt32(c.To) == A))
+						foreach (ConversionFactorAttribute conversionFactor in B_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => System.Convert.ToInt32(c.To) == A))
 						{
 							T factor = conversionFactor.Value<T>();
-							conversionFactorTable[A][B] = x => Compute.Divide(x, factor);
+							conversionFactorTable[A][B] = x => Division(x, factor);
 						}
 					}
 					else if (A > B)
 					{
-						foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => Convert.ToInt32(c.To) == B))
+						foreach (ConversionFactorAttribute conversionFactor in A_unit.GetEnumAttributes<ConversionFactorAttribute>().Where(c => System.Convert.ToInt32(c.To) == B))
 						{
 							T factor = conversionFactor.Value<T>();
-							conversionFactorTable[A][B] = x => Compute.Multiply(x, factor);
+							conversionFactorTable[A][B] = x => Multiplication(x, factor);
 						}
 					}
 					else

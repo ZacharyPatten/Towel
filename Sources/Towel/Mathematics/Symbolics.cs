@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel.Mathematics
 {
@@ -610,16 +611,16 @@ namespace Towel.Mathematics
 			public readonly T Value;
 
 			/// <summary>True if this numeric value is zero (0).</summary>
-			public override bool IsZero => Compute.Equal(Value, Mathematics.Constant<T>.Zero);
+			public override bool IsZero => Equality(Value, Towel.Constant<T>.Zero);
 			/// <summary>True if this numeric value is one (1).</summary>
-			public override bool IsOne => Compute.Equal(Value, Mathematics.Constant<T>.One);
+			public override bool IsOne => Equality(Value, Towel.Constant<T>.One);
 			/// <summary>True if this numeric value is two (2).</summary>
-			public override bool IsTwo => Compute.Equal(Value, Mathematics.Constant<T>.Two);
+			public override bool IsTwo => Equality(Value, Towel.Constant<T>.Two);
 			/// <summary>True if this numeric value is three (3).</summary>
-			public override bool IsThree => Compute.Equal(Value, Mathematics.Constant<T>.Three);
+			public override bool IsThree => Equality(Value, Towel.Constant<T>.Three);
 
 			/// <summary>Determines if the constant is negative.</summary>
-			public override bool IsNegative => Compute.IsNegative(Value);
+			public override bool IsNegative => IsNegative(Value);
 
 			/// <summary>Constructs a new numeric constant.</summary>
 			/// <param name="constant">The value of the numeric constant.</param>
@@ -649,7 +650,7 @@ namespace Towel.Mathematics
 				}
 				if (b is Constant<T> B)
 				{
-					return Compute.Equal(Value, B.Value);
+					return Equality(Value, B.Value);
 				}
 				return false;
 			}
@@ -689,7 +690,7 @@ namespace Towel.Mathematics
 		public class Pi<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of π (pi).</summary>
-			public Pi() : base(Towel.Mathematics.Constant<T>.Pi) { }
+			public Pi() : base(Towel.Constant<T>.Pi) { }
 
 			/// <summary>True if the value is π (pi).</summary>
 			public override bool IsPi => true;
@@ -735,7 +736,7 @@ namespace Towel.Mathematics
 		public class Zero<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new zero (0) value.</summary>
-			public Zero() : base(Towel.Mathematics.Constant<T>.Zero) { }
+			public Zero() : base(Towel.Constant<T>.Zero) { }
 
 			/// <summary>True if the value is zero (0).</summary>
 			public override bool IsZero => true;
@@ -781,7 +782,7 @@ namespace Towel.Mathematics
 		public class One<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new one (1) value.</summary>
-			public One() : base(Towel.Mathematics.Constant<T>.One) { }
+			public One() : base(Towel.Constant<T>.One) { }
 
 			/// <summary>True if the value is one (1).</summary>
 			public override bool IsOne => true;
@@ -827,7 +828,7 @@ namespace Towel.Mathematics
 		public class Two<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of two (2).</summary>
-			public Two() : base(Towel.Mathematics.Constant<T>.Two) { }
+			public Two() : base(Towel.Constant<T>.Two) { }
 
 			/// <summary>True if the value is two (2).</summary>
 			public override bool IsTwo => true;
@@ -873,7 +874,7 @@ namespace Towel.Mathematics
 		public class Three<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of three.</summary>
-			public Three() : base(Towel.Mathematics.Constant<T>.Three) { }
+			public Three() : base(Towel.Constant<T>.Three) { }
 
 			/// <summary>True if the value is three (3).</summary>
 			public override bool IsThree => true;
@@ -1124,7 +1125,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.Negate(a.Value));
+					return new Constant<T>(Negation(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1183,7 +1184,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.NaturalLogarithm(a.Value));
+					return new Constant<T>(NaturalLogarithm(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1235,7 +1236,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.SquareRoot(a.Value));
+					return new Constant<T>(SquareRoot(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1287,7 +1288,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.Exponential(a.Value));
+					return new Constant<T>(Exponential(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1340,7 +1341,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.Factorial(a.Value));
+					return new Constant<T>(Factorial(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1412,7 +1413,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a)
 				{
-					return new Constant<T>(Compute.Invert(a.Value));
+					return new Constant<T>(Inversion(a.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1899,7 +1900,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Add(a.Value, b.Value));
+					return new Constant<T>(Addition(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -1936,7 +1937,7 @@ namespace Towel.Mathematics
 				{
 					if (B is Constant CONSTANT && CONSTANT.IsNegative)
 					{
-						return a + " - " + Compute.Negate(B as Constant);
+						return a + " - " + Negation(B as Constant);
 					}
 				}
 				return a + " + " + b;
@@ -2058,7 +2059,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Subtract(a.Value, b.Value));
+					return new Constant<T>(Subtraction(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2271,7 +2272,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Multiply(a.Value, b.Value));
+					return new Constant<T>(Multiplication(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2459,7 +2460,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Divide(a.Value, b.Value));
+					return new Constant<T>(Division(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2550,7 +2551,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Power(a.Value, b.Value));
+					return new Constant<T>(Power(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2630,7 +2631,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<T>(Compute.Root(a.Value, b.Value));
+					return new Constant<T>(Root(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2686,7 +2687,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.Equal(a.Value, b.Value));
+					return new Constant<bool>(Equality(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2742,7 +2743,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.NotEqual(a.Value, b.Value));
+					return new Constant<bool>(Inequality(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2798,7 +2799,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.LessThan(a.Value, b.Value));
+					return new Constant<bool>(LessThan(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2854,7 +2855,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.GreaterThan(a.Value, b.Value));
+					return new Constant<bool>(GreaterThan(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2910,7 +2911,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.LessThanOrEqual(a.Value, b.Value));
+					return new Constant<bool>(LessThanOrEqual(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2966,7 +2967,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Compute.GreaterThanOrEqual(a.Value, b.Value));
+					return new Constant<bool>(GreaterThanOrEqual(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -3402,26 +3403,19 @@ namespace Towel.Mathematics
 		/// <summary>Parses a symbolic methematics expression with the assumption that it will simplify to a constant.</summary>
 		/// <typeparam name="T">The generic numerical type to recieve as the outputted type.</typeparam>
 		/// <param name="string">The string to be parse.</param>
-		/// <param name="tryParsingFunction">A function for parsing numerical values into the provided generic type.</param>
+		/// <param name="tryParse">A function for parsing numerical values into the provided generic type.</param>
 		/// <returns>The parsed expression simplified down to a constant value.</returns>
-		public static T ParseAndSimplifyToConstant<T>(string @string, TryParseNumeric<T> tryParsingFunction = null)
+		public static T ParseAndSimplifyToConstant<T>(string @string, TryParse<T> tryParse = null)
 		{
-			return (Parse(@string, tryParsingFunction).Simplify() as Constant<T>).Value;
+			return (Parse(@string, tryParse).Simplify() as Constant<T>).Value;
 		}
-
-		/// <summary>A try-parsing function to parse a string that represents a numerical value.</summary>
-		/// <typeparam name="T">The type that the numeric value will be parsed into.</typeparam>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="parsedValue">The parsed numeric value if successful.</param>
-		/// <returns>Whether or not the parsing attempt was successful or not.</returns>
-		public delegate bool TryParseNumeric<T>(string @string, out T parsedValue);
 
 		/// <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
 		/// <typeparam name="T">The type to convert any constants into (ex: float, double, etc).</typeparam>
 		/// <param name="string">The expression string to parse.</param>
-		/// <param name="tryParsingFunction">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
+		/// <param name="tryParse">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
 		/// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
-		public static Expression Parse<T>(string @string, TryParseNumeric<T> tryParsingFunction = null)
+		public static Expression Parse<T>(string @string, TryParse<T> tryParse = null)
 		{
 			// Build The Parsing Library
 			if (!ParseableLibraryBuilt)
@@ -3436,32 +3430,32 @@ namespace Towel.Mathematics
 			// Trim
 			@string = @string.Trim();
 			// Parse The Next Non-Nested Operator If One Exist
-			if (TryParseNonNestedOperatorExpression<T>(@string, tryParsingFunction, out Expression ParsedNonNestedOperatorExpression))
+			if (TryParseNonNestedOperatorExpression<T>(@string, tryParse, out Expression ParsedNonNestedOperatorExpression))
 			{
 				return ParsedNonNestedOperatorExpression;
 			}
 			// Parse The Next Parenthesis If One Exists
-			if (TryParseParenthesisExpression<T>(@string, tryParsingFunction, out Expression ParsedParenthesisExpression))
+			if (TryParseParenthesisExpression<T>(@string, tryParse, out Expression ParsedParenthesisExpression))
 			{
 				return ParsedParenthesisExpression;
 			}
 			// Parse The Next Operation If One Exists
-			if (TryParseOperationExpression<T>(@string, tryParsingFunction, out Expression ParsedOperationExpression))
+			if (TryParseOperationExpression<T>(@string, tryParse, out Expression ParsedOperationExpression))
 			{
 				return ParsedOperationExpression;
 			}
 			// Parse The Next Set Of Variables If Any Exist
-			if (TryParseVariablesExpression<T>(@string, tryParsingFunction, out Expression ParsedVeriablesExpression))
+			if (TryParseVariablesExpression<T>(@string, tryParse, out Expression ParsedVeriablesExpression))
 			{
 				return ParsedVeriablesExpression;
 			}
 			// Parse The Next Known Constant Expression If Any Exist
-			if (TryParseKnownConstantExpression<T>(@string, tryParsingFunction, out Expression ParsedKnownConstantExpression))
+			if (TryParseKnownConstantExpression<T>(@string, tryParse, out Expression ParsedKnownConstantExpression))
 			{
 				return ParsedKnownConstantExpression;
 			}
 			// Parse The Next Constant Expression If Any Exist
-			if (TryParseConstantExpression<T>(@string, tryParsingFunction, out Expression ParsedConstantExpression))
+			if (TryParseConstantExpression<T>(@string, tryParse, out Expression ParsedConstantExpression))
 			{
 				return ParsedConstantExpression;
 			}
@@ -3469,7 +3463,7 @@ namespace Towel.Mathematics
 			throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
 		}
 
-		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
+		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
 		{
 			// Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
 			MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern, RegexOptions.RightToLeft);
@@ -3656,23 +3650,23 @@ namespace Towel.Mathematics
 					if (isUnaryLeftOperator)
 					{
 						string a = @string.Substring(@operator.Index + @operator.Length);
-						Expression A = Parse(a, tryParsingFunction);
+						Expression A = Parse(a, tryParse);
 						expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
 						return true;
 					}
 					else if (isUnaryRightOperator)
 					{
 						string a = @string.Substring(0, @operator.Index);
-						Expression A = Parse(a, tryParsingFunction);
+						Expression A = Parse(a, tryParse);
 						expression = ParsableRightUnaryOperators[@operator.Value].Item2(A);
 						return true;
 					}
 					else if (isBinaryOperator)
 					{
 						string a = @string.Substring(0, @operator.Index);
-						Expression A = Parse(a, tryParsingFunction);
+						Expression A = Parse(a, tryParse);
 						string b = @string.Substring(@operator.Index + @operator.Length);
-						Expression B = Parse(b, tryParsingFunction);
+						Expression B = Parse(b, tryParse);
 						expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
 						return true;
 					}
@@ -3684,7 +3678,7 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseParenthesisExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
+		internal static bool TryParseParenthesisExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
 		{
 			// Try to match a parenthesis pattern.
 			Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
@@ -3701,13 +3695,13 @@ namespace Towel.Mathematics
 
 				// Parse the nested expression
 				string nestedExpression = parenthesisMatch.Value.Substring(1, parenthesisMatch.Length - 2);
-				expression = Parse(nestedExpression, tryParsingFunction);
+				expression = Parse(nestedExpression, tryParse);
 
 				// Check for implicit multiplications to the left of the parenthesis pattern
 				if (parenthesisMatch.Index > 0)
 				{
 					string leftExpression = @string.Substring(0, parenthesisMatch.Index);
-					expression *= Parse(leftExpression, tryParsingFunction);
+					expression *= Parse(leftExpression, tryParse);
 				}
 
 				// Check for implicit multiplications to the right of the parenthesis pattern
@@ -3715,7 +3709,7 @@ namespace Towel.Mathematics
 				if (right_start != @string.Length)
 				{
 					string rightExpression = @string.Substring(right_start, @string.Length - right_start);
-					expression *= Parse(rightExpression, tryParsingFunction);
+					expression *= Parse(rightExpression, tryParse);
 				}
 
 				// Parsing was successful
@@ -3727,7 +3721,7 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseOperationExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression expression)
+		internal static bool TryParseOperationExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
 		{
 			expression = null;
 			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
@@ -3769,12 +3763,12 @@ namespace Towel.Mathematics
 				// handle implicit multiplications if any exist
 				if (operationMatch.Index != 0) // Left
 				{
-					Expression A = Parse(@string.Substring(0, operationMatch.Index), tryParsingFunction);
+					Expression A = Parse(@string.Substring(0, operationMatch.Index), tryParse);
 					expression *= A;
 				}
 				if (operationMatch.Length + operationMatch.Index < @string.Length) // Right
 				{
-					Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), tryParsingFunction);
+					Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), tryParse);
 					expression *= A;
 				}
 
@@ -3819,7 +3813,7 @@ namespace Towel.Mathematics
 			return operands;
 		}
 
-		internal static bool TryParseVariablesExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
+		internal static bool TryParseVariablesExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
 		{
 			string variablePattern = @"\[.*\]";
 
@@ -3842,7 +3836,7 @@ namespace Towel.Mathematics
 				.Where(x => !string.IsNullOrWhiteSpace(x))
 				.Select(x =>
 				{
-					TryParseConstantExpression(x, tryParsingFunction, out Expression exp);
+					TryParseConstantExpression(x, tryParse, out Expression exp);
 					return exp;
 				});
 
@@ -3865,7 +3859,7 @@ namespace Towel.Mathematics
 			return true;
 		}
 
-		internal static bool TryParseKnownConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
+		internal static bool TryParseKnownConstantExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
 		{
 			Match knownConstantMatch = Regex.Match(@string, ParsableKnownConstantsRegexPattern);
 
@@ -3876,12 +3870,12 @@ namespace Towel.Mathematics
 				// implied multiplications to the left and right
 				if (knownConstantMatch.Index != 0)
 				{
-					Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index), tryParsingFunction);
+					Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index), tryParse);
 					parsedExpression *= A;
 				}
 				if (knownConstantMatch.Index < @string.Length - 1)
 				{
-					Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1), tryParsingFunction);
+					Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1), tryParse);
 					parsedExpression *= B;
 				}
 				return true;
@@ -3891,15 +3885,15 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseConstantExpression<T>(string @string, TryParseNumeric<T> tryParsingFunction, out Expression parsedExpression)
+		internal static bool TryParseConstantExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
 		{
-			if (tryParsingFunction != null && tryParsingFunction(@string, out T explicitParsedValue))
+			if (tryParse != null && tryParse(@string, out T explicitParsedValue))
 			{
 				parsedExpression = new Constant<T>(explicitParsedValue);
 				return true;
 			}
 
-			if (Assume.TryParse(@string, out T assumeParsedValue))
+			if (TryParse(@string, out T assumeParsedValue))
 			{
 				parsedExpression = new Constant<T>(assumeParsedValue);
 				return true;
@@ -3947,17 +3941,17 @@ namespace Towel.Mathematics
 				if (int.TryParse(wholeNumberString, out int wholeNumberInt) &&
 					int.TryParse(decimalPlacesString, out int decimalPlacesInt))
 				{
-					T wholeNumber = Assume.Convert<int, T>(wholeNumberInt);
-					T decimalPlaces = Assume.Convert<int, T>(decimalPlacesInt);
-					while (Compute.GreaterThanOrEqual(decimalPlaces, Mathematics.Constant<T>.One))
+					T wholeNumber = Convert<int, T>(wholeNumberInt);
+					T decimalPlaces = Convert<int, T>(decimalPlacesInt);
+					while (GreaterThanOrEqual(decimalPlaces, Towel.Constant<T>.One))
 					{
-						decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
+						decimalPlaces = Division(decimalPlaces, Towel.Constant<T>.Ten);
 					}
 					for (; zeroCount > 0; zeroCount--)
 					{
-						decimalPlaces = Compute.Divide(decimalPlaces, Mathematics.Constant<T>.Ten);
+						decimalPlaces = Division(decimalPlaces, Towel.Constant<T>.Ten);
 					}
-					parsedExpression = new Constant<T>(Compute.Add(wholeNumber, decimalPlaces));
+					parsedExpression = new Constant<T>(Addition(wholeNumber, decimalPlaces));
 					return true;
 				}
 			}
@@ -3965,7 +3959,7 @@ namespace Towel.Mathematics
 			{
 				if (int.TryParse(@string, out int parsedInt))
 				{
-					parsedExpression = new Constant<T>(Assume.Convert<int, T>(parsedInt));
+					parsedExpression = new Constant<T>(Convert<int, T>(parsedInt));
 					return true;
 				}
 			}

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text;
+using static Towel.Syntax;
 
 namespace Towel.Mathematics
 {
@@ -101,11 +102,11 @@ namespace Towel.Mathematics
 			if (matrix.Rows != 3 || matrix.Columns != 3)
 				throw new System.ArithmeticException("error converting matrix to quaternion. matrix is not 3x3.");
 
-			T w = Compute.Subtract(Compute.Add(Constant<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Assume.Convert<int, T>(2));
+			T w = Syntax.Subtraction(Syntax.Addition(Constant<T>.One, matrix[0, 0], matrix[1, 1], matrix[2, 2]), Convert<int, T>(2));
 			return new Quaternion<T>(
-				Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), Compute.Multiply(Assume.Convert<int, T>(4), w)),
-				Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), Compute.Multiply(Assume.Convert<int, T>(4), w)),
-				Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), Compute.Multiply(Assume.Convert<int, T>(4), w)),
+				Syntax.Division(Syntax.Subtraction(matrix[2, 1], matrix[1, 2]), Syntax.Multiplication(Syntax.Convert<int, T>(4), w)),
+				Syntax.Division(Syntax.Subtraction(matrix[0, 2], matrix[2, 0]), Syntax.Multiplication(Syntax.Convert<int, T>(4), w)),
+				Syntax.Division(Syntax.Subtraction(matrix[1, 0], matrix[0, 1]), Syntax.Multiplication(Syntax.Convert<int, T>(4), w)),
 				w);
 		}
 
@@ -115,38 +116,38 @@ namespace Towel.Mathematics
 
 			matrix = matrix.Transpose();
 			T w, x, y, z;
-			T diagonal = Compute.Add(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
-			if (Compute.GreaterThan(diagonal, Constant<T>.Zero))
+			T diagonal = Syntax.Addition(matrix[0, 0], matrix[1, 1], matrix[2, 2]);
+			if (Syntax.GreaterThan(diagonal, Constant<T>.Zero))
 			{
-				T w4 = Compute.Multiply(Compute.SquareRoot(Compute.Add(diagonal, Constant<T>.One)), Assume.Convert<int, T>(2));
-				w = Compute.Divide(w4, Assume.Convert<int, T>(4));
-				x = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), w4);
-				y = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), w4);
-				z = Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), w4);
+				T w4 = Syntax.Multiplication(Syntax.SquareRoot(Syntax.Addition(diagonal, Constant<T>.One)), Syntax.Convert<int, T>(2));
+				w = Syntax.Division(w4, Convert<int, T>(4));
+				x = Syntax.Division(Syntax.Subtraction(matrix[2, 1], matrix[1, 2]), w4);
+				y = Syntax.Division(Syntax.Subtraction(matrix[0, 2], matrix[2, 0]), w4);
+				z = Syntax.Division(Syntax.Subtraction(matrix[1, 0], matrix[0, 1]), w4);
 			}
-			else if (Compute.GreaterThan(matrix[0, 0], matrix[1, 1]) && Compute.GreaterThan(matrix[0, 0], matrix[2, 2]))
+			else if (Syntax.GreaterThan(matrix[0, 0], matrix[1, 1]) && Syntax.GreaterThan(matrix[0, 0], matrix[2, 2]))
 			{
-				T x4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Assume.Convert<int, T>(2));
-				w = Compute.Divide(Compute.Subtract(matrix[2, 1], matrix[1, 2]), x4);
-				x = Compute.Divide(x4, Assume.Convert<int, T>(4));
-				y = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), x4);
-				z = Compute.Divide(Compute.Add(matrix[0, 2], matrix[2, 0]), x4);
+				T x4 = Syntax.Multiplication(Syntax.SquareRoot(Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Constant<T>.One, matrix[0, 0]), matrix[1, 1]), matrix[2, 2])), Convert<int, T>(2));
+				w = Syntax.Division(Syntax.Subtraction(matrix[2, 1], matrix[1, 2]), x4);
+				x = Syntax.Division(x4, Convert<int, T>(4));
+				y = Syntax.Division(Syntax.Addition(matrix[0, 1], matrix[1, 0]), x4);
+				z = Syntax.Division(Syntax.Addition(matrix[0, 2], matrix[2, 0]), x4);
 			}
-			else if (Compute.GreaterThan(matrix[1, 1], matrix[2, 2]))
+			else if (Syntax.GreaterThan(matrix[1, 1], matrix[2, 2]))
 			{
-				T y4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Assume.Convert<int, T>(2));
-				w = Compute.Divide(Compute.Subtract(matrix[0, 2], matrix[2, 0]), y4);
-				x = Compute.Divide(Compute.Add(matrix[0, 1], matrix[1, 0]), y4);
-				y = Compute.Divide(y4, Assume.Convert<int, T>(4));
-				z = Compute.Divide(Compute.Add(matrix[1, 2], matrix[2, 1]), y4);
+				T y4 = Syntax.Multiplication(Syntax.SquareRoot(Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Constant<T>.One, matrix[1, 1]), matrix[0, 0]), matrix[2, 2])), Convert<int, T>(2));
+				w = Syntax.Division(Syntax.Subtraction(matrix[0, 2], matrix[2, 0]), y4);
+				x = Syntax.Division(Syntax.Addition(matrix[0, 1], matrix[1, 0]), y4);
+				y = Syntax.Division(y4, Convert<int, T>(4));
+				z = Syntax.Division(Syntax.Addition(matrix[1, 2], matrix[2, 1]), y4);
 			}
 			else
 			{
-				T z4 = Compute.Multiply(Compute.SquareRoot(Compute.Subtract(Compute.Subtract(Compute.Add(Constant<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Assume.Convert<int, T>(2));
-				w = Compute.Divide(Compute.Subtract(matrix[1, 0], matrix[0, 1]), z4);
-				x = Compute.Divide(Compute.Add(matrix[0, 2], matrix[2, 0]), z4);
-				y = Compute.Divide(Compute.Add(matrix[1, 2], matrix[2, 1]), z4);
-				z = Compute.Divide(z4, Assume.Convert<int, T>(4));
+				T z4 = Syntax.Multiplication(Syntax.SquareRoot(Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Constant<T>.One, matrix[2, 2]), matrix[0, 0]), matrix[1, 1])), Convert<int, T>(2));
+				w = Syntax.Division(Syntax.Subtraction(matrix[1, 0], matrix[0, 1]), z4);
+				x = Syntax.Division(Syntax.Addition(matrix[0, 2], matrix[2, 0]), z4);
+				y = Syntax.Division(Syntax.Addition(matrix[1, 2], matrix[2, 1]), z4);
+				z = Syntax.Division(z4, Convert<int, T>(4));
 			}
 			return new Quaternion<T>(x, y, z, w);
 		}
@@ -163,10 +164,10 @@ namespace Towel.Mathematics
 		public static bool GetHasZeroMagnitude(Quaternion<T> a)
 		{
 			return
-				Compute.Equal(a._x, Constant<T>.Zero) &&
-				Compute.Equal(a._y, Constant<T>.Zero) &&
-				Compute.Equal(a._z, Constant<T>.Zero) &&
-				Compute.Equal(a._w, Constant<T>.Zero);
+				Syntax.Equality(a._x, Constant<T>.Zero) &&
+				Syntax.Equality(a._y, Constant<T>.Zero) &&
+				Syntax.Equality(a._z, Constant<T>.Zero) &&
+				Syntax.Equality(a._w, Constant<T>.Zero);
 		}
 
 		/// <summary>Checks quaternion for zero magnitude.</summary>
@@ -190,7 +191,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			return Compute.SquareRoot(GetMagnitudeSquared(a));
+			return Syntax.SquareRoot(GetMagnitudeSquared(a));
 		}
 
 		/// <summary>Computes the magnitude of this quaternion.</summary>
@@ -264,10 +265,10 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(b));
 			}
-			T x = Compute.Add(a._x, b._x);
-			T y = Compute.Add(a._y, b._y);
-			T z = Compute.Add(a._z, b._z);
-			T w = Compute.Add(a._w, b._w);
+			T x = Syntax.Addition(a._x, b._x);
+			T y = Syntax.Addition(a._y, b._y);
+			T z = Syntax.Addition(a._z, b._z);
+			T w = Syntax.Addition(a._w, b._w);
 			if (c is null)
 			{
 				c = new Quaternion<T>(x, y, z, w);
@@ -335,10 +336,10 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(b));
 			}
-			T x = Compute.Subtract(a._x, b._x);
-			T y = Compute.Subtract(a._y, b._y);
-			T z = Compute.Subtract(a._z, b._z);
-			T w = Compute.Subtract(a._w, b._w);
+			T x = Syntax.Subtraction(a._x, b._x);
+			T y = Syntax.Subtraction(a._y, b._y);
+			T z = Syntax.Subtraction(a._z, b._z);
+			T w = Syntax.Subtraction(a._w, b._w);
 			if (c is null)
 			{
 				c = new Quaternion<T>(x, y, z, w);
@@ -658,10 +659,10 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			T x = Compute.Multiply(a._x, b);
-			T y = Compute.Multiply(a._y, b);
-			T z = Compute.Multiply(a._z, b);
-			T w = Compute.Multiply(a._w, b);
+			T x = Syntax.Multiplication(a._x, b);
+			T y = Syntax.Multiplication(a._y, b);
+			T z = Syntax.Multiplication(a._z, b);
+			T w = Syntax.Multiplication(a._w, b);
 			if (c is null)
 			{
 				c = new Quaternion<T>(x, y, z, w);
@@ -805,9 +806,9 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			T x = Compute.Negate(a._x);
-			T y = Compute.Negate(a._y);
-			T z = Compute.Negate(a._z);
+			T x = Syntax.Negation(a._x);
+			T y = Syntax.Negation(a._y);
+			T z = Syntax.Negation(a._z);
 			T w = a._w;
 			if (b is null)
 			{
@@ -862,10 +863,10 @@ namespace Towel.Mathematics
 				throw new ArgumentNullException(nameof(a));
 			}
 			T magnitude = a.Magnitude;
-			T x = Compute.Divide(a._x, magnitude);
-			T y = Compute.Divide(a._y, magnitude);
-			T z = Compute.Divide(a._z, magnitude);
-			T w = Compute.Divide(a._w, magnitude);
+			T x = Syntax.Division(a._x, magnitude);
+			T y = Syntax.Division(a._y, magnitude);
+			T z = Syntax.Division(a._z, magnitude);
+			T w = Syntax.Division(a._w, magnitude);
 			if (b is null)
 			{
 				b = new Quaternion<T>(x, y, z, w);
@@ -927,7 +928,7 @@ namespace Towel.Mathematics
 			T y;
 			T z;
 			T w;
-			if (Compute.Equal(magnitudeSquared, Constant<T>.Zero))
+			if (Syntax.Equality(magnitudeSquared, Constant<T>.Zero))
 			{
 				x = a._x;
 				y = a._y;
@@ -936,10 +937,10 @@ namespace Towel.Mathematics
 			}
 			else
 			{
-				x = Compute.Multiply(Compute.Negate(a.X), magnitudeSquared);
-				y = Compute.Multiply(Compute.Negate(a.Y), magnitudeSquared);
-				z = Compute.Multiply(Compute.Negate(a.Z), magnitudeSquared);
-				w = Compute.Multiply(a.W, magnitudeSquared);
+				x = Syntax.Multiplication(Syntax.Negation(a.X), magnitudeSquared);
+				y = Syntax.Multiplication(Syntax.Negation(a.Y), magnitudeSquared);
+				z = Syntax.Multiplication(Syntax.Negation(a.Z), magnitudeSquared);
+				w = Syntax.Multiplication(a.W, magnitudeSquared);
 			}
 			if (b is null)
 			{
@@ -999,7 +1000,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(b));
 			}
-			if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
+			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 			}
@@ -1033,10 +1034,10 @@ namespace Towel.Mathematics
 			}
 			else
 			{
-				x = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.X)), Compute.Multiply(blend, b.X));
-				y = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Y)), Compute.Multiply(blend, b.Y));
-				z = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.Z)), Compute.Multiply(blend, b.Z));
-				w = Compute.Add(Compute.Subtract(Constant<T>.One, Compute.Multiply(blend, a.W)), Compute.Multiply(blend, b.W));
+				x = Syntax.Addition(Syntax.Subtraction(Constant<T>.One, Syntax.Multiplication(blend, a.X)), Syntax.Multiplication(blend, b.X));
+				y = Syntax.Addition(Syntax.Subtraction(Constant<T>.One, Syntax.Multiplication(blend, a.Y)), Syntax.Multiplication(blend, b.Y));
+				z = Syntax.Addition(Syntax.Subtraction(Constant<T>.One, Syntax.Multiplication(blend, a.Z)), Syntax.Multiplication(blend, b.Z));
+				w = Syntax.Addition(Syntax.Subtraction(Constant<T>.One, Syntax.Multiplication(blend, a.W)), Syntax.Multiplication(blend, b.W));
 			}
 			if (c is null)
 			{
@@ -1113,7 +1114,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentNullException(nameof(b));
 			}
-			if (Compute.LessThan(blend, Constant<T>.Zero) || Compute.GreaterThan(blend, Constant<T>.One))
+			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 			}
@@ -1170,25 +1171,25 @@ namespace Towel.Mathematics
 					case 0:
 						switch (y)
 						{
-							case 0: return Compute.Subtract(Compute.Subtract(Compute.Add(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
-							case 1: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.Z));
-							case 2: return Compute.Add(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.Y));
+							case 0: return Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
+							case 1: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z));
+							case 2: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y));
 							default: throw new MathematicsException("BUG");
 						}
 					case 1:
 						switch (y)
 						{
-							case 0: return Compute.Add(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.X), quaternion.Y), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.Z));
-							case 1: return Compute.Subtract(Compute.Add(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
-							case 2: return Compute.Add(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.X));
+							case 0: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z));
+							case 1: return Syntax.Subtraction(Syntax.Addition(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
+							case 2: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X));
 							default: throw new MathematicsException("BUG");
 						}
 					case 2:
 						switch (y)
 						{
-							case 0: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.X), quaternion.Z), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.Y));
-							case 1: return Compute.Subtract(Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.Y), quaternion.Z), Compute.Multiply(Compute.Multiply(Assume.Convert<int, T>(2), quaternion.W), quaternion.X));
-							case 2: return Compute.Add(Compute.Subtract(Compute.Subtract(Compute.Multiply(quaternion.W, quaternion.W), Compute.Multiply(quaternion.X, quaternion.X)), Compute.Multiply(quaternion.Y, quaternion.Y)), Compute.Multiply(quaternion.Z, quaternion.Z));
+							case 0: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y));
+							case 1: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X));
+							case 2: return Syntax.Addition(Syntax.Subtraction(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
 							default: throw new MathematicsException("BUG");
 						}
 					default:
@@ -1223,10 +1224,10 @@ namespace Towel.Mathematics
 				return false;
 			}
 			return
-				Compute.Equal(a._x, b._x) &&
-				Compute.Equal(a._y, b._y) &&
-				Compute.Equal(a._z, b._z) &&
-				Compute.Equal(a._w, b._w);
+				Syntax.Equality(a._x, b._x) &&
+				Syntax.Equality(a._y, b._y) &&
+				Syntax.Equality(a._z, b._z) &&
+				Syntax.Equality(a._w, b._w);
 		}
 
 		/// <summary>Does a value equality check.</summary>
@@ -1282,10 +1283,10 @@ namespace Towel.Mathematics
 				return false;
 			}
 			return
-				Compute.EqualLeniency(a._x, b._x, leniency) &&
-				Compute.EqualLeniency(a._y, b._y, leniency) &&
-				Compute.EqualLeniency(a._z, b._z, leniency) &&
-				Compute.EqualLeniency(a._w, b._w, leniency);
+				Syntax.EqualityLeniency(a._x, b._x, leniency) &&
+				Syntax.EqualityLeniency(a._y, b._y, leniency) &&
+				Syntax.EqualityLeniency(a._z, b._z, leniency) &&
+				Syntax.EqualityLeniency(a._w, b._w, leniency);
 		}
 
 		/// <summary>Does a value equality check with leniency.</summary>

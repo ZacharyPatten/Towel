@@ -1,7 +1,7 @@
 ﻿using System;
-using Towel.Mathematics;
+using static Towel.Syntax;
 
-namespace Towel
+namespace Towel.Mathematics
 {
 	/// <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
 	/// <citation>
@@ -66,7 +66,7 @@ namespace Towel
 		#region Constructors
 
 		/// <summary>Constructs a fraction from an short.</summary>
-		/// <param name="@short">The short to represent as a fraction.</param>
+		/// <param name="short">The short to represent as a fraction.</param>
 		public Fraction32(short @short)
 		{
 			this._numerator = @short;
@@ -468,7 +468,7 @@ namespace Towel
 					return;
 				}
 
-				short iGCD = Compute.GreatestCommonFactor(frac.Numerator, frac.Denominator);
+				short iGCD = GreatestCommonFactor(frac.Numerator, frac.Denominator);
 				frac.Numerator /= iGCD;
 				frac.Denominator /= iGCD;
 
@@ -950,7 +950,7 @@ namespace Towel
 					frac.Denominator = 1;
 					return;
 				}
-				int gcf = Compute.GreatestCommonFactor(frac.Numerator, frac.Denominator);
+				int gcf = GreatestCommonFactor(frac.Numerator, frac.Denominator);
 				frac.Numerator /= gcf;
 				frac.Denominator /= gcf;
 				if (frac.Denominator < 0)
@@ -1414,7 +1414,7 @@ namespace Towel
 					fraction.Denominator = 1;
 					return;
 				}
-				long gcf = Compute.GreatestCommonFactor(fraction.Numerator, fraction.Denominator);
+				long gcf = GreatestCommonFactor(fraction.Numerator, fraction.Denominator);
 				fraction.Numerator /= gcf;
 				fraction.Denominator /= gcf;
 				if (fraction.Denominator < 0)

@@ -81,7 +81,7 @@ namespace Extensions
 			Meta.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 
 			Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
-			Console.WriteLine(typeof(Compute).GetDocumentation());
+			Console.WriteLine(typeof(Syntax).GetDocumentation());
 			Console.WriteLine();
 			Console.WriteLine("    XML Documentation On Towel.Mathematics.Constant<float>.Pi:");
 			Console.WriteLine(typeof(Constant<float>).GetField(nameof(Constant<float>.Pi)).GetDocumentation());

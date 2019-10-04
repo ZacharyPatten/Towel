@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -237,7 +238,7 @@ namespace Towel.DataStructures
 			if (expectedCount.HasValue && expectedCount.Value > 0)
 			{
 				int tableSize = (int)(expectedCount.Value * (1 / _maxLoadFactor));
-				while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+				while (!IsPrime(tableSize))
 				{
 					tableSize++;
 				}
@@ -340,7 +341,7 @@ namespace Towel.DataStructures
 				if (tableSizeFloat <= int.MaxValue)
 				{
 					int tableSize = (int)tableSizeFloat;
-					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					while (!IsPrime(tableSize))
 					{
 						tableSize++;
 					}
@@ -438,7 +439,7 @@ namespace Towel.DataStructures
 				if (tableSizeFloat <= int.MaxValue)
 				{
 					int tableSize = (int)tableSizeFloat;
-					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					while (!IsPrime(tableSize))
 					{
 						tableSize++;
 					}
@@ -465,7 +466,7 @@ namespace Towel.DataStructures
 				{
 					// calculate new table size
 					int tableSize = (int)(_count * (1 / _maxLoadFactor));
-					while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+					while (!IsPrime(tableSize))
 					{
 						tableSize++;
 					}
@@ -566,7 +567,7 @@ namespace Towel.DataStructures
 		public void Trim()
 		{
 			int tableSize = _count;
-			while (!Towel.Mathematics.Compute.IsPrime(tableSize))
+			while (!IsPrime(tableSize))
 			{
 				tableSize++;
 			}

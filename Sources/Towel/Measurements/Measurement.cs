@@ -134,9 +134,9 @@ namespace Towel.Measurements
 		/// <typeparam name="T">The numeric type to parse the quantity as.</typeparam>
 		/// <param name="string">The string to parse.</param>
 		/// <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
-		/// <param name="tryParseNumeric">Explicit try parse function for the numeric type.</param>
+		/// <param name="tryParse">Explicit try parse function for the numeric type.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<T>(string @string, out object measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		public static bool TryParse<T>(string @string, out object measurement, TryParse<T> tryParse = null)
 		{
 			if (!ParsingLibraryBuilt)
 			{
@@ -160,7 +160,7 @@ namespace Towel.Measurements
 			T value;
 			try
 			{
-				value = Symbolics.ParseAndSimplifyToConstant<T>(numericString, tryParseNumeric);
+				value = Symbolics.ParseAndSimplifyToConstant<T>(numericString, tryParse);
 			}
 			catch
 			{
@@ -233,9 +233,9 @@ namespace Towel.Measurements
 			return true;
 		}
 
-		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Symbolics.TryParseNumeric<T> tryParseNumeric = null)
+		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, TryParse<T> tryParse = null)
 		{
-			if (!TryParse(@string, out object parsedMeasurment, tryParseNumeric) ||
+			if (!TryParse(@string, out object parsedMeasurment, tryParse) ||
 				!(parsedMeasurment is MEASUREMENT))
 			{
 				measurement = default;

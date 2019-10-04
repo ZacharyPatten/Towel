@@ -5,7 +5,7 @@ using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
 using Towel.DataStructures;
-using static Towel.Mathematics.Compute;
+using static Towel.Syntax;
 
 namespace Mathematics
 {
@@ -20,57 +20,68 @@ namespace Mathematics
 			Console.WriteLine("==========================================");
 			Console.WriteLine();
 
-			#region Fraction
-
-			// Fractions need some work... commenting out for now
-
-			//Console.WriteLine("  Fractions-----------------------------------");
-			//Console.WriteLine();
-			//Fraction128 fraction1 = new Fraction128(2.5);
-			//Console.WriteLine("    fraction1 = " + fraction1);
-			//Fraction128 fraction2 = new Fraction128(3.75);
-			//Console.WriteLine("    fraction2 = " + fraction2);
-			//Console.WriteLine("    fraction1 + fraction2 = " + (fraction1 + fraction2));
-			//Console.WriteLine("    fraction2 - fraction1 = " + (fraction1 - fraction2));
-			//Console.WriteLine("    fraction1 * 2 = " + (fraction1 * 2));
-			//Console.WriteLine("    fraction1 / 2 = " + (fraction1 / 2));
-			//Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
-			//Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
-			//Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
-			//Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
-			//Console.WriteLine();
-
-			#endregion
-
 			#region Basic Operations
 
 			Console.WriteLine("  Basics----------------------------------------------");
 			Console.WriteLine();
 
 			// Variables
-			Fraction32 clamp_a = (Fraction32)(-123d / 9d);
-			Fraction32 clamp_b = (Fraction32)(7d / 12d);
-			Fraction32 clamp_c = (Fraction32)(14d / 15d);
-			double[] summation_values = new double[4];
-			summation_values.Format(x => random.NextDouble());
+			Fraction32 clampA = (Fraction32)(-123d / 9d);
+			Fraction32 clampB = (Fraction32)(7d / 12d);
+			Fraction32 clampC = (Fraction32)(14d / 15d);
+			double[] values = new double[4];
+			Stepper<double> valueStepper = values.ToStepper();
+			values.Format(x => random.NextDouble());
 
 			// Examples
-			Console.WriteLine("    Negate(7): " + Negate(7));
-			Console.WriteLine("    Add(7, 7): " + Add(7m, 7m));
-			Console.WriteLine("    Σ (" + string.Join(", ", summation_values.Select(x => Format(x))) + ") = " + Add(summation_values.ToStepper()));
-			Console.WriteLine("    Subtract(14, 7): " + Subtract(14f, 7f));
-			Console.WriteLine("    Multiply(7, 7): " + Multiply((long)7, (long)7));
-			Console.WriteLine("    Divide(14, 7): " + Divide((short)14, (short)7));
-			Console.WriteLine("    AbsoluteValue(-7): " + AbsoluteValue((double)-7));
-			Console.WriteLine("    Clamp(" + clamp_a + ", " + clamp_b + ", " + clamp_c + "): " + Clamp(clamp_a, clamp_b, clamp_c));
-			Console.WriteLine("    Maximum(1, 2, 3): " + Maximum(1, 2, 3));
-			Console.WriteLine("    Minimum(1, 2, 3): " + Minimum(1, 2, 3));
-			Console.WriteLine("    LessThan(1, 2): " + LessThan((Fraction128)1, (Fraction128)2));
-			Console.WriteLine("    GreaterThan(1, 2): " + GreaterThan((Fraction64)1, (Fraction64)2));
-			Console.WriteLine("    Compare(7, 7): " + Compare((Fraction32)7, (Fraction32)7));
-			Console.WriteLine("    Equate(7, 6): " + Equal(7, 6));
-			Console.WriteLine("    EqualsLeniency(2, 1, 1): " + EqualLeniency(2, 1, 1));
 
+			double negation = Negation(7);
+			Console.WriteLine("    Negate(7): " + negation);
+
+			decimal addition = Addition(7m, 7m);
+			Console.WriteLine("    Add(7, 7): " + addition);
+
+			double summation = Σ(valueStepper);
+			Console.WriteLine("    Σ (" + string.Join(", ", values.Select(x => Format(x))) + ") = " + summation);
+
+			float subtraction = Subtraction(14f, 7f);
+			Console.WriteLine("    Subtract(14, 7): " + subtraction);
+
+			long multiplication = Multiplication(7L, 7L);
+			Console.WriteLine("    Multiply(7, 7): " + multiplication);
+
+			double product = Π(valueStepper);
+			Console.WriteLine("    Π (" + string.Join(", ", values.Select(x => Format(x))) + ") = " + product);
+
+			short division = Division((short)14, (short)7);
+			Console.WriteLine("    Divide(14, 7): " + division);
+
+			double absoluteValue = AbsoluteValue(-7d);
+			Console.WriteLine("    AbsoluteValue(-7): " + absoluteValue);
+
+			Fraction32 clamp = Clamp(clampA, clampB, clampB);
+			Console.WriteLine("    Clamp(" + clampA + ", " + clampB + ", " + clampB + "): " + clamp);
+
+			int maximum = Maximum(1, 2, 3);
+			Console.WriteLine("    Maximum(1, 2, 3): " + maximum);
+
+			int minimum = Minimum(1, 2, 3);
+			Console.WriteLine("    Minimum(1, 2, 3): " + minimum);
+
+			bool lessThan = LessThan((Fraction128)1, (Fraction128)2);
+			Console.WriteLine("    LessThan(1, 2): " + lessThan);
+
+			bool greaterThan = GreaterThan((Fraction64)1, (Fraction64)2);
+			Console.WriteLine("    GreaterThan(1, 2): " + greaterThan);
+
+			CompareResult compare = Comparison((Fraction32)7, (Fraction32)7);
+			Console.WriteLine("    Compare(7, 7): " + compare);
+
+			bool equality = Equality(7, 6);
+			Console.WriteLine("    Equate(7, 6): " + equality);
+
+			bool equalsLeniency = EqualityLeniency(2, 1, 1);
+			Console.WriteLine("    EqualsLeniency(2, 1, 1): " + equalsLeniency);
 
 			Console.WriteLine();
 
@@ -81,42 +92,57 @@ namespace Mathematics
 			Console.WriteLine("  More Numeric Mathematics----------------------------");
 			Console.WriteLine();
 
+			// some random ints for the examples
 			int random1 = random.Next(1, 100000);
-			Console.WriteLine("    IsPrime(" + random1 + "): " + IsPrime(random1));
-
 			int random2 = random.Next(1, 1000);
-			Console.WriteLine("    IsNegative(" + random2 + "): " + IsNegative(random2));
-
 			int random3 = random.Next(1, 1000);
-			Console.WriteLine("    IsNonNegative(" + random3 + "): " + IsNonNegative(random3));
-
 			int random4 = random.Next(1, 1000);
-			Console.WriteLine("    IsPositive(" + random4 + "): " + IsPositive(random4));
-
 			int random5 = random.Next(1, 1000);
-			Console.WriteLine("    IsOdd(" + random5 + "): " + IsOdd(random5));
-
 			int random6 = random.Next(1, 1000);
-			Console.WriteLine("    IsEven(" + random6 + "): " + IsEven(random6));
-
+			int random7 = random.Next(6, 10);
+			int random8 = random.Next(1, 100000);
 			int[] randomInts1 = new int[3];
 			randomInts1.Format(x => random.Next(1, 500) * 2);
-			Console.WriteLine("    GCF(" + string.Join(", ", randomInts1) + "): " + GreatestCommonFactor(randomInts1.ToStepper()));
-
+			Stepper<int> randomInts1Stepper = randomInts1.ToStepper();
 			int[] randomInts2 = new int[3];
 			randomInts2.Format(x => random.Next(1, 500) * 2);
-			Console.WriteLine("    LCM(" + string.Join(", ", randomInts2) + "): " + LeastCommonMultiple(randomInts2.ToStepper()));
+			Stepper<int> randomInts2Stepper = randomInts2.ToStepper();
 
-			int random7 = random.Next(6, 10);
-			Console.WriteLine("    " + random7 + "!: " + Factorial(random7));
+			bool isPrime = IsPrime(random1);
+			Console.WriteLine("    IsPrime(" + random1 + "): " + isPrime);
 
-			Console.WriteLine("    7! / (3! * 4!): " + Combinations(7, new int[] { 3, 4 }));
+			bool isNegative = IsNegative(random2);
+			Console.WriteLine("    IsNegative(" + random2 + "): " + isNegative);
 
-			Console.WriteLine("    7 choose 2: " + BinomialCoefficient(7, 2));
+			bool isNonNegative = IsNonNegative(random3);
+			Console.WriteLine("    IsNonNegative(" + random3 + "): " + isNonNegative);
 
-			int random8 = random.Next(1, 100000);
+			bool isPositive = IsPositive(random4);
+			Console.WriteLine("    IsPositive(" + random4 + "): " + isPositive);
+
+			bool isOdd = IsOdd(random5);
+			Console.WriteLine("    IsOdd(" + random5 + "): " + isOdd);
+
+			bool isEven = IsEven(random6);
+			Console.WriteLine("    IsEven(" + random6 + "): " + isEven);
+
+			int greatestCommonFactor = GreatestCommonFactor(randomInts1Stepper);
+			Console.WriteLine("    GCF(" + string.Join(", ", randomInts1) + "): " + greatestCommonFactor);
+
+			int leastCommonMultiple = LeastCommonMultiple(randomInts2Stepper);
+			Console.WriteLine("    LCM(" + string.Join(", ", randomInts2) + "): " + leastCommonMultiple);
+
+			int factorial = Factorial(random7);
+			Console.WriteLine("    " + random7 + "!: " + factorial);
+
+			int combinations = Combinations(7, new int[] { 3, 4 });
+			Console.WriteLine("    7! / (3! * 4!): " + combinations);
+
+			int binomialCoefficient = BinomialCoefficient(7, 2);
+			Console.WriteLine("    7 choose 2: " + binomialCoefficient);
+
 			Console.Write("    Prime Factors(" + random8 + "): ");
-			FactorPrimes(random8, i => Console.Write(i + " "));
+			FactorPrimes(random8, prime => Console.Write(prime + " "));
 			Console.WriteLine();
 
 			Console.WriteLine();
@@ -209,7 +235,7 @@ namespace Mathematics
 			Console.Write("    Quartiles(data):");
 			foreach (double i in quatiles)
 			{
-				Console.Write(string.Format(" {0:0.00}", i));
+				Console.Write(Format(i));
 			}
 
 			Console.WriteLine();
@@ -248,7 +274,7 @@ namespace Mathematics
 			ConsoleWrite(V / 2);
 
 			// Vector Dot Product
-			Console.WriteLine("    V dot V: " + Vector<double>.DotProduct(V, V));
+			Console.WriteLine("    V dot V: " + V.DotProduct(V));
 			Console.WriteLine();
 
 			// Vector Cross Product
@@ -411,6 +437,28 @@ namespace Mathematics
 			Console.WriteLine("      Simplified: " + symbolicExpression7.Simplify());
 			Console.WriteLine("      Plugin(x = 11): " + symbolicExpression7.Substitute("x", 11d).Simplify());
 			Console.WriteLine();
+
+			#endregion
+
+			#region Fraction
+
+			// Fractions need some work... commenting out for now
+
+			//Console.WriteLine("  Fractions-----------------------------------");
+			//Console.WriteLine();
+			//Fraction128 fraction1 = new Fraction128(2.5);
+			//Console.WriteLine("    fraction1 = " + fraction1);
+			//Fraction128 fraction2 = new Fraction128(3.75);
+			//Console.WriteLine("    fraction2 = " + fraction2);
+			//Console.WriteLine("    fraction1 + fraction2 = " + (fraction1 + fraction2));
+			//Console.WriteLine("    fraction2 - fraction1 = " + (fraction1 - fraction2));
+			//Console.WriteLine("    fraction1 * 2 = " + (fraction1 * 2));
+			//Console.WriteLine("    fraction1 / 2 = " + (fraction1 / 2));
+			//Console.WriteLine("    fraction1 > fraction2 = " + (fraction1 > fraction2));
+			//Console.WriteLine("    fraction1 == fraction2 = " + (fraction1 == fraction2));
+			//Console.WriteLine("    fraction1 * 2 == fraction2 = " + (fraction1 * 2 == fraction2));
+			//Console.WriteLine("    fraction1 != fraction2 = " + (fraction1 != fraction2));
+			//Console.WriteLine();
 
 			#endregion
 

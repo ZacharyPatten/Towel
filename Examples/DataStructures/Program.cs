@@ -2,6 +2,7 @@
 using Towel;
 using Towel.DataStructures;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace DataStructures
 {
@@ -259,9 +260,9 @@ namespace DataStructures
 				Console.WriteLine("    So \"Dequeue\" will give us the next closest value to \"5\".");
 				CompareResult Priority(int a, int b)
 				{
-					int _a = Compute.AbsoluteValue(a - 5);
-					int _b = Compute.AbsoluteValue(b - 5);
-					CompareResult comparison = Compare.Wrap(_b.CompareTo(_a));
+					int _a = AbsoluteValue(a - 5);
+					int _b = AbsoluteValue(b - 5);
+					CompareResult comparison = Towel.Compare.Wrap(_b.CompareTo(_a));
 					return comparison;
 				}
 				Console.WriteLine();
@@ -756,7 +757,7 @@ namespace DataStructures
 				for (int i = 0; i < test; i++)
 				{
 					// lets use a heap to randomize the edges using random priorities
-					IHeap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Compare.Wrap(x.Item2.CompareTo(y.Item2)));
+					IHeap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Towel.Compare.Wrap(x.Item2.CompareTo(y.Item2)));
 					for (int j = 0; j < test; j++)
 					{
 						if (j != i)

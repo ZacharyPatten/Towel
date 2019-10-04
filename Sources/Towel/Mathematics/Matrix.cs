@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using Towel.Measurements;
+using static Towel.Syntax;
 
 namespace Towel.Mathematics
 {
@@ -234,7 +235,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
 		{
-			if (Compute.Equal(default(T), Constant<T>.Zero))
+			if (Syntax.Equality(default(T), Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = (ROWS, COLUMNS) => new Matrix<T>(ROWS, COLUMNS);
 			}
@@ -269,13 +270,13 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
 		{
-			if (Compute.Equal(default(T), Constant<T>.Zero))
+			if (Syntax.Equality(default(T), Constant<T>.Zero))
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
 					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
 					T[] MATRIX = matrix._matrix;
-					int minimum = Compute.Minimum(ROWS, COLUMNS);
+					int minimum = Syntax.Minimum(ROWS, COLUMNS);
 					for (int i = 0; i < minimum; i++)
 					{
 						MATRIX[i * COLUMNS + i] = Constant<T>.One;
@@ -326,7 +327,7 @@ namespace Towel.Mathematics
 			int columns = matrix.Columns;
 			for (int i = 0; i < columns; i++)
 			{
-				matrix.Set(row, i, Compute.Multiply(matrix.Get(row, i), scalar));
+				matrix.Set(row, i, Syntax.Multiplication(matrix.Get(row, i), scalar));
 			}
 		}
 
@@ -339,7 +340,7 @@ namespace Towel.Mathematics
 			int columns = matrix.Columns;
 			for (int i = 0; i < columns; i++)
 			{
-				matrix.Set(target, i, Compute.Add(matrix.Get(target, i), Compute.Multiply(matrix.Get(second, i), scalar)));
+				matrix.Set(target, i, Syntax.Addition(matrix.Get(target, i), Syntax.Multiplication(matrix.Get(second, i), scalar)));
 			}
 		}
 
@@ -399,11 +400,11 @@ namespace Towel.Mathematics
 			{
 				GetCofactor(a, temp, 0, f, n);
 				determinent =
-					Compute.Add(determinent,
-						Compute.Multiply(sign,
-							Compute.Multiply(a.Get(0, f),
+					Syntax.Addition(determinent,
+						Syntax.Multiplication(sign,
+							Syntax.Multiplication(a.Get(0, f),
 								GetDeterminant(temp, n - 1))));
-				sign = Compute.Negate(sign);
+				sign = Syntax.Negation(sign);
 			}
 			return determinent;
 		}
@@ -431,7 +432,7 @@ namespace Towel.Mathematics
 			{
 				for (int column = row + 1; column < rows; column++)
 				{
-					if (Compute.NotEqual(A[row * rows + column], A[column * rows + row]))
+					if (Syntax.Inequality(A[row * rows + column], A[column * rows + row]))
 					{
 						return false;
 					}
@@ -479,7 +480,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				B[i] = Compute.Negate(A[i]);
+				B[i] = Syntax.Negation(A[i]);
 			}
 		}
 
@@ -556,7 +557,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Compute.Add(A[i], B[i]);
+				C[i] = Syntax.Addition(A[i], B[i]);
 			}
 		}
 
@@ -637,7 +638,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Compute.Subtract(A[i], B[i]);
+				C[i] = Syntax.Subtraction(A[i], B[i]);
 			}
 		}
 
@@ -740,7 +741,7 @@ namespace Towel.Mathematics
 					T sum = Constant<T>.Zero;
 					for (int k = 0; k < a_Columns; k++)
 					{
-						sum = Compute.MultiplyAddImplementation<T>.Function(A[i_times_a_Columns + k], B[k * c_Columns + j], sum);
+						sum = Syntax.MultiplyAddImplementation<T>.Function(A[i_times_a_Columns + k], B[k * c_Columns + j], sum);
 					}
 					C[i_times_c_Columns + j] = sum;
 				}
@@ -826,7 +827,7 @@ namespace Towel.Mathematics
 				T sum = Constant<T>.Zero;
 				for (int j = 0; j < columns; j++)
 				{
-					sum = Compute.Add(sum, Compute.Multiply(A[i_times_columns + j], B[j]));
+					sum = Syntax.Addition(sum, Syntax.Multiplication(A[i_times_columns + j], B[j]));
 				}
 				C[i] = sum;
 			}
@@ -898,7 +899,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Compute.Multiply(A[i], b);
+				C[i] = Syntax.Multiplication(A[i], b);
 			}
 		}
 
@@ -986,7 +987,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Compute.Divide(A[i], b);
+				C[i] = Syntax.Division(A[i], b);
 			}
 		}
 
@@ -1214,7 +1215,7 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
-			T trace = Compute.Add((Step<T> step) =>
+			T trace = Syntax.Addition((Step<T> step) =>
 			{
 				T[] A = a._matrix;
 				int rows = a.Rows;
@@ -1457,35 +1458,35 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Rows; i++)
 			{
-				if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+				if (Syntax.Equality(b.Get(i, i), Constant<T>.Zero))
 				{
 					for (int j = i + 1; j < Rows; j++)
 					{
-						if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+						if (Syntax.Inequality(b.Get(j, i), Constant<T>.Zero))
 						{
 							SwapRows(b, i, j);
 						}
 					}
 				}
-				if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+				if (Syntax.Equality(b.Get(i, i), Constant<T>.Zero))
 				{
 					continue;
 				}
-				if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+				if (Syntax.Inequality(b.Get(i, i), Constant<T>.One))
 				{
 					for (int j = i + 1; j < Rows; j++)
 					{
-						if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+						if (Syntax.Equality(b.Get(j, i), Constant<T>.One))
 						{
 							SwapRows(b, i, j);
 						}
 					}
 				}
-				T rowMultipier = Compute.Divide(Constant<T>.One, b.Get(i, i));
+				T rowMultipier = Syntax.Division(Constant<T>.One, b.Get(i, i));
 				RowMultiplication(b, i, rowMultipier);
 				for (int j = i + 1; j < Rows; j++)
 				{
-					T rowAddend = Compute.Negate(b.Get(j, i));
+					T rowAddend = Syntax.Negation(b.Get(j, i));
 					RowAddition(b, j, i, rowAddend);
 				}
 			}
@@ -1549,7 +1550,7 @@ namespace Towel.Mathematics
 			{
 				if (Columns <= lead) break;
 				int i = r;
-				while (Compute.Equal(b.Get(i, lead), Constant<T>.Zero))
+				while (Syntax.Equality(b.Get(i, lead), Constant<T>.Zero))
 				{
 					i++;
 					if (i == Rows)
@@ -1570,11 +1571,11 @@ namespace Towel.Mathematics
 					b.Set(i, j, temp);
 				}
 				T div = b.Get(r, lead);
-				if (Compute.NotEqual(div, Constant<T>.Zero))
+				if (Syntax.Inequality(div, Constant<T>.Zero))
 				{
 					for (int j = 0; j < Columns; j++)
 					{
-						b.Set(r, j, Compute.Divide(b.Get(r, j), div));
+						b.Set(r, j, Syntax.Division(b.Get(r, j), div));
 					}
 				}
 				for (int j = 0; j < Rows; j++)
@@ -1584,7 +1585,7 @@ namespace Towel.Mathematics
 						T sub = b.Get(j, lead);
 						for (int k = 0; k < Columns; k++)
 						{
-							b.Set(j, k, Compute.Subtract(b.Get(j, k), Compute.Multiply(sub, b.Get(r, k))));
+							b.Set(j, k, Syntax.Subtraction(b.Get(j, k), Syntax.Multiplication(sub, b.Get(r, k))));
 						}
 					}
 				}
@@ -1697,7 +1698,7 @@ namespace Towel.Mathematics
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
 			T determinent = Determinent(a);
-			if (Compute.Equal(determinent, Constant<T>.Zero))
+			if (Syntax.Equality(determinent, Constant<T>.Zero))
 			{
 				throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
 			}
@@ -1721,7 +1722,7 @@ namespace Towel.Mathematics
 			{
 				for (int j = 0; j < dimension; j++)
 				{
-					b.Set(i, j, Compute.Divide(adjoint.Get(i, j), determinent));
+					b.Set(i, j, Syntax.Division(adjoint.Get(i, j), determinent));
 				}
 			}
 
@@ -1864,7 +1865,7 @@ namespace Towel.Mathematics
 				{
 					GetCofactor(a, temp, i, j, dimension);
 					sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
-					b.Set(j, i, Compute.Multiply(sign, GetDeterminant(temp, dimension - 1)));
+					b.Set(j, i, Syntax.Multiplication(sign, GetDeterminant(temp, dimension - 1)));
 				}
 			}
 
@@ -2029,13 +2030,13 @@ namespace Towel.Mathematics
 				p = Constant<T>.Zero;
 				for (int i = k; i < matrix.Rows; i++)
 				{
-					if (Compute.GreaterThan(Compute.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Compute.Negate(upper[i, k]), p))
+					if (Syntax.GreaterThan(Syntax.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Syntax.Negation(upper[i, k]), p))
 					{
-						p = Compute.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Compute.Negate(upper[i, k]);
+						p = Syntax.GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Syntax.Negation(upper[i, k]);
 						k0 = i;
 					}
 				}
-				if (Compute.Equal(p, Constant<T>.Zero))
+				if (Syntax.Equality(p, Constant<T>.Zero))
 				{
 					throw new MathematicsException("The matrix is singular!");
 				}
@@ -2050,7 +2051,7 @@ namespace Towel.Mathematics
 				}
 				if (k != k0)
 				{
-					detOfP = Compute.Multiply(detOfP, Constant<T>.NegativeOne);
+					detOfP = Syntax.Multiplication(detOfP, Constant<T>.NegativeOne);
 				}
 				for (int i = 0; i < matrix.Columns; i++)
 				{
@@ -2060,10 +2061,10 @@ namespace Towel.Mathematics
 				}
 				for (int i = k + 1; i < matrix.Rows; i++)
 				{
-					lower[i, k] = Compute.Divide(upper[i, k], upper[k, k]);
+					lower[i, k] = Syntax.Division(upper[i, k], upper[k, k]);
 					for (int j = k; j < matrix.Columns; j++)
 					{
-						upper[i, j] = Compute.Subtract(upper[i, j], Compute.Multiply(lower[i, k], upper[k, j]));
+						upper[i, j] = Syntax.Subtraction(upper[i, j], Syntax.Multiplication(lower[i, k], upper[k, j]));
 					}
 				}
 			}
@@ -2150,48 +2151,48 @@ namespace Towel.Mathematics
 			}
 
 			// if the angle is zero, no rotation is required
-			if (Compute.Equal(angle._measurement, Constant<T>.Zero))
+			if (Syntax.Equality(angle._measurement, Constant<T>.Zero))
 			{
 				return matrix.Clone();
 			}
 
-			T cosine = Compute.CosineSystem(angle);
-			T sine = Compute.SineSystem(angle);
-			T oneMinusCosine = Compute.Subtract(Constant<T>.One, cosine);
-			T xy = Compute.Multiply(axis.X, axis.Y);
-			T yz = Compute.Multiply(axis.Y, axis.Z);
-			T xz = Compute.Multiply(axis.X, axis.Z);
-			T xs = Compute.Multiply(axis.X, sine);
-			T ys = Compute.Multiply(axis.Y, sine);
-			T zs = Compute.Multiply(axis.Z, sine);
+			T cosine = Syntax.CosineSystem(angle);
+			T sine = Syntax.SineSystem(angle);
+			T oneMinusCosine = Syntax.Subtraction(Constant<T>.One, cosine);
+			T xy = Syntax.Multiplication(axis.X, axis.Y);
+			T yz = Syntax.Multiplication(axis.Y, axis.Z);
+			T xz = Syntax.Multiplication(axis.X, axis.Z);
+			T xs = Syntax.Multiplication(axis.X, sine);
+			T ys = Syntax.Multiplication(axis.Y, sine);
+			T zs = Syntax.Multiplication(axis.Z, sine);
 
-			T f00 = Compute.Add(Compute.Multiply(Compute.Multiply(axis.X, axis.X), oneMinusCosine), cosine);
-			T f01 = Compute.Add(Compute.Multiply(xy, oneMinusCosine), zs);
-			T f02 = Compute.Subtract(Compute.Multiply(xz, oneMinusCosine), ys);
+			T f00 = Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(axis.X, axis.X), oneMinusCosine), cosine);
+			T f01 = Syntax.Addition(Syntax.Multiplication(xy, oneMinusCosine), zs);
+			T f02 = Syntax.Subtraction(Syntax.Multiplication(xz, oneMinusCosine), ys);
 			// n[3] not used
-			T f10 = Compute.Subtract(Compute.Multiply(xy, oneMinusCosine), zs);
-			T f11 = Compute.Add(Compute.Multiply(Compute.Multiply(axis.Y, axis.Y), oneMinusCosine), cosine);
-			T f12 = Compute.Add(Compute.Multiply(yz, oneMinusCosine), xs);
+			T f10 = Syntax.Subtraction(Syntax.Multiplication(xy, oneMinusCosine), zs);
+			T f11 = Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(axis.Y, axis.Y), oneMinusCosine), cosine);
+			T f12 = Syntax.Addition(Syntax.Multiplication(yz, oneMinusCosine), xs);
 			// n[7] not used
-			T f20 = Compute.Add(Compute.Multiply(xz, oneMinusCosine), ys);
-			T f21 = Compute.Subtract(Compute.Multiply(yz, oneMinusCosine), xs);
-			T f22 = Compute.Add(Compute.Multiply(Compute.Multiply(axis.Z, axis.Z), oneMinusCosine), cosine);
+			T f20 = Syntax.Addition(Syntax.Multiplication(xz, oneMinusCosine), ys);
+			T f21 = Syntax.Subtraction(Syntax.Multiplication(yz, oneMinusCosine), xs);
+			T f22 = Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(axis.Z, axis.Z), oneMinusCosine), cosine);
 
 			// Row 1
-			T _0_0 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 0], f00), Compute.Multiply(matrix[1, 0], f01)), Compute.Multiply(matrix[2, 0], f02));
-			T _0_1 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 1], f00), Compute.Multiply(matrix[1, 1], f01)), Compute.Multiply(matrix[2, 1], f02));
-			T _0_2 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 2], f00), Compute.Multiply(matrix[1, 2], f01)), Compute.Multiply(matrix[2, 2], f02));
-			T _0_3 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 3], f00), Compute.Multiply(matrix[1, 3], f01)), Compute.Multiply(matrix[2, 3], f02));
+			T _0_0 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 0], f00), Syntax.Multiplication(matrix[1, 0], f01)), Syntax.Multiplication(matrix[2, 0], f02));
+			T _0_1 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 1], f00), Syntax.Multiplication(matrix[1, 1], f01)), Syntax.Multiplication(matrix[2, 1], f02));
+			T _0_2 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 2], f00), Syntax.Multiplication(matrix[1, 2], f01)), Syntax.Multiplication(matrix[2, 2], f02));
+			T _0_3 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 3], f00), Syntax.Multiplication(matrix[1, 3], f01)), Syntax.Multiplication(matrix[2, 3], f02));
 			// Row 2
-			T _1_0 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 0], f10), Compute.Multiply(matrix[1, 0], f11)), Compute.Multiply(matrix[2, 0], f12));
-			T _1_1 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 1], f10), Compute.Multiply(matrix[1, 1], f11)), Compute.Multiply(matrix[2, 1], f12));
-			T _1_2 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 2], f10), Compute.Multiply(matrix[1, 2], f11)), Compute.Multiply(matrix[2, 2], f12));
-			T _1_3 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 3], f10), Compute.Multiply(matrix[1, 3], f11)), Compute.Multiply(matrix[2, 3], f12));
+			T _1_0 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 0], f10), Syntax.Multiplication(matrix[1, 0], f11)), Syntax.Multiplication(matrix[2, 0], f12));
+			T _1_1 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 1], f10), Syntax.Multiplication(matrix[1, 1], f11)), Syntax.Multiplication(matrix[2, 1], f12));
+			T _1_2 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 2], f10), Syntax.Multiplication(matrix[1, 2], f11)), Syntax.Multiplication(matrix[2, 2], f12));
+			T _1_3 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 3], f10), Syntax.Multiplication(matrix[1, 3], f11)), Syntax.Multiplication(matrix[2, 3], f12));
 			// Row 3
-			T _2_0 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 0], f20), Compute.Multiply(matrix[1, 0], f21)), Compute.Multiply(matrix[2, 0], f22));
-			T _2_1 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 1], f20), Compute.Multiply(matrix[1, 1], f21)), Compute.Multiply(matrix[2, 1], f22));
-			T _2_2 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 2], f20), Compute.Multiply(matrix[1, 2], f21)), Compute.Multiply(matrix[2, 2], f22));
-			T _2_3 = Compute.Add(Compute.Add(Compute.Multiply(matrix[0, 3], f20), Compute.Multiply(matrix[1, 3], f21)), Compute.Multiply(matrix[2, 3], f22));
+			T _2_0 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 0], f20), Syntax.Multiplication(matrix[1, 0], f21)), Syntax.Multiplication(matrix[2, 0], f22));
+			T _2_1 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 1], f20), Syntax.Multiplication(matrix[1, 1], f21)), Syntax.Multiplication(matrix[2, 1], f22));
+			T _2_2 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 2], f20), Syntax.Multiplication(matrix[1, 2], f21)), Syntax.Multiplication(matrix[2, 2], f22));
+			T _2_3 = Syntax.Addition(Syntax.Addition(Syntax.Multiplication(matrix[0, 3], f20), Syntax.Multiplication(matrix[1, 3], f21)), Syntax.Multiplication(matrix[2, 3], f22));
 			// Row 4
 			T _3_0 = Constant<T>.Zero;
 			T _3_1 = Constant<T>.Zero;
@@ -2285,7 +2286,7 @@ namespace Towel.Mathematics
 			int Length = A.Length;
 			for (int i = 0; i < Length; i++)
 			{
-				if (!Compute.Equal(A[i], B[i]))
+				if (!Syntax.Equality(A[i], B[i]))
 				{
 					return false;
 				}
@@ -2356,7 +2357,7 @@ namespace Towel.Mathematics
 			int Length = A.Length;
 			for (int i = 0; i < Length; i++)
 			{
-				if (!Compute.EqualLeniency(A[i], B[i], leniency))
+				if (!Syntax.EqualityLeniency(A[i], B[i], leniency))
 				{
 					return false;
 				}

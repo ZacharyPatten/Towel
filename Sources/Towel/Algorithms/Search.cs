@@ -1,6 +1,6 @@
 ﻿using System;
 using Towel.DataStructures;
-using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Algorithms
 {
@@ -170,7 +170,7 @@ namespace Towel.Algorithms
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>>(
 				// NOTE: Typical A* implementations prioritize smaller values
-				(a, b) => Compute.Compare(b.Priority, a.Priority));
+				(a, b) => Comparison(b.Priority, a.Priority));
 
 			// push starting node
 			fringe.Enqueue(
@@ -195,13 +195,13 @@ namespace Towel.Algorithms
 					neighbors(current.Value,
 						neighbor =>
 						{
-							Numeric costValue = Compute.Add(current.Cost, cost(current.Value, neighbor));
+							Numeric costValue = Addition(current.Cost, cost(current.Value, neighbor));
 							fringe.Enqueue(
 								new AstarNode<Node, Numeric>()
 								{
 									Previous = current,
 									Value = neighbor,
-									Priority = Compute.Add(heuristic(neighbor), costValue),
+									Priority = Addition(heuristic(neighbor), costValue),
 									Cost = costValue,
 								});
 						});
@@ -293,7 +293,7 @@ namespace Towel.Algorithms
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
 			IHeap<GreedyNode<Node, Numeric>> fringe = new HeapArray<GreedyNode<Node, Numeric>>(
 				// NOTE: Typical graph search implementations prioritize smaller values
-				(a, b) => Compute.Compare(b.Priority, a.Priority));
+				(a, b) => Comparison(b.Priority, a.Priority));
 
 			// push starting node
 			fringe.Enqueue(

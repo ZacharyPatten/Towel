@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Towel;
 using Towel.DataStructures;
-using static Towel.Mathematics.Compute;
+using static Towel.Syntax;
 using SVector3 = System.Numerics.Vector3;
 
 namespace CollisionDetection3D

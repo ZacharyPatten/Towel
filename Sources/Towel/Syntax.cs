@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using Towel.Algorithms;
-using Towel.DataStructures;
-using Towel.Measurements;
+using System.Reflection;
 using System.Linq;
+using Towel.DataStructures;
+using Towel.Algorithms;
+using Towel.Measurements;
 
-namespace Towel.Mathematics
+namespace Towel
 {
-	/// <summary>Static Generic Mathematics Computation.</summary>
-	public static class Compute
+	/// <summary>Towel syntax.</summary>
+	public static class Syntax
 	{
 		#region Internal Optimizations
 
@@ -32,109 +33,592 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Pi
+		#region TryParse
 
-		/// <summary>Computes the value of pi for the provided generic type.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="predicate">The cancellation token for cutting off computation.</param>
-		/// <returns>The computed value of pi.</returns>
-		public static T Pi<T>(Predicate<T> predicate = null)
+		/// <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
+		/// <typeparam name="T">The generic type to make assumptions about.</typeparam>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="Default">The default value if the parse fails.</param>
+		/// <returns>The parsed value or the default value if the parse fails.</returns>
+		public static T TryParse<T>(string @string, T Default = default) =>
+			TryParse(@string, out T value)
+			? value
+			: Default;
+
+		/// <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
+		/// <typeparam name="T">The generic type to make assumptions about.</typeparam>
+		/// <param name="string">The string to be parsed.</param>
+		/// <param name="value">The parsed value if successful or default if not.</param>
+		/// <returns>True if successful or false if not.</returns>
+		public static bool TryParse<T>(string @string, out T value) =>
+			TryParseImplementation<T>.Function(@string, out value);
+
+		internal static class TryParseImplementation<T>
 		{
-			// Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
-			// more terms in computation inproves accuracy
+			internal delegate bool TryParseDelegate(string @string, out T value);
 
-			if (predicate is null)
+			internal static TryParseDelegate Function = (string @string, out T value) =>
 			{
-				int iterations = 0;
-				predicate = PI => iterations < 100;
-			}
-
-			T pi = Constant<T>.One;
-			T previous = Constant<T>.Zero;
-			for (int i = 1; NotEqual(previous, pi) && predicate(pi); i++)
-			{
-				previous = pi;
-				pi = Constant<T>.One;
-				for (int j = i; j >= 1; j--)
-				{
-					#region Without Custom Runtime Compilation
-
-					//T J = FromInt32<T>(j);
-					//T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
-					//T b = Divide(J, a);
-					//T c = Multiply(b, pi);
-					//T d = Add(Constant<T>.One, c);
-					//pi = d;
-
-					#endregion
-
-					pi = AddMultiplyDivideAddImplementation<T>.Function(Assume.Convert<int, T>(j), pi);
-				}
-				pi = Multiply(Constant<T>.Two, pi);
-			}
-			pi = Maximum(pi, Constant<T>.Three);
-			return pi;
-		}
-
-		internal static class AddMultiplyDivideAddImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (j, pi) =>
-			{
-				ParameterExpression J = Expression.Parameter(typeof(T));
-				ParameterExpression PI = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Add(
-					Expression.Constant(Constant<T>.One),
-					Expression.Multiply(
-						PI,
-						Expression.Divide(
-							J,
-							Expression.Add(
-								Expression.Multiply(
-									Expression.Constant(Constant<T>.Two),
-									J),
-								Expression.Constant(Constant<T>.One)))));
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, J, PI).Compile();
-				return Function(j, pi);
+				Type type = typeof(T);
+				Type[] parameterTypes = new Type[] { typeof(string), type.MakeByRefType() };
+				MethodInfo methodInfo =
+					type.GetMethod("TryParse",
+						BindingFlags.Static |
+						BindingFlags.Public |
+						BindingFlags.NonPublic,
+						null,
+						parameterTypes,
+						null);
+				Function =
+					methodInfo is null
+					?
+					(string _string, out T _value) =>
+					{
+						_value = default;
+						return false;
+					}
+				:
+					(TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
+				return Function(@string, out value);
 			};
 		}
 
 		#endregion
 
-		#region Epsilon
+		#region Convert
 
-		// Note sure if this method will be necessary.
+		/// <summary>Assumes a conversion exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the conversion.</returns>
+		public static B Convert<A, B>(A a) =>
+			ConvertImplementation<A, B>.Function(a);
 
-		//internal static T ComputeEpsilon<T>()
+		internal static class ConvertImplementation<A, B>
+		{
+			internal static Func<A, B> Function = a =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				Expression BODY = Expression.Convert(A, typeof(B));
+				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
+				return Function(a);
+			};
+		}
+
+		#endregion
+
+		#region Resolve
+
+		/// <summary>Performs an action and resolves to a given value.</summary>
+		/// <typeparam name="T">The generic type to resolve to.</typeparam>
+		/// <param name="action">The action to perform.</param>
+		/// <param name="result">The value to resolve to.</param>
+		/// <returns>The resolution value.</returns>
+		public static T Resolve<T>(Action action, T result)
+		{
+			action();
+			return result;
+		}
+
+		/// <summary>Performs an action and resolves to a given value.</summary>
+		/// <typeparam name="T">The generic type to resolve to.</typeparam>
+		/// <param name="action">The action to perform.</param>
+		/// <param name="result">The value to resolve to.</param>
+		/// <returns>The resolution value.</returns>
+		public static T Resolve<T>(Action action, ref T result)
+		{
+			action();
+			return result;
+		}
+
+		#endregion
+
+		#region Continue & Break
+
+		/// <summary>Stepper was not broken.</summary>
+		public const StepStatus Continue = StepStatus.Continue;
+
+		/// <summary>Stepper was broken.</summary>
+		public const StepStatus Break = StepStatus.Break;
+
+		#endregion
+
+		#region Greater Less Equal
+
+		/// <summary>The left operand is less than the right operand.</summary>
+		public const CompareResult Less = CompareResult.Less;
+
+		/// <summary>The left operand is equal to the right operand.</summary>
+		public const CompareResult Equal = CompareResult.Equal;
+
+		/// <summary>The left operand is greater than the right operand.</summary>
+		public const CompareResult Greater = CompareResult.Greater;
+
+		#endregion
+
+		// Logic
+
+		#region Equality
+
+		/// <summary>Assumes the equality operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the equality.</returns>
+		public static C Equality<A, B, C>(A a, B b) =>
+			EqualityImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Checks two numeric values for equality [a == b].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the equality check.</param>
+		/// <param name="b">The second operand of the equality check.</param>
+		/// <returns>The result of the equality check.</returns>
+		public static bool Equality<T>(T a, T b) =>
+			Equality<T, T, bool>(a, b);
+
+		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the equality check.</param>
+		/// <param name="b">The second operand of the equality check.</param>
+		/// <param name="c">The remaining operands of the equality check.</param>
+		/// <returns>True if all operands are equal or false if not.</returns>
+		public static bool Equality<T>(T a, T b, params T[] c) =>
+			!Equality(a, b)
+			? false
+			: c.Length > 0
+				? !c.Any(x => !Equality(a, x))
+				: true;
+
+		#region Alternative
+
+		//Equal((StepBreak<T> x) => x(a) == Break
+		//	? Break
+		//	: x(b) == Break
+		//		? Break
+		//		: c.ToStepperBreak()(x));
+
+		#endregion
+
+		#region System.Collections.Generic.IEnumerable<T>
+
+		// I'm not sure it I want to add IEnumerable overloads or not...
+
+		///// <summary>Checks for equality among multiple numeric operands.</summary>
+		///// <typeparam name="T">The numeric type of the operation.</typeparam>
+		///// <param name="iEnumerable">The operands.</param>
+		///// <returns>True if all operands are equal or false if not.</returns>
+		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
 		//{
-		//    if (typeof(T) == typeof(float))
-		//    {
-		//        return (T)(object)float.Epsilon;
-		//    }
-		//    throw new NotImplementedException();
+		//	return Equal(iEnumerable.ToStepperBreak());
+
+		//	#region Alternative
+
+		//	//if (!iEnumerable.TryFirst(out T first))
+		//	//{
+		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
+		//	//}
+		//	//foreach (T value in iEnumerable)
+		//	//{
+		//	//	if (!Equal(first, value))
+		//	//	{
+		//	//		return false;
+		//	//	}
+		//	//}
+		//	//return true;
+
+		//	#endregion
 		//}
 
 		#endregion
 
-		#region Negate
+		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The operands of the equality check.</param>
+		/// <returns>True if all operand are equal or false if not.</returns>
+		public static bool Equality<T>(Stepper<T> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			T value = default;
+			bool assigned = false;
+			bool result = stepper.Any(x => assigned
+				? !Equality(value, x)
+				: Resolve(() => value = x, false));
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
+		}
+
+		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The operands of the equality check.</param>
+		/// <returns>True if all operand are equal or false if not.</returns>
+		public static bool Equality<T>(StepperBreak<T> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			T value = default;
+			bool assigned = false;
+			bool result = stepper.Any(x => assigned
+				? !Equality(value, x)
+				: Resolve(() => value = x, false));
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
+		}
+
+		internal static class EqualityImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Equal(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region Inequality
+
+		/// <summary>Assumes the inequality operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the inequality.</returns>
+		public static C Inequality<A, B, C>(A a, B b) =>
+			InequalityImplementation<A, B, C>.Function(a, b);
+
+
+		/// <summary>Checks two values for inequality [a != b].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the inequality check.</param>
+		/// <param name="b">The second operand of the inequality check.</param>
+		/// <returns>The result of the inequality check.</returns>
+		public static bool Inequality<T>(T a, T b) =>
+			Inequality<T, T, bool>(a, b);
+
+		/// <summary>Checks for iequality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the equality check.</param>
+		/// <param name="b">The second operand of the equality check.</param>
+		/// <param name="c">The remaining operands of the equality check.</param>
+		/// <returns>True if all operands are equal or false if not.</returns>
+		public static bool Inequality<T>(T a, T b, params T[] c) =>
+			Inequality(a, b)
+			? false
+			: c.Length > 0
+				? !c.Any(x => !Inequality(a, x))
+				: true;
+
+		#region Alternative
+
+		//NotEqual((StepBreak<T> x) =>
+		//	x(a) == Break
+		//		? Break
+		//		: x(b) == Break
+		//			? Break
+		//			: c.ToStepperBreak()(x));
+
+		#endregion
+
+		#region System.Collections.Generic.IEnumerable<T>
+
+		// I'm not sure it I want to add IEnumerable overloads or not...
+
+		///// <summary>Checks for equality among multiple numeric operands.</summary>
+		///// <typeparam name="T">The numeric type of the operation.</typeparam>
+		///// <param name="iEnumerable">The operands.</param>
+		///// <returns>True if all operands are equal or false if not.</returns>
+		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
+		//{
+		//	return NotEqual(iEnumerable.ToStepperBreak());
+
+		//	#region Alternative
+
+		//	//if (!iEnumerable.TryFirst(out T first))
+		//	//{
+		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
+		//	//}
+		//	//foreach (T value in iEnumerable)
+		//	//{
+		//	//	if (!NotEqual(first, value))
+		//	//	{
+		//	//		return false;
+		//	//	}
+		//	//}
+		//	//return true;
+
+		//	#endregion
+		//}
+
+		#endregion
+
+		/// <summary>Checks for inequality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The operands of the equality check.</param>
+		/// <returns>True if all operand are equal or false if not.</returns>
+		public static bool Inequality<T>(Stepper<T> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			T value = default;
+			bool assigned = false;
+			bool result = stepper.Any(x => assigned
+				? !Inequality(value, x)
+				: Resolve(() => value = x, false));
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
+		}
+
+		/// <summary>Checks for inequality among multiple numeric operands.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The operands of the equality check.</param>
+		/// <returns>True if all operand are equal or false if not.</returns>
+		public static bool Inequality<T>(StepperBreak<T> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			T value = default;
+			bool assigned = false;
+			bool result = stepper.Any(x => assigned
+				? !Inequality(value, x)
+				: Resolve(() => value = x, false));
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
+		}
+
+
+		internal static class InequalityImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.NotEqual(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region LessThan
+
+		/// <summary>Assumes the less than operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the less than operation.</returns>
+		public static C LessThan<A, B, C>(A a, B b) =>
+			LessThanImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Checks that a numeric value is less than another.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the less than check.</param>
+		/// <param name="b">The second operand of the less than check.</param>
+		/// <returns>The result of the less than check.</returns>
+		public static bool LessThan<T>(T a, T b) =>
+			LessThan<T, T, bool>(a, b);
+
+		internal static class LessThanImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.LessThan(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region GreaterThan
+
+		/// <summary>Assumes the greater than operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the greater than operation.</returns>
+		public static C GreaterThan<A, B, C>(A a, B b) =>
+			GreaterThanImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Checks that a numeric value is greater than another [a > b].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the greater than check.</param>
+		/// <param name="b">The second operand of the greater than check.</param>
+		/// <returns>The result of the greater than check.</returns>
+		public static bool GreaterThan<T>(T a, T b) =>
+			GreaterThan<T, T, bool>(a, b);
+
+		internal static class GreaterThanImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.GreaterThan(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region LessThanOrEqual
+
+		/// <summary>Assumes the less than or equal to operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the less than or equal to operation.</returns>
+		public static C LessThanOrEqual<A, B, C>(A a, B b) =>
+			LessThanOrEqualImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Checks that a numeric value is less than or equal to another.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the less than or equal to check.</param>
+		/// <param name="b">The second operand of the less than or equal to check.</param>
+		/// <returns>The result of the less than or equal to check.</returns>
+		public static bool LessThanOrEqual<T>(T a, T b) =>
+			LessThanOrEqual<T, T, bool>(a, b);
+
+		internal static class LessThanOrEqualImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.LessThanOrEqual(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region GreaterThanOrEqual
+
+		/// <summary>Assumes the greater than or equal to operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the greater than or equal to operation.</returns>
+		public static C GreaterThanOrEqual<A, B, C>(A a, B b) =>
+			GreaterThanOrEqualImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the greater than or equal to check.</param>
+		/// <param name="b">The second operand of the greater than or equal to check.</param>
+		/// <returns>The result of the greater than or equal to check.</returns>
+		public static bool GreaterThanOrEqual<T>(T a, T b) =>
+			GreaterThanOrEqual<T, T, bool>(a, b);
+
+		internal static class GreaterThanOrEqualImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.GreaterThanOrEqual(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		// Mathematics
+
+		#region Negation
+
+		/// <summary>Assumes the addition operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the addition.</returns>
+		public static B Negation<A, B>(A a) =>
+			NegationImplementation<A, B>.Function(a);
 
 		/// <summary>Negates a numeric value [-a].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to negate.</param>
 		/// <returns>The result of the negation.</returns>
-		public static T Negate<T>(T a) =>
-			Assume.Negation<T, T>(a);
+		public static T Negation<T>(T a) =>
+			Negation<T, T>(a);
+
+		internal static class NegationImplementation<A, B>
+		{
+			internal static Func<A, B> Function = a =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				Expression BODY = Expression.Negate(A);
+				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
+				return Function(a);
+			};
+		}
 
 		#endregion
 
-		#region Add
+		#region Addition
+
+		/// <summary>Assumes the addition operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the addition.</returns>
+		public static C Addition<A, B, C>(A a, B b) =>
+			AdditionImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Adds two numeric values [a + b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the addition.</param>
 		/// <param name="b">The second operand of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		public static T Add<T>(T a, T b) =>
-			Assume.Addition<T, T, T>(a, b);
+		public static T Addition<T>(T a, T b) =>
+			Addition<T, T, T>(a, b);
 
 		/// <summary>Adds multiple numeric values [a + b + c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -143,14 +627,14 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the addition.</param>
 		/// <param name="d">The remaining operands of the addition.</param>
 		/// <returns>The result of the addition.</returns>
-		public static T Add<T>(T a, T b, T c, params T[] d) =>
-			Add<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
+		public static T Addition<T>(T a, T b, T c, params T[] d) =>
+			Addition<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Adds multiple numeric values [step_1 + step_2 + step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the addition.</returns>
-		public static T Add<T>(Stepper<T> stepper)
+		public static T Addition<T>(Stepper<T> stepper)
 		{
 			T result = default;
 			bool assigned = false;
@@ -158,7 +642,7 @@ namespace Towel.Mathematics
 			{
 				if (assigned)
 				{
-					result = Add(result, a);
+					result = Addition(result, a);
 				}
 				else
 				{
@@ -173,17 +657,58 @@ namespace Towel.Mathematics
 			return result;
 		}
 
+		/// <summary>Computes the summation of values.</summary>
+		/// <typeparam name="T">The generic type of the values.</typeparam>
+		/// <param name="stepper">The stepper of the values to compute the summation of.</param>
+		/// <returns>The summation of the set of values.</returns>
+		public static T Σ<T>(Stepper<T> stepper) =>
+			Addition(stepper);
+
+		internal static class AdditionImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Add(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
 		#endregion
 
-		#region Subtract
+		#region Subtraction
+
+		/// <summary>Assumes the subtraction operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public static C Subtraction<A, B, C>(A a, B b) =>
+			SubtractionImplementation<A, B, C>.Function(a, b);
+
+		internal static class SubtractionImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Subtract(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
 
 		/// <summary>Subtracts two numeric values [a - b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the subtraction.</param>
 		/// <param name="b">The second operand of the subtraction.</param>
 		/// <returns>The result of the subtraction.</returns>
-		public static T Subtract<T>(T a, T b) =>
-			Assume.Subtraction<T, T, T>(a, b);
+		public static T Subtraction<T>(T a, T b) =>
+			Subtraction<T, T, T>(a, b);
 
 		/// <summary>Subtracts multiple numeric values [a - b - c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -192,14 +717,14 @@ namespace Towel.Mathematics
 		/// <param name="c">The first third of the subtraction.</param>
 		/// <param name="d">The remaining values of the subtraction.</param>
 		/// <returns>The result of the subtraction.</returns>
-		public static T Subtract<T>(T a, T b, T c, params T[] d) =>
-			Subtract<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
+		public static T Subtraction<T>(T a, T b, T c, params T[] d) =>
+			Subtraction<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Subtracts multiple numeric values [step_1 - step_2 - step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the subtraction.</returns>
-		public static T Subtract<T>(Stepper<T> stepper)
+		public static T Subtraction<T>(Stepper<T> stepper)
 		{
 			T result = default;
 			bool assigned = false;
@@ -207,7 +732,7 @@ namespace Towel.Mathematics
 			{
 				if (assigned)
 				{
-					result = Subtract(result, a);
+					result = Subtraction(result, a);
 				}
 				else
 				{
@@ -224,15 +749,25 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Multiply
+		#region Multiplication
+
+		/// <summary>Assumes the multiplication operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static C Multiplication<A, B, C>(A a, B b) =>
+			MultiplicationImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Multiplies two numeric values [a * b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the multiplication.</param>
 		/// <param name="b">The second operand of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		public static T Multiply<T>(T a, T b) =>
-			Assume.Multiplication<T, T, T>(a, b);
+		public static T Multiplication<T>(T a, T b) =>
+			Multiplication<T, T, T>(a, b);
 
 		/// <summary>Multiplies multiple numeric values [a * b * c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -241,14 +776,14 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the multiplication.</param>
 		/// <param name="d">The remaining values of the multiplication.</param>
 		/// <returns>The result of the multiplication.</returns>
-		public static T Multiply<T>(T a, T b, T c, params T[] d) =>
-			Multiply<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
+		public static T Multiplication<T>(T a, T b, T c, params T[] d) =>
+			Multiplication<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the multiplication.</returns>
-		public static T Multiply<T>(Stepper<T> stepper)
+		public static T Multiplication<T>(Stepper<T> stepper)
 		{
 			T result = default;
 			bool assigned = false;
@@ -256,7 +791,7 @@ namespace Towel.Mathematics
 			{
 				if (assigned)
 				{
-					result = Multiply(result, a);
+					result = Multiplication(result, a);
 				}
 				else
 				{
@@ -272,17 +807,46 @@ namespace Towel.Mathematics
 			return result;
 		}
 
+		/// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="stepper">The stepper containing the values.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static T Π<T>(Stepper<T> stepper) =>
+			Multiplication(stepper);
+
+		internal static class MultiplicationImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Multiply(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
 		#endregion
 
-		#region Divide
+		#region Division
+
+		/// <summary>Assumes the division operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the division.</returns>
+		public static C Division<A, B, C>(A a, B b) =>
+			DivisionImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Divides two numeric values [a / b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the division.</param>
 		/// <param name="b">The second operand of the division.</param>
 		/// <returns>The result of the division.</returns>
-		public static T Divide<T>(T a, T b) =>
-			Assume.Division<T, T, T>(a, b);
+		public static T Division<T>(T a, T b) =>
+			Division<T, T, T>(a, b);
 
 		/// <summary>Divides multiple numeric values [a / b / c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -291,14 +855,14 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the division.</param>
 		/// <param name="d">The remaining values of the division.</param>
 		/// <returns>The result of the division.</returns>
-		public static T Divide<T>(T a, T b, T c, params T[] d) =>
-			Divide<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
+		public static T Division<T>(T a, T b, T c, params T[] d) =>
+			Division<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Divides multiple numeric values [step_1 / step_2 / step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the division.</returns>
-		public static T Divide<T>(Stepper<T> stepper)
+		public static T Division<T>(Stepper<T> stepper)
 		{
 			T result = default;
 			bool assigned = false;
@@ -306,7 +870,7 @@ namespace Towel.Mathematics
 			{
 				if (assigned)
 				{
-					result = Divide(result, a);
+					result = Division(result, a);
 				}
 				else
 				{
@@ -321,39 +885,39 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		#endregion
-
-		#region Invert
-
-		/// <summary>Inverts a numeric value [1 / a].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The numeric value to invert.</param>
-		/// <returns>The result of the inversion.</returns>
-		public static T Invert<T>(T a) =>
-			InvertImplementation<T>.Function(a);
-
-		internal static class InvertImplementation<T>
+		internal static class DivisionImplementation<A, B, C>
 		{
-			internal static Func<T, T> Function = a =>
+			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Divide(Expression.Constant(Constant<T>.One), A);
-				Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-				return Function(a);
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Divide(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
 			};
 		}
 
 		#endregion
 
-		#region Modulo
+		#region Remainder
+
+		/// <summary>Assumes the remainder operator exists between types.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the remainder operation.</returns>
+		public static C Remainder<A, B, C>(A a, B b) =>
+			RemainderImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Modulos two numeric values [a % b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the modulation.</param>
 		/// <param name="b">The second operand of the modulation.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Modulo<T>(T a, T b) =>
-			Assume.Remainder<T, T, T>(a, b);
+		public static T Remainder<T>(T a, T b) =>
+			Remainder<T, T, T>(a, b);
 
 		/// <summary>Modulos multiple numeric values [a % b % c...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -362,14 +926,14 @@ namespace Towel.Mathematics
 		/// <param name="c">The third operand of the modulation.</param>
 		/// <param name="d">The remaining values of the modulation.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Modulo<T>(T a, T b, T c, params T[] d) =>
-			Modulo<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
+		public static T Remainder<T>(T a, T b, T c, params T[] d) =>
+			Remainder<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
 		/// <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Modulo<T>(Stepper<T> stepper)
+		public static T Remainder<T>(Stepper<T> stepper)
 		{
 			if (stepper is null)
 			{
@@ -381,7 +945,7 @@ namespace Towel.Mathematics
 			{
 				if (assigned)
 				{
-					result = Modulo(result, a);
+					result = Remainder(result, a);
 				}
 				else
 				{
@@ -395,6 +959,29 @@ namespace Towel.Mathematics
 			}
 			return result;
 		}
+
+		internal static class RemainderImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Modulo(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
+		#region Inversion
+
+		/// <summary>Inverts a numeric value [1 / a].</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The numeric value to invert.</param>
+		/// <returns>The result of the inversion.</returns>
+		public static T Inversion<T>(T a) =>
+			Division(Constant<T>.One, a);
 
 		#endregion
 
@@ -470,10 +1057,10 @@ namespace Towel.Mathematics
 						if (IsInteger(B) && IsPositive(B))
 						{
 							T result = A;
-							int power = Assume.Convert<T, int>(B);
+							int power = Convert<T, int>(B);
 							for (int i = 0; i < power; i++)
 							{
-								result = Multiply(result, A);
+								result = Multiplication(result, A);
 							}
 							return result;
 						}
@@ -552,7 +1139,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The root of the operation.</param>
 		/// <returns>The result of the root.</returns>
 		public static T Root<T>(T a, T b) =>
-			Power(a, Invert(b));
+			Power(a, Inversion(b));
 
 		#endregion
 
@@ -727,7 +1314,7 @@ namespace Towel.Mathematics
 		{
 			if (IsInteger(a) && !LessThan(a, Constant<T>.Two))
 			{
-				if (Equal(a, Constant<T>.Two))
+				if (Equality(a, Constant<T>.Two))
 				{
 					return true;
 				}
@@ -736,9 +1323,9 @@ namespace Towel.Mathematics
 					return false;
 				}
 				T squareRoot = SquareRoot(a);
-				for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Add(divisor, Constant<T>.Two))
+				for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Addition(divisor, Constant<T>.Two))
 				{
-					if (Equal(Modulo<T>(a, divisor), Constant<T>.Zero))
+					if (Equality(Remainder<T>(a, divisor), Constant<T>.Zero))
 					{
 						return false;
 					}
@@ -799,7 +1386,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the maximum operation.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
 		public static T Maximum<T>(T a, T b) =>
-			MaximumImplementation<T>.Function(a, b);
+			GreaterThanOrEqual(a, b) ? a : b;
 
 		/// <summary>Computes the maximum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -823,42 +1410,14 @@ namespace Towel.Mathematics
 			}
 			T result = default;
 			bool assigned = false;
-			void step(T a)
-			{
-				if (assigned)
-				{
-					result = Maximum(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			}
-			stepper(step);
+			stepper(a => assigned = assigned
+				? Resolve(() => result = Maximum(result, a), true)
+				: Resolve(() => result = a, true));
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
 			}
 			return result;
-		}
-
-		internal static class MaximumImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				LabelTarget RETURN = Expression.Label(typeof(T));
-				Expression BODY = Expression.Block(
-					Expression.IfThenElse(
-						Expression.LessThan(A, B),
-						Expression.Return(RETURN, B),
-						Expression.Return(RETURN, A)),
-					Expression.Label(RETURN, Expression.Constant(default(T))));
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
 		}
 
 		#endregion
@@ -871,7 +1430,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the minimum operation.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
 		public static T Minimum<T>(T a, T b) =>
-			MinimumImplementation<T>.Function(a, b);
+			LessThanOrEqual(a, b) ? a : b;
 
 		/// <summary>Computes the minimum of multiple numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -895,41 +1454,14 @@ namespace Towel.Mathematics
 			}
 			T result = default;
 			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Minimum(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
+			stepper(a => assigned = assigned
+				? Resolve(() => result = Minimum(result, a), true)
+				: Resolve(() => result = a, true));
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
 			}
 			return result;
-		}
-
-		internal static class MinimumImplementation<T>
-		{
-			internal static Func<T, T, T> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				LabelTarget RETURN = Expression.Label(typeof(T));
-				Expression BODY = Expression.Block(
-					Expression.IfThenElse(
-						Expression.GreaterThan(A, B),
-						Expression.Return(RETURN, B),
-						Expression.Return(RETURN, A)),
-					Expression.Label(RETURN, Expression.Constant(default(T))));
-				Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
 		}
 
 		#endregion
@@ -943,33 +1475,15 @@ namespace Towel.Mathematics
 		/// <param name="maximum">The maximum of the range to clamp the value by.</param>
 		/// <returns>The value restricted to the provided range.</returns>
 		public static T Clamp<T>(T value, T minimum, T maximum) =>
-			ClampImplementation<T>.Function(value, minimum, maximum);
-
-		internal static class ClampImplementation<T>
-		{
-			internal static Func<T, T, T, T> Function = (T value, T minimum, T maximum) =>
-			{
-				ParameterExpression VALUE = Expression.Parameter(typeof(T));
-				ParameterExpression MINIMUM = Expression.Parameter(typeof(T));
-				ParameterExpression MAXIMUM = Expression.Parameter(typeof(T));
-				LabelTarget RETURN = Expression.Label(typeof(T));
-				Expression BODY = Expression.Block(
-					Expression.IfThenElse(
-						Expression.LessThan(VALUE, MINIMUM),
-						Expression.Return(RETURN, MINIMUM),
-						Expression.IfThenElse(
-							Expression.GreaterThan(VALUE, MAXIMUM),
-							Expression.Return(RETURN, MAXIMUM),
-							Expression.Return(RETURN, VALUE))),
-					Expression.Label(RETURN, Expression.Constant(default(T))));
-				Function = Expression.Lambda<Func<T, T, T, T>>(BODY, VALUE, MINIMUM, MAXIMUM).Compile();
-				return Function(value, minimum, maximum);
-			};
-		}
+			LessThan(value, minimum)
+			? minimum
+			: GreaterThan(value, maximum)
+				? maximum
+				: value;
 
 		#endregion
 
-		#region EqualLeniency
+		#region EqualityLeniency
 
 		/// <summary>Checks for equality between two numeric values with a range of possibly leniency.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -977,11 +1491,11 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="leniency">The allowed distance between the values to still be considered equal.</param>
 		/// <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
-		public static bool EqualLeniency<T>(T a, T b, T leniency) =>
+		public static bool EqualityLeniency<T>(T a, T b, T leniency) =>
 			// TODO: add an ArgumentOutOfBounds check on leniency
-			EqualLeniencyImplementation<T>.Function(a, b, leniency);
+			EqualityLeniencyImplementation<T>.Function(a, b, leniency);
 
-		internal static class EqualLeniencyImplementation<T>
+		internal static class EqualityLeniencyImplementation<T>
 		{
 			internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
 			{
@@ -1007,256 +1521,37 @@ namespace Towel.Mathematics
 
 		#region Compare
 
+		public static CompareResult Comparison<A, B>(A a, B b) =>
+			CompareImplementation<A, B>.Function(a, b);
+
 		/// <summary>Compares two numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the comparison.</param>
 		/// <param name="b">The second operand of the comparison.</param>
 		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Compare<T>(T a, T b) =>
-			CompareImplementation<T>.Function(a, b);
+		//public static CompareResult Comparison<T>(T a, T b) =>
+		//	Comparison<T, T>(a, b);
 
-		internal static class CompareImplementation<T>
+		internal static class CompareImplementation<A, B>
 		{
-			internal static Func<T, T, CompareResult> Function = (a, b) =>
+			internal static Func<A, B, CompareResult> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
 				LabelTarget RETURN = Expression.Label(typeof(CompareResult));
 				Expression BODY = Expression.Block(
 					Expression.IfThen(
 							Expression.LessThan(A, B),
-							Expression.Return(RETURN, Expression.Constant(CompareResult.Less))),
+							Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
 						Expression.IfThen(
 							Expression.GreaterThan(A, B),
-							Expression.Return(RETURN, Expression.Constant(CompareResult.Greater))),
-						Expression.Return(RETURN, Expression.Constant(CompareResult.Equal)),
+							Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
+						Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
 						Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-				//Expression.IfThenElse(
-				//    Expression.LessThan(A, B),
-				//    Expression.Return(RETURN, Expression.Constant(Comparison.Less)),
-				//    Expression.IfThenElse(
-				//        Expression.GreaterThan(A, B),
-				//        Expression.Return(RETURN, Expression.Constant(Comparison.Greater)),
-				//        Expression.Return(RETURN, Expression.Constant(Comparison.Equal)))),
-				//Expression.Label(RETURN, Expression.Constant(default(Comparison), typeof(Comparison))));
-				Function = Expression.Lambda<Func<T, T, CompareResult>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
-
-		#endregion
-
-		#region Equal
-
-		/// <summary>Checks two numeric values for equality [a == b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the equality check.</param>
-		/// <param name="b">The second operand of the equality check.</param>
-		/// <returns>The result of the equality check.</returns>
-		public static bool Equal<T>(T a, T b) =>
-			Assume.Equality<T, T, bool>(a, b);
-
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the equality check.</param>
-		/// <param name="b">The second operand of the equality check.</param>
-		/// <param name="c">The remaining operands of the equality check.</param>
-		/// <returns>True if all operands are equal or false if not.</returns>
-		public static bool Equal<T>(T a, T b, params T[] c)
-		{
-			return Equal((StepBreak<T> x) =>
-			{
-				return x(a) == StepStatus.Break
-					? StepStatus.Break
-					: x(b) == StepStatus.Break
-						? StepStatus.Break
-						: c.ToStepperBreak()(x);
-			});
-
-			#region Alternative
-
-			//if (NotEqual(a, b))
-			//{
-			//	return false;
-			//}
-			//if (c.Length > 0)
-			//{
-			//	for (int i = 0; i < c.Length; i++)
-			//	{
-			//		if (NotEqual(a, c[i]))
-			//		{
-			//			return false;
-			//		}
-			//	}
-			//}
-			//return true;
-
-			#endregion
-		}
-
-		#region System.Collections.Generic.IEnumerable<T>
-
-		// I'm not sure it I want to add IEnumerable overloads or not...
-
-		///// <summary>Checks for equality among multiple numeric operands.</summary>
-		///// <typeparam name="T">The numeric type of the operation.</typeparam>
-		///// <param name="iEnumerable">The operands.</param>
-		///// <returns>True if all operands are equal or false if not.</returns>
-		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
-		//{
-		//	return Equal(iEnumerable.ToStepperBreak());
-
-		//	#region Alternative
-
-		//	//if (!iEnumerable.TryFirst(out T first))
-		//	//{
-		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
-		//	//}
-		//	//foreach (T value in iEnumerable)
-		//	//{
-		//	//	if (!Equal(first, value))
-		//	//	{
-		//	//		return false;
-		//	//	}
-		//	//}
-		//	//return true;
-
-		//	#endregion
-		//}
-
-		#endregion
-
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equal<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			bool result = true;
-			T value = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					if (!Equal(value, a))
-					{
-						result = false;
-					}
-				}
-				else
-				{
-					value = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
-
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equal<T>(StepperBreak<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			bool result = true;
-			T value = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					if (!Equal(value, a))
-					{
-						result = false;
-						return StepStatus.Break;
-					}
-				}
-				else
-				{
-					value = a;
-					assigned = true;
-				}
-				return StepStatus.Continue;
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
-
-		#endregion
-
-		#region NotEqual
-
-		/// <summary>Checks two numeric values for inequality [a != b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the inequality check.</param>
-		/// <param name="b">The second operand of the inequality check.</param>
-		/// <returns>The result of the inequality check.</returns>
-		public static bool NotEqual<T>(T a, T b) =>
-			Assume.Inequality<T, T, bool>(a, b);
-
-		#endregion
-
-		#region LessThan
-
-		/// <summary>Checks that a numeric value is less than another.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the less than check.</param>
-		/// <param name="b">The second operand of the less than check.</param>
-		/// <returns>The result of the less than check.</returns>
-		public static bool LessThan<T>(T a, T b) =>
-			Assume.LessThan<T, T, bool>(a, b);
-
-		#endregion
-
-		#region GreaterThan
-
-		/// <summary>Checks that a numeric value is greater than another [a > b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the greater than check.</param>
-		/// <param name="b">The second operand of the greater than check.</param>
-		/// <returns>The result of the greater than check.</returns>
-		public static bool GreaterThan<T>(T a, T b) =>
-			Assume.GreaterThan<T, T, bool>(a, b);
-
-		#endregion
-
-		#region LessThanOrEqual
-
-		/// <summary>Checks that a numeric value is less than or equal to another.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the less than or equal to check.</param>
-		/// <param name="b">The second operand of the less than or equal to check.</param>
-		/// <returns>The result of the less than or equal to check.</returns>
-		public static bool LessThanOrEqual<T>(T a, T b) =>
-			Assume.LessThanOrEqual<T, T, bool>(a, b);
-
-		#endregion
-
-		#region GreaterThanOrEqual
-
-		/// <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the greater than or equal to check.</param>
-		/// <param name="b">The second operand of the greater than or equal to check.</param>
-		/// <returns>The result of the greater than or equal to check.</returns>
-		public static bool GreaterThanOrEqual<T>(T a, T b) =>
-			Assume.GreaterThanOrEqual<T, T, bool>(a, b);
 
 		#endregion
 
@@ -1289,7 +1584,7 @@ namespace Towel.Mathematics
 				{
 					throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " contains null value(s).");
 				}
-				else if (Equal(n, Constant<T>.Zero))
+				else if (Equality(n, Constant<T>.Zero))
 				{
 					throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
 				}
@@ -1308,9 +1603,9 @@ namespace Towel.Mathematics
 					{
 						T a = answer;
 						T b = n;
-						while (NotEqual(b, Constant<T>.Zero))
+						while (Inequality(b, Constant<T>.Zero))
 						{
-							T remainder = Modulo(a, b);
+							T remainder = Remainder(a, b);
 							a = b;
 							b = remainder;
 						}
@@ -1352,7 +1647,7 @@ namespace Towel.Mathematics
 			T answer = default;
 			stepper(parameter =>
 			{
-				if (Equal(parameter, Constant<T>.Zero))
+				if (Equality(parameter, Constant<T>.Zero))
 				{
 					throw new MathematicsException(nameof(stepper) + " contains 0 value(s).");
 				}
@@ -1368,7 +1663,7 @@ namespace Towel.Mathematics
 				}
 				else
 				{
-					answer = Divide(Multiply(answer, parameter), GreatestCommonFactor(answer, parameter));
+					answer = Division(Multiplication(answer, parameter), GreatestCommonFactor(answer, parameter));
 				}
 			});
 			if (!assigned)
@@ -1390,9 +1685,9 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Arguments out of range !(" + nameof(x0) + " <= " + nameof(x) + " <= " + nameof(x1) + ") [" + x0 + " <= " + x + " <= " + x1 + "].");
 			}
-			if (Equal(x0, x1))
+			if (Equality(x0, x1))
 			{
-				if (NotEqual(y0, y1))
+				if (Inequality(y0, y1))
 				{
 					throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) + ") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
 				}
@@ -1401,7 +1696,7 @@ namespace Towel.Mathematics
 					return y0;
 				}
 			}
-			return Add(y0, Divide(Multiply(Subtract(x, x0), Subtract(y1, y0)), Subtract(x1, x0)));
+			return Addition(y0, Division(Multiplication(Subtraction(x, x0), Subtraction(y1, y0)), Subtraction(x1, x0)));
 		}
 
 		#endregion
@@ -1432,8 +1727,8 @@ namespace Towel.Mathematics
 						throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + " >= 0)");
 					}
 					T result = Constant<T>.One;
-					for (; GreaterThan(A, Constant<T>.One); A = Subtract(A, Constant<T>.One))
-						result = Multiply(A, result);
+					for (; GreaterThan(A, Constant<T>.One); A = Subtraction(A, Constant<T>.One))
+						result = Multiplication(A, result);
 					return result;
 				};
 				return Function(a);
@@ -1458,8 +1753,8 @@ namespace Towel.Mathematics
 				{
 					throw new ArgumentOutOfRangeException(nameof(n) + "[" + i + "]", n[i], "!(" + nameof(n) + "[" + i + "]." + nameof(IsInteger) + ")");
 				}
-				result = Divide(result, Factorial(n[i]));
-				sum = Add(sum, n[i]);
+				result = Division(result, Factorial(n[i]));
+				sum = Addition(sum, n[i]);
 			}
 			if (GreaterThan(sum, N))
 			{
@@ -1495,7 +1790,7 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
 			}
-			return Divide(Factorial(N), Multiply(Factorial(n), Factorial(Subtract(N, n))));
+			return Division(Factorial(N), Multiplication(Factorial(n), Factorial(Subtraction(N, n))));
 		}
 
 		#endregion
@@ -1660,14 +1955,14 @@ namespace Towel.Mathematics
 			T sum = Constant<T>.Zero;
 			stepper(step =>
 			{
-				i = Add(i, Constant<T>.One);
-				sum = Add(sum, step);
+				i = Addition(i, Constant<T>.One);
+				sum = Addition(sum, step);
 			});
-			if (Equal(i, Constant<T>.Zero))
+			if (Equality(i, Constant<T>.Zero))
 			{
 				throw new ArgumentException("The argument is empty.", nameof(stepper));
 			}
-			return Divide(sum, i);
+			return Division(sum, i);
 		}
 
 		#endregion
@@ -1691,7 +1986,7 @@ namespace Towel.Mathematics
 			{
 				T leftMiddle = values[(values.Length / 2) - 1];
 				T rightMiddle = values[values.Length / 2];
-				return Divide(Add(leftMiddle, rightMiddle), Constant<T>.Two);
+				return Division(Addition(leftMiddle, rightMiddle), Constant<T>.Two);
 			}
 		}
 
@@ -1798,8 +2093,8 @@ namespace Towel.Mathematics
 			T count = Constant<T>.Zero;
 			stepper(i =>
 			{
-				count = Add(count, Constant<T>.One);
-				multiple = Multiply(multiple, i);
+				count = Addition(count, Constant<T>.One);
+				multiple = Multiplication(multiple, i);
 			});
 			return Root(multiple, count);
 		}
@@ -1819,11 +2114,11 @@ namespace Towel.Mathematics
 			T count = Constant<T>.Zero;
 			stepper(i =>
 			{
-				T i_minus_mean = Subtract(i, mean);
-				variance = Add(variance, Multiply(i_minus_mean, i_minus_mean));
-				count = Add(count, Constant<T>.One);
+				T i_minus_mean = Subtraction(i, mean);
+				variance = Addition(variance, Multiplication(i_minus_mean, i_minus_mean));
+				count = Addition(count, Constant<T>.One);
 			});
-			return Divide(variance, count);
+			return Division(variance, count);
 		}
 
 		#endregion
@@ -1852,10 +2147,10 @@ namespace Towel.Mathematics
 			T count = Constant<T>.Zero;
 			stepper(i =>
 			{
-				temp = Add(temp, AbsoluteValue(Subtract(i, mean)));
-				count = Add(count, Constant<T>.One);
+				temp = Addition(temp, AbsoluteValue(Subtraction(i, mean)));
+				count = Addition(count, Constant<T>.One);
 			});
-			return Divide(temp, count);
+			return Division(temp, count);
 		}
 
 		#endregion
@@ -1925,23 +2220,23 @@ namespace Towel.Mathematics
 			T[] ordered = new T[count];
 			int a = 0;
 			stepper(i => { ordered[a++] = i; });
-			Sort.Quick(Compare, ordered);
+			Sort.Quick(Comparison, ordered);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];
-			T QUANTILES_PLUS_1 = Assume.Convert<int, T>(quantiles + 1);
-			T ORDERED_LENGTH = Assume.Convert<int, T>(ordered.Length);
+			T QUANTILES_PLUS_1 = Convert<int, T>(quantiles + 1);
+			T ORDERED_LENGTH = Convert<int, T>(ordered.Length);
 			for (int i = 1; i < quantiles; i++)
 			{
-				T I = Assume.Convert<int, T>(i);
-				T temp = Divide(ORDERED_LENGTH, Multiply<T>(QUANTILES_PLUS_1, I));
+				T I = Convert<int, T>(i);
+				T temp = Division(ORDERED_LENGTH, Multiplication<T>(QUANTILES_PLUS_1, I));
 				if (IsInteger(temp))
 				{
-					resultingQuantiles[i] = ordered[Assume.Convert<T, int>(temp)];
+					resultingQuantiles[i] = ordered[Convert<T, int>(temp)];
 				}
 				else
 				{
-					resultingQuantiles[i] = Divide(Add(ordered[Assume.Convert<T, int>(temp)], ordered[Assume.Convert<T, int>(temp) + 1]), Constant<T>.Two);
+					resultingQuantiles[i] = Division(Addition(ordered[Convert<T, int>(temp)], ordered[Convert<T, int>(temp) + 1]), Constant<T>.Two);
 				}
 			}
 			return resultingQuantiles;
@@ -2052,25 +2347,25 @@ namespace Towel.Mathematics
 			T previous;
 			bool isAddTerm = false;
 			T i = Constant<T>.Three;
-			T xSquared = Multiply(x, x);
+			T xSquared = Multiplication(x, x);
 			T xRunningPower = x;
 			T xRunningFactorial = Constant<T>.One;
 			do
 			{
-				xRunningPower = Multiply(xRunningPower, xSquared);
-				xRunningFactorial = Multiply(xRunningFactorial, Multiply(i, Subtract(i, Constant<T>.One)));
+				xRunningPower = Multiplication(xRunningPower, xSquared);
+				xRunningFactorial = Multiplication(xRunningFactorial, Multiplication(i, Subtraction(i, Constant<T>.One)));
 				previous = sine;
 				if (isAddTerm)
 				{
-					sine = Add(sine, Divide(xRunningPower, xRunningFactorial));
+					sine = Addition(sine, Division(xRunningPower, xRunningFactorial));
 				}
 				else
 				{
-					sine = Subtract(sine, Divide(xRunningPower, xRunningFactorial));
+					sine = Subtraction(sine, Division(xRunningPower, xRunningFactorial));
 				}
 				isAddTerm = !isAddTerm;
-				i = Add(i, Constant<T>.Two);
-			} while (NotEqual(sine, previous) && (predicate is null || !predicate(sine)));
+				i = Addition(i, Constant<T>.Two);
+			} while (Inequality(sine, previous) && (predicate is null || !predicate(sine)));
 			return sine;
 		}
 
@@ -2082,9 +2377,9 @@ namespace Towel.Mathematics
 		public static T SineSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Assume.Convert<T, double>(b);
+			double c = Convert<T, double>(b);
 			double d = Math.Sin(c);
-			T e = Assume.Convert<double, T>(d);
+			T e = Convert<double, T>(d);
 			return e;
 		}
 
@@ -2098,22 +2393,22 @@ namespace Towel.Mathematics
 			// y = (-4/π^2)(x - (π/2))^2 + 1
 			// y = (4/π^2)(x - (3π/2))^2 - 1
 
-			T adjusted = Modulo(a[Angle.Units.Radians], Constant<T>.Pi2);
+			T adjusted = Remainder(a[Angle.Units.Radians], Constant<T>.Pi2);
 			if (IsNegative(adjusted))
 			{
-				adjusted = Add(adjusted, Constant<T>.Pi2);
+				adjusted = Addition(adjusted, Constant<T>.Pi2);
 			}
 			if (LessThan(adjusted, Constant<T>.Pi))
 			{
-				T xMinusPiOver2 = Subtract(adjusted, Constant<T>.PiOver2);
-				T xMinusPiOver2Squared = Multiply(xMinusPiOver2, xMinusPiOver2);
-				return Add(Multiply(Constant<T>.Negative4OverPiSquared, xMinusPiOver2Squared), Constant<T>.One);
+				T xMinusPiOver2 = Subtraction(adjusted, Constant<T>.PiOver2);
+				T xMinusPiOver2Squared = Multiplication(xMinusPiOver2, xMinusPiOver2);
+				return Addition(Multiplication(Constant<T>.Negative4OverPiSquared, xMinusPiOver2Squared), Constant<T>.One);
 			}
 			else
 			{
-				T xMinus3PiOver2 = Subtract(adjusted, Constant<T>.Pi3Over2);
-				T xMinus3PiOver2Squared = Multiply(xMinus3PiOver2, xMinus3PiOver2);
-				return Subtract(Multiply(Constant<T>.FourOverPiSquared, xMinus3PiOver2Squared), Constant<T>.One);
+				T xMinus3PiOver2 = Subtraction(adjusted, Constant<T>.Pi3Over2);
+				T xMinus3PiOver2Squared = Multiplication(xMinus3PiOver2, xMinus3PiOver2);
+				return Subtraction(Multiplication(Constant<T>.FourOverPiSquared, xMinus3PiOver2Squared), Constant<T>.One);
 			}
 		}
 
@@ -2136,27 +2431,27 @@ namespace Towel.Mathematics
 			T x = a[Angle.Units.Radians];
 			T cosine = Constant<T>.One;
 			T previous;
-			T xSquared = Multiply(x, x);
+			T xSquared = Multiplication(x, x);
 			T xRunningPower = Constant<T>.One;
 			T xRunningFactorial = Constant<T>.One;
 			bool isAddTerm = false;
 			T i = Constant<T>.Two;
 			do
 			{
-				xRunningPower = Multiply(xRunningPower, xSquared);
-				xRunningFactorial = Multiply(xRunningFactorial, Multiply(i, Subtract(i, Constant<T>.One)));
+				xRunningPower = Multiplication(xRunningPower, xSquared);
+				xRunningFactorial = Multiplication(xRunningFactorial, Multiplication(i, Subtraction(i, Constant<T>.One)));
 				previous = cosine;
 				if (isAddTerm)
 				{
-					cosine = Add(cosine, Divide(xRunningPower, xRunningFactorial));
+					cosine = Addition(cosine, Division(xRunningPower, xRunningFactorial));
 				}
 				else
 				{
-					cosine = Subtract(cosine, Divide(xRunningPower, xRunningFactorial));
+					cosine = Subtraction(cosine, Division(xRunningPower, xRunningFactorial));
 				}
 				isAddTerm = !isAddTerm;
-				i = Add(i, Constant<T>.Two);
-			} while (NotEqual(cosine, previous) && (predicate is null || !predicate(cosine)));
+				i = Addition(i, Constant<T>.Two);
+			} while (Inequality(cosine, previous) && (predicate is null || !predicate(cosine)));
 			return cosine;
 		}
 
@@ -2168,9 +2463,9 @@ namespace Towel.Mathematics
 		public static T CosineSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Assume.Convert<T, double>(b);
+			double c = Convert<T, double>(b);
 			double d = Math.Cos(c);
-			T e = Assume.Convert<double, T>(d);
+			T e = Convert<double, T>(d);
 			return e;
 		}
 
@@ -2194,7 +2489,7 @@ namespace Towel.Mathematics
 		/// <returns>The taylor series computed tangent ratio of the provided angle.</returns>
 		public static T TangentTaylorSeries<T>(Angle<T> a)
 		{
-			return Divide(SineTaylorSeries(a), CosineTaylorSeries(a));
+			return Division(SineTaylorSeries(a), CosineTaylorSeries(a));
 		}
 
 		/// <summary>Computes the tangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
@@ -2205,9 +2500,9 @@ namespace Towel.Mathematics
 		public static T TangentSystem<T>(Angle<T> a)
 		{
 			T b = a[Angle.Units.Radians];
-			double c = Assume.Convert<T, double>(b);
+			double c = Convert<T, double>(b);
 			double d = Math.Tan(c);
-			T e = Assume.Convert<double, T>(d);
+			T e = Convert<double, T>(d);
 			return e;
 		}
 
@@ -2217,7 +2512,7 @@ namespace Towel.Mathematics
 		/// <returns>The quadratic estimation of the tangent ratio of the provided angle.</returns>
 		public static T TangentQuadratic<T>(Angle<T> a)
 		{
-			return Divide(SineQuadratic(a), CosineQuadratic(a));
+			return Division(SineQuadratic(a), CosineQuadratic(a));
 		}
 
 		#endregion
@@ -2231,7 +2526,7 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T CosecantSystem<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, SineSystem(a));
+			return Division(Constant<T>.One, SineSystem(a));
 		}
 
 		/// <summary>Estimates the cosecant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2240,7 +2535,7 @@ namespace Towel.Mathematics
 		/// <returns>The quadratic estimation of the cosecant ratio of the provided angle.</returns>
 		public static T CosecantQuadratic<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, SineQuadratic(a));
+			return Division(Constant<T>.One, SineQuadratic(a));
 		}
 
 		#endregion
@@ -2254,7 +2549,7 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T SecantSystem<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, CosineSystem(a));
+			return Division(Constant<T>.One, CosineSystem(a));
 		}
 
 		/// <summary>Estimates the secant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2263,7 +2558,7 @@ namespace Towel.Mathematics
 		/// <returns>The quadratic estimation of the secant ratio of the provided angle.</returns>
 		public static T SecantQuadratic<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, CosineQuadratic(a));
+			return Division(Constant<T>.One, CosineQuadratic(a));
 		}
 
 		#endregion
@@ -2277,7 +2572,7 @@ namespace Towel.Mathematics
 		/// <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
 		public static T CotangentSystem<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, TangentSystem(a));
+			return Division(Constant<T>.One, TangentSystem(a));
 		}
 
 		/// <summary>Estimates the cotangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
@@ -2286,7 +2581,7 @@ namespace Towel.Mathematics
 		/// <returns>The quadratic estimation of the cotangent ratio of the provided angle.</returns>
 		public static T CotangentQuadratic<T>(Angle<T> a)
 		{
-			return Divide(Constant<T>.One, TangentQuadratic(a));
+			return Division(Constant<T>.One, TangentQuadratic(a));
 		}
 
 		#endregion
@@ -2569,27 +2864,27 @@ namespace Towel.Mathematics
 			T sumy = Constant<T>.Zero;
 			points((x, y) =>
 			{
-				sumx = Add(sumx, x);
-				sumy = Add(sumy, y);
+				sumx = Addition(sumx, x);
+				sumy = Addition(sumy, y);
 				count++;
 			});
 			if (count < 2)
 			{
 				throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count() >= 2)");
 			}
-			T tcount = Assume.Convert<int, T>(count);
-			T meanx = Divide(sumx, tcount);
-			T meany = Divide(sumy, tcount);
+			T tcount = Convert<int, T>(count);
+			T meanx = Division(sumx, tcount);
+			T meany = Division(sumy, tcount);
 			T variancex = Constant<T>.Zero;
 			T variancey = Constant<T>.Zero;
 			points((x, y) =>
 			{
-				T offset = Subtract(x, meanx);
-				variancey = Add(variancey, Multiply(offset, Subtract(y, meany)));
-				variancex = Add(variancex, Multiply(offset, offset));
+				T offset = Subtraction(x, meanx);
+				variancey = Addition(variancey, Multiplication(offset, Subtraction(y, meany)));
+				variancex = Addition(variancex, Multiplication(offset, offset));
 			});
-			slope = Divide(variancey, variancex);
-			y_intercept = Subtract(meany, Multiply(slope, meanx));
+			slope = Division(variancey, variancex);
+			y_intercept = Subtraction(meany, Multiplication(slope, meanx));
 		}
 
 		#endregion
@@ -2616,19 +2911,19 @@ namespace Towel.Mathematics
 					if (IsNegative(A))
 					{
 						A = AbsoluteValue(A);
-						step(Assume.Convert<int, T>(-1));
+						step(Convert<int, T>(-1));
 					}
 					while (IsEven(A))
 					{
 						step(Constant<T>.Two);
-						A = Divide(A, Constant<T>.Two);
+						A = Division(A, Constant<T>.Two);
 					}
-					for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Add(i, Constant<T>.Two))
+					for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Addition(i, Constant<T>.Two))
 					{
-						while (Equal(Modulo(A, i), Constant<T>.Zero))
+						while (Equality(Remainder(A, i), Constant<T>.Zero))
 						{
 							step(i);
-							A = Divide(A, i);
+							A = Division(A, i);
 						}
 					}
 					if (GreaterThan(A, Constant<T>.Two))

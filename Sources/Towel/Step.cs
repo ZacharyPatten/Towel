@@ -237,7 +237,6 @@ namespace Towel
 		/// <returns>The filtered stepper.</returns>
 		public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate) =>
 			step =>
-			{
 				stepper(x =>
 				{
 					if (predicate(x))
@@ -245,7 +244,6 @@ namespace Towel
 						step(x);
 					}
 				});
-			};
 
 		/// <summary>Steps through a set number of integers.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
@@ -411,6 +409,32 @@ namespace Towel
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
 		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
 			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
+
+		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
+		/// <typeparam name="T">The generic type of the stepper.</typeparam>
+		/// <param name="stepper">The stepper to determine if any predicated values exist.</param>
+		/// <param name="where">The predicate.</param>
+		/// <returns>True if any of the predicated values exist or </returns>
+		public static bool Any<T>(this Stepper<T> stepper, Predicate<T> where)
+		{
+			bool any = false;
+			stepper(x => any = any || where(x));
+			return any;
+		}
+
+		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
+		/// <typeparam name="T">The generic type of the stepper.</typeparam>
+		/// <param name="stepper">The stepper to determine if any predicated values exist.</param>
+		/// <param name="where">The predicate.</param>
+		/// <returns>True if any of the predicated values exist or </returns>
+		public static bool Any<T>(this StepperBreak<T> stepper, Predicate<T> where)
+		{
+			bool any = false;
+			stepper(x => (any = where(x))
+				? StepStatus.Break
+				: StepStatus.Continue);
+			return any;
+		}
 
 		#endregion
 	}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Towel;
 using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics

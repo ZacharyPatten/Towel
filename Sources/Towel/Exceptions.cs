@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Towel.Mathematics
+namespace Towel
 {
 	/// <summary>Represents an exception in mathematical computation.</summary>
 	public class MathematicsException : Exception

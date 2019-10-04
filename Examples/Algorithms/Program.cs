@@ -4,6 +4,7 @@ using Towel;
 using Towel.Algorithms;
 using Towel.DataStructures;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Algorithms
 {
@@ -408,14 +409,14 @@ namespace Algorithms
 				//Vector<float>[] dijkstraPathArray = dijkstraPath.ToArray();
 
 				// lets calculate the movement cost of each path to see how they compare
-				float astartTotalCost = Compute.Add<float>(step =>
+				float astartTotalCost = Addition<float>(step =>
 				{
 					for (int i = 0; i < aStarPathArray.Length - 1; i++)
 					{
 						step(costFunction(aStarPathArray[i], aStarPathArray[i + 1]));
 					}
 				});
-				float greedyTotalCost = Compute.Add<float>(step =>
+				float greedyTotalCost = Addition<float>(step =>
 				{
 					for (int i = 0; i < greedyPathArray.Length - 1; i++)
 					{
