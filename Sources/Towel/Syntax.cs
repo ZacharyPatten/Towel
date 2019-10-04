@@ -1536,19 +1536,51 @@ namespace Towel
 		{
 			internal static Func<A, B, CompareResult> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				LabelTarget RETURN = Expression.Label(typeof(CompareResult));
-				Expression BODY = Expression.Block(
-					Expression.IfThen(
-							Expression.LessThan(A, B),
-							Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+				if (typeof(A) == typeof(B) && a is IComparable<B> &&
+					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
+				{
+					CompareImplementation<A, A>.Function = Compare.Default; // Comparer.Default
+				}
+				else
+				{
+					ParameterExpression A = Expression.Parameter(typeof(A));
+					ParameterExpression B = Expression.Parameter(typeof(B));
+
+					Expression lessThanPredicate =
+						typeof(A).IsPrimitive && typeof(B).IsPrimitive
+						? Expression.LessThan(A, B)
+						: Meta.HasLessThan<A, B, bool>()
+							? Expression.LessThan(A, B)
+							: Meta.HasGreaterThan<B, A, bool>()
+								? Expression.GreaterThan(B, A)
+								: null;
+
+					Expression greaterThanPredicate =
+						typeof(A).IsPrimitive && typeof(B).IsPrimitive
+						? Expression.GreaterThan(A, B)
+						: Meta.HasGreaterThan<A, B, bool>()
+							? Expression.GreaterThan(A, B)
+							: Meta.HasLessThan<B, A, bool>()
+								? Expression.LessThan(B, A)
+								: null;
+
+					if (lessThanPredicate is null || greaterThanPredicate is null)
+					{
+						throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
+					}
+
+					LabelTarget RETURN = Expression.Label(typeof(CompareResult));
+					Expression BODY = Expression.Block(
 						Expression.IfThen(
-							Expression.GreaterThan(A, B),
-							Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
-						Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
-						Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-				Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+								lessThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+							Expression.IfThen(
+								greaterThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
+							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
+							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
+					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+				}
 				return Function(a, b);
 			};
 		}

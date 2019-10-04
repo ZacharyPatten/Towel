@@ -2,16 +2,70 @@
 using System;
 using System.Collections.Generic;
 using Towel;
-using Towel.Measurements;
 using static Towel.Syntax;
+using Towel.Measurements;
 
-namespace Towel_Testing.Mathematics
+namespace Towel_Testing
 {
-	[TestClass]
-	public class Compute_Testing
+	[TestClass] public class Syntax_Testing
 	{
-		[TestMethod]
-		public void Negate_Testing()
+		[TestMethod] public void TryParse_Testing()
+		{
+			{ // successful parse
+				Assert.IsTrue(TryParse("1", out int _integer) && _integer == 1);
+				Assert.IsTrue(TryParse("1.2", out float _float) && _float == 1.2f);
+				Assert.IsTrue(TryParse("1.23", out double _double) && _double == 1.23d);
+				Assert.IsTrue(TryParse("1.234", out decimal _decimal) && _decimal == 1.234m);
+			}
+			{ // default value (parse fails)
+				Assert.IsTrue(TryParse<int>("a", Default: 1) == 1);
+				Assert.IsTrue(TryParse<float>("a", Default: 1) == 1);
+				Assert.IsTrue(TryParse<double>("a", Default: 1) == 1);
+				Assert.IsTrue(TryParse<decimal>("a", Default: 1) == 1);
+			}
+			{ // parse fails
+				Assert.IsFalse(TryParse("a", out int _));
+				Assert.IsFalse(TryParse("a", out float _));
+				Assert.IsFalse(TryParse("a", out double _));
+				Assert.IsFalse(TryParse("a", out decimal _));
+			}
+			{ // successful parse (default override)
+				Assert.IsTrue(TryParse<int>("1", Default: -1) == 1);
+				Assert.IsTrue(TryParse<float>("1.2", Default: -1) == 1.2f);
+				Assert.IsTrue(TryParse<double>("1.23", Default: -1) == 1.23d);
+				Assert.IsTrue(TryParse<decimal>("1.234", Default: -1) == 1.234m);
+			}
+		}
+
+		[TestMethod] public void Convert_Testing()
+		{
+			{ // int
+				Assert.IsTrue(Convert<int, int>(7) == 7);
+				Assert.IsTrue(Convert<int, float>(7) == 7f);
+				Assert.IsTrue(Convert<int, double>(7) == 7d);
+				Assert.IsTrue(Convert<int, decimal>(7) == 7m);
+			}
+			{ // float
+				Assert.IsTrue(Convert<float, int>(7f) == 7);
+				Assert.IsTrue(Convert<float, float>(7f) == 7f);
+				Assert.IsTrue(Convert<float, double>(7f) == 7d);
+				Assert.IsTrue(Convert<float, decimal>(7f) == 7m);
+			}
+			{ // double
+				Assert.IsTrue(Convert<double, int>(7d) == 7);
+				Assert.IsTrue(Convert<double, float>(7d) == 7f);
+				Assert.IsTrue(Convert<double, double>(7d) == 7d);
+				Assert.IsTrue(Convert<double, decimal>(7d) == 7m);
+			}
+			{ // decimal
+				Assert.IsTrue(Convert<decimal, int>(7m) == 7);
+				Assert.IsTrue(Convert<decimal, float>(7m) == 7f);
+				Assert.IsTrue(Convert<decimal, double>(7m) == 7d);
+				Assert.IsTrue(Convert<decimal, decimal>(7m) == 7m);
+			}
+		}
+
+		[TestMethod] public void Negate_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Negation(-3) == 3);
@@ -57,8 +111,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Add_Testing()
+		[TestMethod] public void Add_Testing()
 		{
 			// Binary
 
@@ -107,8 +160,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Addition(-1m, -2m, -3m) == -1m + -2m + -3m);
 		}
 
-		[TestMethod]
-		public void Subtract_Testing()
+		[TestMethod] public void Subtract_Testing()
 		{
 			// Binary
 
@@ -157,8 +209,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Subtraction(-1m, -2m, -3m) == -1m - -2m - -3m);
 		}
 
-		[TestMethod]
-		public void Multiply_Testing()
+		[TestMethod] public void Multiply_Testing()
 		{
 			// Binary
 
@@ -207,8 +258,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Multiplication(-1m, -2m, -3m) == -1m * -2m * -3m);
 		}
 
-		[TestMethod]
-		public void Divide_Testing()
+		[TestMethod] public void Divide_Testing()
 		{
 			// Binary
 
@@ -271,8 +321,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Division(-100m, -10m, -10m) == -100m / -10m / -10m);
 		}
 
-		[TestMethod]
-		public void Invert_Testing()
+		[TestMethod] public void Invert_Testing()
 		{
 			// Note: not entirely sure about the invert method... :/ may remove it
 
@@ -307,8 +356,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Inversion(2m) == 1m / 2m);
 		}
 
-		[TestMethod]
-		public void Modulo_Testing()
+		[TestMethod] public void Modulo_Testing()
 		{
 			// Binary
 
@@ -374,8 +422,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Remainder(-15m, -8m, -3m) == -15m % -8m % -3m);
 		}
 
-		[TestMethod]
-		public void Power_Testing()
+		[TestMethod] public void Power_Testing()
 		{
 			// Binary
 
@@ -412,8 +459,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Power(-2m, 3m) == -8m);
 		}
 
-		[TestMethod]
-		public void Equal_Testing()
+		[TestMethod] public void Equal_Testing()
 		{
 			Assert.IsTrue(Equality(0, 0));
 			Assert.IsTrue(Equality(1, 1));
@@ -454,8 +500,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsFalse(Equality(3, 2, 2));
 		}
 
-		[TestMethod]
-		public void Equal_leniency_Testing()
+		[TestMethod] public void Equal_leniency_Testing()
 		{
 			Assert.IsTrue(EqualityLeniency(0, 0, 0));
 			Assert.IsTrue(EqualityLeniency(1, 1, 0));
@@ -506,8 +551,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsFalse(EqualityLeniency(2m, 4m, 1m));
 		}
 
-		[TestMethod]
-		public void SineTaylorSeries_Testing()
+		[TestMethod] public void SineTaylorSeries_Testing()
 		{
 			double sine_zero = SineTaylorSeries(new Angle<double>(0d, Angle.Units.Radians));
 			Assert.IsTrue(sine_zero == 0d);
@@ -531,8 +575,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(EqualityLeniency(sine_neg3halfsPi, 1d, .00001d));
 		}
 
-		[TestMethod]
-		public void CosineTaylorSeries_Testing()
+		[TestMethod] public void CosineTaylorSeries_Testing()
 		{
 			double cosine_zero = CosineTaylorSeries(new Angle<double>(0d, Angle.Units.Radians));
 			Assert.IsTrue(EqualityLeniency(cosine_zero, 1d, .00001d));
@@ -556,8 +599,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(EqualityLeniency(cosine_neg3halfsPi, 0d, .00001d));
 		}
 
-		[TestMethod]
-		public void SquareRoot_Testing()
+		[TestMethod] public void SquareRoot_Testing()
 		{
 			// int
 			Assert.IsTrue(SquareRoot(1) == 1);
@@ -572,8 +614,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(SquareRoot(10) == 3);
 		}
 
-		[TestMethod]
-		public void IsPrime_Testing()
+		[TestMethod] public void IsPrime_Testing()
 		{
 			HashSet<int> primeNumbers = new HashSet<int>()
 			{
@@ -594,8 +635,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void IsEven_Testing()
+		[TestMethod] public void IsEven_Testing()
 		{
 			Random random = new Random();
 
@@ -655,8 +695,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void IsOdd_Testing()
+		[TestMethod] public void IsOdd_Testing()
 		{
 			Random random = new Random();
 
@@ -716,8 +755,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void AbsoluteValue_Testing()
+		[TestMethod] public void AbsoluteValue_Testing()
 		{
 			{ // int
 				Assert.IsTrue(AbsoluteValue(-3) == 3);
@@ -763,8 +801,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Maximum_Testing()
+		[TestMethod] public void Maximum_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Maximum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == 5);
@@ -791,8 +828,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Minimum_Testing()
+		[TestMethod] public void Minimum_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Minimum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == -5);
@@ -819,8 +855,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void LeastCommonMultiple_Testing()
+		[TestMethod] public void LeastCommonMultiple_Testing()
 		{
 			{ // int
 				Assert.IsTrue(LeastCommonMultiple(1, 2, 3) == 6);
@@ -856,8 +891,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void GreatestCommonFactor_Testing()
+		[TestMethod] public void GreatestCommonFactor_Testing()
 		{
 			{ // int
 				Assert.IsTrue(GreatestCommonFactor(10, 20, 40) == 10);
@@ -889,8 +923,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Factorial_testing()
+		[TestMethod] public void Factorial_testing()
 		{
 			{ // int
 				Assert.IsTrue(Factorial(1) == 1);
@@ -922,8 +955,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void BinomialCoefficient_testing()
+		[TestMethod] public void BinomialCoefficient_testing()
 		{
 			{ // int
 				Assert.IsTrue(BinomialCoefficient(1, 1) == 1);
@@ -955,8 +987,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Median_testing()
+		[TestMethod] public void Median_testing()
 		{
 			{ // int
 				Assert.IsTrue(Median(1, 2, 3, 4, 5) == 3);
@@ -986,8 +1017,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Clamp_Testing()
+		[TestMethod] public void Clamp_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Clamp(5, 3, 7) == 5);
@@ -1011,8 +1041,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void NotEqual_Testing()
+		[TestMethod] public void NotEqual_Testing()
 		{
 			Assert.IsTrue(Inequality(0, 1));
 			Assert.IsTrue(Inequality(-1, 1));
@@ -1035,8 +1064,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Inequality(6m, 7m));
 		}
 
-		[TestMethod]
-		public void Compare_Testing()
+		[TestMethod] public void Comparison_Testing()
 		{
 			Assert.IsTrue(Comparison(0, 0) == CompareResult.Equal);
 			Assert.IsTrue(Comparison(-1, 0) == CompareResult.Less);
@@ -1067,8 +1095,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(Comparison(777m, 777m) == CompareResult.Equal);
 		}
 
-		[TestMethod]
-		public void LessThan_Testing()
+		[TestMethod] public void LessThan_Testing()
 		{
 			Assert.IsFalse(LessThan(0, 0));
 			Assert.IsTrue(LessThan(-1, 0));
@@ -1099,8 +1126,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsFalse(LessThan(777m, 777m));
 		}
 
-		[TestMethod]
-		public void GreaterThan_Testing()
+		[TestMethod] public void GreaterThan_Testing()
 		{
 			Assert.IsFalse(GreaterThan(0, 0));
 			Assert.IsFalse(GreaterThan(-1, 0));
@@ -1131,8 +1157,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsFalse(GreaterThan(777m, 777m));
 		}
 
-		[TestMethod]
-		public void LessThanOrEqual_Testing()
+		[TestMethod] public void LessThanOrEqual_Testing()
 		{
 			Assert.IsTrue(LessThanOrEqual(0, 0));
 			Assert.IsTrue(LessThanOrEqual(-1, 0));
@@ -1163,8 +1188,7 @@ namespace Towel_Testing.Mathematics
 			Assert.IsTrue(LessThanOrEqual(777m, 777m));
 		}
 
-		[TestMethod]
-		public void GreaterThanOrEqual_Testing()
+		[TestMethod] public void GreaterThanOrEqual_Testing()
 		{
 			Assert.IsTrue(GreaterThanOrEqual(0, 0));
 			Assert.IsFalse(GreaterThanOrEqual(-1, 0));

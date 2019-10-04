@@ -5,11 +5,9 @@ using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass]
-	public class HeapArray_Testing
+	[TestClass] public class HeapArray_Testing
 	{
-		[TestMethod]
-		public void Dequeue_Testing()
+		[TestMethod] public void Dequeue_Testing()
 		{
 			void Test<T>(T[] values, Compare<T> compare)
 			{

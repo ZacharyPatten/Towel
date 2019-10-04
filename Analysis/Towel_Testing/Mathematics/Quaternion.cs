@@ -3,11 +3,9 @@ using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
-	[TestClass]
-	public class Quaternion_Testing
+	[TestClass] public class Quaternion_Testing
 	{
-		[TestMethod]
-		public void Magnitude()
+		[TestMethod] public void Magnitude()
 		{
 			// float
 			{
@@ -38,8 +36,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void MagnitudeSquared()
+		[TestMethod] public void MagnitudeSquared()
 		{
 			// float
 			{
@@ -70,8 +67,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Conjugate()
+		[TestMethod] public void Conjugate()
 		{
 			// int
 			{
@@ -119,8 +115,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Add()
+		[TestMethod] public void Add()
 		{
 			// int
 			{
@@ -176,8 +171,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Subtract()
+		[TestMethod] public void Subtract()
 		{
 			// int
 			{
@@ -233,20 +227,17 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Multiply_Quaternion()
+		[TestMethod] public void Multiply_Quaternion()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Multiply_Vector()
+		[TestMethod] public void Multiply_Vector()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Multiply_Scalar()
+		[TestMethod] public void Multiply_Scalar()
 		{
 			// int
 			{
@@ -294,8 +285,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Normalize()
+		[TestMethod] public void Normalize()
 		{
 			// float
 			{
@@ -332,32 +322,27 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Invert()
+		[TestMethod] public void Invert()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Lerp()
+		[TestMethod] public void Lerp()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Slerp()
+		[TestMethod] public void Slerp()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Rotate()
+		[TestMethod] public void Rotate()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
-		[TestMethod]
-		public void Equal()
+		[TestMethod] public void Equal()
 		{
 			// int
 			{
@@ -445,8 +430,7 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod]
-		public void Equal_leniency()
+		[TestMethod] public void Equal_leniency()
 		{
 			// int
 			{

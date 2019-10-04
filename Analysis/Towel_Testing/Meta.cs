@@ -9,13 +9,11 @@ using Towel;
 
 namespace Towel_Testing
 {
-	[TestClass]
-	public class Meta_Testing
+	[TestClass] public class Meta_Testing
 	{
 		#region Type Testing
 
-		[TestMethod]
-		public void Type_ConvertToCsharpSource()
+		[TestMethod] public void Type_ConvertToCsharpSource()
 		{
 			{ // showGenericParameters = false
 				(Type, string)[] testCases = new (Type, string)[]
@@ -96,8 +94,7 @@ namespace Towel_Testing
 
 		#region XML Documentation Testing
 
-		[TestMethod]
-		public void MethodInfo_GetDocumentation()
+		[TestMethod] public void MethodInfo_GetDocumentation()
 		{
 			foreach (MethodInfo methodInfo in Assembly.GetExecutingAssembly().GetMethodInfosWithAttribute<XmlDocumentationFromMethodAttribute>())
 			{
@@ -123,8 +120,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void Type_GetDocumentation()
+		[TestMethod] public void Type_GetDocumentation()
 		{
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
 			{
@@ -150,8 +146,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void FieldInfo_GetDocumentation()
+		[TestMethod] public void FieldInfo_GetDocumentation()
 		{
 			foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
 			{
@@ -177,8 +172,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void ConstructorInfo_GetDocumentation()
+		[TestMethod] public void ConstructorInfo_GetDocumentation()
 		{
 			foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
 			{
@@ -204,8 +198,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void PropertyInfo_GetDocumentation()
+		[TestMethod] public void PropertyInfo_GetDocumentation()
 		{
 			foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
 			{
@@ -231,8 +224,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void EventInfo_GetDocumentation()
+		[TestMethod] public void EventInfo_GetDocumentation()
 		{
 			foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
 			{
@@ -258,8 +250,7 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod]
-		public void ParameterInfo_GetDocumentation()
+		[TestMethod] public void ParameterInfo_GetDocumentation()
 		{
 			string Test1_a = typeof(XmlDocumentationFromParameter).GetMethod("Test1").GetParameters()[0].GetDocumentation();
 			Assert.IsTrue(Test1_a.Equals("<param name=\"a\">TEST a</param>"));
@@ -269,8 +260,7 @@ namespace Towel_Testing
 
 		#region MethodInfo Testing
 
-		[TestMethod]
-		public void MethodInfo_IsLocalFunction()
+		[TestMethod] public void MethodInfo_IsLocalFunction()
 		{
 			void a() { }
 			Assert.IsTrue(new Action(a).Method.IsLocalFunction());
@@ -313,8 +303,7 @@ namespace Towel_Testing
 
 		#region HasImplicitCast
 
-		[TestMethod]
-		public void Meta_HasImplicitCast()
+		[TestMethod] public void Meta_HasImplicitCast()
 		{
 			Assert.Inconclusive("This Test and the underlaying methods are still under consideration.");
 

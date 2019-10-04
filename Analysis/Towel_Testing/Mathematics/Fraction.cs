@@ -1,16 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
 using Towel.Mathematics;
 
-namespace Towel_Testing
+namespace Towel_Testing.Mathematics
 {
 	#region Fraction32
 
-	[TestClass]
-	public class Fraction32_Testing
+	[TestClass] public class Fraction32_Testing
 	{
-		[TestMethod]
-		public void FromDouble()
+		[TestMethod] public void FromDouble()
 		{
 			Fraction32 ZERO = (Fraction32)(0);
 
@@ -32,11 +29,9 @@ namespace Towel_Testing
 
 	#region Fraction64
 
-	[TestClass]
-	public class Fraction64_Testing
+	[TestClass] public class Fraction64_Testing
 	{
-		[TestMethod]
-		public void FromDouble()
+		[TestMethod] public void FromDouble()
 		{
 			Fraction64 ZERO = (Fraction64)(0);
 
@@ -58,11 +53,9 @@ namespace Towel_Testing
 
 	#region Fraction128
 
-	[TestClass]
-	public class Fraction128_Testing
+	[TestClass] public class Fraction128_Testing
 	{
-		[TestMethod]
-		public void FromDouble()
+		[TestMethod] public void FromDouble()
 		{
 			Fraction128 ZERO = (Fraction128)(0);
 

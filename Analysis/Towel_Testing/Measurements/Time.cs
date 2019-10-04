@@ -3,11 +3,9 @@ using Towel.Measurements;
 
 namespace Towel_Testing.Measurements
 {
-	[TestClass]
-	public class Time_Testing
+	[TestClass] public class Time_Testing
 	{
-		[TestMethod]
-		public void Millisecond_Second_Testing()
+		[TestMethod] public void Millisecond_Second_Testing()
 		{
 			{ // int
 				Time<int> a = new Time<int>(1000, Time.Units.Milliseconds);
@@ -31,8 +29,7 @@ namespace Towel_Testing.Measurements
 			}
 		}
 
-		[TestMethod]
-		public void Second_Minutes_Testing()
+		[TestMethod] public void Second_Minutes_Testing()
 		{
 			{ // int
 				Time<int> a = new Time<int>(60, Time.Units.Seconds);
@@ -56,8 +53,7 @@ namespace Towel_Testing.Measurements
 			}
 		}
 
-		[TestMethod]
-		public void Minutes_Hours_Testing()
+		[TestMethod] public void Minutes_Hours_Testing()
 		{
 			{ // int
 				Time<int> a = new Time<int>(60, Time.Units.Minutes);
@@ -81,8 +77,7 @@ namespace Towel_Testing.Measurements
 			}
 		}
 
-		[TestMethod]
-		public void Hours_Days_Testing()
+		[TestMethod] public void Hours_Days_Testing()
 		{
 			{ // int
 				Time<int> a = new Time<int>(24, Time.Units.Hours);

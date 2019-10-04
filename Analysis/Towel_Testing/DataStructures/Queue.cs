@@ -5,11 +5,9 @@ using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass]
-	public class QueueArray_Testing
+	[TestClass] public class QueueArray_Testing
 	{
-		[TestMethod]
-		public void Enqueue_Dequeue_Testing()
+		[TestMethod] public void Enqueue_Dequeue_Testing()
 		{
 			void Test<T>(T[] values)
 			{
@@ -34,8 +32,7 @@ namespace Towel_Testing.DataStructures
 		}
 	}
 
-	[TestClass]
-	public class QueueLinked_Testing
+	[TestClass] public class QueueLinked_Testing
 	{
 		[TestMethod]
 		public void Enqueue_Dequeue_Testing()

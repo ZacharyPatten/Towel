@@ -5,11 +5,9 @@ using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass]
-	public class ListArray_Testing
+	[TestClass] public class ListArray_Testing
 	{
-		[TestMethod]
-		public void Add_Testing()
+		[TestMethod] public void Add_Testing()
 		{
 			const int count = 100000;
 			IList<int> list = new ListArray<int>();
@@ -24,8 +22,7 @@ namespace Towel_Testing.DataStructures
 			values.Stepper(b => Assert.IsTrue(b));
 		}
 
-		[TestMethod]
-		public void Remove_Testing()
+		[TestMethod] public void Remove_Testing()
 		{
 			const int count = 1000;
 			IList<int> list = new ListArray<int>();
@@ -71,8 +68,7 @@ namespace Towel_Testing.DataStructures
 		}
 	}
 
-	[TestClass]
-	public class ListLinked_Testing
+	[TestClass] public class ListLinked_Testing
 	{
 		[TestMethod]
 		public void Add_Testing()
@@ -90,8 +86,7 @@ namespace Towel_Testing.DataStructures
 			values.Stepper(b => Assert.IsTrue(b));
 		}
 
-		[TestMethod]
-		public void Remove_Testing()
+		[TestMethod] public void Remove_Testing()
 		{
 			const int count = 1000;
 			IList<int> list = new ListArray<int>();

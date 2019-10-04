@@ -11,6 +11,93 @@ namespace Towel
 	/// <summary>Constains static analysis methods of the code (reflection).</summary>
 	public static class Meta
 	{
+		#region HasLessThan
+
+		public static bool HasLessThan<A, B, C>() => HasLessThanCache<A, B, C>.Value;
+
+
+		internal static bool HasLessThan(Type a, Type b, Type c)
+		{
+			if (a is null)
+			{
+				throw new ArgumentNullException(nameof(a));
+			}
+			if (b is null)
+			{
+				throw new ArgumentNullException(nameof(b));
+			}
+			Type[] parameterTypes = new Type[] { a, b, };
+			bool CheckType(Type type)
+			{
+				MethodInfo methodInfo = type.GetMethod(
+					"op_LessThan",
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic,
+					null,
+					parameterTypes,
+					null);
+				return !(methodInfo is null)
+					&& methodInfo.ReturnType == c
+					&& methodInfo.IsSpecialName;
+			}
+			if (CheckType(a) || CheckType(b))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		internal static class HasLessThanCache<A, B, C>
+		{
+			internal static readonly bool Value = HasLessThan(typeof(A), typeof(B), typeof(C));
+		}
+
+		#endregion
+
+		#region HasGreaterThan
+
+		public static bool HasGreaterThan<A, B, C>() => HasGreaterThanCache<A, B, C>.Value;
+
+		internal static bool HasGreaterThan(Type a, Type b, Type c)
+		{
+			if (a is null)
+			{
+				throw new ArgumentNullException(nameof(a));
+			}
+			if (b is null)
+			{
+				throw new ArgumentNullException(nameof(b));
+			}
+			Type[] parameterTypes = new Type[] { a, b, };
+			bool CheckType(Type type)
+			{
+				MethodInfo methodInfo = type.GetMethod(
+					"op_GreaterThan",
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic,
+					null,
+					parameterTypes,
+					null);
+				return !(methodInfo is null)
+					&& methodInfo.ReturnType == c
+					&& methodInfo.IsSpecialName;
+			}
+			if (CheckType(a) || CheckType(b))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		internal static class HasGreaterThanCache<A, B, C>
+		{
+			internal static readonly bool Value = HasLessThan(typeof(A), typeof(B), typeof(C));
+		}
+
+		#endregion
+
 		#region Has Implicit/Explicit Cast
 
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>

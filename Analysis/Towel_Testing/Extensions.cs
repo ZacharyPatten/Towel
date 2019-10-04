@@ -3,13 +3,11 @@ using Towel;
 
 namespace Towel_Testing
 {
-	[TestClass]
-	public class Extensions_Testing
+	[TestClass] public class TowelDotNetExtensions_Testing
 	{
 		#region Decimal Testing
 
-		[TestMethod]
-		public void Decimal_ToEnglishWords()
+		[TestMethod] public void Decimal_ToEnglishWords()
 		{
 			Assert.IsTrue((1m).ToEnglishWords().Equals("One"));
 			Assert.IsTrue((-1m).ToEnglishWords().Equals("Negative One"));

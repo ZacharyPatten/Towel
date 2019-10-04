@@ -5,11 +5,9 @@ using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass]
-	public class StackArray_Testing
+	[TestClass] public class StackArray_Testing
 	{
-		[TestMethod]
-		public void Push_Pop_Testing()
+		[TestMethod] public void Push_Pop_Testing()
 		{
 			void Test<T>(T[] values)
 			{
@@ -35,11 +33,9 @@ namespace Towel_Testing.DataStructures
 		}
 	}
 
-	[TestClass]
-	public class StackLinked_Testing
+	[TestClass] public class StackLinked_Testing
 	{
-		[TestMethod]
-		public void Push_Pop_Testing()
+		[TestMethod] public void Push_Pop_Testing()
 		{
 			void Test<T>(T[] values)
 			{
