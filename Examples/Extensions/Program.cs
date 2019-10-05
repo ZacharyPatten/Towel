@@ -80,10 +80,10 @@ namespace Extensions
 			// This function loads in XML documentation so you can access it via reflection.
 			Meta.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 
-			Console.WriteLine("    XML Documentation On Towel.Mathematics.Compute:");
+			Console.WriteLine("    XML Documentation On Towel.Syntax:");
 			Console.WriteLine(typeof(Syntax).GetDocumentation());
 			Console.WriteLine();
-			Console.WriteLine("    XML Documentation On Towel.Mathematics.Constant<float>.Pi:");
+			Console.WriteLine("    XML Documentation On Towel.Constant<float>.Pi:");
 			Console.WriteLine(typeof(Constant<float>).GetField(nameof(Constant<float>.Pi)).GetDocumentation());
 
 			#endregion

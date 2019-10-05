@@ -29647,6 +29647,34 @@
         <member name="T:Towel.Meta">
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
+        <member name="M:Towel.Meta.GetLessThanMethod``3">
+            <summary>Determines if an op_LessThan member exists.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <returns>True if the op_LessThan member exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetLessThanMethod(System.Type,System.Type,System.Type)">
+            <summary>Determines if an op_LessThan member exists.</summary>
+            <param name="a">The type of the left operand.</param>
+            <param name="b">The type of the right operand.</param>
+            <param name="c">The type of the return.</param>
+            <returns>True if the op_LessThan member exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetGreaterThanMethod``3">
+            <summary>Determines if an op_GreaterThan member exists.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <returns>True if the op_GreaterThan member exists or false if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetGreaterThanMethod(System.Type,System.Type,System.Type)">
+            <summary>Determines if an op_GreaterThan member exists.</summary>
+            <param name="a">The type of the left operand.</param>
+            <param name="b">The type of the right operand.</param>
+            <param name="c">The type of the return.</param>
+            <returns>True if the op_GreaterThan member exists or false if not.</returns>
+        </member>
         <member name="M:Towel.Meta.HasImplicitCast``2">
             <summary>Determines if an implicit casting operator exists from one type to another.</summary>
             <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
@@ -29674,6 +29702,7 @@
         <member name="M:Towel.Meta.ConvertToCsharpSource(System.Type,System.Boolean)">
             <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
             <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
+            <param name="showGenericParameters">If the generic parameters are the generic types, whether they should be shown or not.</param>
             <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
         <member name="M:Towel.Meta.GetEnumAttribute``1(System.Enum)">
@@ -30486,6 +30515,31 @@
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
         </member>
+        <member name="M:Towel.Syntax.Π``3(``0,``1)">
+            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Syntax.Π``1(``0,``0)">
+            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Syntax.Π``1(``0,``0,``0,``0[])">
+            <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
+            <param name="c">The third operand.</param>
+            <param name="d">The remaining values.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
+        </member>
         <member name="M:Towel.Syntax.Π``1(Towel.Stepper{``0})">
             <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
@@ -30533,14 +30587,14 @@
             <returns>The result of the remainder operation [<paramref name="a"/> % <paramref name="b"/>].</returns>
         </member>
         <member name="M:Towel.Syntax.Remainder``1(``0,``0)">
-            <summary>Modulos two numeric values [a % b].</summary>
+            <summary>Modulos two numeric values [<paramref name="a"/> % <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the modulation.</param>
             <param name="b">The second operand of the modulation.</param>
             <returns>The result of the modulation.</returns>
         </member>
         <member name="M:Towel.Syntax.Remainder``1(``0,``0,``0,``0[])">
-            <summary>Modulos multiple numeric values [a % b % c...].</summary>
+            <summary>Modulos multiple numeric values [<paramref name="a"/> % <paramref name="b"/> % <paramref name="c"/> % ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the modulation.</param>
             <param name="b">The second operand of the modulation.</param>
@@ -30702,13 +30756,6 @@
             <param name="b">The second operand of the equality check.</param>
             <param name="leniency">The allowed distance between the values to still be considered equal.</param>
             <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
-        </member>
-        <member name="T:Towel.Syntax.CompareImplementation`2">
-            <summary>Compares two numeric values.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The first operand of the comparison.</param>
-            <param name="b">The second operand of the comparison.</param>
-            <returns>The result of the comparison.</returns>
         </member>
         <member name="M:Towel.Syntax.GreatestCommonFactor``1(``0,``0,``0[])">
             <summary>Computes the greatest common factor of a set of numbers.</summary>

@@ -5,18 +5,16 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Towel.DataStructures;
 using System.Linq;
+using static Towel.Syntax;
 
 namespace Towel
 {
 	/// <summary>Constains static analysis methods of the code (reflection).</summary>
 	public static class Meta
 	{
-		#region HasLessThan
+		#region GetIsIntegerMethod
 
-		public static bool HasLessThan<A, B, C>() => HasLessThanCache<A, B, C>.Value;
-
-
-		internal static bool HasLessThan(Type a, Type b, Type c)
+		internal static MethodInfo GetIsIntegerMethod(Type a, Type b, Type c)
 		{
 			if (a is null)
 			{
@@ -27,7 +25,7 @@ namespace Towel
 				throw new ArgumentNullException(nameof(b));
 			}
 			Type[] parameterTypes = new Type[] { a, b, };
-			bool CheckType(Type type)
+			MethodInfo CheckType(Type type)
 			{
 				MethodInfo methodInfo = type.GetMethod(
 					"op_LessThan",
@@ -39,27 +37,29 @@ namespace Towel
 					null);
 				return !(methodInfo is null)
 					&& methodInfo.ReturnType == c
-					&& methodInfo.IsSpecialName;
+						? methodInfo
+						: null;
 			}
-			if (CheckType(a) || CheckType(b))
-			{
-				return true;
-			}
-			return false;
-		}
-
-		internal static class HasLessThanCache<A, B, C>
-		{
-			internal static readonly bool Value = HasLessThan(typeof(A), typeof(B), typeof(C));
+			return CheckType(a) ?? CheckType(b);
 		}
 
 		#endregion
 
-		#region HasGreaterThan
+		#region GetLessThanMethod
 
-		public static bool HasGreaterThan<A, B, C>() => HasGreaterThanCache<A, B, C>.Value;
+		/// <summary>Determines if an op_LessThan member exists.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <returns>True if the op_LessThan member exists or false if not.</returns>
+		public static MethodInfo GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
 
-		internal static bool HasGreaterThan(Type a, Type b, Type c)
+		/// <summary>Determines if an op_LessThan member exists.</summary>
+		/// <param name="a">The type of the left operand.</param>
+		/// <param name="b">The type of the right operand.</param>
+		/// <param name="c">The type of the return.</param>
+		/// <returns>True if the op_LessThan member exists or false if not.</returns>
+		internal static MethodInfo GetLessThanMethod(Type a, Type b, Type c)
 		{
 			if (a is null)
 			{
@@ -70,7 +70,58 @@ namespace Towel
 				throw new ArgumentNullException(nameof(b));
 			}
 			Type[] parameterTypes = new Type[] { a, b, };
-			bool CheckType(Type type)
+			MethodInfo CheckType(Type type)
+			{
+				MethodInfo methodInfo = type.GetMethod(
+					"op_LessThan",
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic,
+					null,
+					parameterTypes,
+					null);
+				return !(methodInfo is null)
+					&& methodInfo.ReturnType == c
+					&& methodInfo.IsSpecialName
+						? methodInfo
+						: null;
+			}
+			return CheckType(a) ?? CheckType(b);
+		}
+
+		internal static class GetLessThanMethodCache<A, B, C>
+		{
+			internal static readonly MethodInfo Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
+		}
+
+		#endregion
+
+		#region GetGreaterThanMethod
+
+		/// <summary>Determines if an op_GreaterThan member exists.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
+		public static MethodInfo GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
+
+		/// <summary>Determines if an op_GreaterThan member exists.</summary>
+		/// <param name="a">The type of the left operand.</param>
+		/// <param name="b">The type of the right operand.</param>
+		/// <param name="c">The type of the return.</param>
+		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
+		internal static MethodInfo GetGreaterThanMethod(Type a, Type b, Type c)
+		{
+			if (a is null)
+			{
+				throw new ArgumentNullException(nameof(a));
+			}
+			if (b is null)
+			{
+				throw new ArgumentNullException(nameof(b));
+			}
+			Type[] parameterTypes = new Type[] { a, b, };
+			MethodInfo CheckType(Type type)
 			{
 				MethodInfo methodInfo = type.GetMethod(
 					"op_GreaterThan",
@@ -82,23 +133,21 @@ namespace Towel
 					null);
 				return !(methodInfo is null)
 					&& methodInfo.ReturnType == c
-					&& methodInfo.IsSpecialName;
+					&& methodInfo.IsSpecialName
+						? methodInfo
+						: null;
 			}
-			if (CheckType(a) || CheckType(b))
-			{
-				return true;
-			}
-			return false;
+			return CheckType(a) ?? CheckType(b);
 		}
 
-		internal static class HasGreaterThanCache<A, B, C>
+		internal static class GetGreaterThanMethodCache<A, B, C>
 		{
-			internal static readonly bool Value = HasLessThan(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
 		}
 
 		#endregion
 
-		#region Has Implicit/Explicit Cast
+		#region Has[Implicit|Explicit]Cast
 
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>
 		/// <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
@@ -168,6 +217,7 @@ namespace Towel
 
 		/// <summary>Converts a <see cref="System.Type"/> into a string as it would appear in C# source code.</summary>
 		/// <param name="type">The <see cref="System.Type"/> to convert to a string.</param>
+		/// <param name="showGenericParameters">If the generic parameters are the generic types, whether they should be shown or not.</param>
 		/// <returns>The string as the <see cref="System.Type"/> would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type, bool showGenericParameters = false)
 		{

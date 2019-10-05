@@ -12,7 +12,7 @@ namespace Towel
 	/// <summary>Towel syntax.</summary>
 	public static class Syntax
 	{
-		#region Internal Optimizations
+		#region Internals
 
 		// These are some shared internal optimizations that I don't want to expose because it might confuse people.
 		// If you need to use it, just copy this code into your own project.
@@ -29,6 +29,29 @@ namespace Towel
 				Function = Expression.Lambda<Func<T, T, T, T>>(BODY, A, B, C).Compile();
 				return Function(a, b, c);
 			};
+		}
+
+		internal static T OperationOnStepper<T>(Stepper<T> stepper, Func<T, T, T> operation)
+		{
+			T result = default;
+			bool assigned = false;
+			stepper(a =>
+			{
+				if (assigned)
+				{
+					result = operation(result, a);
+				}
+				else
+				{
+					result = a;
+					assigned = true;
+				}
+			});
+			if (!assigned)
+			{
+				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+			}
+			return result;
 		}
 
 		#endregion
@@ -630,28 +653,8 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper of the values to add.</param>
 		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
-		public static T Addition<T>(Stepper<T> stepper)
-		{
-			T result = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Addition(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Addition<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Addition);
 
 		/// <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -708,28 +711,8 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the subtraction [step1 - step2 - step3 - ...].</returns>
-		public static T Subtraction<T>(Stepper<T> stepper)
-		{
-			T result = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Subtraction(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Subtraction<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Subtraction);
 
 		internal static class SubtractionImplementation<A, B, C>
 		{
@@ -779,29 +762,36 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
-		public static T Multiplication<T>(Stepper<T> stepper)
-		{
-			T result = default;
-			bool assigned = false;
-			void step(T a)
-			{
-				if (assigned)
-				{
-					result = Multiplication(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			}
-			stepper(step);
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Multiplication<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Multiplication);
+
+		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+		public static C Π<A, B, C>(A a, B b) =>
+			MultiplicationImplementation<A, B, C>.Function(a, b);
+
+		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+		public static T Π<T>(T a, T b) =>
+			Multiplication<T, T, T>(a, b);
+
+		/// <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The first operand.</param>
+		/// <param name="b">The second operand.</param>
+		/// <param name="c">The third operand.</param>
+		/// <param name="d">The remaining values.</param>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
+		public static T Π<T>(T a, T b, T c, params T[] d) =>
+			Multiplication(a, b, c, d);
 
 		/// <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -858,28 +848,8 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the division [step1 / step2 / step3 / ...].</returns>
-		public static T Division<T>(Stepper<T> stepper)
-		{
-			T result = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Division(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Division<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Division);
 
 		internal static class DivisionImplementation<A, B, C>
 		{
@@ -907,7 +877,7 @@ namespace Towel
 		public static C Remainder<A, B, C>(A a, B b) =>
 			RemainderImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Modulos two numeric values [a % b].</summary>
+		/// <summary>Modulos two numeric values [<paramref name="a"/> % <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the modulation.</param>
 		/// <param name="b">The second operand of the modulation.</param>
@@ -915,7 +885,7 @@ namespace Towel
 		public static T Remainder<T>(T a, T b) =>
 			Remainder<T, T, T>(a, b);
 
-		/// <summary>Modulos multiple numeric values [a % b % c...].</summary>
+		/// <summary>Modulos multiple numeric values [<paramref name="a"/> % <paramref name="b"/> % <paramref name="c"/> % ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the modulation.</param>
 		/// <param name="b">The second operand of the modulation.</param>
@@ -929,32 +899,8 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Remainder<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T result = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Remainder(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Remainder<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Remainder);
 
 		internal static class RemainderImplementation<A, B, C>
 		{
@@ -1005,32 +951,8 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the power.</returns>
-		public static T Power<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T result = default;
-			bool assigned = false;
-			stepper(a =>
-			{
-				if (assigned)
-				{
-					result = Power(result, a);
-				}
-				else
-				{
-					result = a;
-					assigned = true;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Power<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Power);
 
 		internal static class PowerImplementation<T>
 		{
@@ -1520,13 +1442,15 @@ namespace Towel
 		public static CompareResult Comparison<A, B>(A a, B b) =>
 			CompareImplementation<A, B>.Function(a, b);
 
+#if Hidden
 		/// <summary>Compares two numeric values.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the comparison.</param>
 		/// <param name="b">The second operand of the comparison.</param>
 		/// <returns>The result of the comparison.</returns>
-		//public static CompareResult Comparison<T>(T a, T b) =>
-		//	Comparison<T, T>(a, b);
+		public static CompareResult Comparison<T>(T a, T b) =>
+			Comparison<T, T>(a, b);
+#endif
 
 		internal static class CompareImplementation<A, B>
 		{
@@ -1545,18 +1469,18 @@ namespace Towel
 					Expression lessThanPredicate =
 						typeof(A).IsPrimitive && typeof(B).IsPrimitive
 						? Expression.LessThan(A, B)
-						: Meta.HasLessThan<A, B, bool>()
+						: !(Meta.GetLessThanMethod<A, B, bool>() is null)
 							? Expression.LessThan(A, B)
-							: Meta.HasGreaterThan<B, A, bool>()
+							: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
 								? Expression.GreaterThan(B, A)
 								: null;
 
 					Expression greaterThanPredicate =
 						typeof(A).IsPrimitive && typeof(B).IsPrimitive
 						? Expression.GreaterThan(A, B)
-						: Meta.HasGreaterThan<A, B, bool>()
+						: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
 							? Expression.GreaterThan(A, B)
-							: Meta.HasLessThan<B, A, bool>()
+							: !(Meta.GetLessThanMethod<B, A, bool>() is null)
 								? Expression.LessThan(B, A)
 								: null;
 
