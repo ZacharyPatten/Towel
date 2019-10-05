@@ -87,12 +87,10 @@ namespace Towel
 
 		#region Convert
 
-		/// <summary>Assumes a conversion exists between types.</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
+		/// <summary>Converts exists between types.</summary>
+		/// <typeparam name="A">The type of the value to convert.</typeparam>
+		/// <typeparam name="B">The type to convert teh value to.</typeparam>
+		/// <param name="a">The value to convert.</param>
 		/// <returns>The result of the conversion.</returns>
 		public static B Convert<A, B>(A a) =>
 			ConvertImplementation<A, B>.Function(a);
@@ -570,20 +568,18 @@ namespace Towel
 
 		#region Negation
 
-		/// <summary>Assumes the addition operator exists between types.</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the addition.</returns>
+		/// <summary>Negates a value [-<paramref name="a"/>].</summary>
+		/// <typeparam name="A">The type of the value to negate.</typeparam>
+		/// <typeparam name="B">The resulting type of the negation.</typeparam>
+		/// <param name="a">The value to negate.</param>
+		/// <returns>The result of the negation [-<paramref name="a"/>].</returns>
 		public static B Negation<A, B>(A a) =>
 			NegationImplementation<A, B>.Function(a);
 
-		/// <summary>Negates a numeric value [-a].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Negates a value [-<paramref name="a"/>].</summary>
+		/// <typeparam name="T">The type of the value to negate.</typeparam>
 		/// <param name="a">The value to negate.</param>
-		/// <returns>The result of the negation.</returns>
+		/// <returns>The result of the negation [-<paramref name="a"/>].</returns>
 		public static T Negation<T>(T a) =>
 			Negation<T, T>(a);
 
@@ -602,38 +598,38 @@ namespace Towel
 
 		#region Addition
 
-		/// <summary>Assumes the addition operator exists between types.</summary>
+		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the addition.</returns>
+		/// <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
 		public static C Addition<A, B, C>(A a, B b) =>
 			AdditionImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Adds two numeric values [a + b].</summary>
+		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the addition.</param>
-		/// <param name="b">The second operand of the addition.</param>
-		/// <returns>The result of the addition.</returns>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
 		public static T Addition<T>(T a, T b) =>
 			Addition<T, T, T>(a, b);
 
-		/// <summary>Adds multiple numeric values [a + b + c...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Adds multiple values [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="a">The first operand of the addition.</param>
 		/// <param name="b">The second operand of the addition.</param>
 		/// <param name="c">The third operand of the addition.</param>
 		/// <param name="d">The remaining operands of the addition.</param>
-		/// <returns>The result of the addition.</returns>
+		/// <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</returns>
 		public static T Addition<T>(T a, T b, T c, params T[] d) =>
 			Addition<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
-		/// <summary>Adds multiple numeric values [step_1 + step_2 + step_3...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the addition.</returns>
+		/// <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="stepper">The stepper of the values to add.</param>
+		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
 		public static T Addition<T>(Stepper<T> stepper)
 		{
 			T result = default;
@@ -657,10 +653,10 @@ namespace Towel
 			return result;
 		}
 
-		/// <summary>Computes the summation of values.</summary>
-		/// <typeparam name="T">The generic type of the values.</typeparam>
-		/// <param name="stepper">The stepper of the values to compute the summation of.</param>
-		/// <returns>The summation of the set of values.</returns>
+		/// <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="stepper">The stepper of the values to add.</param>
+		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
 		public static T Σ<T>(Stepper<T> stepper) =>
 			Addition(stepper);
 
@@ -680,50 +676,38 @@ namespace Towel
 
 		#region Subtraction
 
-		/// <summary>Assumes the subtraction operator exists between types.</summary>
+		/// <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the subtraction.</returns>
+		/// <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/>].</returns>
 		public static C Subtraction<A, B, C>(A a, B b) =>
 			SubtractionImplementation<A, B, C>.Function(a, b);
 
-		internal static class SubtractionImplementation<A, B, C>
-		{
-			internal static Func<A, B, C> Function = (a, b) =>
-			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Subtract(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
-				return Function(a, b);
-			};
-		}
-
-		/// <summary>Subtracts two numeric values [a - b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the subtraction.</param>
-		/// <param name="b">The second operand of the subtraction.</param>
-		/// <returns>The result of the subtraction.</returns>
+		/// <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/>].</returns>
 		public static T Subtraction<T>(T a, T b) =>
 			Subtraction<T, T, T>(a, b);
 
-		/// <summary>Subtracts multiple numeric values [a - b - c...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the subtraction.</param>
-		/// <param name="b">The first second of the subtraction.</param>
-		/// <param name="c">The first third of the subtraction.</param>
-		/// <param name="d">The remaining values of the subtraction.</param>
-		/// <returns>The result of the subtraction.</returns>
+		/// <summary>Subtracts multiple values [<paramref name="a"/> - <paramref name="b"/> - <paramref name="c"/> - ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The first operand.</param>
+		/// <param name="b">The second operand.</param>
+		/// <param name="c">The third operand.</param>
+		/// <param name="d">The remaining values.</param>
+		/// <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/> - <paramref name="c"/> - ...].</returns>
 		public static T Subtraction<T>(T a, T b, T c, params T[] d) =>
 			Subtraction<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
-		/// <summary>Subtracts multiple numeric values [step_1 - step_2 - step_3...].</summary>
+		/// <summary>Subtracts multiple numeric values [step1 - step2 - step3 - ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the subtraction.</returns>
+		/// <returns>The result of the subtraction [step1 - step2 - step3 - ...].</returns>
 		public static T Subtraction<T>(Stepper<T> stepper)
 		{
 			T result = default;
@@ -747,42 +731,54 @@ namespace Towel
 			return result;
 		}
 
+		internal static class SubtractionImplementation<A, B, C>
+		{
+			internal static Func<A, B, C> Function = (a, b) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(A));
+				ParameterExpression B = Expression.Parameter(typeof(B));
+				Expression BODY = Expression.Subtract(A, B);
+				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				return Function(a, b);
+			};
+		}
+
 		#endregion
 
 		#region Multiplication
 
-		/// <summary>Assumes the multiplication operator exists between types.</summary>
+		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the multiplication.</returns>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
 		public static C Multiplication<A, B, C>(A a, B b) =>
 			MultiplicationImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Multiplies two numeric values [a * b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the multiplication.</param>
-		/// <param name="b">The second operand of the multiplication.</param>
-		/// <returns>The result of the multiplication.</returns>
+		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
 		public static T Multiplication<T>(T a, T b) =>
 			Multiplication<T, T, T>(a, b);
 
-		/// <summary>Multiplies multiple numeric values [a * b * c...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the multiplication.</param>
-		/// <param name="b">The second operand of the multiplication.</param>
-		/// <param name="c">The third operand of the multiplication.</param>
-		/// <param name="d">The remaining values of the multiplication.</param>
-		/// <returns>The result of the multiplication.</returns>
+		/// <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The first operand.</param>
+		/// <param name="b">The second operand.</param>
+		/// <param name="c">The third operand.</param>
+		/// <param name="d">The remaining values.</param>
+		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
 		public static T Multiplication<T>(T a, T b, T c, params T[] d) =>
 			Multiplication<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
-		/// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Multiplies multiple values [step1 * step2 * step3 * ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the multiplication.</returns>
+		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
 		public static T Multiplication<T>(Stepper<T> stepper)
 		{
 			T result = default;
@@ -807,10 +803,10 @@ namespace Towel
 			return result;
 		}
 
-		/// <summary>Multiplies multiple numeric values [step_1 * step_2 * step_3...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the multiplication.</returns>
+		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
 		public static T Π<T>(Stepper<T> stepper) =>
 			Multiplication(stepper);
 
@@ -830,38 +826,38 @@ namespace Towel
 
 		#region Division
 
-		/// <summary>Assumes the division operator exists between types.</summary>
+		/// <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the division.</returns>
+		/// <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/>].</returns>
 		public static C Division<A, B, C>(A a, B b) =>
 			DivisionImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Divides two numeric values [a / b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the division.</param>
-		/// <param name="b">The second operand of the division.</param>
-		/// <returns>The result of the division.</returns>
+		/// <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/>].</returns>
 		public static T Division<T>(T a, T b) =>
 			Division<T, T, T>(a, b);
 
-		/// <summary>Divides multiple numeric values [a / b / c...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Divides multiple values [<paramref name="a"/> / <paramref name="b"/> / <paramref name="c"/> / ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="a">The first operand of the division.</param>
 		/// <param name="b">The second operand of the division.</param>
 		/// <param name="c">The third operand of the division.</param>
 		/// <param name="d">The remaining values of the division.</param>
-		/// <returns>The result of the division.</returns>
+		/// <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/> / <paramref name="c"/> / ...].</returns>
 		public static T Division<T>(T a, T b, T c, params T[] d) =>
 			Division<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
 
-		/// <summary>Divides multiple numeric values [step_1 / step_2 / step_3...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <summary>Divides multiple values [step1 / step2 / step3 / ...].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the division.</returns>
+		/// <returns>The result of the division [step1 / step2 / step3 / ...].</returns>
 		public static T Division<T>(Stepper<T> stepper)
 		{
 			T result = default;
@@ -901,13 +897,13 @@ namespace Towel
 
 		#region Remainder
 
-		/// <summary>Assumes the remainder operator exists between types.</summary>
+		/// <summary>Remainders two values [<paramref name="a"/> % <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the remainder operation.</returns>
+		/// <returns>The result of the remainder operation [<paramref name="a"/> % <paramref name="b"/>].</returns>
 		public static C Remainder<A, B, C>(A a, B b) =>
 			RemainderImplementation<A, B, C>.Function(a, b);
 

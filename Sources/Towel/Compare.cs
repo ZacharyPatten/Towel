@@ -69,12 +69,12 @@ namespace Towel
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
 		public static Compare<A, B> Invert<A, B>(this Compare<A, B> compare) =>
-			(A a, B b) => Invert(compare(a, b));
+			(a, b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
 		public static Compare<T> Invert<T>(this Compare<T> compare) =>
-			(T a, T b) => Invert(compare(a, b));
+			(a, b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison value.</summary>
 		/// <returns>The invert of the comparison value.</returns>
@@ -86,13 +86,13 @@ namespace Towel
 		/// <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
 		/// <returns>The converted Towel.Compare delegate.</returns>
 		public static Compare<T> FromComparer<T>(Comparer<T> comparer) =>
-			(T a, T b) => Wrap(comparer.Compare(a, b));
+			(a, b) => Wrap(comparer.Compare(a, b));
 
 		/// <summary>Converts a Towel.Compare to a System.Comparison.</summary>
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
 		/// <returns>The converted System.Comparison delegate.</returns>
 		public static Comparison<T> ToSystemComparison<T>(Compare<T> compare) =>
-			(T a, T b) => (int)compare(a, b);
+			(a, b) => (int)compare(a, b);
 	}
 }

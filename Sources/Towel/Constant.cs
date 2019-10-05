@@ -48,16 +48,19 @@ namespace Towel
 		/// <summary>-4/(π^2)</summary>
 		public static readonly T Negative4OverπSquared = Negative4OverPiSquared;
 
+#if Hidden
+
 		/// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
 		//public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
 
 		/// <summary>Epsilon (1.192092896...e-012f)</summary>
 		//public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
 
+#endif
+
 		#region Pi
 
 		/// <summary>Computes the value of pi for the provided generic type.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="predicate">The cancellation token for cutting off computation.</param>
 		/// <returns>The computed value of pi.</returns>
 		public static T ComputePi(Predicate<T> predicate = null)
@@ -90,7 +93,7 @@ namespace Towel
 
 					#endregion
 
-					pi = AddMultiplyDivideAddImplementation<T>.Function(Convert<int, T>(j), pi);
+					pi = AddMultiplyDivideAddImplementation.Function(Convert<int, T>(j), pi);
 				}
 				pi = Multiplication(Constant<T>.Two, pi);
 			}
@@ -98,23 +101,23 @@ namespace Towel
 			return pi;
 		}
 
-		internal static class AddMultiplyDivideAddImplementation<T>
+		internal static class AddMultiplyDivideAddImplementation
 		{
 			internal static Func<T, T, T> Function = (j, pi) =>
 			{
 				ParameterExpression J = Expression.Parameter(typeof(T));
 				ParameterExpression PI = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Add(
-					Expression.Constant(Constant<T>.One),
+					Expression.Constant(One),
 					Expression.Multiply(
 						PI,
 						Expression.Divide(
 							J,
 							Expression.Add(
 								Expression.Multiply(
-									Expression.Constant(Constant<T>.Two),
+									Expression.Constant(Two),
 									J),
-								Expression.Constant(Constant<T>.One)))));
+								Expression.Constant(One)))));
 				Function = Expression.Lambda<Func<T, T, T>>(BODY, J, PI).Compile();
 				return Function(j, pi);
 			};

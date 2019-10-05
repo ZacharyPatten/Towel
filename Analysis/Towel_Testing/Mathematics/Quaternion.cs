@@ -5,6 +5,8 @@ namespace Towel_Testing.Mathematics
 {
 	[TestClass] public class Quaternion_Testing
 	{
+		#region Magnitude
+
 		[TestMethod] public void Magnitude()
 		{
 			// float
@@ -36,6 +38,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region MagnitudeSquared
+
 		[TestMethod] public void MagnitudeSquared()
 		{
 			// float
@@ -66,6 +72,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.MagnitudeSquared == 36m);
 			}
 		}
+
+		#endregion
+
+		#region Conjugate
 
 		[TestMethod] public void Conjugate()
 		{
@@ -114,6 +124,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.Conjugate() == B);
 			}
 		}
+
+		#endregion
+
+		#region Add
 
 		[TestMethod] public void Add()
 		{
@@ -171,6 +185,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Subtract
+
 		[TestMethod] public void Subtract()
 		{
 			// int
@@ -227,15 +245,27 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Multiply_Quaternion
+
 		[TestMethod] public void Multiply_Quaternion()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region Multiply_Vector
+
 		[TestMethod] public void Multiply_Vector()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region Multiply_Scalar
 
 		[TestMethod] public void Multiply_Scalar()
 		{
@@ -285,6 +315,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Normalize
+
 		[TestMethod] public void Normalize()
 		{
 			// float
@@ -322,25 +356,45 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Invert
+
 		[TestMethod] public void Invert()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region Lerp
 
 		[TestMethod] public void Lerp()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region Slerp
+
 		[TestMethod] public void Slerp()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region Rotate
+
 		[TestMethod] public void Rotate()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region Equal
 
 		[TestMethod] public void Equal()
 		{
@@ -429,6 +483,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A == B);
 			}
 		}
+
+		#endregion
+
+		#region Equal_leniency
 
 		[TestMethod] public void Equal_leniency()
 		{
@@ -577,5 +635,7 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.Equal(B, 2m));
 			}
 		}
+
+		#endregion
 	}
 }

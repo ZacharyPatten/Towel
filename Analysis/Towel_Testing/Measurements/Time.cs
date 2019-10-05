@@ -5,6 +5,8 @@ namespace Towel_Testing.Measurements
 {
 	[TestClass] public class Time_Testing
 	{
+		#region Millisecond_Second_Testing
+
 		[TestMethod] public void Millisecond_Second_Testing()
 		{
 			{ // int
@@ -28,6 +30,10 @@ namespace Towel_Testing.Measurements
 				Assert.IsTrue(a == b);
 			}
 		}
+
+		#endregion
+
+		#region Second_Minutes_Testing
 
 		[TestMethod] public void Second_Minutes_Testing()
 		{
@@ -53,6 +59,10 @@ namespace Towel_Testing.Measurements
 			}
 		}
 
+		#endregion
+
+		#region Minutes_Hours_Testing
+
 		[TestMethod] public void Minutes_Hours_Testing()
 		{
 			{ // int
@@ -77,6 +87,10 @@ namespace Towel_Testing.Measurements
 			}
 		}
 
+		#endregion
+
+		#region Hours_Days_Testing
+
 		[TestMethod] public void Hours_Days_Testing()
 		{
 			{ // int
@@ -100,5 +114,7 @@ namespace Towel_Testing.Measurements
 				Assert.IsTrue(a == b);
 			}
 		}
+
+		#endregion
 	}
 }

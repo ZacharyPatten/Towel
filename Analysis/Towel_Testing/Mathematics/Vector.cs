@@ -9,6 +9,8 @@ namespace Towel_Testing.Mathematics
 {
 	[TestClass] public class Vector_Testing
 	{
+		#region Negate
+
 		[TestMethod]
 		public void Negate()
 		{
@@ -29,6 +31,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(-a == new Vector<decimal>(-1m, -2m, -3m));
 			}
 		}
+
+		#endregion
+
+		#region Add
 
 		[TestMethod] public void Add()
 		{
@@ -74,6 +80,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Subtract
+
 		[TestMethod] public void Subtract()
 		{
 			{
@@ -118,6 +128,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Multiply
+
 		[TestMethod] public void Multiply()
 		{
 			{
@@ -153,6 +167,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(a * -2m == new Vector<decimal>(-2m, -4m, -6m));
 			}
 		}
+
+		#endregion
+
+		#region Divide
 
 		[TestMethod] public void Divide()
 		{
@@ -190,6 +208,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Magnitude
+
 		[TestMethod] public void Magnitude()
 		{
 			{
@@ -206,6 +228,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region MagnitudeSquared
+
 		[TestMethod] public void MagnitudeSquared()
 		{
 			{
@@ -221,6 +247,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(a.MagnitudeSquared == 16m);
 			}
 		}
+
+		#endregion
+
+		#region CrossProduct
 
 		[TestMethod] public void CrossProduct()
 		{
@@ -255,6 +285,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region DotProduct
+
 		[TestMethod] public void DotProduct()
 		{
 			{ // int
@@ -284,6 +318,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Normalize
+
 		[TestMethod] public void Normalize()
 		{
 			{
@@ -299,6 +337,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(a.Normalize() == new Vector<decimal>(2m / 4m, 2m / 4m, 2m / 4m, 2m / 4m));
 			}
 		}
+
+		#endregion
+
+		#region Angle_Testing
 
 		[TestMethod] public void Angle_Testing()
 		{
@@ -333,6 +375,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Projection
+
 		[TestMethod] public void Projection()
 		{
 			{ // float
@@ -360,25 +406,45 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region RotateBy
+
 		[TestMethod] public void RotateBy()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region LinearInterpolation
 
 		[TestMethod] public void LinearInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region SphereicalInterpolation
+
 		[TestMethod] public void SphereicalInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region BarycentricInterpolation
+
 		[TestMethod] public void BarycentricInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region Equal
 
 		[TestMethod] public void Equal()
 		{
@@ -403,6 +469,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(a == b);
 			}
 		}
+
+		#endregion
+
+		#region Equal_leniency
 
 		[TestMethod] public void Equal_leniency()
 		{
@@ -447,5 +517,7 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(a.Equal(b, 1m));
 			}
 		}
+
+		#endregion
 	}
 }

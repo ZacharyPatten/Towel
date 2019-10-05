@@ -7,6 +7,8 @@ namespace Towel_Testing.Mathematics
 {
 	[TestClass] public class Matrix_Testing
 	{
+		#region FactoryIdentity
+
 		[TestMethod] public void FactoryIdentity()
 		{
 			{ // 1 x 1
@@ -56,6 +58,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryIdentity(1, 0));
 			}
 		}
+
+		#endregion
+
+		#region FactoryZero
 
 		[TestMethod] public void FactoryZero()
 		{
@@ -107,6 +113,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(1, 0));
 			}
 		}
+
+		#endregion
+
+		#region Negate
 
 		[TestMethod] public void Negate()
 		{
@@ -178,6 +188,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(-A == B);
 			}
 		}
+
+		#endregion
+
+		#region Add
 
 		[TestMethod] public void Add()
 		{
@@ -256,6 +270,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<MathematicsException>(() => A + B);
 			}
 		}
+
+		#endregion
+
+		#region Subtract
 
 		[TestMethod] public void Subtract()
 		{
@@ -359,6 +377,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Multiply_Matrix
+
 		[TestMethod] public void Multiply_Matrix()
 		{
 			// int
@@ -453,6 +475,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Multiply_Vector
+
 		[TestMethod] public void Multiply_Vector()
 		{
 			// int
@@ -514,6 +540,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<MathematicsException>(() => M * V);
 			}
 		}
+
+		#endregion
+
+		#region Multiply_Scalar
 
 		[TestMethod] public void Multiply_Scalar()
 		{
@@ -586,6 +616,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Divide
+
 		[TestMethod] public void Divide()
 		{
 			// int
@@ -657,6 +691,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Power
+
 		[TestMethod] public void Power()
 		{
 			// int
@@ -725,6 +763,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<MathematicsException>(() => A ^ 3);
 			}
 		}
+
+		#endregion
+
+		#region Determinent
 
 		[TestMethod] public void Determinent()
 		{
@@ -811,6 +853,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Trace
+
 		[TestMethod] public void Trace()
 		{
 			// int
@@ -863,6 +909,10 @@ namespace Towel_Testing.Mathematics
 				Assert.ThrowsException<MathematicsException>(() => a.Trace());
 			}
 		}
+
+		#endregion
+
+		#region Minor
 
 		[TestMethod] public void Minor()
 		{
@@ -929,6 +979,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.ConcatenateRowWise(B) == C);
 			}
 		}
+
+		#endregion
+
+		#region Echelon
 
 		[TestMethod] public void Echelon()
 		{
@@ -1022,6 +1076,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region ReducedEchelon
+
 		[TestMethod] public void ReducedEchelon()
 		{
 			// int
@@ -1092,6 +1150,10 @@ namespace Towel_Testing.Mathematics
 
 		}
 
+		#endregion
+
+		#region Inverse
+
 		[TestMethod] public void Inverse()
 		{
 			{ // float
@@ -1125,6 +1187,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.Inverse() == B);
 			}
 		}
+
+		#endregion
+
+		#region Ajoint
 
 		[TestMethod] public void Ajoint()
 		{
@@ -1190,6 +1256,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region Transpose
+
 		[TestMethod] public void Transpose()
 		{
 			{
@@ -1232,15 +1302,27 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
+		#endregion
+
+		#region DecomposeLowerUpper
+
 		[TestMethod] public void DecomposeLowerUpper()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
 
+		#endregion
+
+		#region Rotate
+
 		[TestMethod] public void Rotate()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
+
+		#endregion
+
+		#region Equal
 
 		[TestMethod] public void Equal()
 		{
@@ -1312,6 +1394,10 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A == B);
 			}
 		}
+
+		#endregion
+
+		#region Equal_Leniency
 
 		[TestMethod] public void Equal_Leniency()
 		{
@@ -1443,5 +1529,7 @@ namespace Towel_Testing.Mathematics
 				Assert.IsFalse(A.Equal(B, 1m));
 			}
 		}
+
+		#endregion
 	}
 }
