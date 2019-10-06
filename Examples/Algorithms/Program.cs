@@ -178,7 +178,7 @@ namespace Algorithms
 						return false;
 				}
 
-				// run A* the algorithm
+				// run the A* algorithm
 				Stepper<int> aStar_path = Search.Graph(0, graph, heuristic, cost, goal);
 				Console.Write("    A* Path:     ");
 				if (aStar_path != null)
@@ -191,12 +191,12 @@ namespace Algorithms
 				}
 				Console.WriteLine();
 
-				// run the Greedy algorithm
-				Stepper<int> greedy_path = Search.Graph(0, graph, heuristic, goal);
-				Console.Write("    Greedy Path: ");
-				if (greedy_path != null)
+				// run the Dijkstra algorithm
+				Stepper<int> dijkstra_path = Search.Graph(0, graph, heuristic, goal);
+				Console.Write("    Dijkstra Path: ");
+				if (dijkstra_path != null)
 				{
-					greedy_path(i => Console.Write(i + " "));
+					dijkstra_path(i => Console.Write(i + " "));
 				}
 				else
 				{
@@ -375,25 +375,25 @@ namespace Algorithms
 						costFunction,
 						goalFunction);
 
-				// Flush the already used markers before running the Greedy algorithm.
+				// Flush the already used markers before running the DijkstraPath algorithm.
 				// Normally you won't run two algorithms for the same graph/location, but 
 				// we are running both algorithms in this example to demonstrate the
 				// differences between them.
 				alreadyUsed.Clear();
 
-				Stepper<Vector<float>> greedyPath =
+				Stepper<Vector<float>> dijkstraPath =
 					Search.Graph(
 						enemyLocation,
 						neighborFunction,
 						heuristicFunction,
 						goalFunction);
 
-				//// Note: the dijkstra algorithm is slow as balls, but feel free to uncomment
+				//// Note: the breadth-first-search algorithm is slow as balls, but feel free to uncomment
 				//// and run it if you want to.
 				//
 				//alreadyUsed.Clear();
 				//
-				//Stepper<Vector<float>> dijkstraPath =
+				//Stepper<Vector<float>> breadthFirstSearch =
 				//	Search.Graph(
 				//		enemyLocation,
 				//		neighborFunction,
@@ -405,8 +405,8 @@ namespace Algorithms
 
 				// Lets convert the paths into arrays so you can look at them in the debugger. :)
 				Vector<float>[] aStarPathArray = aStarPath.ToArray();
-				Vector<float>[] greedyPathArray = greedyPath.ToArray();
-				//Vector<float>[] dijkstraPathArray = dijkstraPath.ToArray();
+				Vector<float>[] dijkstraPathArray = dijkstraPath.ToArray();
+				//Vector<float>[] breadthFirstSearchPathArray = breadthFirstSearch.ToArray();
 
 				// lets calculate the movement cost of each path to see how they compare
 				float astartTotalCost = Addition<float>(step =>
@@ -416,23 +416,23 @@ namespace Algorithms
 						step(costFunction(aStarPathArray[i], aStarPathArray[i + 1]));
 					}
 				});
-				float greedyTotalCost = Addition<float>(step =>
+				float dijkstraTotalCost = Addition<float>(step =>
 				{
-					for (int i = 0; i < greedyPathArray.Length - 1; i++)
+					for (int i = 0; i < dijkstraPathArray.Length - 1; i++)
 					{
-						step(costFunction(greedyPathArray[i], greedyPathArray[i + 1]));
+						step(costFunction(dijkstraPathArray[i], dijkstraPathArray[i + 1]));
 					}
 				});
-				//float dijkstraTotalCost = Compute.Add<float>(step =>
+				//float breadthFirstSearchTotalCost = Addition<float>(step =>
 				//{
-				//	for (int i = 0; i < dijkstraPathArray.Length - 1; i++)
+				//	for (int i = 0; i < breadthFirstSearchPathArray.Length - 1; i++)
 				//	{
-				//		step(costFunction(dijkstraPathArray[i], dijkstraPathArray[i + 1]));
+				//		step(costFunction(breadthFirstSearchPathArray[i], breadthFirstSearchPathArray[i + 1]));
 				//	}
 				//});
 
-				// Notice that that the A* algorithm produces a less costly path than the Greedy, 
-				// meaning that it is faster. The Greedy path went through the mud, but the A* path
+				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath, 
+				// meaning that it is faster. The DijkstraPath path went through the mud, but the A* path
 				// took the longer route around the other side of the rock, which ended up being faster
 				// than running through the mud.
 			}

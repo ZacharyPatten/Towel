@@ -96,7 +96,7 @@ namespace Towel.Algorithms
 
 		#endregion
 
-		#region Classes
+		#region Internal Classes
 
 		internal abstract class BaseAlgorithmNode<AlgorithmNode, Node>
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
@@ -105,9 +105,9 @@ namespace Towel.Algorithms
 			internal Node Value;
 		}
 
-		internal class DijkstraNode<Node> : BaseAlgorithmNode<DijkstraNode<Node>, Node> { }
+		internal class BreadthFirstSearch<Node> : BaseAlgorithmNode<BreadthFirstSearch<Node>, Node> { }
 
-		internal class GreedyNode<Node, Numeric> : BaseAlgorithmNode<GreedyNode<Node, Numeric>, Node>
+		internal class DijkstraNode<Node, Numeric> : BaseAlgorithmNode<DijkstraNode<Node, Numeric>, Node>
 		{
 			internal Numeric Priority;
 		}
@@ -278,9 +278,9 @@ namespace Towel.Algorithms
 
 		#endregion
 
-		#region Greedy Algorithm
+		#region Dijkstra Algorithm
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -291,13 +291,13 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
-			IHeap<GreedyNode<Node, Numeric>> fringe = new HeapArray<GreedyNode<Node, Numeric>>(
+			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>>(
 				// NOTE: Typical graph search implementations prioritize smaller values
 				(a, b) => Comparison(b.Priority, a.Priority));
 
 			// push starting node
 			fringe.Enqueue(
-				new GreedyNode<Node, Numeric>()
+				new DijkstraNode<Node, Numeric>()
 				{
 					Previous = null,
 					Value = start,
@@ -307,10 +307,10 @@ namespace Towel.Algorithms
 			// run the algorithm
 			while (fringe.Count != 0)
 			{
-				GreedyNode<Node, Numeric> current = fringe.Dequeue();
+				DijkstraNode<Node, Numeric> current = fringe.Dequeue();
 				if (goal(current.Value))
 				{
-					return BuildPath<GreedyNode<Node, Numeric>, Node>(current);
+					return BuildPath<DijkstraNode<Node, Numeric>, Node>(current);
 				}
 				else
 				{
@@ -318,7 +318,7 @@ namespace Towel.Algorithms
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new GreedyNode<Node, Numeric>()
+								new DijkstraNode<Node, Numeric>()
 								{
 									Previous = current,
 									Value = neighbor,
@@ -330,9 +330,9 @@ namespace Towel.Algorithms
 			return null; // goal node was not reached (no path exists)
 		}
 
-		#region Greedy Overloads
+		#region Dijkstra Overloads
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -343,7 +343,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
 			Graph(start, neighbors, heuristic, goal, Equate.Default);
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -355,7 +355,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
 			Graph(start, neighbors, heuristic, node => equate(node, goal));
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -366,7 +366,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
 			Graph(start, graph, heuristic, goal, Equate.Default);
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -378,7 +378,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
 			Graph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
-		/// <summary>Runs the Greedy search algorithm on a graph.</summary>
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -393,9 +393,9 @@ namespace Towel.Algorithms
 
 		#endregion
 
-		#region Dijkstra Algorithm
+		#region BreadthFirstSearch Algorithm
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -403,11 +403,11 @@ namespace Towel.Algorithms
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal)
 		{
-			IQueue<DijkstraNode<Node>> fringe = new QueueLinked<DijkstraNode<Node>>();
+			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
 
 			// push starting node
 			fringe.Enqueue(
-				new DijkstraNode<Node>()
+				new BreadthFirstSearch<Node>()
 				{
 					Previous = null,
 					Value = start,
@@ -416,10 +416,10 @@ namespace Towel.Algorithms
 			// run the algorithm
 			while (fringe.Count != 0)
 			{
-				DijkstraNode<Node> current = fringe.Dequeue();
+				BreadthFirstSearch<Node> current = fringe.Dequeue();
 				if (goal(current.Value))
 				{
-					return BuildPath<DijkstraNode<Node>, Node>(current);
+					return BuildPath<BreadthFirstSearch<Node>, Node>(current);
 				}
 				else
 				{
@@ -427,7 +427,7 @@ namespace Towel.Algorithms
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new DijkstraNode<Node>()
+								new BreadthFirstSearch<Node>()
 								{
 									Previous = current,
 									Value = neighbor,
@@ -438,9 +438,9 @@ namespace Towel.Algorithms
 			return null; // goal node was not reached (no path exists)
 		}
 
-		#region Dijkstra Overloads
+		#region BreadthFirstSearch Overloads
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -449,7 +449,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
 			Graph(start, neighbors, goal, Equate.Default);
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -459,7 +459,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Equate<Node> equate) =>
 			Graph(start, neighbors, node => equate(node, goal));
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="graph">The graph to search against.</param>
@@ -468,7 +468,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
 			Graph(start, graph, goal, Equate.Default);
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="graph">The graph to search against.</param>
@@ -478,7 +478,7 @@ namespace Towel.Algorithms
 		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Equate<Node> equate) =>
 			Graph(start, graph.Neighbors, node => equate(node, goal));
 
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="graph">The graph to search against.</param>

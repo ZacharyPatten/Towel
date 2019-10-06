@@ -587,9 +587,9 @@ Sort.Merge<T>(...);
 Sort.Heap<T>(...);
 Sort.OddEven<T>(...);
 
-// Path Finding
-// Note: overloads for A*, Heuristic Greedy, and Dijkstra algorithms
-Search.Graph<NODE, NUMERIC>(...);
+// Path Finding (Graph Search)
+// Note: overloads for A*, Dijkstra, and Bread-First-Search algorithms
+Search.Graph<Node, Numeric>(...);
 ```
 
 ## Extensions

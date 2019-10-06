@@ -118,7 +118,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -128,7 +128,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -138,7 +138,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -149,7 +149,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -159,7 +159,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -170,7 +170,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Greedy search algorithm on a graph.</summary>
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -180,7 +180,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -188,7 +188,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -196,7 +196,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="neighbors">Step function for all neigbors of a given node.</param>
@@ -205,7 +205,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
@@ -213,7 +213,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
@@ -222,7 +222,7 @@
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="start">The node to start at.</param>
             <param name="graph">The graph to search against.</param>
