@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -153,11 +154,11 @@ namespace Towel.DataStructures
 			{
 				addition.Parent = temp;
 				CompareResult compareResult = _compare(value, temp.Value);
-				if (compareResult == CompareResult.Greater)
+				if (compareResult == Greater)
 				{
 					temp = temp.RightChild;
 				}
-				else if (compareResult == CompareResult.Less)
+				else if (compareResult == Less)
 				{
 					temp = temp.LeftChild;
 				}
@@ -180,11 +181,11 @@ namespace Towel.DataStructures
 			if (addition.Parent != null)
 			{
 				CompareResult compareResult = _compare(addition.Value, addition.Parent.Value);
-				if (compareResult == CompareResult.Greater)
+				if (compareResult == Greater)
 				{
 					addition.Parent.RightChild = addition;
 				}
-				else if (compareResult == CompareResult.Less)
+				else if (compareResult == Less)
 				{
 					addition.Parent.LeftChild = addition;
 				}
@@ -242,12 +243,12 @@ namespace Towel.DataStructures
 			{
 				switch (compare(treeNode.Value))
 				{
-					case CompareResult.Equal:
+					case Equal:
 						return true;
-					case CompareResult.Greater:
+					case Greater:
 						treeNode = treeNode.RightChild;
 						break;
-					case CompareResult.Less:
+					case Less:
 						treeNode = treeNode.LeftChild;
 						break;
 					default:
@@ -272,11 +273,11 @@ namespace Towel.DataStructures
 			while (treeNode != _sentinelNode)
 			{
 				CompareResult compareResult = compare(treeNode.Value);
-				if (compareResult == CompareResult.Greater)
+				if (compareResult == Greater)
 				{
 					treeNode = treeNode.RightChild;
 				}
-				else if (compareResult == CompareResult.Less)
+				else if (compareResult == Less)
 				{
 					treeNode = treeNode.LeftChild;
 				}
@@ -303,12 +304,12 @@ namespace Towel.DataStructures
 		//	{
 		//		switch (compare(treeNode.Value))
 		//		{
-		//			case CompareResult.Equal:
+		//			case Equal:
 		//				return treeNode.Value;
-		//			case CompareResult.Greater:
+		//			case Greater:
 		//				treeNode = treeNode.RightChild;
 		//				break;
-		//			case CompareResult.Less:
+		//			case Less:
 		//				treeNode = treeNode.LeftChild;
 		//				break;
 		//			default:
@@ -339,15 +340,15 @@ namespace Towel.DataStructures
 			while (node != _sentinelNode)
 			{
 				CompareResult compareResult = compare(node.Value);
-				if (compareResult == CompareResult.Less)
+				if (compareResult == Less)
 				{
 					node = node.LeftChild;
 				}
-				else if (compareResult == CompareResult.Greater)
+				else if (compareResult == Greater)
 				{
 					node = node.RightChild;
 				}
-				else // (compareResult == CompareResult.Equal)
+				else // (compareResult == Equal)
 				{
 					if (node == _sentinelNode)
 					{
@@ -465,12 +466,12 @@ namespace Towel.DataStructures
 				if (node != null && node != _sentinelNode)
 				{
 					return
-						Stepper(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-						step(node.Value) == StepStatus.Break ? StepStatus.Break :
-						Stepper(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-						StepStatus.Continue;
+						Stepper(node.LeftChild) == Break ? Break :
+						step(node.Value) == Break ? Break :
+						Stepper(node.RightChild) == Break ? Break :
+						Continue;
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
 			return Stepper(_root);
 		}
@@ -486,12 +487,12 @@ namespace Towel.DataStructures
 				if (node != null && node != _sentinelNode)
 				{
 					return
-						Stepper(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-						step(ref node.Value) == StepStatus.Break ? StepStatus.Break :
-						Stepper(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-						StepStatus.Continue;
+						Stepper(node.LeftChild) == Break ? Break :
+						step(ref node.Value) == Break ? Break :
+						Stepper(node.RightChild) == Break ? Break :
+						Continue;
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
 			return Stepper(_root);
 		}
@@ -511,11 +512,11 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, maximum) == CompareResult.Greater)
+					if (_compare(node.Value, maximum) == Greater)
 					{
 						Stepper(node.LeftChild);
 					}
-					else if (_compare(node.Value, minimum) == CompareResult.Less)
+					else if (_compare(node.Value, minimum) == Less)
 					{
 						Stepper(node.RightChild);
 					}
@@ -527,7 +528,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -545,11 +546,11 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) == CompareResult.Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
 						Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == CompareResult.Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
 						Stepper(node.LeftChild);
 					}
@@ -561,7 +562,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -579,26 +580,26 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) == CompareResult.Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == CompareResult.Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
 					else
 					{
 						return
-							Stepper(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-							step(node.Value) == StepStatus.Break ? StepStatus.Break :
-							Stepper(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-							StepStatus.Continue;
+							Stepper(node.LeftChild) == Break ? Break :
+							step(node.Value) == Break ? Break :
+							Stepper(node.RightChild) == Break ? Break :
+							Continue;
 					}
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -616,26 +617,26 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) == CompareResult.Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == CompareResult.Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
 					else
 					{
 						return
-							Stepper(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-							step(ref node.Value) == StepStatus.Break ? StepStatus.Break :
-							Stepper(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-							StepStatus.Continue;
+							Stepper(node.LeftChild) == Break ? Break :
+							step(ref node.Value) == Break ? Break :
+							Stepper(node.RightChild) == Break ? Break :
+							Continue;
 					}
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -693,12 +694,12 @@ namespace Towel.DataStructures
 				if (NODE != null && NODE != _sentinelNode)
 				{
 					return
-						StepperReverse(NODE.RightChild) == StepStatus.Break ? StepStatus.Break :
-						step(NODE.Value) == StepStatus.Break ? StepStatus.Break :
-						StepperReverse(NODE.LeftChild) == StepStatus.Break ? StepStatus.Break :
-						StepStatus.Continue;
+						StepperReverse(NODE.RightChild) == Break ? Break :
+						step(NODE.Value) == Break ? Break :
+						StepperReverse(NODE.LeftChild) == Break ? Break :
+						Continue;
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
 
 			return StepperReverse(_root);
@@ -715,12 +716,12 @@ namespace Towel.DataStructures
 				if (node != null && node != _sentinelNode)
 				{
 					return
-						StepperReverse(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-						step(ref node.Value) == StepStatus.Break ? StepStatus.Break :
-						StepperReverse(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-						StepStatus.Continue;
+						StepperReverse(node.RightChild) == Break ? Break :
+						step(ref node.Value) == Break ? Break :
+						StepperReverse(node.LeftChild) == Break ? Break :
+						Continue;
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
 
 			return StepperReverse(_root);
@@ -741,11 +742,11 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, maximum) == CompareResult.Greater)
+					if (_compare(node.Value, maximum) == Greater)
 					{
 						StepperReverse(node.LeftChild);
 					}
-					else if (_compare(node.Value, minimum) == CompareResult.Less)
+					else if (_compare(node.Value, minimum) == Less)
 					{
 						StepperReverse(node.RightChild);
 					}
@@ -757,7 +758,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -775,11 +776,11 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) == CompareResult.Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
 						StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == CompareResult.Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
 						StepperReverse(node.LeftChild);
 					}
@@ -791,7 +792,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -809,26 +810,26 @@ namespace Towel.DataStructures
 			{
 				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) == CompareResult.Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == CompareResult.Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
 					else
 					{
 						return
-							StepperReverse(node.RightChild) == StepStatus.Break ? StepStatus.Break :
-							step(node.Value) == StepStatus.Break ? StepStatus.Break :
-							StepperReverse(node.LeftChild) == StepStatus.Break ? StepStatus.Break :
-							StepStatus.Continue;
+							StepperReverse(node.RightChild) == Break ? Break :
+							step(node.Value) == Break ? Break :
+							StepperReverse(node.LeftChild) == Break ? Break :
+							Continue;
 					}
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -846,26 +847,26 @@ namespace Towel.DataStructures
 			{
 				if (NODE != null && NODE != _sentinelNode)
 				{
-					if (_compare(NODE.Value, minimum) == CompareResult.Less)
+					if (_compare(NODE.Value, minimum) == Less)
 					{
 						return StepperReverse(NODE.RightChild);
 					}
-					else if (_compare(NODE.Value, maximum) == CompareResult.Greater)
+					else if (_compare(NODE.Value, maximum) == Greater)
 					{
 						return StepperReverse(NODE.LeftChild);
 					}
 					else
 					{
 						return
-							StepperReverse(NODE.RightChild) == StepStatus.Break ? StepStatus.Break :
-							step(ref NODE.Value) == StepStatus.Break ? StepStatus.Break :
-							StepperReverse(NODE.LeftChild) == StepStatus.Break ? StepStatus.Break :
-							StepStatus.Continue;
+							StepperReverse(NODE.RightChild) == Break ? Break :
+							step(ref NODE.Value) == Break ? Break :
+							StepperReverse(NODE.LeftChild) == Break ? Break :
+							Continue;
 					}
 				}
-				return StepStatus.Continue;
+				return Continue;
 			}
-			if (_compare(minimum, maximum) == CompareResult.Greater)
+			if (_compare(minimum, maximum) == Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}

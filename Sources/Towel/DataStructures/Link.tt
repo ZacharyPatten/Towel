@@ -4,6 +4,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using static Towel.Syntax;
+
 namespace Towel.DataStructures
 {
 	/// <summary>Represents a link between objects.</summary>
@@ -131,9 +133,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if (function(this._<#= j #>) == StepStatus.Break)
-				return StepStatus.Break;<# } #>
-			return StepStatus.Continue;
+			if (function(this._<#= j #>) == Break)
+				return Break;<# } #>
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -291,9 +293,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{<# for (int j = 1; j <= i; j++) { #>
-			if (function(this._<#= j #>) == StepStatus.Break)
-				return StepStatus.Break;<# } #>
-			return StepStatus.Continue;
+			if (function(this._<#= j #>) == Break)
+				return Break;<# } #>
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>

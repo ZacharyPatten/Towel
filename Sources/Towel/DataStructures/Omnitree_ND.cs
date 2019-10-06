@@ -1,5 +1,5 @@
 ﻿using System;
-using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -130,11 +130,11 @@ namespace Towel.DataStructures
 					}
 					else if (!b.Exists)
 					{
-						return CompareResult.Equal;
+						return Equal;
 					}
 					else
 					{
-						return CompareResult.Greater;
+						return Greater;
 					}
 				};
 			}

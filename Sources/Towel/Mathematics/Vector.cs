@@ -1383,12 +1383,12 @@ namespace Towel.Mathematics
 		{
 			for (int i = 0; i < _vector.Length; i++)
 			{
-				if (step(_vector[i]) == StepStatus.Break)
+				if (step(_vector[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -1398,12 +1398,12 @@ namespace Towel.Mathematics
 		{
 			for (int i = 0; i < _vector.Length; i++)
 			{
-				if (step(ref _vector[i]) == StepStatus.Break)
+				if (step(ref _vector[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		#endregion

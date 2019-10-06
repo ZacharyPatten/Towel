@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -301,13 +302,13 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					if (step(array[i]) == StepStatus.Break)
+					if (step(array[i]) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -321,13 +322,13 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					if (step(ref array[i]) == StepStatus.Break)
+					if (step(ref array[i]) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

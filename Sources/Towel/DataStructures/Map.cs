@@ -662,13 +662,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(node.Value) == StepStatus.Break)
+					if (step(node.Value) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Steps through all the values of the map.</summary>
@@ -681,13 +681,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(ref node.Value) == StepStatus.Break)
+					if (step(ref node.Value) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Steps through all the keys of the map.</summary>
@@ -714,13 +714,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(node.Key) == StepStatus.Break)
+					if (step(node.Key) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Steps through all the keys and values of the map.</summary>
@@ -747,13 +747,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(node.Value, node.Key) == StepStatus.Break)
+					if (step(node.Value, node.Key) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Steps through all the keys and values of the map.</summary>
@@ -780,13 +780,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(ref node.Value, node.Key) == StepStatus.Break)
+					if (step(ref node.Value, node.Key) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

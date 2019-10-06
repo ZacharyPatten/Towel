@@ -4,6 +4,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using static Towel.Syntax;
+
 namespace Towel.DataStructures
 {
 	/// <summary>Represents a link between objects.</summary>
@@ -130,9 +132,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -287,9 +289,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -460,11 +462,11 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -636,11 +638,11 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -828,13 +830,13 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -1023,13 +1025,13 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -1234,15 +1236,15 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -1448,15 +1450,15 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -1678,17 +1680,17 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -1911,17 +1913,17 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -2160,19 +2162,19 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._6) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			if (function(this._6) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -2412,19 +2414,19 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._6) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			if (function(this._6) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -2680,21 +2682,21 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._6) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._7) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			if (function(this._6) == Break)
+				return Break;
+			if (function(this._7) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>
@@ -2951,21 +2953,21 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._2) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._3) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._4) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._5) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._6) == StepStatus.Break)
-				return StepStatus.Break;
-			if (function(this._7) == StepStatus.Break)
-				return StepStatus.Break;
-			return StepStatus.Continue;
+			if (function(this._1) == Break)
+				return Break;
+			if (function(this._2) == Break)
+				return Break;
+			if (function(this._3) == Break)
+				return Break;
+			if (function(this._4) == Break)
+				return Break;
+			if (function(this._5) == Break)
+				return Break;
+			if (function(this._6) == Break)
+				return Break;
+			if (function(this._7) == Break)
+				return Break;
+			return Continue;
 		}
 		
 		/// <summary>Creates a shallow clone of this data structure.</summary>

@@ -13,8 +13,6 @@ namespace Syntax
 			Console.WriteLine("============================================");
 			Console.WriteLine();
 
-			// This example jsut has random things in the Towel.Syntax class.
-
 			#region TryParse
 			{
 				TryParse("123.4", out double a);

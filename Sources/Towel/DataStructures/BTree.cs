@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -450,18 +451,18 @@ namespace Towel.DataStructures
 			for (int i = 0; i < node.ItemCount; i++)
 				switch (compare(node.Items[i]))
 				{
-					case CompareResult.Less:
+					case Less:
 						loc++;
 						continue;
-					case CompareResult.Equal:
+					case Equal:
 						goto break_for;
-					case CompareResult.Greater:
+					case Greater:
 						goto break_for;
 					default:
 						throw new System.NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == CompareResult.Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
 				return true;
 			if (node.ChildCount == 0)
 				return false;
@@ -475,18 +476,18 @@ namespace Towel.DataStructures
 			for (int i = 0; i < node.ItemCount; i++)
 				switch (compare(node.Items[i]))
 				{
-					case CompareResult.Less:
+					case Less:
 						loc++;
 						continue;
-					case CompareResult.Equal:
+					case Equal:
 						goto break_for;
-					case CompareResult.Greater:
+					case Greater:
 						goto break_for;
 					default:
 						throw new NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == CompareResult.Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
 				return node.Items[loc];
 			if (node.ChildCount == 0)
 				throw new InvalidOperationException("getting a non-existing item");
@@ -500,18 +501,18 @@ namespace Towel.DataStructures
 			for (int i = 0; i < node.ItemCount; i++)
 				switch (compare(node.Items[i]))
 				{
-					case CompareResult.Less:
+					case Less:
 						loc++;
 						continue;
-					case CompareResult.Equal:
+					case Equal:
 						goto break_for;
-					case CompareResult.Greater:
+					case Greater:
 						goto break_for;
 					default:
 						throw new System.NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == CompareResult.Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
 			{
 				RemoveKeyFromNode(node, compare, loc);
 				return;
@@ -748,12 +749,12 @@ namespace Towel.DataStructures
 			for (int i = 0; i < node.ItemCount; i++)
 				switch (this._compare(addition, node.Items[i]))
 				{
-					case CompareResult.Less:
+					case Less:
 						goto break_for;
-					case CompareResult.Equal:
+					case Equal:
 						positionToInsert++;
 						continue;
-					case CompareResult.Greater:
+					case Greater:
 						positionToInsert++;
 						continue;
 					default:
@@ -772,7 +773,7 @@ namespace Towel.DataStructures
 			if (child.ItemCount == this._node_size)// (2 * this._node_size) - 1) // non-leaf
 			{
 				this.Add_SplitChild(node, positionToInsert, child);
-				if (this._compare(addition, node.Items[positionToInsert]) == CompareResult.Greater)
+				if (this._compare(addition, node.Items[positionToInsert]) == Greater)
 				{
 					positionToInsert++;
 				}
@@ -812,12 +813,12 @@ namespace Towel.DataStructures
 		internal StepStatus StepperReverse(StepBreak<T> step_delegate, Node node)
 		{
 			if (node == null)
-				return StepStatus.Continue;
+				return Continue;
 			switch (Stepper(step_delegate, node.Children[node.ItemCount]))
 			{
-				case StepStatus.Break:
-					return StepStatus.Break;
-				case StepStatus.Continue:
+				case Break:
+					return Break;
+				case Continue:
 					break;
 				default:
 					throw new System.NotImplementedException();
@@ -826,36 +827,36 @@ namespace Towel.DataStructures
 			{
 				switch (step_delegate(node.Items[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 				switch (Stepper(step_delegate, node.Children[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 		#endregion
 		#region internal StepStatus StepperReverse(StepRefBreak<T> step_delegate, Node node)
 		internal StepStatus StepperReverse(StepRefBreak<T> step_delegate, Node node)
 		{
 			if (node == null)
-				return StepStatus.Continue;
+				return Continue;
 			switch (Stepper(step_delegate, node.Children[node.ItemCount]))
 			{
-				case StepStatus.Break:
-					return StepStatus.Break;
-				case StepStatus.Continue:
+				case Break:
+					return Break;
+				case Continue:
 					break;
 				default:
 					throw new System.NotImplementedException();
@@ -864,24 +865,24 @@ namespace Towel.DataStructures
 			{
 				switch (step_delegate(ref node.Items[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 				switch (Stepper(step_delegate, node.Children[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 		#endregion
 		#region internal void Stepper(Step<T> step_delegate, Node node)
@@ -914,24 +915,24 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(StepBreak<T> step_delegate, Node node)
 		{
 			if (node == null)
-				return StepStatus.Continue;
+				return Continue;
 			for (int i = 0; i < this._node_size && i < node.ItemCount; i++)
 			{
 				switch (Stepper(step_delegate, node.Children[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 				switch (step_delegate(node.Items[i]))
 				{
-					case StepStatus.Continue:
+					case Continue:
 						continue;
-					case StepStatus.Break:
-						return StepStatus.Break;
+					case Break:
+						return Break;
 					default:
 						throw new System.NotImplementedException();
 				}
@@ -943,24 +944,24 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(StepRefBreak<T> step_delegate, Node node)
 		{
 			if (node == null)
-				return StepStatus.Continue;
+				return Continue;
 			for (int i = 0; i < this._node_size && i < node.ItemCount; i++)
 			{
 				switch (Stepper(step_delegate, node.Children[i]))
 				{
-					case StepStatus.Break:
-						return StepStatus.Break;
-					case StepStatus.Continue:
+					case Break:
+						return Break;
+					case Continue:
 						break;
 					default:
 						throw new System.NotImplementedException();
 				}
 				switch (step_delegate(ref node.Items[i]))
 				{
-					case StepStatus.Continue:
+					case Continue:
 						continue;
-					case StepStatus.Break:
-						return StepStatus.Break;
+					case Break:
+						return Break;
 					default:
 						throw new System.NotImplementedException();
 				}

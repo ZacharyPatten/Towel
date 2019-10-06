@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Towel.Algorithms;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel
 {
@@ -628,12 +629,12 @@ namespace Towel
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step(array[i]) == StepStatus.Break)
+				if (step(array[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -647,12 +648,12 @@ namespace Towel
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step(ref array[i]) == StepStatus.Break)
+				if (step(ref array[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -683,12 +684,12 @@ namespace Towel
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
-				if (step(array[i]) == StepStatus.Break)
+				if (step(array[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -700,12 +701,12 @@ namespace Towel
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
-				if (step(ref array[i]) == StepStatus.Break)
+				if (step(ref array[i]) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Converts the get indexer of an IList to a delegate.</summary>

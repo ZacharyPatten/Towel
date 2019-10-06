@@ -364,13 +364,13 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; node != null; node = node.Next)
 				{
-					if (step(node.Value) == StepStatus.Break)
+					if (step(node.Value) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
@@ -757,13 +757,13 @@ namespace Towel.DataStructures
 			{
 				if (!(_table[i] is null))
 				{
-					if (_table[i].Stepper(step) == StepStatus.Break)
+					if (_table[i].Stepper(step) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					}
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -323,12 +324,12 @@ namespace Towel.DataStructures
 		{
 			for (Node looper = _head; looper != null; looper = looper.Next)
 			{
-				if (function(looper.Value) == StepStatus.Break)
+				if (function(looper.Value) == Break)
 				{
-					return StepStatus.Break;
+					return Break;
 				}
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -339,14 +340,14 @@ namespace Towel.DataStructures
 			for (Node looper = _head; looper != null; looper = looper.Next)
 			{
 				T temp = looper.Value;
-				if (function(ref temp) == StepStatus.Break)
+				if (function(ref temp) == Break)
 				{
 					looper.Value = temp;
-					return StepStatus.Break;
+					return Break;
 				}
 				looper.Value = temp;
 			}
-			return StepStatus.Continue;
+			return Continue;
 		}
 
 		System.Collections.IEnumerator
