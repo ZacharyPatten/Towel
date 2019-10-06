@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Towel.Syntax;
 using Towel.DataStructures;
 
 namespace Towel
@@ -279,12 +280,12 @@ namespace Towel
 			{
 				foreach (T value in iEnumerable)
 				{
-					if (step(value) == StepStatus.Break)
+					if (step(value) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					};
 				}
-				return StepStatus.Continue;
+				return Continue;
 			};
 
 		/// <summary>Converts an array into a stepper delegate./></summary>
@@ -309,12 +310,12 @@ namespace Towel
 			{
 				for (int i = 0; i < array.Length; i++)
 				{
-					if (step(ref array[i]) == StepStatus.Break)
+					if (step(ref array[i]) == Break)
 					{
-						return StepStatus.Break;
+						return Break;
 					};
 				}
-				return StepStatus.Continue;
+				return Continue;
 			};
 
 		/// <summary>Converts the stepper into an array.</summary>
@@ -389,12 +390,12 @@ namespace Towel
 				if (set.Contains(x))
 				{
 					duplicateFound = true;
-					return StepStatus.Break;
+					return Break;
 				}
 				else
 				{
 					set.Add(x);
-					return StepStatus.Continue;
+					return Continue;
 				}
 			});
 			return duplicateFound;
@@ -461,8 +462,8 @@ namespace Towel
 		{
 			bool any = false;
 			stepper(x => (any = where(x))
-				? StepStatus.Break
-				: StepStatus.Continue);
+				? Break
+				: Continue);
 			return any;
 		}
 

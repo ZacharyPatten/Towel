@@ -112,9 +112,9 @@ namespace Syntax
 				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
 				/// values and breaking iteration.
 
-				// StepperBreak<T> Traversal Example
+				// StepperRefBreak<T> Traversal Example
 				StepperRefBreak<int> stepperRefBreak = new int[] { 0, 1, 2, 3, 4, 5, }.ToStepperRefBreak();
-				Console.Write("    stepperBreak values:");
+				Console.Write("    stepperRefBreak values:");
 				stepperRefBreak((ref int value) =>
 				{
 					value++;
