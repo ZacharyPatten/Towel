@@ -91,9 +91,9 @@ namespace Syntax
 				Console.WriteLine();
 
 				/// You cannot alter the values of an IEnumerable during iteration, however,
-				/// you can do so with a "Towel.StepperRef".
+				/// you can do so with a "Towel.StepperRef<T>".
 
-				// StepperBreak<T> Traversal Example
+				// StepperRef<T> Traversal Example
 				StepperRef<int> stepperRef = new int[] { 0, 1, 2, }.ToStepperRef();
 				Console.Write("    stepperRef values:");
 				stepperRef((ref int value) =>
