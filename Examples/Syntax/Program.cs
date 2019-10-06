@@ -60,8 +60,6 @@ namespace Syntax
 				Console.WriteLine("    it uses delegates rather than an enumerator.");
 				Console.WriteLine("    There are pros/cons to both methodologies.");
 				Console.WriteLine();
-				Console.WriteLine("    Debug the code see the differences.");
-				Console.WriteLine();
 
 				// IEnumerable<T> Traversal Example
 				IEnumerable<int> iEnumerable = new int[] { 1, 2, 3, };
@@ -70,14 +68,12 @@ namespace Syntax
 				{
 					Console.Write(" " + value);
 				}
-
 				Console.WriteLine();
 
 				// Stepper<T> Traversal Example
 				Stepper<int> stepper = new int[] { 1, 2, 3, }.ToStepper();
 				Console.Write("    stepper values:");
 				stepper(value => Console.Write(" " + value));
-
 				Console.WriteLine();
 
 				/// You can "break" a foreach loop, but you cannot break a stepper traversal.
@@ -92,7 +88,6 @@ namespace Syntax
 					Console.Write(" " + value);
 					return value >= 3 ? Break : Continue;
 				});
-
 				Console.WriteLine();
 
 				/// You cannot alter the values of an IEnumerable during iteration, however,
@@ -106,7 +101,6 @@ namespace Syntax
 					value++;
 					Console.Write(" " + value);
 				});
-
 				Console.WriteLine();
 
 				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
@@ -121,6 +115,15 @@ namespace Syntax
 					Console.Write(" " + value);
 					return value >= 3 ? Break : Continue;
 				});
+				Console.WriteLine();
+
+				/// Here is an example of creating a stepper from only functions (no backing
+				/// data structure).
+
+				// Stepper<T> Traversal Example (From Functions)
+				Stepper<int> stepperFunctional = s => { s(1); s(2); s(3); };
+				Console.Write("    stepperFunctional values:");
+				stepperFunctional(value => Console.Write(" " + value));
 
 				Console.WriteLine();
 				Console.WriteLine();
