@@ -61,7 +61,6 @@ namespace Syntax
 				Console.WriteLine("    There are pros/cons to both methodologies.");
 				Console.WriteLine();
 
-				// IEnumerable<T> Traversal Example
 				IEnumerable<int> iEnumerable = new int[] { 1, 2, 3, };
 				Console.Write("    iEnumerable values:");
 				foreach (int value in iEnumerable)
@@ -70,7 +69,6 @@ namespace Syntax
 				}
 				Console.WriteLine();
 
-				// Stepper<T> Traversal Example
 				Stepper<int> stepper = new int[] { 1, 2, 3, }.ToStepper();
 				Console.Write("    stepper values:");
 				stepper(value => Console.Write(" " + value));
@@ -80,7 +78,6 @@ namespace Syntax
 				/// For this, there is another type of stepper that is breakable. "Towel.StepperBreak<T>"
 				/// is a breakable version of the stepper.
 
-				// StepperBreak<T> Traversal Example
 				StepperBreak<int> stepperBreak = new int[] { 1, 2, 3, 4, 5, 6, }.ToStepperBreak();
 				Console.Write("    stepperBreak values:");
 				stepperBreak(value =>
@@ -93,7 +90,6 @@ namespace Syntax
 				/// You cannot alter the values of an IEnumerable during iteration, however,
 				/// you can do so with a "Towel.StepperRef<T>".
 
-				// StepperRef<T> Traversal Example
 				StepperRef<int> stepperRef = new int[] { 0, 1, 2, }.ToStepperRef();
 				Console.Write("    stepperRef values:");
 				stepperRef((ref int value) =>
@@ -106,7 +102,6 @@ namespace Syntax
 				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
 				/// values and breaking iteration.
 
-				// StepperRefBreak<T> Traversal Example
 				StepperRefBreak<int> stepperRefBreak = new int[] { 0, 1, 2, 3, 4, 5, }.ToStepperRefBreak();
 				Console.Write("    stepperRefBreak values:");
 				stepperRefBreak((ref int value) =>
@@ -120,7 +115,6 @@ namespace Syntax
 				/// Here is an example of creating a stepper from only functions (no backing
 				/// data structure).
 
-				// Stepper<T> Traversal Example (From Functions)
 				Stepper<int> stepperFunctional = s => { s(1); s(2); s(3); };
 				Console.Write("    stepperFunctional values:");
 				stepperFunctional(value => Console.Write(" " + value));
