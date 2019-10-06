@@ -12,35 +12,75 @@ namespace Towel
 	/// <summary>Constains static analysis methods of the code (reflection).</summary>
 	public static class Meta
 	{
-		#region GetIsIntegerMethod
+		#region GetTryParseMethod
 
-		internal static MethodInfo GetIsIntegerMethod(Type a, Type b, Type c)
+		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(string, out <typeparamref name="A"/>)].</summary>
+		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
+		public static MethodInfo GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
+
+		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(string, out <paramref name="a"/>)].</summary>
+		/// <param name="a">The type of the out parameter.</param>
+		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
+		public static MethodInfo GetTryParseMethod(Type a)
 		{
 			if (a is null)
 			{
 				throw new ArgumentNullException(nameof(a));
 			}
-			if (b is null)
+			MethodInfo methodInfo = a.GetMethod("TryParse",
+				BindingFlags.Static |
+				BindingFlags.Public |
+				BindingFlags.NonPublic,
+				null,
+				new Type[] { typeof(string), a.MakeByRefType() },
+				null);
+			return !(methodInfo is null)
+				&& methodInfo.ReturnType == typeof(bool)
+					? methodInfo
+					: null;
+		}
+
+		internal static class GetTryParseMethodCache<A>
+		{
+			internal static readonly MethodInfo Value = GetTryParseMethod(typeof(A));
+		}
+
+		#endregion
+
+		#region GetIsIntegerMethod
+
+		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<typeparamref name="A"/>)].</summary>
+		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
+		public static MethodInfo GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
+
+		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<paramref name="a"/>)].</summary>
+		/// <param name="a">The type of the out parameter.</param>
+		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
+		public static MethodInfo GetIsIntegerMethod(Type a)
+		{
+			if (a is null)
 			{
-				throw new ArgumentNullException(nameof(b));
+				throw new ArgumentNullException(nameof(a));
 			}
-			Type[] parameterTypes = new Type[] { a, b, };
-			MethodInfo CheckType(Type type)
-			{
-				MethodInfo methodInfo = type.GetMethod(
-					"op_LessThan",
-					BindingFlags.Static |
-					BindingFlags.Public |
-					BindingFlags.NonPublic,
-					null,
-					parameterTypes,
-					null);
-				return !(methodInfo is null)
-					&& methodInfo.ReturnType == c
-						? methodInfo
-						: null;
-			}
-			return CheckType(a) ?? CheckType(b);
+			MethodInfo methodInfo = a.GetMethod(
+				"IsInteger",
+				BindingFlags.Static |
+				BindingFlags.Public |
+				BindingFlags.NonPublic,
+				null,
+				new Type[] { a, },
+				null);
+			return !(methodInfo is null)
+				&& methodInfo.ReturnType == typeof(bool)
+					? methodInfo
+					: null;
+		}
+
+		internal static class GetIsIntegerMethodCache<A>
+		{
+			internal static readonly MethodInfo Value = GetIsIntegerMethod(typeof(A));
 		}
 
 		#endregion

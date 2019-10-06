@@ -259,7 +259,7 @@ namespace Towel
 
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
-		/// <param name="iEnumerable">The Ienumerable to convert.</param>
+		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
 		public static Stepper<T> ToStepper<T>(this IEnumerable<T> iEnumerable) =>
 			step =>
@@ -272,7 +272,7 @@ namespace Towel
 
 		/// <summary>Converts an IEnumerable into a stepper delegate./></summary>
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
-		/// <param name="iEnumerable">The Ienumerable to convert.</param>
+		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
 		public static StepperBreak<T> ToStepperBreak<T>(this IEnumerable<T> iEnumerable) =>
 			step =>
@@ -280,6 +280,36 @@ namespace Towel
 				foreach (T value in iEnumerable)
 				{
 					if (step(value) == StepStatus.Break)
+					{
+						return StepStatus.Break;
+					};
+				}
+				return StepStatus.Continue;
+			};
+
+		/// <summary>Converts an array into a stepper delegate./></summary>
+		/// <typeparam name="T">The generic type being iterated.</typeparam>
+		/// <param name="array">The array to convert.</param>
+		/// <returns>The stepper delegate comparable to the array provided.</returns>
+		public static StepperRef<T> ToStepperRef<T>(this T[] array) =>
+			step =>
+			{
+				for (int i = 0; i < array.Length; i++)
+				{
+					step(ref array[i]);
+				}
+			};
+
+		/// <summary>Converts an array into a stepper delegate./></summary>
+		/// <typeparam name="T">The generic type being iterated.</typeparam>
+		/// <param name="array">The array to convert.</param>
+		/// <returns>The stepper delegate comparable to the array provided.</returns>
+		public static StepperRefBreak<T> ToStepperRefBreak<T>(this T[] array) =>
+			step =>
+			{
+				for (int i = 0; i < array.Length; i++)
+				{
+					if (step(ref array[i]) == StepStatus.Break)
 					{
 						return StepStatus.Break;
 					};

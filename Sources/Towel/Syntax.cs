@@ -82,39 +82,29 @@ namespace Towel
 
 			internal static TryParseDelegate Function = (string @string, out T value) =>
 			{
-				Type type = typeof(T);
-				Type[] parameterTypes = new Type[] { typeof(string), type.MakeByRefType() };
-				MethodInfo methodInfo =
-					type.GetMethod("TryParse",
-						BindingFlags.Static |
-						BindingFlags.Public |
-						BindingFlags.NonPublic,
-						null,
-						parameterTypes,
-						null);
-				Function =
-					methodInfo is null
-					?
-					(string _string, out T _value) =>
-					{
-						_value = default;
-						return false;
-					}
-				:
-					(TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
+				MethodInfo methodInfo = Meta.GetTryParseMethod<T>();
+				Function = methodInfo is null
+					? Default
+					: (TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
 				return Function(@string, out value);
 			};
+
+			public static bool Default(string @string, out T value)
+			{
+				value = default;
+				return false;
+			}
 		}
 
 		#endregion
 
 		#region Convert
 
-		/// <summary>Converts exists between types.</summary>
+		/// <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
 		/// <typeparam name="A">The type of the value to convert.</typeparam>
 		/// <typeparam name="B">The type to convert teh value to.</typeparam>
 		/// <param name="a">The value to convert.</param>
-		/// <returns>The result of the conversion.</returns>
+		/// <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
 		public static B Convert<A, B>(A a) =>
 			ConvertImplementation<A, B>.Function(a);
 
@@ -132,6 +122,9 @@ namespace Towel
 		#endregion
 
 		#region Resolve
+
+		// NOTE: I hope that expression chains or sequence expressions
+		// would be added to C# so this "Resolve" method can die.
 
 		/// <summary>Performs an action and resolves to a given value.</summary>
 		/// <typeparam name="T">The generic type to resolve to.</typeparam>

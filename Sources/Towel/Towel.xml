@@ -29647,6 +29647,26 @@
         <member name="T:Towel.Meta">
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
+        <member name="M:Towel.Meta.GetTryParseMethod``1">
+            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(string, out <typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetTryParseMethod(System.Type)">
+            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(string, out <paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsIntegerMethod``1">
+            <summary>Gets the IsInteger <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsInteger(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsIntegerMethod(System.Type)">
+            <summary>Gets the IsInteger <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsInteger(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
         <member name="M:Towel.Meta.GetLessThanMethod``3">
             <summary>Determines if an op_LessThan member exists.</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
@@ -30139,14 +30159,26 @@
         <member name="M:Towel.Stepper.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an IEnumerable into a stepper delegate./></summary>
             <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="iEnumerable">The Ienumerable to convert.</param>
+            <param name="iEnumerable">The IEnumerable to convert.</param>
             <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
         </member>
         <member name="M:Towel.Stepper.ToStepperBreak``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an IEnumerable into a stepper delegate./></summary>
             <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="iEnumerable">The Ienumerable to convert.</param>
+            <param name="iEnumerable">The IEnumerable to convert.</param>
             <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
+        </member>
+        <member name="M:Towel.Stepper.ToStepperRef``1(``0[])">
+            <summary>Converts an array into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="array">The array to convert.</param>
+            <returns>The stepper delegate comparable to the array provided.</returns>
+        </member>
+        <member name="M:Towel.Stepper.ToStepperRefBreak``1(``0[])">
+            <summary>Converts an array into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="array">The array to convert.</param>
+            <returns>The stepper delegate comparable to the array provided.</returns>
         </member>
         <member name="M:Towel.Stepper.ToArray``1(Towel.Stepper{``0})">
             <summary>Converts the stepper into an array.</summary>
@@ -30232,11 +30264,11 @@
             <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.Syntax.Convert``2(``0)">
-            <summary>Converts exists between types.</summary>
+            <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
             <typeparam name="A">The type of the value to convert.</typeparam>
             <typeparam name="B">The type to convert teh value to.</typeparam>
             <param name="a">The value to convert.</param>
-            <returns>The result of the conversion.</returns>
+            <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
         </member>
         <member name="M:Towel.Syntax.Resolve``1(System.Action,``0)">
             <summary>Performs an action and resolves to a given value.</summary>
