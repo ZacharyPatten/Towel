@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -161,7 +162,7 @@ namespace Towel.DataStructures
 					CompareResult compare = this._compareKey(point(dimension), this._locate(parent.Value)(dimension));
 					switch (compare)
 					{
-						case ((CompareResult.Less | CompareResult.Equal)):
+						case ((Less | Equal)):
 							if (parent.LeftChild == null)
 							{
 								parent.LeftChild = nodeToAdd;
@@ -170,7 +171,7 @@ namespace Towel.DataStructures
 							else
 								parent = parent.LeftChild;
 							break;
-						case (CompareResult.Greater):
+						case (Greater):
 							if (parent.RightChild == null)
 							{
 								parent.RightChild = nodeToAdd;
@@ -242,7 +243,7 @@ namespace Towel.DataStructures
 		{
 			for (var index = 0; index < this._dimensions; index++)
 			{
-				if (!(this._compareKey(a(index), b(index)) == CompareResult.Equal))
+				if (!(this._compareKey(a(index), b(index)) == Equal))
 					return false;
 			}
 
@@ -277,7 +278,7 @@ namespace Towel.DataStructures
 				CompareResult compare = this._compareKey(point(dimension), this._locate(node.Value)(dimension));
 				switch (compare)
 				{
-					case (CompareResult.Less | CompareResult.Equal):
+					case (Less | Equal):
 						if (node.LeftChild == null)
 							return;
 						else
@@ -292,7 +293,7 @@ namespace Towel.DataStructures
 						else
 							node = node.LeftChild;
 						break;
-					case CompareResult.Greater:
+					case Greater:
 						if (node.RightChild == null)
 							return;
 						if (AreEqual(point, this._locate(node.RightChild.Value)))
@@ -373,13 +374,13 @@ namespace Towel.DataStructures
 			int compareTargetPoint_as_int;
 			switch (compareTargetPoint)
 			{
-				case CompareResult.Equal:
+				case Equal:
 					compareTargetPoint_as_int = 0;
 					break;
-				case CompareResult.Less:
+				case Less:
 					compareTargetPoint_as_int = -1;
 					break;
-				case CompareResult.Greater:
+				case Greater:
 					compareTargetPoint_as_int = 1;
 					break;
 				default:
@@ -412,11 +413,11 @@ namespace Towel.DataStructures
 			GetIndex<K> closestPointInFurtherRect = furtherRect.GetClosestPoint(target, this._dimensions);
 			distanceSquaredToTarget = DistanceSquaredBetweenPoints(closestPointInFurtherRect, target);
 
-			if (this._compareKey(distanceSquaredToTarget, maxSearchRadiusSquared) == (CompareResult.Less | CompareResult.Equal))
+			if (this._compareKey(distanceSquaredToTarget, maxSearchRadiusSquared) == (Less | Equal))
 			{
 				if (nearestNeighbours.IsCapacityReached)
 				{
-					if (this._compareKey(distanceSquaredToTarget, nearestNeighbours.GetFurtherestDistance()) == CompareResult.Less)
+					if (this._compareKey(distanceSquaredToTarget, nearestNeighbours.GetFurtherestDistance()) == Less)
 						AddNearestNeighbours(
 							furtherNode,
 							target,
@@ -440,7 +441,7 @@ namespace Towel.DataStructures
 			// Try to add the current node to our nearest neighbours list
 			distanceSquaredToTarget = DistanceSquaredBetweenPoints(this._locate(node.Value), target);
 
-			if (this._compareKey(distanceSquaredToTarget, maxSearchRadiusSquared) == (CompareResult.Less | CompareResult.Equal))
+			if (this._compareKey(distanceSquaredToTarget, maxSearchRadiusSquared) == (Less | Equal))
 				nearestNeighbours.Add(node, distanceSquaredToTarget);
 		}
 		#endregion
@@ -505,7 +506,7 @@ namespace Towel.DataStructures
 				// Keep searching
 				dimension = (dimension + 1) % _dimensions;
 
-				if (this._compareKey(point(dimension), this._locate(parent.Value)(dimension)) == (CompareResult.Less | CompareResult.Equal))
+				if (this._compareKey(point(dimension), this._locate(parent.Value)(dimension)) == (Less | Equal))
 					parent = parent.LeftChild;
 				else
 					parent = parent.RightChild;
@@ -598,7 +599,7 @@ namespace Towel.DataStructures
 				{
 					Node a = nodes[newIndex - 1];
 					Node b = nodes[newIndex];
-					if (this._compareKey(this._locate(b.Value)(byDimension), this._locate(a.Value)(byDimension)) == CompareResult.Less)
+					if (this._compareKey(this._locate(b.Value)(byDimension), this._locate(a.Value)(byDimension)) == Less)
 					{
 						nodes[newIndex - 1] = b;
 						nodes[newIndex] = a;
@@ -730,11 +731,11 @@ namespace Towel.DataStructures
 
 			for (var dimension = 0; dimension < length; dimension++)
 			{
-				if (this._compareT(_minPoint[dimension], toPoint(dimension)) == CompareResult.Greater)
+				if (this._compareT(_minPoint[dimension], toPoint(dimension)) == Greater)
 				{
 					closest[dimension] = _minPoint[dimension];
 				}
-				else if (this._compareT(_maxPoint[dimension], toPoint(dimension)) == CompareResult.Less)
+				else if (this._compareT(_maxPoint[dimension], toPoint(dimension)) == Less)
 				{
 					closest[dimension] = _maxPoint[dimension];
 				}
@@ -857,9 +858,9 @@ namespace Towel.DataStructures
 				// If we're moving up and our priority is higher than the next priority then swap
 				// Or if we're moving down and our priority is lower than the next priority then swap
 				if (
-					((direction == -1) && (compare == CompareResult.Greater))
+					((direction == -1) && (compare == Greater))
 					||
-					((direction == 1) && (compare == CompareResult.Less))
+					((direction == 1) && (compare == Less))
 					)
 				{
 					queue[index] = next;

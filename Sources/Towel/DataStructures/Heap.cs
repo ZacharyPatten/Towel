@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -155,7 +156,7 @@ namespace Towel.DataStructures
 			int i;
 			for (i = 1; i <= _count; i++)
 			{
-				if (_compare(item, _heap[i]) == CompareResult.Equal)
+				if (_compare(item, _heap[i]) == Equal)
 				{
 					break;
 				}
@@ -185,7 +186,7 @@ namespace Towel.DataStructures
 		internal void ShiftUp(int index)
 		{
 			int parent;
-			while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) == CompareResult.Greater)
+			while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) == Greater)
 			{
 				ArraySwap(index, parent);
 				index = parent;
@@ -201,11 +202,11 @@ namespace Towel.DataStructures
 			while ((leftChild = LeftChild(index)) <= _count)
 			{
 				int down = leftChild;
-				if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) == CompareResult.Greater)
+				if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) == Greater)
 				{
 					down = rightChild;
 				}
-				if (_compare(_heap[down], _heap[index]) == CompareResult.Less)
+				if (_compare(_heap[down], _heap[index]) == Less)
 				{
 					break;
 				}

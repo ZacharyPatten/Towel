@@ -154,15 +154,15 @@ namespace Towel.DataStructures
 					return new Node(value);
 				}
 				CompareResult comparison = _compare(node.Value, value);
-				if (comparison == CompareResult.Less)
+				if (comparison == Less)
 				{
 					node.RightChild = Add(node.RightChild);
 				}
-				else if (comparison == CompareResult.Greater)
+				else if (comparison == Greater)
 				{
 					node.LeftChild = Add(node.LeftChild);
 				}
-				else // (comparison == CompareResult.Equal)
+				else // (comparison == Equal)
 				{
 					capturedException = new ArgumentException("Adding to add a duplicate value to an AVL tree.", nameof(value));
 				}
@@ -222,11 +222,11 @@ namespace Towel.DataStructures
 			while (node != null)
 			{
 				CompareResult compareResult = comparison(node.Value);
-				if (compareResult == CompareResult.Less)
+				if (compareResult == Less)
 				{
 					node = node.LeftChild;
 				}
-				else if (compareResult == CompareResult.Greater)
+				else if (compareResult == Greater)
 				{
 					node = node.RightChild;
 				}

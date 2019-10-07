@@ -597,7 +597,7 @@
             <summary>Inverts a comparison value.</summary>
             <returns>The invert of the comparison value.</returns>
         </member>
-        <member name="M:Towel.Compare.FromComparer``1(System.Collections.Generic.Comparer{``0})">
+        <member name="M:Towel.Compare.ToCompare``1(System.Collections.Generic.Comparer{``0})">
             <summary>Converts a System.Collection.Generic.Comparer into a Towel.Compare delegate.</summary>
             <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
             <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
@@ -30269,20 +30269,6 @@
             <typeparam name="B">The type to convert teh value to.</typeparam>
             <param name="a">The value to convert.</param>
             <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
-        </member>
-        <member name="M:Towel.Syntax.Resolve``1(System.Action,``0)">
-            <summary>Performs an action and resolves to a given value.</summary>
-            <typeparam name="T">The generic type to resolve to.</typeparam>
-            <param name="action">The action to perform.</param>
-            <param name="result">The value to resolve to.</param>
-            <returns>The resolution value.</returns>
-        </member>
-        <member name="M:Towel.Syntax.Resolve``1(System.Action,``0@)">
-            <summary>Performs an action and resolves to a given value.</summary>
-            <typeparam name="T">The generic type to resolve to.</typeparam>
-            <param name="action">The action to perform.</param>
-            <param name="result">The value to resolve to.</param>
-            <returns>The resolution value.</returns>
         </member>
         <member name="F:Towel.Syntax.Continue">
             <summary>Stepper was not broken.</summary>

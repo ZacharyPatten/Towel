@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.Algorithms
 {
@@ -46,7 +47,7 @@ namespace Towel.Algorithms
 			{
 				for (int j = start; j <= end - 1; j++)
 				{
-					if (compare(get(j), get(j + 1)) == CompareResult.Greater)
+					if (compare(get(j), get(j + 1)) == Greater)
 					{
 						T temp = get(j + 1);
 						set(j + 1, get(j));
@@ -100,7 +101,7 @@ namespace Towel.Algorithms
 				int min_idx = i;
 				for (int j = i + 1; j <= end; j++)
 				{
-					if (compare(get(j), get(min_idx)) == CompareResult.Less)
+					if (compare(get(j), get(min_idx)) == Less)
 					{
 						min_idx = j;
 					}
@@ -154,7 +155,7 @@ namespace Towel.Algorithms
 			{
 				T temp = get(i);
 				int j = i;
-				for (; j > start && compare(get(j - 1), temp) == CompareResult.Greater; j--)
+				for (; j > start && compare(get(j - 1), temp) == Greater; j--)
 				{
 					set(j, get(j - 1));
 				}
@@ -212,13 +213,13 @@ namespace Towel.Algorithms
 				int k = j;
 				while (i <= j)
 				{
-					if (compare(get(j), pivot) == CompareResult.Less)
+					if (compare(get(j), pivot) == Less)
 					{
 						T temp = get(i);
 						set(i++, get(j));
 						set(j, temp);
 					}
-					else if (compare(get(j), pivot) == CompareResult.Equal)
+					else if (compare(get(j), pivot) == Equal)
 					{
 						j--;
 					}
@@ -287,7 +288,7 @@ namespace Towel.Algorithms
 				int k = 0;
 				while (i < start + half && j < start + len)
 				{
-					if (compare(get(i), get(j)) == CompareResult.Greater)
+					if (compare(get(i), get(j)) == Greater)
 					{
 						sorted[k++] = get(j++);
 					}
@@ -364,7 +365,7 @@ namespace Towel.Algorithms
 			int left = (index + 1) * 2 - 1;
 			int right = (index + 1) * 2;
 			int largest;
-			if (left < heapSize && compare(get(left), get(index)) == CompareResult.Greater)
+			if (left < heapSize && compare(get(left), get(index)) == Greater)
 			{
 				largest = left;
 			}
@@ -372,7 +373,7 @@ namespace Towel.Algorithms
 			{
 				largest = index;
 			}
-			if (right < heapSize && compare(get(right), get(largest)) == CompareResult.Greater)
+			if (right < heapSize && compare(get(right), get(largest)) == Greater)
 			{
 				largest = right;
 			}
@@ -430,7 +431,7 @@ namespace Towel.Algorithms
 				sorted = true;
 				for (var i = start + 1; i < end - 1; i += 2)
 				{
-					if (compare(get(i), get(i + 1)) == CompareResult.Greater)
+					if (compare(get(i), get(i + 1)) == Greater)
 					{
 						T temp = get(i);
 						set(i, get(i + 1));
@@ -440,7 +441,7 @@ namespace Towel.Algorithms
 				}
 				for (var i = start; i < end - 1; i += 2)
 				{
-					if (compare(get(i), get(i + 1)) == CompareResult.Greater)
+					if (compare(get(i), get(i + 1)) == Greater)
 					{
 						T temp = get(i);
 						set(i, get(i + 1));
@@ -634,7 +635,7 @@ namespace Towel.Algorithms
 		{
 			for (int i = start; i <= end - 1; i++)
 			{
-				if (compare(get(i), get(i + 1)) == CompareResult.Greater)
+				if (compare(get(i), get(i + 1)) == Greater)
 				{
 					return false;
 				}

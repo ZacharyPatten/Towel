@@ -33,6 +33,10 @@ namespace Towel
 
 		internal static T OperationOnStepper<T>(Stepper<T> stepper, Func<T, T, T> operation)
 		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
 			T result = default;
 			bool assigned = false;
 			stepper(a =>
@@ -47,11 +51,9 @@ namespace Towel
 					assigned = true;
 				}
 			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
+			return assigned
+				? result
+				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
 		}
 
 		#endregion
@@ -117,35 +119,6 @@ namespace Towel
 				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
 				return Function(a);
 			};
-		}
-
-		#endregion
-
-		#region Resolve
-
-		// NOTE: I hope that expression chains or sequence expressions
-		// would be added to C# so this "Resolve" method can die.
-
-		/// <summary>Performs an action and resolves to a given value.</summary>
-		/// <typeparam name="T">The generic type to resolve to.</typeparam>
-		/// <param name="action">The action to perform.</param>
-		/// <param name="result">The value to resolve to.</param>
-		/// <returns>The resolution value.</returns>
-		public static T Resolve<T>(Action action, T result)
-		{
-			action();
-			return result;
-		}
-
-		/// <summary>Performs an action and resolves to a given value.</summary>
-		/// <typeparam name="T">The generic type to resolve to.</typeparam>
-		/// <param name="action">The action to perform.</param>
-		/// <param name="result">The value to resolve to.</param>
-		/// <returns>The resolution value.</returns>
-		public static T Resolve<T>(Action action, ref T result)
-		{
-			action();
-			return result;
 		}
 
 		#endregion
@@ -262,9 +235,19 @@ namespace Towel
 			}
 			T value = default;
 			bool assigned = false;
-			bool result = stepper.Any(x => assigned
-				? !Equality(value, x)
-				: Resolve(() => value = x, false));
+			bool result = stepper.Any(x =>
+			{
+				if (assigned)
+				{
+					return !Equality(value, x);
+				}
+				else
+				{
+					value = x;
+					assigned = true;
+					return false;
+				}
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -284,14 +267,22 @@ namespace Towel
 			}
 			T value = default;
 			bool assigned = false;
-			bool result = stepper.Any(x => assigned
-				? !Equality(value, x)
-				: Resolve(() => value = x, false));
-			if (!assigned)
+			bool result = stepper.Any(x =>
 			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
+				if (assigned)
+				{
+					return !Equality(value, x);
+				}
+				else
+				{
+					value = x;
+					assigned = true;
+					return false;
+				}
+			});
+			return assigned
+				? result
+				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
 		}
 
 		internal static class EqualityImplementation<A, B, C>
@@ -397,9 +388,19 @@ namespace Towel
 			}
 			T value = default;
 			bool assigned = false;
-			bool result = stepper.Any(x => assigned
-				? !Inequality(value, x)
-				: Resolve(() => value = x, false));
+			bool result = stepper.Any(x =>
+			{
+				if (assigned)
+				{
+					return !Inequality(value, x);
+				}
+				else
+				{
+					value = x;
+					assigned = true;
+					return false;
+				}
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -419,9 +420,19 @@ namespace Towel
 			}
 			T value = default;
 			bool assigned = false;
-			bool result = stepper.Any(x => assigned
-				? !Inequality(value, x)
-				: Resolve(() => value = x, false));
+			bool result = stepper.Any(x =>
+			{
+				if (assigned)
+				{
+					return !Inequality(value, x);
+				}
+				else
+				{
+					value = x;
+					assigned = true;
+					return false;
+				}
+			});
 			if (!assigned)
 			{
 				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
@@ -1313,23 +1324,8 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the maximum of.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T result = default;
-			bool assigned = false;
-			stepper(a => assigned = assigned
-				? Resolve(() => result = Maximum(result, a), true)
-				: Resolve(() => result = a, true));
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Maximum<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Maximum);
 
 		#endregion
 
@@ -1357,23 +1353,8 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the minimum of.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T result = default;
-			bool assigned = false;
-			stepper(a => assigned = assigned
-				? Resolve(() => result = Minimum(result, a), true)
-				: Resolve(() => result = a, true));
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
+		public static T Minimum<T>(Stepper<T> stepper) =>
+			OperationOnStepper(stepper, Minimum);
 
 		#endregion
 
@@ -1447,12 +1428,15 @@ namespace Towel
 
 		internal static class CompareImplementation<A, B>
 		{
-			internal static Func<A, B, CompareResult> Function = (a, b) =>
+			internal static Compare<A, B> Function = (a, b) =>
 			{
 				if (typeof(A) == typeof(B) && a is IComparable<B> &&
 					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
 				{
-					CompareImplementation<A, A>.Function = Compare.Default; // Comparer.Default
+					CompareImplementation<A, A>.Function =
+						new Compare<A, A>(
+							Compare.ToCompare<A>(
+								System.Collections.Generic.Comparer<A>.Default));
 				}
 				else
 				{
@@ -1492,7 +1476,7 @@ namespace Towel
 								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
 							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
 							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+					Function = Expression.Lambda<Compare<A, B>>(BODY, A, B).Compile();
 				}
 				return Function(a, b);
 			};

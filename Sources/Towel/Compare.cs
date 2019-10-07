@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Towel.Syntax;
 
 namespace Towel
 {
@@ -44,19 +45,10 @@ namespace Towel
 		/// <returns>The converted Comparison value.</returns>
 		public static CompareResult Wrap(int compareResult) =>
 			compareResult < 0
-			? CompareResult.Less
+			? Less
 			: compareResult > 0
-				? CompareResult.Greater
-				: CompareResult.Equal;
-
-		internal class DefaultImplementation<T>
-		{
-			internal static Compare<T> Function = (T a, T b) =>
-				{
-					Function = FromComparer(Comparer<T>.Default);
-					return Function(a, b);
-				};
-		}
+				? Greater
+				: Equal;
 
 		/// <summary>Gets the default comparer or throws an exception if non exists.</summary>
 		/// <typeparam name="T">The generic type of the comparison.</typeparam>
@@ -64,7 +56,7 @@ namespace Towel
 		/// <param name="b">Right operand of the comparison.</param>
 		/// <returns>The result of the comparison.</returns>
 		public static CompareResult Default<T>(T a, T b) =>
-			DefaultImplementation<T>.Function(a, b);
+			Comparison(a, b);
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
@@ -85,9 +77,9 @@ namespace Towel
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
 		/// <returns>The converted Towel.Compare delegate.</returns>
-		public static Compare<T> FromComparer<T>(Comparer<T> comparer) =>
+		public static Compare<T> ToCompare<T>(Comparer<T> comparer) =>
 			(a, b) => Wrap(comparer.Compare(a, b));
-
+		
 		/// <summary>Converts a Towel.Compare to a System.Comparison.</summary>
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>

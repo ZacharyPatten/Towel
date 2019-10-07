@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -91,7 +92,7 @@ namespace Towel.DataStructures
 			int index;
 			for (index = this._list.Count; index > 0; index--)
 			{
-				if (this._compare(addition, this._list[index - 1]) == CompareResult.Greater)
+				if (this._compare(addition, this._list[index - 1]) == Greater)
 					break;
 			}
 			this._list.Add(addition, index);
