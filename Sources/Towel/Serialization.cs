@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Towel.Serialization
+namespace Towel
 {
 	/// <summary>Static class containing serialization code.</summary>
 	public static partial class Serialization

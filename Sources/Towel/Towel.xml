@@ -16362,6 +16362,71 @@
             <param name="ratio">The tangent ratio to compute the angle of.</param>
             <returns>The angle of the tangent ratio.</returns>
         </member>
+        <member name="T:Towel.Mathematics.MathematicsSyntax">
+            <summary>Contains static methods for mathematics syntax.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``3(``0,``1)">
+            <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``1(``0,``0)">
+            <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``1(``0,``0,``0,``0[])">
+            <summary>Adds multiple values [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The first operand of the addition.</param>
+            <param name="b">The second operand of the addition.</param>
+            <param name="c">The third operand of the addition.</param>
+            <param name="d">The remaining operands of the addition.</param>
+            <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``1(Towel.Stepper{``0})">
+            <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="stepper">The stepper of the values to add.</param>
+            <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``3(``0,``1)">
+            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <typeparam name="C">The type of the return.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``1(``0,``0)">
+            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``1(``0,``0,``0,``0[])">
+            <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
+            <param name="c">The third operand.</param>
+            <param name="d">The remaining values.</param>
+            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
+        </member>
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``1(Towel.Stepper{``0})">
+            <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="stepper">The stepper containing the values.</param>
+            <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
+        </member>
         <member name="T:Towel.Mathematics.Matrix`1">
             <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
             <typeparam name="T">The numeric type of this Matrix.</typeparam>
@@ -29392,256 +29457,256 @@
         <member name="T:Towel.Measurements.VolumeRate.Units">
             <summary>Units for VolumeRate measurements.</summary>
         </member>
-        <member name="T:Towel.Measurements.MeasurementUnitsSyntax">
+        <member name="T:Towel.Measurements.MeasurementsSyntax">
             <summary>Provides syntax for measurement unit definition. Intended to be referenced via "using static" keyword in files.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gradians">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Gradians">
             <summary>Units of an angle measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Degrees">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Degrees">
             <summary>Units of an angle measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Radians">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Radians">
             <summary>Units of an angle measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Revolutions">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Revolutions">
             <summary>Units of an angle measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Coulombs">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Coulombs">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yoctoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yoctoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zeptoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zeptoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Attoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Attoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Femtoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Femtoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Picoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Picoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Nanoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Nanoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Microampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Microampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Milliampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Milliampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Centiampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Centiampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Deciampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Deciampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Amperes">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Amperes">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Dekaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Dekaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hectoampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Hectoampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Kiloampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Kiloampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Megaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Megaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gigaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Gigaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Teraampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Teraampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Petaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Petaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Exaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Exaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zettaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zettaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottaampheres">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yottaampheres">
             <summary>Units of an electric charge measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Joules">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Joules">
             <summary>Units of an Energy measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Newtons">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Newtons">
             <summary>Units of an force measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yoctometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yoctometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zeptometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zeptometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Attometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Attometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Femtometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Femtometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Picometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Picometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Nanometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Nanometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Micrometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Micrometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Millimeters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Millimeters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Centimeters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Centimeters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Inches">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Inches">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Decimeters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Decimeters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Feet">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Feet">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yards">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yards">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Meters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Meters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Dekameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Dekameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hectometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Hectometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Kilometers">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Kilometers">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Miles">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Miles">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.NauticalMiles">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.NauticalMiles">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Megameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Megameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gigameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Gigameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Terameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Terameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Petameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Petameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Exameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Exameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zettameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zettameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottameters">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yottameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yoctograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yoctograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zeptograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zeptograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Attograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Attograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Femtograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Femtograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Picograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Picograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Nanograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Nanograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Micrograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Micrograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Milligrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Milligrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Centigrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Centigrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Decigrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Decigrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Grams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Grams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Dekagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Dekagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hectograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Hectograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Kilograms">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Kilograms">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Megagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Megagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Gigagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Gigagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Teragrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Teragrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Petagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Petagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Exagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Exagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Zettagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Zettagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Yottagrams">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Yottagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Watts">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Watts">
             <summary>Units of an Power measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Pascals">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Pascals">
             <summary>Units of an Pressure measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Knots">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Knots">
             <summary>Units of an speed measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Milliseconds">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Milliseconds">
             <summary>Units of an time measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Seconds">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Seconds">
             <summary>Units of an time measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Minutes">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Minutes">
             <summary>Units of an time measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Hours">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Hours">
             <summary>Units of an time measurement.</summary>
         </member>
-        <member name="F:Towel.Measurements.MeasurementUnitsSyntax.Days">
+        <member name="F:Towel.Measurements.MeasurementsSyntax.Days">
             <summary>Units of an time measurement.</summary>
         </member>
         <member name="T:Towel.Meta">
@@ -29852,48 +29917,48 @@
             <param name="methodInfo">The method info to determine if it is a local function.</param>
             <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
-        <member name="T:Towel.Serialization.Serialization">
+        <member name="T:Towel.Serialization">
             <summary>Static class containing serialization code.</summary>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0)">
+        <member name="M:Towel.Serialization.DefaultToXml``1(``0)">
             <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to serialize.</typeparam>
             <param name="value">The value to serialize.</param>
             <returns>The XML serialzation of the value.</returns>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.Xml.XmlWriterSettings)">
+        <member name="M:Towel.Serialization.DefaultToXml``1(``0,System.Xml.XmlWriterSettings)">
             <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to serialize.</typeparam>
             <param name="value">The value to serialize.</param>
             <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
             <returns>The XML serialzation of the value.</returns>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.IO.TextWriter)">
+        <member name="M:Towel.Serialization.DefaultToXml``1(``0,System.IO.TextWriter)">
             <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to serialize.</typeparam>
             <param name="value">The value to serialize.</param>
             <param name="textWriter">The text writer to output the XML serialization to.</param>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
+        <member name="M:Towel.Serialization.DefaultToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
             <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to serialize.</typeparam>
             <param name="value">The value to serialize.</param>
             <param name="textWriter">The text writer to output the XML serialization to.</param>
             <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultFromXml``1(System.String)">
+        <member name="M:Towel.Serialization.DefaultFromXml``1(System.String)">
             <summary>Wrapper for the default XML deserialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to deserialize.</typeparam>
             <param name="string">The string containing the XML content to deserialize.</param>
             <returns>The deserialized value.</returns>
         </member>
-        <member name="M:Towel.Serialization.Serialization.DefaultFromXml``1(System.IO.TextReader)">
+        <member name="M:Towel.Serialization.DefaultFromXml``1(System.IO.TextReader)">
             <summary>Wrapper for the default XML deserialization in .NET using XmlSerializer.</summary>
             <typeparam name="T">The type of object to deserialize.</typeparam>
             <param name="textReader">The text reader providing the XML to deserialize.</param>
             <returns>The deserialized value.</returns>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0)">
+        <member name="M:Towel.Serialization.StaticDelegateToXml``1(``0)">
             <summary>Serializes a static delegate to XML.</summary>
             <typeparam name="T">The type of delegate to serialize.</typeparam>
             <param name="delegate">The delegate to serialize.</param>
@@ -29905,7 +29970,7 @@
             Thrown when the delegate is pointing to a local function.
             </exception>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.Xml.XmlWriterSettings)">
+        <member name="M:Towel.Serialization.StaticDelegateToXml``1(``0,System.Xml.XmlWriterSettings)">
             <summary>Serializes a static delegate to XML.</summary>
             <typeparam name="T">The type of delegate to serialize.</typeparam>
             <param name="delegate">The delegate to serialize.</param>
@@ -29918,7 +29983,7 @@
             Thrown when the delegate is pointing to a local function.
             </exception>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter)">
+        <member name="M:Towel.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter)">
             <summary>Serializes a static delegate to XML.</summary>
             <typeparam name="T">The type of delegate to serialize.</typeparam>
             <param name="delegate">The delegate to serialize.</param>
@@ -29930,7 +29995,7 @@
             Thrown when the delegate is pointing to a local function.
             </exception>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
+        <member name="M:Towel.Serialization.StaticDelegateToXml``1(``0,System.IO.TextWriter,System.Xml.XmlWriterSettings)">
             <summary>Serializes a static delegate to XML.</summary>
             <typeparam name="T">The type of delegate to serialize.</typeparam>
             <param name="delegate">The delegate to serialize.</param>
@@ -29943,7 +30008,7 @@
             Thrown when the delegate is pointing to a local function.
             </exception>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateFromXml``1(System.String)">
+        <member name="M:Towel.Serialization.StaticDelegateFromXml``1(System.String)">
             <summary>Deserializes a static delegate from XML.</summary>
             <typeparam name="T">The type of the delegate to deserialize.</typeparam>
             <param name="string">The string of XML content to deserialize.</param>
@@ -29955,7 +30020,7 @@
             Thrown when the delegate is pointing to a local function.
             </exception>
         </member>
-        <member name="M:Towel.Serialization.Serialization.StaticDelegateFromXml``1(System.IO.TextReader)">
+        <member name="M:Towel.Serialization.StaticDelegateFromXml``1(System.IO.TextReader)">
             <summary>Deserializes a static delegate from XML.</summary>
             <typeparam name="T">The type of the delegate to deserialize.</typeparam>
             <param name="textReader">The text reader providing the XML to deserialize.</param>
@@ -30465,12 +30530,6 @@
             <param name="stepper">The stepper of the values to add.</param>
             <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Σ``1(Towel.Stepper{``0})">
-            <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
-            <typeparam name="T">The type of the operation.</typeparam>
-            <param name="stepper">The stepper of the values to add.</param>
-            <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
-        </member>
         <member name="M:Towel.Syntax.Subtraction``3(``0,``1)">
             <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
@@ -30529,37 +30588,6 @@
         </member>
         <member name="M:Towel.Syntax.Multiplication``1(Towel.Stepper{``0})">
             <summary>Multiplies multiple values [step1 * step2 * step3 * ...].</summary>
-            <typeparam name="T">The type of the operation.</typeparam>
-            <param name="stepper">The stepper containing the values.</param>
-            <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
-        </member>
-        <member name="M:Towel.Syntax.Π``3(``0,``1)">
-            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-            <typeparam name="A">The type of the left operand.</typeparam>
-            <typeparam name="B">The type of the right operand.</typeparam>
-            <typeparam name="C">The type of the return.</typeparam>
-            <param name="a">The left operand.</param>
-            <param name="b">The right operand.</param>
-            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-        </member>
-        <member name="M:Towel.Syntax.Π``1(``0,``0)">
-            <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-            <typeparam name="T">The type of the operation.</typeparam>
-            <param name="a">The left operand.</param>
-            <param name="b">The right operand.</param>
-            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-        </member>
-        <member name="M:Towel.Syntax.Π``1(``0,``0,``0,``0[])">
-            <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
-            <typeparam name="T">The type of the operation.</typeparam>
-            <param name="a">The first operand.</param>
-            <param name="b">The second operand.</param>
-            <param name="c">The third operand.</param>
-            <param name="d">The remaining values.</param>
-            <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
-        </member>
-        <member name="M:Towel.Syntax.Π``1(Towel.Stepper{``0})">
-            <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>

@@ -660,13 +660,6 @@ namespace Towel
 		public static T Addition<T>(Stepper<T> stepper) =>
 			OperationOnStepper(stepper, Addition);
 
-		/// <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
-		/// <typeparam name="T">The type of the operation.</typeparam>
-		/// <param name="stepper">The stepper of the values to add.</param>
-		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
-		public static T Σ<T>(Stepper<T> stepper) =>
-			Addition(stepper);
-
 		internal static class AdditionImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
@@ -768,41 +761,6 @@ namespace Towel
 		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
 		public static T Multiplication<T>(Stepper<T> stepper) =>
 			OperationOnStepper(stepper, Multiplication);
-
-		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-		public static C Π<A, B, C>(A a, B b) =>
-			MultiplicationImplementation<A, B, C>.Function(a, b);
-
-		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-		/// <typeparam name="T">The type of the operation.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-		public static T Π<T>(T a, T b) =>
-			Multiplication<T, T, T>(a, b);
-
-		/// <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
-		/// <typeparam name="T">The type of the operation.</typeparam>
-		/// <param name="a">The first operand.</param>
-		/// <param name="b">The second operand.</param>
-		/// <param name="c">The third operand.</param>
-		/// <param name="d">The remaining values.</param>
-		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
-		public static T Π<T>(T a, T b, T c, params T[] d) =>
-			Multiplication(a, b, c, d);
-
-		/// <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
-		/// <typeparam name="T">The type of the operation.</typeparam>
-		/// <param name="stepper">The stepper containing the values.</param>
-		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
-		public static T Π<T>(Stepper<T> stepper) =>
-			Multiplication(stepper);
 
 		internal static class MultiplicationImplementation<A, B, C>
 		{

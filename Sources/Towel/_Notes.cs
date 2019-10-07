@@ -55,5 +55,5 @@
 //       User Types - Delegates           = RBG(189,  99, 197)
 //       User Types - Enums               = RBG(255, 127,  39)
 //       User Types - Interfaces          = RBG(184, 215, 163)
-//       User Types - Structures          = RBG(255, 255,   0)
+//       User Types - Structures          = RBG(255, 255, 128)
 //       User Types - Type Parameters     = RBG(128, 128,   0)

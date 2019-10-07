@@ -2,7 +2,7 @@
 using Towel.Mathematics;
 using Towel.Measurements;
 
-using static Towel.Measurements.MeasurementUnitsSyntax; // allows measurement syntax
+using static Towel.Measurements.MeasurementsSyntax; // allows measurement syntax
 using Speedf = Towel.Measurements.Speed<float>;
 
 namespace Measurements

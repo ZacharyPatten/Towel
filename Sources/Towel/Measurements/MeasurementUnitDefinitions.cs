@@ -1006,7 +1006,7 @@ namespace Towel.Measurements
 	#region Syntax
 
 	/// <summary>Provides syntax for measurement unit definition. Intended to be referenced via "using static" keyword in files.</summary>
-	public static class MeasurementUnitsSyntax
+	public static class MeasurementsSyntax
 	{
 		#region Angle Units
 

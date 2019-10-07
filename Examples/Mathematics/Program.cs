@@ -4,14 +4,13 @@ using System.Linq.Expressions;
 using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
-using Towel.DataStructures;
 using static Towel.Syntax;
+using static Towel.Mathematics.MathematicsSyntax;
 
 namespace Mathematics
 {
 	class Program
 	{
-		// Gets randomized values
 		static readonly Random random = new Random();
 
 		static void Main()
