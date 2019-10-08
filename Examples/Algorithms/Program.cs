@@ -116,92 +116,69 @@ namespace Algorithms
 				// make a graph
 				IGraph<int> graph = new GraphSetOmnitree<int>()
 				{
-                    // add nodes
-                    0,
-					1,
-					2,
-					3,
-                    // add edges
-                    { 0, 1 },
+					// add nodes
+					0, 1, 2, 3,
+					// add edges
+					{ 0, 1 },
 					{ 1, 2 },
 					{ 2, 3 },
 					{ 0, 3 },
-
 					// visualization
 					//
-					//     0 --------> 1
-					//     |           |
-					//     |           |
-					//     |           |
-					//     v           v
-					//     3 <-------- 2
+					//    [0]-----(1)---->[1]
+					//     |               |
+					//     |               |
+					//    (99)            (2)
+					//     |               |
+					//     |               |
+					//     v               v
+					//    [3]<----(5)-----[2]
+					//
+					//    [nodes in brackets]
+					//    (edge costs in parenthases)
 				};
 
 				// make a heuristic function
-				int heuristic(int node)
-				{
-					switch (node)
-					{
-						case 0:
-							return 3;
-						case 1:
-							return 6;
-						case 2:
-							return 1;
-						case 3:
-							return 0;
-						default:
-							throw new NotImplementedException();
-					}
-				}
+				int heuristic(int node) =>
+					node == 0 ? 2:
+					node == 1 ? 3:
+					node == 2 ? 2:
+					node == 3 ? 0:
+					throw new NotImplementedException();
 
 				// make a cost function
-				int cost(int from, int to)
-				{
-					if (from == 0 && to == 1)
-						return 1;
-					if (from == 1 && to == 2)
-						return 2;
-					if (from == 2 && to == 3)
-						return 5;
-					if (from == 0 && to == 3)
-						return 99;
+				int cost(int from, int to) =>
+					from == 0 && to == 1 ? 1:
+					from == 1 && to == 2 ? 2:
+					from == 2 && to == 3 ? 5:
+					from == 0 && to == 3 ? 99:
 					throw new Exception("invalid path cost computation");
-				}
 
 				// make a goal function
-				bool goal(int node)
-				{
-					if (node == 3)
-						return true;
-					else
-						return false;
-				}
+				bool goal(int node) => node == 3;
 
 				// run the A* algorithm
-				Stepper<int> aStar_path = Search.Graph(0, graph, heuristic, cost, goal);
-				Console.Write("    A* Path:     ");
-				if (aStar_path != null)
-				{
-					aStar_path(i => Console.Write(i + " "));
-				}
-				else
-				{
-					Console.Write("none");
-				}
-				Console.WriteLine();
-
+				Stepper<int> aStarPath = Search.Graph(0, graph, heuristic, cost, goal, out int aStarTotalCost);
 				// run the Dijkstra algorithm
-				Stepper<int> dijkstra_path = Search.Graph(0, graph, heuristic, goal);
+				Stepper<int> dijkstraPath = Search.Graph(0, graph, heuristic, goal);
+
+				// print the paths to the console
+				void PrintPathToConsole(Stepper<int> path)
+				{
+					if (path != null)
+					{
+						path(node => Console.Write(node + " "));
+					}
+					else
+					{
+						Console.Write("none");
+					}
+				}
+				Console.Write("    A* Path:       ");
+				PrintPathToConsole(aStarPath);
+				Console.WriteLine();
 				Console.Write("    Dijkstra Path: ");
-				if (dijkstra_path != null)
-				{
-					dijkstra_path(i => Console.Write(i + " "));
-				}
-				else
-				{
-					Console.Write("none");
-				}
+				PrintPathToConsole(dijkstraPath);
 				Console.WriteLine();
 
 				Console.WriteLine();
@@ -287,33 +264,19 @@ namespace Algorithms
 					// Note: I'm using the X-axis and Z-axis here, but which axis you need to use
 					// depends on your environment. Your "north" could be along the Y-axis for example.
 
-					Vector<float> north = new Vector<float>(x + distanceResolution, y, z);
-					if (validateMovementLocation(north))
+					void HandleNeighbor(Vector<float> neighbor)
 					{
-						alreadyUsed.Add(north); // mark location as used
-						neighbors(north);
+						if (validateMovementLocation(neighbor))
+						{
+							alreadyUsed.Add(neighbor); // mark location as used
+							neighbors(neighbor);
+						}
 					}
 
-					Vector<float> east = new Vector<float>(x, y, z + distanceResolution);
-					if (validateMovementLocation(east))
-					{
-						alreadyUsed.Add(east); // mark location as used
-						neighbors(east);
-					}
-
-					Vector<float> south = new Vector<float>(x - distanceResolution, y, z);
-					if (validateMovementLocation(south))
-					{
-						alreadyUsed.Add(south); // mark location as used
-						neighbors(south);
-					}
-
-					Vector<float> west = new Vector<float>(x, y, z - distanceResolution);
-					if (validateMovementLocation(west))
-					{
-						alreadyUsed.Add(west); // mark location as used
-						neighbors(west);
-					}
+					HandleNeighbor(new Vector<float>(x + distanceResolution, y, z)); // north
+					HandleNeighbor(new Vector<float>(x, y, z + distanceResolution)); // east
+					HandleNeighbor(new Vector<float>(x - distanceResolution, y, z)); // south
+					HandleNeighbor(new Vector<float>(x, y, z - distanceResolution)); // west
 				}
 
 				Vector<float> heuristicVectorStorage = null; // storage to prevent a ton of vectors from being allocated
@@ -373,7 +336,8 @@ namespace Algorithms
 						neighborFunction,
 						heuristicFunction,
 						costFunction,
-						goalFunction);
+						goalFunction,
+						out float aStarTotalPathCost);
 
 				// Flush the already used markers before running the DijkstraPath algorithm.
 				// Normally you won't run two algorithms for the same graph/location, but 
@@ -409,13 +373,6 @@ namespace Algorithms
 				//Vector<float>[] breadthFirstSearchPathArray = breadthFirstSearch.ToArray();
 
 				// lets calculate the movement cost of each path to see how they compare
-				float astartTotalCost = Addition<float>(step =>
-				{
-					for (int i = 0; i < aStarPathArray.Length - 1; i++)
-					{
-						step(costFunction(aStarPathArray[i], aStarPathArray[i + 1]));
-					}
-				});
 				float dijkstraTotalCost = Addition<float>(step =>
 				{
 					for (int i = 0; i < dijkstraPathArray.Length - 1; i++)
@@ -430,6 +387,8 @@ namespace Algorithms
 				//		step(costFunction(breadthFirstSearchPathArray[i], breadthFirstSearchPathArray[i + 1]));
 				//	}
 				//});
+
+				bool IsAStarPathBetterThanijkstra = aStarTotalPathCost < dijkstraTotalCost;
 
 				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath, 
 				// meaning that it is faster. The DijkstraPath path went through the mud, but the A* path

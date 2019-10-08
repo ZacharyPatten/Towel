@@ -49,7 +49,7 @@
             <param name="current">The current node.</param>
             <returns>True if the current node is a/the goal node; False if not.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0})">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0},``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -58,9 +58,10 @@
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0})">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0},``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -69,9 +70,10 @@
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0)">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -80,9 +82,10 @@
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">The goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -92,9 +95,10 @@
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">The goal node.</param>
             <param name="equate">A delegate for checking for equality between two nodes.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0)">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -103,9 +107,10 @@
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">The goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -115,6 +120,7 @@
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="goal">The goal node.</param>
             <param name="equate">A delegate for checking for equality between two nodes.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
