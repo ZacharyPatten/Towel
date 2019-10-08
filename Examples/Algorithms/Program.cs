@@ -140,7 +140,7 @@ namespace Algorithms
 				};
 
 				// make a heuristic function
-				int heuristic(int node) =>
+				int Heuristic(int node) =>
 					node == 0 ? 2:
 					node == 1 ? 3:
 					node == 2 ? 2:
@@ -148,7 +148,7 @@ namespace Algorithms
 					throw new NotImplementedException();
 
 				// make a cost function
-				int cost(int from, int to) =>
+				int Cost(int from, int to) =>
 					from == 0 && to == 1 ? 1:
 					from == 1 && to == 2 ? 2:
 					from == 2 && to == 3 ? 5:
@@ -156,12 +156,12 @@ namespace Algorithms
 					throw new NotImplementedException();
 
 				// make a goal function
-				bool goal(int node) => node == 3;
+				bool Goal(int node) => node == 3;
 
 				// run the A* algorithm
-				Stepper<int> aStarPath = Search.Graph(0, graph, heuristic, cost, goal, out int aStarTotalCost);
+				Stepper<int> graphAStarPath = Search.Graph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
 				// run the Dijkstra algorithm
-				Stepper<int> dijkstraPath = Search.Graph(0, graph, heuristic, goal);
+				Stepper<int> graphDijkstraPath = Search.Graph(0, graph, Heuristic, Goal);
 
 				// print the paths to the console
 				void PrintPathToConsole(Stepper<int> path)
@@ -175,11 +175,36 @@ namespace Algorithms
 						Console.Write("none");
 					}
 				}
+				Console.WriteLine("    Using Graph Data Structure...");
 				Console.Write("    A* Path:       ");
-				PrintPathToConsole(aStarPath);
+				PrintPathToConsole(graphAStarPath);
 				Console.WriteLine();
 				Console.Write("    Dijkstra Path: ");
-				PrintPathToConsole(dijkstraPath);
+				PrintPathToConsole(graphDijkstraPath);
+				Console.WriteLine();
+
+				/// You don't have to use the graph data structure. Instead, you can use
+				/// a function to get the neighbors of a node.
+				void Neighbors(int node, Step<int> step)
+				{
+					switch (node)
+					{
+						case 0: step(1); step(3); break;
+						case 1: step(2); break;
+						case 2: step(3); break;
+					}
+				}
+				// run the A* algorithm
+				Stepper<int> functionAStarPath = Search.Graph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
+				// run the Dijkstra algorithm
+				Stepper<int> functionDdijkstraPath = Search.Graph(0, Neighbors, Heuristic, Goal);
+
+				Console.WriteLine("    Using Neighbors Function...");
+				Console.Write("    A* Path:       ");
+				PrintPathToConsole(graphAStarPath);
+				Console.WriteLine();
+				Console.Write("    Dijkstra Path: ");
+				PrintPathToConsole(graphDijkstraPath);
 				Console.WriteLine();
 
 				Console.WriteLine();
