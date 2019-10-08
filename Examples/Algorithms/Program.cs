@@ -113,6 +113,20 @@ namespace Algorithms
 				Console.WriteLine("  Graph Searching----------------------");
 				Console.WriteLine();
 
+				// visualization
+				//
+				//    [0]-----(1)---->[1]
+				//     |               |
+				//     |               |
+				//    (99)            (2)
+				//     |               |
+				//     |               |
+				//     v               v
+				//    [3]<----(5)-----[2]
+				//
+				//    [nodes in brackets]
+				//    (edge costs in parenthases)
+
 				// make a graph
 				IGraph<int> graph = new GraphSetOmnitree<int>()
 				{
@@ -123,19 +137,6 @@ namespace Algorithms
 					{ 1, 2 },
 					{ 2, 3 },
 					{ 0, 3 },
-					// visualization
-					//
-					//    [0]-----(1)---->[1]
-					//     |               |
-					//     |               |
-					//    (99)            (2)
-					//     |               |
-					//     |               |
-					//     v               v
-					//    [3]<----(5)-----[2]
-					//
-					//    [nodes in brackets]
-					//    (edge costs in parenthases)
 				};
 
 				// make a heuristic function
