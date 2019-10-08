@@ -152,7 +152,7 @@ namespace Algorithms
 					from == 1 && to == 2 ? 2:
 					from == 2 && to == 3 ? 5:
 					from == 0 && to == 3 ? 99:
-					throw new Exception("invalid path cost computation");
+					throw new NotImplementedException();
 
 				// make a goal function
 				bool goal(int node) => node == 3;
