@@ -140,23 +140,27 @@ namespace Algorithms
 				};
 
 				// make a heuristic function
-				int Heuristic(int node) =>
-					node == 0 ? 2:
-					node == 1 ? 3:
-					node == 2 ? 2:
-					node == 3 ? 0:
-					throw new NotImplementedException();
+				static int Heuristic(int node) => node switch
+				{
+					0 => 2,
+					1 => 3,
+					2 => 2,
+					3 => 0,
+					_ => throw new NotImplementedException(),
+				};
 
 				// make a cost function
-				int Cost(int from, int to) =>
-					from == 0 && to == 1 ? 1:
-					from == 1 && to == 2 ? 2:
-					from == 2 && to == 3 ? 5:
-					from == 0 && to == 3 ? 99:
-					throw new NotImplementedException();
+				static int Cost(int from, int to) => (from, to) switch
+				{
+					(0, 1) => 1,
+					(1, 2) => 2,
+					(2, 3) => 5,
+					(0, 3) => 99,
+					_ => throw new NotImplementedException(),
+				};
 
 				// make a goal function
-				bool Goal(int node) => node == 3;
+				static bool Goal(int node) => node == 3;
 
 				// run the A* algorithm
 				Stepper<int> graphAStarPath = Search.Graph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
@@ -164,7 +168,7 @@ namespace Algorithms
 				Stepper<int> graphDijkstraPath = Search.Graph(0, graph, Heuristic, Goal);
 
 				// print the paths to the console
-				void PrintPathToConsole(Stepper<int> path)
+				static void PrintPathToConsole(Stepper<int> path)
 				{
 					if (path != null)
 					{
@@ -185,7 +189,7 @@ namespace Algorithms
 
 				/// You don't have to use the graph data structure. Instead, you can use
 				/// a function to get the neighbors of a node.
-				void Neighbors(int node, Step<int> step)
+				static void Neighbors(int node, Step<int> step)
 				{
 					switch (node)
 					{
@@ -194,6 +198,7 @@ namespace Algorithms
 						case 2: step(3); break;
 					}
 				}
+
 				// run the A* algorithm
 				Stepper<int> functionAStarPath = Search.Graph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
 				// run the Dijkstra algorithm
