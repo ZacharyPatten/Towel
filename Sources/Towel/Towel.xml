@@ -29450,12 +29450,12 @@
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
         <member name="M:Towel.Meta.GetTryParseMethod``1">
-            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(string, out <typeparamref name="A"/>)].</summary>
+            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The type of the out parameter.</typeparam>
             <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
         </member>
         <member name="M:Towel.Meta.GetTryParseMethod(System.Type)">
-            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(string, out <paramref name="a"/>)].</summary>
+            <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <paramref name="a"/>)].</summary>
             <param name="a">The type of the out parameter.</param>
             <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
         </member>
@@ -29592,10 +29592,10 @@
             <returns>True if the implicit casting operator exists or false if not.</returns>
         </member>
         <member name="M:Towel.Meta.ConvertToCsharpSource(System.Type,System.Boolean)">
-            <summary>Converts a <see cref="T:System.Type"/> into a string as it would appear in C# source code.</summary>
-            <param name="type">The <see cref="T:System.Type"/> to convert to a string.</param>
+            <summary>Converts a <see cref="T:System.Type"/> into a <see cref="T:System.String"/> as it would appear in C# source code.</summary>
+            <param name="type">The <see cref="T:System.Type"/> to convert to a <see cref="T:System.String"/>.</param>
             <param name="showGenericParameters">If the generic parameters are the generic types, whether they should be shown or not.</param>
-            <returns>The string as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
+            <returns>The <see cref="T:System.String"/> as the <see cref="T:System.Type"/> would appear in C# source code.</returns>
         </member>
         <member name="M:Towel.Meta.GetEnumAttribute``1(System.Enum)">
             <summary>Gets a custom attribute on an enum value by generic type.</summary>
@@ -29840,7 +29840,7 @@
             </exception>
         </member>
         <member name="T:Towel.StepStatus">
-            <summary>Status of data structure iteration.</summary>
+            <summary>Status of iteration.</summary>
         </member>
         <member name="F:Towel.StepStatus.Continue">
             <summary>Stepper was not broken.</summary>
@@ -30208,26 +30208,6 @@
             <param name="a">The first operand of the inequality check.</param>
             <param name="b">The second operand of the inequality check.</param>
             <returns>The result of the inequality check.</returns>
-        </member>
-        <member name="M:Towel.Syntax.Inequality``1(``0,``0,``0[])">
-            <summary>Checks for iequality among multiple numeric operands.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The first operand of the equality check.</param>
-            <param name="b">The second operand of the equality check.</param>
-            <param name="c">The remaining operands of the equality check.</param>
-            <returns>True if all operands are equal or false if not.</returns>
-        </member>
-        <member name="M:Towel.Syntax.Inequality``1(Towel.Stepper{``0})">
-            <summary>Checks for inequality among multiple numeric operands.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The operands of the equality check.</param>
-            <returns>True if all operand are equal or false if not.</returns>
-        </member>
-        <member name="M:Towel.Syntax.Inequality``1(Towel.StepperBreak{``0})">
-            <summary>Checks for inequality among multiple numeric operands.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The operands of the equality check.</param>
-            <returns>True if all operand are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Syntax.LessThan``3(``0,``1)">
             <summary>Assumes the less than operator exists between types.</summary>

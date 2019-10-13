@@ -14,12 +14,12 @@ namespace Towel
 	{
 		#region GetTryParseMethod
 
-		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(string, out <typeparamref name="A"/>)].</summary>
+		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
 
-		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(string, out <paramref name="a"/>)].</summary>
+		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetTryParseMethod(Type a)
@@ -509,10 +509,10 @@ namespace Towel
 
 		#region ConvertToCsharpSourceDefinition
 
-		/// <summary>Converts a <see cref="System.Type"/> into a string as it would appear in C# source code.</summary>
-		/// <param name="type">The <see cref="System.Type"/> to convert to a string.</param>
+		/// <summary>Converts a <see cref="System.Type"/> into a <see cref="string"/> as it would appear in C# source code.</summary>
+		/// <param name="type">The <see cref="System.Type"/> to convert to a <see cref="string"/>.</param>
 		/// <param name="showGenericParameters">If the generic parameters are the generic types, whether they should be shown or not.</param>
-		/// <returns>The string as the <see cref="System.Type"/> would appear in C# source code.</returns>
+		/// <returns>The <see cref="string"/> as the <see cref="System.Type"/> would appear in C# source code.</returns>
 		public static string ConvertToCsharpSource(this Type type, bool showGenericParameters = false)
 		{
 			IQueue<Type> genericParameters = new QueueArray<Type>();

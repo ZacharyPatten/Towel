@@ -2,13 +2,15 @@
 
 ## Visual Studio 2019
 
-[Visual Studio 2019](https://visualstudio.microsoft.com/) is the recommended developemnt environment. The *Community* edition is free. Just open the "Towel.sln" file in Visual Studio 2019 and the code should build without any additional steps.
+[Visual Studio 2019](https://visualstudio.microsoft.com/) is the recommended development environment.
+The *Community* edition is free. Just open the "Towel.sln" file in Visual Studio 2019 and the code should
+build without any additional steps.
 
 <details>
 <summary><strong>Settings</strong></summary>
 <p>
 
-These are some notes about settings I like to use when I code in Visual Studio. There are completely optional. Just install Visual Studio with the desktop 
+These are some notes about settings I like to use when I code in Visual Studio. There are completely optional.
 
 #### Dark Theme
 `Tools -> Options -> Environment -> General`
@@ -22,12 +24,12 @@ Enable mouse click to perform Go to Definition = false
 `Tools -> Options -> Environment -> Keyboard`
 
 Window.CloseToolWindow = *Remove*
-	
+
 #### Show White Space Characters
 `Tools -> Options -> Text Editor -> General`
 
 View whitespace = true
-	
+
 #### Tabs
 `Tools -> Options -> Text Editor -> All Languages -> Tabs`
 
@@ -62,3 +64,7 @@ Keep tabs = true
 
 ## Visual Studio Code
 
+[Visual Studio Code](https://visualstudio.microsoft.com/) is **not** the recommended development environment,
+but it you can use it as well. Visual Studio Code is a free program. After installing Visual Studio Code, you
+will need to add the C# extension to allow for C# development. Note: Visual Studio code is folder-based rather
+than solution-file-based, so you open the folder(s) of the project.

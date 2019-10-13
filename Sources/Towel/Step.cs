@@ -5,7 +5,7 @@ using Towel.DataStructures;
 
 namespace Towel
 {
-	/// <summary>Status of data structure iteration.</summary>
+	/// <summary>Status of iteration.</summary>
 	[Serializable]
 	public enum StepStatus
 	{

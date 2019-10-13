@@ -175,11 +175,9 @@ namespace Towel
 		/// <param name="c">The remaining operands of the equality check.</param>
 		/// <returns>True if all operands are equal or false if not.</returns>
 		public static bool Equality<T>(T a, T b, params T[] c) =>
-			!Equality(a, b)
-			? false
-			: c.Length > 0
-				? !c.Any(x => !Equality(a, x))
-				: true;
+			c is null ? throw new ArgumentNullException(nameof(c)) :
+			c.Length == 0 ? throw new ArgumentException("The array is empty.", nameof(c)) :
+			Equality(a, b) && !c.Any(x => !Equality(a, x));
 
 		#region Alternative
 
@@ -311,7 +309,6 @@ namespace Towel
 		public static C Inequality<A, B, C>(A a, B b) =>
 			InequalityImplementation<A, B, C>.Function(a, b);
 
-
 		/// <summary>Checks two values for inequality [a != b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the inequality check.</param>
@@ -319,19 +316,6 @@ namespace Towel
 		/// <returns>The result of the inequality check.</returns>
 		public static bool Inequality<T>(T a, T b) =>
 			Inequality<T, T, bool>(a, b);
-
-		/// <summary>Checks for iequality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the equality check.</param>
-		/// <param name="b">The second operand of the equality check.</param>
-		/// <param name="c">The remaining operands of the equality check.</param>
-		/// <returns>True if all operands are equal or false if not.</returns>
-		public static bool Inequality<T>(T a, T b, params T[] c) =>
-			Inequality(a, b)
-			? false
-			: c.Length > 0
-				? !c.Any(x => !Inequality(a, x))
-				: true;
 
 		#region Alternative
 
@@ -375,71 +359,6 @@ namespace Towel
 		//}
 
 		#endregion
-
-		/// <summary>Checks for inequality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Inequality<T>(Stepper<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T value = default;
-			bool assigned = false;
-			bool result = stepper.Any(x =>
-			{
-				if (assigned)
-				{
-					return !Inequality(value, x);
-				}
-				else
-				{
-					value = x;
-					assigned = true;
-					return false;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
-
-		/// <summary>Checks for inequality among multiple numeric operands.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Inequality<T>(StepperBreak<T> stepper)
-		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
-			T value = default;
-			bool assigned = false;
-			bool result = stepper.Any(x =>
-			{
-				if (assigned)
-				{
-					return !Inequality(value, x);
-				}
-				else
-				{
-					value = x;
-					assigned = true;
-					return false;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
-			}
-			return result;
-		}
-
 
 		internal static class InequalityImplementation<A, B, C>
 		{
