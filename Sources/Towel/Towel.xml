@@ -15319,7 +15319,7 @@
             <returns>Whether the equate is valid (true) or not (false).</returns>
         </member>
         <member name="T:Towel.Equate">
-            <summary>Static wrapper for the based "object.Equals" fuction.</summary>
+            <summary>Static wrapper for the based "object.Equals" function.</summary>
         </member>
         <member name="M:Towel.Equate.Default``1(``0,``0)">
             <summary>Static wrapper for the based "object.Equals" fuction.</summary>
@@ -15766,10 +15766,10 @@
             <returns>The computed hash of the given item.</returns>
         </member>
         <member name="T:Towel.Hash">
-            <summary>Static wrapper for the based "object.GetHashCode" fuction.</summary>
+            <summary>Static wrapper for the based "object.GetHashCode" function.</summary>
         </member>
         <member name="M:Towel.Hash.Default``1(``0)">
-            <summary>Static wrapper for the instance based "object.GetHashCode" fuction.</summary>
+            <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
             <typeparam name="T">The generic type of the hash operation.</typeparam>
             <param name="value">The item to get the hash code of.</param>
             <returns>The computed hash code using the base GetHashCode instance method.</returns>
@@ -15787,550 +15787,281 @@
             <param name="index">The index to set the value of.</param>
             <param name="value">The value to set at the given index.</param>
         </member>
-        <member name="T:Towel.Mathematics.Fraction32">
-            <summary>A fraction represented as two shorts (numerator / denomnator).</summary>
-            <citation>
-            This fraction imlpementation was originally developed by 
-            Syed Mehroz Alam and posted as an open source project on 
-            CodeProject.com. However, it has been modified since its
-            addition shorto the Towel framework.
-            http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-            
-            Original Author:
-            Author: Syed Mehroz Alam
-            Email: smehrozalam@yahoo.com
-            URL: Programming Home http://www.geocities.com/smehrozalam/
-            Date: 6/15/2004
-            Time: 10:54 AM
-            </citation>
+        <member name="T:Towel.Mathematics.Fraction`1">
+            <summary>Represents a rational value with a numerator and a denominator.</summary>
+            <typeparam name="T">The type of the numerator and denominator.</typeparam>
         </member>
-        <member name="F:Towel.Mathematics.Fraction32.MaxValue">
-            <summary>The maximum Fraction32 value.</summary>
-        </member>
-        <member name="F:Towel.Mathematics.Fraction32.MinValue">
-            <summary>The minimum Fraction32 value.</summary>
-        </member>
-        <member name="P:Towel.Mathematics.Fraction32.Numerator">
+        <member name="P:Towel.Mathematics.Fraction`1.Numerator">
             <summary>The numerator of the fraction.</summary>
         </member>
-        <member name="P:Towel.Mathematics.Fraction32.Denominator">
+        <member name="P:Towel.Mathematics.Fraction`1.Denominator">
             <summary>The denominator of the fraction.</summary>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.#ctor(System.Int16)">
-            <summary>Constructs a fraction from an short.</summary>
-            <param name="short">The short to represent as a fraction.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.#ctor(`0)">
+            <summary>Constructs a new fraction [<paramref name="numerator"/> / 1].</summary>
+            <param name="numerator">The numerator of the fraction.</param>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.#ctor(System.Double)">
-            <summary>Constructs a fracion from a double.</summary>
-            <param name="rational">The double to represent as a fraction.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.#ctor(`0,`0)">
+            <summary>Constructs a new fraction [<paramref name="numerator"/> / <paramref name="deniminator"/>].</summary>
+            <param name="numerator">The numerator of the fraction.</param>
+            <param name="deniminator">The denominator of the fraction.</param>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.#ctor(System.Int16,System.Int16)">
-            <summary>Makes a fraction given an shorteger and a denominator.</summary>
-            <param name="numerator">The nmerator of the fraction.</param>
-            <param name="deniminator">The denominator fo the fraction.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Implicit(`0)~Towel.Mathematics.Fraction{`0}">
+            <summary>Implicitly converts a value into a fraction.</summary>
+            <param name="value">The value to convert to a fraction.</param>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.#ctor(System.String)">
-            <summary>Creates a fraction by parsing a string.</summary>
-            <param name="literal">The literal representation fo the fraction.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_UnaryNegation(Towel.Mathematics.Fraction32)">
-            <summary>Negates a fraction.</summary>
-            <param name="fraction">The fraction to negate.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.op_UnaryNegation(Towel.Mathematics.Fraction{`0})">
+            <summary>Negates a value.</summary>
+            <param name="a">The fraction to negate.</param>
             <returns>The result of the negation.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Addition(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Adds two operands together.</summary>
-            <param name="left">The left operand of the addition.</param>
-            <param name="right">The right operand of the addition.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Negate(Towel.Mathematics.Fraction{`0})">
+            <summary>Negates a value.</summary>
+            <param name="a">The value to negate.</param>
+            <returns>The result of the negation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Addition(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Adds two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the addition.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Subtraction(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Subtracts two operands.</summary>
-            <param name="left">The left operand of the subtraction.</param>
-            <param name="right">The right operand of the subtraction.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Add(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Adds two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the addition.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Subtraction(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Subtracts two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the subtraction.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Multiply(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Multiplies two operands together.</summary>
-            <param name="left">The left operand of the multiplication.</param>
-            <param name="right">The right operand of the multiplication.</param>
-            <returns>The result of the multiplication.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Division(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Divides two operands.</summary>
-            <param name="left">The left operand of the division.</param>
-            <param name="right">The right operand of the division.</param>
-            <returns>The result of the division.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Equality(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
-            <returns>The result of the equality check.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Inequality(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
-            <returns>The result of the equality check.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_LessThan(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Performs a less-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_GreaterThan(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Performs a greater-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_LessThanOrEqual(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Performs a less-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_GreaterThanOrEqual(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Performs a greater-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Explicit(System.Double)~Towel.Mathematics.Fraction32">
-            <summary>Converts a double to a fraction. Precision will be lost.</summary>
-            <param name="rational">The double to convert to a fraction.</param>
-            <returns>The resulting double of the conversion.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Explicit(System.Int32)~Towel.Mathematics.Fraction32">
-            <summary>Implicitly converts an short shorto a fraction.</summary>
-            <param name="integer">The integer to convert shorto a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Implicit(System.Int16)~Towel.Mathematics.Fraction32">
-            <summary>Implicitly converts an short shorto a fraction.</summary>
-            <param name="shorteger">The shorteger to convert shorto a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Explicit(System.String)~Towel.Mathematics.Fraction32">
-            <summary>Implicitly converts an short shorto a fraction.</summary>
-            <param name="literal">The shorteger to convert shorto a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Implicit(Towel.Mathematics.Fraction32)~System.String">
-            <summary>Implicitly converts an short shorto a fraction.</summary>
-            <param name="fraction">The shorteger to convert shorto a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.op_Explicit(Towel.Mathematics.Fraction32)~System.Double">
-            <summary>Implicitly converts an short shorto a fraction.</summary>
-            <param name="fraction">The shorteger to convert shorto a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Equals(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Check for equality by value.</summary>
-            <param name="left">The left operand of the equality check.</param>
-            <param name="right">The right operand of the equality check.</param>
-            <returns>True if equal; false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Equals(System.Object)">
-            <summary>Checks for equality by value.</summary>
-            <param name="obj">The right operand of the equality check.</param>
-            <returns>True if equal; false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.GetHashCode">
-            <summary>Computes a hash code for this fraction.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Negate(Towel.Mathematics.Fraction32)">
-            <summary>Negates a fraction.</summary>
-            <param name="frac1">The fraction to negate.</param>
-            <returns>The result of the negation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Add(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Compute the addition of two fracitons.</summary>
-            <param name="frac1">The left operand of the addition.</param>
-            <param name="frac2">The right operand of the addition.</param>
-            <returns>The result of the addition.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Multiply(Towel.Mathematics.Fraction32,Towel.Mathematics.Fraction32)">
-            <summary>Computes the multiplication of two fractions.</summary>
-            <param name="frac1">The left operand of the multiplication.</param>
-            <param name="frac2">The right operand of the multiplication.</param>
-            <returns>The result of the multiplication.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.ToString">
-            <summary>Converts this fraction shorto a string "num/den".</summary>
-            <returns>A string representation fo this fraction.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Parse(System.String)">
-            <summary>
-            The function takes an string as an argument and returns its corresponding reduced fraction32
-            the string can be an in the form of and shorteger, double or fraction32.
-            e.g it can be like "123" or "123.321" or "123/456"
-            </summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.ToFraction(System.Double)">
-            <summary>
-            The function takes a floating poshort number as an argument 
-            and returns its corresponding reduced fraction32
-            </summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Inverse(Towel.Mathematics.Fraction32)">
-            <summary>The function returns the inverse of a Fraction object.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction32.Reduce(Towel.Mathematics.Fraction32)">
-            <summary>
-            The function reduces(simplifies) a Fraction object by dividing both its numerator 
-            and denominator by their GCD
-            </summary>
-        </member>
-        <member name="T:Towel.Mathematics.Fraction64">
-            <summary>A fraction represented as two integers (numerator / denomnator).</summary>
-            <citation>
-            This fraction imlpementation was originally developed by 
-            Syed Mehroz Alam and posted as an open source project on 
-            CodeProject.com. However, it has been modified since its
-            addition into the Towel framework.
-            http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-            
-            Original Author:
-            Author: Syed Mehroz Alam
-            Email: smehrozalam@yahoo.com
-            URL: Programming Home http://www.geocities.com/smehrozalam/
-            Date: 6/15/2004
-            Time: 10:54 AM
-            </citation>
-        </member>
-        <member name="F:Towel.Mathematics.Fraction64.MaxValue">
-            <summary>The maximum Fraction64 value.</summary>
-        </member>
-        <member name="F:Towel.Mathematics.Fraction64.MinValue">
-            <summary>The minimum Fraction64 value.</summary>
-        </member>
-        <member name="P:Towel.Mathematics.Fraction64.Numerator">
-            <summary>The numerator of the fraction.</summary>
-        </member>
-        <member name="P:Towel.Mathematics.Fraction64.Denominator">
-            <summary>The denominator of the fraction.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.#ctor(System.Int32)">
-            <summary>Constructs a fraction from an int.</summary>
-            <param name="integer">The int to represent as a fraction.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.#ctor(System.Double)">
-            <summary>Constructs a fracion from a double.</summary>
-            <param name="rational">The double to represent as a fraction.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.#ctor(System.Int32,System.Int32)">
-            <summary>Makes a fraction given an integer and a denominator.</summary>
-            <param name="numerator">The nmerator of the fraction.</param>
-            <param name="deniminator">The denominator fo the fraction.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.#ctor(System.String)">
-            <summary>Creates a fraction by parsing a string.</summary>
-            <param name="literal">The literal representation fo the fraction.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_UnaryNegation(Towel.Mathematics.Fraction64)">
-            <summary>Negates a fraction.</summary>
-            <param name="fraction">The fraction to negate.</param>
-            <returns>The result of the negation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Addition(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Adds two operands together.</summary>
-            <param name="left">The left operand of the addition.</param>
-            <param name="right">The right operand of the addition.</param>
-            <returns>The result of the addition.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Subtraction(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Subtracts two operands.</summary>
-            <param name="left">The left operand of the subtraction.</param>
-            <param name="right">The right operand of the subtraction.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Subtract(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Subtracts two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the subtraction.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Multiply(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Multiplies two operands together.</summary>
-            <param name="left">The left operand of the multiplication.</param>
-            <param name="right">The right operand of the multiplication.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Multiply(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Multiplies two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the multiplication.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Division(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Divides two operands.</summary>
-            <param name="left">The left operand of the division.</param>
-            <param name="right">The right operand of the division.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Multiply(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Multiplies two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the multiplication.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Division(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Divides two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the division.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Equality(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
-            <returns>The result of the equality check.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Inequality(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
-            <returns>The result of the equality check.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_LessThan(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Performs a less-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_GreaterThan(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Performs a greater-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_LessThanOrEqual(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Performs a less-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_GreaterThanOrEqual(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Performs a greater-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Explicit(System.Double)~Towel.Mathematics.Fraction64">
-            <summary>Converts a double to a fraction. Precision will be lost.</summary>
-            <param name="rational">The double to convert to a fraction.</param>
-            <returns>The resulting double of the conversion.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Implicit(System.Int32)~Towel.Mathematics.Fraction64">
-            <summary>Implicitly converts an int into a fraction.</summary>
-            <param name="integer">The integer to convert into a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Explicit(System.String)~Towel.Mathematics.Fraction64">
-            <summary>Implicitly converts an int into a fraction.</summary>
-            <param name="literal">The integer to convert into a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Implicit(Towel.Mathematics.Fraction64)~System.String">
-            <summary>Implicitly converts an int into a fraction.</summary>
-            <param name="fraction">The integer to convert into a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.op_Explicit(Towel.Mathematics.Fraction64)~System.Double">
-            <summary>Implicitly converts an int into a fraction.</summary>
-            <param name="fraction">The integer to convert into a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Equals(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Check for equality by value.</summary>
-            <param name="left">The left operand of the equality check.</param>
-            <param name="right">The right operand of the equality check.</param>
-            <returns>True if equal; false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Equals(System.Object)">
-            <summary>Checks for equality by value.</summary>
-            <param name="obj">The right operand of the equality check.</param>
-            <returns>True if equal; false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.GetHashCode">
-            <summary>Computes a hash code for this fraction.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Negate(Towel.Mathematics.Fraction64)">
-            <summary>Negates a fraction.</summary>
-            <param name="frac1">The fraction to negate.</param>
-            <returns>The result of the negation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Add(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Compute the addition of two fracitons.</summary>
-            <param name="frac1">The left operand of the addition.</param>
-            <param name="frac2">The right operand of the addition.</param>
-            <returns>The result of the addition.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Multiply(Towel.Mathematics.Fraction64,Towel.Mathematics.Fraction64)">
-            <summary>Computes the multiplication of two fractions.</summary>
-            <param name="frac1">The left operand of the multiplication.</param>
-            <param name="frac2">The right operand of the multiplication.</param>
-            <returns>The result of the multiplication.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.ToString">
-            <summary>Converts this fraction into a string "num/den".</summary>
-            <returns>A string representation fo this fraction.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Parse(System.String)">
-            <summary>
-            The function takes an string as an argument and returns its corresponding reduced fraction64
-            the string can be an in the form of and integer, double or fraction64.
-            e.g it can be like "123" or "123.321" or "123/456"
-            </summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.ToFraction(System.Double)">
-            <summary>
-            The function takes a floating point number as an argument 
-            and returns its corresponding reduced fraction64
-            </summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Inverse(Towel.Mathematics.Fraction64)">
-            <summary>The function returns the inverse of a Fraction object.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction64.Reduce(Towel.Mathematics.Fraction64)">
-            <summary>
-            The function reduces(simplifies) a Fraction object by dividing both its numerator 
-            and denominator by their GCD
-            </summary>
-        </member>
-        <member name="T:Towel.Mathematics.Fraction128">
-            <summary>A fraction represented as two longs (numerator / denomnator).</summary>
-            <citation>
-            This fraction imlpementation was originally developed by 
-            Syed Mehroz Alam and posted as an open source project on 
-            CodeProject.com. However, it has been modified since its
-            addition into the Towel framework.
-            http://www.codeproject.com/Articles/9078/Fraction-class-in-C
-            
-            Original Author:
-            Author: Syed Mehroz Alam
-            Email: smehrozalam@yahoo.com
-            URL: Programming Home http://www.geocities.com/smehrozalam/
-            Date: 6/15/2004
-            Time: 10:54 AM
-            </citation>
-        </member>
-        <member name="F:Towel.Mathematics.Fraction128.MaxValue">
-            <summary>The maximum Fraction128 value.</summary>
-        </member>
-        <member name="F:Towel.Mathematics.Fraction128.MinValue">
-            <summary>The minimum Fraction128 value.</summary>
-        </member>
-        <member name="P:Towel.Mathematics.Fraction128.Numerator">
-            <summary>The numerator of the fraction.</summary>
-        </member>
-        <member name="P:Towel.Mathematics.Fraction128.Denominator">
-            <summary>The denominator of the fraction.</summary>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_UnaryNegation(Towel.Mathematics.Fraction128)">
-            <summary>Negates a fraction.</summary>
-            <param name="fraction">The fraction to negate.</param>
-            <returns>The result of the negation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Addition(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Adds two operands together.</summary>
-            <param name="left">The left operand of the addition.</param>
-            <param name="right">The right operand of the addition.</param>
-            <returns>The result of the addition.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Subtraction(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Subtracts two operands.</summary>
-            <param name="left">The left operand of the subtraction.</param>
-            <param name="right">The right operand of the subtraction.</param>
-            <returns>The result of the subtraction.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Multiply(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Multiplies two operands together.</summary>
-            <param name="left">The left operand of the multiplication.</param>
-            <param name="right">The right operand of the multiplication.</param>
-            <returns>The result of the multiplication.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Division(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Divides two operands.</summary>
-            <param name="left">The left operand of the division.</param>
-            <param name="right">The right operand of the division.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Divide(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Divides two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the division.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Equality(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Modulus(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Computes the remainder of two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the remainder operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Remainder(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Computes the remainder of two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the remainder operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Remainder(Towel.Mathematics.Fraction{`0})">
+            <summary>Computes the remainder of two values.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The result of the remainder operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Reduce(Towel.Mathematics.Fraction{`0})">
+            <summary>Reduces a fractional value if possible.</summary>
+            <param name="a">The fractional value to reduce.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Reduce">
+            <summary>Reduces a fractional value if possible.</summary>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Equality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for equality between two values.</summary>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
             <returns>The result of the equality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Inequality(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Checks for equality between two fractions.</summary>
-            <param name="left">The first operand of the equality check.</param>
-            <param name="right">The second operand of the equality check.</param>
+        <member name="M:Towel.Mathematics.Fraction`1.Equality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for equality between two values.</summary>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
             <returns>The result of the equality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_LessThan(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Performs a less-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
+        <member name="M:Towel.Mathematics.Fraction`1.Equality(Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for equality between two values.</summary>
+            <param name="b">The second operand.</param>
+            <returns>The result of the equality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_GreaterThan(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Performs a greater-than inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_LessThanOrEqual(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Performs a less-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_GreaterThanOrEqual(Towel.Mathematics.Fraction128,Towel.Mathematics.Fraction128)">
-            <summary>Performs a greater-than-or-equal inquality between two operands.</summary>
-            <param name="left">The left operand of the inequality.</param>
-            <param name="right">The right operand of the inequality.</param>
-            <returns>The value of the inequality.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Explicit(System.Double)~Towel.Mathematics.Fraction128">
-            <summary>Converts a double to a fraction. Precision will be lost.</summary>
-            <param name="rational">The double to convert to a fraction.</param>
-            <returns>The resulting double of the conversion.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Implicit(System.Int64)~Towel.Mathematics.Fraction128">
-            <summary>Implicitly converts an long longo a fraction.</summary>
-            <param name="longeger">The longeger to convert longo a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Explicit(System.String)~Towel.Mathematics.Fraction128">
-            <summary>Implicitly converts an long longo a fraction.</summary>
-            <param name="literal">The longeger to convert longo a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Implicit(Towel.Mathematics.Fraction128)~System.String">
-            <summary>Implicitly converts an long longo a fraction.</summary>
-            <param name="fraction">The longeger to convert longo a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.op_Explicit(Towel.Mathematics.Fraction128)~System.Double">
-            <summary>Implicitly converts an long longo a fraction.</summary>
-            <param name="fraction">The longeger to convert longo a fraction.</param>
-            <returns>The resulting fraction representation.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction128.Equals(System.Object)">
+        <member name="M:Towel.Mathematics.Fraction`1.Equals(System.Object)">
             <summary>Checks for equality with another object.</summary>
             <param name="obj">The object to equate with this.</param>
             <returns>The result of the equate.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.GetHashCode">
-            <summary>Returns a hash code for this Fraction128.</summary>
+        <member name="M:Towel.Mathematics.Fraction`1.op_Inequality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for inequality between two values.</summary>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
+            <returns>The result of the inequality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.Negate(Towel.Mathematics.Fraction128)">
-            <summary>
-            longernal function for negation
-            </summary>
+        <member name="M:Towel.Mathematics.Fraction`1.NotEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for inequality between two values.</summary>
+            <param name="a">The first operand.</param>
+            <param name="b">The second operand.</param>
+            <returns>The result of the inequality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.Parse(System.String)">
-            <summary>
-            The function takes an string as an argument and returns its corresponding reduced fraction64
-            the string can be an in the form of and longeger, double or fraction64.
-            e.g it can be like "123" or "123.321" or "123/456"
-            </summary>
+        <member name="M:Towel.Mathematics.Fraction`1.NotEqual(Towel.Mathematics.Fraction{`0})">
+            <summary>Checks for inequality between two values.</summary>
+            <param name="b">The second operand.</param>
+            <returns>The result of the inequality check.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.ToFraction(System.Double)">
-            <summary>
-            The function takes a floating polong number as an argument 
-            and returns its corresponding reduced fraction64
-            </summary>
+        <member name="M:Towel.Mathematics.Fraction`1.op_LessThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.Inverse(Towel.Mathematics.Fraction128)">
-            <summary>The function returns the inverse of a Fraction object.</summary>
+        <member name="M:Towel.Mathematics.Fraction`1.LessThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction128.Reduce(Towel.Mathematics.Fraction128)">
-            <summary>
-            The function reduces(simplifies) a Fraction object by dividing both its numerator 
-            and denominator by their GCD
-            </summary>
+        <member name="M:Towel.Mathematics.Fraction`1.LessThan(Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_GreaterThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.GreaterThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.GreaterThan(Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_LessThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.LessThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.LessThanOrEqual(Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is less than another.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The value of the less than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.op_GreaterThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.GreaterThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.GreaterThanOrEqual(Towel.Mathematics.Fraction{`0})">
+            <summary>Determines if one value is greater than another.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The value of the greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Compare(Towel.Mathematics.Fraction{`0})">
+            <summary>Compares two values.</summary>
+            <param name="b">The right operand.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Compare(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">
+            <summary>Compares two values.</summary>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.GetHashCode">
+            <summary>Gets the default hash code for this instance.</summary>
+            <returns>Teh computed hash code.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.TryParse{`0},Towel.Mathematics.Fraction{`0}@,System.Exception@)">
+            <summary>Tries to parse a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <param name="tryParse">The function to parse the numerator and denominator.</param>
+            <param name="fraction">The parsed value if succeeded.</param>
+            <param name="exception">The exception that occurred if failed.</param>
+            <returns>True if the parse succeeded or false if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.TryParse{`0},Towel.Mathematics.Fraction{`0}@)">
+            <summary>Tries to parse a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <param name="tryParse">The function to parse the numerator and denominator.</param>
+            <param name="fraction">The parsed value if succeeded.</param>
+            <returns>True if the parse succeeded or false if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Parse(System.String,Towel.TryParse{`0})">
+            <summary>Parses a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <param name="tryParse">The function to parse the numerator and denominator.</param>
+            <returns>The parsed value from the string.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.Mathematics.Fraction{`0}@,System.Exception@)">
+            <summary>Tries to parse a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <param name="fraction">The parsed value if succeeded.</param>
+            <param name="exception">The exception that occurred if failed.</param>
+            <returns>True if the parse succeeded or false if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.Mathematics.Fraction{`0}@)">
+            <summary>Tries to parse a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <param name="fraction">The parsed value if succeeded.</param>
+            <returns>True if the parse succeeded or false if not.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.Parse(System.String)">
+            <summary>Parses a string into a fraction.</summary>
+            <param name="string">The string to parse.</param>
+            <returns>The parsed value from the string.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.ToString(Towel.Mathematics.Fraction{`0},Towel.ToString{`0})">
+            <summary>Default conversion to string for fractions.</summary>
+            <param name="fraction">The value to convert.</param>
+            <param name="toString">The string conversion function for the numerator and denominator.</param>
+            <returns>The value represented as a string.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Fraction`1.ToString">
+            <summary>Default conversion to string for fractions.</summary>
+            <returns>The value represented as a string.</returns>
         </member>
         <member name="T:Towel.Mathematics.MathematicsDelegates.Sine`1">
             <summary>Computes the sine ratio of an angle.</summary>
@@ -29728,6 +29459,76 @@
             <param name="a">The type of the out parameter.</param>
             <returns>The TryParse <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
         </member>
+        <member name="M:Towel.Meta.GetFactorialMethod``1">
+            <summary>Gets the Factorial <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> Factorial(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsPrime <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetFactorialMethod(System.Type)">
+            <summary>Gets the Factorial <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> Factorial(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsPrimeMethod``1">
+            <summary>Gets the IsPrime <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsPrime(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsPrime <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsPrimeMethod(System.Type)">
+            <summary>Gets the IsPrime <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsPrime(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsNonNegativeMethod``1">
+            <summary>Gets the IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsNonNegative(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsNonNegativeMethod(System.Type)">
+            <summary>Gets the IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsNonNegative(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsNonNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsNegativeMethod``1">
+            <summary>Gets the IsNegative <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsNegative(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsNegativeMethod(System.Type)">
+            <summary>Gets the IsNegative <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsNegative(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsNegative <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsPositiveMethod``1">
+            <summary>Gets the IsPositive <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsPositive(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsPositive <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsPositiveMethod(System.Type)">
+            <summary>Gets the IsPositive <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsPositive(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsPositive <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsEvenMethod``1">
+            <summary>Gets the IsEven <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsEven(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsEven <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsEvenMethod(System.Type)">
+            <summary>Gets the IsEven <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsEven(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsEven <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsOddMethod``1">
+            <summary>Gets the IsOdd <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsOdd(<typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The type of the out parameter.</typeparam>
+            <returns>The IsOdd <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetIsOddMethod(System.Type)">
+            <summary>Gets the IsOdd <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsOdd(<paramref name="a"/>)].</summary>
+            <param name="a">The type of the out parameter.</param>
+            <returns>The IsOdd <see cref="T:System.Reflection.MethodInfo"/> if found or null if not.</returns>
+        </member>
         <member name="M:Towel.Meta.GetIsIntegerMethod``1">
             <summary>Gets the IsInteger <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> IsInteger(<typeparamref name="A"/>)].</summary>
             <typeparam name="A">The type of the out parameter.</typeparam>
@@ -30701,6 +30502,13 @@
             <param name="b">The root of the operation.</param>
             <returns>The result of the root.</returns>
         </member>
+        <member name="M:Towel.Syntax.Logarithm``1(``0,``0)">
+            <summary>Computes the logarithm of a value.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="value">The value to compute the logarithm of.</param>
+            <param name="base">The base of the logarithm to compute.</param>
+            <returns>The computed logarithm value.</returns>
+        </member>
         <member name="M:Towel.Syntax.IsInteger``1(``0)">
             <summary>Determines if a numerical value is an integer.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -30809,6 +30617,14 @@
             <param name="leniency">The allowed distance between the values to still be considered equal.</param>
             <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
         </member>
+        <member name="M:Towel.Syntax.Comparison``2(``0,``1)">
+            <summary>Compares two values.</summary>
+            <typeparam name="A">The type of the left operand.</typeparam>
+            <typeparam name="B">The type of the right operand.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
         <member name="M:Towel.Syntax.GreatestCommonFactor``1(``0,``0,``0[])">
             <summary>Computes the greatest common factor of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
@@ -30837,13 +30653,30 @@
             <param name="stepper">The set of numbers to compute the least common multiple of.</param>
             <returns>The computed least common least common multiple of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.Factorial``1(``0)">
-            <summary>Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].</summary>
+        <member name="M:Towel.Syntax.LinearInterpolation``1(``0,``0,``0,``0,``0)">
+            <summary>Linearly interpolations a value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The integer factorial to computer the value of.</param>
+            <param name="x">The value along the first dimension to compute the linear interpolation for.</param>
+            <param name="x0">A known starting point along the first dimension.</param>
+            <param name="x1">A known ending point along the first dimension.</param>
+            <param name="y0">A known starting point along the second dimension.</param>
+            <param name="y1">A known ending point along the second dimension.</param>
+            <returns>The linearly interpolated value.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Factorial``1(``0)">
+            <summary>Computes the factorial of a numeric value [<paramref name="a"/>!] == [<paramref name="a"/> * (<paramref name="a"/> - 1) * (<paramref name="a"/> - 2) * ... * 1].</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="a">The integer value to compute the factorial of.</param>
             <returns>The computed factorial value.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
+        </member>
+        <member name="M:Towel.Syntax.Combinations``1(``0,``0[])">
+            <summary>Computes the combinations of <paramref name="N"/> values using the <paramref name="n"/> grouping definitions.</summary>
+            <typeparam name="T">The numeric type of the operation.</typeparam>
+            <param name="N">The number of values to compute the combinations of.</param>
+            <param name="n">The groups and how many values fall into each group.</param>
+            <returns>The computed number of combinations.</returns>
         </member>
         <member name="M:Towel.Syntax.BinomialCoefficient``1(``0,``0)">
             <summary>Computes the Binomial coefficient (N choose n).</summary>
@@ -31130,6 +30963,21 @@
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to factor the prime numbers of.</param>
             <param name="step">The action to perform on all found prime factors.</param>
+        </member>
+        <member name="T:Towel.ToString`1">
+            <summary>Converts a value to a string representation.</summary>
+            <typeparam name="T">The type of value to convert.</typeparam>
+            <param name="value">The value to convert.</param>
+            <returns>The value in string representation.</returns>
+        </member>
+        <member name="T:Towel.ToString">
+            <summary>Static wrapper for the based "object.ToString" function.</summary>
+        </member>
+        <member name="M:Towel.ToString.Default``1(``0)">
+            <summary>Static wrapper for the based "object.ToString" fuction.</summary>
+            <typeparam name="T">The type of value to convert.</typeparam>
+            <param name="value">The value to convert.</param>
+            <returns>The value in string representation.</returns>
         </member>
         <member name="T:Towel.TryParse`1">
             <summary>Tries to parse a value from a string.</summary>

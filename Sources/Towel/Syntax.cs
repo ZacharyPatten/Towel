@@ -1025,6 +1025,11 @@ namespace Towel
 
 		#region Logarithm
 
+		/// <summary>Computes the logarithm of a value.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="value">The value to compute the logarithm of.</param>
+		/// <param name="base">The base of the logarithm to compute.</param>
+		/// <returns>The computed logarithm value.</returns>
 		public static T Logarithm<T>(T value, T @base) =>
 			LogarithmImplementation<T>.Function(value, @base);
 
@@ -1057,6 +1062,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsIntegerMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Equal(
 					Expression.Modulo(A, Expression.Constant(Constant<T>.One)),
@@ -1081,6 +1093,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsNonNegativeMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.GreaterThanOrEqual(A, Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
@@ -1103,6 +1122,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsNegativeMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				LabelTarget RETURN = Expression.Label(typeof(bool));
 				Expression BODY = Expression.LessThan(A, Expression.Constant(Constant<T>.Zero));
@@ -1126,6 +1152,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsPositiveMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.GreaterThan(A, Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
@@ -1148,6 +1181,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsEvenMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY = Expression.Equal(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
@@ -1170,6 +1210,13 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetIsOddMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
+				}
+
 				ParameterExpression A = Expression.Parameter(typeof(T));
 				Expression BODY =
 					Expression.Block(
@@ -1190,43 +1237,51 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to determine prime status of.</param>
 		/// <returns>Whether or not the value is prime.</returns>
-		public static bool IsPrime<T>(T a)
+		public static bool IsPrime<T>(T a) =>
+			IsPrimeImplementation<T>.Function(a);
+
+		internal static class IsPrimeImplementation<T>
 		{
-			if (IsInteger(a) && !LessThan(a, Constant<T>.Two))
+			internal static Func<T, bool> Function = a =>
 			{
-				if (Equality(a, Constant<T>.Two))
+				MethodInfo methodInfo = Meta.GetIsPrimeMethod<T>();
+				if (!(methodInfo is null))
 				{
-					return true;
+					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					return Function(a);
 				}
-				if (IsEven(a))
+
+				// This can be optimized
+				Function = A =>
 				{
-					return false;
-				}
-				T squareRoot = SquareRoot(a);
-				for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Addition(divisor, Constant<T>.Two))
-				{
-					if (Equality(Remainder<T>(a, divisor), Constant<T>.Zero))
+					if (IsInteger(A) && !LessThan(A, Constant<T>.Two))
+					{
+						if (Equality(A, Constant<T>.Two))
+						{
+							return true;
+						}
+						if (IsEven(A))
+						{
+							return false;
+						}
+						T squareRoot = SquareRoot(A);
+						for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Addition(divisor, Constant<T>.Two))
+						{
+							if (Equality(Remainder<T>(A, divisor), Constant<T>.Zero))
+							{
+								return false;
+							}
+						}
+						return true;
+					}
+					else
 					{
 						return false;
 					}
-				}
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-
-			//return IsPrimeImplementation<T>.Function(value);
+				};
+				return Function(a);
+			};
 		}
-
-		//internal static class IsPrimeImplementation<T>
-		//{
-		//	internal static Func<T, bool> Function = a =>
-		//	{
-		//		// until optimization is made... no need for this implementation class
-		//	};
-		//}
 
 		#endregion
 
@@ -1369,16 +1424,26 @@ namespace Towel
 
 		#endregion
 
-		#region Compare
+		#region Comparison
 
+		/// <summary>Compares two values.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the comparison.</returns>
 		public static CompareResult Comparison<A, B>(A a, B b) =>
 			CompareImplementation<A, B>.Function(a, b);
 
 #if Hidden
-		/// <summary>Compares two numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the comparison.</param>
-		/// <param name="b">The second operand of the comparison.</param>
+		// This code is hidden currently because it collides with the
+		// System.Comparison<T> delegate type. I may or may not add it
+		// in the future.
+
+		/// <summary>Compares two values.</summary>
+		/// <typeparam name="T">The type of the operands.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the comparison.</returns>
 		public static CompareResult Comparison<T>(T a, T b) =>
 			Comparison<T, T>(a, b);
@@ -1393,8 +1458,7 @@ namespace Towel
 				{
 					CompareImplementation<A, A>.Function =
 						new Compare<A, A>(
-							Compare.ToCompare<A>(
-								System.Collections.Generic.Comparer<A>.Default));
+							Compare.ToCompare(System.Collections.Generic.Comparer<A>.Default));
 				}
 				else
 				{
@@ -1564,6 +1628,14 @@ namespace Towel
 
 		#region LinearInterpolation
 
+		/// <summary>Linearly interpolations a value.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="x">The value along the first dimension to compute the linear interpolation for.</param>
+		/// <param name="x0">A known starting point along the first dimension.</param>
+		/// <param name="x1">A known ending point along the first dimension.</param>
+		/// <param name="y0">A known starting point along the second dimension.</param>
+		/// <param name="y1">A known ending point along the second dimension.</param>
+		/// <returns>The linearly interpolated value.</returns>
 		public static T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1)
 		{
 			if (GreaterThan(x0, x1) ||
@@ -1590,9 +1662,9 @@ namespace Towel
 
 		#region Factorial
 
-		/// <summary>Computes the factorial of a numeric value [a!] == [a * (a - 1) * (a - 2) * ... * 1].</summary>
+		/// <summary>Computes the factorial of a numeric value [<paramref name="a"/>!] == [<paramref name="a"/> * (<paramref name="a"/> - 1) * (<paramref name="a"/> - 2) * ... * 1].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The integer factorial to computer the value of.</param>
+		/// <param name="a">The integer value to compute the factorial of.</param>
 		/// <returns>The computed factorial value.</returns>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
@@ -1603,6 +1675,13 @@ namespace Towel
 		{
 			internal static Func<T, T> Function = a =>
 			{
+				MethodInfo methodInfo = Meta.GetFactorialMethod<T>();
+				if (!(methodInfo is null))
+				{
+					Function = (Func<T, T>)methodInfo.CreateDelegate(typeof(Func<T, T>));
+					return Function(a);
+				}
+
 				Function = A =>
 				{
 					if (!IsInteger(A))
@@ -1626,6 +1705,11 @@ namespace Towel
 
 		#region Combinations
 
+		/// <summary>Computes the combinations of <paramref name="N"/> values using the <paramref name="n"/> grouping definitions.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="N">The number of values to compute the combinations of.</param>
+		/// <param name="n">The groups and how many values fall into each group.</param>
+		/// <returns>The computed number of combinations.</returns>
 		public static T Combinations<T>(T N, T[] n)
 		{
 			if (!IsInteger(N))

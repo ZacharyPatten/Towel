@@ -15,7 +15,7 @@
 	/// <returns>Whether the equate is valid (true) or not (false).</returns>
 	public delegate bool Equate<A, B>(A a, B b);
 
-	/// <summary>Static wrapper for the based "object.Equals" fuction.</summary>
+	/// <summary>Static wrapper for the based "object.Equals" function.</summary>
 	public static class Equate
 	{
 		/// <summary>Static wrapper for the based "object.Equals" fuction.</summary>

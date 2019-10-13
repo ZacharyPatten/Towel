@@ -48,16 +48,6 @@ namespace Towel
 		/// <summary>-4/(π^2)</summary>
 		public static readonly T Negative4OverπSquared = Negative4OverPiSquared;
 
-#if Hidden
-
-		/// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
-		//public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
-
-		/// <summary>Epsilon (1.192092896...e-012f)</summary>
-		//public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
-
-#endif
-
 		#region Pi
 
 		/// <summary>Computes the value of pi for the provided generic type.</summary>
@@ -123,6 +113,18 @@ namespace Towel
 			};
 		}
 
+		#endregion
+
+		#region Golden Ratio
+#if Hidden
+
+		/// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
+		//public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");
+
+		/// <summary>Epsilon (1.192092896...e-012f)</summary>
+		//public static readonly T Epsilon = Compute.ComputeEpsilon<T>();
+
+#endif
 		#endregion
 
 		#region Epsilon

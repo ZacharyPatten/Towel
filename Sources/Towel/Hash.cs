@@ -6,10 +6,10 @@
 	/// <returns>The computed hash of the given item.</returns>
 	public delegate int Hash<T>(T value);
 
-	/// <summary>Static wrapper for the based "object.GetHashCode" fuction.</summary>
+	/// <summary>Static wrapper for the based "object.GetHashCode" function.</summary>
 	public static class Hash
 	{
-		/// <summary>Static wrapper for the instance based "object.GetHashCode" fuction.</summary>
+		/// <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
 		/// <typeparam name="T">The generic type of the hash operation.</typeparam>
 		/// <param name="value">The item to get the hash code of.</param>
 		/// <returns>The computed hash code using the base GetHashCode instance method.</returns>

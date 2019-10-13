@@ -25,9 +25,9 @@ namespace Mathematics
 			Console.WriteLine();
 
 			// Variables
-			Fraction32 clampA = (Fraction32)(-123d / 9d);
-			Fraction32 clampB = (Fraction32)(7d / 12d);
-			Fraction32 clampC = (Fraction32)(14d / 15d);
+			Fraction<short> clampA = new Fraction<short>(-123, 9); // -123 / 9
+			Fraction<short> clampB = new Fraction<short>(7, 12);   //    7 / 12
+			Fraction<short> clampC = new Fraction<short>(14, 15);  //   14 / 15
 			double[] values = new double[4];
 			Stepper<double> valueStepper = values.ToStepper();
 			values.Format(x => random.NextDouble());
@@ -58,8 +58,8 @@ namespace Mathematics
 			double absoluteValue = AbsoluteValue(-7d);
 			Console.WriteLine("    AbsoluteValue(-7): " + absoluteValue);
 
-			Fraction32 clamp = Clamp(clampA, clampB, clampB);
-			Console.WriteLine("    Clamp(" + clampA + ", " + clampB + ", " + clampB + "): " + clamp);
+			Fraction<short> clamp = Clamp(clampA, clampB, clampC);
+			Console.WriteLine("    Clamp(" + clampA + ", " + clampB + ", " + clampC + "): " + clamp);
 
 			int maximum = Maximum(1, 2, 3);
 			Console.WriteLine("    Maximum(1, 2, 3): " + maximum);
@@ -67,13 +67,13 @@ namespace Mathematics
 			int minimum = Minimum(1, 2, 3);
 			Console.WriteLine("    Minimum(1, 2, 3): " + minimum);
 
-			bool lessThan = LessThan((Fraction128)1, (Fraction128)2);
+			bool lessThan = LessThan((Fraction<int>)1, (Fraction<int>)2);
 			Console.WriteLine("    LessThan(1, 2): " + lessThan);
 
-			bool greaterThan = GreaterThan((Fraction64)1, (Fraction64)2);
+			bool greaterThan = GreaterThan((Fraction<int>)1, (Fraction<int>)2);
 			Console.WriteLine("    GreaterThan(1, 2): " + greaterThan);
 
-			CompareResult compare = Comparison((Fraction32)7, (Fraction32)7);
+			CompareResult compare = Comparison((Fraction<short>)7, (Fraction<short>)7);
 			Console.WriteLine("    Compare(7, 7): " + compare);
 
 			bool equality = Equality(7, 6);
