@@ -61,7 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0F8AD50A-1
 		docs\Readme.md = docs\Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntax", "Examples\Syntax\Syntax.csproj", "{F1CA45C1-683F-4820-BC1E-A3B6E703C986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syntax", "Examples\Syntax\Syntax.csproj", "{F1CA45C1-683F-4820-BC1E-A3B6E703C986}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pages", "Pages", "{0EF0E07B-5B74-4766-9C79-2E38E592FF97}"
+	ProjectSection(SolutionItems) = preProject
+		.github\Pages\Code Standards.md = .github\Pages\Code Standards.md
+		.github\Pages\Development Environments.md = .github\Pages\Development Environments.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +139,7 @@ Global
 		{8C1D7EB5-FC57-484B-84C6-43B2A1ED2AA3} = {34244537-A921-4307-BF25-A1B9C2F04088}
 		{0F8AD50A-1253-4168-BCEB-2DD3E019C188} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
 		{F1CA45C1-683F-4820-BC1E-A3B6E703C986} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
+		{0EF0E07B-5B74-4766-9C79-2E38E592FF97} = {34244537-A921-4307-BF25-A1B9C2F04088}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}
