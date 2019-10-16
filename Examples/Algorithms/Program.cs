@@ -374,6 +374,7 @@ namespace Algorithms
 				// Normally you won't run two algorithms for the same graph/location, but 
 				// we are running both algorithms in this example to demonstrate the
 				// differences between them.
+
 				alreadyUsed.Clear();
 
 				Stepper<Vector<float>> dijkstraPath =
@@ -383,16 +384,26 @@ namespace Algorithms
 						heuristicFunction,
 						goalFunction);
 
-				//// Note: the breadth-first-search algorithm is slow as balls, but feel free to uncomment
-				//// and run it if you want to.
-				//
-				//alreadyUsed.Clear();
-				//
-				//Stepper<Vector<float>> breadthFirstSearch =
-				//	Search.Graph(
-				//		enemyLocation,
-				//		neighborFunction,
-				//		goalFunction);
+				// Note: the breadth-first-search algorithm is slow as balls. Lets try to run it
+				// but if it takes too long (say... over 2 seconds) we will cancel it.
+
+				alreadyUsed.Clear();
+
+				DateTime startTime = DateTime.Now;
+				TimeSpan timeSpan = TimeSpan.FromSeconds(2);
+				Stepper<Vector<float>> breadthFirstSearch =
+					Search.Graph(
+						enemyLocation,
+						neighborFunction,
+						node =>
+						{
+							if (DateTime.Now - startTime > timeSpan)
+								return Break;
+							else if (goalFunction(node))
+								return Goal;
+							else
+								return Continue;
+						});
 
 				// NOTE: If there is no valid path, then "Search.Graph" will return "null."
 				// For this example, I know that there will be a valid path so I did not 
@@ -411,13 +422,6 @@ namespace Algorithms
 						step(costFunction(dijkstraPathArray[i], dijkstraPathArray[i + 1]));
 					}
 				});
-				//float breadthFirstSearchTotalCost = Addition<float>(step =>
-				//{
-				//	for (int i = 0; i < breadthFirstSearchPathArray.Length - 1; i++)
-				//	{
-				//		step(costFunction(breadthFirstSearchPathArray[i], breadthFirstSearchPathArray[i + 1]));
-				//	}
-				//});
 
 				bool IsAStarPathBetterThanijkstra = aStarTotalPathCost < dijkstraTotalCost;
 

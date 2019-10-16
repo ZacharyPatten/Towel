@@ -4,18 +4,6 @@
         <name>Towel</name>
     </assembly>
     <members>
-        <member name="T:Towel.Algorithms.GraphSearchStatus">
-            <summary>The status of a graph search algorithm.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.GraphSearchStatus.Continue">
-            <summary>Graph search was not broken.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.GraphSearchStatus.Break">
-            <summary>Graph search was broken.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.GraphSearchStatus.Goal">
-            <summary>Graph search found the goal.</summary>
-        </member>
         <member name="T:Towel.Algorithms.Search">
             <summary>Static class taht constains algorithms for searching.</summary>
         </member>
@@ -33,6 +21,24 @@
             <param name="length">The number of indexed items.</param>
             <param name="compare">Comparison delegate.</param>
             <returns>The index where the specific value fits into the index, sorted items.</returns>
+        </member>
+        <member name="T:Towel.Algorithms.Search.GraphSearchStatus">
+            <summary>The status of a graph search algorithm.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Continue">
+            <summary>Graph search was not broken.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Break">
+            <summary>Graph search was broken.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Goal">
+            <summary>Graph search found the goal.</summary>
+        </member>
+        <member name="T:Towel.Algorithms.Search.Syntax">
+            <summary>Syntax sugar hacks.</summary>
+        </member>
+        <member name="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus">
+            <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
         </member>
         <member name="T:Towel.Algorithms.Search.Neighbors`1">
             <summary>Step function for all neigbors of a given node.</summary>
@@ -30195,6 +30201,9 @@
         </member>
         <member name="F:Towel.Syntax.Break">
             <summary>Stepper was broken.</summary>
+        </member>
+        <member name="F:Towel.Syntax.Goal">
+            <summary>The Goal was found.</summary>
         </member>
         <member name="F:Towel.Syntax.Less">
             <summary>The left operand is less than the right operand.</summary>

@@ -4,21 +4,6 @@ using static Towel.Syntax;
 
 namespace Towel.Algorithms
 {
-	/// <summary>The status of a graph search algorithm.</summary>
-	public enum GraphSearchStatus
-	{
-		#region Members
-
-		/// <summary>Graph search was not broken.</summary>
-		Continue = 0,
-		/// <summary>Graph search was broken.</summary>
-		Break = 1,
-		/// <summary>Graph search found the goal.</summary>
-		Goal = 2,
-
-		#endregion
-	}
-
 	/// <summary>Static class taht constains algorithms for searching.</summary>
 	public static class Search
 	{
@@ -83,7 +68,36 @@ namespace Towel.Algorithms
 
 		#region Graph Algorithms
 
-		#region Delegates
+		#region Publics
+
+		/// <summary>The status of a graph search algorithm.</summary>
+		public enum GraphSearchStatus
+		{
+			#region Members
+
+			/// <summary>Graph search was not broken.</summary>
+			Continue = 0,
+			/// <summary>Graph search was broken.</summary>
+			Break = 1,
+			/// <summary>Graph search found the goal.</summary>
+			Goal = 2,
+
+			#endregion
+		}
+
+		/// <summary>Syntax sugar hacks.</summary>
+		public static class Syntax
+		{
+			/// <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
+			public struct GraphSearchStatus
+			{
+				internal readonly Search.GraphSearchStatus Value;
+				public GraphSearchStatus(Search.GraphSearchStatus value) => Value = value;
+				public static implicit operator GraphSearchStatus(Search.GraphSearchStatus value) => new GraphSearchStatus(value);
+				public static implicit operator GraphSearchStatus(StepStatus value) => new GraphSearchStatus((Search.GraphSearchStatus)value);
+				public static implicit operator Search.GraphSearchStatus(GraphSearchStatus value) => value.Value;
+			}
+		}
 
 		/// <summary>Step function for all neigbors of a given node.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
@@ -112,7 +126,7 @@ namespace Towel.Algorithms
 		/// <typeparam name="Node">The node type of the search.</typeparam>
 		/// <param name="current">The current node of the search.</param>
 		/// <returns>The status of the search.</returns>
-		public delegate GraphSearchStatus Check<Node>(Node current);
+		public delegate Syntax.GraphSearchStatus Check<Node>(Node current);
 
 		#endregion
 

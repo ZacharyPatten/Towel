@@ -123,24 +123,18 @@ namespace Towel
 
 		#endregion
 
-		#region Continue & Break
+		#region Keywords
 
 		/// <summary>Stepper was not broken.</summary>
 		public const StepStatus Continue = StepStatus.Continue;
-
 		/// <summary>Stepper was broken.</summary>
 		public const StepStatus Break = StepStatus.Break;
-
-		#endregion
-
-		#region Greater Less Equal
-
+		/// <summary>The Goal was found.</summary>
+		public const Search.GraphSearchStatus Goal = Search.GraphSearchStatus.Goal;
 		/// <summary>The left operand is less than the right operand.</summary>
 		public const CompareResult Less = CompareResult.Less;
-
 		/// <summary>The left operand is equal to the right operand.</summary>
 		public const CompareResult Equal = CompareResult.Equal;
-
 		/// <summary>The left operand is greater than the right operand.</summary>
 		public const CompareResult Greater = CompareResult.Greater;
 
