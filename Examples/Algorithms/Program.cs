@@ -255,24 +255,12 @@ namespace Algorithms
 				// ignores locations inside the rock)
 				bool validateMovementLocation(Vector<float> location)
 				{
-					// if the location is inside the rock, it is not a valid movement
+					// if the location is inside the rock, it is not a valid movement, or if
+					// the location has already been used, we can consider it invalid
+
 					location.Subtract(rockLocation, ref validationVectorStorage);
 					float magnitude = validationVectorStorage.Magnitude;
-					if (magnitude <= rockRadius)
-					{
-						return false;
-					}
-
-					// NOTE: If you are running a physics engine, you might be able to just call it to validate a location.
-
-					// if the location was already used, then let's consider it invalid, because
-					// another path (which is faster) has already reached that location
-					if (alreadyUsed.Contains(location))
-					{
-						return false;
-					}
-
-					return true;
+					return !(magnitude <= rockRadius || alreadyUsed.Contains(location));
 				}
 
 				// Now we need the neighbor function (getting the neighbors of the current location).
@@ -330,17 +318,12 @@ namespace Algorithms
 				// Cost function
 				float costFunction(Vector<float> from, Vector<float> to)
 				{
-					// If the location we are moving to is in the mud, lets adjust the
-					// cost because mud makes us move slower.
+					// If the location we are moving to is in the mud, it makes units
+					// move slower, so it has a higher cost. If not, it is a standard
+					// movement speed.
 					to.Subtract(mudLocation, ref costVectorStorage);
 					float magnitude = costVectorStorage.Magnitude;
-					if (magnitude <= mudRadius)
-					{
-						return 2f;
-					}
-
-					// neither location is in the mud, it is just a standard movement at normal speed.
-					return 1f;
+					return magnitude <= mudRadius ? 2f : 1f;
 				}
 
 				Vector<float> goalVectorStorage = null; // storage to prevent a ton of vectors from being allocated
@@ -351,13 +334,7 @@ namespace Algorithms
 					// if the player is within the enemy's attack range WE FOUND A PATH! :)
 					currentLocation.Subtract(playerLocation, ref goalVectorStorage);
 					float magnitude = goalVectorStorage.Magnitude;
-					if (magnitude <= enemyAttackRange)
-					{
-						return true;
-					}
-
-					// the enemy is not yet within attack range
-					return false;
+					return magnitude <= enemyAttackRange;
 				}
 
 				// We have all the necessary parameters. Run the pathfinding algorithms!
@@ -412,7 +389,6 @@ namespace Algorithms
 				// Lets convert the paths into arrays so you can look at them in the debugger. :)
 				Vector<float>[] aStarPathArray = aStarPath.ToArray();
 				Vector<float>[] dijkstraPathArray = dijkstraPath.ToArray();
-				//Vector<float>[] breadthFirstSearchPathArray = breadthFirstSearch.ToArray();
 
 				// lets calculate the movement cost of each path to see how they compare
 				float dijkstraTotalCost = Addition<float>(step =>
