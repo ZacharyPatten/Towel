@@ -4,6 +4,21 @@ using static Towel.Syntax;
 
 namespace Towel.Algorithms
 {
+	/// <summary>The status of a graph search algorithm.</summary>
+	public enum GraphSearchStatus
+	{
+		#region Members
+
+		/// <summary>Graph search was not broken.</summary>
+		Continue = 0,
+		/// <summary>Graph search was broken.</summary>
+		Break = 1,
+		/// <summary>Graph search found the goal.</summary>
+		Goal = 2,
+
+		#endregion
+	}
+
 	/// <summary>Static class taht constains algorithms for searching.</summary>
 	public static class Search
 	{
@@ -93,10 +108,15 @@ namespace Towel.Algorithms
 		/// <param name="current">The current node.</param>
 		/// <returns>True if the current node is a/the goal node; False if not.</returns>
 		public delegate bool Goal<Node>(Node current);
+		/// <summary>Checks the status of a graph search.</summary>
+		/// <typeparam name="Node">The node type of the search.</typeparam>
+		/// <param name="current">The current node of the search.</param>
+		/// <returns>The status of the search.</returns>
+		public delegate GraphSearchStatus Check<Node>(Node current);
 
 		#endregion
 
-		#region Internal Classes
+		#region Internals
 
 		internal abstract class BaseAlgorithmNode<AlgorithmNode, Node>
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
@@ -123,10 +143,6 @@ namespace Towel.Algorithms
 			internal Node Value;
 			internal PathNode<Node> Next;
 		}
-
-		#endregion
-
-		#region Internal Fuctions
 
 		internal static Stepper<Node> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
@@ -163,10 +179,10 @@ namespace Towel.Algorithms
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
 		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <param name="check">Checks the status of the search.</param>
 		/// <param name="totalCost">The total cost of the path if a path was found.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost)
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Check<Node> check, out Numeric totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>>(
@@ -187,10 +203,15 @@ namespace Towel.Algorithms
 			while (fringe.Count != 0)
 			{
 				AstarNode<Node, Numeric> current = fringe.Dequeue();
-				if (goal(current.Value))
+				GraphSearchStatus status = check(current.Value);
+				if (status == GraphSearchStatus.Break)
+				{
+					break;
+				}
+				else if (status == GraphSearchStatus.Goal)
 				{
 					totalCost = current.Cost;
-					return BuildPath<AstarNode<Node, Numeric>, Node>(current);
+					return BuildPath(current);
 				}
 				else
 				{
@@ -214,6 +235,19 @@ namespace Towel.Algorithms
 		}
 
 		#region A* overloads
+
+		/// <summary>Runs the A* search algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+		/// <param name="goal">The predicate to determine if the goal has been reached.</param>
+		/// <param name="totalCost">The total cost of the path if a path was found.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
+			Graph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
 		/// <summary>Runs the A* search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
@@ -294,9 +328,9 @@ namespace Towel.Algorithms
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <param name="check">Checks the status of the search.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal)
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Check<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
 			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>>(
@@ -316,9 +350,14 @@ namespace Towel.Algorithms
 			while (fringe.Count != 0)
 			{
 				DijkstraNode<Node, Numeric> current = fringe.Dequeue();
-				if (goal(current.Value))
+				GraphSearchStatus status = check(current.Value);
+				if (status == GraphSearchStatus.Break)
 				{
-					return BuildPath<DijkstraNode<Node, Numeric>, Node>(current);
+					break;
+				}
+				if (status == GraphSearchStatus.Goal)
+				{
+					return BuildPath(current);
 				}
 				else
 				{
@@ -339,6 +378,17 @@ namespace Towel.Algorithms
 		}
 
 		#region Dijkstra Overloads
+
+		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
+			Graph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
@@ -407,9 +457,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <param name="check">Checks the status of the search.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal)
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Check<Node> check)
 		{
 			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
 
@@ -425,9 +475,14 @@ namespace Towel.Algorithms
 			while (fringe.Count != 0)
 			{
 				BreadthFirstSearch<Node> current = fringe.Dequeue();
-				if (goal(current.Value))
+				GraphSearchStatus status = check(current.Value);
+				if (status == GraphSearchStatus.Break)
 				{
-					return BuildPath<BreadthFirstSearch<Node>, Node>(current);
+					break;
+				}
+				if (status == GraphSearchStatus.Goal)
+				{
+					return BuildPath(current);
 				}
 				else
 				{
@@ -447,6 +502,15 @@ namespace Towel.Algorithms
 		}
 
 		#region BreadthFirstSearch Overloads
+
+		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
+		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <param name="start">The node to start at.</param>
+		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
+		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
+		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>
+			Graph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>

@@ -1,4 +1,6 @@
-﻿namespace Towel
+﻿using static Towel.Syntax;
+
+namespace Towel
 {
 	/// <summary>Delegate for equating two instances of the same type.</summary>
 	/// <typeparam name="T">The types of the instances to compare.</typeparam>
@@ -30,6 +32,6 @@
 		/// <param name="compare">The compare delegate to convert to a equate.</param>
 		/// <returns>The compare delegate converted into an equate.</returns>
 		public static Equate<T> FromCompare<T>(Compare<T> compare) =>
-			(a, b) => compare(a, b) == CompareResult.Equal;
+			(a, b) => compare(a, b) == Equal;
 	}
 }

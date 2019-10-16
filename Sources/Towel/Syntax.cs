@@ -60,38 +60,38 @@ namespace Towel
 
 		#region TryParse
 
-		/// <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
-		/// <typeparam name="T">The generic type to make assumptions about.</typeparam>
+		/// <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
+		/// <typeparam name="A">The generic type to make assumptions about.</typeparam>
 		/// <param name="string">The string to be parsed.</param>
 		/// <param name="Default">The default value if the parse fails.</param>
 		/// <returns>The parsed value or the default value if the parse fails.</returns>
-		public static T TryParse<T>(string @string, T Default = default) =>
-			TryParse(@string, out T value)
+		public static A TryParse<A>(string @string, A Default = default) =>
+			TryParse(@string, out A value)
 			? value
 			: Default;
 
-		/// <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
-		/// <typeparam name="T">The generic type to make assumptions about.</typeparam>
+		/// <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
+		/// <typeparam name="A">The generic type to make assumptions about.</typeparam>
 		/// <param name="string">The string to be parsed.</param>
 		/// <param name="value">The parsed value if successful or default if not.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<T>(string @string, out T value) =>
-			TryParseImplementation<T>.Function(@string, out value);
+		public static bool TryParse<A>(string @string, out A value) =>
+			TryParseImplementation<A>.Function(@string, out value);
 
-		internal static class TryParseImplementation<T>
+		internal static class TryParseImplementation<A>
 		{
-			internal delegate bool TryParseDelegate(string @string, out T value);
+			internal delegate bool TryParseDelegate(string @string, out A value);
 
-			internal static TryParseDelegate Function = (string @string, out T value) =>
+			internal static TryParseDelegate Function = (string @string, out A value) =>
 			{
-				MethodInfo methodInfo = Meta.GetTryParseMethod<T>();
+				MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 				Function = methodInfo is null
 					? Default
 					: (TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
 				return Function(@string, out value);
 			};
 
-			public static bool Default(string @string, out T value)
+			internal static bool Default(string @string, out A value)
 			{
 				value = default;
 				return false;
@@ -150,7 +150,7 @@ namespace Towel
 
 		#region Equality
 
-		/// <summary>Assumes the equality operator exists between types.</summary>
+		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -160,15 +160,15 @@ namespace Towel
 		public static C Equality<A, B, C>(A a, B b) =>
 			EqualityImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks two numeric values for equality [a == b].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the equality check.</param>
-		/// <param name="b">The second operand of the equality check.</param>
+		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
+		/// <typeparam name="T">The type of the operation.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equality<T>(T a, T b) =>
 			Equality<T, T, bool>(a, b);
 
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the equality check.</param>
 		/// <param name="b">The second operand of the equality check.</param>
@@ -221,7 +221,7 @@ namespace Towel
 
 		#endregion
 
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
@@ -253,7 +253,7 @@ namespace Towel
 			return result;
 		}
 
-		/// <summary>Checks for equality among multiple numeric operands.</summary>
+		/// <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
@@ -299,7 +299,7 @@ namespace Towel
 
 		#region Inequality
 
-		/// <summary>Assumes the inequality operator exists between types.</summary>
+		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -309,7 +309,7 @@ namespace Towel
 		public static C Inequality<A, B, C>(A a, B b) =>
 			InequalityImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks two values for inequality [a != b].</summary>
+		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the inequality check.</param>
 		/// <param name="b">The second operand of the inequality check.</param>
@@ -376,7 +376,7 @@ namespace Towel
 
 		#region LessThan
 
-		/// <summary>Assumes the less than operator exists between types.</summary>
+		/// <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -386,7 +386,7 @@ namespace Towel
 		public static C LessThan<A, B, C>(A a, B b) =>
 			LessThanImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks that a numeric value is less than another.</summary>
+		/// <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the less than check.</param>
 		/// <param name="b">The second operand of the less than check.</param>
@@ -410,7 +410,7 @@ namespace Towel
 
 		#region GreaterThan
 
-		/// <summary>Assumes the greater than operator exists between types.</summary>
+		/// <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -420,7 +420,7 @@ namespace Towel
 		public static C GreaterThan<A, B, C>(A a, B b) =>
 			GreaterThanImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks that a numeric value is greater than another [a > b].</summary>
+		/// <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the greater than check.</param>
 		/// <param name="b">The second operand of the greater than check.</param>
@@ -444,7 +444,7 @@ namespace Towel
 
 		#region LessThanOrEqual
 
-		/// <summary>Assumes the less than or equal to operator exists between types.</summary>
+		/// <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -454,7 +454,7 @@ namespace Towel
 		public static C LessThanOrEqual<A, B, C>(A a, B b) =>
 			LessThanOrEqualImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks that a numeric value is less than or equal to another.</summary>
+		/// <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the less than or equal to check.</param>
 		/// <param name="b">The second operand of the less than or equal to check.</param>
@@ -478,7 +478,7 @@ namespace Towel
 
 		#region GreaterThanOrEqual
 
-		/// <summary>Assumes the greater than or equal to operator exists between types.</summary>
+		/// <summary>Checks if one value is less greater or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
@@ -488,7 +488,7 @@ namespace Towel
 		public static C GreaterThanOrEqual<A, B, C>(A a, B b) =>
 			GreaterThanOrEqualImplementation<A, B, C>.Function(a, b);
 
-		/// <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
+		/// <summary>Checks if one value is greater than or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the greater than or equal to check.</param>
 		/// <param name="b">The second operand of the greater than or equal to check.</param>

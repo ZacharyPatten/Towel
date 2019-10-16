@@ -4,6 +4,18 @@
         <name>Towel</name>
     </assembly>
     <members>
+        <member name="T:Towel.Algorithms.GraphSearchStatus">
+            <summary>The status of a graph search algorithm.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.GraphSearchStatus.Continue">
+            <summary>Graph search was not broken.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.GraphSearchStatus.Break">
+            <summary>Graph search was broken.</summary>
+        </member>
+        <member name="F:Towel.Algorithms.GraphSearchStatus.Goal">
+            <summary>Graph search found the goal.</summary>
+        </member>
         <member name="T:Towel.Algorithms.Search">
             <summary>Static class taht constains algorithms for searching.</summary>
         </member>
@@ -49,6 +61,24 @@
             <param name="current">The current node.</param>
             <returns>True if the current node is a/the goal node; False if not.</returns>
         </member>
+        <member name="T:Towel.Algorithms.Search.Check`1">
+            <summary>Checks the status of a graph search.</summary>
+            <typeparam name="Node">The node type of the search.</typeparam>
+            <param name="current">The current node of the search.</param>
+            <returns>The status of the search.</returns>
+        </member>
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Check{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="check">Checks the status of the search.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0},``1@)">
             <summary>Runs the A* search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
@@ -57,7 +87,7 @@
             <param name="neighbors">Step function for all neigbors of a given node.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="goal">The predicate to determine if the goal has been reached.</param>
             <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
@@ -123,6 +153,16 @@
             <param name="totalCost">The total cost of the path if a path was found.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
+        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Check{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="check">Checks the status of the search.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
         <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
             <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
@@ -183,6 +223,14 @@
             <param name="graph">The graph to search against.</param>
             <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
             <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Check{``0})">
+            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="check">Checks the status of the search.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
         <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Goal{``0})">
@@ -30122,15 +30170,15 @@
             <summary>a * b + c</summary>
         </member>
         <member name="M:Towel.Syntax.TryParse``1(System.String,``0)">
-            <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
-            <typeparam name="T">The generic type to make assumptions about.</typeparam>
+            <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The generic type to make assumptions about.</typeparam>
             <param name="string">The string to be parsed.</param>
             <param name="Default">The default value if the parse fails.</param>
             <returns>The parsed value or the default value if the parse fails.</returns>
         </member>
         <member name="M:Towel.Syntax.TryParse``1(System.String,``0@)">
-            <summary>Assumes a TryParse method exists for a generic type and calls it.</summary>
-            <typeparam name="T">The generic type to make assumptions about.</typeparam>
+            <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
+            <typeparam name="A">The generic type to make assumptions about.</typeparam>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value if successful or default if not.</param>
             <returns>True if successful or false if not.</returns>
@@ -30158,7 +30206,7 @@
             <summary>The left operand is greater than the right operand.</summary>
         </member>
         <member name="M:Towel.Syntax.Equality``3(``0,``1)">
-            <summary>Assumes the equality operator exists between types.</summary>
+            <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30167,14 +30215,14 @@
             <returns>The result of the equality.</returns>
         </member>
         <member name="M:Towel.Syntax.Equality``1(``0,``0)">
-            <summary>Checks two numeric values for equality [a == b].</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The first operand of the equality check.</param>
-            <param name="b">The second operand of the equality check.</param>
+            <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
+            <typeparam name="T">The type of the operation.</typeparam>
+            <param name="a">The left operand.</param>
+            <param name="b">The right operand.</param>
             <returns>The result of the equality check.</returns>
         </member>
         <member name="M:Towel.Syntax.Equality``1(``0,``0,``0[])">
-            <summary>Checks for equality among multiple numeric operands.</summary>
+            <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the equality check.</param>
             <param name="b">The second operand of the equality check.</param>
@@ -30182,19 +30230,19 @@
             <returns>True if all operands are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Syntax.Equality``1(Towel.Stepper{``0})">
-            <summary>Checks for equality among multiple numeric operands.</summary>
+            <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
             <returns>True if all operand are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Syntax.Equality``1(Towel.StepperBreak{``0})">
-            <summary>Checks for equality among multiple numeric operands.</summary>
+            <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
             <returns>True if all operand are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Syntax.Inequality``3(``0,``1)">
-            <summary>Assumes the inequality operator exists between types.</summary>
+            <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30203,14 +30251,14 @@
             <returns>The result of the inequality.</returns>
         </member>
         <member name="M:Towel.Syntax.Inequality``1(``0,``0)">
-            <summary>Checks two values for inequality [a != b].</summary>
+            <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the inequality check.</param>
             <param name="b">The second operand of the inequality check.</param>
             <returns>The result of the inequality check.</returns>
         </member>
         <member name="M:Towel.Syntax.LessThan``3(``0,``1)">
-            <summary>Assumes the less than operator exists between types.</summary>
+            <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30219,14 +30267,14 @@
             <returns>The result of the less than operation.</returns>
         </member>
         <member name="M:Towel.Syntax.LessThan``1(``0,``0)">
-            <summary>Checks that a numeric value is less than another.</summary>
+            <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the less than check.</param>
             <param name="b">The second operand of the less than check.</param>
             <returns>The result of the less than check.</returns>
         </member>
         <member name="M:Towel.Syntax.GreaterThan``3(``0,``1)">
-            <summary>Assumes the greater than operator exists between types.</summary>
+            <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30235,14 +30283,14 @@
             <returns>The result of the greater than operation.</returns>
         </member>
         <member name="M:Towel.Syntax.GreaterThan``1(``0,``0)">
-            <summary>Checks that a numeric value is greater than another [a > b].</summary>
+            <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the greater than check.</param>
             <param name="b">The second operand of the greater than check.</param>
             <returns>The result of the greater than check.</returns>
         </member>
         <member name="M:Towel.Syntax.LessThanOrEqual``3(``0,``1)">
-            <summary>Assumes the less than or equal to operator exists between types.</summary>
+            <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30251,14 +30299,14 @@
             <returns>The result of the less than or equal to operation.</returns>
         </member>
         <member name="M:Towel.Syntax.LessThanOrEqual``1(``0,``0)">
-            <summary>Checks that a numeric value is less than or equal to another.</summary>
+            <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the less than or equal to check.</param>
             <param name="b">The second operand of the less than or equal to check.</param>
             <returns>The result of the less than or equal to check.</returns>
         </member>
         <member name="M:Towel.Syntax.GreaterThanOrEqual``3(``0,``1)">
-            <summary>Assumes the greater than or equal to operator exists between types.</summary>
+            <summary>Checks if one value is less greater or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
             <typeparam name="C">The type of the return.</typeparam>
@@ -30267,7 +30315,7 @@
             <returns>The result of the greater than or equal to operation.</returns>
         </member>
         <member name="M:Towel.Syntax.GreaterThanOrEqual``1(``0,``0)">
-            <summary>Checks that a numeric value is less greater or equal to another [a >= b].</summary>
+            <summary>Checks if one value is greater than or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the greater than or equal to check.</param>
             <param name="b">The second operand of the greater than or equal to check.</param>
