@@ -1,0 +1,74 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Algorithms Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Algorithms Example [Debug]",
+			"program": "${workspaceFolder}/Examples/Algorithms/bin/Debug/netcoreapp3.0/Algorithms.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/Algorithms/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+		{
+			"name": "Data Structures Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Data Structures Example [Debug]",
+			"program": "${workspaceFolder}/Examples/DataStructures/bin/Debug/netcoreapp3.0/DataStructures.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/DataStructures/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+		{
+			"name": "Extensions Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Extensions Example [Debug]",
+			"program": "${workspaceFolder}/Examples/Extensions/bin/Debug/netcoreapp3.0/Extensions.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/Extensions/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+		{
+			"name": "Mathematics Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Mathematics Example [Debug]",
+			"program": "${workspaceFolder}/Examples/Mathematics/bin/Debug/netcoreapp3.0/Mathematics.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/Mathematics/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+		{
+			"name": "Measurements Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Measurements Example [Debug]",
+			"program": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.0/Measurements.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+		{
+			"name": "Syntax Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Syntax Example [Debug]",
+			"program": "${workspaceFolder}/Examples/Syntax/bin/Debug/netcoreapp3.0/Syntax.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/Syntax/bin/Debug/netcoreapp3.0",
+			"console": "internalConsole",
+			"stopAtEntry": false
+		},
+	]
+}

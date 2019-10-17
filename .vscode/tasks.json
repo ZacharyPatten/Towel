@@ -1,0 +1,265 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Towel [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Sources/Towel/Towel.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Sources/Towel/Towel.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Algorithms Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/Algorithms/Algorithms.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Algorithms Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/Algorithms/Algorithms.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Data Structures Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/DataStructures/DataStructures.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Data Structures Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/DataStructures/DataStructures.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Extensions Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/Extensions/Extensions.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Extensions Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/Extensions/Extensions.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Mathematics Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/Mathematics/Mathematics.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Mathematics Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/Mathematics/Mathematics.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Measurements Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/Measurements/Measurements.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Measurements Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/Measurements/Measurements.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Syntax Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/Syntax/Syntax.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Syntax Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/Syntax/Syntax.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Documenting [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Analysis/Towel_Documenting/Towel_Documenting.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Documenting [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Analysis/Towel_Documenting/Towel_Documenting.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Benchmarking [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Analysis/Towel_Benchmarking/Towel_Benchmarking.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Benchmarking [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Analysis/Towel_Benchmarking/Towel_Benchmarking.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Testing [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Analysis/Towel_Testing/Towel_Testing.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build Towel_Testing [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Analysis/Towel_Testing/Towel_Testing.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+	]
+}

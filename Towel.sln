@@ -19,15 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analysis", "Analysis", "{D7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Testing", "Analysis\Towel_Testing\Towel_Testing.csproj", "{7AE7800F-5132-4D82-A9CC-BF7CD1AC850D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Repository Files", "_Repository Files", "{1B54E237-421E-4753-A39C-C1F41F3C5A02}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		Contributing.md = Contributing.md
-		License.md = License.md
-		Logo.svg = Logo.svg
-		Readme.md = Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurements", "Examples\Measurements\Measurements.csproj", "{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Extensions\Extensions.csproj", "{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B}"
@@ -38,36 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documenting", "Analys
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection3D", "Examples\CollisionDetection3D\CollisionDetection3D.csproj", "{F5AADBDA-FB69-4644-9BD6-832DE2855922}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{34244537-A921-4307-BF25-A1B9C2F04088}"
-	ProjectSection(SolutionItems) = preProject
-		.github\pull_request_template.md = .github\pull_request_template.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2DF6D73F-EA22-4BDE-B7D8-3CD78D2C6D29}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\Towel Build.yml = .github\workflows\Towel Build.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{8C1D7EB5-FC57-484B-84C6-43B2A1ED2AA3}"
-	ProjectSection(SolutionItems) = preProject
-		.github\ISSUE_TEMPLATE\bug.md = .github\ISSUE_TEMPLATE\bug.md
-		.github\ISSUE_TEMPLATE\enhancement.md = .github\ISSUE_TEMPLATE\enhancement.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0F8AD50A-1253-4168-BCEB-2DD3E019C188}"
-	ProjectSection(SolutionItems) = preProject
-		docs\_config.yml = docs\_config.yml
-		docs\Documentation.html = docs\Documentation.html
-		docs\Readme.md = docs\Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syntax", "Examples\Syntax\Syntax.csproj", "{F1CA45C1-683F-4820-BC1E-A3B6E703C986}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pages", "Pages", "{0EF0E07B-5B74-4766-9C79-2E38E592FF97}"
-	ProjectSection(SolutionItems) = preProject
-		.github\Pages\Code Standards.md = .github\Pages\Code Standards.md
-		.github\Pages\Development Environments.md = .github\Pages\Development Environments.md
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,12 +96,7 @@ Global
 		{CEFA125F-39A4-433C-AAED-36B61F7944A7} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{6D530E88-E507-4F83-889C-47FB888021BA} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{F5AADBDA-FB69-4644-9BD6-832DE2855922} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
-		{34244537-A921-4307-BF25-A1B9C2F04088} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
-		{2DF6D73F-EA22-4BDE-B7D8-3CD78D2C6D29} = {34244537-A921-4307-BF25-A1B9C2F04088}
-		{8C1D7EB5-FC57-484B-84C6-43B2A1ED2AA3} = {34244537-A921-4307-BF25-A1B9C2F04088}
-		{0F8AD50A-1253-4168-BCEB-2DD3E019C188} = {1B54E237-421E-4753-A39C-C1F41F3C5A02}
 		{F1CA45C1-683F-4820-BC1E-A3B6E703C986} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
-		{0EF0E07B-5B74-4766-9C79-2E38E592FF97} = {34244537-A921-4307-BF25-A1B9C2F04088}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}

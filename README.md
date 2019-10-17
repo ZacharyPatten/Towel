@@ -16,7 +16,14 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 
 *Many features are coded and working, but Towel is still in heavy development. There will be actual NuGet package releases (not just pre-releases) of the code when ready, but note that the project has a goal of keeping as up-to-date as possible on modern C# practices rather than maintaining backwards compatibility.*
 
-## Generic Mathematics
+## Pages
+
+- [Development Environments](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Development%20Environments.md)
+- [Code Documentation](https://zacharypatten.github.io/Towel/Documentation)
+	- _Note: This page still needs a lot of work_
+- [Coding Standards](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Code%20Standards.md)
+
+## Generic Mathematics & Logic
 
 <details>
  <summary><strong>How It Works</strong></summary>
@@ -25,49 +32,61 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate. Here is an example for basic addition:
 
 ```csharp
-public static T Add<T>(T a, T b) => AddImplementation<T>.Function(a, b);
-
-internal static class AddImplementation<T>
+public static T Addition<T>(T a, T b)
 {
-    internal static Func<T, T, T> Function = (T a, T b) =>
-    {
-        ParameterExpression A = Expression.Parameter(typeof(T));
-        ParameterExpression B = Expression.Parameter(typeof(T));
-        Expression BODY = Expression.Add(A, B);
-        Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-        return Function(a, b);
-    };
+	return AdditionImplementation<T>.Function(a, b);
+}
+
+internal static class AdditionImplementation<T>
+{
+	internal static Func<T, T, T> Function = (T a, T b) =>
+	{
+		ParameterExpression A = Expression.Parameter(typeof(T));
+		ParameterExpression B = Expression.Parameter(typeof(T));
+		Expression BODY = Expression.Add(A, B);
+		Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
+		return Function(a, b);
+	};
 }
 ```
- 
+
 </p>
 </details>
 
-#### Fundamental Operations
-
 ```csharp
-T Add<T>(T a, T b);
-T Negate<T>(T a);
-T Subtract<T>(T a, T b);
-T Multiply<T>(T a, T b);
-T Divide<T>(T a, T b);
-T Modulo<T>(T a, T b);
-```
+// Logic Fundamentals
+bool Equality<T>(T a , T b);
+bool LessThan<T>(T a, T b);
+bool GreaterThan<T>(T a, T b);
+CompareResult Compare<T>(T a, T b);
 
-#### More Numeric Mathematics
+// Mathematics Fundamentals
+T Negation<T>(T a);
+T Addition<T>(T a, T b);
+T Subtraction<T>(T a, T b);
+T Multiplication<T>(T a, T b);
+T Division<T>(T a, T b);
+T Remainder<T>(T a, T b);
 
-```csharp
+// More Logic
+bool IsPrime<T>(T a);
+bool IsEven<T>(T a);
+bool IsOdd<T>(T a);
+T Minimum<T>(T a, T b);
+T Maximum<T>(T a, T b);
+T Clamp<T>(T value, T floor, T ceiling);
+T AbsoluteValue<T>(T a);
+bool EqualityLeniency<T>(T a, T b, T leniency);
+
+// More Numerics
 void FactorPrimes<T>(T a, Step<T> step);
 T Factorial<T>(T a);
 T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
 T LeastCommonMultiple<T>(T a, T b, params T[] c);
 T GreatestCommonFactor<T>(T a, T b, params T[] c);
 LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept);
-```
 
-#### Statistics
-
-```csharp
+// Statistics
 T Mean<T>(T a, params T[] b);
 T Median<T>(params T[] values);
 Heap<Link<T, int>> Mode<T>(T a, params T[] b);
@@ -77,16 +96,12 @@ T GeometricMean<T>(Stepper<T> stepper);
 T Variance<T>(Stepper<T> stepper);
 T StandardDeviation<T>(Stepper<T> stepper);
 T MeanDeviation<T>(Stepper<T> stepper);
-```
 
-#### Vectors
-
-```csharp
+// Vectors
 Vector<T> V1 = new Vector<T>(params T[] vector);
 Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
-
 V3 = -V1;                   // Negate
 V3 = V1 + V2;               // Add
 V3 = V1 - V2;               // Subtract
@@ -97,20 +112,16 @@ V3 = V1.CrossProduct(V2);   // Cross Product
 V1.Magnitude;               // Magnitude
 V3 = V1.Normalize();        // Normalize
 bool equal = V1 == V2;      // Equal
-```
 
-#### Matrices
-
-```csharp
+// Matrices
 Matrix<T> M1 = new Matrix<T>(int rows, int columns);
 Matrix<T> M2 = new Matrix<T>(int rows, int columns);
 Matrix<T> M3;
 Vector<T> V2 = new Vector<T>(params T[] vector);
 Vector<T> V3;
 T scalar;
-
 M3 = -M1;                               // Negate
-M1 + M2;                                // Add
+M3 = M1 + M2;                           // Add
 M3 = M1 - M2;                           // Subtract
 M3 = M1 * M2;                           // Multiply
 V3 = M1 * V2;                           // Multiply (vector)
@@ -622,13 +633,6 @@ string GetDocumentation(this MethodInfo methodInfo);
 string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
 ```
-
-## Code Documentation
-
-_This feature still needs to be cleaned up, but you can see the code documentation here:_
-https://zacharypatten.github.io/Towel/Documentation
-
-_Using the extension methods in the Towel project, I was able to extract the XML documentation on the members, and dump them into a page on the GitHub Pages of this repository._
 
 ## Resources
 
