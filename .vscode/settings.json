@@ -10,5 +10,10 @@
 		"License.md": true,
 		"Logo.svg": true,
 		"README.md": true,
+		"**/bin": true,
+		"**/obj": true,
+		"Sources/Towel.Graphics": true,
+		"Sources/Towel.Graphics.OpenGL": true,
+		"Sources/Towel.Physics": true,
 	},
 }
