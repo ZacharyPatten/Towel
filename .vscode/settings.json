@@ -1,12 +1,13 @@
 {
-	"files.exclude": {
+	"files.exclude":
+	{
 		".github": true,
 		".vs": true,
 		"docs": true,
 		"packages": true,
 		"TestResults": true,
 		".gitignore": true,
-		"Contributing.md": true,
+		"CONTRIBUTING.md": true,
 		"License.md": true,
 		"Logo.svg": true,
 		"README.md": true,

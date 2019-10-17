@@ -1,0 +1,8 @@
+{
+	"recommendations":
+	[
+		"ms-vscode.csharp", // support for C#
+		"aisoftware.tt-processor", // support for text templates
+		"formulahendry.dotnet-test-explorer", // support for MSTest unit testing projects
+	]
+}
