@@ -69,6 +69,9 @@ Keep tabs = true
 - **aisoftware.tt-processor**
 	- _Reason: support for T4 Templates_
 	- _Optional: this is only necessary if you plan on editing the ".tt" generator files_
+- **zbecknell.t4-support**
+	- _Reason: support for syntax highlighting in T4 templates_
+	- _Optional: this is not necessary, but it makes T4 templates easier to read_
 - **formulahendry.dotnet-test-explorer**
 	- _Reason: support for MSTest unit testing_
 	- _Optional: this is only necessary if you plan on running the unit tests_

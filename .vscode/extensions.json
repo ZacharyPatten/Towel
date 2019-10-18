@@ -3,6 +3,7 @@
 	[
 		"ms-vscode.csharp", // support for C#
 		"aisoftware.tt-processor", // support for text templates
+		"zbecknell.t4-support", // support for syntax highlighting in text templates
 		"formulahendry.dotnet-test-explorer", // support for MSTest unit testing projects
 	]
 }
