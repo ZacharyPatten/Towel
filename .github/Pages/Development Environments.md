@@ -1,13 +1,8 @@
 # Development Environments
 
-If you are new to C# development, here are some notes on recommended development environments
-to help get you started with the Towel project.
-
 ## Visual Studio 2019
 
-[Visual Studio 2019](https://visualstudio.microsoft.com/) is the recommended development environment.
-The *Community* edition is free. Just open the "Towel.sln" file in Visual Studio 2019 and the code should
-build without any additional steps.
+[Visual Studio 2019](https://visualstudio.microsoft.com/) is the recommended development environment. The *Community* edition is free. Just open the "Towel.sln" file in Visual Studio 2019 and the code should build without any additional steps.
 
 <details>
 <summary><strong>Optional Settings</strong></summary>
@@ -67,9 +62,7 @@ Keep tabs = true
 
 ## Visual Studio Code
 
-[Visual Studio Code](https://visualstudio.microsoft.com/) is _not_ the recommended development environment,
-but it you can use it as well. Visual Studio Code is a free program. After installing Visual Studio Code, you
-will need to add the following extensions to use it for the Towel project:
+[Visual Studio Code](https://visualstudio.microsoft.com/) is _not_ the recommended development environment, but it you can use it as well. Visual Studio Code is a free program. After installing Visual Studio Code, you will need to add the following extensions to use it for the Towel project:
 
 - **ms-vscode.csharp**
 	- _Reason: support for C#_
@@ -80,18 +73,15 @@ will need to add the following extensions to use it for the Towel project:
 	- _Reason: support for MSTest unit testing_
 	- _Optional: this is only necessary if you plan on running the unit tests_
 
-Once the extensions are installed, open the root folder of the repository.
+Open the root folder of the Towel repository in Visual Studio Code.
 
-_Note: The Collision Detection 3D example is a .NET Framework project (not .NET Core) and therefore is not
-supported for debugging in Visual Studio Code. You will have to run that example without debugging. All the
-other examples are .NET Core and fully compatible for debugging in Visual Studio Code._
+_Note: The Collision Detection 3D example is a .NET Framework project (not .NET Core) and therefore is not supported for debugging in Visual Studio Code. You will have to run that example without debugging. All the other examples are .NET Core and fully compatible for debugging in Visual Studio Code._
 
 <details>
 <summary><strong>Optional Settings</strong></summary>
 <p>
 
-These are some notes about settings I like to use when I code in Visual Studio Code. They are completely optional.
-All settings can be modified in the ".vscode/settings.json" file.
+These are some notes about settings I like to use when I code in Visual Studio Code. They are completely optional. All settings can be modified in the ".vscode/settings.json" file.
 
 - "editor.insertSpaces": false,
 - "editor.renderWhitespace": "all",

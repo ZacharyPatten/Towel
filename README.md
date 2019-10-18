@@ -19,6 +19,7 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 ## Pages
 
 - [Development Environments](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Development%20Environments.md)
+- [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md)
 - [Code Documentation](https://zacharypatten.github.io/Towel/Documentation)
 	- _Note: This page still needs a lot of work_
 - [Coding Standards](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Code%20Standards.md)
