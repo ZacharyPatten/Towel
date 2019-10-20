@@ -825,7 +825,7 @@ namespace DataStructures
 					"nine",
 				};
 
-				ITrie<int, char> trie = new TrieLinkedHashLinked<int, char>();
+				ITrie<char, int> trie = new TrieLinkedHashLinked<char, int>();
 
 				Console.WriteLine("    Adding...");
 				for (int i = 0; i < strings.Length; i++)
