@@ -806,7 +806,7 @@ namespace DataStructures
 				Console.WriteLine("    A Trie is a tree that stores values so that partial keys may be shared");
 				Console.WriteLine("    between values to reduce memory redundancies (take less space). For");
 				Console.WriteLine("    example, \"fart\" and \"farm\" both have the letters \"far\" in common,");
-				Console.WriteLine("    and a trie accounts for this and would not store duplicate letters for.");
+				Console.WriteLine("    and a trie accounts for this and would not store duplicate letters for");
 				Console.WriteLine("    those words ['f'->'a'->'r'->('t'||'m')]. Tries are generally used on");
 				Console.WriteLine("    large data sets like storing all the words in the English language.");
 				Console.WriteLine();
