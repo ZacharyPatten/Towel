@@ -15331,28 +15331,116 @@
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+        <member name="T:Towel.DataStructures.ITrie`2">
+            <summary>A trie data structure that allows values to share the keys to reduce memory.</summary>
+            <typeparam name="T">The type of values in the trie.</typeparam>
+            <typeparam name="K">The type of keys in the trie.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+        <member name="M:Towel.DataStructures.ITrie`2.TryAdd(`0,Towel.Stepper{`1},System.Exception@)">
+            <summary>Tries to add a value to the trie.</summary>
+            <param name="value">The value to add.</param>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.Stepper(Towel.Step{`0})">
+        <member name="M:Towel.DataStructures.ITrie`2.TryGet(Towel.Stepper{`1},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="value">The value if found.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ITrie`2.TryRemove(Towel.Stepper{`1},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.Trie">
+            <summary>Extension methods for trie data structures.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.TryAdd``2(Towel.DataStructures.ITrie{``0,``1},``0,Towel.Stepper{``1})">
+            <summary>Adds a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to add the value to.</param>
+            <param name="value">The value to be added.</param>
+            <param name="stepper">The keys of the relative value.</param>
+            <returns>True if the add was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.Add``2(Towel.DataStructures.ITrie{``0,``1},``0,Towel.Stepper{``1})">
+            <summary>Adds a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to add the value to.</param>
+            <param name="value">The value to be added.</param>
+            <param name="stepper">The keys of the relative value.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.TryGet``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``1},``0@)">
+            <summary>Tries to get a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to get the value from.</param>
+            <param name="stepper">The keys of the relative value.</param>
+            <param name="value">The value if found.</param>
+            <returns>True if the get was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.Get``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``1})">
+            <summary>Gets a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to get the value from.</param>
+            <param name="stepper">The keys of the relative value.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.TryRemove``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``1})">
+            <summary>Tries to removes a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to remove the value from.</param>
+            <param name="stepper">The keys of the relative value.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Trie.Remove``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``1})">
+            <summary>Removes a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="K">The type of the keys.</typeparam>
+            <param name="trie">The trie to remove the value from.</param>
+            <param name="stepper">The keys to store the value relative to.</param>
+        </member>
+        <member name="T:Towel.DataStructures.TrieLinkedHashLinked`2">
+            <summary>A trie data structure implemented as a linked list of hash tables of linked lists.</summary>
+            <typeparam name="T">The type of values in the trie.</typeparam>
+            <typeparam name="K">The type of keys in the trie.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1})">
+            <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
+            <param name="equate">The equality delegate for the keys.</param>
+            <param name="hash">The hashing function for the keys.</param>
+        </member>
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Count">
+            <summary>The current count of the trie.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Equate">
+            <summary>The equality function of the keys.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Hash">
+            <summary>The hash fucntion for the keys.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.Stepper(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.Stepper(Towel.StepBreak{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie_Linked`1.Stepper(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
