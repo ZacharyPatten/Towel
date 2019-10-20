@@ -2,48 +2,59 @@
 
 namespace Towel.DataStructures
 {
+	/// <summary>A trie data structure that allows values to share the keys to reduce memory.</summary>
+	/// <typeparam name="T">The type of values in the trie.</typeparam>
+	/// <typeparam name="K">The type of keys in the trie.</typeparam>
 	public interface ITrie<T, K> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.ICountable
 	{
 		#region Members
 
-		/// <summary>Tries to add a value to a data structure.</summary>
-		/// <param name="value">The value to add to the data structure.</param>
-		/// <param name="stepper">The keys to store the value relative to.</param>
+		/// <summary>Tries to add a value to the trie.</summary>
+		/// <param name="value">The value to add.</param>
+		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
 		bool TryAdd(T value, Stepper<K> stepper, out Exception exception);
 
+		/// <summary>Tries to get a value.</summary>
+		/// <param name="stepper">The relative keys of the value.</param>
+		/// <param name="value">The value if found.</param>
+		/// <param name="exception">The exception that occurred if the get failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
 		bool TryGet(Stepper<K> stepper, out T value, out Exception exception);
 
-		/// <summary>Removes a value.</summary>
-		/// <param name="stepper">The keys of the value relative to.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="stepper">The relative keys of the value.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		bool TryRemove(Stepper<K> stepper, out Exception exception);
 
 		#endregion
 	}
 
+	/// <summary>Extension methods for trie data structures.</summary>
 	public static class Trie
 	{
 		#region Extensions
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="trie">The structure to add the value to.</param>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="stepper">The keys to store the value relative to.</param>
+		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>True if the add was successful or false if not.</returns>
 		public static bool TryAdd<T, K>(this ITrie<T, K> trie, T value, Stepper<K> stepper) =>
 			trie.TryAdd(value, stepper, out _);
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="trie">The structure to add the value to.</param>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="stepper">The keys to store the value relative to.</param>
+		/// <param name="stepper">The keys of the relative value.</param>
 		public static void Add<T, K>(this ITrie<T, K> trie, T value, Stepper<K> stepper)
 		{
 			if (!trie.TryAdd(value, stepper, out Exception exception))
@@ -52,9 +63,22 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to get a value.</summary>
+		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to get the value from.</param>
+		/// <param name="stepper">The keys of the relative value.</param>
+		/// <param name="value">The value if found.</param>
+		/// <returns>True if the get was successful or false if not.</returns>
 		public static bool TryGet<T, K>(this ITrie<T, K> trie, Stepper<K> stepper, out T value) =>
 			trie.TryGet(stepper, out value, out _);
 
+		/// <summary>Gets a value.</summary>
+		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to get the value from.</param>
+		/// <param name="stepper">The keys of the relative value.</param>
+		/// <returns>The value.</returns>
 		public static T Get<T, K>(this ITrie<T, K> trie, Stepper<K> stepper)
 		{
 			if (!trie.TryGet(stepper, out T value, out Exception exception))
@@ -66,15 +90,17 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="trie">The structure to remove the value from.</param>
-		/// <param name="stepper">The keys to store the value relative to.</param>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to remove the value from.</param>
+		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public static bool TryRemove<T, K>(this ITrie<T, K> trie, Stepper<K> stepper) =>
 			trie.TryRemove(stepper, out _);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="trie">The structure to remove the value from.</param>
+		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <param name="trie">The trie to remove the value from.</param>
 		/// <param name="stepper">The keys to store the value relative to.</param>
 		public static void Remove<T, K>(this ITrie<T, K> trie, Stepper<K> stepper)
 		{
@@ -87,6 +113,9 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>A trie data structure implemented as a linked list of hash tables of linked lists.</summary>
+	/// <typeparam name="T">The type of values in the trie.</typeparam>
+	/// <typeparam name="K">The type of keys in the trie.</typeparam>
 	public class TrieLinkedHashLinked<T, K> : ITrie<T, K>
 	{
 		internal MapHashLinked<Node, K> _map;
@@ -108,6 +137,9 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
+		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
+		/// <param name="equate">The equality delegate for the keys.</param>
+		/// <param name="hash">The hashing function for the keys.</param>
 		public TrieLinkedHashLinked(Equate<K> equate = null, Hash<K> hash = null)
 		{
 			_count = 0;
@@ -120,11 +152,11 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary></summary>
+		/// <summary>The current count of the trie.</summary>
 		public int Count => _count;
-
+		/// <summary>The equality function of the keys.</summary>
 		public Equate<K> Equate => _map.Equate;
-
+		/// <summary>The hash fucntion for the keys.</summary>
 		public Hash<K> Hash => _map.Hash;
 
 		#endregion
