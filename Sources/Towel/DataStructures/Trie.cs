@@ -7,7 +7,9 @@ namespace Towel.DataStructures
 	/// <typeparam name="K">The type of keys in the trie.</typeparam>
 	public interface ITrie<T, K> : IDataStructure<T>,
 		// Structure Properties
-		DataStructure.ICountable
+		DataStructure.ICountable,
+		DataStructure.IClearable,
+		DataStructure.IEquating<K>
 	{
 		#region Members
 
@@ -30,6 +32,11 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		bool TryRemove(Stepper<K> stepper, out Exception exception);
+
+		/// <summary>Determines if the trie contains the relative keys.</summary>
+		/// <param name="stepper">The relative keys.</param>
+		/// <returns>True if the trie contains th relative keys or false if not.</returns>
+		bool Contains(Stepper<K> stepper);
 
 		#endregion
 	}
@@ -116,7 +123,9 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure implemented as a linked list of hash tables of linked lists.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="K">The type of keys in the trie.</typeparam>
-	public class TrieLinkedHashLinked<T, K> : ITrie<T, K>
+	public class TrieLinkedHashLinked<T, K> : ITrie<T, K>,
+		// Structure Properties
+		DataStructure.IHashing<K>
 	{
 		internal MapHashLinked<Node, K> _map;
 		internal int _count;
@@ -165,6 +174,11 @@ namespace Towel.DataStructures
 
 		#region Add
 
+		/// <summary>Tries to add a value to the trie.</summary>
+		/// <param name="value">The value to add.</param>
+		/// <param name="stepper">The relative keys of the value.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if the value was added or false if not.</returns>
 		public bool TryAdd(T value, Stepper<K> stepper, out Exception exception)
 		{
 			if (stepper is null)
@@ -213,6 +227,11 @@ namespace Towel.DataStructures
 
 		#region Get
 
+		/// <summary>Tries to get a value.</summary>
+		/// <param name="stepper">The relative keys of the value.</param>
+		/// <param name="value">The value if found.</param>
+		/// <param name="exception">The exception that occurred if the get failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryGet(Stepper<K> stepper, out T value, out Exception exception)
 		{
 			if (stepper is null)
@@ -262,6 +281,10 @@ namespace Towel.DataStructures
 
 		#region Remove
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="stepper">The relative keys of the value.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemove(Stepper<K> stepper, out Exception exception)
 		{
 			if (stepper is null)
@@ -326,6 +349,60 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		#region Contains
+
+		/// <summary>Determines if the trie contains the relative keys.</summary>
+		/// <param name="stepper">The relative keys.</param>
+		/// <returns>True if the trie contains th relative keys or false if not.</returns>
+		public bool Contains(Stepper<K> stepper)
+		{
+			if (stepper is null)
+			{
+				throw new ArgumentNullException(nameof(stepper));
+			}
+			Node node = null;
+			bool contains = true;
+			stepper(key =>
+			{
+				if (!contains)
+				{
+					return;
+				}
+				else
+				{
+					MapHashLinked<Node, K> map = node is null
+						? _map
+						: node.Map;
+					if (map.Contains(key))
+					{
+						node = map[key];
+					}
+					else
+					{
+						contains = false;
+					}
+				}
+			});
+			if (node is null)
+			{
+				throw new ArgumentException(nameof(stepper), "Stepper was empty.");
+			}
+			return node.HasValue;
+		}
+
+		#endregion
+
+		#region Clear
+
+		/// <summary>Returns the trie to an empty state.</summary>
+		public void Clear()
+		{
+			_count = 0;
+			_map.Clear();
+		}
+
+		#endregion
+
 		#region Stepper And IEnumerable
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -361,6 +438,8 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
 			GetEnumerator();
 
+		/// <summary>Gets the enumerator for the trie.</summary>
+		/// <returns>The enumerator for the trie.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			throw new NotImplementedException();

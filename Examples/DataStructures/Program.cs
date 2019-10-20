@@ -839,8 +839,12 @@ namespace DataStructures
 
 				Console.WriteLine("    Get(\"three\"): " + trie.Get("three".ToStepper()));
 
+				Console.WriteLine("    Contains(\"six\"): " + trie.Contains("six".ToStepper()));
+
 				Console.WriteLine("    Remove(\"six\")...");
 				trie.Remove("six".ToStepper());
+
+				Console.WriteLine("    Contains(\"six\"): " + trie.Contains("six".ToStepper()));
 
 				Console.WriteLine("    Count: " + trie.Count);
 

@@ -3382,12 +3382,6 @@
             <param name="exception">The exception that occured if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.TryRemove(`1,System.Exception@)">
-            <summary>Tries to remove a key-value pair from the map.</summary>
-            <param name="key">The key of the key-value pair to remove.</param>
-            <param name="exception">The exception that occurred if the removal failed.</param>
-            <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-        </member>
         <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRef{`0})">
             <summary>Steps through all the values in the map.</summary>
             <param name="step">The action to perform on all the values.</param>
@@ -3461,21 +3455,6 @@
             <param name="map">The map to get the value from.</param>
             <param name="key">The key of the value to get.</param>
             <returns>The value of the provided key in the map.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Map.TryRemove``2(Towel.DataStructures.IMap{``0,``1},``1)">
-            <summary>Tries to remove a keyed value.</summary>
-            <typeparam name="T">The type of values in the map.</typeparam>
-            <typeparam name="K">The type of keys in the map.</typeparam>
-            <param name="map">The map to remove the value from.</param>
-            <param name="key">The key of the value to remove.</param>
-            <returns>True if the removal was successful for false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Map.Remove``2(Towel.DataStructures.IMap{``0,``1},``1)">
-            <summary>Tries to remove a keyed value.</summary>
-            <typeparam name="T">The type of values in the map.</typeparam>
-            <typeparam name="K">The type of keys in the map.</typeparam>
-            <param name="map">The map to remove the value from.</param>
-            <param name="key">The key of the value to remove.</param>
         </member>
         <member name="M:Towel.DataStructures.Map.Keys``2(Towel.DataStructures.IMap{``0,``1})">
             <summary>Gets the stepper for this data structure.</summary>
@@ -15356,6 +15335,11 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
+        <member name="M:Towel.DataStructures.ITrie`2.Contains(Towel.Stepper{`1})">
+            <summary>Determines if the trie contains the relative keys.</summary>
+            <param name="stepper">The relative keys.</param>
+            <returns>True if the trie contains th relative keys or false if not.</returns>
+        </member>
         <member name="T:Towel.DataStructures.Trie">
             <summary>Extension methods for trie data structures.</summary>
         </member>
@@ -15427,6 +15411,34 @@
         <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Hash">
             <summary>The hash fucntion for the keys.</summary>
         </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryAdd(`0,Towel.Stepper{`1},System.Exception@)">
+            <summary>Tries to add a value to the trie.</summary>
+            <param name="value">The value to add.</param>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryGet(Towel.Stepper{`1},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="value">The value if found.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryRemove(Towel.Stepper{`1},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="stepper">The relative keys of the value.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Contains(Towel.Stepper{`1})">
+            <summary>Determines if the trie contains the relative keys.</summary>
+            <param name="stepper">The relative keys.</param>
+            <returns>True if the trie contains th relative keys or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Clear">
+            <summary>Returns the trie to an empty state.</summary>
+        </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
@@ -15444,6 +15456,10 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="function">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.GetEnumerator">
+            <summary>Gets the enumerator for the trie.</summary>
+            <returns>The enumerator for the trie.</returns>
         </member>
         <member name="T:Towel.Equate`1">
             <summary>Delegate for equating two instances of the same type.</summary>

@@ -13,7 +13,7 @@ namespace Towel.DataStructures
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<K>,
-		//DataStructure.IRemovable<K>,
+		DataStructure.IRemovable<K>,
 		DataStructure.IEquating<K>
 	{
 		#region Properties
@@ -43,11 +43,11 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
 		bool TryAdd(K key, T value, out Exception exception);
-		/// <summary>Tries to remove a key-value pair from the map.</summary>
-		/// <param name="key">The key of the key-value pair to remove.</param>
-		/// <param name="exception">The exception that occurred if the removal failed.</param>
-		/// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-		bool TryRemove(K key, out Exception exception);
+		///// <summary>Tries to remove a key-value pair from the map.</summary>
+		///// <param name="key">The key of the key-value pair to remove.</param>
+		///// <param name="exception">The exception that occurred if the removal failed.</param>
+		///// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
+		//bool TryRemove(K key, out Exception exception);
 		/// <summary>Steps through all the values in the map.</summary>
 		/// <param name="step">The action to perform on all the values.</param>
 		void Stepper(StepRef<T> step);
@@ -143,34 +143,6 @@ namespace Towel.DataStructures
 				throw exception;
 			}
 			return value;
-		}
-
-		#endregion
-
-		#region Remove
-
-		/// <summary>Tries to remove a keyed value.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to remove the value from.</param>
-		/// <param name="key">The key of the value to remove.</param>
-		/// <returns>True if the removal was successful for false if not.</returns>
-		public static bool TryRemove<T, K>(this IMap<T, K> map, K key)
-		{
-			return map.TryRemove(key, out _);
-		}
-
-		/// <summary>Tries to remove a keyed value.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to remove the value from.</param>
-		/// <param name="key">The key of the value to remove.</param>
-		public static void Remove<T, K>(this IMap<T, K> map, K key)
-		{
-			if (!map.TryRemove(key, out Exception exception))
-			{
-				throw exception;
-			}
 		}
 
 		#endregion
