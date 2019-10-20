@@ -15434,7 +15434,7 @@
         <member name="T:Towel.DataStructures.ITrie`2">
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
-            <typeparam name="Data">The additional data to store with each leaf.</typeparam>
+            <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.Step{`1})">
             <summary>Steps through all the additional data in the trie.</summary>
@@ -15473,7 +15473,7 @@
         <member name="T:Towel.DataStructures.TrieLinkedHashLinked`2">
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
-            <typeparam name="Data">The additional data to store with each leaf.</typeparam>
+            <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>

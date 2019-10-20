@@ -599,8 +599,14 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 // those words ['f'->'a'->'r'->('t'||'m')]. A trie is not limited to string
 // values though. Any key type that can be broken into pieces (and shared),
 // could be used in a trie.
+//
+// There are two versions. One that only stores the values of the trie (ITrie<T>)
+// and one that stores the values of the trie plus an additional generic value
+// on the leaves (ITrie<T, Data>).
 
-ITrie<T, K> trie = new TrieLinkedHashLinked<T, K>();
+ITrie<T> trie = new TrieLinkedHashLinked<T>();
+
+ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ```
 
 </p>

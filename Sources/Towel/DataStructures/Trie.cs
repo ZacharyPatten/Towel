@@ -385,8 +385,8 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	/// <typeparam name="Data">The additional data to store with each leaf.</typeparam>
-	public interface ITrie<T, Data> : IDataStructure<Stepper<T>>,
+	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+	public interface ITrie<T, D> : IDataStructure<Stepper<T>>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
@@ -396,26 +396,26 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
-		void Stepper(Step<Data> step);
+		void Stepper(Step<D> step);
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepBreak<Data> step);
+		StepStatus Stepper(StepBreak<D> step);
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		bool TryAdd(Data value, Stepper<T> stepper, out Exception exception);
+		bool TryAdd(D value, Stepper<T> stepper, out Exception exception);
 
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="value">The value if found.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		bool TryGet(Stepper<T> stepper, out Data value, out Exception exception);
+		bool TryGet(Stepper<T> stepper, out D value, out Exception exception);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
@@ -433,8 +433,8 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	/// <typeparam name="Data">The additional data to store with each leaf.</typeparam>
-	public class TrieLinkedHashLinked<T, Data> : ITrie<T, Data>,
+	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+	public class TrieLinkedHashLinked<T, D> : ITrie<T, D>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
@@ -449,7 +449,7 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal MapHashLinked<Node, T> Map;
-			internal Data Value = default;
+			internal D Value = default;
 			internal bool HasValue = false;
 			internal int Count;
 
@@ -497,7 +497,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(Data value, Stepper<T> stepper, out Exception exception)
+		public bool TryAdd(D value, Stepper<T> stepper, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -553,7 +553,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryGet(Stepper<T> stepper, out Data value, out Exception exception)
+		public bool TryGet(Stepper<T> stepper, out D value, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -731,22 +731,14 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<Data> function)
+		public void Stepper(Step<D> function)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<Data> function)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<Data> function)
+		public void Stepper(StepRef<D> function)
 		{
 			throw new NotImplementedException();
 		}
@@ -754,7 +746,15 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<Data> function)
+		public StepStatus Stepper(StepBreak<D> function)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<D> function)
 		{
 			throw new NotImplementedException();
 		}
