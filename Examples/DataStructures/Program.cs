@@ -48,20 +48,20 @@ namespace DataStructures
 			Console.WriteLine("    can be sorted along 1 dimensions for binary searching algorithms.");
 			Console.WriteLine();
 
-			IArray<int> indexed = new Array<int>(test);
+			IArray<int> array = new Array<int>(test);
 
 			Console.Write("    Filling in (0-" + (test - 1) + ")...");
 			for (int i = 0; i < test; i++)
 			{
-				indexed[i] = i;
+				array[i] = i;
 			}
 			Console.WriteLine();
 
 			Console.Write("    Traversal: ");
-			indexed.Stepper(i => Console.Write(i));
+			array.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    Length: " + indexed.Length);
+			Console.WriteLine("    Length: " + array.Length);
 
 			Console.WriteLine();
 
@@ -83,42 +83,42 @@ namespace DataStructures
 			Console.WriteLine();
 
 			// ListArray ---------------------------------------
-			IList<int> addableArray = new ListArray<int>(test);
+			IList<int> listArray = new ListArray<int>(test);
 
 			Console.Write("    [ListArray] Adding (0-" + (test - 1) + ")...");
 			for (int i = 0; i < test; i++)
 			{
-				addableArray.Add(i);
+				listArray.Add(i);
 			}
 			Console.WriteLine();
 
 			Console.Write("    [ListArray] Traversal: ");
-			addableArray.Stepper(i => Console.Write(i));
+			listArray.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    [ListArray] Count: " + addableArray.Count);
+			Console.WriteLine("    [ListArray] Count: " + listArray.Count);
 
-			addableArray.Clear(); // Clears the addable
+			listArray.Clear(); // Clears the addable
 
 			Console.WriteLine();
 
 			// ListLinked ---------------------------------------
-			IList<int> addableLinked = new ListLinked<int>();
+			IList<int> listLinked = new ListLinked<int>();
 
 			Console.Write("    [ListLinked] Adding (0-" + (test - 1) + ")...");
 			for (int i = 0; i < test; i++)
 			{
-				addableLinked.Add(i);
+				listLinked.Add(i);
 			}
 			Console.WriteLine();
 
 			Console.Write("    [ListLinked] Traversal: ");
-			addableLinked.Stepper(i => Console.Write(i));
+			listLinked.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    [ListLinked] Count: " + addableLinked.Count);
+			Console.WriteLine("    [ListLinked] Count: " + listLinked.Count);
 
-			addableLinked.Clear(); // Clears the addable
+			listLinked.Clear(); // Clears the addable
 
 			Console.WriteLine();
 
@@ -136,49 +136,49 @@ namespace DataStructures
 				Console.WriteLine("    and Pop functions.");
 				Console.WriteLine();
 
-				IStack<int> firstInLastOutArray = new StackArray<int>();
+				IStack<int> stackArray = new StackArray<int>();
 
 				Console.Write("    [StackArray] Pushing (0-" + (test - 1) + ")...");
 				for (int i = 0; i < test; i++)
 				{
-					firstInLastOutArray.Push(i);
+					stackArray.Push(i);
 				}
 				Console.WriteLine();
 
 				Console.Write("    [StackArray] Traversal: ");
-				firstInLastOutArray.Stepper(i => Console.Write(i));
+				stackArray.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [StackArray] Pop: " + firstInLastOutArray.Pop());
-				Console.WriteLine("    [StackArray] Pop: " + firstInLastOutArray.Pop());
-				Console.WriteLine("    [StackArray] Peek: " + firstInLastOutArray.Peek());
-				Console.WriteLine("    [StackArray] Pop: " + firstInLastOutArray.Pop());
-				Console.WriteLine("    [StackArray] Count: " + firstInLastOutArray.Count);
+				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
+				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
+				Console.WriteLine("    [StackArray] Peek: " + stackArray.Peek());
+				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
+				Console.WriteLine("    [StackArray] Count: " + stackArray.Count);
 
-				firstInLastOutArray.Clear(); // Clears the firstInLastOut
+				stackArray.Clear(); // Clears the firstInLastOut
 
 				Console.WriteLine();
 
-				IStack<int> firstInLastOutLinked = new StackLinked<int>();
+				IStack<int> stackLinked = new StackLinked<int>();
 
 				Console.Write("    [StackLinked] Pushing (0-" + (test - 1) + ")...");
 				for (int i = 0; i < test; i++)
 				{
-					firstInLastOutLinked.Push(i);
+					stackLinked.Push(i);
 				}
 				Console.WriteLine();
 
 				Console.Write("    [StackLinked] Traversal: ");
-				firstInLastOutLinked.Stepper(i => Console.Write(i));
+				stackLinked.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [StackLinked] Pop: " + firstInLastOutLinked.Pop());
-				Console.WriteLine("    [StackLinked] Pop: " + firstInLastOutLinked.Pop());
-				Console.WriteLine("    [StackLinked] Peek: " + firstInLastOutLinked.Peek());
-				Console.WriteLine("    [StackLinked] Pop: " + firstInLastOutLinked.Pop());
-				Console.WriteLine("    [StackLinked] Count: " + firstInLastOutLinked.Count);
+				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
+				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
+				Console.WriteLine("    [StackLinked] Peek: " + stackLinked.Peek());
+				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
+				Console.WriteLine("    [StackLinked] Count: " + stackLinked.Count);
 
-				firstInLastOutLinked.Clear(); // Clears the firstInLastOut
+				stackLinked.Clear(); // Clears the firstInLastOut
 
 				Console.WriteLine();
 			}
@@ -196,49 +196,49 @@ namespace DataStructures
 				Console.WriteLine("    and Dequeue functions.");
 				Console.WriteLine();
 
-				IQueue<int> firstInFirstOutArray = new QueueArray<int>();
+				IQueue<int> queueArray = new QueueArray<int>();
 
 				Console.Write("    [QueueArray] Enqueuing (0-" + (test - 1) + ")...");
 				for (int i = 0; i < test; i++)
 				{
-					firstInFirstOutArray.Enqueue(i);
+					queueArray.Enqueue(i);
 				}
 				Console.WriteLine();
 
 				Console.Write("    [QueueArray] Traversal: ");
-				firstInFirstOutArray.Stepper(i => Console.Write(i));
+				queueArray.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [QueueArray] Dequeue: " + firstInFirstOutArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Dequeue: " + firstInFirstOutArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Peek: " + firstInFirstOutArray.Peek());
-				Console.WriteLine("    [QueueArray] Dequeue: " + firstInFirstOutArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Count: " + firstInFirstOutArray.Count);
+				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
+				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
+				Console.WriteLine("    [QueueArray] Peek: " + queueArray.Peek());
+				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
+				Console.WriteLine("    [QueueArray] Count: " + queueArray.Count);
 
-				firstInFirstOutArray.Clear(); // Clears the firstInLastOut
+				queueArray.Clear(); // Clears the firstInLastOut
 
 				Console.WriteLine();
 
-				IQueue<int> firstInFirstOutLinked = new QueueLinked<int>();
+				IQueue<int> queueLinked = new QueueLinked<int>();
 
 				Console.Write("    [QueueLinked] Enqueuing (0-" + (test - 1) + ")...");
 				for (int i = 0; i < test; i++)
 				{
-					firstInFirstOutLinked.Enqueue(i);
+					queueLinked.Enqueue(i);
 				}
 				Console.WriteLine();
 
 				Console.Write("    [QueueLinked] Traversal: ");
-				firstInFirstOutLinked.Stepper(i => Console.Write(i));
+				queueLinked.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [QueueLinked] Pop: " + firstInFirstOutLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Pop: " + firstInFirstOutLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Peek: " + firstInFirstOutLinked.Peek());
-				Console.WriteLine("    [QueueLinked] Pop: " + firstInFirstOutLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Count: " + firstInFirstOutLinked.Count);
+				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
+				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
+				Console.WriteLine("    [QueueLinked] Peek: " + queueLinked.Peek());
+				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
+				Console.WriteLine("    [QueueLinked] Count: " + queueLinked.Count);
 
-				firstInFirstOutLinked.Clear(); // Clears the firstInLastOut
+				queueLinked.Clear(); // Clears the firstInLastOut
 
 				Console.WriteLine();
 			}
@@ -812,6 +812,11 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    The generic Trie in Towel is still in development.");
+
+				TrieLinkedHashLinked<bool, char> trie = new TrieLinkedHashLinked<bool, char>();
+				trie.Add(true, "hello world".ToStepper());
+				bool value = trie.Get("hello world".ToStepper());
+				trie.Remove("hello world".ToStepper());
 
 				Console.WriteLine();
 			}
