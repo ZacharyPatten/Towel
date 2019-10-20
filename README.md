@@ -586,6 +586,27 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 </p>
 </details>
 
+<details>
+ <summary>Trie</summary>
+<p>
+
+```csharp
+// A trie is a tree that stores values in a way that partial keys may be shared
+// amongst values reduce redundant memory usage. They are generally used with
+// large data set such as storing all the words in the English language. For
+// example, the words "farm" and "fart" both have the letters "far" in common.
+// A trie takes advantage of that and only stores the necessary letters for
+// those words ['f'->'a'->'r'->('t'||'m')]. A trie is not limited to string
+// values though. Any key type that can be broken into pieces (and shared),
+// could be used in a trie.
+
+ITrie<T, K> trie = new TrieLinkedHashLinked<T, K>();
+```
+
+</p>
+</details>
+
+
 ## Algorithms
 
 ```csharp
