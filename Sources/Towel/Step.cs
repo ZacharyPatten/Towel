@@ -247,7 +247,6 @@ namespace Towel
 				});
 
 		/// <summary>Steps through a set number of integers.</summary>
-		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="iterations">The number of times to iterate.</param>
 		/// <param name="step">The step function.</param>
 		public static void Iterate(int iterations, Step<int> step)

@@ -1793,24 +1793,6 @@
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
-        <member name="T:Towel.DataStructures.KdTree">
-            <summary>Contains extensions methods for the KdTree interface.</summary>
-        </member>
-        <member name="T:Towel.DataStructures.KdTree.Locate`2">
-            <summary>Locates an item along the given dimensions.</summary>
-            <typeparam name="T">The type of the item to locate.</typeparam>
-            <typeparam name="M">The type of axis type of the Omnitree.</typeparam>
-            <param name="item">The item to be located.</param>
-            <returns>A delegate for getting the location along a given axis.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.KdTree_Linked`2">
-            <summary>A binary tree data structure for sorting items along multiple dimensions.</summary>
-            <typeparam name="T">The generic items to be stored in this data structure.</typeparam>
-            <typeparam name="K">The type of the axis dimensions to sort the "T" values upon.</typeparam>
-        </member>
-        <member name="T:Towel.DataStructures.KdTree_Linked`2.Node">
-            <summary>Can be a leaf or a branch.</summary>
-        </member>
         <member name="T:Towel.DataStructures.Link">
             <summary>Represents a link between objects.</summary>
         </member>
@@ -3438,6 +3420,15 @@
             <param name="key">The key of the value to get.</param>
             <param name="value">The value to add to the map.</param>
             <returns>The value of the provided key in the map.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0)">
+            <summary>Tries to get a value in a map by key.</summary>
+            <typeparam name="T">The type of values in the map.</typeparam>
+            <typeparam name="K">The type of keys in the map.</typeparam>
+            <param name="map">The map to get the value from.</param>
+            <param name="key">The key of the value to get.</param>
+            <param name="Default">The default value to return if the value is not found.</param>
+            <returns>The value if found or the defautl value.</returns>
         </member>
         <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0@)">
             <summary>Tries to get a value in a map by key.</summary>
@@ -13871,141 +13862,6 @@
             <param name="removal">The value to be removed.</param>
             <param name="equate">The  delegate for determining equality.</param>
         </member>
-        <member name="T:Towel.DataStructures.IOrder`1">
-            <summary>Sorted linear data structure.</summary>
-            <typeparam name="T">The generic type stored in this data structure.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.IOrder`1.RemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list.</summary>
-            <param name="removal">The item to remove.</param>
-        </member>
-        <member name="M:Towel.DataStructures.IOrder`1.TryRemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list or returns false.</summary>
-            <param name="removal">The item to remove.</param>
-            <returns>True if the item was found and removed; False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.IOrder`1.RemoveAll(`0)">
-            <summary>Removes all occurences of an item in the list.</summary>
-            <param name="removal">The item to genocide (hell yeah that is a verb...).</param>
-        </member>
-        <member name="T:Towel.DataStructures.OrderListArray`1">
-            <summary>Sorted linear data structure implemented using a list array.</summary>
-            <typeparam name="T">The generic type stored in this data structure.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.#ctor">
-            <summary>Constructs a Order_ListArray.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.#ctor(Towel.Compare{`0})">
-            <summary>Constructs a Order_ListArray.</summary>
-            <param name="compare">The soring technique used by this data structure.</param>
-        </member>
-        <member name="P:Towel.DataStructures.OrderListArray`1.Item(System.Int32)">
-            <summary>Index accessor.</summary>
-            <param name="i">Index to get the value of.</param>
-            <returns>The value at the desired index.</returns>
-        </member>
-        <member name="P:Towel.DataStructures.OrderListArray`1.Compare">
-            <summary>The comparison function utilized by this data structure.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OrderListArray`1.Count">
-            <summary>Returns the number of items in the list.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Add(`0)">
-            <summary>Adds an item to the end of this list.</summary>
-            <param name="addition">The item to add to the list.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.RemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list.</summary>
-            <param name="removal">The item to remove.</param>
-            <param name="compare">The function to determine equality.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.TryRemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list or returns false.</summary>
-            <param name="removal">The item to remove.</param>
-            <param name="compare">The function to determine equality.</param>
-            <returns>True if the item was found and removed; False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.RemoveAll(`0)">
-            <summary>Removes all occurences of an item in the list.</summary>
-            <param name="removal">The item to genocide (hell yeah that is a verb...).</param>
-            <param name="compare">The function to determine equality.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Clear">
-            <summary>Resets the list to an empty state. WARNING could cause excessive garbage collection.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Stepper(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListArray`1.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.OrderListLinked`1">
-            <summary>Sorted linear data structure implemented using a list array.</summary>
-            <typeparam name="T">The generic type stored in this data structure.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.#ctor(Towel.Compare{`0})">
-            <summary>Constructs a Order_ListArray.</summary>
-            <param name="compare">The soring technique used by this data structure.</param>
-        </member>
-        <member name="P:Towel.DataStructures.OrderListLinked`1.Compare">
-            <summary>The comparison function utilized by this data structure.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.OrderListLinked`1.Count">
-            <summary>Returns the number of items in the list.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Add(`0)">
-            <summary>Adds an item to the end of this list.</summary>
-            <param name="addition">The item to add to the list.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.RemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list.</summary>
-            <param name="removal">The item to remove.</param>
-            <param name="compare">The function to determine equality.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.TryRemoveFirst(`0)">
-            <summary>Removes the first occurence of an item in the list or returns false.</summary>
-            <param name="removal">The item to remove.</param>
-            <param name="compare">The function to determine equality.</param>
-            <returns>True if the item was found and removed; False if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.RemoveAll(`0)">
-            <summary>Removes all occurences of an item in the list.</summary>
-            <param name="removal">The item to genocide (hell yeah that is a verb...).</param>
-            <param name="compare">The function to determine equality.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Clear">
-            <summary>Resets the list to an empty state. WARNING could cause excessive garbage collection.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Stepper(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.OrderListLinked`1.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
         <member name="T:Towel.DataStructures.IQueue`1">
             <summary>Implements First-In-First-Out queue data structure.</summary>
             <typeparam name="T">The generic type within the structure.</typeparam>
@@ -15527,30 +15383,30 @@
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRefBreak{`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.Step{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRef{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRefBreak{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.GetEnumerator">
@@ -17273,12 +17129,10 @@
         </member>
         <member name="M:Towel.Mathematics.Quaternion`1.Normalize(Towel.Mathematics.Quaternion{`0}@)">
             <summary>Normalizes a quaternion.</summary>
-            <param name="a">The quaternion to normalize.</param>
             <param name="b">The result of the normalization.</param>
         </member>
         <member name="M:Towel.Mathematics.Quaternion`1.Normalize">
             <summary>Normalizes a quaternion.</summary>
-            <param name="a">The quaternion to normalize.</param>
             <returns>The result of the normalization.</returns>
         </member>
         <member name="M:Towel.Mathematics.Quaternion`1.Invert(Towel.Mathematics.Quaternion{`0},Towel.Mathematics.Quaternion{`0}@)">
@@ -30278,7 +30132,6 @@
         </member>
         <member name="M:Towel.Stepper.Iterate(System.Int32,Towel.Step{System.Int32})">
             <summary>Steps through a set number of integers.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="iterations">The number of times to iterate.</param>
             <param name="step">The step function.</param>
         </member>

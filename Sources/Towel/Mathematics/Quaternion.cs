@@ -891,7 +891,6 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>Normalizes a quaternion.</summary>
-		/// <param name="a">The quaternion to normalize.</param>
 		/// <param name="b">The result of the normalization.</param>
 		public void Normalize(ref Quaternion<T> b)
 		{
@@ -899,7 +898,6 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>Normalizes a quaternion.</summary>
-		/// <param name="a">The quaternion to normalize.</param>
 		/// <returns>The result of the normalization.</returns>
 		public Quaternion<T> Normalize()
 		{

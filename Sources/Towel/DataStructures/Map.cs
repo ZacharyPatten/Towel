@@ -94,10 +94,8 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value of the provided key in the map or default.</param>
 		/// <returns>True if the key was found or false if not found.</returns>
-		public static bool TryAdd<T, K>(this IMap<T, K> map, K key, T value)
-		{
-			return map.TryAdd(key, value, out _);
-		}
+		public static bool TryAdd<T, K>(this IMap<T, K> map, K key, T value) =>
+			map.TryAdd(key, value, out _);
 
 		/// <summary>Gets a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
@@ -123,12 +121,22 @@ namespace Towel.DataStructures
 		/// <typeparam name="K">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to get the value from.</param>
 		/// <param name="key">The key of the value to get.</param>
+		/// <param name="Default">The default value to return if the value is not found.</param>
+		/// <returns>The value if found or the defautl value.</returns>
+		public static T TryGet<T, K>(this IMap<T, K> map, K key, T Default = default) =>
+			map.TryGet(key, out T value, out _)
+				? value
+				: Default;
+
+		/// <summary>Tries to get a value in a map by key.</summary>
+		/// <typeparam name="T">The type of values in the map.</typeparam>
+		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <param name="map">The map to get the value from.</param>
+		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value of the provided key in the map or default.</param>
 		/// <returns>True if the key was found or false if not found.</returns>
-		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T value)
-		{
-			return map.TryGet(key, out value, out _);
-		}
+		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T value) =>
+			map.TryGet(key, out value, out _);
 
 		/// <summary>Gets a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>

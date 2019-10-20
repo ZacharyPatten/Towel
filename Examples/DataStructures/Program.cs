@@ -8,7 +8,7 @@ namespace DataStructures
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			Random random = new Random();
 			int test = 10;
@@ -258,7 +258,8 @@ namespace DataStructures
 
 				Console.WriteLine("    Let's say the priority is how close a number is to \"5\".");
 				Console.WriteLine("    So \"Dequeue\" will give us the next closest value to \"5\".");
-				CompareResult Priority(int a, int b)
+
+				static CompareResult Priority(int a, int b)
 				{
 					int _a = AbsoluteValue(a - 5);
 					int _b = AbsoluteValue(b - 5);

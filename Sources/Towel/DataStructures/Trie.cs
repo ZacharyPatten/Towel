@@ -744,47 +744,47 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<D> function)
+		public StepStatus Stepper(StepBreak<D> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<D> function)
+		public StepStatus Stepper(StepRefBreak<D> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<Stepper<T>> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<Stepper<T>> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<Stepper<T>> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<Stepper<T>> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<Stepper<T>> function)
+		public StepStatus Stepper(StepBreak<Stepper<T>> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<Stepper<T>> function)
+		public StepStatus Stepper(StepRefBreak<Stepper<T>> step)
 		{
 			throw new NotImplementedException();
 		}

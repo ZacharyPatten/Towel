@@ -10,7 +10,7 @@ namespace Algorithms
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			Console.WriteLine("You are runnning the Algorithms example.");
 			Console.WriteLine("======================================================");

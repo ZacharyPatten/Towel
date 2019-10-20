@@ -719,7 +719,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(Pi<T>).GetHashCode();
+			internal static new readonly int HashCode = nameof(Pi<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -765,7 +765,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(Zero<T>).GetHashCode();
+			internal static new readonly int HashCode = nameof(Zero<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -811,7 +811,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(One<T>).GetHashCode();
+			internal static new  readonly int HashCode = nameof(One<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -857,7 +857,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(Two<T>).GetHashCode();
+			internal static new  readonly int HashCode = nameof(Two<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -903,7 +903,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(Three<T>).GetHashCode();
+			internal static new  readonly int HashCode = nameof(Three<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -945,7 +945,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(True).GetHashCode();
+			internal static new  readonly int HashCode = nameof(True).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -987,7 +987,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static readonly int HashCode = nameof(False).GetHashCode();
+			internal static new readonly int HashCode = nameof(False).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
