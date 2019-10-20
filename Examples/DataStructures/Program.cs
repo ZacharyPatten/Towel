@@ -803,20 +803,46 @@ namespace DataStructures
 			{
 				Console.WriteLine("  Trie------------------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine("    A Trie is a tree where portions of the data are stored in each node");
-				Console.WriteLine("    such that when you traverse the tree to a leaf, you have read the contents");
-				Console.WriteLine("    of that leaf along the way. Because of this, a Trie allows for its values");
-				Console.WriteLine("    to share data, which is a form of compression. So a Trie may be used to save");
-				Console.WriteLine("    memory. A trie may also be a very useful tool in pattern matching, because");
-				Console.WriteLine("    it allows for culling based are portions of the data.");
+				Console.WriteLine("    A Trie is a tree that stores values so that partial keys may be shared");
+				Console.WriteLine("    between values to reduce memory redundancies (take less space). For");
+				Console.WriteLine("    example, \"fart\" and \"farm\" both have the letters \"far\" in common,");
+				Console.WriteLine("    and a trie accounts for this and would not store duplicate letters for.");
+				Console.WriteLine("    those words ['f'->'a'->'r'->('t'||'m')]. Tries are generally used on");
+				Console.WriteLine("    large data sets like storing all the words in the English language.");
 				Console.WriteLine();
 
-				Console.WriteLine("    The generic Trie in Towel is still in development.");
+				string[] strings = new string[]
+				{
+					"zero",
+					"one",
+					"two",
+					"three",
+					"four",
+					"five",
+					"six",
+					"seven",
+					"eight",
+					"nine",
+				};
 
-				TrieLinkedHashLinked<bool, char> trie = new TrieLinkedHashLinked<bool, char>();
-				trie.Add(true, "hello world".ToStepper());
-				bool value = trie.Get("hello world".ToStepper());
-				trie.Remove("hello world".ToStepper());
+				ITrie<int, char> trie = new TrieLinkedHashLinked<int, char>();
+
+				Console.WriteLine("    Adding...");
+				for (int i = 0; i < strings.Length; i++)
+				{
+					trie.Add(i, strings[i].ToStepper());
+					Console.WriteLine("      " + strings[i]);
+				}
+				Console.WriteLine();
+
+				Console.WriteLine("    Count: " + trie.Count);
+
+				Console.WriteLine("    Get(\"three\"): " + trie.Get("three".ToStepper()));
+
+				Console.WriteLine("    Remove(\"six\")...");
+				trie.Remove("six".ToStepper());
+
+				Console.WriteLine("    Count: " + trie.Count);
 
 				Console.WriteLine();
 			}
