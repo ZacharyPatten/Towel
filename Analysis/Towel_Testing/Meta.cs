@@ -50,13 +50,13 @@ namespace Towel_Testing
 					string temp;
 					try
 					{
-						temp = testCase.Item1.ConvertToCsharpSource();
+						temp = testCase.Item1.ConvertToCSharpSource();
 						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
 					}
 					catch
 					{
 						Debugger.Break();
-						temp = testCase.Item1.ConvertToCsharpSource();
+						temp = testCase.Item1.ConvertToCSharpSource();
 						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
 					}
 				}
@@ -77,13 +77,13 @@ namespace Towel_Testing
 					string temp;
 					try
 					{
-						temp = testCase.Item1.ConvertToCsharpSource(true);
+						temp = testCase.Item1.ConvertToCSharpSource(true);
 						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
 					}
 					catch
 					{
 						Debugger.Break();
-						temp = testCase.Item1.ConvertToCsharpSource(true);
+						temp = testCase.Item1.ConvertToCSharpSource(true);
 						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
 					}
 				}

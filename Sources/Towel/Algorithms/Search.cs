@@ -92,9 +92,17 @@ namespace Towel.Algorithms
 			public struct GraphSearchStatus
 			{
 				internal readonly Search.GraphSearchStatus Value;
+				/// <summary>Constructs a new graph search status.</summary>
+				/// <param name="value">The status of the graph search.</param>
 				public GraphSearchStatus(Search.GraphSearchStatus value) => Value = value;
+				/// <summary>Converts a <see cref="Search.GraphSearchStatus"/> into a <see cref="GraphSearchStatus"/>.</summary>
+				/// <param name="value">The <see cref="Search.GraphSearchStatus"/> to convert.</param>
 				public static implicit operator GraphSearchStatus(Search.GraphSearchStatus value) => new GraphSearchStatus(value);
+				/// <summary>Converts a <see cref="StepStatus"/> into a <see cref="GraphSearchStatus"/>.</summary>
+				/// <param name="value">The <see cref="StepStatus"/> to convert.</param>
 				public static implicit operator GraphSearchStatus(StepStatus value) => new GraphSearchStatus((Search.GraphSearchStatus)value);
+				/// <summary>Converts a <see cref="GraphSearchStatus"/> into a <see cref="Search.GraphSearchStatus"/>.</summary>
+				/// <param name="value">The <see cref="GraphSearchStatus"/> to convert.</param>
 				public static implicit operator Search.GraphSearchStatus(GraphSearchStatus value) => value.Value;
 			}
 		}

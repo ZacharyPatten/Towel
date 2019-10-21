@@ -207,7 +207,7 @@ for (i = 0; i < coll.length; i++)
 			}
 			void ConvertTypeToHtml(Type type)
 			{
-				string typeToString = type.ConvertToCsharpSource(true);
+				string typeToString = type.ConvertToCSharpSource(true);
 				if (!string.IsNullOrEmpty(typeToString))
 				{
 					string typeString =

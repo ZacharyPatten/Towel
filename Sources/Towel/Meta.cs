@@ -507,13 +507,13 @@ namespace Towel
 
 		#endregion
 
-		#region ConvertToCsharpSourceDefinition
+		#region ConvertToCSharpSourceDefinition
 
 		/// <summary>Converts a <see cref="System.Type"/> into a <see cref="string"/> as it would appear in C# source code.</summary>
 		/// <param name="type">The <see cref="System.Type"/> to convert to a <see cref="string"/>.</param>
 		/// <param name="showGenericParameters">If the generic parameters are the generic types, whether they should be shown or not.</param>
 		/// <returns>The <see cref="string"/> as the <see cref="System.Type"/> would appear in C# source code.</returns>
-		public static string ConvertToCsharpSource(this Type type, bool showGenericParameters = false)
+		public static string ConvertToCSharpSource(this Type type, bool showGenericParameters = false)
 		{
 			IQueue<Type> genericParameters = new QueueArray<Type>();
 			type.GetGenericArguments().Stepper(x => genericParameters.Enqueue(x));
@@ -544,7 +544,7 @@ namespace Towel
 					result += (firstIteration ? string.Empty : ",") +
 						(correctGeneric.IsGenericParameter
 						? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
-						: (firstIteration ? string.Empty : " ") + ConvertToCsharpSource(correctGeneric));
+						: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
 					firstIteration = false;
 				}
 				result += ">";

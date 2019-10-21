@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if Hidden
+
+using System;
 
 namespace Towel.DataStructures
 {
@@ -776,3 +778,5 @@ namespace Towel.DataStructures
 		#endregion
 	}
 }
+
+#endif
