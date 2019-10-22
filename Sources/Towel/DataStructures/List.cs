@@ -274,13 +274,14 @@ namespace Towel.DataStructures
 				{
 					return false;
 				}
-				else if (predicate(_head.Value))
+				else if (predicate(listNode.Next.Value))
 				{
 					if (listNode.Next.Equals(_tail))
 					{
 						_tail = listNode;
 					}
 					listNode.Next = listNode.Next.Next;
+					_count--;
 					return true;
 				}
 				else

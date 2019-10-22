@@ -34,6 +34,15 @@ namespace Towel_Testing.Algorithms
 			Assert.IsTrue(IsLeastToGreatest(array));
 		}
 
+		[TestMethod] public void Shuffle_Testing()
+		{
+			Random random = new Random(randomSeed);
+			int[] array = new int[size];
+			Stepper.Iterate(size, i => array[i] = i);
+			Sort.Shuffle(random, array);
+			Assert.IsFalse(IsLeastToGreatest(array));
+		}
+
 		[TestMethod] public void Bubble_Testing() => TestAlgorithm(Sort.Bubble);
 
 		[TestMethod] public void Insertion_Testing() => TestAlgorithm(Sort.Insertion);

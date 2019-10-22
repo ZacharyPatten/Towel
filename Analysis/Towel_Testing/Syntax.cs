@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using Towel;
 using static Towel.Syntax;
 using Towel.Measurements;
+using Towel.DataStructures;
 
 namespace Towel_Testing
 {
@@ -662,7 +662,7 @@ namespace Towel_Testing
 		{
 			// I would like to add more test cases.
 
-			HashSet<int> primeNumbers = new HashSet<int>()
+			ISet<int> primeNumbers = new SetHashLinked<int>()
 			{
 				2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
 				103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
@@ -999,9 +999,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region Factorial_testing
+		#region Factorial_Testing
 
-		[TestMethod] public void Factorial_testing()
+		[TestMethod] public void Factorial_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Factorial(1) == 1);
@@ -1035,9 +1035,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region BinomialCoefficient_testing
+		#region BinomialCoefficient_Testing
 
-		[TestMethod] public void BinomialCoefficient_testing()
+		[TestMethod] public void BinomialCoefficient_Testing()
 		{
 			{ // int
 				Assert.IsTrue(BinomialCoefficient(1, 1) == 1);
@@ -1071,9 +1071,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region Median_testing
+		#region Median_Testing
 
-		[TestMethod] public void Median_testing()
+		[TestMethod] public void Median_Testing()
 		{
 			{ // int
 				Assert.IsTrue(Median(1, 2, 3, 4, 5) == 3);
@@ -1331,6 +1331,41 @@ namespace Towel_Testing
 			Assert.IsTrue(GreaterThanOrEqual(777m, 333m));
 			Assert.IsFalse(GreaterThanOrEqual(333m, 777m));
 			Assert.IsTrue(GreaterThanOrEqual(777m, 777m));
+		}
+
+		#endregion
+
+		#region FactorPrimes_Testing
+
+		public static void FactorPrimes_Test<T>(T value, params T[] expectedFactors)
+		{
+			IList<T> list = new ListLinked<T>();
+			expectedFactors.Stepper(x => list.Add(x));
+			Assert.IsTrue(list.Count > 0);
+			FactorPrimes(value, x => list.RemoveFirst(x));
+			Assert.IsTrue(list.Count == 0);
+		}
+
+		[TestMethod] public void FactorPrimes_Testing()
+		{
+			{ // int
+				FactorPrimes_Test<int>(2,  /* factors: */ 2);
+				FactorPrimes_Test<int>(4,  /* factors: */ 2, 2);
+				FactorPrimes_Test<int>(7,  /* factors: */ 7);
+				FactorPrimes_Test<int>(9,  /* factors: */ 3, 3);
+				FactorPrimes_Test<int>(10, /* factors: */ 2, 5);
+				FactorPrimes_Test<int>(15, /* factors: */ 3, 5);
+				FactorPrimes_Test<int>(21, /* factors: */ 7, 3);
+			}
+			{ // decimal
+				FactorPrimes_Test<decimal>(2,  /* factors: */ 2);
+				FactorPrimes_Test<decimal>(4,  /* factors: */ 2, 2);
+				FactorPrimes_Test<decimal>(7,  /* factors: */ 7);
+				FactorPrimes_Test<decimal>(9,  /* factors: */ 3, 3);
+				FactorPrimes_Test<decimal>(10, /* factors: */ 2, 5);
+				FactorPrimes_Test<decimal>(15, /* factors: */ 3, 5);
+				FactorPrimes_Test<decimal>(21, /* factors: */ 7, 3);
+			}
 		}
 
 		#endregion
