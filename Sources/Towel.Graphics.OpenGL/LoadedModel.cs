@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if Hidden
+
+using System;
 using System.Drawing;
 using Towel.Mathematics;
 using Towel.DataStructures;
@@ -183,3 +185,4 @@ namespace Towel.Graphics.OpenGL
     }
 }
 
+#endif

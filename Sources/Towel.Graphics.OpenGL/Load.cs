@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿#if Hidden
+
+using System.Drawing;
 using System.Drawing.Imaging;
 
 using OpenTK.Graphics.OpenGL;
@@ -42,3 +44,5 @@ namespace Towel.Graphics.OpenGL
         }
     }
 }
+
+#endif

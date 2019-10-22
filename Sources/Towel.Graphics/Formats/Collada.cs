@@ -4,6 +4,7 @@ using Towel.Mathematics;
 using Towel.Measurements;
 using Towel.Algorithms;
 using System;
+using static Towel.Syntax;
 
 namespace Towel.Graphics.Formats
 {
@@ -170,7 +171,7 @@ namespace Towel.Graphics.Formats
                     jointAndWeightsPerVertex[j] = new Link<int, float>(jointIndex, weight);
                 }
 
-                Sort.Merge((x, y) => Compare.Invert(Compute.Compare(x._2, y._2)), jointAndWeightsPerVertex);
+                Sort.Merge((x, y) => Inversion(Comparison(x._2, y._2)), jointAndWeightsPerVertex);
 
                 // Joint Effector Count Syncronization (get all verteces to have the same number of effectors)
                 if (count > maxJointEffectors) // too many effectors (select largest weights)
@@ -185,7 +186,7 @@ namespace Towel.Graphics.Formats
                     }
                     for (int j = 0; j < maxJointEffectors; j++)
                     {
-                        limitedJointAndWeightsPerVertex[j]._2 = Compute.Minimum(limitedJointAndWeightsPerVertex[j]._2 / totalWeightPerMaxEffectors, 1f);
+                        limitedJointAndWeightsPerVertex[j]._2 = Minimum(limitedJointAndWeightsPerVertex[j]._2 / totalWeightPerMaxEffectors, 1f);
                     }
                     jointAndWeightsPerVertex = limitedJointAndWeightsPerVertex;
                 }

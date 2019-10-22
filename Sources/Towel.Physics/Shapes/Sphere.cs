@@ -1,5 +1,6 @@
 ﻿using System;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Physics.Shapes
 {
@@ -46,9 +47,9 @@ namespace Towel.Physics.Shapes
             get
             {
                 return new Vector<T>(
-                    Compute.Subtract(this._position.X, this._radius),
-                    Compute.Subtract(this._position.Y, this._radius),
-                    Compute.Subtract(this._position.Z, this._radius));
+                    Subtraction(this._position.X, this._radius),
+                    Subtraction(this._position.Y, this._radius),
+                    Subtraction(this._position.Z, this._radius));
             }
         }
 
@@ -57,9 +58,9 @@ namespace Towel.Physics.Shapes
             get
             {
                 return new Vector<T>(
-                    Compute.Add(this._position.X, this._radius),
-                    Compute.Add(this._position.Y, this._radius),
-                    Compute.Add(this._position.Z, this._radius));
+                    Addition(this._position.X, this._radius),
+                    Addition(this._position.Y, this._radius),
+                    Addition(this._position.Z, this._radius));
             }
         }
 
@@ -83,8 +84,8 @@ namespace Towel.Physics.Shapes
             get
             {
                 // volume of a sphere = (4/3)pi * radius ^ 3
-                T radiusCubed = Compute.Power(this._radius, Compute.Convert<int, T>(3));
-                return Compute.Multiply(Sphere<T>.FourThirdsPi, radiusCubed);
+                T radiusCubed = Power(this._radius, Convert<int, T>(3));
+                return Multiplication(Sphere<T>.FourThirdsPi, radiusCubed);
             }
         }
 
@@ -106,8 +107,8 @@ namespace Towel.Physics.Shapes
             {
                 if (_fourThirdsPiComputed)
                     return _fourThirdsPi;
-                T fourThirds = Compute.Divide(Compute.Convert<int, T>(4), Compute.Convert<int, T>(3));
-                Sphere<T>._fourThirdsPi = Compute.Multiply(fourThirds, Constant<T>.Pi);
+                T fourThirds = Division(Convert<int, T>(4), Convert<int, T>(3));
+                Sphere<T>._fourThirdsPi = Multiplication(fourThirds, Constant<T>.Pi);
                 Sphere<T>._fourThirdsPiComputed = true;
                 return Sphere<T>.FourThirdsPi;
             }

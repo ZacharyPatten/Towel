@@ -2,6 +2,7 @@
 
 using System;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Graphics
 {
@@ -94,10 +95,10 @@ namespace Towel.Graphics
         public static Color Add(Color a, Color b)
         {
             return new Color(
-                Compute.Maximum(a.R + b.R, 1f),
-                Compute.Maximum(a.G + b.G, 1f),
-                Compute.Maximum(a.B + b.B, 1f),
-                Compute.Maximum(a.A + b.A, 1f));
+                Maximum(a.R + b.R, 1f),
+                Maximum(a.G + b.G, 1f),
+                Maximum(a.B + b.B, 1f),
+                Maximum(a.A + b.A, 1f));
         }
 
         public static Color operator -(Color a, Color b)
@@ -108,10 +109,10 @@ namespace Towel.Graphics
         public static Color Subtract(Color a, Color b)
         {
             return new Color(
-                Compute.Maximum(a.R - b.R, 0f),
-                Compute.Maximum(a.G - b.G, 0f),
-                Compute.Maximum(a.B - b.B, 0f),
-                Compute.Maximum(a.A - b.A, 0f));
+                Maximum(a.R - b.R, 0f),
+                Maximum(a.G - b.G, 0f),
+                Maximum(a.B - b.B, 0f),
+                Maximum(a.A - b.A, 0f));
         }
 
         public static bool operator ==(Color a, Color b)
@@ -174,7 +175,7 @@ namespace Towel.Graphics
             }
             else
             {
-                r = (float)Compute.Power((red + 0.055f) / (1.0f + 0.055f), 2.4f);
+                r = (float)Power((red + 0.055f) / (1.0f + 0.055f), 2.4f);
             }
 
             if (green <= 0.04045f)
@@ -183,7 +184,7 @@ namespace Towel.Graphics
             }
             else
             {
-                g = (float)Compute.Power((green + 0.055f) / (1.0f + 0.055f), 2.4f);
+                g = (float)Power((green + 0.055f) / (1.0f + 0.055f), 2.4f);
             }
 
             if (blue <= 0.04045f)
@@ -192,7 +193,7 @@ namespace Towel.Graphics
             }
             else
             {
-                b = (float)Compute.Power((blue + 0.055f) / (1.0f + 0.055f), 2.4f);
+                b = (float)Power((blue + 0.055f) / (1.0f + 0.055f), 2.4f);
             }
 
             return new Color(r, g, b, alpha);
@@ -219,7 +220,7 @@ namespace Towel.Graphics
             }
             else
             {
-                red = (1.0f + 0.055f) * (float)Compute.Power(color.R, 1.0f / 2.4f) - 0.055f;
+                red = (1.0f + 0.055f) * (float)Power(color.R, 1.0f / 2.4f) - 0.055f;
             }
 
             if (color.G <= 0.0031308)
@@ -228,7 +229,7 @@ namespace Towel.Graphics
             }
             else
             {
-                green = (1.0f + 0.055f) * (float)Compute.Power(color.G, 1.0f / 2.4f) - 0.055f;
+                green = (1.0f + 0.055f) * (float)Power(color.G, 1.0f / 2.4f) - 0.055f;
             }
 
             if (color.B <= 0.0031308)
@@ -237,7 +238,7 @@ namespace Towel.Graphics
             }
             else
             {
-                blue = (1.0f + 0.055f) * (float)Compute.Power(color.B, 1.0f / 2.4f) - 0.055f;
+                blue = (1.0f + 0.055f) * (float)Power(color.B, 1.0f / 2.4f) - 0.055f;
             }
 
             alpha = color.A;
@@ -272,10 +273,10 @@ namespace Towel.Graphics
         {
             hue = hue * 360.0f;
 
-            var C = (1.0f - Compute.AbsoluteValue(2.0f * lightness - 1.0f)) * saturation;
+            var C = (1.0f - AbsoluteValue(2.0f * lightness - 1.0f)) * saturation;
 
             var h = hue / 60.0f;
-            var X = C * (1.0f - Compute.AbsoluteValue(h % 2.0f - 1.0f));
+            var X = C * (1.0f - AbsoluteValue(h % 2.0f - 1.0f));
 
             float r, g, b;
             if (0.0f <= h && h < 1.0f)
@@ -338,8 +339,8 @@ namespace Towel.Graphics
         /// </citation>
         public static void ToHsl(Color color, out float hue, out float saturation, out float lightness, out float alpha)
         {
-            var M = Compute.Maximum(color.R, Compute.Maximum(color.G, color.B));
-            var m = Compute.Minimum(color.R, Compute.Minimum(color.G, color.B));
+            var M = Maximum(color.R, Maximum(color.G, color.B));
+            var m = Minimum(color.R, Minimum(color.G, color.B));
             var C = M - m;
 
             float h = 0.0f;

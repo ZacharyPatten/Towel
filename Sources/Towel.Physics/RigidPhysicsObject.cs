@@ -1,5 +1,6 @@
 ﻿using Towel.Mathematics;
 using Towel.Physics.Shapes;
+using static Towel.Syntax;
 
 namespace Towel.Physics
 {
@@ -34,7 +35,7 @@ namespace Towel.Physics
         public bool IsActive { get { return this._isActive; } set { this._isActive = value; } }
         public bool IsStatic { get { return this._isStatic; } set { this._isStatic = value; } }
         public bool AffectedByGravity { get { return this._affectedByGravity; } set { this._affectedByGravity = value; } }
-        public T Mass { get { return Compute.Multiply(this._material.Density, this._shape.Volume); } }
+        public T Mass { get { return Multiplication(this._material.Density, this._shape.Volume); } }
         public Vector<T> LinearMomentum { get { return this._velocity * this.Mass; } }
         public Vector<T> AngularMomentum { get { return this._angularVelocity * this.Mass; } }
     }

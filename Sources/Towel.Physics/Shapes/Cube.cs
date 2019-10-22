@@ -1,5 +1,6 @@
 ﻿using System;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Physics.Shapes
 {
@@ -30,12 +31,12 @@ namespace Towel.Physics.Shapes
         {
             get
             {
-                T x_neg = Compute.Subtract(this._position.X, this._halfLength);
-                T y_neg = Compute.Subtract(this._position.Y, this._halfLength);
-                T z_neg = Compute.Subtract(this._position.Z, this._halfLength);
-                T x_pos = Compute.Add(this._position.X, this._halfLength);
-                T y_pos = Compute.Add(this._position.Y, this._halfLength);
-                T z_pos = Compute.Add(this._position.Z, this._halfLength);
+                T x_neg = Subtraction(this._position.X, this._halfLength);
+                T y_neg = Subtraction(this._position.Y, this._halfLength);
+                T z_neg = Subtraction(this._position.Z, this._halfLength);
+                T x_pos = Addition(this._position.X, this._halfLength);
+                T y_pos = Addition(this._position.Y, this._halfLength);
+                T z_pos = Addition(this._position.Z, this._halfLength);
 
                 return new Vector<T>[]
                 {
@@ -86,18 +87,18 @@ namespace Towel.Physics.Shapes
                 // rotate the original cube, the 8x cube will always contain it, and an
                 // 8x cube is very fast to compute.
                 
-                T length = Compute.Add(this._halfLength, this._halfLength);
+                T length = Addition(this._halfLength, this._halfLength);
                 return new Bounds<T>(
                     // Minimum
                     new Vector<T>(
-                        Compute.Subtract(this._position.X, length),
-                        Compute.Subtract(this._position.Y, length),
-                        Compute.Subtract(this._position.Z, length)),
+                        Subtraction(this._position.X, length),
+                        Subtraction(this._position.Y, length),
+                        Subtraction(this._position.Z, length)),
                     // Maximum
                     new Vector<T>(
-                        Compute.Add(this._position.X, length),
-                        Compute.Add(this._position.Y, length),
-                        Compute.Add(this._position.Z, length)));
+                        Addition(this._position.X, length),
+                        Addition(this._position.Y, length),
+                        Addition(this._position.Z, length)));
             }
         }
 
@@ -106,24 +107,24 @@ namespace Towel.Physics.Shapes
             get
             {
                 // volume of a cube = length ^ 3
-                return Compute.Power(Compute.Multiply(this._halfLength, Compute.Convert<int, T>(2)), Compute.Convert<int, T>(3));
+                return Power(Multiplication(this._halfLength, Convert<int, T>(2)), Convert<int, T>(3));
             }
         }
 
         private Vector<T> GetMinimumVector(Vector<T>[] corners)
         {
             return new Vector<T>(
-                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.X))),
-                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
-                Compute.Minimum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
+                Minimum<T>(step => corners.ToStepper()(vector => step(vector.X))),
+                Minimum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
+                Minimum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
         }
 
         private Vector<T> GetMaximumVector(Vector<T>[] corners)
         {
             return new Vector<T>(
-                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.X))),
-                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
-                Compute.Maximum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
+                Maximum<T>(step => corners.ToStepper()(vector => step(vector.X))),
+                Maximum<T>(step => corners.ToStepper()(vector => step(vector.Y))),
+                Maximum<T>(step => corners.ToStepper()(vector => step(vector.Z))));
         }
 
         public Vector<T> XenoScan(Vector<T> direction)
@@ -139,13 +140,13 @@ namespace Towel.Physics.Shapes
             // Notes: helper function for "Cube.SupportMapping". just
             // adjusts the "_halfLength" based on the direction value
 
-            if (Compute.Equals(value, Constant<T>.Zero))
+            if (Equality(value, Constant<T>.Zero))
             {
                 return Constant<T>.Zero;
             }
-            else if (Compute.LessThan(value, Constant<T>.Zero))
+            else if (LessThan(value, Constant<T>.Zero))
             {
-                return Compute.Negate(this._halfLength);
+                return Negation(this._halfLength);
             }
             else
             {

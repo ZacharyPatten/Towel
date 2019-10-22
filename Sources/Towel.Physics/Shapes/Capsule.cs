@@ -1,5 +1,6 @@
 ﻿using System;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Physics.Shapes
 {

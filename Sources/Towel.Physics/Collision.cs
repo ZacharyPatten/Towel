@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Physics
 {

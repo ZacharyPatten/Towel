@@ -2,12 +2,13 @@
 using Towel;
 using Towel.DataStructures;
 using Towel.Mathematics;
+using static Towel.Syntax;
 
 namespace Towel.Physics
 {
     public class PhysicsSystem<T>
     {
-        public static Vector<T> DefaultGravity { get { return new Vector<T>(Constant<T>.Zero, Compute.Divide(Compute.Convert<int, T>(-981), Compute.Convert<int, T>(100)), Constant<T>.Zero); } }
+        public static Vector<T> DefaultGravity { get { return new Vector<T>(Constant<T>.Zero, Division(Convert<int, T>(-981), Convert<int, T>(100)), Constant<T>.Zero); } }
 
         public Vector<T> _gravity;
         public IOmnitreePoints<RigidPhysicsObject<T>, T, T, T> _rigidPhysicsObjects;

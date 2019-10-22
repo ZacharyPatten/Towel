@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if Hidden
+
+using System;
 
 using Towel.Mathematics;
 
@@ -302,3 +304,5 @@ namespace Towel.Graphics.OpenGL
         }
     }
 }
+
+#endif
