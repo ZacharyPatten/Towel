@@ -5,8 +5,6 @@ using System.Diagnostics;
 using System.Reflection;
 using Towel;
 
-#pragma warning disable IDE0060 // Remove unused parameter
-
 namespace Towel_Testing
 {
 	[TestClass] public class Meta_Testing
@@ -260,9 +258,12 @@ namespace Towel_Testing
 
 		#region MethodInfo Testing
 
+#pragma warning disable IDE0062 // Make local function 'static'
+
 		[TestMethod] public void MethodInfo_IsLocalFunction()
 		{
 			void a() { }
+
 			Assert.IsTrue(new Action(a).Method.IsLocalFunction());
 
 			long b() { return 0; }
@@ -274,9 +275,8 @@ namespace Towel_Testing
 			void d<T>() { }
 			Assert.IsTrue(new Action(d<int>).Method.IsLocalFunction());
 
-			//// pending C# 8
-			//static void e() { }
-			//Assert.IsTrue(new Action(e).Method.IsLocalFunction());
+			static void e() { }
+			Assert.IsTrue(new Action(e).Method.IsLocalFunction());
 
 			MethodInfo f()
 			{
@@ -298,6 +298,8 @@ namespace Towel_Testing
 
 			Assert.IsFalse(new Action(MethodInfo_IsLocalFunction).Method.IsLocalFunction());
 		}
+
+#pragma warning restore IDE0062 // Make local function 'static'
 
 		#endregion
 
@@ -361,6 +363,7 @@ namespace Towel_Testing
 	#region XML Documentation Types
 
 #pragma warning disable CS0067 // The event is never used
+#pragma warning disable IDE0060 // Remove unused parameter
 
 	#region XML Documentation From MethodInfo
 
@@ -1079,8 +1082,7 @@ namespace Towel_Testing
 	#endregion
 
 #pragma warning restore CS0067 // The event is never used
+#pragma warning restore IDE0060 // Remove unused parameter
 
 	#endregion
 }
-
-#pragma warning restore IDE0060 // Remove unused parameter
