@@ -5,11 +5,9 @@ using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass]
-	public class RedBlackTreeLinked_Testing
+	[TestClass] public class RedBlackTreeLinked_Testing
 	{
-		[TestMethod]
-		public void TryAdd_Testing()
+		[TestMethod] public void TryAdd_Testing()
 		{
 			// adding duplicate values should return false
 			{
@@ -36,8 +34,7 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod]
-		public void Add_Testing()
+		[TestMethod] public void Add_Testing()
 		{
 			// adding duplicate values should throw exceptions
 			{
@@ -60,8 +57,7 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod]
-		public void TryRemove_Testing()
+		[TestMethod] public void TryRemove_Testing()
 		{
 			// removing a non-existing value should return false
 			{
@@ -91,8 +87,7 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod]
-		public void Remove_Testing()
+		[TestMethod] public void Remove_Testing()
 		{
 			// removing a non-existing value should throw exceptions
 			{

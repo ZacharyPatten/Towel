@@ -29,6 +29,6 @@ When declaring types, all fields (instance + static + const) should come before 
 
 In general, prefer `internal` over `private`. If people want to access `internal` members for whatever reason, they can just download the code and add an `InternalsVisibleTo` attribute to the code so they can access internal members.
 
-### Expression Boded Members Are Prefered
+### Expression Bodied Members Are Prefered
 
 In general, prefer expression body definition syntax `member => expression;` over traditional C# syntax `member { expression; }` where applicable.

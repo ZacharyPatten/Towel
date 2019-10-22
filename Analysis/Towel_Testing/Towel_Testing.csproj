@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Algorithms\" />
-  </ItemGroup>
-
 </Project>
