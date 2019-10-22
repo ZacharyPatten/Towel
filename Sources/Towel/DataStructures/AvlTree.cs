@@ -34,10 +34,10 @@ namespace Towel.DataStructures
 
 			internal Node(T value)
 			{
-				this.Value = value;
-				this.LeftChild = null;
-				this.RightChild = null;
-				this.Height = 0;
+				Value = value;
+				LeftChild = null;
+				RightChild = null;
+				Height = 0;
 			}
 
 			internal Node(
@@ -46,18 +46,18 @@ namespace Towel.DataStructures
 				Node rightChild,
 				int height)
 			{
-				this.Value = value;
-				this.LeftChild = leftChild;
-				this.RightChild = rightChild;
-				this.Height = height;
+				Value = value;
+				LeftChild = leftChild;
+				RightChild = rightChild;
+				Height = height;
 			}
 
 			internal Node Clone() =>
 				new Node(
-					this.Value,
-					this.LeftChild is null ? null : this.LeftChild.Clone(),
-					this.RightChild is null ? null : this.RightChild.Clone(),
-					this.Height);
+					Value,
+					LeftChild?.Clone(),
+					RightChild?.Clone(),
+					Height);
 		}
 
 		#endregion
@@ -169,8 +169,8 @@ namespace Towel.DataStructures
 				return Balance(node);
 			}
 
-			exception = capturedException;
 			_root = Add(_root);
+			exception = capturedException;
 			_count++;
 			return exception is null;
 		}
@@ -298,11 +298,11 @@ namespace Towel.DataStructures
 					CompareResult compareResult = compare(node.Value);
 					if (compareResult == Less)
 					{
-						node.LeftChild = Remove(node.LeftChild);
+						node.RightChild = Remove(node.RightChild);
 					}
 					else if (compareResult == Greater)
 					{
-						node.RightChild = Remove(node.RightChild);
+						node.LeftChild = Remove(node.LeftChild);
 					}
 					else // (compareResult == Comparison.Equal)
 					{
@@ -332,8 +332,8 @@ namespace Towel.DataStructures
 				return node;
 			}
 
-			exception = capturedException;
 			_root = Remove(_root);
+			exception = capturedException;
 			_count--;
 			return exception is null;
 		}

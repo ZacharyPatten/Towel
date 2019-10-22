@@ -602,7 +602,7 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 //
 // There are two versions. One that only stores the values of the trie (ITrie<T>)
 // and one that stores the values of the trie plus an additional generic value
-// on the leaves (ITrie<T, Data>).
+// on the leaves (ITrie<T, D>).
 
 ITrie<T> trie = new TrieLinkedHashLinked<T>();
 
@@ -645,7 +645,7 @@ long NextLong(this Random random);
 
 // Type conversion to string definition as appears in C# source code
 // Note: useful for runtime compilation from strings
-string ConvertToCsharpSourceDefinition(this Type type);
+string ConvertToCSharpSourceDefinition(this Type type);
 // Example: typeof(List<int>) -> "System.Collections.Generic.List<int>"
 
 string ToEnglishWords(this decimal @decimal);

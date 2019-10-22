@@ -50,20 +50,20 @@ namespace Towel.DataStructures
 				T value,
 				Node parent)
 			{
-				this.Color = color;
-				this.Value = value;
-				this.Parent = parent;
+				Color = color;
+				Value = value;
+				Parent = parent;
 			}
 
 			internal Node Clone(Node parent)
 			{
 				if (this == _sentinelNode)
 				{
-					return this;
+					return _sentinelNode;
 				}
-				Node clone = new Node(this.Color, this.Value, parent);
-				clone.LeftChild = this.LeftChild is null ? null : this.LeftChild.Clone(clone);
-				clone.RightChild = this.RightChild is null ? null : this.RightChild.Clone(clone);
+				Node clone = new Node(Color, Value, parent);
+				clone.LeftChild = LeftChild?.Clone(clone);
+				clone.RightChild = RightChild?.Clone(clone);
 				return clone;
 			}
 		}
