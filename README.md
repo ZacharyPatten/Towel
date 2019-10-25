@@ -141,7 +141,7 @@ bool equal = M1 == M2;                  // Equal
 ## Symbolic Mathematics
 
 ```csharp
-// Parsing From Linq Expression
+// Parsing From Lambda Expression
 Expression<Func<double, double>> exp1 = (x) => 2 * (x / 7);
 Symbolics.Expression symExp1 = Symbolics.Parse(exp1);
 
