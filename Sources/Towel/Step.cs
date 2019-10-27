@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Syntax;
 using Towel.DataStructures;
 
@@ -261,7 +260,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static Stepper<T> ToStepper<T>(this IEnumerable<T> iEnumerable) =>
+		public static Stepper<T> ToStepper<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
 			step =>
 			{
 				foreach (T value in iEnumerable)
@@ -274,7 +273,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static StepperBreak<T> ToStepperBreak<T>(this IEnumerable<T> iEnumerable) =>
+		public static StepperBreak<T> ToStepperBreak<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
 			step =>
 			{
 				foreach (T value in iEnumerable)
@@ -348,10 +347,7 @@ namespace Towel
 		/// <returns>The reduced stepper function.</returns>
 		public static Stepper<T> EveryNth<T>(this Stepper<T> stepper, int nth)
 		{
-			if (stepper == null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			if (nth <= 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(nth), nth, "!(" + nameof(nth) + " > 0)");

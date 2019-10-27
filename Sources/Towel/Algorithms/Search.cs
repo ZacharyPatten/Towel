@@ -25,14 +25,8 @@ namespace Towel.Algorithms
 		/// <returns>The index where the specific value fits into the index, sorted items.</returns>
 		public static int Binary<T>(GetIndex<T> get, int length, CompareToKnownValue<T> compare)
 		{
-			if (get is null)
-			{
-				throw new ArgumentNullException(nameof(get));
-			}
-			if (compare is null)
-			{
-				throw new ArgumentNullException(nameof(compare));
-			}
+			_ = get ?? throw new ArgumentNullException(nameof(get));
+			_ = compare ?? throw new ArgumentNullException(nameof(compare));
 			if (length <= 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(length), length, "!(" + nameof(length) + " > 0)");

@@ -33,10 +33,7 @@ namespace Towel
 
 		internal static T OperationOnStepper<T>(Stepper<T> stepper, Func<T, T, T> operation)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T result = default;
 			bool assigned = false;
 			stepper(a =>
@@ -221,10 +218,7 @@ namespace Towel
 		/// <returns>True if all operand are equal or false if not.</returns>
 		public static bool Equality<T>(Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
 			bool assigned = false;
 			bool result = stepper.Any(x =>
@@ -242,7 +236,7 @@ namespace Towel
 			});
 			if (!assigned)
 			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+				throw new ArgumentException(nameof(stepper) + " is empty.", nameof(stepper));
 			}
 			return result;
 		}
@@ -253,10 +247,7 @@ namespace Towel
 		/// <returns>True if all operand are equal or false if not.</returns>
 		public static bool Equality<T>(StepperBreak<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
 			bool assigned = false;
 			bool result = stepper.Any(x =>
@@ -1436,19 +1427,13 @@ namespace Towel
 		/// <returns>The computed greatest common factor of the set of numbers.</returns>
 		public static T GreatestCommonFactor<T>(Stepper<T> stepper)
 		{
-			if (stepper == null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			bool assigned = false;
 			T answer = Constant<T>.Zero;
 			stepper((T n) =>
 			{
-				if (n == null)
-				{
-					throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " contains null value(s).");
-				}
-				else if (Equality(n, Constant<T>.Zero))
+				_ = n ?? throw new ArgumentNullException(nameof(n));
+				if (Equality(n, Constant<T>.Zero))
 				{
 					throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
 				}
@@ -1479,7 +1464,7 @@ namespace Towel
 			});
 			if (!assigned)
 			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+				throw new ArgumentException(nameof(stepper) + " is empty.", nameof(stepper));
 			}
 			return answer;
 		}
@@ -1503,10 +1488,7 @@ namespace Towel
 		/// <returns>The computed least common least common multiple of the set of numbers.</returns>
 		public static T LeastCommonMultiple<T>(Stepper<T> stepper)
 		{
-			if (stepper == null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			bool assigned = false;
 			T answer = default;
 			stepper(parameter =>
@@ -1532,7 +1514,7 @@ namespace Towel
 			});
 			if (!assigned)
 			{
-				throw new ArgumentNullException(nameof(stepper), nameof(stepper) + " is empty.");
+				throw new ArgumentException(nameof(stepper) + " is empty.", nameof(stepper));
 			}
 			return answer;
 		}
@@ -1831,10 +1813,7 @@ namespace Towel
 		/// <returns>The computed mean of the set of data.</returns>
 		public static T Mean<T>(Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T i = Constant<T>.Zero;
 			T sum = Constant<T>.Zero;
 			stepper(step =>
@@ -1860,6 +1839,8 @@ namespace Towel
 		/// <returns>The computed median value of the set of data.</returns>
 		public static T Median<T>(Compare<T> compare, params T[] values)
 		{
+			_ = compare ?? throw new ArgumentNullException(nameof(compare));
+			_ = values ?? throw new ArgumentNullException(nameof(values));
 			// standard algorithm (sort and grab middle value)
 			Sort.Merge(compare, values);
 			if (values.Length % 2 == 1) // odd... just grab middle value
@@ -1881,10 +1862,7 @@ namespace Towel
 		/// <returns>The computed median value of the set of data.</returns>
 		public static T Median<T>(Compare<T> compare, Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			return Median<T>(compare, stepper.ToArray());
 		}
 
@@ -1903,10 +1881,7 @@ namespace Towel
 		/// <returns>The computed median value of the set of data.</returns>
 		public static T Median<T>(Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			return Median(Towel.Compare.Default, stepper.ToArray());
 		}
 
@@ -2060,10 +2035,7 @@ namespace Towel
 		/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
 		public static void Range<T>(Stepper<T> stepper, out T minimum, out T maximum)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			// Note: can't use out parameters as capture variables
 			T min = default;
 			T max = default;
@@ -2739,10 +2711,7 @@ namespace Towel
 		/// <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
 		public static void LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept)
 		{
-			if (points is null)
-			{
-				throw new ArgumentNullException(nameof(points));
-			}
+			_ = points ?? throw new ArgumentNullException(nameof(points));
 			int count = 0;
 			T sumx = Constant<T>.Zero;
 			T sumy = Constant<T>.Zero;

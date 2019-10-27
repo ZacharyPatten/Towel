@@ -3,7 +3,6 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Towel;
 using Towel.DataStructures;
@@ -290,7 +289,7 @@ void main()
 		#endregion
 
 		IOmnitreePoints<IObject3D, float, float, float> _omnitree;
-		List<IObject3D> _objects;
+		ListArray<IObject3D> _objects;
 
 		int _cubeElementBufferId;
 		int _cubeVertexBufferId;
@@ -312,7 +311,7 @@ void main()
 		{
 			#region Object Generation
 
-			_objects = new List<IObject3D>();
+			_objects = new ListArray<IObject3D>();
 			for (int i = -50; i < 50; i += 10)
 			{
 				for (int j = -50; j < 50; j += 10)

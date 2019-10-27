@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
+using Towel.DataStructures;
 
 namespace Towel
 {
@@ -244,7 +244,7 @@ namespace Towel
 			{
 				string declaringTypeString = null;
 				string methodNameString = null;
-				List<string> parameterTypeStrings = new List<string>();
+				IList<string> parameterTypeStrings = new ListArray<string>();
 				using (XmlReader xmlReader = XmlReader.Create(textReader))
 				{
 					while (xmlReader.Read())

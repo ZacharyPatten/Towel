@@ -283,14 +283,8 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(K key, T value, out Exception exception)
 		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = key ?? throw new ArgumentNullException(nameof(key));
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(key);
@@ -346,10 +340,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the key was found or false if not.</returns>
 		public bool TryGet(K key, out T value, out Exception exception)
 		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
+			_ = key ?? throw new ArgumentNullException(nameof(key));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(key);
@@ -381,14 +372,8 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Set(K key, T value)
 		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = key ?? throw new ArgumentNullException(nameof(key));
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(key);
@@ -465,10 +450,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the removal was successful for false if not.</returns>
 		public bool TryRemoveWithoutTrim(K key, out Exception exception)
 		{
-			if (key == null)
-			{
-				throw new ArgumentNullException(nameof(key));
-			}
+			_ = key ?? throw new ArgumentNullException(nameof(key));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(key);

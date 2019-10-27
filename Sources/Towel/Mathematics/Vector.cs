@@ -236,10 +236,7 @@ namespace Towel.Mathematics
 		/// <returns>The length of this vector.</returns>
 		public static T GetMagnitude(Vector<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return Syntax.SquareRoot(GetMagnitudeSquared(a));
 		}
 
@@ -261,10 +258,7 @@ namespace Towel.Mathematics
 		/// <returns>The squared length of the vector.</returns>
 		public static T GetMagnitudeSquared(Vector<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Length = a.Dimensions;
 			T result = Constant<T>.Zero;
 			T[] A = a._vector;
@@ -294,10 +288,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The result of the negations.</param>
 		public static void Negate(Vector<T> a, ref Vector<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
 			int Length = A.Length;
 			T[] B;
@@ -363,14 +354,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the addition.</param>
 		public static void Add(Vector<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T[] A = a._vector;
 			T[] B = b._vector;
 			int Length = A.Length;
@@ -445,14 +430,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the vector subtracton.</param>
 		public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T[] A = a._vector;
 			T[] B = b._vector;
 			int Length = A.Length;
@@ -527,10 +506,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the multiplication.</param>
 		public static void Multiply(Vector<T> a, T b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
 			int Length = A.Length;
 			T[] C;
@@ -609,10 +585,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting vector after teh divisions.</param>
 		public static void Divide(Vector<T> a, T b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
 			int Length = A.Length;
 			T[] C;
@@ -683,14 +656,8 @@ namespace Towel.Mathematics
 		/// <returns>The result of the dot product operation.</returns>
 		public static T DotProduct(Vector<T> a, Vector<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			int Length = a.Dimensions;
 			if (Length != b.Dimensions)
 			{
@@ -724,14 +691,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the cross product operation.</param>
 		public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T[] A = a._vector;
 			T[] B = b._vector;
 			if (A.Length != 3)
@@ -788,10 +749,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The result of the normalization.</param>
 		public static void Normalize(Vector<T> a, ref Vector<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Dimensions = a.Dimensions;
 			if (Dimensions < 1)
 			{
@@ -851,14 +809,8 @@ namespace Towel.Mathematics
 		{
 			// a ⋅ b = |a| * |b| * cosθ
 
-			if (a == null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b == null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T dotProduct = a.DotProduct(b);
 			T aMagTimesbMag = Syntax.Multiplication(a.Magnitude, b.Magnitude);
 			T divided = Syntax.Division(dotProduct, aMagTimesbMag);
@@ -884,14 +836,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the cross product operation.</param>
 		public static void Projection(Vector<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (a.Dimensions != b.Dimensions)
 			{
 				throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
@@ -1104,18 +1050,9 @@ namespace Towel.Mathematics
 		/// <param name="d">The result of the interpolation.</param>
 		public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
-			if (c is null)
-			{
-				throw new ArgumentNullException(nameof(c));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
+			_ = c ?? throw new ArgumentNullException(nameof(c));
 			if (Syntax.Equality(a.Dimensions, b.Dimensions, c.Dimensions))
 			{
 				throw new MathematicsException("Arguments invalid !(" +
@@ -1300,10 +1237,7 @@ namespace Towel.Mathematics
 		/// <returns>The copy of this vector.</returns>
 		public static Vector<T> Clone(Vector<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return new Vector<T>(a);
 		}
 

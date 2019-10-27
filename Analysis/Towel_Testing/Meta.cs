@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Towel;
@@ -499,7 +498,7 @@ namespace Towel_Testing
 		/// <param name="b">b</param>
 		/// <param name="c">c</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, List<A> b, A[] c) { }
+		public void DocumentedMethod<A>(A a, Stepper<A> b, A[] c) { }
 
 		/// <summary>Test T</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -508,7 +507,7 @@ namespace Towel_Testing
 		/// <param name="c">c</param>
 		/// <param name="d">d</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, List<A> b, A[] c, A[,] d) { }
+		public void DocumentedMethod<A>(A a, Stepper<A> b, A[] c, A[,] d) { }
 
 		/// <summary>Test V</summary>
 		/// <param name="a">a</param>

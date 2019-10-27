@@ -187,10 +187,7 @@ namespace Towel.Mathematics
 		/// <returns>The magnitude of this quaternion.</returns>
 		public static T GetMagnitude(Quaternion<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return Syntax.SquareRoot(GetMagnitudeSquared(a));
 		}
 
@@ -212,10 +209,7 @@ namespace Towel.Mathematics
 		/// <returns>The squared length of the quaternion.</returns>
 		public static T GetMagnitudeSquared(Quaternion<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return GetMagnitudeSquaredImplementation.Function(a._x, a._y, a._z, a._w);
 		}
 
@@ -257,14 +251,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the addition.</param>
 		public static void Add(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T x = Syntax.Addition(a._x, b._x);
 			T y = Syntax.Addition(a._y, b._y);
 			T z = Syntax.Addition(a._z, b._z);
@@ -328,14 +316,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the subtraction.</param>
 		public static void Subtract(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T x = Syntax.Subtraction(a._x, b._x);
 			T y = Syntax.Subtraction(a._y, b._y);
 			T z = Syntax.Subtraction(a._z, b._z);
@@ -399,14 +381,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
 		internal static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T x = QuaternionMiltiplyXYZComponentImplementation.Function(a.X, b.W, a.W, b.X, a.Y, b.Z, a.Z, b.Y);
 			T y = QuaternionMiltiplyXYZComponentImplementation.Function(a.Y, b.W, a.W, b.Y, a.Z, b.X, a.X, b.Z);
 			T z = QuaternionMiltiplyXYZComponentImplementation.Function(a.Z, b.W, a.W, b.Z, a.X, b.Y, a.Y, b.X);
@@ -529,14 +505,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
 		public static void Multiply(Quaternion<T> a, Vector<T> b, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b.Dimensions != 3)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
@@ -655,10 +625,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting quaternion after the multiplications.</param>
 		internal static void Multiply(Quaternion<T> a, T b, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T x = Syntax.Multiplication(a._x, b);
 			T y = Syntax.Multiplication(a._y, b);
 			T z = Syntax.Multiplication(a._z, b);
@@ -740,14 +707,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the rotation.</param>
 		public static void Rotate(Quaternion<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b.Dimensions != 3)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " != 3 || " + nameof(b) + "." + nameof(b.Dimensions) + " != 4)");
@@ -802,10 +763,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The result of the conjugation.</param>
 		public static void Conjugate(Quaternion<T> a, ref Quaternion<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T x = Syntax.Negation(a._x);
 			T y = Syntax.Negation(a._y);
 			T z = Syntax.Negation(a._z);
@@ -858,10 +816,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The result of the normalization.</param>
 		public static void Normalize(Quaternion<T> a, ref Quaternion<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T magnitude = a.Magnitude;
 			T x = Syntax.Division(a._x, magnitude);
 			T y = Syntax.Division(a._y, magnitude);
@@ -917,10 +872,7 @@ namespace Towel.Mathematics
 		{
 			// Note: I think this function is incorrect. Need to research.
 
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T magnitudeSquared = a.MagnitudeSquared;
 			T x;
 			T y;
@@ -990,14 +942,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the linear interpolation.</param>
 		public static void LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
@@ -1104,14 +1050,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the spherical interpolation.</param>
 		public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
@@ -1309,10 +1249,7 @@ namespace Towel.Mathematics
 		/// <returns>The copy of this quaternion.</returns>
 		public static Quaternion<T> Clone(Quaternion<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return new Quaternion<T>(a._x, a._y, a._z, a._w);
 		}
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Towel;
 using static Towel.Syntax;
 
@@ -59,7 +58,7 @@ namespace Syntax
 				Console.WriteLine("    There are pros/cons to both methodologies.");
 				Console.WriteLine();
 
-				IEnumerable<int> iEnumerable = new int[] { 1, 2, 3, };
+				System.Collections.Generic.IEnumerable<int> iEnumerable = new int[] { 1, 2, 3, };
 				Console.Write("    iEnumerable values:");
 				foreach (int value in iEnumerable)
 				{

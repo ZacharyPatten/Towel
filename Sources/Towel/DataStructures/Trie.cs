@@ -289,10 +289,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
 		public bool Contains(Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			Node node = null;
 			bool contains = true;
 			stepper(key =>
@@ -680,10 +677,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
 		public bool Contains(Stepper<T> stepper)
 		{
-			if (stepper is null)
-			{
-				throw new ArgumentNullException(nameof(stepper));
-			}
+			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			Node node = null;
 			bool contains = true;
 			stepper(key =>

@@ -24,10 +24,7 @@ namespace Towel
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetTryParseMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("TryParse",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -60,10 +57,7 @@ namespace Towel
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetFactorialMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("Factorial",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -96,10 +90,7 @@ namespace Towel
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsPrimeMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("IsPrime",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -132,10 +123,7 @@ namespace Towel
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsNonNegativeMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("IsNonNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -168,10 +156,7 @@ namespace Towel
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsNegativeMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("IsNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -204,10 +189,7 @@ namespace Towel
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsPositiveMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod("IsPositive",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -240,10 +222,7 @@ namespace Towel
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsEvenMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
@@ -277,10 +256,7 @@ namespace Towel
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsOddMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
@@ -314,10 +290,7 @@ namespace Towel
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 		public static MethodInfo GetIsIntegerMethod(Type a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			MethodInfo methodInfo = a.GetMethod(
 				"IsInteger",
 				BindingFlags.Static |
@@ -355,14 +328,8 @@ namespace Towel
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
 		internal static MethodInfo GetLessThanMethod(Type a, Type b, Type c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			Type[] parameterTypes = new Type[] { a, b, };
 			MethodInfo CheckType(Type type)
 			{
@@ -406,14 +373,8 @@ namespace Towel
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
 		internal static MethodInfo GetGreaterThanMethod(Type a, Type b, Type c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			Type[] parameterTypes = new Type[] { a, b, };
 			MethodInfo CheckType(Type type)
 			{
@@ -466,14 +427,8 @@ namespace Towel
 
 		internal static bool HasCast(Type fromType, Type toType, bool @implicit)
 		{
-			if (fromType is null)
-			{
-				throw new ArgumentNullException(nameof(fromType));
-			}
-			if (toType is null)
-			{
-				throw new ArgumentNullException(nameof(toType));
-			}
+			_ = fromType ?? throw new ArgumentNullException(nameof(fromType));
+			_ = toType ?? throw new ArgumentNullException(nameof(toType));
 			string methodName = @implicit
 				? "op_Implicit"
 				: "op_Explicit";
@@ -522,10 +477,7 @@ namespace Towel
 
 		internal static string ConvertToCsharpSource(Type type, IQueue<Type> genericParameters, bool showGenericParameters)
 		{
-			if (type is null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
+			_ = type ?? throw new ArgumentNullException(nameof(type));
 			string result = type.IsNested
 				? ConvertToCsharpSource(type.DeclaringType, genericParameters, showGenericParameters) + "."
 				: type.Namespace + ".";

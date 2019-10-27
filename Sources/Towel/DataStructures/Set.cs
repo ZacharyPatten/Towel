@@ -119,10 +119,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(value);
@@ -201,10 +198,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemoveWithoutTrim(T value, out Exception exception)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(value);
@@ -537,10 +531,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(value);
@@ -618,10 +609,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryRemoveWithoutTrim(T value, out Exception exception)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(value);
@@ -689,10 +677,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(T value)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
+			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
 			int hashCode = _hash(value);

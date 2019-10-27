@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Syntax;
 
 namespace Towel
@@ -77,7 +76,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
 		/// <returns>The converted Towel.Compare delegate.</returns>
-		public static Compare<T> ToCompare<T>(Comparer<T> comparer) =>
+		public static Compare<T> ToCompare<T>(System.Collections.Generic.Comparer<T> comparer) =>
 			(a, b) => Wrap(comparer.Compare(a, b));
 		
 		/// <summary>Converts a Towel.Compare to a System.Comparison.</summary>

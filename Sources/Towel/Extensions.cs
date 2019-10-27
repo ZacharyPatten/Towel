@@ -19,14 +19,8 @@ namespace Towel
 		/// <returns>True if the string contains any of the provided characters. False if not.</returns>
 		public static bool ContainsAny(this string @string, params char[] chars)
 		{
-			if (chars == null)
-			{
-				throw new ArgumentNullException(nameof(chars));
-			}
-			if (@string == null)
-			{
-				throw new ArgumentNullException(nameof(@string));
-			}
+			_ = chars ?? throw new ArgumentNullException(nameof(chars));
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			if (chars.Length < 1)
 			{
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
@@ -62,10 +56,7 @@ namespace Towel
 		/// <returns>The string of the repeated string to repeat.</returns>
 		public static string Repeat(this string @string, int count)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(nameof(@string));
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			if (count < 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), count, "!(" + nameof(count) + " >= 0)");
@@ -83,10 +74,7 @@ namespace Towel
 		/// <returns>an array of the individual lines of the string.</returns>
 		public static string[] SplitLines(this string @string)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(nameof(@string));
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			return @string.RemoveCarriageReturns().Split('\n');
 		}
 
@@ -143,14 +131,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadLinesLeft(this string @string, string padding)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(nameof(@string));
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(nameof(padding));
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			if (padding.CompareTo(string.Empty) == 0)
 			{
 				return @string;
@@ -164,14 +146,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadSubstringLinesRight(this string @string, string padding)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(@string);
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(padding);
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			if (padding.CompareTo(string.Empty) == 0)
 			{
 				return @string;
@@ -187,14 +163,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadLinesLeftBetweenIndeces(this string @string, string padding, int start, int end)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(nameof(@string));
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(nameof(padding));
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			if (start < 0 || start >= @string.Length)
 			{
 				throw new ArgumentOutOfRangeException(nameof(start), start, "!(0 <= " + nameof(start) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
@@ -217,14 +187,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadLinesRightBetweenIndeces(this string @string, string padding, int start, int end)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(@string);
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(padding);
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			if (start < 0 || start >= @string.Length)
 			{
 				throw new ArgumentOutOfRangeException(nameof(start), start, "!(0 <= " + nameof(start) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
@@ -247,14 +211,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadLinesLeft(this string @string, string padding, int startingLineNumber, int endingLineNumber)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(@string);
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(padding);
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			string[] lines = @string.SplitLines();
 			if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
 			{
@@ -279,14 +237,8 @@ namespace Towel
 		/// <returns>The padded string.</returns>
 		public static string PadLinesRight(this string @string, string padding, int startingLineNumber, int endingLineNumber)
 		{
-			if (@string is null)
-			{
-				throw new ArgumentNullException(@string);
-			}
-			if (padding is null)
-			{
-				throw new ArgumentNullException(padding);
-			}
+			_ = @string ?? throw new ArgumentNullException(nameof(@string));
+			_ = padding ?? throw new ArgumentNullException(nameof(padding));
 			string[] lines = @string.SplitLines();
 			if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
 			{
@@ -346,10 +298,7 @@ namespace Towel
 		/// <returns>The generated randomized string.</returns>
 		public static string NextString(this Random random, int length)
 		{
-			if (random is null)
-			{
-				throw new ArgumentNullException(nameof(random));
-			}
+			_ = random ?? throw new ArgumentNullException(nameof(random));
 			if (length < 1)
 			{
 				throw new ArgumentException("(" + nameof(length) + " < 1)");
@@ -369,17 +318,11 @@ namespace Towel
 		/// <returns>The generated randomized string.</returns>
 		public static string NextString(this Random random, int length, char[] characterPool)
 		{
-			if (random is null)
-			{
-				throw new ArgumentNullException(nameof(random));
-			}
+			_ = random ?? throw new ArgumentNullException(nameof(random));
+			_ = characterPool ?? throw new ArgumentNullException(nameof(characterPool));
 			if (length < 1)
 			{
 				throw new ArgumentException("(" + nameof(length) + " < 1)");
-			}
-			if (characterPool is null)
-			{
-				throw new ArgumentNullException(nameof(characterPool));
 			}
 			if (characterPool.Length < 1)
 			{
@@ -448,10 +391,7 @@ namespace Towel
 		/// <returns>A randomly generated long value.</returns>
 		public static long NextLong(this Random random, long min, long max)
 		{
-			if (random == null)
-			{
-				throw new ArgumentNullException(nameof(random));
-			}
+			_ = random ?? throw new ArgumentNullException(nameof(random));
 			if (min > max)
 			{
 				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
@@ -516,10 +456,7 @@ namespace Towel
 		/// <returns>A randomly generated DateTime value.</returns>
 		public static DateTime NextDateTime(this Random random, DateTime min, DateTime max)
 		{
-			if (random == null)
-			{
-				throw new ArgumentNullException(nameof(random));
-			}
+			_ = random ?? throw new ArgumentNullException(nameof(random));
 			if (min > max)
 			{
 				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
@@ -548,10 +485,7 @@ namespace Towel
 		/// <returns>A randomly generated TimeSpan value.</returns>
 		public static TimeSpan NextTimeSpan(this Random random, TimeSpan min, TimeSpan max)
 		{
-			if (random == null)
-			{
-				throw new ArgumentNullException(nameof(random));
-			}
+			_ = random ?? throw new ArgumentNullException(nameof(random));
 			if (min > max)
 			{
 				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");

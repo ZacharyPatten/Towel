@@ -185,10 +185,7 @@ namespace Towel.Mathematics
 		/// <param name="data">The data of the matrix in ROW MAJOR ORDER.</param>
 		public Matrix(int rows, int columns, params T[] data) : this(rows, columns)
 		{
-			if (data is null)
-			{
-				throw new ArgumentNullException(nameof(data));
-			}
+			_ = data ?? throw new ArgumentNullException(nameof(data));
 			if (data.Length != rows * columns)
 			{
 				throw new ArgumentException("!(" + nameof(rows) + " * " + nameof(columns) + " == " + nameof(data) + "." + nameof(data.Length) + ")");
@@ -418,10 +415,7 @@ namespace Towel.Mathematics
 		/// <returns>True if the matrix is symetric; false if not.</returns>
 		public static bool GetIsSymetric(Matrix<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int rows = a._rows;
 			if (rows != a._columns)
 			{
@@ -460,10 +454,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The resulting matrix after the negation.</param>
 		public static void Negate(Matrix<T> a, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Length = a._matrix.Length;
 			T[] A = a._matrix;
 			T[] B;
@@ -526,14 +517,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix after the addition.</param>
 		public static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (a._rows != b._rows || a._columns != b._columns)
 			{
 				throw new MathematicsException("Arguments invalid !(" +
@@ -607,14 +592,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix after the subtraction.</param>
 		public static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (a._rows != b._rows || a._columns != b._columns)
 			{
 				throw new MathematicsException("Arguments invalid !(" +
@@ -688,14 +667,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix of the multiplication.</param>
 		public static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (a._columns != b._rows)
 			{
 				throw new MathematicsException("Arguments invalid !(" +
@@ -794,14 +767,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting vector of the multiplication.</param>
 		public static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(b));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			int rows = a._rows;
 			int columns = a._columns;
 			if (columns != b.Dimensions)
@@ -879,10 +846,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix after the multiplications.</param>
 		public static void Multiply(Matrix<T> a, T b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._matrix;
 			int Length = A.Length;
 			T[] C;
@@ -967,10 +931,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix after the division.</param>
 		public static void Divide(Matrix<T> a, T b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._matrix;
 			int Length = A.Length;
 			T[] C;
@@ -1038,10 +999,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix of the power operation.</param>
 		public static void Power(Matrix<T> a, int b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
@@ -1134,10 +1092,7 @@ namespace Towel.Mathematics
 		/// <returns>The computed determinent.</returns>
 		public static T Determinent(Matrix<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
@@ -1207,10 +1162,7 @@ namespace Towel.Mathematics
 		/// <returns>The computed trace.</returns>
 		public static T Trace(Matrix<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
@@ -1245,10 +1197,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The minor of the matrix.</param>
 		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (a._rows < 2 || a._columns < 2)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.Rows) + " >= 2 && " + nameof(a) + "." + nameof(a.Columns) + " >= 2)");
@@ -1346,14 +1295,8 @@ namespace Towel.Mathematics
 		/// <param name="c">The resulting matrix of the concatenation.</param>
 		public static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
-			if (b is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (a._rows != b._rows)
 			{
 				throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
@@ -1437,10 +1380,7 @@ namespace Towel.Mathematics
 		/// <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
 		public static void Echelon(Matrix<T> a, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (ReferenceEquals(a, b))
 			{
 				a = a.Clone();
@@ -1525,10 +1465,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
 		public static void ReducedEchelon(Matrix<T> a, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Rows = a.Rows;
 			int Columns = a.Columns;
 			if (object.ReferenceEquals(a, b))
@@ -1689,10 +1626,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The inverse of the matrix.</param>
 		public static void Inverse(Matrix<T> a, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
@@ -1828,10 +1762,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The adjoint of the matrix.</param>
 		public static void Adjoint(Matrix<T> a, ref Matrix<T> b)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
@@ -1946,11 +1877,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The transpose of the matrix.</param>
 		public static void Transpose(Matrix<T> a, ref Matrix<T> b)
 		{
-
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (ReferenceEquals(a, b))
 			{
 				if (b.IsSquare)
@@ -2133,14 +2060,8 @@ namespace Towel.Mathematics
 		/// <returns>The rotated matrix.</returns>
 		public static Matrix<T> Rotate4x4(Matrix<T> matrix, Angle<T> angle, Vector<T> axis)
 		{
-			if (axis is null)
-			{
-				throw new ArgumentNullException(nameof(axis));
-			}
-			if (matrix is null)
-			{
-				throw new ArgumentNullException(nameof(matrix));
-			}
+			_ = axis ?? throw new ArgumentNullException(nameof(axis));
+			_ = matrix ?? throw new ArgumentNullException(nameof(matrix));
 			if (axis._vector.Length != 3)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(axis) + "." + nameof(axis.Dimensions) + " == 3)");
@@ -2465,10 +2386,7 @@ namespace Towel.Mathematics
 		/// <returns>The copy of this matrix.</returns>
 		public static Matrix<T> Clone(Matrix<T> a)
 		{
-			if (a is null)
-			{
-				throw new ArgumentNullException(nameof(a));
-			}
+			_ = a ?? throw new ArgumentNullException(nameof(a));
 			return new Matrix<T>(a);
 		}
 
