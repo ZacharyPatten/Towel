@@ -12,18 +12,19 @@ namespace Towel.DataStructures
 	public interface Link : IDataStructure<object>
 	{
 		#region Properties
-		
+
 		/// <summary>The number of objects in the tuple.</summary>
 		int Size { get; }
+
 		#endregion
 	}
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1> : Link
+	public class Link<T1
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 
 		#region Constructors
@@ -31,7 +32,8 @@ namespace Towel.DataStructures
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1)
+		public Link(T1 _1
+			)
 		{
 			this.__1 = _1;
 		}
@@ -41,11 +43,10 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 1; } }
-		
+		public int Size => 1;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 
 		#endregion
 
@@ -54,33 +55,49 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1>(System.ValueTuple<T1> tuple)
+		public static explicit operator Link<T1
+			>(System.ValueTuple<T1
+			> tuple)
 		{
-			return new Link<T1>(tuple.Item1);
+			return new Link<T1
+				>(tuple.Item1
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1>(Link<T1> link)
+		public static explicit operator System.ValueTuple<T1
+			>(Link<T1
+			> link)
 		{
-			return new System.ValueTuple<T1>((T1)link._1);
+			return new System.ValueTuple<T1
+				>((T1)link._1
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1>(System.Tuple<T1> tuple)
+		public static explicit operator Link<T1
+			>(System.Tuple<T1
+			> tuple)
 		{
-			return new Link<T1>(tuple.Item1);
+			return new Link<T1
+				>(tuple.Item1
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1>(Link<T1> link)
+		public static explicit operator System.Tuple<T1
+			>(Link<T1
+			> link)
 		{
-			return new System.Tuple<T1>((T1)link._1);
+			return new System.Tuple<T1
+				>((T1)link._1
+				);
 		}
 
 		#endregion
@@ -116,7 +133,9 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -133,7 +152,9 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -141,7 +162,9 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1>((T1)this._1);
+			return new Link<T1
+				>((T1)this._1
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -158,14 +181,16 @@ namespace Towel.DataStructures
 		/// <returns>The computed hash code.</returns>
 		public override int GetHashCode()
 		{
-			return this._1.GetHashCode();
+			return this._1.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				>)._1.Equals(this._1))
 				return false;
 			return true;
 		}
@@ -176,9 +201,9 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1> : Link
+	public struct LinkStruct<T1
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 
 		#region Constructors
@@ -186,7 +211,8 @@ namespace Towel.DataStructures
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1)
+		public LinkStruct(T1 _1
+)
 		{
 			this.__1 = _1;
 		}
@@ -196,11 +222,10 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 1; } }
-
+		public	int Size => 1;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 
 		#endregion
 
@@ -209,33 +234,49 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1>(System.ValueTuple<T1> tuple)
+		public static explicit operator LinkStruct<T1
+			>(System.ValueTuple<T1
+> tuple)
 		{
-			return new LinkStruct<T1>(tuple.Item1);
+			return new LinkStruct<T1
+				>(tuple.Item1
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1>(LinkStruct<T1> link)
+		public static explicit operator System.ValueTuple<T1
+			>(LinkStruct<T1
+				> link)
 		{
-			return new System.ValueTuple<T1>((T1)link._1);
+			return new System.ValueTuple<T1
+				>((T1)link._1
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1>(System.Tuple<T1> tuple)
+		public static explicit operator LinkStruct<T1
+			>(System.Tuple<T1
+			> tuple)
 		{
-			return new LinkStruct<T1>(tuple.Item1);
+			return new LinkStruct<T1
+				>(tuple.Item1
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1>(LinkStruct<T1> link)
+		public static explicit operator System.Tuple<T1
+			>(LinkStruct<T1
+			> link)
 		{
-			return new System.Tuple<T1>((T1)link._1);
+			return new System.Tuple<T1
+				>((T1)link._1
+				);
 		}
 
 		#endregion
@@ -290,7 +331,9 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -298,7 +341,9 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1>((T1)this._1);
+			return new LinkStruct<T1
+				>((T1)this._1
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -315,17 +360,21 @@ namespace Towel.DataStructures
 		/// <returns>The computed hash code.</returns>
 		public override int GetHashCode()
 		{
-			return this._1.GetHashCode();
+			return this._1.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				>))
+				return false;
 
-			LinkStruct<T1> linkStruct = (LinkStruct<T1>)obj;
+			LinkStruct<T1
+				> linkStruct = (LinkStruct<T1
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			return true;
@@ -333,15 +382,15 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2> : Link
+	public class Link<T1
+		, T2
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 
@@ -351,7 +400,9 @@ namespace Towel.DataStructures
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2)
+		public Link(T1 _1
+			, T2 _2
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -362,14 +413,13 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 2; } }
-		
+		public int Size => 2;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 
 		#endregion
 
@@ -378,33 +428,65 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2>(System.ValueTuple<T1, T2> tuple)
+		public static explicit operator Link<T1
+			, T2
+			>(System.ValueTuple<T1
+			, T2
+			> tuple)
 		{
-			return new Link<T1, T2>(tuple.Item1, tuple.Item2);
+			return new Link<T1
+				, T2
+				>(tuple.Item1
+				, tuple.Item2
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2>(Link<T1, T2> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			>(Link<T1
+			, T2
+			> link)
 		{
-			return new System.ValueTuple<T1, T2>((T1)link._1, (T2)link._2);
+			return new System.ValueTuple<T1
+				, T2
+				>((T1)link._1
+				, (T2)link._2
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2>(System.Tuple<T1, T2> tuple)
+		public static explicit operator Link<T1
+			, T2
+			>(System.Tuple<T1
+			, T2
+			> tuple)
 		{
-			return new Link<T1, T2>(tuple.Item1, tuple.Item2);
+			return new Link<T1
+				, T2
+				>(tuple.Item1
+				, tuple.Item2
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2>(Link<T1, T2> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			>(Link<T1
+			, T2
+			> link)
 		{
-			return new System.Tuple<T1, T2>((T1)link._1, (T2)link._2);
+			return new System.Tuple<T1
+				, T2
+				>((T1)link._1
+				, (T2)link._2
+				);
 		}
 
 		#endregion
@@ -431,8 +513,8 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2)
+				typeof(T1)
+				, typeof(T2)
 			};
 		}
 		
@@ -443,9 +525,13 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -463,9 +549,13 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -473,7 +563,11 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2>((T1)this._1, this._2);
+			return new Link<T1
+				, T2
+				>((T1)this._1
+				, this._2
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -482,8 +576,8 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2
+				this._1
+				, this._2
 			};
 		}
 
@@ -492,16 +586,21 @@ namespace Towel.DataStructures
 		public override int GetHashCode()
 		{
 			return this._1.GetHashCode()
-				^ this._2.GetHashCode();
+				^ this._2.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				>)._2.Equals(this._2))
 				return false;
 			return true;
 		}
@@ -513,9 +612,10 @@ namespace Towel.DataStructures
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2> : Link
+	public struct LinkStruct<T1
+		, T2
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 
@@ -525,7 +625,9 @@ namespace Towel.DataStructures
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2)
+		public LinkStruct(T1 _1
+			, T2 _2
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -536,14 +638,13 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 2; } }
-
+		public	int Size => 2;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 
 		#endregion
 
@@ -552,33 +653,64 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2>(System.ValueTuple<T1, T2> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			>(System.ValueTuple<T1
+, T2> tuple)
 		{
-			return new LinkStruct<T1, T2>(tuple.Item1, tuple.Item2);
+			return new LinkStruct<T1
+				, T2
+				>(tuple.Item1
+				, tuple.Item2
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2>(LinkStruct<T1, T2> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			>(LinkStruct<T1
+				, T2
+				> link)
 		{
-			return new System.ValueTuple<T1, T2>((T1)link._1, (T2)link._2);
+			return new System.ValueTuple<T1
+				, T2
+				>((T1)link._1
+				, (T2)link._2
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2>(System.Tuple<T1, T2> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			>(System.Tuple<T1
+			, T2
+			> tuple)
 		{
-			return new LinkStruct<T1, T2>(tuple.Item1, tuple.Item2);
+			return new LinkStruct<T1
+				, T2
+				>(tuple.Item1
+				, tuple.Item2
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2>(LinkStruct<T1, T2> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			>(LinkStruct<T1
+			, T2
+			> link)
 		{
-			return new System.Tuple<T1, T2>((T1)link._1, (T2)link._2);
+			return new System.Tuple<T1
+				, T2
+				>((T1)link._1
+				, (T2)link._2
+				);
 		}
 
 		#endregion
@@ -607,8 +739,8 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2)
+				typeof(T1)
+				, typeof(T2)
 			};
 		}
 		
@@ -639,9 +771,13 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -649,7 +785,11 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2>((T1)this._1, this._2);
+			return new LinkStruct<T1
+				, T2
+				>((T1)this._1
+				, this._2
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -658,8 +798,8 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2
+				this._1
+				, this._2
 			};
 		}
 
@@ -668,17 +808,24 @@ namespace Towel.DataStructures
 		public override int GetHashCode()
 		{
 			return this._1.GetHashCode()
-				^ this._2.GetHashCode();
+				^ this._2.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				>))
+				return false;
 
-			LinkStruct<T1, T2> linkStruct = (LinkStruct<T1, T2>)obj;
+			LinkStruct<T1
+				, T2
+				> linkStruct = (LinkStruct<T1
+				, T2
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -688,16 +835,17 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2, T3> : Link
+	public class Link<T1
+		, T2
+		, T3
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -709,7 +857,10 @@ namespace Towel.DataStructures
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2, T3 _3)
+		public Link(T1 _1
+			, T2 _2
+			, T3 _3
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -721,17 +872,16 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 3; } }
-		
+		public int Size => 3;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 
 		#endregion
 
@@ -740,33 +890,81 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3>(System.ValueTuple<T1, T2, T3> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			>(System.ValueTuple<T1
+			, T2
+			, T3
+			> tuple)
 		{
-			return new Link<T1, T2, T3>(tuple.Item1, tuple.Item2, tuple.Item3);
+			return new Link<T1
+				, T2
+				, T3
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3>(Link<T1, T2, T3> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			>(Link<T1
+			, T2
+			, T3
+			> link)
 		{
-			return new System.ValueTuple<T1, T2, T3>((T1)link._1, (T2)link._2, (T3)link._3);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3>(System.Tuple<T1, T2, T3> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			>(System.Tuple<T1
+			, T2
+			, T3
+			> tuple)
 		{
-			return new Link<T1, T2, T3>(tuple.Item1, tuple.Item2, tuple.Item3);
+			return new Link<T1
+				, T2
+				, T3
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3>(Link<T1, T2, T3> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			>(Link<T1
+			, T2
+			, T3
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3>((T1)link._1, (T2)link._2, (T3)link._3);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				);
 		}
 
 		#endregion
@@ -795,9 +993,9 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
 			};
 		}
 		
@@ -808,11 +1006,17 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._3, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -831,11 +1035,17 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -843,7 +1053,13 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2, T3>((T1)this._1, this._2, this._3);
+			return new Link<T1
+				, T2
+				, T3
+				>((T1)this._1
+				, this._2
+				, this._3
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -852,9 +1068,9 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3
+				this._1
+				, this._2
+				, this._3
 			};
 		}
 
@@ -864,18 +1080,28 @@ namespace Towel.DataStructures
 		{
 			return this._1.GetHashCode()
 				^ this._2.GetHashCode()
-				^ this._3.GetHashCode();
+				^ this._3.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2, T3>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2, T3>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				>)._2.Equals(this._2))
 				return false;
-			if (!(obj as Link<T1, T2, T3>)._3.Equals(this._3))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				>)._3.Equals(this._3))
 				return false;
 			return true;
 		}
@@ -888,9 +1114,11 @@ namespace Towel.DataStructures
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2, T3> : Link
+	public struct LinkStruct<T1
+		, T2
+		, T3
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -902,7 +1130,10 @@ namespace Towel.DataStructures
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2, T3 _3)
+		public LinkStruct(T1 _1
+			, T2 _2
+			, T3 _3
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -914,17 +1145,16 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 3; } }
-
+		public	int Size => 3;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 
 		#endregion
 
@@ -933,33 +1163,79 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3>(System.ValueTuple<T1, T2, T3> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			>(System.ValueTuple<T1
+, T2, T3> tuple)
 		{
-			return new LinkStruct<T1, T2, T3>(tuple.Item1, tuple.Item2, tuple.Item3);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3>(LinkStruct<T1, T2, T3> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			>(LinkStruct<T1
+				, T2
+				, T3
+				> link)
 		{
-			return new System.ValueTuple<T1, T2, T3>((T1)link._1, (T2)link._2, (T3)link._3);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3>(System.Tuple<T1, T2, T3> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			>(System.Tuple<T1
+			, T2
+			, T3
+			> tuple)
 		{
-			return new LinkStruct<T1, T2, T3>(tuple.Item1, tuple.Item2, tuple.Item3);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3>(LinkStruct<T1, T2, T3> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			>(LinkStruct<T1
+			, T2
+			, T3
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3>((T1)link._1, (T2)link._2, (T3)link._3);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				);
 		}
 
 		#endregion
@@ -990,9 +1266,9 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
 			};
 		}
 		
@@ -1026,11 +1302,17 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -1038,7 +1320,13 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2, T3>((T1)this._1, this._2, this._3);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				>((T1)this._1
+				, this._2
+				, this._3
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -1047,9 +1335,9 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3
+				this._1
+				, this._2
+				, this._3
 			};
 		}
 
@@ -1059,17 +1347,27 @@ namespace Towel.DataStructures
 		{
 			return this._1.GetHashCode()
 				^ this._2.GetHashCode()
-				^ this._3.GetHashCode();
+				^ this._3.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2, T3>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				, T3
+				>))
+				return false;
 
-			LinkStruct<T1, T2, T3> linkStruct = (LinkStruct<T1, T2, T3>)obj;
+			LinkStruct<T1
+				, T2
+				, T3
+				> linkStruct = (LinkStruct<T1
+				, T2
+				, T3
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -1081,7 +1379,6 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
@@ -1089,9 +1386,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2, T3, T4> : Link
+	public class Link<T1
+		, T2
+		, T3
+		, T4
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -1105,7 +1405,11 @@ namespace Towel.DataStructures
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2, T3 _3, T4 _4)
+		public Link(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -1118,20 +1422,19 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 4; } }
-		
+		public int Size => 4;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 
 		#endregion
 
@@ -1140,33 +1443,97 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4>(System.ValueTuple<T1, T2, T3, T4> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			>(System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4>(System.Tuple<T1, T2, T3, T4> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				);
 		}
 
 		#endregion
@@ -1197,10 +1564,10 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
 			};
 		}
 		
@@ -1211,13 +1578,21 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._3, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._4, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -1237,13 +1612,21 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -1251,7 +1634,15 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2, T3, T4>((T1)this._1, this._2, this._3, this._4);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -1260,10 +1651,10 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4
+				this._1
+				, this._2
+				, this._3
+				, this._4
 			};
 		}
 
@@ -1274,20 +1665,37 @@ namespace Towel.DataStructures
 			return this._1.GetHashCode()
 				^ this._2.GetHashCode()
 				^ this._3.GetHashCode()
-				^ this._4.GetHashCode();
+				^ this._4.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2, T3, T4>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				>)._2.Equals(this._2))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4>)._3.Equals(this._3))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				>)._3.Equals(this._3))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4>)._4.Equals(this._4))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				>)._4.Equals(this._4))
 				return false;
 			return true;
 		}
@@ -1301,9 +1709,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2, T3, T4> : Link
+	public struct LinkStruct<T1
+		, T2
+		, T3
+		, T4
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -1317,7 +1728,11 @@ namespace Towel.DataStructures
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2, T3 _3, T4 _4)
+		public LinkStruct(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -1330,20 +1745,19 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 4; } }
-
+		public	int Size => 4;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 
 		#endregion
 
@@ -1352,33 +1766,94 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4>(System.ValueTuple<T1, T2, T3, T4> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			>(System.ValueTuple<T1
+, T2, T3, T4> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			>(LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4>(System.Tuple<T1, T2, T3, T4> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			>(LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				);
 		}
 
 		#endregion
@@ -1411,10 +1886,10 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
 			};
 		}
 		
@@ -1451,13 +1926,21 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -1465,7 +1948,15 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2, T3, T4>((T1)this._1, this._2, this._3, this._4);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -1474,10 +1965,10 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4
+				this._1
+				, this._2
+				, this._3
+				, this._4
 			};
 		}
 
@@ -1488,17 +1979,30 @@ namespace Towel.DataStructures
 			return this._1.GetHashCode()
 				^ this._2.GetHashCode()
 				^ this._3.GetHashCode()
-				^ this._4.GetHashCode();
+				^ this._4.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2, T3, T4>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				>))
+				return false;
 
-			LinkStruct<T1, T2, T3, T4> linkStruct = (LinkStruct<T1, T2, T3, T4>)obj;
+			LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				> linkStruct = (LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -1512,7 +2016,6 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
@@ -1521,9 +2024,13 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2, T3, T4, T5> : Link
+	public class Link<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -1539,7 +2046,12 @@ namespace Towel.DataStructures
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5)
+		public Link(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -1553,23 +2065,22 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 5; } }
-		
+		public int Size => 5;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 
 		#endregion
 
@@ -1578,33 +2089,113 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5>(System.ValueTuple<T1, T2, T3, T4, T5> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5>(System.Tuple<T1, T2, T3, T4, T5> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				);
 		}
 
 		#endregion
@@ -1637,11 +2228,11 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
 			};
 		}
 		
@@ -1652,15 +2243,25 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._3, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._4, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._5, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -1681,15 +2282,25 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -1697,7 +2308,17 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2, T3, T4, T5>((T1)this._1, this._2, this._3, this._4, this._5);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -1706,11 +2327,11 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
 			};
 		}
 
@@ -1722,22 +2343,48 @@ namespace Towel.DataStructures
 				^ this._2.GetHashCode()
 				^ this._3.GetHashCode()
 				^ this._4.GetHashCode()
-				^ this._5.GetHashCode();
+				^ this._5.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2, T3, T4, T5>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)._2.Equals(this._2))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5>)._3.Equals(this._3))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)._3.Equals(this._3))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5>)._4.Equals(this._4))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)._4.Equals(this._4))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5>)._5.Equals(this._5))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)._5.Equals(this._5))
 				return false;
 			return true;
 		}
@@ -1752,9 +2399,13 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2, T3, T4, T5> : Link
+	public struct LinkStruct<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -1770,7 +2421,12 @@ namespace Towel.DataStructures
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5)
+		public LinkStruct(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -1784,23 +2440,22 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 5; } }
-
+		public	int Size => 5;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 
 		#endregion
 
@@ -1809,33 +2464,109 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5>(System.ValueTuple<T1, T2, T3, T4, T5> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(System.ValueTuple<T1
+, T2, T3, T4, T5> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5>(System.Tuple<T1, T2, T3, T4, T5> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			>(LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				);
 		}
 
 		#endregion
@@ -1870,11 +2601,11 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
 			};
 		}
 		
@@ -1914,15 +2645,25 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -1930,7 +2671,17 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5>((T1)this._1, this._2, this._3, this._4, this._5);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -1939,11 +2690,11 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
 			};
 		}
 
@@ -1955,17 +2706,33 @@ namespace Towel.DataStructures
 				^ this._2.GetHashCode()
 				^ this._3.GetHashCode()
 				^ this._4.GetHashCode()
-				^ this._5.GetHashCode();
+				^ this._5.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2, T3, T4, T5>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>))
+				return false;
 
-			LinkStruct<T1, T2, T3, T4, T5> linkStruct = (LinkStruct<T1, T2, T3, T4, T5>)obj;
+			LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				> linkStruct = (LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -1981,7 +2748,6 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
@@ -1991,9 +2757,14 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2, T3, T4, T5, T6> : Link
+	public class Link<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		, T6
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -2011,7 +2782,13 @@ namespace Towel.DataStructures
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5, T6 _6)
+		public Link(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+			, T6 _6
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -2026,26 +2803,25 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 6; } }
-		
+		public int Size => 6;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T6 _6 { get { return this.__6; } set { this.__6 = value; } }
+		public T6 _6 { get => __6; set => __6 = value; }
 
 		#endregion
 
@@ -2054,33 +2830,129 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5, T6>(System.ValueTuple<T1, T2, T3, T4, T5, T6> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5, T6>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5, T6>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5, T6>(System.Tuple<T1, T2, T3, T4, T5, T6> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5, T6>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5, T6>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				);
 		}
 
 		#endregion
@@ -2115,12 +2987,12 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5),
-				typeof(T6)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
+				, typeof(T6)
 			};
 		}
 		
@@ -2131,17 +3003,29 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._3, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._4, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._5, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._6, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -2163,17 +3047,29 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			if (function(this._6) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -2181,7 +3077,19 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2, T3, T4, T5, T6>((T1)this._1, this._2, this._3, this._4, this._5, this._6);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -2190,12 +3098,12 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5,
-				this._6
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
 			};
 		}
 
@@ -2208,24 +3116,61 @@ namespace Towel.DataStructures
 				^ this._3.GetHashCode()
 				^ this._4.GetHashCode()
 				^ this._5.GetHashCode()
-				^ this._6.GetHashCode();
+				^ this._6.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._2.Equals(this._2))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._3.Equals(this._3))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._3.Equals(this._3))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._4.Equals(this._4))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._4.Equals(this._4))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._5.Equals(this._5))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._5.Equals(this._5))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6>)._6.Equals(this._6))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)._6.Equals(this._6))
 				return false;
 			return true;
 		}
@@ -2241,9 +3186,14 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link
+	public struct LinkStruct<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		, T6
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -2261,7 +3211,13 @@ namespace Towel.DataStructures
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5, T6 _6)
+		public LinkStruct(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+			, T6 _6
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -2276,26 +3232,25 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 6; } }
-
+		public	int Size => 6;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T6 _6 { get { return this.__6; } set { this.__6 = value; } }
+		public T6 _6 { get => __6; set => __6 = value; }
 
 		#endregion
 
@@ -2304,33 +3259,124 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(System.ValueTuple<T1, T2, T3, T4, T5, T6> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(System.ValueTuple<T1
+, T2, T3, T4, T5, T6> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5, T6>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(System.Tuple<T1, T2, T3, T4, T5, T6> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			>(LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5, T6>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				);
 		}
 
 		#endregion
@@ -2367,12 +3413,12 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5),
-				typeof(T6)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
+				, typeof(T6)
 			};
 		}
 		
@@ -2415,17 +3461,29 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			if (function(this._6) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -2433,7 +3491,19 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6>((T1)this._1, this._2, this._3, this._4, this._5, this._6);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -2442,12 +3512,12 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5,
-				this._6
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
 			};
 		}
 
@@ -2460,17 +3530,36 @@ namespace Towel.DataStructures
 				^ this._3.GetHashCode()
 				^ this._4.GetHashCode()
 				^ this._5.GetHashCode()
-				^ this._6.GetHashCode();
+				^ this._6.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2, T3, T4, T5, T6>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>))
+				return false;
 
-			LinkStruct<T1, T2, T3, T4, T5, T6> linkStruct = (LinkStruct<T1, T2, T3, T4, T5, T6>)obj;
+			LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				> linkStruct = (LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -2488,7 +3577,6 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
@@ -2499,9 +3587,15 @@ namespace Towel.DataStructures
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 element in the link.</typeparam>
 	[System.Serializable]
-	public class Link<T1, T2, T3, T4, T5, T6, T7> : Link
+	public class Link<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		, T6
+		, T7
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -2521,7 +3615,14 @@ namespace Towel.DataStructures
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <param name="_7">The #7 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public Link(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5, T6 _6, T7 _7)
+		public Link(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+			, T6 _6
+			, T7 _7
+			)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -2537,29 +3638,28 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 7; } }
-		
+		public int Size => 7;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T6 _6 { get { return this.__6; } set { this.__6 = value; } }
+		public T6 _6 { get => __6; set => __6 = value; }
 		/// <summary>The #7 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T7 _7 { get { return this.__7; } set { this.__7 = value; } }
+		public T7 _7 { get => __7; set => __7 = value; }
 
 		#endregion
 
@@ -2568,33 +3668,145 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5, T6, T7>(System.ValueTuple<T1, T2, T3, T4, T5, T6, T7> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5, T6, T7>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				, tuple.Item7
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5, T6, T7>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6, (T7)link._7);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				, (T7)link._7
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
 		/// <returns>The resulting Towel.DataStructures.Link.</returns>
-		public static explicit operator Link<T1, T2, T3, T4, T5, T6, T7>(System.Tuple<T1, T2, T3, T4, T5, T6, T7> tuple)
+		public static explicit operator Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> tuple)
 		{
-			return new Link<T1, T2, T3, T4, T5, T6, T7>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				, tuple.Item7
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(Link<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5, T6, T7>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6, (T7)link._7);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				, (T7)link._7
+				);
 		}
 
 		#endregion
@@ -2631,13 +3843,13 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5),
-				typeof(T6),
-				typeof(T7)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
+				, typeof(T6)
+				, typeof(T7)
 			};
 		}
 		
@@ -2648,19 +3860,33 @@ namespace Towel.DataStructures
 		public	bool Contains(object item, Compare<object> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._2, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._3, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._4, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._5, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._6, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			if (compare(this._7, item) == CompareResult.Equal)
+			{
 				return true;
+			}
 			return false;
 		}
 		
@@ -2683,19 +3909,33 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			if (function(this._6) == Break)
+			{
 				return Break;
+			}
 			if (function(this._7) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -2703,7 +3943,21 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
 		{
-			return new Link<T1, T2, T3, T4, T5, T6, T7>((T1)this._1, this._2, this._3, this._4, this._5, this._6, this._7);
+			return new Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				, this._7
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -2712,13 +3966,13 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5,
-				this._6,
-				this._7
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				, this._7
 			};
 		}
 
@@ -2732,26 +3986,76 @@ namespace Towel.DataStructures
 				^ this._4.GetHashCode()
 				^ this._5.GetHashCode()
 				^ this._6.GetHashCode()
-				^ this._7.GetHashCode();
+				^ this._7.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.Link.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._1.Equals(this._1))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._1.Equals(this._1))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._2.Equals(this._2))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._2.Equals(this._2))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._3.Equals(this._3))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._3.Equals(this._3))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._4.Equals(this._4))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._4.Equals(this._4))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._5.Equals(this._5))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._5.Equals(this._5))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._6.Equals(this._6))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._6.Equals(this._6))
 				return false;
-			if (!(obj as Link<T1, T2, T3, T4, T5, T6, T7>)._7.Equals(this._7))
+			if (!(obj as Link<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)._7.Equals(this._7))
 				return false;
 			return true;
 		}
@@ -2768,9 +4072,15 @@ namespace Towel.DataStructures
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 element in the link.</typeparam>
 	[System.Serializable]
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link
+	public struct LinkStruct<T1
+		, T2
+		, T3
+		, T4
+		, T5
+		, T6
+		, T7
+		> : Link
 	{
-		// Fields
 		internal T1 __1;
 		internal T2 __2;
 		internal T3 __3;
@@ -2790,7 +4100,14 @@ namespace Towel.DataStructures
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <param name="_7">The #7 item to be linked.</param>
 		/// <remarks>Runtime: O(1).</remarks>
-		public LinkStruct(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5, T6 _6, T7 _7)
+		public LinkStruct(T1 _1
+			, T2 _2
+			, T3 _3
+			, T4 _4
+			, T5 _5
+			, T6 _6
+			, T7 _7
+)
 		{
 			this.__1 = _1;
 			this.__2 = _2;
@@ -2806,29 +4123,28 @@ namespace Towel.DataStructures
 		#region Properties
 		
 		/// <summary>The number of objects in the tuple.</summary>
-		public	int Size { get { return 7; } }
-
+		public	int Size => 7;
 		/// <summary>The #1 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T1 _1 { get { return this.__1; } set { this.__1 = value; } }
+		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T2 _2 { get { return this.__2; } set { this.__2 = value; } }
+		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T3 _3 { get { return this.__3; } set { this.__3 = value; } }
+		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T4 _4 { get { return this.__4; } set { this.__4 = value; } }
+		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T5 _5 { get { return this.__5; } set { this.__5 = value; } }
+		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T6 _6 { get { return this.__6; } set { this.__6 = value; } }
+		public T6 _6 { get => __6; set => __6 = value; }
 		/// <summary>The #7 item in the link.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public T7 _7 { get { return this.__7; } set { this.__7 = value; } }
+		public T7 _7 { get => __7; set => __7 = value; }
 
 		#endregion
 
@@ -2837,33 +4153,139 @@ namespace Towel.DataStructures
 		/// <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(System.ValueTuple<T1, T2, T3, T4, T5, T6, T7> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(System.ValueTuple<T1
+, T2, T3, T4, T5, T6, T7> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6, T7>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				, tuple.Item7
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
 		/// <returns>The resulting System.ValueTuple.</returns>
-		public static explicit operator System.ValueTuple<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link)
+		public static explicit operator System.ValueTuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				> link)
 		{
-			return new System.ValueTuple<T1, T2, T3, T4, T5, T6, T7>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6, (T7)link._7);
+			return new System.ValueTuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				, (T7)link._7
+				);
 		}
 
 		/// <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
 		/// <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
 		/// <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-		public static explicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(System.Tuple<T1, T2, T3, T4, T5, T6, T7> tuple)
+		public static explicit operator LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> tuple)
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6, T7>(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>(tuple.Item1
+				, tuple.Item2
+				, tuple.Item3
+				, tuple.Item4
+				, tuple.Item5
+				, tuple.Item6
+				, tuple.Item7
+				);
 		}
 
 		/// <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
 		/// <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
 		/// <returns>The resulting System.Tuple.</returns>
-		public static explicit operator System.Tuple<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link)
+		public static explicit operator System.Tuple<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			>(LinkStruct<T1
+			, T2
+			, T3
+			, T4
+			, T5
+			, T6
+			, T7
+			> link)
 		{
-			return new System.Tuple<T1, T2, T3, T4, T5, T6, T7>((T1)link._1, (T2)link._2, (T3)link._3, (T4)link._4, (T5)link._5, (T6)link._6, (T7)link._7);
+			return new System.Tuple<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)link._1
+				, (T2)link._2
+				, (T3)link._3
+				, (T4)link._4
+				, (T5)link._5
+				, (T6)link._6
+				, (T7)link._7
+				);
 		}
 
 		#endregion
@@ -2902,13 +4324,13 @@ namespace Towel.DataStructures
 		{
 			return new System.Type[]
 			{
-				typeof(T1),
-				typeof(T2),
-				typeof(T3),
-				typeof(T4),
-				typeof(T5),
-				typeof(T6),
-				typeof(T7)
+				typeof(T1)
+				, typeof(T2)
+				, typeof(T3)
+				, typeof(T4)
+				, typeof(T5)
+				, typeof(T6)
+				, typeof(T7)
 			};
 		}
 		
@@ -2954,19 +4376,33 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 			if (function(this._1) == Break)
+			{
 				return Break;
+			}
 			if (function(this._2) == Break)
+			{
 				return Break;
+			}
 			if (function(this._3) == Break)
+			{
 				return Break;
+			}
 			if (function(this._4) == Break)
+			{
 				return Break;
+			}
 			if (function(this._5) == Break)
+			{
 				return Break;
+			}
 			if (function(this._6) == Break)
+			{
 				return Break;
+			}
 			if (function(this._7) == Break)
+			{
 				return Break;
+			}
 			return Continue;
 		}
 		
@@ -2974,7 +4410,21 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
 		{
-			return new LinkStruct<T1, T2, T3, T4, T5, T6, T7>((T1)this._1, this._2, this._3, this._4, this._5, this._6, this._7);
+			return new LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>((T1)this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				, this._7
+				);
 		}
 		
 		/// <summary>Converts the structure into an array.</summary>
@@ -2983,13 +4433,13 @@ namespace Towel.DataStructures
 		{
 			return new object[]
 			{
-				this._1,
-				this._2,
-				this._3,
-				this._4,
-				this._5,
-				this._6,
-				this._7
+				this._1
+				, this._2
+				, this._3
+				, this._4
+				, this._5
+				, this._6
+				, this._7
 			};
 		}
 
@@ -3003,17 +4453,39 @@ namespace Towel.DataStructures
 				^ this._4.GetHashCode()
 				^ this._5.GetHashCode()
 				^ this._6.GetHashCode()
-				^ this._7.GetHashCode();
+				^ this._7.GetHashCode()
+				;
 		}
 
 		/// <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
 		/// <returns>Whether this object and the provided obj are value equal.</returns>
 		public override bool Equals(object obj)
 		{
-			if (!(obj is LinkStruct<T1, T2, T3, T4, T5, T6, T7>))
-				 return false;
+			if (!(obj is LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>))
+				return false;
 
-			LinkStruct<T1, T2, T3, T4, T5, T6, T7> linkStruct = (LinkStruct<T1, T2, T3, T4, T5, T6, T7>)obj;
+			LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				> linkStruct = (LinkStruct<T1
+				, T2
+				, T3
+				, T4
+				, T5
+				, T6
+				, T7
+				>)obj;
 			if (!linkStruct._1.Equals(this._1))
 				return false;
 			if (!linkStruct._2.Equals(this._2))
@@ -3033,5 +4505,4 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
-	
 }
