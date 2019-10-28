@@ -700,10 +700,8 @@ namespace Towel
 			string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
 			if (File.Exists(xmlFilePath))
 			{
-				using (StreamReader streamReader = new StreamReader(xmlFilePath))
-				{
-					LoadXmlDocumentation(streamReader);
-				}
+				using StreamReader streamReader = new StreamReader(xmlFilePath);
+				LoadXmlDocumentation(streamReader);
 			}
 			// currently marking assembly as loaded even if the XML file was not found
 			// may want to adjust in future, but I think this is good for now
@@ -714,25 +712,21 @@ namespace Towel
 		/// <param name="xmlDocumentation">The content of the XML code documentation.</param>
 		public static void LoadXmlDocumentation(string xmlDocumentation)
 		{
-			using (StringReader stringReader = new StringReader(xmlDocumentation))
-			{
-				LoadXmlDocumentation(stringReader);
-			}
+			using StringReader stringReader = new StringReader(xmlDocumentation);
+			LoadXmlDocumentation(stringReader);
 		}
 
 		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
 		/// <param name="textReader">The text reader to process in an XmlReader.</param>
 		public static void LoadXmlDocumentation(TextReader textReader)
 		{
-			using (XmlReader xmlReader = XmlReader.Create(textReader))
+			using XmlReader xmlReader = XmlReader.Create(textReader);
+			while (xmlReader.Read())
 			{
-				while (xmlReader.Read())
+				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
 				{
-					if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
-					{
-						string raw_name = xmlReader["name"];
-						loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
-					}
+					string raw_name = xmlReader["name"];
+					loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
 				}
 			}
 		}

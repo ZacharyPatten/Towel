@@ -877,7 +877,7 @@ namespace Towel
 
 				if (typeof(T) == typeof(int))
 				{
-					int SquareRoot(int x)
+					static int SquareRoot(int x)
 					{
 						if (x == 0 || x == 1)
 						{

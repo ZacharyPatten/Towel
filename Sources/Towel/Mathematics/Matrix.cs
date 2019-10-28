@@ -2121,49 +2121,26 @@ namespace Towel.Mathematics
 			T _3_3 = Constant<T>.One;
 
 			return new Matrix<T>(4, 4, (row, column) =>
-			{
-				switch (row)
+				(row, column) switch
 				{
-					case 0:
-						switch (column)
-						{
-							case 0: return _0_0;
-							case 1: return _0_1;
-							case 2: return _0_2;
-							case 3: return _0_3;
-							default: throw new MathematicsException("BUG");
-						}
-					case 1:
-						switch (column)
-						{
-							case 0: return _1_0;
-							case 1: return _1_1;
-							case 2: return _1_2;
-							case 3: return _1_3;
-							default: throw new MathematicsException("BUG");
-						}
-					case 2:
-						switch (column)
-						{
-							case 0: return _2_0;
-							case 1: return _2_1;
-							case 2: return _2_2;
-							case 3: return _2_3;
-							default: throw new MathematicsException("BUG");
-						}
-					case 3:
-						switch (column)
-						{
-							case 0: return _3_0;
-							case 1: return _3_1;
-							case 2: return _3_2;
-							case 3: return _3_3;
-							default: throw new MathematicsException("BUG");
-						}
-					default:
-						throw new MathematicsException("BUG");
-				}
-			});
+					(0, 0) => _0_0,
+					(0, 1) => _0_1,
+					(0, 2) => _0_2,
+					(0, 3) => _0_3,
+					(1, 0) => _1_0,
+					(1, 1) => _1_1,
+					(1, 2) => _1_2,
+					(1, 3) => _1_3,
+					(2, 0) => _2_0,
+					(2, 1) => _2_1,
+					(2, 2) => _2_2,
+					(2, 3) => _2_3,
+					(3, 0) => _3_0,
+					(3, 1) => _3_1,
+					(3, 2) => _3_2,
+					(3, 3) => _3_3,
+					_ => throw new MathematicsException("BUG"),
+				});
 		}
 
 		public Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis)

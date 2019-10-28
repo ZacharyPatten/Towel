@@ -36,11 +36,9 @@ namespace Towel
 		/// <returns>The XML serialzation of the value.</returns>
 		public static string DefaultToXml<T>(T value, XmlWriterSettings xmlWriterSettings)
 		{
-			using (StringWriter stringWriter = new StringWriter())
-			{
-				DefaultToXml(value, stringWriter, xmlWriterSettings);
-				return stringWriter.ToString();
-			}
+			using StringWriter stringWriter = new StringWriter();
+			DefaultToXml(value, stringWriter, xmlWriterSettings);
+			return stringWriter.ToString();
 		}
 
 		/// <summary>Wrapper for the default XML serialization in .NET using XmlSerializer.</summary>
@@ -57,11 +55,9 @@ namespace Towel
 		/// <param name="xmlWriterSettings">The settings of the XML writer during serialization.</param>
 		public static void DefaultToXml<T>(T value, TextWriter textWriter, XmlWriterSettings xmlWriterSettings)
 		{
-			using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, xmlWriterSettings))
-			{
-				XmlSerializer serializer = new XmlSerializer(typeof(T));
-				serializer.Serialize(xmlWriter, value);
-			}
+			using XmlWriter xmlWriter = XmlWriter.Create(textWriter, xmlWriterSettings);
+			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			serializer.Serialize(xmlWriter, value);
 		}
 
 		#endregion
@@ -74,10 +70,8 @@ namespace Towel
 		/// <returns>The deserialized value.</returns>
 		public static T DefaultFromXml<T>(string @string)
 		{
-			using (StringReader stringReader = new StringReader(@string))
-			{
-				return DefaultFromXml<T>(stringReader);
-			}
+			using StringReader stringReader = new StringReader(@string);
+			return DefaultFromXml<T>(stringReader);
 		}
 
 		/// <summary>Wrapper for the default XML deserialization in .NET using XmlSerializer.</summary>
@@ -137,11 +131,9 @@ namespace Towel
 		/// </exception>
 		public static string StaticDelegateToXml<T>(T @delegate, XmlWriterSettings xmlWriterSettings) where T : Delegate
 		{
-			using (StringWriter stringWriter = new StringWriter())
-			{
-				StaticDelegateToXml(@delegate, stringWriter, xmlWriterSettings);
-				return stringWriter.ToString();
-			}
+			using StringWriter stringWriter = new StringWriter();
+			StaticDelegateToXml(@delegate, stringWriter, xmlWriterSettings);
+			return stringWriter.ToString();
 		}
 
 		/// <summary>Serializes a static delegate to XML.</summary>
@@ -170,40 +162,38 @@ namespace Towel
 		/// </exception>
 		public static void StaticDelegateToXml<T>(T @delegate, TextWriter textWriter, XmlWriterSettings xmlWriterSettings) where T : Delegate
 		{
-			using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, xmlWriterSettings))
+			using XmlWriter xmlWriter = XmlWriter.Create(textWriter, xmlWriterSettings);
+			MethodInfo methodInfo = @delegate.Method;
+			if (methodInfo.IsLocalFunction())
 			{
-				MethodInfo methodInfo = @delegate.Method;
-				if (methodInfo.IsLocalFunction())
-				{
-					throw new NotSupportedException("delegates assigned to local functions are not supported");
-				}
-				if (!methodInfo.IsStatic)
-				{
-					throw new NotSupportedException("delegates assigned to non-static methods are not supported");
-				}
+				throw new NotSupportedException("delegates assigned to local functions are not supported");
+			}
+			if (!methodInfo.IsStatic)
+			{
+				throw new NotSupportedException("delegates assigned to non-static methods are not supported");
+			}
 
-				ParameterInfo[] parameterInfos = methodInfo.GetParameters();
-				xmlWriter.WriteStartElement(StaticDelegateConstants.NAME);
+			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+			xmlWriter.WriteStartElement(StaticDelegateConstants.NAME);
+			{
+				xmlWriter.WriteStartElement(StaticDelegateConstants.DECLARING_TYPE);
+				xmlWriter.WriteString(methodInfo.DeclaringType.AssemblyQualifiedName);
+				xmlWriter.WriteEndElement();
+
+				xmlWriter.WriteStartElement(StaticDelegateConstants.METHOD_NAME);
+				xmlWriter.WriteString(methodInfo.Name);
+				xmlWriter.WriteEndElement();
+
+				xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETERS);
+				for (int i = 0; i < parameterInfos.Length; i++)
 				{
-					xmlWriter.WriteStartElement(StaticDelegateConstants.DECLARING_TYPE);
-					xmlWriter.WriteString(methodInfo.DeclaringType.AssemblyQualifiedName);
-					xmlWriter.WriteEndElement();
-
-					xmlWriter.WriteStartElement(StaticDelegateConstants.METHOD_NAME);
-					xmlWriter.WriteString(methodInfo.Name);
-					xmlWriter.WriteEndElement();
-
-					xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETERS);
-					for (int i = 0; i < parameterInfos.Length; i++)
-					{
-						xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETER_TYPE);
-						xmlWriter.WriteString(parameterInfos[i].ParameterType.AssemblyQualifiedName);
-						xmlWriter.WriteEndElement();
-					}
+					xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETER_TYPE);
+					xmlWriter.WriteString(parameterInfos[i].ParameterType.AssemblyQualifiedName);
 					xmlWriter.WriteEndElement();
 				}
 				xmlWriter.WriteEndElement();
 			}
+			xmlWriter.WriteEndElement();
 		}
 
 		#endregion
@@ -222,10 +212,8 @@ namespace Towel
 		/// </exception>
 		public static T StaticDelegateFromXml<T>(string @string) where T : Delegate
 		{
-			using (StringReader stringReader = new StringReader(@string))
-			{
-				return StaticDelegateFromXml<T>(stringReader);
-			}
+			using StringReader stringReader = new StringReader(@string);
+			return StaticDelegateFromXml<T>(stringReader);
 		}
 
 		/// <summary>Deserializes a static delegate from XML.</summary>

@@ -1103,37 +1103,19 @@ namespace Towel.Mathematics
 			// Note: this Method needs optimization...
 
 			return new Matrix<T>(3, 3, (int x, int y) =>
-			{
-				switch (x)
+				(x, y) switch
 				{
-					case 0:
-						switch (y)
-						{
-							case 0: return Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
-							case 1: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z));
-							case 2: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y));
-							default: throw new MathematicsException("BUG");
-						}
-					case 1:
-						switch (y)
-						{
-							case 0: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z));
-							case 1: return Syntax.Subtraction(Syntax.Addition(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
-							case 2: return Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X));
-							default: throw new MathematicsException("BUG");
-						}
-					case 2:
-						switch (y)
-						{
-							case 0: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y));
-							case 1: return Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X));
-							case 2: return Syntax.Addition(Syntax.Subtraction(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z));
-							default: throw new MathematicsException("BUG");
-						}
-					default:
-						throw new MathematicsException("BUG");
-				}
-			});
+					(0, 0) => Syntax.Subtraction(Syntax.Subtraction(Syntax.Addition(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z)),
+					(0, 1) => Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
+					(0, 2) => Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
+					(1, 0) => Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
+					(1, 1) => Syntax.Subtraction(Syntax.Addition(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z)),
+					(1, 2) => Syntax.Addition(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
+					(2, 0) => Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
+					(2, 1) => Syntax.Subtraction(Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Syntax.Multiplication(Syntax.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
+					(2, 2) => Syntax.Addition(Syntax.Subtraction(Syntax.Subtraction(Syntax.Multiplication(quaternion.W, quaternion.W), Syntax.Multiplication(quaternion.X, quaternion.X)), Syntax.Multiplication(quaternion.Y, quaternion.Y)), Syntax.Multiplication(quaternion.Z, quaternion.Z)),
+					_ => throw new MathematicsException("BUG"),
+				});
 		}
 
 		#endregion

@@ -5,7 +5,6 @@
 //------------------------------------------------------------------------------
 
 using System;
-using Towel.Mathematics;
 using System.Numerics;
 
 namespace Towel.DataStructures
@@ -59,182 +58,273 @@ namespace Towel.DataStructures
 	//                   4 (behind 0)
 	//
 	//               -1D <-----------> +1D
-	//
-	// Functionality------------------------------------------------------
-	//
-	// Load Variables:
-	//
-	// There are 2 load variables: 1) items-per-leaf and 2) tree-depth. These are
-	// recomputed after additions and removals.
-	//
-	//   1) items-per-leaf
-	//
-	//	  DESCRIPTION: indicates how many items can be placed in a leaf before a
-	//	  tree expansion should occur
-	//
-	//	  EXAMPLE: if the current items-per-leaf value is 7 but we just added 8 
-	//	  items to a leaf, that leaf must become a branch and its contents must
-	//	  be divided up into new leaves of the new branch
-	//
-	//   2) tree-depth
-	//
-	//	  DESCRIPTION: indicates the currently allowed tree depth preventing
-	//	  tree expansion when it would actually harm the structures algorithms
-	//
-	//	  EXAMPLE: a leaf's count went over the items-per-leaf, but the tree is
-	//	  already incredibly imbalanced because we are at the currently allowed
-	//	  tree-depth, thus expansion does not occur; this often happens when the
-	//	  tree contains multiples of the same value
 
 	#endregion
 
 	/// <summary>Contains the necessary type definitions for the various omnitree types.</summary>
 	public static partial class Omnitree
 	{
-		#region Spacial Types (Bound, Vector, Bounds), Location/Bounding Delegates, And Dimensional Helper Methods<# foreach (int i in dimensionsToGenerate) {
+		#region Spacial Types (Bound, Vector, Bounds), Location/Bounding Delegates, And Dimensional Helper Methods
+<# foreach (int i in dimensionsToGenerate)
+{
 // ------------------------------------------------------------------------------------------------------------------------------ 
 // PARAMETER/ARGUMENT CHAINS
-	string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
-	string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
-	string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
-	string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
-	string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
-	string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
-	string chain_Compare_AxisX_compareX = "Compare<Axis1> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Compare<Axis" + j + "> compare" + j; }
-	string chain_Equate_AxisX_equateX = "Equate<Axis1> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Equate<Axis" + j + "> equate" + j; }
-	string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
-	string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
-	//string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
+string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
+string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
+string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
+string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
+string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
+string chain_Compare_AxisX_compareX = "Compare<Axis1> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Compare<Axis" + j + "> compare" + j; }
+string chain_Equate_AxisX_equateX = "Equate<Axis1> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Equate<Axis" + j + "> equate" + j; }
+string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
+string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
+//string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
 // DOCUMENTATION
-	string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
-	string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
-	string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
+string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
+string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
+string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
 // ------------------------------------------------------------------------------------------------------------------------------ #>
 
 		#region <#= i #> Dimensional
 
-		/// <summary>Represents a <#= i #>D vector.</summary><# for (int j = 1; j <= i; j++) { #>
-
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
-		public struct Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>
-		{<# for (int j = 1; j <= i; j++) { #>
+		/// <summary>Represents a <#= i #>D vector.</summary>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		public struct Vector<A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			>
+		{
+<# for (int j = 1; j <= i; j++) { #>
 			/// <summary>The value along axis <#= j #>.</summary>
-			public A<#= j #> Axis<#= j #>;<# } #>
+			public A<#= j #> Axis<#= j #>;
+<# } #>
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> Default =>
-				new Vector<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(default(A1)<# for (int j = 2; j <= i; j++) { #>, default(A<#= j #>)<# } #>);
+			public static Vector<A1
+<# for (int j = 2; j <= i; j++) { #>, A<#= j #>
+<# } #>
+				> Default =>
+				new Vector<A1
+<# for (int j = 2; j <= i; j++) { #>
+					, A<#= j #>
+<# } #>
+					>(default(A1)
+<# for (int j = 2; j <= i; j++) { #>
+					, default(A<#= j #>)
+<# } #>
+					);
 
-			/// <summary>A location along each axis.</summary><# for (int j = 1; j <= i; j++) { #>
-			/// <param name="axis<#= j #>">The location along axis <#= j #>.</param><# } #>
-			public Vector(A1 axis1<# for (int j = 2; j <= i; j++) { #>, A<#= j #> axis<#= j #><# } #>)
-			{<# for (int j = 1; j <= i; j++) { #>
-				this.Axis<#= j #> = axis<#= j #>;<# } #>
+			/// <summary>A location along each axis.</summary>
+<# for (int j = 1; j <= i; j++) { #>
+			/// <param name="axis<#= j #>">The location along axis <#= j #>.</param>
+<# } #>
+			public Vector(A1 axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, A<#= j #> axis<#= j #>
+<# } #>
+				)
+			{
+<# for (int j = 1; j <= i; j++) { #>
+				this.Axis<#= j #> = axis<#= j #>;
+<# } #>
 			}
 		}
 
-		/// <summary>Represents a <#= i #>D bounding box.</summary><# for (int j = 1; j <= i; j++) { #>
-
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
-		public struct Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>
-		{<# for (int j = 1; j <= i; j++) { #>
+		/// <summary>Represents a <#= i #>D bounding box.</summary>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		public struct Bounds<A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>>
+		{
+<# for (int j = 1; j <= i; j++) { #>
 			/// <summary>The minimum value along the <#= j#> dimension.</summary>
 			public Bound<A<#= j #>> Min<#= j #>;
 			/// <summary>The maximum value along the <#= j#> dimension.</summary>
-			public Bound<A<#= j #>> Max<#= j #>;<# } #>
+			public Bound<A<#= j #>> Max<#= j #>;
+<# } #>
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> None =>
-				new Bounds<A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(
-					Bound<A1>.None, Bound<A1>.None<# for (int j = 2; j <= i; j++) { #>,
-					Bound<A<#= j #>>.None, Bound<A<#= j #>>.None<# } #>);
+			public static Bounds<A1
+<# for (int j = 2; j <= i; j++) { #>
+				, A<#= j #>
+<# } #>
+				> None =>
+				new Bounds<A1
+<# for (int j = 2; j <= i; j++) { #>
+					, A<#= j #>
+<# } #>
+					>(Bound<A1>.None, Bound<A1>.None
+<# for (int j = 2; j <= i; j++) { #>
+					, Bound<A<#= j #>>.None, Bound<A<#= j #>>.None
+<# } #>
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1<# for (int j = 2; j <= i; j++) { #>,
-				Bound<A<#= j #>> min<#= j #>, Bound<A<#= j #>> max<#= j #><# } #>)
-			{<# for (int j = 1; j <= i; j++) { #>
+				Bound<A1> min1, Bound<A1> max1
+<# for (int j = 2; j <= i; j++) { #>
+				, Bound<A<#= j #>> min<#= j #>, Bound<A<#= j #>> max<#= j #>
+<# } #>
+				)
+			{
+<# for (int j = 1; j <= i; j++) { #>
 				this.Min<#= j #> = min<#= j #>;
-				this.Max<#= j #> = max<#= j #>;<# } #>
+				this.Max<#= j #> = max<#= j #>;
+<# } #>
 			}
 		}
 
 		/// <summary>Delegate for locating an item in <#= i #>D space.</summary>
-		/// <typeparam name="T">The generic type of the item to locate.</typeparam><# for (int j = 1; j <= i; j++) { #>
-
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
-		/// <param name="item">The item to locate.</param><# for (int j = 1; j <= i; j++) { #>
-
-		/// <param name="axis<#= j #>">The location of the item along the <#= j #> dimension.</param><# } #>
-		public delegate void Location<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(T item, out A1 axis1<# for (int j = 2; j <= i; j++) { #>, out A<#= j #> axis<#= j #><# } #>);
+		/// <typeparam name="T">The generic type of the item to locate.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		/// <param name="item">The item to locate.</param>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <param name="axis<#= j #>">The location of the item along the <#= j #> dimension.</param>
+<# } #>
+		public delegate void Location<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			>(T item, out A1 axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, out A<#= j #> axis<#= j #>
+<# } #>
+			);
 
 		/// <summary>Delegate for getting the <#= i #>D bounding box of an item.</summary>
-		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam><# for (int j = 1; j <= i; j++) { #>
-
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
-		/// <param name="item">The item to get the bounding box of.</param><# for (int j = 1; j <= i; j++) { #>
-
+		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		/// <param name="item">The item to get the bounding box of.</param>
+<# for (int j = 1; j <= i; j++) { #>
 		/// <param name="min<#= j #>">The minimum bound of the item along the <#= j #> dimension.</param>
-		/// <param name="max<#= j #>">The maximum bound of the item along the <#= j #> dimension.</param><# } #>
-		public delegate void GetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(T item, out Bound<A1> min1, out Bound<A1> max1<# for (int j = 2; j <= i; j++) { #>, out Bound<A<#= j #>> min<#= j #>, out Bound<A<#= j #>> max<#= j #><# } #>);
+		/// <param name="max<#= j #>">The maximum bound of the item along the <#= j #> dimension.</param>
+<# } #>
+		public delegate void GetBounds<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+<# for (int j = 2; j <= i; j++) { #>
+			, out Bound<A<#= j #>> min<#= j #>, out Bound<A<#= j #>> max<#= j #>
+<# } #>
+			);
 
 		/// <summary>Delegate for getting the <#= i #>D bounding box of an item.</summary>
-		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam><# for (int j = 1; j <= i; j++) { #>
-
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
-		/// <param name="item">The item to get the bounding box of.</param><# for (int j = 1; j <= i; j++) { #>
-
+		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
+		/// <param name="item">The item to get the bounding box of.</param>
+<# for (int j = 1; j <= i; j++) { #>
 		/// <param name="min<#= j #>">The minimum bound of the item along the <#= j #> dimension.</param>
-		/// <param name="max<#= j #>">The maximum bound of the item along the <#= j #> dimension.</param><# } #>
-		public delegate void GetBoundings<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(T item, out A1 min1, out A1 max1<# for (int j = 2; j <= i; j++) { #>, out A<#= j #> min<#= j #>, out A<#= j #> max<#= j #><# } #>);
+		/// <param name="max<#= j #>">The maximum bound of the item along the <#= j #> dimension.</param>
+<# } #>
+		public delegate void GetBoundings<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			>(T item, out A1 min1, out A1 max1
+<# for (int j = 2; j <= i; j++) { #>
+			, out A<#= j #> min<#= j #>, out A<#= j #> max<#= j #>
+<# } #>
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam><# for (int j = 1; j <= i; j++) { #>
-		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam><# } #>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <typeparam name="A<#= j #>">The generic type of the <#= j #> dimension.</typeparam>
+<# } #>
 		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> ConvertToGetBounds<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>>(GetBoundings<T, A1<# for (int j = 2; j <= i; j++) { #>, A<#= j #><# } #>> getBoundings) =>
-			(T item<# for (int j = 1; j <= i; j++) { #>,
-			out Bound<A<#= j #>> minBound<#= j #>, out Bound<A<#= j #>> maxBound<#= j #><# } #>) =>
-			{<# for (int j = 1; j <= i; j++) { #>
-				A<#= j #> min<#= j #>; A<#= j #> max<#= j #>;<# } #>
-				getBoundings(item<# for (int j = 1; j <= i; j++) { #>,
-					out min<#= j #>, out max<#= j #><# } #>);<# for (int j = 1; j <= i; j++) { #>
-				minBound<#= j #> = min<#= j #>; maxBound<#= j #> = max<#= j #>;<# } #>
+		public static GetBounds<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			> ConvertToGetBounds<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			>(GetBoundings<T, A1
+<# for (int j = 2; j <= i; j++) { #>
+			, A<#= j #>
+<# } #>
+			> getBoundings) =>
+			(T item
+<# for (int j = 1; j <= i; j++) { #>
+			, out Bound<A<#= j #>> minBound<#= j #>, out Bound<A<#= j #>> maxBound<#= j #><# } #>) =>
+			{
+<# for (int j = 1; j <= i; j++) { #>
+				A<#= j #> min<#= j #>; A<#= j #> max<#= j #>;
+<# } #>
+				getBoundings(item
+<# for (int j = 1; j <= i; j++) { #>
+					, out min<#= j #>, out max<#= j #>
+<# } #>
+					);
+<# for (int j = 1; j <= i; j++) { #>
+				minBound<#= j #> = min<#= j #>; maxBound<#= j #> = max<#= j #>;
+<# } #>
 			};
 
 		/// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b,
-			<#= chain_Compare_AxisX_compareX #>) =><# for (int j = 1; j <= i; j++) { #>
+			<#= chain_Compare_AxisX_compareX #>) =>
+<# for (int j = 1; j <= i; j++) { #>
 			a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less ? false :
-			a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater ? false :<# } #>
+			a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater ? false :
+<# } #>
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		public static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector,
 			<#= chain_Compare_AxisX_compareX #>) =>
-			// if the location is not outside the bounds, it must be inside<# for (int j = 1; j <= i; j++) { #>
+			// if the location is not outside the bounds, it must be inside
+<# for (int j = 1; j <= i; j++) { #>
 			bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less ? false :
-			bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater ? false :<# } #>
+			bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater ? false :
+<# } #>
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b,
 			<#= chain_Compare_AxisX_compareX #>) =>
-			(a.Min1.Exists && !b.Min1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Min<#= j #>.Exists && !b.Min<#= j #>.Exists)<# } #> ? false :
-			(a.Max1.Exists && !b.Max1.Exists)<# for (int j = 2; j <= i; j++) { #> || (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)<# } #> ? false :<# for (int j = 1; j <= i; j++) { #>
+			(a.Min1.Exists && !b.Min1.Exists)
+<# for (int j = 2; j <= i; j++) { #>
+			|| (a.Min<#= j #>.Exists && !b.Min<#= j #>.Exists)
+<# } #>
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+<# for (int j = 2; j <= i; j++) { #>
+			|| (a.Max<#= j #>.Exists && !b.Max<#= j #>.Exists)
+<# } #>
+			? false :
+<# for (int j = 1; j <= i; j++) { #>
 			b.Min<#= j #>.Exists && a.Min<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Min<#= j #>.Value) != CompareResult.Less ? false :
-			b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater ? false :<# } #>
+			b.Max<#= j #>.Exists && a.Max<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Max<#= j #>.Value) != CompareResult.Greater ? false :
+<# } #>
 			true;
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<<#= chain_AxisX #>>(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b,
-			<#= chain_Equate_AxisX_equateX #>) =><# for (int j = 1; j <= i; j++) { #>
-			!equate<#= j #>(a.Axis<#= j #>, b.Axis<#= j #>) ? false :<# } #>
+			<#= chain_Equate_AxisX_equateX #>) =>
+<# for (int j = 1; j <= i; j++) { #>
+			!equate<#= j #>(a.Axis<#= j #>, b.Axis<#= j #>) ? false :
+<# } #>
 			true;
 
 		/// <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
@@ -248,9 +338,11 @@ namespace Towel.DataStructures
 <# } #>
 		/// <returns>True if the extended point was straddled or false if not.</returns>
 		public static bool StraddlesLines<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector,
-			<#= chain_Compare_AxisX_compareX #>) =><# for (int j = 1; j <= i; j++) { #>
+			<#= chain_Compare_AxisX_compareX #>) =>
+<# for (int j = 1; j <= i; j++) { #>
 			(!bounds.Min<#= j #>.Exists || (bounds.Min<#= j #>.Exists && compare<#= j #>(bounds.Min<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Greater)) &&
-			(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)) ? true :<# } #>
+			(!bounds.Max<#= j #>.Exists || (bounds.Max<#= j #>.Exists && compare<#= j #>(bounds.Max<#= j #>.Value, vector.Axis<#= j #>) != CompareResult.Less)) ? true :
+<# } #>
 			false;
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -271,10 +363,20 @@ namespace Towel.DataStructures
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
 		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreePoints<T, <#= chain_AxisX #>> omnitree, T removal, Equate<T> equate)
-		{<# for (int j = 1; j <= i; j++) { #>
-			Axis<#= j #> axis<#= j #>;<# } #>
-			omnitree.Locate(removal, out axis1<# for (int j = 2; j <= i; j++) { #>, out axis<#= j #><# } #>);
-			omnitree.Remove(<# for (int j = 1; j <= i; j++) { #>axis<#= j #>, <# } #>x => equate(x, removal));
+		{
+<# for (int j = 1; j <= i; j++) { #>
+			Axis<#= j #> axis<#= j #>;
+<# } #>
+			omnitree.Locate(removal, out axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, out axis<#= j #>
+<# } #>
+				);
+			omnitree.Remove(
+<# for (int j = 1; j <= i; j++) { #>
+				axis<#= j #>,
+<# } #>
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -299,67 +401,84 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
 <# } #>
-			omnitree.GetBounds(removal, out min1, out max1<# for (int j = 2; j <= i; j++) { #>, out min<#= j #>, out max<#= j #><# } #>);
-			omnitree.RemoveOverlapped(min1, max1<# for (int j = 2; j <= i; j++) { #>, min<#= j #>, max<#= j #><# } #>, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+<# for (int j = 2; j <= i; j++) { #>
+				, out min<#= j #>, out max<#= j #>
+<# } #>
+				);
+			omnitree.RemoveOverlapped(min1, max1
+<# for (int j = 2; j <= i; j++) { #>
+				, min<#= j #>, max<#= j #>
+<# } #>
+				, x => equate(x, removal));
 		}
 
-		#endregion<# } #>
+		#endregion
+<# } #>
 
 		#endregion
 	}
 
-	#region Omnitree<# foreach (int i in dimensionsToGenerate) {
+	#region Omnitree
+<# foreach (int i in dimensionsToGenerate) {
 // ------------------------------------------------------------------------------------------------------------------------------ 
-	// PARAMETER/ARGUMENT CHAINS
-	string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
-	string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
-	string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
-	string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
-	string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
-	string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
-	string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
-	string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
-	//string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
-	// DOCUMENTATION
-	string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
-	string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
-	string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
- // ------------------------------------------------------------------------------------------------------------------------------ #>
+// PARAMETER/ARGUMENT CHAINS
+string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
+string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
+string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
+string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
+string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
+string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
+string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
+string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
+//string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+// DOCUMENTATION
+string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
+string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
+string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
+// ------------------------------------------------------------------------------------------------------------------------------ #>
 
 	#region <#= i #> Dimensional
 
 	/// <summary>Inheritance base for <#= i #>D omnitrees.</summary>
-	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam><# for (int j = 1; j <= i; j++) { #>
-	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam><# } #>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam>
+<# } #>
 	public interface IOmnitree<T, <#= chain_AxisX #>> : IOmnitree<T> { }
 
-	#endregion<# } #>
+	#endregion
+<# } #>
 
 	#endregion
 	
-	#region OmnitreePoints<# foreach (int i in dimensionsToGenerate) {
+	#region OmnitreePoints
+<# foreach (int i in dimensionsToGenerate)
+{
 // ------------------------------------------------------------------------------------------------------------------------------ 
 // PARAMETER/ARGUMENT CHAINS
-	string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
-	string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
-	string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
-	string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
-	string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
-	string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
-	string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
-	string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
-	string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
+string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
+string chain_axisX = "axis1"; for (int j = 2; j <= i; j++) { chain_axisX += ", axis" + j; } 
+string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_AxisX_axisX += ", Axis" + j + " axis" + j; }
+string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
+string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
+string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
+string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
+string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
+string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
 // DOCUMENTATION
-	string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
-	string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
-	string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
+string documentation_AxisX_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The coordinate along the " + j + "D axis.</param>"; } documentation_AxisX_axisX = documentation_AxisX_axisX.Trim();
+string documentation_AxisX_minX_AxisX_maxX = string.Empty; for (int j = 1; j <= i; j++) { documentation_AxisX_minX_AxisX_maxX += "\n\t\t/// <param name=\"min" + j + "\">The minimum coordinate of the space along the " + j + " axis.</param>\n\t\t/// <param name=\"max" + j + "\">The maximum coordinate of the space along the " + j + " axis.</param>"; } documentation_AxisX_minX_AxisX_maxX = documentation_AxisX_minX_AxisX_maxX.Trim();
+string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { documentation_axisX += "\n\t\t/// <param name=\"axis" + j + "\">The axis of the removal along the  " + j + "D axis.</param>"; } documentation_axisX = documentation_axisX.Trim();
 // ------------------------------------------------------------------------------------------------------------------------------ #>
 
 	#region <#= i #> Dimensional
 
 	/// <summary>Inheritance base for <#= i #>D omnitrees that store points.</summary>
-	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam><# for (int j = 1; j <= i; j++) { #>
-	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam><# } #>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam>
+<# } #>
 	public interface IOmnitreePoints<T, <#= chain_AxisX #>> : IOmnitree<T, <#= chain_AxisX #>>
 	{
 		#region Properties
@@ -374,7 +493,11 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in <#= i #>D space.</summary>
-		Omnitree.Location<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> Locate { get; }
+		Omnitree.Location<T, Axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, Axis<#= j #>
+<# } #>
+			> Locate { get; }
 
 		#endregion
 
@@ -427,8 +550,10 @@ namespace Towel.DataStructures
 	}
 
 	/// <summary>Omnitree that stores points along <#= i #> dimensions implemented as a linked tree.</summary>
-	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam><# for (int j = 1; j <= i; j++) { #>
-	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam><# } #>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam>
+<# } #>
 	public class OmnitreePointsLinked<T, <#= chain_AxisX #>> : IOmnitreePoints<T, <#= chain_AxisX #>>
 	{
 		internal const int _dimensions = <#= i #>;
@@ -438,10 +563,18 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> _locate;<# for (int j = 1; j <= i; j++) { #>
+		internal Omnitree.Location<T, Axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, Axis<#= j #>
+<# } #>
+			> _locate;
+<# for (int j = 1; j <= i; j++) { #>
 		internal bool _defaultCompare<#= j #>;
-		internal Compare<Axis<#= j #>> _compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;<# } #>
+		internal Compare<Axis<#= j #>> _compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;
+<# } #>
 
 		#region Nested Types
 
@@ -624,59 +757,91 @@ namespace Towel.DataStructures
 		{
 			this._top = omnitree._top.Clone();
 			this._load = omnitree._load;
-			this._locate = omnitree._locate;<# for (int j = 1; j <= i; j++) { #>
+			this._locate = omnitree._locate;
+<# for (int j = 1; j <= i; j++) { #>
 			this._defaultCompare<#= j #> = omnitree._defaultCompare<#= j #>;
-			this._compare<#= j #> = omnitree._compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-			this._subdivisionOverride<#= j #> = omnitree._subdivisionOverride<#= j #>;<# } #>
+			this._compare<#= j #> = omnitree._compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			this._subdivisionOverride<#= j #> = omnitree._subdivisionOverride<#= j #>;
+<# } #>
 		}
 
 		internal OmnitreePointsLinked(
-			Omnitree.Location<T, <#= chain_AxisX #>> locate,<# for (int j = 1; j <= i; j++) { #>
+			Omnitree.Location<T, <#= chain_AxisX #>> locate,
+<# for (int j = 1; j <= i; j++) { #>
 			bool defaultCompare<#= j #>,
-			Compare<Axis<#= j #>> compare<#= j #>,<# } #>
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
-			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #><# } #>)
+			Compare<Axis<#= j #>> compare<#= j #>,
+<# } #>
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1
+<# for (int j = 2; j <= i; j++) { #>,
+			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #>
+<# } #>
+			)
 		{
 			if (locate == null)
 			{
 				throw new ArgumentNullException(nameof(locate));
-			}<# for (int j = 1; j <= i; j++) { #>
+			}
+<# for (int j = 1; j <= i; j++) { #>
 			if (compare<#= j #> == null)
 			{
 				throw new ArgumentNullException(nameof(compare<#= j #>));
-			}<# } #>
-			this._locate = locate;<# for (int j = 1; j <= i; j++) { #>
+			}
+
+<# } #>
+			this._locate = locate;
+<# for (int j = 1; j <= i; j++) { #>
 			this._defaultCompare<#= j #> = defaultCompare<#= j #>;
-			this._compare<#= j #> = compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-			this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;<# } #>
+			this._compare<#= j #> = compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;
+<# } #>
 			this._top = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
 		/// <summary>Constructs a new <#= i #>D omnitree that stores points.</summary>
-		/// <param name="locate">The delegate for locating items in <#= i #>D space.</param><# for (int j = 1; j <= i; j++) { #>
+		/// <param name="locate">The delegate for locating items in <#= i #>D space.</param>
+<# for (int j = 1; j <= i; j++) { #>
 
-		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param><# } #><# for (int j = 1; j <= i; j++) { #>
+		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param>
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
 
-		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param><# } #>
+		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param>
+<# } #>
 		public OmnitreePointsLinked(
-			Omnitree.Location<T, <#= chain_AxisX #>> locate,<# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,<# } #>
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null<# for (int j = 2; j <= i; j++) { #>,
-			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null<# } #>)
+			Omnitree.Location<T, <#= chain_AxisX #>> locate,
+<# for (int j = 1; j <= i; j++) { #>
+			Compare<Axis<#= j #>> compare<#= j #> = null,
+<# } #>
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
+<# for (int j = 2; j <= i; j++) { #>,
+			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null
+<# } #>
+			)
 			: this(
-				locate,<# for (int j = 1; j <= i; j++) { #>
+				locate,
+<# for (int j = 1; j <= i; j++) { #>
 				compare<#= j #> is null ? true : false,
-				compare<#= j #> ?? Compare.Default,<# } #>
-				subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
-				subdivisionOverride<#= j #><# } #>) { }
+				compare<#= j #> ?? Compare.Default,
+<# } #>
+				subdivisionOverride1
+<# for (int j = 2; j <= i; j++) { #>,
+				subdivisionOverride<#= j #>
+<# } #>
+				) { }
 
 		#endregion
 
 		#region Properties
 
-		/// <summary>Steps through all the items at a given coordinate.</summary><# for (int j = 1; j <= i; j++) { #>
-		/// <param name="axis<#= j #>">The coordinate along axis <#= j #>.</param><# } #>
+		/// <summary>Steps through all the items at a given coordinate.</summary>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <param name="axis<#= j #>">The coordinate along axis <#= j #>.</param>
+<# } #>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
 		public Stepper<T> this[<#= chain_AxisX_axisX #>] =>
 			step => Stepper(step, <#= chain_axisX #>);
@@ -686,9 +851,11 @@ namespace Towel.DataStructures
 
 		/// <summary>The location function the Omnitree is using.</summary>
 		public Omnitree.Location<T, <#= chain_AxisX #>> Locate { get { return this._locate; } }
+
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The comparison function the Omnitree is using along the <#= j #>D axis.</summary>
-		public Compare<Axis<#= j #>> Compare<#= j #> { get { return this._compare<#= j #>; } }<# } #>
+		public Compare<Axis<#= j #>> Compare<#= j #> { get { return this._compare<#= j #>; } }
+<# } #>
 
 		/// <summary>The current number of items in the tree.</summary>
 		public int Count { get { return this._top.Count; } }
@@ -811,7 +978,8 @@ namespace Towel.DataStructures
 //				Branch new_top = new Branch(Omnitree.Vector<<#= chain_AxisX #>>.Default, Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 //				new_top.Count = (int)additions.Length;
 //
-//<# for (int j = 1; j <= i; j++) { #>
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				//IAsyncResult result<#= j #> = null;
@@ -838,15 +1006,22 @@ namespace Towel.DataStructures
 //						action();
 //					}
 //				}
-//<# } #>
 //
-//<# for (int j = 1; j <= i; j++) { #>
+<# } #>
+//
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
 //				//	result<#= j #>.AsyncWaitHandle.WaitOne();
-//<# } #>
+//
+<# } #>
 //
 //				// build the tree
-//				Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//				Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>int.MinValue, 
+<# } #>(int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, 
+<# } #>allowMultithreading);
 //				
 //				this._top = new_top;
 //			}
@@ -870,7 +1045,8 @@ namespace Towel.DataStructures
 //				Branch new_top = new Branch(Omnitree.Vector<<#= chain_AxisX #>>.Default, Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 //				new_top.Count = (int)additions.Length;
 //
-//<# for (int j = 1; j <= i; j++) { #>
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				//IAsyncResult result<#= j #> = null;
@@ -897,35 +1073,60 @@ namespace Towel.DataStructures
 //						action();
 //					}
 //				}
-//<# } #>
 //
-//<# for (int j = 1; j <= i; j++) { #>
+<# } #>
+//
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
 //				//	result<#= j #>.AsyncWaitHandle.WaitOne();
-//<# } #>
+//
+<# } #>
 //
 //				// build the tree
-//				Add(new_top, 1, -1, additions.ToStepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//				Add(new_top, 1, -1, additions.ToStepper(), additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>int.MinValue, 
+<# } #>(int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, 
+<# } #>allowMultithreading);
 //				
 //				this._top = new_top;
 //			}
 //		}
 //
 //		
-//		internal int Add(Branch parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
-//		{<# for (int j = 1; j <= i; j++) { #>
-//			Axis<#= j #> pointOfDivision<#= j #>;<# } #>
-//<# for (int j = 1; j <= i; j++) { #>
-//			int median_axis<#= j #> = -1;<# } #>
-//			if (this._subdivisionOverride1 == null<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null<# } #>)
-//				GetMedianIndexes(initial_count, child, depth, <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, <# } #>out median_axis1<# for (int j = 2; j <= i; j++) { #>, out median_axis<#= j #><# } #>);
-//<# for (int j = 1; j <= i; j++) { #>
+//		internal int Add(Branch parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, 
+<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
+<# } #>int initial_count, 
+<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
+<# } #>bool allowMultithreading)
+//		{
+<# for (int j = 1; j <= i; j++) { #>
+//			Axis<#= j #> pointOfDivision<#= j #>;
+<# } #>
+//
+<# for (int j = 1; j <= i; j++) { #>
+//			int median_axis<#= j #> = -1;
+<# } #>
+//			if (this._subdivisionOverride1 == null
+<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null
+<# } #>)
+//				GetMedianIndexes(initial_count, child, depth, 
+<# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
+<# } #>out median_axis1
+<# for (int j = 2; j <= i; j++) { #>, out median_axis<#= j #>
+<# } #>);
+//
+<# for (int j = 1; j <= i; j++) { #>
 //			if (this._subdivisionOverride<#= j #> != null)
 //				pointOfDivision<#= j #> = this._subdivisionOverride<#= j #>(parent.Bounds, additions);
 //			else
 //				pointOfDivision<#= j #> = values<#= j #>(median_axis<#= j #>);
-//<# } #>
-//			parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #><# } #>);
+//
+<# } #>
+//			parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1
+<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #>
+<# } #>);
 //
 //			// divide the values along the medians
 //			IMap<IList<T>, <#= child_index_type #>> collection_map = new MapHashLinked<IList<T>, <#= child_index_type #>>();
@@ -961,7 +1162,11 @@ namespace Towel.DataStructures
 //			//			Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //			//			(Link<IList<T>, <#= child_index_type #>> link) =>
 //			//				{
-//			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//			//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, 
+<# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, 
+<# } #>initial_count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //			//				});
 //			//		});
 //			//	}
@@ -975,7 +1180,11 @@ namespace Towel.DataStructures
 //			//{
 //				collection_map.Pairs((v, k) =>
 //				{ 
-//					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//					ReversedChildBuilding(parent, k, depth, v.Stepper, v.Count, 
+<# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, 
+<# } #>initial_count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //				});
 //			//}
 //
@@ -985,7 +1194,11 @@ namespace Towel.DataStructures
 //			return count;
 //		}
 //
-//		int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+//		int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, 
+<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
+<# } #>int initial_count, 
+<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
+<# } #>bool allowMultithreading)
 //		{
 //			Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
 //			if (depth >= _load || count <= _load)
@@ -999,23 +1212,34 @@ namespace Towel.DataStructures
 //			{
 //				Branch new_branch = new Branch(Omnitree.Vector<<#= chain_AxisX #>>.Default, child_bounds, parent, child_index);
 //				parent[new_branch.Index] = new_branch;
-//				new_branch.Count = Add(new_branch, depth + 1, child_index, additions, count, <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, <# } #>count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//				new_branch.Count = Add(new_branch, depth + 1, child_index, additions, count, 
+<# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
+<# } #>count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //				return new_branch.Count;
 //			}
 //		}
 //
 //		/// <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-//		internal void GetMedianIndexes(int count, <#= child_index_type #> child_index, int depth, <# for (int j = 1; j <= i; j++) { #>int previous<#= j #>, <# } #>out int index1<# for (int j = 2; j <= i; j++) { #>, out int index<#= j #><# } #>)
+//		internal void GetMedianIndexes(int count, <#= child_index_type #> child_index, int depth, 
+<# for (int j = 1; j <= i; j++) { #>int previous<#= j #>, 
+<# } #>out int index1
+<# for (int j = 2; j <= i; j++) { #>, out int index<#= j #>
+<# } #>)
 //		{
 //			if (depth == 1)
-//			{<# for (int j = 1; j <= i; j++) { #>
-//				index<#= j #> = (count - 1) / 2;<# } #>
+//			{
+<# for (int j = 1; j <= i; j++) { #>
+//				index<#= j #> = (count - 1) / 2;
+<# } #>
 //				return;
 //			}
 //
 //			int splits = Compute.Power(2, depth);
 //			int mid_child_range = count / splits;
-//<# for (int j = i; j >= 1; j--) { #>
+//
+<# for (int j = i; j >= 1; j--) { #>
 //			if (child_index >= <#= (2 << (j - 1)) / 2 #>)
 //			{
 //				index<#= j #> = previous<#= j #> + mid_child_range;
@@ -1025,10 +1249,12 @@ namespace Towel.DataStructures
 //			{
 //				index<#= j #> = previous<#= j #> - mid_child_range;
 //			}
-//<# } #>
+//
+<# } #>
 //		}
 
 		#endregion
+
 <# } #>
 
 		#region single
@@ -1129,6 +1355,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<<#= chain_AxisX #>> DetermineMedians(Leaf leaf)
 		{
+
 <# for (int j = 1; j <= i; j++) { #>
 			Axis<#= j #> division<#= j #>;
 			if (_subdivisionOverride<#= j #> != null)
@@ -1146,19 +1373,26 @@ namespace Towel.DataStructures
 				Axis<#= j #>[] values = new Axis<#= j #>[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value<# for (int k = 1; k <= i; k++) { #>
-					<#= j == k ? ", out values[i]" : ", out _" #><# } #>);
+					this._locate(for_current.Value
+<# for (int k = 1; k <= i; k++) { #>
+					<#= j == k ? ", out values[i]" : ", out _" #>
+<# } #>
+					);
 				if (_defaultCompare<#= j #>) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare<#= j #>));
 				int index = (leaf.Count - 1) / 2;
 				division<#= j #> = values[index];
 			}
+
 <# } #>
 			return new Omnitree.Vector<<#= chain_AxisX #>>(
 				division1
-		<# for (int j = 2; j <= i; j++) { #>
-		, division<#= j #>
-		<# } #>		);
+		
+<# for (int j = 2; j <= i; j++) { #>
+				, division<#= j #>
+		
+<# } #>
+				);
 		}
 
 		#endregion
@@ -1167,6 +1401,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Bounds<<#= chain_AxisX #>> DetermineChildBounds(Branch branch, <#= child_index_type #> child_index)
 		{
+
 <# for (int j = i; j >= 1; j--) { #>
 			Omnitree.Bound<Axis<#= j #>> min<#= j #>, max<#= j #>;
 			if (child_index >= <#= (2 << (j - 1)) / 2 #>)
@@ -1180,6 +1415,7 @@ namespace Towel.DataStructures
 				min<#= j #> = branch.Bounds.Min<#= j #>;
 				max<#= j #> = branch.PointOfDivision.Axis<#= j #>;
 			}
+
 <# } #>
 			return new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>);
 		}
@@ -1261,7 +1497,11 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					<#= child_index_type #> child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<<#= chain_AxisX #>>(bounds.Min1.Value<# for (int j = 2; j <= i; j++) { #>, bounds.Min<#= j #>.Value<# } #>));
+					<#= child_index_type #> child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<<#= chain_AxisX #>>(bounds.Min1.Value
+<# for (int j = 2; j <= i; j++) { #>
+						, bounds.Min<#= j #>.Value
+<# } #>
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -1667,9 +1907,17 @@ namespace Towel.DataStructures
 		/// <summary>Removes all the items in a given space.</summary>
 		<#= documentation_axisX #>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #> axis<#= j #><# } #>)
+		public void Remove(Axis1 axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, Axis<#= j #> axis<#= j #>
+<# } #>
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<<#= chain_AxisX #>>(axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #><# } #>));
+			this.Remove(this._top, new Omnitree.Vector<<#= chain_AxisX #>>(axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, axis<#= j #>
+<# } #>
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
@@ -1953,8 +2201,11 @@ namespace Towel.DataStructures
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
-			Omnitree.StraddlesLines(bounds, vector<# for (int j = 1; j <= i; j++) { #>
-				, _compare<#= j #><# } #>);
+			Omnitree.StraddlesLines(bounds, vector
+<# for (int j = 1; j <= i; j++) { #>
+				, _compare<#= j #>
+<# } #>
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -1962,9 +2213,11 @@ namespace Towel.DataStructures
 		/// <returns>The computed child index based on the coordinates relative to the center of the node.</returns>
 		internal <#= child_index_type #> DetermineChildIndex(Omnitree.Vector<<#= chain_AxisX #>> pointOfDivision, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
-			<#= child_index_type #> child = 0;<# for (int j = 1; j <= i; j++) { #>
+			<#= child_index_type #> child = 0;
+<# for (int j = 1; j <= i; j++) { #>
 			if (!(this._compare<#= j #>(vector.Axis<#= j #>, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
-				child += 1 << <#= j - 1 #>;<# } #>
+				child += 1 << <#= j - 1 #>;
+<# } #>
 			return child;
 		}
 
@@ -2015,26 +2268,38 @@ namespace Towel.DataStructures
 		/// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal bool InclusionCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b) =>
-			Omnitree.InclusionCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.InclusionCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
-			Omnitree.EncapsulationCheck(bounds, vector<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.EncapsulationCheck(bounds, vector
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b) =>
-			Omnitree.EncapsulationCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.EncapsulationCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b) =>
-			Omnitree.EqualsCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, Equate.FromCompare(_compare<#= j #>)<# } #>);
+			Omnitree.EqualsCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, Equate.FromCompare(_compare<#= j #>)
+<# } #>
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -2050,9 +2315,13 @@ namespace Towel.DataStructures
 		}
 
 		internal Omnitree.Vector<<#= chain_AxisX #>> LocateVector(T value)
-		{<# for (int j = 1; j <= i; j++) { #>
-			Axis<#= j #> axis<#= j #>;<# } #>
-			this._locate(value, out axis1<# for (int j = 2; j <= i; j++) { #>, out axis<#= j #><# } #>);
+		{
+<# for (int j = 1; j <= i; j++) { #>
+			Axis<#= j #> axis<#= j #>;
+<# } #>
+			this._locate(value, out axis1
+<# for (int j = 2; j <= i; j++) { #>, out axis<#= j #>
+<# } #>);
 			return new Omnitree.Vector<<#= chain_AxisX #>>(<#= chain_axisX #>);
 		}
 
@@ -2061,11 +2330,13 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	#endregion<# } #>
+	#endregion
+<# } #>
 
 	#endregion
 
-	#region OmnitreeBounds<# foreach (int i in dimensionsToGenerate) {
+	#region OmnitreeBounds
+<# foreach (int i in dimensionsToGenerate) {
 // ------------------------------------------------------------------------------------------------------------------------------ 
 	// PARAMETER/ARGUMENT CHAINS
 	string chain_AxisX = "Axis1"; for (int j = 2; j <= i; j++) { chain_AxisX += ", Axis" + j; } 
@@ -2086,8 +2357,10 @@ namespace Towel.DataStructures
 	#region <#= i #> Dimensional
 
 	/// <summary>Inheritance base for <#= i #>D omnitrees that store bounds.</summary>
-	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam><# for (int j = 1; j <= i; j++) { #>
-	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam><# } #>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam>
+<# } #>
 	public interface IOmnitreeBounds<T, <#= chain_AxisX #>> : IOmnitree<T, <#= chain_AxisX #>>
 	{
 		#region Properties
@@ -2096,7 +2369,10 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in <#= i #>D space.</summary>
-		Omnitree.GetBounds<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #>
+<# } #>
+			> GetBounds { get; }
 
 		#endregion
 
@@ -2186,8 +2462,10 @@ namespace Towel.DataStructures
 	}
 
 	/// <summary>Omnitree that stores bounds along <#= i #> dimensions implemented as a linked tree.</summary>
-	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam><# for (int j = 1; j <= i; j++) { #>
-	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam><# } #>
+	/// <typeparam name="T">The type of items to store in the omnitree.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+	/// <typeparam name="Axis<#= j #>">The type <#= j #>D axis.</typeparam>
+<# } #>
 	public class OmnitreeBoundsLinked<T, <#= chain_AxisX #>> : IOmnitreeBounds<T, <#= chain_AxisX #>>
 	{
 		internal const int _dimensions = <#= i #>;
@@ -2197,10 +2475,17 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> _getBounds;<# for (int j = 1; j <= i; j++) { #>
+		internal Omnitree.GetBounds<T, Axis1
+<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #>
+<# } #>
+			> _getBounds;
+<# for (int j = 1; j <= i; j++) { #>
 		internal bool _defaultCompare<#= j #>;
-		internal Compare<Axis<#= j #>> _compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;<# } #>
+		internal Compare<Axis<#= j #>> _compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;
+<# } #>
 
 		#region Nested Types
 
@@ -2358,70 +2643,112 @@ namespace Towel.DataStructures
 		{
 			this._top = omnitree._top.Clone();
 			this._load = omnitree._load;
-			this._getBounds = omnitree._getBounds;<# for (int j = 1; j <= i; j++) { #>
+			this._getBounds = omnitree._getBounds;
+<# for (int j = 1; j <= i; j++) { #>
 			this._defaultCompare<#= j #> = omnitree._defaultCompare<#= j #>;
-			this._compare<#= j #> = omnitree._compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-			this._subdivisionOverride<#= j #> = omnitree._subdivisionOverride<#= j #>;<# } #>
+			this._compare<#= j #> = omnitree._compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			this._subdivisionOverride<#= j #> = omnitree._subdivisionOverride<#= j #>;
+<# } #>
 		}
 
 		internal OmnitreeBoundsLinked(
-			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,<# for (int j = 1; j <= i; j++) { #>
+			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,
+<# for (int j = 1; j <= i; j++) { #>
 			bool defaultCompare<#= j #>,
-			Compare<Axis<#= j #>> compare<#= j #>,<# } #>
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
-			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #><# } #>)
+			Compare<Axis<#= j #>> compare<#= j #>,
+<# } #>
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1
+<# for (int j = 2; j <= i; j++) { #>,
+			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #>
+<# } #>
+			)
 		{
 			if (getBounds == null)
 			{
 				throw new ArgumentNullException(nameof(getBounds));
-			}<# for (int j = 1; j <= i; j++) { #>
+			}
+<# for (int j = 1; j <= i; j++) { #>
 			if (compare<#= j #> == null)
 			{
 				throw new ArgumentNullException(nameof(compare<#= j #>));
-			}<# } #>
-			this._getBounds = getBounds;<# for (int j = 1; j <= i; j++) { #>
+			}
+<# } #>
+			this._getBounds = getBounds;
+<# for (int j = 1; j <= i; j++) { #>
 			this._defaultCompare<#= j #> = defaultCompare<#= j #>;
-			this._compare<#= j #> = compare<#= j #>;<# } #><# for (int j = 1; j <= i; j++) { #>
-			this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;<# } #>
+			this._compare<#= j #> = compare<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			this._subdivisionOverride<#= j #> = subdivisionOverride<#= j #>;
+<# } #>
 			this._top = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
 		/// <summary>Constructs a new <#= i #>D omnitree that stores bounds.</summary>
-		/// <param name="getBounds">The delegate for getting object bounds in <#= i #>D space.</param><# for (int j = 1; j <= i; j++) { #>
+		/// <param name="getBounds">The delegate for getting object bounds in <#= i #>D space.</param>
+<# for (int j = 1; j <= i; j++) { #>
 
-		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param><# } #><# for (int j = 1; j <= i; j++) { #>
+		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param>
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
 
-		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param><# } #>
+		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param>
+<# } #>
 		public OmnitreeBoundsLinked(
-			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,<# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,<# } #>
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null<# for (int j = 2; j <= i; j++) { #>,
-			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null<# } #>)
+			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,
+<# for (int j = 1; j <= i; j++) { #>
+			Compare<Axis<#= j #>> compare<#= j #> = null,
+<# } #>
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
+<# for (int j = 2; j <= i; j++) { #>,
+			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null
+<# } #>
+			)
 			: this(
-			getBounds,<# for (int j = 1; j <= i; j++) { #>
+			getBounds,
+<# for (int j = 1; j <= i; j++) { #>
 			compare<#= j #> is null ? true : false,
-			compare<#= j #> ?? Compare.Default,<# } #>
-			subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
-			subdivisionOverride<#= j #><# } #>) { }
+			compare<#= j #> ?? Compare.Default,
+<# } #>
+			subdivisionOverride1
+<# for (int j = 2; j <= i; j++) { #>,
+			subdivisionOverride<#= j #>
+<# } #>
+			) { }
 
 		/// <summary>Constructs a new <#= i #>D omnitree that stores bounds.</summary>
-		/// <param name="getBoundings">The delegate for getting object bounds in <#= i #>D space.</param><# for (int j = 1; j <= i; j++) { #>
+		/// <param name="getBoundings">The delegate for getting object bounds in <#= i #>D space.</param>
+<# for (int j = 1; j <= i; j++) { #>
+		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param>
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
 
-		/// <param name="compare<#= j #>">The delegate for comparing values along the <#= j #>D axis.</param><# } #><# for (int j = 1; j <= i; j++) { #>
-
-		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param><# } #>
+		/// <param name="subdivisionOverride<#= j #>">The subdivision overide to be used when splitting the <#= j #> dimension.</param>
+<# } #>
 		public OmnitreeBoundsLinked(
-			Omnitree.GetBoundings<T, <#= chain_AxisX #>> getBoundings,<# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,<# } #>
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null<# for (int j = 2; j <= i; j++) { #>,
-			Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null<# } #>)
+			Omnitree.GetBoundings<T, <#= chain_AxisX #>> getBoundings,
+<# for (int j = 1; j <= i; j++) { #>
+			Compare<Axis<#= j #>> compare<#= j #> = null,
+<# } #>
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
+<# for (int j = 2; j <= i; j++) { #>
+			, Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride<#= j #> = null
+<# } #>
+			)
 			: this(
-			Omnitree.ConvertToGetBounds(getBoundings),<# for (int j = 1; j <= i; j++) { #>
+			Omnitree.ConvertToGetBounds(getBoundings),
+<# for (int j = 1; j <= i; j++) { #>
 			compare<#= j #> is null ? true : false,
-			compare<#= j #> ?? Compare.Default,<# } #>
-			subdivisionOverride1<# for (int j = 2; j <= i; j++) { #>,
-			subdivisionOverride<#= j #><# } #>) { }
+			compare<#= j #> ?? Compare.Default,
+<# } #>
+			subdivisionOverride1
+<# for (int j = 2; j <= i; j++) { #>,
+			subdivisionOverride<#= j #>
+<# } #>
+			) { }
 
 		#endregion
 
@@ -2431,11 +2758,17 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in <#= i #>D space.</summary>
-		public Omnitree.GetBounds<T, Axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #><# } #>> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, Axis<#= j #>
+<# } #>
+			> GetBounds => _getBounds;
+
 
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The comparison function the Omnitree is using along the <#= j #>D axis.</summary>
-		public Compare<Axis<#= j #>> Compare<#= j #> => _compare<#= j #>;<# } #>
+		public Compare<Axis<#= j #>> Compare<#= j #> => _compare<#= j #>;
+<# } #>
 
 		/// <summary>The current number of items in the tree.</summary>
 		public int Count  => _top.Count;
@@ -2511,7 +2844,8 @@ namespace Towel.DataStructures
 //				Node new_top = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 //				new_top.Count = (int)additions.Length;
 //
-//<# for (int j = 1; j <= i; j++) { #>
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				IAsyncResult result<#= j #> = null;
@@ -2538,14 +2872,21 @@ namespace Towel.DataStructures
 //					else
 //						operation();
 //				}
-//<# } #>
 //
-//<# for (int j = 1; j <= i; j++) { #>
+<# } #>
+//
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
-//					result<#= j #>.AsyncWaitHandle.WaitOne();<# } #>
+//					result<#= j #>.AsyncWaitHandle.WaitOne();
+<# } #>
 //
 //				// build the tree
-//				Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//				Add(new_top, 1, -1, additions.ToStepper(), (int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>int.MinValue, 
+<# } #>(int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, 
+<# } #>allowMultithreading);
 //				
 //				this._top = new_top;
 //			}
@@ -2569,7 +2910,8 @@ namespace Towel.DataStructures
 //				Node new_top = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 //				new_top.Count = (int)additions.Length;
 //
-//<# for (int j = 1; j <= i; j++) { #>
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				IAsyncResult result<#= j #> = null;
@@ -2591,35 +2933,60 @@ namespace Towel.DataStructures
 //					else
 //						operation();
 //				}
-//<# } #>
 //
-//<# for (int j = 1; j <= i; j++) { #>
+<# } #>
+//
+//
+<# for (int j = 1; j <= i; j++) { #>
 //				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
 //					result<#= j #>.AsyncWaitHandle.WaitOne();
-//<# } #>
+//
+<# } #>
 //
 //				// build the tree
-//				Add(new_top, 1, -1, additions.ToStepper(), additions.Length, <# for (int j = 1; j <= i; j++) { #>int.MinValue, <# } #>(int)additions.Length, <# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, <# } #>allowMultithreading);
+//				Add(new_top, 1, -1, additions.ToStepper(), additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>int.MinValue, 
+<# } #>(int)additions.Length, 
+<# for (int j = 1; j <= i; j++) { #>(int index) => { return values<#= j #>[index]; }, 
+<# } #>allowMultithreading);
 //				
 //				this._top = new_top;
 //			}
 //		}
 //
 //		
-//		internal int Add(Node parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
-//		{<# for (int j = 1; j <= i; j++) { #>
-//			Axis<#= j #> pointOfDivision<#= j #>;<# } #>
-//<# for (int j = 1; j <= i; j++) { #>
-//			int median_axis<#= j #> = -1;<# } #>
-//			if (this._subdivisionOverride1 == null<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null<# } #>)
-//				GetMedianIndexes(initial_count, child, depth, <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, <# } #>out median_axis1<# for (int j = 2; j <= i; j++) { #>, out median_axis<#= j #><# } #>);
-//<# for (int j = 1; j <= i; j++) { #>
+//		internal int Add(Node parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, 
+<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
+<# } #>int initial_count, 
+<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
+<# } #>bool allowMultithreading)
+//		{
+<# for (int j = 1; j <= i; j++) { #>
+//			Axis<#= j #> pointOfDivision<#= j #>;
+<# } #>
+//
+<# for (int j = 1; j <= i; j++) { #>
+//			int median_axis<#= j #> = -1;
+<# } #>
+//			if (this._subdivisionOverride1 == null
+<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null
+<# } #>)
+//				GetMedianIndexes(initial_count, child, depth, 
+<# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
+<# } #>out median_axis1
+<# for (int j = 2; j <= i; j++) { #>, out median_axis<#= j #>
+<# } #>);
+//
+<# for (int j = 1; j <= i; j++) { #>
 //			if (this._subdivisionOverride<#= j #> != null)
 //				pointOfDivision<#= j #> = this._subdivisionOverride<#= j #>(parent.Bounds, additions);
 //			else
 //				pointOfDivision<#= j #> = values<#= j #>(median_axis<#= j #>);
-//<# } #>
-//			parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #><# } #>);
+//
+<# } #>
+//			parent.PointOfDivision = new Omnitree.Vector<<#= chain_AxisX #>>(pointOfDivision1
+<# for (int j = 2; j <= i; j++) { #>, pointOfDivision<#= j #>
+<# } #>);
 //
 //			// divide the values along the medians
 //			IMap<IList<T>, <#= child_index_type #>> collection_map = new MapHashLinked<IList<T>, <#= child_index_type #>>();
@@ -2655,7 +3022,11 @@ namespace Towel.DataStructures
 //						Step.EveryNth<Link<IList<T>, <#= child_index_type #>>>(collection_map.Pairs, multiTheadSafe_i + 1)(
 //						(Link<IList<T>, <#= child_index_type #>> link) =>
 //							{
-//								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//								ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, 
+<# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, 
+<# } #>initial_count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //							});
 //					});
 //				}
@@ -2669,7 +3040,11 @@ namespace Towel.DataStructures
 //			{
 //				collection_map.Pairs((Link<IList<T>, <#= child_index_type #>> link) =>
 //				{ 
-//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, <# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, <# } #>initial_count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//					ReversedChildBuilding(parent, link._2, depth, link._1.Stepper, link._1.Count, 
+<# for (int j = 1; j <= i; j++) { #>median_axis<#= j #>, 
+<# } #>initial_count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //				});
 //			}
 //
@@ -2679,7 +3054,11 @@ namespace Towel.DataStructures
 //			return count;
 //		}
 //
-//		int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, <# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, <# } #>int initial_count, <# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, <# } #>bool allowMultithreading)
+//		int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, 
+<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
+<# } #>int initial_count, 
+<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
+<# } #>bool allowMultithreading)
 //		{
 //			Omnitree.Bounds<<#= chain_AxisX #>> child_bounds = DetermineChildBounds(parent, child_index);
 //			if (depth >= _load || count <= _load)
@@ -2693,23 +3072,34 @@ namespace Towel.DataStructures
 //			{
 //				Node new_branch = new Node(Omnitree.Vector<<#= chain_AxisX #>>.Default, child_bounds, parent, child_index);
 //				parent[new_branch.Index] = new_branch;
-//				new_branch.Count = Add(new_branch, depth + 1, child_index, additions, count, <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, <# } #>count, <# for (int j = 1; j <= i; j++) { #>values<#= j #>, <# } #>allowMultithreading);
+//				new_branch.Count = Add(new_branch, depth + 1, child_index, additions, count, 
+<# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
+<# } #>count, 
+<# for (int j = 1; j <= i; j++) { #>values<#= j #>, 
+<# } #>allowMultithreading);
 //				return new_branch.Count;
 //			}
 //		}
 //
 //		/// <summary>Gets the indeces of the median values at the given position during bulk additions.</summary>
-//		internal void GetMedianIndexes(int count, <#= child_index_type #> child_index, int depth, <# for (int j = 1; j <= i; j++) { #>int previous<#= j #>, <# } #>out int index1<# for (int j = 2; j <= i; j++) { #>, out int index<#= j #><# } #>)
+//		internal void GetMedianIndexes(int count, <#= child_index_type #> child_index, int depth, 
+<# for (int j = 1; j <= i; j++) { #>int previous<#= j #>, 
+<# } #>out int index1
+<# for (int j = 2; j <= i; j++) { #>, out int index<#= j #>
+<# } #>)
 //		{
 //			if (depth == 1)
-//			{<# for (int j = 1; j <= i; j++) { #>
-//				index<#= j #> = (count - 1) / 2;<# } #>
+//			{
+<# for (int j = 1; j <= i; j++) { #>
+//				index<#= j #> = (count - 1) / 2;
+<# } #>
 //				return;
 //			}
 //
 //			int splits = Compute.Power(2, depth);
 //			int mid_child_range = count / splits;
-//<# for (int j = i; j >= 1; j--) { #>
+//
+<# for (int j = i; j >= 1; j--) { #>
 //			if (child_index >= <#= (2 << (j - 1)) / 2 #>)
 //			{
 //				index<#= j #> = previous<#= j #> + mid_child_range;
@@ -2719,10 +3109,12 @@ namespace Towel.DataStructures
 //			{
 //				index<#= j #> = previous<#= j #> - mid_child_range;
 //			}
-//<# } #>
+//
+<# } #>
 //		}
 
 		#endregion
+
 <# } #>
 
 		#region single
@@ -2837,33 +3229,53 @@ namespace Towel.DataStructures
 		{
 			try
 			{
-				// extract the values<# for (int j = 1; j <= i; j++) { #>
-				Omnitree.Bound<Axis<#= j #>>[] values<#= j #> = new Omnitree.Bound<Axis<#= j #>>[node.Count * 2];<# } #>
+				// extract the values
+<# for (int j = 1; j <= i; j++) { #>
+				Omnitree.Bound<Axis<#= j #>>[] values<#= j #> = new Omnitree.Bound<Axis<#= j #>>[node.Count * 2];
+<# } #>
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1]<# for (int j = 2; j <= i; j++) { #>, 
-					out values<#= j #>[i * 2], out values<#= j #>[i * 2 + 1]<# } #>);
+					out values1[i * 2], out values1[i * 2 + 1]
+<# for (int j = 2; j <= i; j++) { #>, 
+					out values<#= j #>[i * 2], out values<#= j #>[i * 2 + 1]
+<# } #>
+					);
 				return new Omnitree.Vector<<#= chain_AxisX #>>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)<# for (int j = 2; j <= i; j++) { #>, 
-					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)<# } #>);
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+<# for (int j = 2; j <= i; j++) { #>, 
+					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)
+<# } #>
+					);
 			}
 			catch
 			{
-				// extract the values<# for (int j = 1; j <= i; j++) { #>
-				ArrayJagged<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new ArrayJagged<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);<# } #>
+				// extract the values
+<# for (int j = 1; j <= i; j++) { #>
+				ArrayJagged<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new ArrayJagged<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);
+<# } #>
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{<# for (int j = 1; j <= i; j++) { #>
-					Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;<# } #>
+				{
+<# for (int j = 1; j <= i; j++) { #>
+					Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
+<# } #>
 					this._getBounds(for_current.Value,
-						out min1, out max1<# for (int j = 2; j <= i; j++) { #>,
-						out min<#= j #>, out max<#= j #><# } #>);<# for (int j = 1; j <= i; j++) { #>
-					values<#= j #>[i * 2] = min<#= j #>; values<#= j #>[i * 2 + 1] = max<#= j #>;<# } #>
+						out min1, out max1
+<# for (int j = 2; j <= i; j++) { #>,
+						out min<#= j #>, out max<#= j #>
+<# } #>
+						);
+<# for (int j = 1; j <= i; j++) { #>
+					values<#= j #>[i * 2] = min<#= j #>; values<#= j #>[i * 2 + 1] = max<#= j #>;
+<# } #>
 				}
 				return new Omnitree.Vector<<#= chain_AxisX #>>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)<# for (int j = 2; j <= i; j++) { #>, 
-					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)<# } #>);
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+<# for (int j = 2; j <= i; j++) { #>
+					, Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)
+<# } #>
+				);
 			}
 		}
 
@@ -2875,6 +3287,7 @@ namespace Towel.DataStructures
 		{
 			// the node parameter should always have a point of division value for this function
 			Omnitree.Vector<<#= chain_AxisX #>> pointOfDivision = node.PointOfDivision.Value;
+
 <# for (int j = i; j >= 1; j--) { #>
 			Omnitree.Bound<Axis<#= j #>> min<#= j #>, max<#= j #>;
 			if (child_index >= <#= (2 << (j - 1)) / 2 #>)
@@ -2888,6 +3301,7 @@ namespace Towel.DataStructures
 				min<#= j #> = node.Bounds.Min<#= j #>;
 				max<#= j #> = pointOfDivision.Axis<#= j #>;
 			}
+
 <# } #>
 			return new Omnitree.Bounds<<#= chain_AxisX #>>(<#= chain_minX_maxX #>);
 		}
@@ -3454,9 +3868,17 @@ namespace Towel.DataStructures
 		/// <summary>Removes all the items in a given space.</summary>
 		<#= documentation_axisX #>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1<# for (int j = 2; j <= i; j++) { #>, Axis<#= j #> axis<#= j #><# } #>)
+		public void RemoveOverlapped(Axis1 axis1
+<# for (int j = 2; j <= i; j++) { #>
+			, Axis<#= j #> axis<#= j #>
+<# } #>
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>);
+			this.RemoveOverlapped(axis1, axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, axis<#= j #>, axis<#= j #>
+<# } #>
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -3465,7 +3887,11 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(<#= chain_AxisX_axisX #>, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>, where);
+			this.RemoveOverlapped(axis1, axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, axis<#= j #>, axis<#= j #>
+<# } #>
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -3625,13 +4051,21 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
 		public void StepperOverlapped(Step<T> step, <#= chain_AxisX_axisX #>) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, axis<#= j #>, axis<#= j #>
+<# } #>
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		<#= documentation_axisX #>
 		public StepStatus StepperOverlapped(StepBreak<T> step, <#= chain_AxisX_axisX #>) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1<# for (int j = 2; j <= i; j++) { #>, axis<#= j #>, axis<#= j #><# } #>));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<<#= chain_AxisX #>>(axis1, axis1
+<# for (int j = 2; j <= i; j++) { #>
+				, axis<#= j #>, axis<#= j #>
+<# } #>
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -3648,8 +4082,11 @@ namespace Towel.DataStructures
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
-			Omnitree.StraddlesLines(bounds, vector<# for (int j = 1; j <= i; j++) { #>
-				, _compare<#= j #><# } #>);
+			Omnitree.StraddlesLines(bounds, vector
+<# for (int j = 1; j <= i; j++) { #>
+				, _compare<#= j #>
+<# } #>
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -3661,9 +4098,11 @@ namespace Towel.DataStructures
 			if (StraddlesLines(bounds, pointOfDivision))
 				return -1;
 
-			<#= child_index_type #> child = 0;<# for (int j = 1; j <= i; j++) { #>
+			<#= child_index_type #> child = 0;
+<# for (int j = 1; j <= i; j++) { #>
 			if (!bounds.Min<#= j #>.Exists || !(this._compare<#= j #>(bounds.Min<#= j #>.Value, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
-				child += 1 << <#= j - 1 #>;<# } #>
+				child += 1 << <#= j - 1 #>;
+<# } #>
 			return child;
 		}
 
@@ -3714,26 +4153,38 @@ namespace Towel.DataStructures
 		/// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal bool InclusionCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b) =>
-			Omnitree.InclusionCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.InclusionCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
-			Omnitree.EncapsulationCheck(bounds, vector<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.EncapsulationCheck(bounds, vector
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b) =>
-			Omnitree.EncapsulationCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, _compare<#= j #><# } #>);
+			Omnitree.EncapsulationCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, _compare<#= j #>
+<# } #>
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b) =>
-			Omnitree.EqualsCheck(a, b<# for (int j = 1; j <= i; j++) { #>
-			, Equate.FromCompare(_compare<#= j #>)<# } #>);
+			Omnitree.EqualsCheck(a, b
+<# for (int j = 1; j <= i; j++) { #>
+			, Equate.FromCompare(_compare<#= j #>)
+<# } #>
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -3749,14 +4200,22 @@ namespace Towel.DataStructures
 		}
 
 		internal Omnitree.Bounds<<#= chain_AxisX #>> GetBoundings(T value)
-		{<# for (int j = 1; j <= i; j++) { #>
-			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;<# } #>
+		{
+<# for (int j = 1; j <= i; j++) { #>
+			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
+<# } #>
 			this._getBounds(value,
-				out min1, out max1<# for (int j = 2; j <= i; j++) { #>,
-				out min<#= j #>, out max<#= j #><# } #>);
+				out min1, out max1
+<# for (int j = 2; j <= i; j++) { #>,
+				out min<#= j #>, out max<#= j #>
+<# } #>
+				);
 			return new Omnitree.Bounds<<#= chain_AxisX #>>(
-				min1, max1<# for (int j = 2; j <= i; j++) { #>,
-				min<#= j #>, max<#= j #><# } #>);
+				min1, max1
+<# for (int j = 2; j <= i; j++) { #>,
+				min<#= j #>, max<#= j #>
+<# } #>
+				);
 		}
 
 		#endregion
@@ -3764,7 +4223,8 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	#endregion<# } #>
+	#endregion
+<# } #>
 
 	#endregion
 }

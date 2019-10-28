@@ -762,22 +762,20 @@ namespace Towel
 
 		#region To English Words
 
-		internal static string ConvertDigit(decimal @decimal)
-		{
-			switch (@decimal)
+		internal static string ConvertDigit(decimal @decimal) =>
+			@decimal switch
 			{
-				case 1: return "One";
-				case 2: return "Two";
-				case 3: return "Three";
-				case 4: return "Four";
-				case 5: return "Five";
-				case 6: return "Six";
-				case 7: return "Seven";
-				case 8: return "Eight";
-				case 9: return "Nine";
-				default: throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!( 0 <= " + nameof(@decimal) + " <= 9)");
-			}
-		}
+				1 => "One",
+				2 => "Two",
+				3 => "Three",
+				4 => "Four",
+				5 => "Five",
+				6 => "Six",
+				7 => "Seven",
+				8 => "Eight",
+				9 => "Nine",
+				_ => throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!( 0 <= " + nameof(@decimal) + " <= 9)"),
+			};
 
 		internal static string ConvertTensDigits(decimal @decimal)
 		{
@@ -853,20 +851,20 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 999)");
 			}
 
-			switch (group)
+			return group switch
 			{
-				case 0: return result;
-				case 1: return result + " Thousand";
-				case 2: return result + " Million";
-				case 3: return result + " Billion";
-				case 4: return result + " Trillion";
-				case 5: return result + " Quadrillion";
-				case 6: return result + " Quintillion";
-				case 7: return result + " Sextillion";
-				case 8: return result + " Septillion";
-				case 9: return result + " Octillion";
-				default: throw new ArgumentOutOfRangeException(nameof(group), group, "!(0 <= " + nameof(group) + " <= 9) Decimal To Words Only Supports Up To (Octillion)");
-			}
+				0 => result,
+				1 => result + " Thousand",
+				2 => result + " Million",
+				3 => result + " Billion",
+				4 => result + " Trillion",
+				5 => result + " Quadrillion",
+				6 => result + " Quintillion",
+				7 => result + " Sextillion",
+				8 => result + " Septillion",
+				9 => result + " Octillion",
+				_ => throw new ArgumentOutOfRangeException(nameof(group), group, "!(0 <= " + nameof(group) + " <= 9) Decimal To Words Only Supports Up To (Octillion)"),
+			};
 		}
 
 		internal static string ConvertWholeNumber(decimal @decimal)
@@ -907,39 +905,39 @@ namespace Towel
 			decimal decimalAsWholeNumber = decimal.Parse(decimal_ToString);
 			string result = ConvertWholeNumber(decimalAsWholeNumber);
 			int digitCount = decimal_ToString.Length;
-			switch (digitCount)
+			result += digitCount switch
 			{
-				case 1: result += " Tenths"; break;
-				case 2: result += " Hundredths"; break;
-				case 3: result += " Thousandths"; break;
-				case 4: result += " Ten-Thousandths"; break;
-				case 5: result += " Hundred-Thousandths"; break;
-				case 6: result += " Millionths"; break;
-				case 7: result += " Ten-Millionths"; break;
-				case 8: result += " Hundred-Millionths"; break;
-				case 9: result += " Billionths"; break;
-				case 10: result += " Ten-Billionths"; break;
-				case 11: result += " Hundred-Billionths"; break;
-				case 12: result += " Trilionths"; break;
-				case 13: result += " Ten-Trilionths"; break;
-				case 14: result += " Hundred-Trilionths"; break;
-				case 15: result += " Quadrillionths"; break;
-				case 16: result += " Ten-Quadrillionths"; break;
-				case 17: result += " Hundred-Quadrillionths"; break;
-				case 18: result += " Quintrillionths"; break;
-				case 19: result += " Ten-Quintrillionths"; break;
-				case 20: result += " Hundred-Quintrillionths"; break;
-				case 21: result += " Sextillionths"; break;
-				case 22: result += " Ten-Sextillionths"; break;
-				case 23: result += " Hundred-Sextillionths"; break;
-				case 24: result += " Septillionths"; break;
-				case 25: result += " Ten-Septillionths"; break;
-				case 26: result += " Hundred-Septillionths"; break;
-				case 27: result += " Octillionths"; break;
-				case 28: result += " Ten-Octillionths"; break;
-				case 29: result += " Hundred-Octillionths"; break;
-				default: throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "Towel's decimal to words function only supports up to Hundred-Octillionths decimal places.");
-			}
+				1 => " Tenths",
+				2 => " Hundredths",
+				3 => " Thousandths",
+				4 => " Ten-Thousandths",
+				5 => " Hundred-Thousandths",
+				6 => " Millionths",
+				7 => " Ten-Millionths",
+				8 => " Hundred-Millionths",
+				9 => " Billionths",
+				10 => " Ten-Billionths",
+				11 => " Hundred-Billionths",
+				12 => " Trilionths",
+				13 => " Ten-Trilionths",
+				14 => " Hundred-Trilionths",
+				15 => " Quadrillionths",
+				16 => " Ten-Quadrillionths",
+				17 => " Hundred-Quadrillionths",
+				18 => " Quintrillionths",
+				19 => " Ten-Quintrillionths",
+				20 => " Hundred-Quintrillionths",
+				21 => " Sextillionths",
+				22 => " Ten-Sextillionths",
+				23 => " Hundred-Sextillionths",
+				24 => " Septillionths",
+				25 => " Ten-Septillionths",
+				26 => " Hundred-Septillionths",
+				27 => " Octillionths",
+				28 => " Ten-Octillionths",
+				29 => " Hundred-Octillionths",
+				_ => throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "Towel's decimal to words function only supports up to Hundred-Octillionths decimal places."),
+			};
 			return result;
 		}
 

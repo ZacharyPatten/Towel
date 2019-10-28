@@ -178,7 +178,7 @@ namespace Mathematics
 
 			// Lets copy a value in the array to ensure there is at least one 
 			// duplicate (so the "Mode" example will has something to show)
-			dataArray[dataArray.Length - 1] = dataArray[0];
+			dataArray[^1] = dataArray[0];
 
 			// Print Data
 			Console.WriteLine("    data: [" + string.Join(", ", dataArray.Select(x => Format(x))) + "]");

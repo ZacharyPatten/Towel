@@ -5,7 +5,6 @@
 //------------------------------------------------------------------------------
 
 using System;
-using Towel.Mathematics;
 using System.Numerics;
 
 namespace Towel.DataStructures
@@ -59,32 +58,6 @@ namespace Towel.DataStructures
 	//                   4 (behind 0)
 	//
 	//               -1D <-----------> +1D
-	//
-	// Functionality------------------------------------------------------
-	//
-	// Load Variables:
-	//
-	// There are 2 load variables: 1) items-per-leaf and 2) tree-depth. These are
-	// recomputed after additions and removals.
-	//
-	//   1) items-per-leaf
-	//
-	//	  DESCRIPTION: indicates how many items can be placed in a leaf before a
-	//	  tree expansion should occur
-	//
-	//	  EXAMPLE: if the current items-per-leaf value is 7 but we just added 8 
-	//	  items to a leaf, that leaf must become a branch and its contents must
-	//	  be divided up into new leaves of the new branch
-	//
-	//   2) tree-depth
-	//
-	//	  DESCRIPTION: indicates the currently allowed tree depth preventing
-	//	  tree expansion when it would actually harm the structures algorithms
-	//
-	//	  EXAMPLE: a leaf's count went over the items-per-leaf, but the tree is
-	//	  already incredibly imbalanced because we are at the currently allowed
-	//	  tree-depth, thus expansion does not occur; this often happens when the
-	//	  tree contains multiples of the same value
 
 	#endregion
 
@@ -97,18 +70,23 @@ namespace Towel.DataStructures
 
 		/// <summary>Represents a 1D vector.</summary>
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
-		public struct Vector<A1>
+		public struct Vector<A1
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1> Default =>
-				new Vector<A1>(default(A1));
+			public static Vector<A1
+				> Default =>
+				new Vector<A1
+					>(default(A1)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
-			public Vector(A1 axis1)
+			public Vector(A1 axis1
+				)
 			{
 				this.Axis1 = axis1;
 			}
@@ -116,7 +94,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Represents a 1D bounding box.</summary>
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
-		public struct Bounds<A1>
+		public struct Bounds<A1
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -124,13 +103,16 @@ namespace Towel.DataStructures
 			public Bound<A1> Max1;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1> None =>
-				new Bounds<A1>(
-					Bound<A1>.None, Bound<A1>.None);
+			public static Bounds<A1
+				> None =>
+				new Bounds<A1
+					>(Bound<A1>.None, Bound<A1>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1)
+				Bound<A1> min1, Bound<A1> max1
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -142,7 +124,9 @@ namespace Towel.DataStructures
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
 		/// <param name="item">The item to locate.</param>
 		/// <param name="axis1">The location of the item along the 1 dimension.</param>
-		public delegate void Location<T, A1>(T item, out A1 axis1);
+		public delegate void Location<T, A1
+			>(T item, out A1 axis1
+			);
 
 		/// <summary>Delegate for getting the 1D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -150,7 +134,9 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to get the bounding box of.</param>
 		/// <param name="min1">The minimum bound of the item along the 1 dimension.</param>
 		/// <param name="max1">The maximum bound of the item along the 1 dimension.</param>
-		public delegate void GetBounds<T, A1>(T item, out Bound<A1> min1, out Bound<A1> max1);
+		public delegate void GetBounds<T, A1
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			);
 
 		/// <summary>Delegate for getting the 1D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -158,18 +144,26 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to get the bounding box of.</param>
 		/// <param name="min1">The minimum bound of the item along the 1 dimension.</param>
 		/// <param name="max1">The maximum bound of the item along the 1 dimension.</param>
-		public delegate void GetBoundings<T, A1>(T item, out A1 min1, out A1 max1);
+		public delegate void GetBoundings<T, A1
+			>(T item, out A1 min1, out A1 max1
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1> ConvertToGetBounds<T, A1>(GetBoundings<T, A1> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1) =>
+		public static GetBounds<T, A1
+			> ConvertToGetBounds<T, A1
+			>(GetBoundings<T, A1
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1) =>
 			{
 				A1 min1; A1 max1;
-				getBoundings(item,
-					out min1, out max1);
+				getBoundings(item
+					, out min1, out max1
+					);
 				minBound1 = min1; maxBound1 = max1;
 			};
 
@@ -194,8 +188,10 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1>(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b,
 			Compare<Axis1> compare1) =>
-			(a.Min1.Exists && !b.Min1.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			true;
@@ -235,8 +231,11 @@ namespace Towel.DataStructures
 		public static void Remove<T, Axis1>(this IOmnitreePoints<T, Axis1> omnitree, T removal, Equate<T> equate)
 		{
 			Axis1 axis1;
-			omnitree.Locate(removal, out axis1);
-			omnitree.Remove(axis1, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				);
+			omnitree.Remove(
+				axis1,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -255,8 +254,10 @@ namespace Towel.DataStructures
 		public static void Remove<T, Axis1>(this IOmnitreeBounds<T, Axis1> omnitree,T removal, Equate<T> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-			omnitree.GetBounds(removal, out min1, out max1);
-			omnitree.RemoveOverlapped(min1, max1, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -266,7 +267,9 @@ namespace Towel.DataStructures
 		/// <summary>Represents a 2D vector.</summary>
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
-		public struct Vector<A1, A2>
+		public struct Vector<A1
+			, A2
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -274,13 +277,21 @@ namespace Towel.DataStructures
 			public A2 Axis2;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2> Default =>
-				new Vector<A1, A2>(default(A1), default(A2));
+			public static Vector<A1
+, A2
+				> Default =>
+				new Vector<A1
+					, A2
+					>(default(A1)
+					, default(A2)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
 			/// <param name="axis2">The location along axis 2.</param>
-			public Vector(A1 axis1, A2 axis2)
+			public Vector(A1 axis1
+				, A2 axis2
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -290,7 +301,9 @@ namespace Towel.DataStructures
 		/// <summary>Represents a 2D bounding box.</summary>
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
-		public struct Bounds<A1, A2>
+		public struct Bounds<A1
+			, A2
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -302,15 +315,20 @@ namespace Towel.DataStructures
 			public Bound<A2> Max2;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2> None =>
-				new Bounds<A1, A2>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None);
+			public static Bounds<A1
+				, A2
+				> None =>
+				new Bounds<A1
+					, A2
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -326,7 +344,11 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to locate.</param>
 		/// <param name="axis1">The location of the item along the 1 dimension.</param>
 		/// <param name="axis2">The location of the item along the 2 dimension.</param>
-		public delegate void Location<T, A1, A2>(T item, out A1 axis1, out A2 axis2);
+		public delegate void Location<T, A1
+			, A2
+			>(T item, out A1 axis1
+			, out A2 axis2
+			);
 
 		/// <summary>Delegate for getting the 2D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -337,7 +359,11 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum bound of the item along the 1 dimension.</param>
 		/// <param name="min2">The minimum bound of the item along the 2 dimension.</param>
 		/// <param name="max2">The maximum bound of the item along the 2 dimension.</param>
-		public delegate void GetBounds<T, A1, A2>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2);
+		public delegate void GetBounds<T, A1
+			, A2
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			);
 
 		/// <summary>Delegate for getting the 2D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -348,21 +374,34 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum bound of the item along the 1 dimension.</param>
 		/// <param name="min2">The minimum bound of the item along the 2 dimension.</param>
 		/// <param name="max2">The maximum bound of the item along the 2 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2);
+		public delegate void GetBoundings<T, A1
+			, A2
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2> ConvertToGetBounds<T, A1, A2>(GetBoundings<T, A1, A2> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2) =>
+		public static GetBounds<T, A1
+			, A2
+			> ConvertToGetBounds<T, A1
+			, A2
+			>(GetBoundings<T, A1
+			, A2
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 			};
@@ -392,8 +431,12 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -443,8 +486,13 @@ namespace Towel.DataStructures
 		{
 			Axis1 axis1;
 			Axis2 axis2;
-			omnitree.Locate(removal, out axis1, out axis2);
-			omnitree.Remove(axis1, axis2, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -466,8 +514,12 @@ namespace Towel.DataStructures
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -478,7 +530,10 @@ namespace Towel.DataStructures
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
-		public struct Vector<A1, A2, A3>
+		public struct Vector<A1
+			, A2
+			, A3
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -488,14 +543,26 @@ namespace Towel.DataStructures
 			public A3 Axis3;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2, A3> Default =>
-				new Vector<A1, A2, A3>(default(A1), default(A2), default(A3));
+			public static Vector<A1
+, A2
+, A3
+				> Default =>
+				new Vector<A1
+					, A2
+					, A3
+					>(default(A1)
+					, default(A2)
+					, default(A3)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
 			/// <param name="axis2">The location along axis 2.</param>
 			/// <param name="axis3">The location along axis 3.</param>
-			public Vector(A1 axis1, A2 axis2, A3 axis3)
+			public Vector(A1 axis1
+				, A2 axis2
+				, A3 axis3
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -507,7 +574,10 @@ namespace Towel.DataStructures
 		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
-		public struct Bounds<A1, A2, A3>
+		public struct Bounds<A1
+			, A2
+			, A3
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -523,17 +593,24 @@ namespace Towel.DataStructures
 			public Bound<A3> Max3;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2, A3> None =>
-				new Bounds<A1, A2, A3>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None,
-					Bound<A3>.None, Bound<A3>.None);
+			public static Bounds<A1
+				, A2
+				, A3
+				> None =>
+				new Bounds<A1
+					, A2
+					, A3
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					, Bound<A3>.None, Bound<A3>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2,
-				Bound<A3> min3, Bound<A3> max3)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				, Bound<A3> min3, Bound<A3> max3
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -553,7 +630,13 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The location of the item along the 1 dimension.</param>
 		/// <param name="axis2">The location of the item along the 2 dimension.</param>
 		/// <param name="axis3">The location of the item along the 3 dimension.</param>
-		public delegate void Location<T, A1, A2, A3>(T item, out A1 axis1, out A2 axis2, out A3 axis3);
+		public delegate void Location<T, A1
+			, A2
+			, A3
+			>(T item, out A1 axis1
+			, out A2 axis2
+			, out A3 axis3
+			);
 
 		/// <summary>Delegate for getting the 3D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -567,7 +650,13 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum bound of the item along the 2 dimension.</param>
 		/// <param name="min3">The minimum bound of the item along the 3 dimension.</param>
 		/// <param name="max3">The maximum bound of the item along the 3 dimension.</param>
-		public delegate void GetBounds<T, A1, A2, A3>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2, out Bound<A3> min3, out Bound<A3> max3);
+		public delegate void GetBounds<T, A1
+			, A2
+			, A3
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			, out Bound<A3> min3, out Bound<A3> max3
+			);
 
 		/// <summary>Delegate for getting the 3D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -581,24 +670,42 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum bound of the item along the 2 dimension.</param>
 		/// <param name="min3">The minimum bound of the item along the 3 dimension.</param>
 		/// <param name="max3">The maximum bound of the item along the 3 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2, A3>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2, out A3 min3, out A3 max3);
+		public delegate void GetBoundings<T, A1
+			, A2
+			, A3
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			, out A3 min3, out A3 max3
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2, A3> ConvertToGetBounds<T, A1, A2, A3>(GetBoundings<T, A1, A2, A3> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2,
-			out Bound<A3> minBound3, out Bound<A3> maxBound3) =>
+		public static GetBounds<T, A1
+			, A2
+			, A3
+			> ConvertToGetBounds<T, A1
+			, A2
+			, A3
+			>(GetBoundings<T, A1
+			, A2
+			, A3
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2			, out Bound<A3> minBound3, out Bound<A3> maxBound3) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
 				A3 min3; A3 max3;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2,
-					out min3, out max3);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					, out min3, out max3
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 				minBound3 = min3; maxBound3 = max3;
@@ -633,8 +740,14 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			|| (a.Min3.Exists && !b.Min3.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			|| (a.Max3.Exists && !b.Max3.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -694,8 +807,15 @@ namespace Towel.DataStructures
 			Axis1 axis1;
 			Axis2 axis2;
 			Axis3 axis3;
-			omnitree.Locate(removal, out axis1, out axis2, out axis3);
-			omnitree.Remove(axis1, axis2, axis3, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				, out axis3
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				axis3,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -720,8 +840,14 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 			Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2, out min3, out max3);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, min3, max3, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				, out min3, out max3
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, min3, max3
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -733,7 +859,11 @@ namespace Towel.DataStructures
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
-		public struct Vector<A1, A2, A3, A4>
+		public struct Vector<A1
+			, A2
+			, A3
+			, A4
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -745,15 +875,31 @@ namespace Towel.DataStructures
 			public A4 Axis4;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2, A3, A4> Default =>
-				new Vector<A1, A2, A3, A4>(default(A1), default(A2), default(A3), default(A4));
+			public static Vector<A1
+, A2
+, A3
+, A4
+				> Default =>
+				new Vector<A1
+					, A2
+					, A3
+					, A4
+					>(default(A1)
+					, default(A2)
+					, default(A3)
+					, default(A4)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
 			/// <param name="axis2">The location along axis 2.</param>
 			/// <param name="axis3">The location along axis 3.</param>
 			/// <param name="axis4">The location along axis 4.</param>
-			public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4)
+			public Vector(A1 axis1
+				, A2 axis2
+				, A3 axis3
+				, A4 axis4
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -767,7 +913,11 @@ namespace Towel.DataStructures
 		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
-		public struct Bounds<A1, A2, A3, A4>
+		public struct Bounds<A1
+			, A2
+			, A3
+			, A4
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -787,19 +937,28 @@ namespace Towel.DataStructures
 			public Bound<A4> Max4;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2, A3, A4> None =>
-				new Bounds<A1, A2, A3, A4>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None,
-					Bound<A3>.None, Bound<A3>.None,
-					Bound<A4>.None, Bound<A4>.None);
+			public static Bounds<A1
+				, A2
+				, A3
+				, A4
+				> None =>
+				new Bounds<A1
+					, A2
+					, A3
+					, A4
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					, Bound<A3>.None, Bound<A3>.None
+					, Bound<A4>.None, Bound<A4>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2,
-				Bound<A3> min3, Bound<A3> max3,
-				Bound<A4> min4, Bound<A4> max4)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				, Bound<A3> min3, Bound<A3> max3
+				, Bound<A4> min4, Bound<A4> max4
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -823,7 +982,15 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The location of the item along the 2 dimension.</param>
 		/// <param name="axis3">The location of the item along the 3 dimension.</param>
 		/// <param name="axis4">The location of the item along the 4 dimension.</param>
-		public delegate void Location<T, A1, A2, A3, A4>(T item, out A1 axis1, out A2 axis2, out A3 axis3, out A4 axis4);
+		public delegate void Location<T, A1
+			, A2
+			, A3
+			, A4
+			>(T item, out A1 axis1
+			, out A2 axis2
+			, out A3 axis3
+			, out A4 axis4
+			);
 
 		/// <summary>Delegate for getting the 4D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -840,7 +1007,15 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum bound of the item along the 3 dimension.</param>
 		/// <param name="min4">The minimum bound of the item along the 4 dimension.</param>
 		/// <param name="max4">The maximum bound of the item along the 4 dimension.</param>
-		public delegate void GetBounds<T, A1, A2, A3, A4>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2, out Bound<A3> min3, out Bound<A3> max3, out Bound<A4> min4, out Bound<A4> max4);
+		public delegate void GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			, out Bound<A3> min3, out Bound<A3> max3
+			, out Bound<A4> min4, out Bound<A4> max4
+			);
 
 		/// <summary>Delegate for getting the 4D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -857,27 +1032,50 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum bound of the item along the 3 dimension.</param>
 		/// <param name="min4">The minimum bound of the item along the 4 dimension.</param>
 		/// <param name="max4">The maximum bound of the item along the 4 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2, A3, A4>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2, out A3 min3, out A3 max3, out A4 min4, out A4 max4);
+		public delegate void GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			, out A3 min3, out A3 max3
+			, out A4 min4, out A4 max4
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2, A3, A4> ConvertToGetBounds<T, A1, A2, A3, A4>(GetBoundings<T, A1, A2, A3, A4> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2,
-			out Bound<A3> minBound3, out Bound<A3> maxBound3,
-			out Bound<A4> minBound4, out Bound<A4> maxBound4) =>
+		public static GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			> ConvertToGetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			>(GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2			, out Bound<A3> minBound3, out Bound<A3> maxBound3			, out Bound<A4> minBound4, out Bound<A4> maxBound4) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
 				A3 min3; A3 max3;
 				A4 min4; A4 max4;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2,
-					out min3, out max3,
-					out min4, out max4);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					, out min3, out max3
+					, out min4, out max4
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 				minBound3 = min3; maxBound3 = max3;
@@ -917,8 +1115,16 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			|| (a.Min3.Exists && !b.Min3.Exists)
+			|| (a.Min4.Exists && !b.Min4.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			|| (a.Max3.Exists && !b.Max3.Exists)
+			|| (a.Max4.Exists && !b.Max4.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -988,8 +1194,17 @@ namespace Towel.DataStructures
 			Axis2 axis2;
 			Axis3 axis3;
 			Axis4 axis4;
-			omnitree.Locate(removal, out axis1, out axis2, out axis3, out axis4);
-			omnitree.Remove(axis1, axis2, axis3, axis4, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				, out axis3
+				, out axis4
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				axis3,
+				axis4,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -1017,8 +1232,16 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 			Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 			Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2, out min3, out max3, out min4, out max4);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, min3, max3, min4, max4, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				, out min3, out max3
+				, out min4, out max4
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, min3, max3
+				, min4, max4
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -1031,7 +1254,12 @@ namespace Towel.DataStructures
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
-		public struct Vector<A1, A2, A3, A4, A5>
+		public struct Vector<A1
+			, A2
+			, A3
+			, A4
+			, A5
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -1045,8 +1273,23 @@ namespace Towel.DataStructures
 			public A5 Axis5;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2, A3, A4, A5> Default =>
-				new Vector<A1, A2, A3, A4, A5>(default(A1), default(A2), default(A3), default(A4), default(A5));
+			public static Vector<A1
+, A2
+, A3
+, A4
+, A5
+				> Default =>
+				new Vector<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					>(default(A1)
+					, default(A2)
+					, default(A3)
+					, default(A4)
+					, default(A5)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
@@ -1054,7 +1297,12 @@ namespace Towel.DataStructures
 			/// <param name="axis3">The location along axis 3.</param>
 			/// <param name="axis4">The location along axis 4.</param>
 			/// <param name="axis5">The location along axis 5.</param>
-			public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5)
+			public Vector(A1 axis1
+				, A2 axis2
+				, A3 axis3
+				, A4 axis4
+				, A5 axis5
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -1070,7 +1318,12 @@ namespace Towel.DataStructures
 		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
-		public struct Bounds<A1, A2, A3, A4, A5>
+		public struct Bounds<A1
+			, A2
+			, A3
+			, A4
+			, A5
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -1094,21 +1347,32 @@ namespace Towel.DataStructures
 			public Bound<A5> Max5;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2, A3, A4, A5> None =>
-				new Bounds<A1, A2, A3, A4, A5>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None,
-					Bound<A3>.None, Bound<A3>.None,
-					Bound<A4>.None, Bound<A4>.None,
-					Bound<A5>.None, Bound<A5>.None);
+			public static Bounds<A1
+				, A2
+				, A3
+				, A4
+				, A5
+				> None =>
+				new Bounds<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					, Bound<A3>.None, Bound<A3>.None
+					, Bound<A4>.None, Bound<A4>.None
+					, Bound<A5>.None, Bound<A5>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2,
-				Bound<A3> min3, Bound<A3> max3,
-				Bound<A4> min4, Bound<A4> max4,
-				Bound<A5> min5, Bound<A5> max5)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				, Bound<A3> min3, Bound<A3> max3
+				, Bound<A4> min4, Bound<A4> max4
+				, Bound<A5> min5, Bound<A5> max5
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -1136,7 +1400,17 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The location of the item along the 3 dimension.</param>
 		/// <param name="axis4">The location of the item along the 4 dimension.</param>
 		/// <param name="axis5">The location of the item along the 5 dimension.</param>
-		public delegate void Location<T, A1, A2, A3, A4, A5>(T item, out A1 axis1, out A2 axis2, out A3 axis3, out A4 axis4, out A5 axis5);
+		public delegate void Location<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			>(T item, out A1 axis1
+			, out A2 axis2
+			, out A3 axis3
+			, out A4 axis4
+			, out A5 axis5
+			);
 
 		/// <summary>Delegate for getting the 5D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1156,7 +1430,17 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum bound of the item along the 4 dimension.</param>
 		/// <param name="min5">The minimum bound of the item along the 5 dimension.</param>
 		/// <param name="max5">The maximum bound of the item along the 5 dimension.</param>
-		public delegate void GetBounds<T, A1, A2, A3, A4, A5>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2, out Bound<A3> min3, out Bound<A3> max3, out Bound<A4> min4, out Bound<A4> max4, out Bound<A5> min5, out Bound<A5> max5);
+		public delegate void GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			, out Bound<A3> min3, out Bound<A3> max3
+			, out Bound<A4> min4, out Bound<A4> max4
+			, out Bound<A5> min5, out Bound<A5> max5
+			);
 
 		/// <summary>Delegate for getting the 5D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1176,30 +1460,58 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum bound of the item along the 4 dimension.</param>
 		/// <param name="min5">The minimum bound of the item along the 5 dimension.</param>
 		/// <param name="max5">The maximum bound of the item along the 5 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2, A3, A4, A5>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2, out A3 min3, out A3 max3, out A4 min4, out A4 max4, out A5 min5, out A5 max5);
+		public delegate void GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			, out A3 min3, out A3 max3
+			, out A4 min4, out A4 max4
+			, out A5 min5, out A5 max5
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2, A3, A4, A5> ConvertToGetBounds<T, A1, A2, A3, A4, A5>(GetBoundings<T, A1, A2, A3, A4, A5> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2,
-			out Bound<A3> minBound3, out Bound<A3> maxBound3,
-			out Bound<A4> minBound4, out Bound<A4> maxBound4,
-			out Bound<A5> minBound5, out Bound<A5> maxBound5) =>
+		public static GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			> ConvertToGetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			>(GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2			, out Bound<A3> minBound3, out Bound<A3> maxBound3			, out Bound<A4> minBound4, out Bound<A4> maxBound4			, out Bound<A5> minBound5, out Bound<A5> maxBound5) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
 				A3 min3; A3 max3;
 				A4 min4; A4 max4;
 				A5 min5; A5 max5;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2,
-					out min3, out max3,
-					out min4, out max4,
-					out min5, out max5);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					, out min3, out max3
+					, out min4, out max4
+					, out min5, out max5
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 				minBound3 = min3; maxBound3 = max3;
@@ -1244,8 +1556,18 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			|| (a.Min3.Exists && !b.Min3.Exists)
+			|| (a.Min4.Exists && !b.Min4.Exists)
+			|| (a.Min5.Exists && !b.Min5.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			|| (a.Max3.Exists && !b.Max3.Exists)
+			|| (a.Max4.Exists && !b.Max4.Exists)
+			|| (a.Max5.Exists && !b.Max5.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -1325,8 +1647,19 @@ namespace Towel.DataStructures
 			Axis3 axis3;
 			Axis4 axis4;
 			Axis5 axis5;
-			omnitree.Locate(removal, out axis1, out axis2, out axis3, out axis4, out axis5);
-			omnitree.Remove(axis1, axis2, axis3, axis4, axis5, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				, out axis3
+				, out axis4
+				, out axis5
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				axis3,
+				axis4,
+				axis5,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -1357,8 +1690,18 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 			Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 			Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2, out min3, out max3, out min4, out max4, out min5, out max5);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				, out min3, out max3
+				, out min4, out max4
+				, out min5, out max5
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, min3, max3
+				, min4, max4
+				, min5, max5
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -1372,7 +1715,13 @@ namespace Towel.DataStructures
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
 		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
-		public struct Vector<A1, A2, A3, A4, A5, A6>
+		public struct Vector<A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -1388,8 +1737,26 @@ namespace Towel.DataStructures
 			public A6 Axis6;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2, A3, A4, A5, A6> Default =>
-				new Vector<A1, A2, A3, A4, A5, A6>(default(A1), default(A2), default(A3), default(A4), default(A5), default(A6));
+			public static Vector<A1
+, A2
+, A3
+, A4
+, A5
+, A6
+				> Default =>
+				new Vector<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					, A6
+					>(default(A1)
+					, default(A2)
+					, default(A3)
+					, default(A4)
+					, default(A5)
+					, default(A6)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
@@ -1398,7 +1765,13 @@ namespace Towel.DataStructures
 			/// <param name="axis4">The location along axis 4.</param>
 			/// <param name="axis5">The location along axis 5.</param>
 			/// <param name="axis6">The location along axis 6.</param>
-			public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5, A6 axis6)
+			public Vector(A1 axis1
+				, A2 axis2
+				, A3 axis3
+				, A4 axis4
+				, A5 axis5
+				, A6 axis6
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -1416,7 +1789,13 @@ namespace Towel.DataStructures
 		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
 		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
-		public struct Bounds<A1, A2, A3, A4, A5, A6>
+		public struct Bounds<A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -1444,23 +1823,36 @@ namespace Towel.DataStructures
 			public Bound<A6> Max6;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2, A3, A4, A5, A6> None =>
-				new Bounds<A1, A2, A3, A4, A5, A6>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None,
-					Bound<A3>.None, Bound<A3>.None,
-					Bound<A4>.None, Bound<A4>.None,
-					Bound<A5>.None, Bound<A5>.None,
-					Bound<A6>.None, Bound<A6>.None);
+			public static Bounds<A1
+				, A2
+				, A3
+				, A4
+				, A5
+				, A6
+				> None =>
+				new Bounds<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					, A6
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					, Bound<A3>.None, Bound<A3>.None
+					, Bound<A4>.None, Bound<A4>.None
+					, Bound<A5>.None, Bound<A5>.None
+					, Bound<A6>.None, Bound<A6>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2,
-				Bound<A3> min3, Bound<A3> max3,
-				Bound<A4> min4, Bound<A4> max4,
-				Bound<A5> min5, Bound<A5> max5,
-				Bound<A6> min6, Bound<A6> max6)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				, Bound<A3> min3, Bound<A3> max3
+				, Bound<A4> min4, Bound<A4> max4
+				, Bound<A5> min5, Bound<A5> max5
+				, Bound<A6> min6, Bound<A6> max6
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -1492,7 +1884,19 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The location of the item along the 4 dimension.</param>
 		/// <param name="axis5">The location of the item along the 5 dimension.</param>
 		/// <param name="axis6">The location of the item along the 6 dimension.</param>
-		public delegate void Location<T, A1, A2, A3, A4, A5, A6>(T item, out A1 axis1, out A2 axis2, out A3 axis3, out A4 axis4, out A5 axis5, out A6 axis6);
+		public delegate void Location<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			>(T item, out A1 axis1
+			, out A2 axis2
+			, out A3 axis3
+			, out A4 axis4
+			, out A5 axis5
+			, out A6 axis6
+			);
 
 		/// <summary>Delegate for getting the 6D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1515,7 +1919,19 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum bound of the item along the 5 dimension.</param>
 		/// <param name="min6">The minimum bound of the item along the 6 dimension.</param>
 		/// <param name="max6">The maximum bound of the item along the 6 dimension.</param>
-		public delegate void GetBounds<T, A1, A2, A3, A4, A5, A6>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2, out Bound<A3> min3, out Bound<A3> max3, out Bound<A4> min4, out Bound<A4> max4, out Bound<A5> min5, out Bound<A5> max5, out Bound<A6> min6, out Bound<A6> max6);
+		public delegate void GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			, out Bound<A3> min3, out Bound<A3> max3
+			, out Bound<A4> min4, out Bound<A4> max4
+			, out Bound<A5> min5, out Bound<A5> max5
+			, out Bound<A6> min6, out Bound<A6> max6
+			);
 
 		/// <summary>Delegate for getting the 6D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1538,19 +1954,51 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum bound of the item along the 5 dimension.</param>
 		/// <param name="min6">The minimum bound of the item along the 6 dimension.</param>
 		/// <param name="max6">The maximum bound of the item along the 6 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2, A3, A4, A5, A6>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2, out A3 min3, out A3 max3, out A4 min4, out A4 max4, out A5 min5, out A5 max5, out A6 min6, out A6 max6);
+		public delegate void GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			, out A3 min3, out A3 max3
+			, out A4 min4, out A4 max4
+			, out A5 min5, out A5 max5
+			, out A6 min6, out A6 max6
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2, A3, A4, A5, A6> ConvertToGetBounds<T, A1, A2, A3, A4, A5, A6>(GetBoundings<T, A1, A2, A3, A4, A5, A6> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2,
-			out Bound<A3> minBound3, out Bound<A3> maxBound3,
-			out Bound<A4> minBound4, out Bound<A4> maxBound4,
-			out Bound<A5> minBound5, out Bound<A5> maxBound5,
-			out Bound<A6> minBound6, out Bound<A6> maxBound6) =>
+		public static GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			> ConvertToGetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			>(GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2			, out Bound<A3> minBound3, out Bound<A3> maxBound3			, out Bound<A4> minBound4, out Bound<A4> maxBound4			, out Bound<A5> minBound5, out Bound<A5> maxBound5			, out Bound<A6> minBound6, out Bound<A6> maxBound6) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
@@ -1558,13 +2006,14 @@ namespace Towel.DataStructures
 				A4 min4; A4 max4;
 				A5 min5; A5 max5;
 				A6 min6; A6 max6;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2,
-					out min3, out max3,
-					out min4, out max4,
-					out min5, out max5,
-					out min6, out max6);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					, out min3, out max3
+					, out min4, out max4
+					, out min5, out max5
+					, out min6, out max6
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 				minBound3 = min3; maxBound3 = max3;
@@ -1614,8 +2063,20 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists) || (a.Min6.Exists && !b.Min6.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			|| (a.Min3.Exists && !b.Min3.Exists)
+			|| (a.Min4.Exists && !b.Min4.Exists)
+			|| (a.Min5.Exists && !b.Min5.Exists)
+			|| (a.Min6.Exists && !b.Min6.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			|| (a.Max3.Exists && !b.Max3.Exists)
+			|| (a.Max4.Exists && !b.Max4.Exists)
+			|| (a.Max5.Exists && !b.Max5.Exists)
+			|| (a.Max6.Exists && !b.Max6.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -1705,8 +2166,21 @@ namespace Towel.DataStructures
 			Axis4 axis4;
 			Axis5 axis5;
 			Axis6 axis6;
-			omnitree.Locate(removal, out axis1, out axis2, out axis3, out axis4, out axis5, out axis6);
-			omnitree.Remove(axis1, axis2, axis3, axis4, axis5, axis6, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				, out axis3
+				, out axis4
+				, out axis5
+				, out axis6
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				axis3,
+				axis4,
+				axis5,
+				axis6,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -1740,8 +2214,20 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 			Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 			Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2, out min3, out max3, out min4, out max4, out min5, out max5, out min6, out max6);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				, out min3, out max3
+				, out min4, out max4
+				, out min5, out max5
+				, out min6, out max6
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, min3, max3
+				, min4, max4
+				, min5, max5
+				, min6, max6
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -1756,7 +2242,14 @@ namespace Towel.DataStructures
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
 		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
 		/// <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
-		public struct Vector<A1, A2, A3, A4, A5, A6, A7>
+		public struct Vector<A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			>
 		{
 			/// <summary>The value along axis 1.</summary>
 			public A1 Axis1;
@@ -1774,8 +2267,29 @@ namespace Towel.DataStructures
 			public A7 Axis7;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector<A1, A2, A3, A4, A5, A6, A7> Default =>
-				new Vector<A1, A2, A3, A4, A5, A6, A7>(default(A1), default(A2), default(A3), default(A4), default(A5), default(A6), default(A7));
+			public static Vector<A1
+, A2
+, A3
+, A4
+, A5
+, A6
+, A7
+				> Default =>
+				new Vector<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					, A6
+					, A7
+					>(default(A1)
+					, default(A2)
+					, default(A3)
+					, default(A4)
+					, default(A5)
+					, default(A6)
+					, default(A7)
+					);
 
 			/// <summary>A location along each axis.</summary>
 			/// <param name="axis1">The location along axis 1.</param>
@@ -1785,7 +2299,14 @@ namespace Towel.DataStructures
 			/// <param name="axis5">The location along axis 5.</param>
 			/// <param name="axis6">The location along axis 6.</param>
 			/// <param name="axis7">The location along axis 7.</param>
-			public Vector(A1 axis1, A2 axis2, A3 axis3, A4 axis4, A5 axis5, A6 axis6, A7 axis7)
+			public Vector(A1 axis1
+				, A2 axis2
+				, A3 axis3
+				, A4 axis4
+				, A5 axis5
+				, A6 axis6
+				, A7 axis7
+				)
 			{
 				this.Axis1 = axis1;
 				this.Axis2 = axis2;
@@ -1805,7 +2326,14 @@ namespace Towel.DataStructures
 		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
 		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
 		/// <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
-		public struct Bounds<A1, A2, A3, A4, A5, A6, A7>
+		public struct Bounds<A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+>
 		{
 			/// <summary>The minimum value along the 1 dimension.</summary>
 			public Bound<A1> Min1;
@@ -1837,25 +2365,40 @@ namespace Towel.DataStructures
 			public Bound<A7> Max7;
 
 			/// <summary>Extends infinitely along each axis.</summary>
-			public static Bounds<A1, A2, A3, A4, A5, A6, A7> None =>
-				new Bounds<A1, A2, A3, A4, A5, A6, A7>(
-					Bound<A1>.None, Bound<A1>.None,
-					Bound<A2>.None, Bound<A2>.None,
-					Bound<A3>.None, Bound<A3>.None,
-					Bound<A4>.None, Bound<A4>.None,
-					Bound<A5>.None, Bound<A5>.None,
-					Bound<A6>.None, Bound<A6>.None,
-					Bound<A7>.None, Bound<A7>.None);
+			public static Bounds<A1
+				, A2
+				, A3
+				, A4
+				, A5
+				, A6
+				, A7
+				> None =>
+				new Bounds<A1
+					, A2
+					, A3
+					, A4
+					, A5
+					, A6
+					, A7
+					>(Bound<A1>.None, Bound<A1>.None
+					, Bound<A2>.None, Bound<A2>.None
+					, Bound<A3>.None, Bound<A3>.None
+					, Bound<A4>.None, Bound<A4>.None
+					, Bound<A5>.None, Bound<A5>.None
+					, Bound<A6>.None, Bound<A6>.None
+					, Bound<A7>.None, Bound<A7>.None
+					);
 			
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(
-				Bound<A1> min1, Bound<A1> max1,
-				Bound<A2> min2, Bound<A2> max2,
-				Bound<A3> min3, Bound<A3> max3,
-				Bound<A4> min4, Bound<A4> max4,
-				Bound<A5> min5, Bound<A5> max5,
-				Bound<A6> min6, Bound<A6> max6,
-				Bound<A7> min7, Bound<A7> max7)
+				Bound<A1> min1, Bound<A1> max1
+				, Bound<A2> min2, Bound<A2> max2
+				, Bound<A3> min3, Bound<A3> max3
+				, Bound<A4> min4, Bound<A4> max4
+				, Bound<A5> min5, Bound<A5> max5
+				, Bound<A6> min6, Bound<A6> max6
+				, Bound<A7> min7, Bound<A7> max7
+				)
 			{
 				this.Min1 = min1;
 				this.Max1 = max1;
@@ -1891,7 +2434,21 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The location of the item along the 5 dimension.</param>
 		/// <param name="axis6">The location of the item along the 6 dimension.</param>
 		/// <param name="axis7">The location of the item along the 7 dimension.</param>
-		public delegate void Location<T, A1, A2, A3, A4, A5, A6, A7>(T item, out A1 axis1, out A2 axis2, out A3 axis3, out A4 axis4, out A5 axis5, out A6 axis6, out A7 axis7);
+		public delegate void Location<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			>(T item, out A1 axis1
+			, out A2 axis2
+			, out A3 axis3
+			, out A4 axis4
+			, out A5 axis5
+			, out A6 axis6
+			, out A7 axis7
+			);
 
 		/// <summary>Delegate for getting the 7D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1917,7 +2474,21 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum bound of the item along the 6 dimension.</param>
 		/// <param name="min7">The minimum bound of the item along the 7 dimension.</param>
 		/// <param name="max7">The maximum bound of the item along the 7 dimension.</param>
-		public delegate void GetBounds<T, A1, A2, A3, A4, A5, A6, A7>(T item, out Bound<A1> min1, out Bound<A1> max1, out Bound<A2> min2, out Bound<A2> max2, out Bound<A3> min3, out Bound<A3> max3, out Bound<A4> min4, out Bound<A4> max4, out Bound<A5> min5, out Bound<A5> max5, out Bound<A6> min6, out Bound<A6> max6, out Bound<A7> min7, out Bound<A7> max7);
+		public delegate void GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			>(T item, out Bound<A1> min1, out Bound<A1> max1
+			, out Bound<A2> min2, out Bound<A2> max2
+			, out Bound<A3> min3, out Bound<A3> max3
+			, out Bound<A4> min4, out Bound<A4> max4
+			, out Bound<A5> min5, out Bound<A5> max5
+			, out Bound<A6> min6, out Bound<A6> max6
+			, out Bound<A7> min7, out Bound<A7> max7
+			);
 
 		/// <summary>Delegate for getting the 7D bounding box of an item.</summary>
 		/// <typeparam name="T">The generic type of the item to get the bounding box of.</typeparam>
@@ -1943,20 +2514,57 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum bound of the item along the 6 dimension.</param>
 		/// <param name="min7">The minimum bound of the item along the 7 dimension.</param>
 		/// <param name="max7">The maximum bound of the item along the 7 dimension.</param>
-		public delegate void GetBoundings<T, A1, A2, A3, A4, A5, A6, A7>(T item, out A1 min1, out A1 max1, out A2 min2, out A2 max2, out A3 min3, out A3 max3, out A4 min4, out A4 max4, out A5 min5, out A5 max5, out A6 min6, out A6 max6, out A7 min7, out A7 max7);
+		public delegate void GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			>(T item, out A1 min1, out A1 max1
+			, out A2 min2, out A2 max2
+			, out A3 min3, out A3 max3
+			, out A4 min4, out A4 max4
+			, out A5 min5, out A5 max5
+			, out A6 min6, out A6 max6
+			, out A7 min7, out A7 max7
+			);
 
 		/// <summary>Converts an Omnitree.GetBoundings delegate into an Omnitree.GetBounds delegate.</summary>
-		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>		/// <typeparam name="A7">The generic type of the 7 dimension.</typeparam>		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
+		/// <typeparam name="T">The generic type to get the bounds of.</typeparam>
+		/// <typeparam name="A1">The generic type of the 1 dimension.</typeparam>
+		/// <typeparam name="A2">The generic type of the 2 dimension.</typeparam>
+		/// <typeparam name="A3">The generic type of the 3 dimension.</typeparam>
+		/// <typeparam name="A4">The generic type of the 4 dimension.</typeparam>
+		/// <typeparam name="A5">The generic type of the 5 dimension.</typeparam>
+		/// <typeparam name="A6">The generic type of the 6 dimension.</typeparam>
+		/// <typeparam name="A7">The generic type of the 7 dimension.</typeparam>
+		/// <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
 		/// <returns>The converted Omnitree.GetBounds delegate.</returns>
-		public static GetBounds<T, A1, A2, A3, A4, A5, A6, A7> ConvertToGetBounds<T, A1, A2, A3, A4, A5, A6, A7>(GetBoundings<T, A1, A2, A3, A4, A5, A6, A7> getBoundings) =>
-			(T item,
-			out Bound<A1> minBound1, out Bound<A1> maxBound1,
-			out Bound<A2> minBound2, out Bound<A2> maxBound2,
-			out Bound<A3> minBound3, out Bound<A3> maxBound3,
-			out Bound<A4> minBound4, out Bound<A4> maxBound4,
-			out Bound<A5> minBound5, out Bound<A5> maxBound5,
-			out Bound<A6> minBound6, out Bound<A6> maxBound6,
-			out Bound<A7> minBound7, out Bound<A7> maxBound7) =>
+		public static GetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			> ConvertToGetBounds<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			>(GetBoundings<T, A1
+			, A2
+			, A3
+			, A4
+			, A5
+			, A6
+			, A7
+			> getBoundings) =>
+			(T item
+			, out Bound<A1> minBound1, out Bound<A1> maxBound1			, out Bound<A2> minBound2, out Bound<A2> maxBound2			, out Bound<A3> minBound3, out Bound<A3> maxBound3			, out Bound<A4> minBound4, out Bound<A4> maxBound4			, out Bound<A5> minBound5, out Bound<A5> maxBound5			, out Bound<A6> minBound6, out Bound<A6> maxBound6			, out Bound<A7> minBound7, out Bound<A7> maxBound7) =>
 			{
 				A1 min1; A1 max1;
 				A2 min2; A2 max2;
@@ -1965,14 +2573,15 @@ namespace Towel.DataStructures
 				A5 min5; A5 max5;
 				A6 min6; A6 max6;
 				A7 min7; A7 max7;
-				getBoundings(item,
-					out min1, out max1,
-					out min2, out max2,
-					out min3, out max3,
-					out min4, out max4,
-					out min5, out max5,
-					out min6, out max6,
-					out min7, out max7);
+				getBoundings(item
+					, out min1, out max1
+					, out min2, out max2
+					, out min3, out max3
+					, out min4, out max4
+					, out min5, out max5
+					, out min6, out max6
+					, out min7, out max7
+					);
 				minBound1 = min1; maxBound1 = max1;
 				minBound2 = min2; maxBound2 = max2;
 				minBound3 = min3; maxBound3 = max3;
@@ -2027,8 +2636,22 @@ namespace Towel.DataStructures
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b,
 			Compare<Axis1> compare1, Compare<Axis2> compare2, Compare<Axis3> compare3, Compare<Axis4> compare4, Compare<Axis5> compare5, Compare<Axis6> compare6, Compare<Axis7> compare7) =>
-			(a.Min1.Exists && !b.Min1.Exists) || (a.Min2.Exists && !b.Min2.Exists) || (a.Min3.Exists && !b.Min3.Exists) || (a.Min4.Exists && !b.Min4.Exists) || (a.Min5.Exists && !b.Min5.Exists) || (a.Min6.Exists && !b.Min6.Exists) || (a.Min7.Exists && !b.Min7.Exists) ? false :
-			(a.Max1.Exists && !b.Max1.Exists) || (a.Max2.Exists && !b.Max2.Exists) || (a.Max3.Exists && !b.Max3.Exists) || (a.Max4.Exists && !b.Max4.Exists) || (a.Max5.Exists && !b.Max5.Exists) || (a.Max6.Exists && !b.Max6.Exists) || (a.Max7.Exists && !b.Max7.Exists) ? false :
+			(a.Min1.Exists && !b.Min1.Exists)
+			|| (a.Min2.Exists && !b.Min2.Exists)
+			|| (a.Min3.Exists && !b.Min3.Exists)
+			|| (a.Min4.Exists && !b.Min4.Exists)
+			|| (a.Min5.Exists && !b.Min5.Exists)
+			|| (a.Min6.Exists && !b.Min6.Exists)
+			|| (a.Min7.Exists && !b.Min7.Exists)
+			? false :
+			(a.Max1.Exists && !b.Max1.Exists)
+			|| (a.Max2.Exists && !b.Max2.Exists)
+			|| (a.Max3.Exists && !b.Max3.Exists)
+			|| (a.Max4.Exists && !b.Max4.Exists)
+			|| (a.Max5.Exists && !b.Max5.Exists)
+			|| (a.Max6.Exists && !b.Max6.Exists)
+			|| (a.Max7.Exists && !b.Max7.Exists)
+			? false :
 			b.Min1.Exists && a.Min1.Exists && compare1(a.Min1.Value, b.Min1.Value) != CompareResult.Less ? false :
 			b.Max1.Exists && a.Max1.Exists && compare1(a.Max1.Value, b.Max1.Value) != CompareResult.Greater ? false :
 			b.Min2.Exists && a.Min2.Exists && compare2(a.Min2.Value, b.Min2.Value) != CompareResult.Less ? false :
@@ -2128,8 +2751,23 @@ namespace Towel.DataStructures
 			Axis5 axis5;
 			Axis6 axis6;
 			Axis7 axis7;
-			omnitree.Locate(removal, out axis1, out axis2, out axis3, out axis4, out axis5, out axis6, out axis7);
-			omnitree.Remove(axis1, axis2, axis3, axis4, axis5, axis6, axis7, x => equate(x, removal));
+			omnitree.Locate(removal, out axis1
+				, out axis2
+				, out axis3
+				, out axis4
+				, out axis5
+				, out axis6
+				, out axis7
+				);
+			omnitree.Remove(
+				axis1,
+				axis2,
+				axis3,
+				axis4,
+				axis5,
+				axis6,
+				axis7,
+				x => equate(x, removal));
 		}
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
@@ -2166,8 +2804,22 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 			Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
 			Omnitree.Bound<Axis7> min7; Omnitree.Bound<Axis7> max7;
-			omnitree.GetBounds(removal, out min1, out max1, out min2, out max2, out min3, out max3, out min4, out max4, out min5, out max5, out min6, out max6, out min7, out max7);
-			omnitree.RemoveOverlapped(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7, x => equate(x, removal));
+			omnitree.GetBounds(removal, out min1, out max1
+				, out min2, out max2
+				, out min3, out max3
+				, out min4, out max4
+				, out min5, out max5
+				, out min6, out max6
+				, out min7, out max7
+				);
+			omnitree.RemoveOverlapped(min1, max1
+				, min2, max2
+				, min3, max3
+				, min4, max4
+				, min5, max5
+				, min6, max6
+				, min7, max7
+				, x => equate(x, removal));
 		}
 
 		#endregion
@@ -2284,7 +2936,8 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 1D space.</summary>
-		Omnitree.Location<T, Axis1> Locate { get; }
+		Omnitree.Location<T, Axis1
+			> Locate { get; }
 
 		#endregion
 
@@ -2354,7 +3007,8 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1> _locate;
+		internal Omnitree.Location<T, Axis1
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> _subdivisionOverride1;
@@ -2550,7 +3204,8 @@ namespace Towel.DataStructures
 			Omnitree.Location<T, Axis1> locate,
 			bool defaultCompare1,
 			Compare<Axis1> compare1,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1
+			)
 		{
 			if (locate == null)
 			{
@@ -2560,9 +3215,11 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._top = new Leaf(Omnitree.Bounds<Axis1>.None, null, -1);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -2570,17 +3227,22 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 1D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 1D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1> locate,
 			Compare<Axis1> compare1 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
 				compare1 ?? Compare.Default,
-				subdivisionOverride1) { }
+				subdivisionOverride1
+				) { }
 
 		#endregion
 
@@ -2702,7 +3364,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -2801,6 +3462,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -2817,14 +3479,18 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]);
+					this._locate(for_current.Value
+					, out values[i]
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1>(
 				division1
+		
 				);
 		}
 
@@ -2930,7 +3596,8 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1>(bounds.Min1.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1>(bounds.Min1.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -3342,9 +4009,11 @@ namespace Towel.DataStructures
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1)
+		public void Remove(Axis1 axis1
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1>(axis1));
+			this.Remove(this._top, new Omnitree.Vector<Axis1>(axis1
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1> vector)
@@ -3633,7 +4302,8 @@ namespace Towel.DataStructures
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
 			Omnitree.StraddlesLines(bounds, vector
-				, _compare1);
+				, _compare1
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -3695,25 +4365,29 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal bool InclusionCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b) =>
 			Omnitree.InclusionCheck(a, b
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
 			Omnitree.EncapsulationCheck(bounds, vector
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b) =>
 			Omnitree.EncapsulationCheck(a, b
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1));
+			, Equate.FromCompare(_compare1)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -3731,7 +4405,8 @@ namespace Towel.DataStructures
 		internal Omnitree.Vector<Axis1> LocateVector(T value)
 		{
 			Axis1 axis1;
-			this._locate(value, out axis1);
+			this._locate(value, out axis1
+);
 			return new Omnitree.Vector<Axis1>(axis1);
 		}
 
@@ -3763,7 +4438,9 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 2D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			> Locate { get; }
 
 		#endregion
 
@@ -3850,7 +4527,9 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -4054,8 +4733,10 @@ namespace Towel.DataStructures
 			Compare<Axis1> compare1,
 			bool defaultCompare2,
 			Compare<Axis2> compare2,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2
+			)
 		{
 			if (locate == null)
 			{
@@ -4065,15 +4746,18 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
 			this._defaultCompare2 = defaultCompare2;
 			this._compare2 = compare2;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._top = new Leaf(Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
@@ -4082,24 +4766,33 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 2D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 2D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2> locate,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
 				compare1 ?? Compare.Default,
 				compare2 is null ? true : false,
 				compare2 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+				) { }
 
 		#endregion
 
@@ -4224,7 +4917,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -4323,6 +5015,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -4339,12 +5032,16 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -4361,15 +5058,21 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2>(
 				division1
+		
 				, division2
+		
 				);
 		}
 
@@ -4494,7 +5197,10 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2>(bounds.Min1.Value, bounds.Min2.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -4921,9 +5627,15 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2>(axis1, axis2));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2>(axis1
+
+				, axis2
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2> vector)
@@ -5224,7 +5936,8 @@ namespace Towel.DataStructures
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
 			Omnitree.StraddlesLines(bounds, vector
 				, _compare1
-				, _compare2);
+				, _compare2
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -5289,28 +6002,32 @@ namespace Towel.DataStructures
 		internal bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b) =>
 			Omnitree.InclusionCheck(a, b
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
 			Omnitree.EncapsulationCheck(bounds, vector
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b) =>
 			Omnitree.EncapsulationCheck(a, b
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b) =>
 			Omnitree.EqualsCheck(a, b
 			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2));
+			, Equate.FromCompare(_compare2)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -5329,7 +6046,9 @@ namespace Towel.DataStructures
 		{
 			Axis1 axis1;
 			Axis2 axis2;
-			this._locate(value, out axis1, out axis2);
+			this._locate(value, out axis1
+, out axis2
+);
 			return new Omnitree.Vector<Axis1, Axis2>(axis1, axis2);
 		}
 
@@ -5363,7 +6082,10 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 3D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2, Axis3> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			> Locate { get; }
 
 		#endregion
 
@@ -5467,7 +6189,10 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2, Axis3> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -5679,9 +6404,12 @@ namespace Towel.DataStructures
 			Compare<Axis2> compare2,
 			bool defaultCompare3,
 			Compare<Axis3> compare3,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3
+			)
 		{
 			if (locate == null)
 			{
@@ -5691,14 +6419,17 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			if (compare3 == null)
 			{
 				throw new ArgumentNullException(nameof(compare3));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
@@ -5706,6 +6437,7 @@ namespace Towel.DataStructures
 			this._compare2 = compare2;
 			this._defaultCompare3 = defaultCompare3;
 			this._compare3 = compare3;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -5715,20 +6447,30 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 3D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 3D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
@@ -5737,9 +6479,12 @@ namespace Towel.DataStructures
 				compare2 ?? Compare.Default,
 				compare3 is null ? true : false,
 				compare3 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2,
-				subdivisionOverride3) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+,
+				subdivisionOverride3
+				) { }
 
 		#endregion
 
@@ -5867,7 +6612,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -5966,6 +6710,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -5982,12 +6727,17 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -6004,12 +6754,17 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			Axis3 division3;
 			if (_subdivisionOverride3 != null)
 			{
@@ -6026,16 +6781,24 @@ namespace Towel.DataStructures
 				Axis3[] values = new Axis3[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare3) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2, Axis3>(
 				division1
+		
 				, division2
+		
 				, division3
+		
 				);
 		}
 
@@ -6179,7 +6942,12 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3>(bounds.Min1.Value, bounds.Min2.Value, bounds.Min3.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+
+						, bounds.Min3.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -6621,9 +7389,19 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2, Axis3 axis3)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1
+
+				, axis2
+
+				, axis3
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
@@ -6936,7 +7714,8 @@ namespace Towel.DataStructures
 			Omnitree.StraddlesLines(bounds, vector
 				, _compare1
 				, _compare2
-				, _compare3);
+				, _compare3
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -7004,7 +7783,8 @@ namespace Towel.DataStructures
 			Omnitree.InclusionCheck(a, b
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -7012,7 +7792,8 @@ namespace Towel.DataStructures
 			Omnitree.EncapsulationCheck(bounds, vector
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -7020,7 +7801,8 @@ namespace Towel.DataStructures
 			Omnitree.EncapsulationCheck(a, b
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -7028,7 +7810,8 @@ namespace Towel.DataStructures
 			Omnitree.EqualsCheck(a, b
 			, Equate.FromCompare(_compare1)
 			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3));
+			, Equate.FromCompare(_compare3)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -7048,7 +7831,10 @@ namespace Towel.DataStructures
 			Axis1 axis1;
 			Axis2 axis2;
 			Axis3 axis3;
-			this._locate(value, out axis1, out axis2, out axis3);
+			this._locate(value, out axis1
+, out axis2
+, out axis3
+);
 			return new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3);
 		}
 
@@ -7084,7 +7870,11 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 4D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			> Locate { get; }
 
 		#endregion
 
@@ -7205,7 +7995,11 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -7425,10 +8219,14 @@ namespace Towel.DataStructures
 			Compare<Axis3> compare3,
 			bool defaultCompare4,
 			Compare<Axis4> compare4,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4
+			)
 		{
 			if (locate == null)
 			{
@@ -7438,18 +8236,22 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			if (compare3 == null)
 			{
 				throw new ArgumentNullException(nameof(compare3));
 			}
+
 			if (compare4 == null)
 			{
 				throw new ArgumentNullException(nameof(compare4));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
@@ -7459,6 +8261,7 @@ namespace Towel.DataStructures
 			this._compare3 = compare3;
 			this._defaultCompare4 = defaultCompare4;
 			this._compare4 = compare4;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -7469,13 +8272,22 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 4D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 4D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4> locate,
@@ -7483,10 +8295,14 @@ namespace Towel.DataStructures
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
@@ -7497,10 +8313,14 @@ namespace Towel.DataStructures
 				compare3 ?? Compare.Default,
 				compare4 is null ? true : false,
 				compare4 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2,
-				subdivisionOverride3,
-				subdivisionOverride4) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+,
+				subdivisionOverride3
+,
+				subdivisionOverride4
+				) { }
 
 		#endregion
 
@@ -7631,7 +8451,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -7730,6 +8549,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -7746,12 +8566,18 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -7768,12 +8594,18 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			Axis3 division3;
 			if (_subdivisionOverride3 != null)
 			{
@@ -7790,12 +8622,18 @@ namespace Towel.DataStructures
 				Axis3[] values = new Axis3[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare3) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
+
 			Axis4 division4;
 			if (_subdivisionOverride4 != null)
 			{
@@ -7812,17 +8650,27 @@ namespace Towel.DataStructures
 				Axis4[] values = new Axis4[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare4) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
 				division1
+		
 				, division2
+		
 				, division3
+		
 				, division4
+		
 				);
 		}
 
@@ -7985,7 +8833,14 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(bounds.Min1.Value, bounds.Min2.Value, bounds.Min3.Value, bounds.Min4.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+
+						, bounds.Min3.Value
+
+						, bounds.Min4.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -8442,9 +9297,23 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(axis1, axis2, axis3, axis4));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(axis1
+
+				, axis2
+
+				, axis3
+
+				, axis4
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
@@ -8769,7 +9638,8 @@ namespace Towel.DataStructures
 				, _compare1
 				, _compare2
 				, _compare3
-				, _compare4);
+				, _compare4
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -8840,7 +9710,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -8849,7 +9720,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -8858,7 +9730,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -8867,7 +9740,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare1)
 			, Equate.FromCompare(_compare2)
 			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4));
+			, Equate.FromCompare(_compare4)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -8888,7 +9762,11 @@ namespace Towel.DataStructures
 			Axis2 axis2;
 			Axis3 axis3;
 			Axis4 axis4;
-			this._locate(value, out axis1, out axis2, out axis3, out axis4);
+			this._locate(value, out axis1
+, out axis2
+, out axis3
+, out axis4
+);
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(axis1, axis2, axis3, axis4);
 		}
 
@@ -8926,7 +9804,12 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 5D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			> Locate { get; }
 
 		#endregion
 
@@ -9064,7 +9947,12 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -9292,11 +10180,16 @@ namespace Towel.DataStructures
 			Compare<Axis4> compare4,
 			bool defaultCompare5,
 			Compare<Axis5> compare5,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5
+			)
 		{
 			if (locate == null)
 			{
@@ -9306,22 +10199,27 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			if (compare3 == null)
 			{
 				throw new ArgumentNullException(nameof(compare3));
 			}
+
 			if (compare4 == null)
 			{
 				throw new ArgumentNullException(nameof(compare4));
 			}
+
 			if (compare5 == null)
 			{
 				throw new ArgumentNullException(nameof(compare5));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
@@ -9333,6 +10231,7 @@ namespace Towel.DataStructures
 			this._compare4 = compare4;
 			this._defaultCompare5 = defaultCompare5;
 			this._compare5 = compare5;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -9344,15 +10243,26 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 5D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 5D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5> locate,
@@ -9361,11 +10271,16 @@ namespace Towel.DataStructures
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
@@ -9378,11 +10293,16 @@ namespace Towel.DataStructures
 				compare4 ?? Compare.Default,
 				compare5 is null ? true : false,
 				compare5 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2,
-				subdivisionOverride3,
-				subdivisionOverride4,
-				subdivisionOverride5) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+,
+				subdivisionOverride3
+,
+				subdivisionOverride4
+,
+				subdivisionOverride5
+				) { }
 
 		#endregion
 
@@ -9516,7 +10436,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -9615,6 +10534,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -9631,12 +10551,19 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -9653,12 +10580,19 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			Axis3 division3;
 			if (_subdivisionOverride3 != null)
 			{
@@ -9675,12 +10609,19 @@ namespace Towel.DataStructures
 				Axis3[] values = new Axis3[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					);
 				if (_defaultCompare3) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
+
 			Axis4 division4;
 			if (_subdivisionOverride4 != null)
 			{
@@ -9697,12 +10638,19 @@ namespace Towel.DataStructures
 				Axis4[] values = new Axis4[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare4) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
+
 			Axis5 division5;
 			if (_subdivisionOverride5 != null)
 			{
@@ -9719,18 +10667,30 @@ namespace Towel.DataStructures
 				Axis5[] values = new Axis5[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare5) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
 				division1
+		
 				, division2
+		
 				, division3
+		
 				, division4
+		
 				, division5
+		
 				);
 		}
 
@@ -9912,7 +10872,16 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(bounds.Min1.Value, bounds.Min2.Value, bounds.Min3.Value, bounds.Min4.Value, bounds.Min5.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+
+						, bounds.Min3.Value
+
+						, bounds.Min4.Value
+
+						, bounds.Min5.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -10384,9 +11353,27 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis2, axis3, axis4, axis5));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1
+
+				, axis2
+
+				, axis3
+
+				, axis4
+
+				, axis5
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
@@ -10723,7 +11710,8 @@ namespace Towel.DataStructures
 				, _compare2
 				, _compare3
 				, _compare4
-				, _compare5);
+				, _compare5
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -10797,7 +11785,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -10807,7 +11796,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -10817,7 +11807,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -10827,7 +11818,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare2)
 			, Equate.FromCompare(_compare3)
 			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5));
+			, Equate.FromCompare(_compare5)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -10849,7 +11841,12 @@ namespace Towel.DataStructures
 			Axis3 axis3;
 			Axis4 axis4;
 			Axis5 axis5;
-			this._locate(value, out axis1, out axis2, out axis3, out axis4, out axis5);
+			this._locate(value, out axis1
+, out axis2
+, out axis3
+, out axis4
+, out axis5
+);
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis2, axis3, axis4, axis5);
 		}
 
@@ -10889,7 +11886,13 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 6D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			, Axis6
+			> Locate { get; }
 
 		#endregion
 
@@ -11044,7 +12047,13 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			, Axis6
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -11280,12 +12289,18 @@ namespace Towel.DataStructures
 			Compare<Axis5> compare5,
 			bool defaultCompare6,
 			Compare<Axis6> compare6,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6
+			)
 		{
 			if (locate == null)
 			{
@@ -11295,26 +12310,32 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			if (compare3 == null)
 			{
 				throw new ArgumentNullException(nameof(compare3));
 			}
+
 			if (compare4 == null)
 			{
 				throw new ArgumentNullException(nameof(compare4));
 			}
+
 			if (compare5 == null)
 			{
 				throw new ArgumentNullException(nameof(compare5));
 			}
+
 			if (compare6 == null)
 			{
 				throw new ArgumentNullException(nameof(compare6));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
@@ -11328,6 +12349,7 @@ namespace Towel.DataStructures
 			this._compare5 = compare5;
 			this._defaultCompare6 = defaultCompare6;
 			this._compare6 = compare6;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -11340,17 +12362,30 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 6D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 6D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> locate,
@@ -11360,12 +12395,18 @@ namespace Towel.DataStructures
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
@@ -11380,12 +12421,18 @@ namespace Towel.DataStructures
 				compare5 ?? Compare.Default,
 				compare6 is null ? true : false,
 				compare6 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2,
-				subdivisionOverride3,
-				subdivisionOverride4,
-				subdivisionOverride5,
-				subdivisionOverride6) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+,
+				subdivisionOverride3
+,
+				subdivisionOverride4
+,
+				subdivisionOverride5
+,
+				subdivisionOverride6
+				) { }
 
 		#endregion
 
@@ -11522,7 +12569,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -11621,6 +12667,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -11637,12 +12684,20 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -11659,12 +12714,20 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			Axis3 division3;
 			if (_subdivisionOverride3 != null)
 			{
@@ -11681,12 +12744,20 @@ namespace Towel.DataStructures
 				Axis3[] values = new Axis3[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare3) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
+
 			Axis4 division4;
 			if (_subdivisionOverride4 != null)
 			{
@@ -11703,12 +12774,20 @@ namespace Towel.DataStructures
 				Axis4[] values = new Axis4[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					);
 				if (_defaultCompare4) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
+
 			Axis5 division5;
 			if (_subdivisionOverride5 != null)
 			{
@@ -11725,12 +12804,20 @@ namespace Towel.DataStructures
 				Axis5[] values = new Axis5[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare5) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
+
 			Axis6 division6;
 			if (_subdivisionOverride6 != null)
 			{
@@ -11747,19 +12834,33 @@ namespace Towel.DataStructures
 				Axis6[] values = new Axis6[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare6) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare6));
 				int index = (leaf.Count - 1) / 2;
 				division6 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
 				division1
+		
 				, division2
+		
 				, division3
+		
 				, division4
+		
 				, division5
+		
 				, division6
+		
 				);
 		}
 
@@ -11960,7 +13061,18 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(bounds.Min1.Value, bounds.Min2.Value, bounds.Min3.Value, bounds.Min4.Value, bounds.Min5.Value, bounds.Min6.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+
+						, bounds.Min3.Value
+
+						, bounds.Min4.Value
+
+						, bounds.Min5.Value
+
+						, bounds.Min6.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -12447,9 +13559,31 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+
+			, Axis6 axis6
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis2, axis3, axis4, axis5, axis6));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1
+
+				, axis2
+
+				, axis3
+
+				, axis4
+
+				, axis5
+
+				, axis6
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
@@ -12798,7 +13932,8 @@ namespace Towel.DataStructures
 				, _compare3
 				, _compare4
 				, _compare5
-				, _compare6);
+				, _compare6
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -12875,7 +14010,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -12886,7 +14022,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -12897,7 +14034,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -12908,7 +14046,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare3)
 			, Equate.FromCompare(_compare4)
 			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6));
+			, Equate.FromCompare(_compare6)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -12931,7 +14070,13 @@ namespace Towel.DataStructures
 			Axis4 axis4;
 			Axis5 axis5;
 			Axis6 axis6;
-			this._locate(value, out axis1, out axis2, out axis3, out axis4, out axis5, out axis6);
+			this._locate(value, out axis1
+, out axis2
+, out axis3
+, out axis4
+, out axis5
+, out axis6
+);
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis2, axis3, axis4, axis5, axis6);
 		}
 
@@ -12973,7 +14118,14 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to locate items in 7D space.</summary>
-		Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> Locate { get; }
+		Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			, Axis6
+			, Axis7
+			> Locate { get; }
 
 		#endregion
 
@@ -13145,7 +14297,14 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _locate;
+		internal Omnitree.Location<T, Axis1
+			, Axis2
+			, Axis3
+			, Axis4
+			, Axis5
+			, Axis6
+			, Axis7
+			> _locate;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -13389,13 +14548,20 @@ namespace Towel.DataStructures
 			Compare<Axis6> compare6,
 			bool defaultCompare7,
 			Compare<Axis7> compare7,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6,
-			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6
+,
+			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7
+			)
 		{
 			if (locate == null)
 			{
@@ -13405,30 +14571,37 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(compare1));
 			}
+
 			if (compare2 == null)
 			{
 				throw new ArgumentNullException(nameof(compare2));
 			}
+
 			if (compare3 == null)
 			{
 				throw new ArgumentNullException(nameof(compare3));
 			}
+
 			if (compare4 == null)
 			{
 				throw new ArgumentNullException(nameof(compare4));
 			}
+
 			if (compare5 == null)
 			{
 				throw new ArgumentNullException(nameof(compare5));
 			}
+
 			if (compare6 == null)
 			{
 				throw new ArgumentNullException(nameof(compare6));
 			}
+
 			if (compare7 == null)
 			{
 				throw new ArgumentNullException(nameof(compare7));
 			}
+
 			this._locate = locate;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
@@ -13444,6 +14617,7 @@ namespace Towel.DataStructures
 			this._compare6 = compare6;
 			this._defaultCompare7 = defaultCompare7;
 			this._compare7 = compare7;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -13457,19 +14631,34 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 7D omnitree that stores points.</summary>
 		/// <param name="locate">The delegate for locating items in 7D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+
 		/// <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+
 		/// <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> locate,
@@ -13480,13 +14669,20 @@ namespace Towel.DataStructures
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
 			Compare<Axis7> compare7 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null,
-			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null
+			)
 			: this(
 				locate,
 				compare1 is null ? true : false,
@@ -13503,13 +14699,20 @@ namespace Towel.DataStructures
 				compare6 ?? Compare.Default,
 				compare7 is null ? true : false,
 				compare7 ?? Compare.Default,
-				subdivisionOverride1,
-				subdivisionOverride2,
-				subdivisionOverride3,
-				subdivisionOverride4,
-				subdivisionOverride5,
-				subdivisionOverride6,
-				subdivisionOverride7) { }
+				subdivisionOverride1
+,
+				subdivisionOverride2
+,
+				subdivisionOverride3
+,
+				subdivisionOverride4
+,
+				subdivisionOverride5
+,
+				subdivisionOverride6
+,
+				subdivisionOverride7
+				) { }
 
 		#endregion
 
@@ -13649,7 +14852,6 @@ namespace Towel.DataStructures
 		#region Add
 
 
-
 		#region single
 
 		public bool TryAdd(T value, out Exception exception)
@@ -13748,6 +14950,7 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> DetermineMedians(Leaf leaf)
 		{
+
 			Axis1 division1;
 			if (_subdivisionOverride1 != null)
 			{
@@ -13764,12 +14967,21 @@ namespace Towel.DataStructures
 				Axis1[] values = new Axis1[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out values[i]					, out _					, out _					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare1) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare1));
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
+
 			Axis2 division2;
 			if (_subdivisionOverride2 != null)
 			{
@@ -13786,12 +14998,21 @@ namespace Towel.DataStructures
 				Axis2[] values = new Axis2[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out values[i]					, out _					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare2) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare2));
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
+
 			Axis3 division3;
 			if (_subdivisionOverride3 != null)
 			{
@@ -13808,12 +15029,21 @@ namespace Towel.DataStructures
 				Axis3[] values = new Axis3[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out values[i]					, out _					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare3) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare3));
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
+
 			Axis4 division4;
 			if (_subdivisionOverride4 != null)
 			{
@@ -13830,12 +15060,21 @@ namespace Towel.DataStructures
 				Axis4[] values = new Axis4[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out values[i]					, out _					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					, out _
+					);
 				if (_defaultCompare4) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare4));
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
+
 			Axis5 division5;
 			if (_subdivisionOverride5 != null)
 			{
@@ -13852,12 +15091,21 @@ namespace Towel.DataStructures
 				Axis5[] values = new Axis5[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out values[i]					, out _					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					, out _
+					);
 				if (_defaultCompare5) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare5));
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
+
 			Axis6 division6;
 			if (_subdivisionOverride6 != null)
 			{
@@ -13874,12 +15122,21 @@ namespace Towel.DataStructures
 				Axis6[] values = new Axis6[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out values[i]					, out _);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					, out _
+					);
 				if (_defaultCompare6) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare6));
 				int index = (leaf.Count - 1) / 2;
 				division6 = values[index];
 			}
+
 			Axis7 division7;
 			if (_subdivisionOverride7 != null)
 			{
@@ -13896,20 +15153,36 @@ namespace Towel.DataStructures
 				Axis7[] values = new Axis7[leaf.Count];
 				Leaf.Node for_current = leaf.Head;
 				for (int i = 0; i < leaf.Count; i++, for_current = for_current.Next)
-					this._locate(for_current.Value					, out _					, out _					, out _					, out _					, out _					, out _					, out values[i]);
+					this._locate(for_current.Value
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					, out _
+					, out values[i]
+					);
 				if (_defaultCompare7) Array.Sort(values);
 				else Array.Sort(values, Compare.ToSystemComparison(this._compare7));
 				int index = (leaf.Count - 1) / 2;
 				division7 = values[index];
 			}
+
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
 				division1
+		
 				, division2
+		
 				, division3
+		
 				, division4
+		
 				, division5
+		
 				, division6
+		
 				, division7
+		
 				);
 		}
 
@@ -14129,7 +15402,20 @@ namespace Towel.DataStructures
 				Branch branch = node as Branch;
 				if (!StraddlesLines(branch.Bounds, branch.PointOfDivision))
 				{
-					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(bounds.Min1.Value, bounds.Min2.Value, bounds.Min3.Value, bounds.Min4.Value, bounds.Min5.Value, bounds.Min6.Value, bounds.Min7.Value));
+					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(bounds.Min1.Value
+
+						, bounds.Min2.Value
+
+						, bounds.Min3.Value
+
+						, bounds.Min4.Value
+
+						, bounds.Min5.Value
+
+						, bounds.Min6.Value
+
+						, bounds.Min7.Value
+						));
 					Node child = branch[child_index];
 					if (child != null)
 					{
@@ -14631,9 +15917,35 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void Remove(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7)
+		public void Remove(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+
+			, Axis6 axis6
+
+			, Axis7 axis7
+			)
 		{
-			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis2, axis3, axis4, axis5, axis6, axis7));
+			this.Remove(this._top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1
+
+				, axis2
+
+				, axis3
+
+				, axis4
+
+				, axis5
+
+				, axis6
+
+				, axis7
+				));
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		internal int Remove(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
@@ -14994,7 +16306,8 @@ namespace Towel.DataStructures
 				, _compare4
 				, _compare5
 				, _compare6
-				, _compare7);
+				, _compare7
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -15074,7 +16387,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -15086,7 +16400,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -15098,7 +16413,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -15110,7 +16426,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare4)
 			, Equate.FromCompare(_compare5)
 			, Equate.FromCompare(_compare6)
-			, Equate.FromCompare(_compare7));
+			, Equate.FromCompare(_compare7)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -15134,7 +16451,14 @@ namespace Towel.DataStructures
 			Axis5 axis5;
 			Axis6 axis6;
 			Axis7 axis7;
-			this._locate(value, out axis1, out axis2, out axis3, out axis4, out axis5, out axis6, out axis7);
+			this._locate(value, out axis1
+, out axis2
+, out axis3
+, out axis4
+, out axis5
+, out axis6
+, out axis7
+);
 			return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis2, axis3, axis4, axis5, axis6, axis7);
 		}
 
@@ -15162,7 +16486,8 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 1D space.</summary>
-		Omnitree.GetBounds<T, Axis1> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+			> GetBounds { get; }
 
 		#endregion
 
@@ -15278,9 +16603,12 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> _subdivisionOverride1;
 
 		#region Nested Types
@@ -15442,6 +16770,7 @@ namespace Towel.DataStructures
 			this._getBounds = omnitree._getBounds;
 			this._defaultCompare1 = omnitree._defaultCompare1;
 			this._compare1 = omnitree._compare1;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 		}
 
@@ -15449,7 +16778,8 @@ namespace Towel.DataStructures
 			Omnitree.GetBounds<T, Axis1> getBounds,
 			bool defaultCompare1,
 			Compare<Axis1> compare1,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1
+			)
 		{
 			if (getBounds == null)
 			{
@@ -15462,6 +16792,7 @@ namespace Towel.DataStructures
 			this._getBounds = getBounds;
 			this._defaultCompare1 = defaultCompare1;
 			this._compare1 = compare1;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._top = new Node(Omnitree.Bounds<Axis1>.None, null, -1);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -15469,31 +16800,40 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 1D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 1D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1> getBounds,
 			Compare<Axis1> compare1 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
 			compare1 ?? Compare.Default,
-			subdivisionOverride1) { }
+			subdivisionOverride1
+			) { }
 
 		/// <summary>Constructs a new 1D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 1D space.</param>
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1> getBoundings,
 			Compare<Axis1> compare1 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1>> subdivisionOverride1 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
 			compare1 ?? Compare.Default,
-			subdivisionOverride1) { }
+			subdivisionOverride1
+			) { }
 
 		#endregion
 
@@ -15503,7 +16843,8 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 1D space.</summary>
-		public Omnitree.GetBounds<T, Axis1> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -15559,7 +16900,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -15679,9 +17019,11 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					);
 			}
 			catch
 			{
@@ -15692,11 +17034,14 @@ namespace Towel.DataStructures
 				{
 					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 					this._getBounds(for_current.Value,
-						out min1, out max1);
+						out min1, out max1
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 				}
 				return new Omnitree.Vector<Axis1>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+				);
 			}
 		}
 
@@ -16301,9 +17646,11 @@ namespace Towel.DataStructures
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1)
+		public void RemoveOverlapped(Axis1 axis1
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1);
+			this.RemoveOverlapped(axis1, axis1
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -16312,7 +17659,8 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, where);
+			this.RemoveOverlapped(axis1, axis1
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -16480,13 +17828,15 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -16504,7 +17854,8 @@ namespace Towel.DataStructures
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
 			Omnitree.StraddlesLines(bounds, vector
-				, _compare1);
+				, _compare1
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -16570,25 +17921,29 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		internal bool InclusionCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b) =>
 			Omnitree.InclusionCheck(a, b
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
 			Omnitree.EncapsulationCheck(bounds, vector
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b) =>
 			Omnitree.EncapsulationCheck(a, b
-			, _compare1);
+			, _compare1
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1));
+			, Equate.FromCompare(_compare1)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -16607,9 +17962,11 @@ namespace Towel.DataStructures
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			this._getBounds(value,
-				out min1, out max1);
+				out min1, out max1
+				);
 			return new Omnitree.Bounds<Axis1>(
-				min1, max1);
+				min1, max1
+				);
 		}
 
 		#endregion
@@ -16633,7 +17990,9 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 2D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+			> GetBounds { get; }
 
 		#endregion
 
@@ -16784,11 +18143,15 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
 		internal Compare<Axis2> _compare2;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> _subdivisionOverride2;
 
@@ -16953,6 +18316,7 @@ namespace Towel.DataStructures
 			this._compare1 = omnitree._compare1;
 			this._defaultCompare2 = omnitree._defaultCompare2;
 			this._compare2 = omnitree._compare2;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 		}
@@ -16963,8 +18327,10 @@ namespace Towel.DataStructures
 			Compare<Axis1> compare1,
 			bool defaultCompare2,
 			Compare<Axis2> compare2,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2
+			)
 		{
 			if (getBounds == null)
 			{
@@ -16983,6 +18349,7 @@ namespace Towel.DataStructures
 			this._compare1 = compare1;
 			this._defaultCompare2 = defaultCompare2;
 			this._compare2 = compare2;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._top = new Node(Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
@@ -16991,45 +18358,60 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 2D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 2D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2> getBounds,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
 			compare1 ?? Compare.Default,
 			compare2 is null ? true : false,
 			compare2 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+			) { }
 
 		/// <summary>Constructs a new 2D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 2D space.</param>
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2> getBoundings,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2>> subdivisionOverride2 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
 			compare1 ?? Compare.Default,
 			compare2 is null ? true : false,
 			compare2 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+			) { }
 
 		#endregion
 
@@ -17039,7 +18421,10 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 2D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -17097,7 +18482,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -17218,11 +18602,15 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					);
 			}
 			catch
 			{
@@ -17235,14 +18623,18 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2);
+						out min1, out max1
+,
+						out min2, out max2
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 				}
 				return new Omnitree.Vector<Axis1, Axis2>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+				);
 			}
 		}
 
@@ -17896,9 +19288,15 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -17908,7 +19306,10 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -18093,14 +19494,20 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1, axis2, axis2));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1
+
+				, axis2, axis2
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1, axis2, axis2));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1
+
+				, axis2, axis2
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -18119,7 +19526,8 @@ namespace Towel.DataStructures
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
 			Omnitree.StraddlesLines(bounds, vector
 				, _compare1
-				, _compare2);
+				, _compare2
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -18188,28 +19596,32 @@ namespace Towel.DataStructures
 		internal bool InclusionCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b) =>
 			Omnitree.InclusionCheck(a, b
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
 			Omnitree.EncapsulationCheck(bounds, vector
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
 		internal bool EncapsulationCheck(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b) =>
 			Omnitree.EncapsulationCheck(a, b
 			, _compare1
-			, _compare2);
+			, _compare2
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b) =>
 			Omnitree.EqualsCheck(a, b
 			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2));
+			, Equate.FromCompare(_compare2)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -18229,11 +19641,15 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2);
+				out min1, out max1
+,
+				out min2, out max2
+				);
 			return new Omnitree.Bounds<Axis1, Axis2>(
-				min1, max1,
-				min2, max2);
+				min1, max1
+,
+				min2, max2
+				);
 		}
 
 		#endregion
@@ -18258,7 +19674,10 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 3D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2, Axis3> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+			> GetBounds { get; }
 
 		#endregion
 
@@ -18444,13 +19863,18 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2, Axis3> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
 		internal Compare<Axis2> _compare2;
 		internal bool _defaultCompare3;
 		internal Compare<Axis3> _compare3;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride2;
 		internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> _subdivisionOverride3;
@@ -18618,6 +20042,7 @@ namespace Towel.DataStructures
 			this._compare2 = omnitree._compare2;
 			this._defaultCompare3 = omnitree._defaultCompare3;
 			this._compare3 = omnitree._compare3;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 			this._subdivisionOverride3 = omnitree._subdivisionOverride3;
@@ -18631,9 +20056,12 @@ namespace Towel.DataStructures
 			Compare<Axis2> compare2,
 			bool defaultCompare3,
 			Compare<Axis3> compare3,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3
+			)
 		{
 			if (getBounds == null)
 			{
@@ -18658,6 +20086,7 @@ namespace Towel.DataStructures
 			this._compare2 = compare2;
 			this._defaultCompare3 = defaultCompare3;
 			this._compare3 = compare3;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -18667,20 +20096,30 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 3D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 3D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3> getBounds,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
@@ -18689,26 +20128,34 @@ namespace Towel.DataStructures
 			compare2 ?? Compare.Default,
 			compare3 is null ? true : false,
 			compare3 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+			) { }
 
 		/// <summary>Constructs a new 3D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 3D space.</param>
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2, Axis3> getBoundings,
 			Compare<Axis1> compare1 = null,
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride2 = null
+			, Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> subdivisionOverride3 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
@@ -18717,9 +20164,12 @@ namespace Towel.DataStructures
 			compare2 ?? Compare.Default,
 			compare3 is null ? true : false,
 			compare3 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+			) { }
 
 		#endregion
 
@@ -18729,7 +20179,12 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 3D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2, Axis3> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+
+			, Axis3
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -18789,7 +20244,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -18911,13 +20365,19 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1], 
-					out values3[i * 2], out values3[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+, 
+					out values3[i * 2], out values3[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+, 
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					);
 			}
 			catch
 			{
@@ -18932,17 +20392,22 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2,
-						out min3, out max3);
+						out min1, out max1
+,
+						out min2, out max2
+,
+						out min3, out max3
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+				);
 			}
 		}
 
@@ -19645,9 +21110,19 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -19658,7 +21133,12 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -19860,7 +21340,12 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1, axis2, axis2, axis3, axis3));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
@@ -19868,7 +21353,12 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1, axis2, axis2, axis3, axis3));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -19888,7 +21378,8 @@ namespace Towel.DataStructures
 			Omnitree.StraddlesLines(bounds, vector
 				, _compare1
 				, _compare2
-				, _compare3);
+				, _compare3
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -19960,7 +21451,8 @@ namespace Towel.DataStructures
 			Omnitree.InclusionCheck(a, b
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -19968,7 +21460,8 @@ namespace Towel.DataStructures
 			Omnitree.EncapsulationCheck(bounds, vector
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -19976,7 +21469,8 @@ namespace Towel.DataStructures
 			Omnitree.EncapsulationCheck(a, b
 			, _compare1
 			, _compare2
-			, _compare3);
+			, _compare3
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -19984,7 +21478,8 @@ namespace Towel.DataStructures
 			Omnitree.EqualsCheck(a, b
 			, Equate.FromCompare(_compare1)
 			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3));
+			, Equate.FromCompare(_compare3)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -20005,13 +21500,19 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
 			Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2,
-				out min3, out max3);
+				out min1, out max1
+,
+				out min2, out max2
+,
+				out min3, out max3
+				);
 			return new Omnitree.Bounds<Axis1, Axis2, Axis3>(
-				min1, max1,
-				min2, max2,
-				min3, max3);
+				min1, max1
+,
+				min2, max2
+,
+				min3, max3
+				);
 		}
 
 		#endregion
@@ -20037,7 +21538,11 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 4D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+			> GetBounds { get; }
 
 		#endregion
 
@@ -20258,7 +21763,12 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -20267,6 +21777,7 @@ namespace Towel.DataStructures
 		internal Compare<Axis3> _compare3;
 		internal bool _defaultCompare4;
 		internal Compare<Axis4> _compare4;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride2;
 		internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> _subdivisionOverride3;
@@ -20437,6 +21948,7 @@ namespace Towel.DataStructures
 			this._compare3 = omnitree._compare3;
 			this._defaultCompare4 = omnitree._defaultCompare4;
 			this._compare4 = omnitree._compare4;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 			this._subdivisionOverride3 = omnitree._subdivisionOverride3;
@@ -20453,10 +21965,14 @@ namespace Towel.DataStructures
 			Compare<Axis3> compare3,
 			bool defaultCompare4,
 			Compare<Axis4> compare4,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4
+			)
 		{
 			if (getBounds == null)
 			{
@@ -20487,6 +22003,7 @@ namespace Towel.DataStructures
 			this._compare3 = compare3;
 			this._defaultCompare4 = defaultCompare4;
 			this._compare4 = compare4;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -20497,13 +22014,22 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 4D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 4D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> getBounds,
@@ -20511,10 +22037,14 @@ namespace Towel.DataStructures
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
@@ -20525,10 +22055,14 @@ namespace Towel.DataStructures
 			compare3 ?? Compare.Default,
 			compare4 is null ? true : false,
 			compare4 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+			) { }
 
 		/// <summary>Constructs a new 4D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 4D space.</param>
@@ -20536,9 +22070,14 @@ namespace Towel.DataStructures
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2, Axis3, Axis4> getBoundings,
@@ -20546,10 +22085,11 @@ namespace Towel.DataStructures
 			Compare<Axis2> compare2 = null,
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride2 = null
+			, Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride3 = null
+			, Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> subdivisionOverride4 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
@@ -20560,10 +22100,14 @@ namespace Towel.DataStructures
 			compare3 ?? Compare.Default,
 			compare4 is null ? true : false,
 			compare4 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+			) { }
 
 		#endregion
 
@@ -20573,7 +22117,14 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 4D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+
+			, Axis3
+
+			, Axis4
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -20635,7 +22186,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -20758,15 +22308,23 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1], 
-					out values3[i * 2], out values3[i * 2 + 1], 
-					out values4[i * 2], out values4[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+, 
+					out values3[i * 2], out values3[i * 2 + 1]
+, 
+					out values4[i * 2], out values4[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+, 
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+, 
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					);
 			}
 			catch
 			{
@@ -20783,20 +22341,26 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2,
-						out min3, out max3,
-						out min4, out max4);
+						out min1, out max1
+,
+						out min2, out max2
+,
+						out min3, out max3
+,
+						out min4, out max4
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
 					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+				);
 			}
 		}
 
@@ -21548,9 +23112,23 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -21562,7 +23140,14 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -21781,7 +23366,14 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
@@ -21790,7 +23382,14 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -21811,7 +23410,8 @@ namespace Towel.DataStructures
 				, _compare1
 				, _compare2
 				, _compare3
-				, _compare4);
+				, _compare4
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -21886,7 +23486,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -21895,7 +23496,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -21904,7 +23506,8 @@ namespace Towel.DataStructures
 			, _compare1
 			, _compare2
 			, _compare3
-			, _compare4);
+			, _compare4
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -21913,7 +23516,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare1)
 			, Equate.FromCompare(_compare2)
 			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4));
+			, Equate.FromCompare(_compare4)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -21935,15 +23539,23 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
 			Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2,
-				out min3, out max3,
-				out min4, out max4);
+				out min1, out max1
+,
+				out min2, out max2
+,
+				out min3, out max3
+,
+				out min4, out max4
+				);
 			return new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(
-				min1, max1,
-				min2, max2,
-				min3, max3,
-				min4, max4);
+				min1, max1
+,
+				min2, max2
+,
+				min3, max3
+,
+				min4, max4
+				);
 		}
 
 		#endregion
@@ -21970,7 +23582,12 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 5D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+			> GetBounds { get; }
 
 		#endregion
 
@@ -22226,7 +23843,13 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -22237,6 +23860,7 @@ namespace Towel.DataStructures
 		internal Compare<Axis4> _compare4;
 		internal bool _defaultCompare5;
 		internal Compare<Axis5> _compare5;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride2;
 		internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> _subdivisionOverride3;
@@ -22410,6 +24034,7 @@ namespace Towel.DataStructures
 			this._compare4 = omnitree._compare4;
 			this._defaultCompare5 = omnitree._defaultCompare5;
 			this._compare5 = omnitree._compare5;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 			this._subdivisionOverride3 = omnitree._subdivisionOverride3;
@@ -22429,11 +24054,16 @@ namespace Towel.DataStructures
 			Compare<Axis4> compare4,
 			bool defaultCompare5,
 			Compare<Axis5> compare5,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5
+			)
 		{
 			if (getBounds == null)
 			{
@@ -22470,6 +24100,7 @@ namespace Towel.DataStructures
 			this._compare4 = compare4;
 			this._defaultCompare5 = defaultCompare5;
 			this._compare5 = compare5;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -22481,15 +24112,26 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 5D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 5D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> getBounds,
@@ -22498,11 +24140,16 @@ namespace Towel.DataStructures
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
@@ -22515,11 +24162,16 @@ namespace Towel.DataStructures
 			compare4 ?? Compare.Default,
 			compare5 is null ? true : false,
 			compare5 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+			) { }
 
 		/// <summary>Constructs a new 5D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 5D space.</param>
@@ -22528,10 +24180,16 @@ namespace Towel.DataStructures
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2, Axis3, Axis4, Axis5> getBoundings,
@@ -22540,11 +24198,12 @@ namespace Towel.DataStructures
 			Compare<Axis3> compare3 = null,
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride2 = null
+			, Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride3 = null
+			, Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride4 = null
+			, Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> subdivisionOverride5 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
@@ -22557,11 +24216,16 @@ namespace Towel.DataStructures
 			compare4 ?? Compare.Default,
 			compare5 is null ? true : false,
 			compare5 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+			) { }
 
 		#endregion
 
@@ -22571,7 +24235,16 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 5D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+
+			, Axis3
+
+			, Axis4
+
+			, Axis5
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -22635,7 +24308,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -22759,17 +24431,27 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1], 
-					out values3[i * 2], out values3[i * 2 + 1], 
-					out values4[i * 2], out values4[i * 2 + 1], 
-					out values5[i * 2], out values5[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+, 
+					out values3[i * 2], out values3[i * 2 + 1]
+, 
+					out values4[i * 2], out values4[i * 2 + 1]
+, 
+					out values5[i * 2], out values5[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+, 
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+, 
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+, 
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					);
 			}
 			catch
 			{
@@ -22788,11 +24470,17 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 					Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2,
-						out min3, out max3,
-						out min4, out max4,
-						out min5, out max5);
+						out min1, out max1
+,
+						out min2, out max2
+,
+						out min3, out max3
+,
+						out min4, out max4
+,
+						out min5, out max5
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
@@ -22800,11 +24488,12 @@ namespace Towel.DataStructures
 					values5[i * 2] = min5; values5[i * 2 + 1] = max5;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+				);
 			}
 		}
 
@@ -23605,9 +25294,27 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -23620,7 +25327,16 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -23856,7 +25572,16 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
@@ -23866,7 +25591,16 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -23888,7 +25622,8 @@ namespace Towel.DataStructures
 				, _compare2
 				, _compare3
 				, _compare4
-				, _compare5);
+				, _compare5
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -23966,7 +25701,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -23976,7 +25712,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -23986,7 +25723,8 @@ namespace Towel.DataStructures
 			, _compare2
 			, _compare3
 			, _compare4
-			, _compare5);
+			, _compare5
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -23996,7 +25734,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare2)
 			, Equate.FromCompare(_compare3)
 			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5));
+			, Equate.FromCompare(_compare5)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -24019,17 +25758,27 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
 			Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2,
-				out min3, out max3,
-				out min4, out max4,
-				out min5, out max5);
+				out min1, out max1
+,
+				out min2, out max2
+,
+				out min3, out max3
+,
+				out min4, out max4
+,
+				out min5, out max5
+				);
 			return new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(
-				min1, max1,
-				min2, max2,
-				min3, max3,
-				min4, max4,
-				min5, max5);
+				min1, max1
+,
+				min2, max2
+,
+				min3, max3
+,
+				min4, max4
+,
+				min5, max5
+				);
 		}
 
 		#endregion
@@ -24057,7 +25806,13 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 6D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+, Axis6
+			> GetBounds { get; }
 
 		#endregion
 
@@ -24348,7 +26103,14 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+, Axis6
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -24361,6 +26123,7 @@ namespace Towel.DataStructures
 		internal Compare<Axis5> _compare5;
 		internal bool _defaultCompare6;
 		internal Compare<Axis6> _compare6;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride2;
 		internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> _subdivisionOverride3;
@@ -24537,6 +26300,7 @@ namespace Towel.DataStructures
 			this._compare5 = omnitree._compare5;
 			this._defaultCompare6 = omnitree._defaultCompare6;
 			this._compare6 = omnitree._compare6;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 			this._subdivisionOverride3 = omnitree._subdivisionOverride3;
@@ -24559,12 +26323,18 @@ namespace Towel.DataStructures
 			Compare<Axis5> compare5,
 			bool defaultCompare6,
 			Compare<Axis6> compare6,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6
+			)
 		{
 			if (getBounds == null)
 			{
@@ -24607,6 +26377,7 @@ namespace Towel.DataStructures
 			this._compare5 = compare5;
 			this._defaultCompare6 = defaultCompare6;
 			this._compare6 = compare6;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -24619,17 +26390,30 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 6D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 6D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> getBounds,
@@ -24639,12 +26423,18 @@ namespace Towel.DataStructures
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
@@ -24659,12 +26449,18 @@ namespace Towel.DataStructures
 			compare5 ?? Compare.Default,
 			compare6 is null ? true : false,
 			compare6 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5,
-			subdivisionOverride6) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+,
+			subdivisionOverride6
+			) { }
 
 		/// <summary>Constructs a new 6D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 6D space.</param>
@@ -24674,11 +26470,18 @@ namespace Towel.DataStructures
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> getBoundings,
@@ -24688,12 +26491,13 @@ namespace Towel.DataStructures
 			Compare<Axis4> compare4 = null,
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride2 = null
+			, Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride3 = null
+			, Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride4 = null
+			, Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride5 = null
+			, Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> subdivisionOverride6 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
@@ -24708,12 +26512,18 @@ namespace Towel.DataStructures
 			compare5 ?? Compare.Default,
 			compare6 is null ? true : false,
 			compare6 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5,
-			subdivisionOverride6) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+,
+			subdivisionOverride6
+			) { }
 
 		#endregion
 
@@ -24723,7 +26533,18 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 6D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+
+			, Axis3
+
+			, Axis4
+
+			, Axis5
+
+			, Axis6
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -24789,7 +26610,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -24914,19 +26734,31 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1], 
-					out values3[i * 2], out values3[i * 2 + 1], 
-					out values4[i * 2], out values4[i * 2 + 1], 
-					out values5[i * 2], out values5[i * 2 + 1], 
-					out values6[i * 2], out values6[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+, 
+					out values3[i * 2], out values3[i * 2 + 1]
+, 
+					out values4[i * 2], out values4[i * 2 + 1]
+, 
+					out values5[i * 2], out values5[i * 2 + 1]
+, 
+					out values6[i * 2], out values6[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5), 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+, 
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+, 
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+, 
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+, 
+					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+					);
 			}
 			catch
 			{
@@ -24947,12 +26779,19 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 					Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2,
-						out min3, out max3,
-						out min4, out max4,
-						out min5, out max5,
-						out min6, out max6);
+						out min1, out max1
+,
+						out min2, out max2
+,
+						out min3, out max3
+,
+						out min4, out max4
+,
+						out min5, out max5
+,
+						out min6, out max6
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
@@ -24961,12 +26800,13 @@ namespace Towel.DataStructures
 					values6[i * 2] = min6; values6[i * 2 + 1] = max6;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5), 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+				);
 			}
 		}
 
@@ -25816,9 +27656,31 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+
+			, Axis6 axis6
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -25832,7 +27694,18 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -26085,7 +27958,18 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
@@ -26096,7 +27980,18 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -26119,7 +28014,8 @@ namespace Towel.DataStructures
 				, _compare3
 				, _compare4
 				, _compare5
-				, _compare6);
+				, _compare6
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -26200,7 +28096,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -26211,7 +28108,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -26222,7 +28120,8 @@ namespace Towel.DataStructures
 			, _compare3
 			, _compare4
 			, _compare5
-			, _compare6);
+			, _compare6
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -26233,7 +28132,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare3)
 			, Equate.FromCompare(_compare4)
 			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6));
+			, Equate.FromCompare(_compare6)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -26257,19 +28157,31 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
 			Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2,
-				out min3, out max3,
-				out min4, out max4,
-				out min5, out max5,
-				out min6, out max6);
+				out min1, out max1
+,
+				out min2, out max2
+,
+				out min3, out max3
+,
+				out min4, out max4
+,
+				out min5, out max5
+,
+				out min6, out max6
+				);
 			return new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-				min1, max1,
-				min2, max2,
-				min3, max3,
-				min4, max4,
-				min5, max5,
-				min6, max6);
+				min1, max1
+,
+				min2, max2
+,
+				min3, max3
+,
+				min4, max4
+,
+				min5, max5
+,
+				min6, max6
+				);
 		}
 
 		#endregion
@@ -26298,7 +28210,14 @@ namespace Towel.DataStructures
 		int Dimensions { get; }
 
 		/// <summary>The delegate being used by the omnitree to get the bounds of values in 7D space.</summary>
-		Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> GetBounds { get; }
+		Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+, Axis6
+, Axis7
+			> GetBounds { get; }
 
 		#endregion
 
@@ -26624,7 +28543,15 @@ namespace Towel.DataStructures
 		internal int _naturalLogLower = 1; // caching the next time to calculate loads (lower count)
 		internal int _naturalLogUpper = -1; // caching the next time to calculate loads (upper count)
 		internal int _load; // ln(count); min = _defaultLoad
-		internal Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> _getBounds;
+		internal Omnitree.GetBounds<T, Axis1
+, Axis2
+, Axis3
+, Axis4
+, Axis5
+, Axis6
+, Axis7
+
+			> _getBounds;
 		internal bool _defaultCompare1;
 		internal Compare<Axis1> _compare1;
 		internal bool _defaultCompare2;
@@ -26639,6 +28566,7 @@ namespace Towel.DataStructures
 		internal Compare<Axis6> _compare6;
 		internal bool _defaultCompare7;
 		internal Compare<Axis7> _compare7;
+
 		internal Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride1;
 		internal Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride2;
 		internal Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> _subdivisionOverride3;
@@ -26818,6 +28746,7 @@ namespace Towel.DataStructures
 			this._compare6 = omnitree._compare6;
 			this._defaultCompare7 = omnitree._defaultCompare7;
 			this._compare7 = omnitree._compare7;
+
 			this._subdivisionOverride1 = omnitree._subdivisionOverride1;
 			this._subdivisionOverride2 = omnitree._subdivisionOverride2;
 			this._subdivisionOverride3 = omnitree._subdivisionOverride3;
@@ -26843,13 +28772,20 @@ namespace Towel.DataStructures
 			Compare<Axis6> compare6,
 			bool defaultCompare7,
 			Compare<Axis7> compare7,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6,
-			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6
+,
+			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7
+			)
 		{
 			if (getBounds == null)
 			{
@@ -26898,6 +28834,7 @@ namespace Towel.DataStructures
 			this._compare6 = compare6;
 			this._defaultCompare7 = defaultCompare7;
 			this._compare7 = compare7;
+
 			this._subdivisionOverride1 = subdivisionOverride1;
 			this._subdivisionOverride2 = subdivisionOverride2;
 			this._subdivisionOverride3 = subdivisionOverride3;
@@ -26911,19 +28848,34 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new 7D omnitree that stores bounds.</summary>
 		/// <param name="getBounds">The delegate for getting object bounds in 7D space.</param>
+
 		/// <param name="compare1">The delegate for comparing values along the 1D axis.</param>
+
 		/// <param name="compare2">The delegate for comparing values along the 2D axis.</param>
+
 		/// <param name="compare3">The delegate for comparing values along the 3D axis.</param>
+
 		/// <param name="compare4">The delegate for comparing values along the 4D axis.</param>
+
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
+
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
+
 		/// <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+
 		/// <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> getBounds,
@@ -26934,13 +28886,20 @@ namespace Towel.DataStructures
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
 			Compare<Axis7> compare7 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null,
-			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null
+,
+			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null
+			)
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
@@ -26957,13 +28916,20 @@ namespace Towel.DataStructures
 			compare6 ?? Compare.Default,
 			compare7 is null ? true : false,
 			compare7 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5,
-			subdivisionOverride6,
-			subdivisionOverride7) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+,
+			subdivisionOverride6
+,
+			subdivisionOverride7
+			) { }
 
 		/// <summary>Constructs a new 7D omnitree that stores bounds.</summary>
 		/// <param name="getBoundings">The delegate for getting object bounds in 7D space.</param>
@@ -26974,12 +28940,20 @@ namespace Towel.DataStructures
 		/// <param name="compare5">The delegate for comparing values along the 5D axis.</param>
 		/// <param name="compare6">The delegate for comparing values along the 6D axis.</param>
 		/// <param name="compare7">The delegate for comparing values along the 7D axis.</param>
+
+
 		/// <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
+
 		/// <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
+
 		/// <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
+
 		/// <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
+
 		/// <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
+
 		/// <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
+
 		/// <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> getBoundings,
@@ -26990,13 +28964,14 @@ namespace Towel.DataStructures
 			Compare<Axis5> compare5 = null,
 			Compare<Axis6> compare6 = null,
 			Compare<Axis7> compare7 = null,
-			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null,
-			Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null,
-			Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null,
-			Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null,
-			Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null,
-			Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null,
-			Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null)
+			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride1 = null
+			, Omnitree.SubdivisionOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride2 = null
+			, Omnitree.SubdivisionOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride3 = null
+			, Omnitree.SubdivisionOverride<T, Axis4, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride4 = null
+			, Omnitree.SubdivisionOverride<T, Axis5, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride5 = null
+			, Omnitree.SubdivisionOverride<T, Axis6, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride6 = null
+			, Omnitree.SubdivisionOverride<T, Axis7, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> subdivisionOverride7 = null
+			)
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
@@ -27013,13 +28988,20 @@ namespace Towel.DataStructures
 			compare6 ?? Compare.Default,
 			compare7 is null ? true : false,
 			compare7 ?? Compare.Default,
-			subdivisionOverride1,
-			subdivisionOverride2,
-			subdivisionOverride3,
-			subdivisionOverride4,
-			subdivisionOverride5,
-			subdivisionOverride6,
-			subdivisionOverride7) { }
+			subdivisionOverride1
+,
+			subdivisionOverride2
+,
+			subdivisionOverride3
+,
+			subdivisionOverride4
+,
+			subdivisionOverride5
+,
+			subdivisionOverride6
+,
+			subdivisionOverride7
+			) { }
 
 		#endregion
 
@@ -27029,7 +29011,20 @@ namespace Towel.DataStructures
 		public int Dimensions => _dimensions;
 
 		/// <summary>The delegate being used by the omnitree to locate items in 7D space.</summary>
-		public Omnitree.GetBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> GetBounds => _getBounds;
+		public Omnitree.GetBounds<T, Axis1
+
+			, Axis2
+
+			, Axis3
+
+			, Axis4
+
+			, Axis5
+
+			, Axis6
+
+			, Axis7
+			> GetBounds => _getBounds;
 
 
 		/// <summary>The comparison function the Omnitree is using along the 1D axis.</summary>
@@ -27097,7 +29092,6 @@ namespace Towel.DataStructures
 		#region Methods
 
 		#region Add
-
 
 
 		#region single
@@ -27223,21 +29217,35 @@ namespace Towel.DataStructures
 				Node.ValueNode for_current = node.Head; // used in for loop
 				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
 					this._getBounds(for_current.Value, 
-					out values1[i * 2], out values1[i * 2 + 1], 
-					out values2[i * 2], out values2[i * 2 + 1], 
-					out values3[i * 2], out values3[i * 2 + 1], 
-					out values4[i * 2], out values4[i * 2 + 1], 
-					out values5[i * 2], out values5[i * 2 + 1], 
-					out values6[i * 2], out values6[i * 2 + 1], 
-					out values7[i * 2], out values7[i * 2 + 1]);
+					out values1[i * 2], out values1[i * 2 + 1]
+, 
+					out values2[i * 2], out values2[i * 2 + 1]
+, 
+					out values3[i * 2], out values3[i * 2 + 1]
+, 
+					out values4[i * 2], out values4[i * 2 + 1]
+, 
+					out values5[i * 2], out values5[i * 2 + 1]
+, 
+					out values6[i * 2], out values6[i * 2 + 1]
+, 
+					out values7[i * 2], out values7[i * 2 + 1]
+					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5), 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6), 
-					Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+, 
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+, 
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+, 
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+, 
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+, 
+					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+, 
+					Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7)
+					);
 			}
 			catch
 			{
@@ -27260,13 +29268,21 @@ namespace Towel.DataStructures
 					Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
 					Omnitree.Bound<Axis7> min7; Omnitree.Bound<Axis7> max7;
 					this._getBounds(for_current.Value,
-						out min1, out max1,
-						out min2, out max2,
-						out min3, out max3,
-						out min4, out max4,
-						out min5, out max5,
-						out min6, out max6,
-						out min7, out max7);
+						out min1, out max1
+,
+						out min2, out max2
+,
+						out min3, out max3
+,
+						out min4, out max4
+,
+						out min5, out max5
+,
+						out min6, out max6
+,
+						out min7, out max7
+
+						);
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
@@ -27276,13 +29292,14 @@ namespace Towel.DataStructures
 					values7[i * 2] = min7; values7[i * 2 + 1] = max7;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1), 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2), 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3), 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4), 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5), 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6), 
-					Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7));
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+					, Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7)
+				);
 			}
 		}
 
@@ -28181,9 +30198,35 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
 		/// <returns>The number of items that were removed.</returns>
-		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7)
+		public void RemoveOverlapped(Axis1 axis1
+
+			, Axis2 axis2
+
+			, Axis3 axis3
+
+			, Axis4 axis4
+
+			, Axis5 axis5
+
+			, Axis6 axis6
+
+			, Axis7 axis7
+			)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6, axis7, axis7);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+
+				, axis7, axis7
+				);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 		
@@ -28198,7 +30241,20 @@ namespace Towel.DataStructures
 		/// <param name="where">The equality constraint of the removal.</param>
 		public void RemoveOverlapped(Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7, Predicate<T> where)
 		{
-			this.RemoveOverlapped(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6, axis7, axis7, where);
+			this.RemoveOverlapped(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+
+				, axis7, axis7
+				, where);
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
 		}
 
@@ -28468,7 +30524,20 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
 		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6, axis7, axis7));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+
+				, axis7, axis7
+			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
@@ -28480,7 +30549,20 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
 		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
-			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1, axis2, axis2, axis3, axis3, axis4, axis4, axis5, axis5, axis6, axis6, axis7, axis7));
+			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1
+
+				, axis2, axis2
+
+				, axis3, axis3
+
+				, axis4, axis4
+
+				, axis5, axis5
+
+				, axis6, axis6
+
+				, axis7, axis7
+				));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -28504,7 +30586,8 @@ namespace Towel.DataStructures
 				, _compare4
 				, _compare5
 				, _compare6
-				, _compare7);
+				, _compare7
+				);
 
 		/// <summary>Computes the child index that contains the desired dimensions.</summary>
 		/// <param name="pointOfDivision">The point of division to compare against.</param>
@@ -28588,7 +30671,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
 		/// <returns>True if the space encapsulates the point; False if not.</returns>
@@ -28600,7 +30684,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
 		/// <returns>True if the left space encapsulates the right; False if not.</returns>
@@ -28612,7 +30697,8 @@ namespace Towel.DataStructures
 			, _compare4
 			, _compare5
 			, _compare6
-			, _compare7);
+			, _compare7
+			);
 
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
@@ -28624,7 +30710,8 @@ namespace Towel.DataStructures
 			, Equate.FromCompare(_compare4)
 			, Equate.FromCompare(_compare5)
 			, Equate.FromCompare(_compare6)
-			, Equate.FromCompare(_compare7));
+			, Equate.FromCompare(_compare7)
+			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
 		/// <param name="node">The starting node to find the encapsulating parent of the location.</param>
@@ -28649,21 +30736,35 @@ namespace Towel.DataStructures
 			Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
 			Omnitree.Bound<Axis7> min7; Omnitree.Bound<Axis7> max7;
 			this._getBounds(value,
-				out min1, out max1,
-				out min2, out max2,
-				out min3, out max3,
-				out min4, out max4,
-				out min5, out max5,
-				out min6, out max6,
-				out min7, out max7);
+				out min1, out max1
+,
+				out min2, out max2
+,
+				out min3, out max3
+,
+				out min4, out max4
+,
+				out min5, out max5
+,
+				out min6, out max6
+,
+				out min7, out max7
+				);
 			return new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-				min1, max1,
-				min2, max2,
-				min3, max3,
-				min4, max4,
-				min5, max5,
-				min6, max6,
-				min7, max7);
+				min1, max1
+,
+				min2, max2
+,
+				min3, max3
+,
+				min4, max4
+,
+				min5, max5
+,
+				min6, max6
+,
+				min7, max7
+				);
 		}
 
 		#endregion

@@ -239,7 +239,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					capturedException = capturedException ?? new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+					capturedException ??= new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
@@ -627,7 +627,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					capturedException = capturedException ?? new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+					capturedException ??= new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
@@ -724,15 +724,15 @@ namespace Towel.DataStructures
 		#region Stepper And IEnumerable
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<D> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<D> step)
 		{
 			throw new NotImplementedException();
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<D> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<D> step)
 		{
 			throw new NotImplementedException();
 		}

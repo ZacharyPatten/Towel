@@ -1316,7 +1316,7 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				bool RequiresParentheses(string expressionString)
+				static bool RequiresParentheses(string expressionString)
 				{
 					foreach (char c in expressionString)
 					{
@@ -2523,7 +2523,7 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				bool RequiresParentheses(string expressionString)
+				static bool RequiresParentheses(string expressionString)
 				{
 					foreach (char c in expressionString)
 					{
@@ -3249,35 +3249,23 @@ namespace Towel.Mathematics
 				recursive =
 					(System.Linq.Expressions.Expression expression) =>
 					{
-						UnaryExpression unary_expression = expression as UnaryExpression;
-						BinaryExpression binary_expression = expression as BinaryExpression;
-
-						switch (expression.NodeType)
+						UnaryExpression ue = expression as UnaryExpression;
+						BinaryExpression be = expression as BinaryExpression;
+						return expression.NodeType switch
 						{
-							case ExpressionType.Lambda:
-								return recursive((expression as LambdaExpression).Body);
-							case ExpressionType.Constant:
-								return Constant.BuildGeneric((expression as ConstantExpression).Value);
-							case ExpressionType.Parameter:
-								return new Variable((expression as ParameterExpression).Name);
-							case ExpressionType.Negate:
-								return new Negate(recursive(unary_expression.Operand));
-							case ExpressionType.UnaryPlus:
-								return recursive(unary_expression.Operand);
-							case ExpressionType.Add:
-								return new Add(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Subtract:
-								return new Subtract(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Multiply:
-								return new Multiply(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Divide:
-								return new Divide(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Power:
-								return new Power(recursive(binary_expression.Left), recursive(binary_expression.Right));
-							case ExpressionType.Call:
-								return methodCallExpression_to_node(expression as MethodCallExpression);
-						}
-						throw new ArgumentException("The expression could not be parsed.", nameof(e));
+							ExpressionType.Lambda => recursive((expression as LambdaExpression).Body),
+							ExpressionType.Constant => Constant.BuildGeneric((expression as ConstantExpression).Value),
+							ExpressionType.Parameter => new Variable((expression as ParameterExpression).Name),
+							ExpressionType.Negate => new Negate(recursive(ue.Operand)),
+							ExpressionType.UnaryPlus => recursive(ue.Operand),
+							ExpressionType.Add => new Add(recursive(be.Left), recursive(be.Right)),
+							ExpressionType.Subtract => new Subtract(recursive(be.Left), recursive(be.Right)),
+							ExpressionType.Multiply => new Multiply(recursive(be.Left), recursive(be.Right)),
+							ExpressionType.Divide => new Divide(recursive(be.Left), recursive(be.Right)),
+							ExpressionType.Power => new Power(recursive(be.Left), recursive(be.Right)),
+							ExpressionType.Call => methodCallExpression_to_node(expression as MethodCallExpression),
+							_ => throw new ArgumentException("The expression could not be parsed.", nameof(e)),
+						};
 					};
 
 				methodCallExpression_to_node =

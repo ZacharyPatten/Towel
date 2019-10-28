@@ -8,7 +8,7 @@ namespace Extensions
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			Console.WriteLine("You are runnning the Extensions example.");
 			Console.WriteLine("==========================================");

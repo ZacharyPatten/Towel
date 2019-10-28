@@ -9,7 +9,7 @@ namespace Measurements
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			Console.WriteLine("You are runnning the Measurements example.");
 			Console.WriteLine("==========================================");
