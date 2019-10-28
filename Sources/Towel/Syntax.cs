@@ -1339,7 +1339,7 @@ namespace Towel
 		public static CompareResult Comparison<A, B>(A a, B b) =>
 			CompareImplementation<A, B>.Function(a, b);
 
-#if Hidden
+#if false
 		// This code is hidden currently because it collides with the
 		// System.Comparison<T> delegate type. I may or may not add it
 		// in the future.
@@ -2066,6 +2066,11 @@ namespace Towel
 
 		#region Quantiles
 
+		/// <summary>Computes the quantiles of a set of data.</summary>
+		/// <typeparam name="T">The generic data type.</typeparam>
+		/// <param name="quantiles">The number of quantiles to compute.</param>
+		/// <param name="stepper">The data stepper.</param>
+		/// <returns>The computed quantiles of the data set.</returns>
 		public static T[] Quantiles<T>(int quantiles, Stepper<T> stepper)
 		{
 			if (quantiles < 1)
@@ -2150,7 +2155,10 @@ namespace Towel
 
 		#region Exponential
 
-		/// <summary>Computes: [ e ^ a ].</summary>
+		/// <summary>Computes the exponentional of a value [e ^ <paramref name="a"/>].</summary>
+		/// <typeparam name="T">The generic type of the operation.</typeparam>
+		/// <param name="a">The value to compute the exponentional of.</param>
+		/// <returns>The exponential of the value [e ^ <paramref name="a"/>].</returns>
 		public static T Exponential<T>(T a)
 		{
 			throw new NotImplementedException();
@@ -2160,10 +2168,13 @@ namespace Towel
 
 		#region NaturalLogarithm
 
+		/// <summary>Computes the natural logarithm of a value [ln(<paramref name="a"/>)].</summary>
+		/// <typeparam name="T">The generic type of the operation.</typeparam>
+		/// <param name="a">The value to compute the natural log of.</param>
+		/// <returns>The natural log of the provided value [ln(<paramref name="a"/>)].</returns>
 		public static T NaturalLogarithm<T>(T a) =>
 			NaturalLogarithmImplementation<T>.Function(a);
 
-		/// <summary>Computes (natrual log): [ ln(n) ].</summary>
 		internal static class NaturalLogarithmImplementation<T>
 		{
 			internal static Func<T, T> Function = a =>

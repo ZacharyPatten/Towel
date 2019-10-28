@@ -3366,6 +3366,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -3993,6 +3997,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -4919,6 +4927,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -5610,6 +5622,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -6614,6 +6630,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -7371,6 +7391,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -8453,6 +8477,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -9278,6 +9306,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -10438,6 +10470,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -11333,6 +11369,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -12571,6 +12611,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -13538,6 +13582,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -14854,6 +14902,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -15895,6 +15947,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -16904,6 +16960,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -17630,6 +17690,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -18486,6 +18550,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -19271,6 +19339,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -20248,6 +20320,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -21092,6 +21168,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -22190,6 +22270,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -23093,6 +23177,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -24312,6 +24400,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -25274,6 +25366,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -26614,6 +26710,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -27635,6 +27735,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);
@@ -29096,6 +29200,10 @@ namespace Towel.DataStructures
 
 		#region single
 
+		/// <summary>Tries to add a value.</summary>
+		/// <param name="value">The value to be added.</param>
+		/// <param name="exception">The exception that occurred if the add failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -30176,6 +30284,10 @@ namespace Towel.DataStructures
 			return removals;
 		}
 
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="value">The value to remove.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			Remove(value);

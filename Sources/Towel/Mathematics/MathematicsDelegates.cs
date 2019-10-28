@@ -2,6 +2,7 @@
 
 namespace Towel.Mathematics
 {
+	/// <summary>Static mathematics delegates container.</summary>
 	public static class MathematicsDelegates
 	{
 		/// <summary>Computes the sine ratio of an angle.</summary>

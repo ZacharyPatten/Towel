@@ -116,7 +116,7 @@ namespace Towel
 		#endregion
 
 		#region Golden Ratio
-#if Hidden
+#if false
 
 		/// <summary>GoldenRatio [(1 + SquareRoot(5)) / 2]</summary>
 		//public static readonly T GoldenRatio = Symbolics.ParseAndSimplifyToConstant<T>("(1 + SquareRoot(5)) / 2");

@@ -2143,10 +2143,11 @@ namespace Towel.Mathematics
 				});
 		}
 
-		public Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis)
-		{
-			return Rotate4x4(this, angle, axis);
-		}
+		/// <summary>Converts an angle around an axis into a 4x4 rotational matrix.</summary>
+		/// <param name="angle">The angle of the axis rotation.</param>
+		/// <param name="axis">The axis of the axis rotation.</param>
+		/// <returns>The rotation expressed as a 4x4 matrix.</returns>
+		public Matrix<T> Rotate4x4(Angle<T> angle, Vector<T> axis) => Rotate4x4(this, angle, axis);
 
 		#endregion
 

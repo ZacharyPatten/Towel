@@ -178,11 +178,14 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Constructs a ArrayJagged.</summary>
+		/// <param name="size">The length of the ArrayJagged to construct.</param>
 		public ArrayJagged(int size)
 			: this((ulong)size)
 		{ }
 
-
+		/// <summary>Constructs a ArrayJagged.</summary>
+		/// <param name="size">The length of the ArrayJagged to construct.</param>
 		// maximum BigArray size = BLOCK_SIZE * Int.MaxValue
 		public ArrayJagged(ulong size)
 		{

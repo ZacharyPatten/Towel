@@ -831,6 +831,14 @@
             <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
             <typeparam name="T">The generic type of value to store in the array.</typeparam>
         </member>
+        <member name="M:Towel.DataStructures.ArrayJagged`1.#ctor(System.Int32)">
+            <summary>Constructs a ArrayJagged.</summary>
+            <param name="size">The length of the ArrayJagged to construct.</param>
+        </member>
+        <member name="M:Towel.DataStructures.ArrayJagged`1.#ctor(System.UInt64)">
+            <summary>Constructs a ArrayJagged.</summary>
+            <param name="size">The length of the ArrayJagged to construct.</param>
+        </member>
         <member name="P:Towel.DataStructures.ArrayJagged`1.Length">
             <summary>The length of the array.</summary>
         </member>
@@ -1217,69 +1225,6 @@
             <typeparam name="T">The type of value.</typeparam>
             <param name="structure">The structure to remove the value from.</param>
             <param name="value">The value to be removed.</param>
-        </member>
-        <member name="T:Towel.DataStructures.DequeLinked`1">
-            <summary>Implements First-In-First-Out queue data structure.</summary>
-            <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
-        </member>
-        <member name="T:Towel.DataStructures.DequeLinked`1.Node">
-            <summary>This class just holds the data for each individual node of the list.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.#ctor">
-            <summary>Creates an instance of a queue.</summary>
-            <remarks>Runtime: O(1).</remarks>
-        </member>
-        <member name="P:Towel.DataStructures.DequeLinked`1.Count">
-            <summary>Returns the number of items in the queue.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.EnqueueBack(`0)">
-            <summary>Adds an item to the back of the queue.</summary>
-            <param name="enqueue">The item to add to the queue.</param>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.DequeueFront">
-            <summary>Removes the oldest item in the queue.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.PeekFront">
-            <summary>Looks at the front-most value.</summary>
-            <returns>The front-most value.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Clear">
-            <summary>Resets the queue to an empty state.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.ToArray">
-            <summary>Converts the list into a standard array.</summary>
-            <returns>A standard array of all the items.</returns>
-            <runtime>O(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.GetEnumerator">
-            <summary>Gets the enumerator for this dequeue.</summary>
-            <returns>The enumerator for this dequeue.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.DequeLinked`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
         </member>
         <member name="T:Towel.DataStructures.IGraph`1">
             <summary>A graph data structure that stores nodes and edges.</summary>
@@ -5060,6 +5005,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`2.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5164,6 +5115,12 @@
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -5429,6 +5386,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`3.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5553,6 +5516,12 @@
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
             <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -5855,6 +5824,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`4.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -5999,6 +5974,12 @@
             <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
             <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -6338,6 +6319,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`5.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -6502,6 +6489,12 @@
             <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
             <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -6878,6 +6871,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`6.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -7062,6 +7061,12 @@
             <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
             <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -7475,6 +7480,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`7.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -7679,6 +7690,12 @@
             <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
             <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -8129,6 +8146,12 @@
         <member name="P:Towel.DataStructures.OmnitreePointsLinked`8.LeafCount">
             <summary>Counts the current number of leaves in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -8353,6 +8376,12 @@
             <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
             <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -8700,6 +8729,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`2.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -8848,6 +8883,12 @@
             <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
             <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -9190,6 +9231,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`3.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -9373,6 +9420,12 @@
             <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
             <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -9778,6 +9831,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`4.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -9996,6 +10055,12 @@
             <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
             <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -10464,6 +10529,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`5.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -10717,6 +10788,12 @@
             <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
             <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -11248,6 +11325,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`6.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -11536,6 +11619,12 @@
             <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
             <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -12130,6 +12219,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`7.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -12453,6 +12548,12 @@
             <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
             <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -13110,6 +13211,12 @@
         <member name="P:Towel.DataStructures.OmnitreeBoundsLinked`8.NodeCount">
             <summary>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</summary>
         </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value.</summary>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if successful or false if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Add(`0)">
             <summary>Adds an item to the tree.</summary>
             <param name="addition">The item to be added.</param>
@@ -13468,6 +13575,12 @@
             <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
             <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
             <param name="where">The equality constraint of the removal.</param>
+        </member>
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if successful or false if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
@@ -15772,6 +15885,9 @@
             <summary>Default conversion to string for fractions.</summary>
             <returns>The value represented as a string.</returns>
         </member>
+        <member name="T:Towel.Mathematics.MathematicsDelegates">
+            <summary>Static mathematics delegates container.</summary>
+        </member>
         <member name="T:Towel.Mathematics.MathematicsDelegates.Sine`1">
             <summary>Computes the sine ratio of an angle.</summary>
             <typeparam name="T">The numeric type of the opertion.</typeparam>
@@ -16378,6 +16494,12 @@
             <param name="axis">The 3D axis to rotate the matrix around.</param>
             <returns>The rotated matrix.</returns>
         </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Rotate4x4(Towel.Measurements.Angle{`0},Towel.Mathematics.Vector{`0})">
+            <summary>Converts an angle around an axis into a 4x4 rotational matrix.</summary>
+            <param name="angle">The angle of the axis rotation.</param>
+            <param name="axis">The axis of the axis rotation.</param>
+            <returns>The rotation expressed as a 4x4 matrix.</returns>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.Equal(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0})">
             <summary>Does a value equality check.</summary>
             <param name="a">The first matrix to check for equality.</param>
@@ -16499,6 +16621,16 @@
             <param name="y">The y component of the quaternion.</param>
             <param name="z">The z component of the quaternion.</param>
             <param name="w">The w component of the quaternion.</param>
+        </member>
+        <member name="M:Towel.Mathematics.Quaternion`1.Factory_Matrix3x3(Towel.Mathematics.Matrix{`0})">
+            <summary>Converts a 3x3 rotational matrix into a quaternion.</summary>
+            <param name="matrix">The matrix to convert.</param>
+            <returns>The rotation expressed as a quaternion.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Quaternion`1.Factory_Matrix4x4(Towel.Mathematics.Matrix{`0})">
+            <summary>Converts a 4x4 rotational matrix into a quaternion.</summary>
+            <param name="matrix">The matrix to convert.</param>
+            <returns>The rotation expressed as a quaternion.</returns>
         </member>
         <member name="M:Towel.Mathematics.Quaternion`1.GetHasZeroMagnitude(Towel.Mathematics.Quaternion{`0})">
             <summary>Checks quaternion for zero magnitude.</summary>
@@ -30536,11 +30668,24 @@
             <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
-        <member name="M:Towel.Syntax.Exponential``1(``0)">
-            <summary>Computes: [ e ^ a ].</summary>
+        <member name="M:Towel.Syntax.Quantiles``1(System.Int32,Towel.Stepper{``0})">
+            <summary>Computes the quantiles of a set of data.</summary>
+            <typeparam name="T">The generic data type.</typeparam>
+            <param name="quantiles">The number of quantiles to compute.</param>
+            <param name="stepper">The data stepper.</param>
+            <returns>The computed quantiles of the data set.</returns>
         </member>
-        <member name="T:Towel.Syntax.NaturalLogarithmImplementation`1">
-            <summary>Computes (natrual log): [ ln(n) ].</summary>
+        <member name="M:Towel.Syntax.Exponential``1(``0)">
+            <summary>Computes the exponentional of a value [e ^ <paramref name="a"/>].</summary>
+            <typeparam name="T">The generic type of the operation.</typeparam>
+            <param name="a">The value to compute the exponentional of.</param>
+            <returns>The exponential of the value [e ^ <paramref name="a"/>].</returns>
+        </member>
+        <member name="M:Towel.Syntax.NaturalLogarithm``1(``0)">
+            <summary>Computes the natural logarithm of a value [ln(<paramref name="a"/>)].</summary>
+            <typeparam name="T">The generic type of the operation.</typeparam>
+            <param name="a">The value to compute the natural log of.</param>
+            <returns>The natural log of the provided value [ln(<paramref name="a"/>)].</returns>
         </member>
         <member name="M:Towel.Syntax.SineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
             <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>

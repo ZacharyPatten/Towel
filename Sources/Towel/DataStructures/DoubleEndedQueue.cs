@@ -1,26 +1,29 @@
-﻿using System;
+﻿#if false
+
+using System;
 using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
-	public interface IDeque<T> : IDataStructure<T>,
+	public interface IDoubleEndedQueue<T> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
 		#region Methods
 
+		void EnqueueFront(T enqueue);
 		void EnqueueBack(T enqueue);
 		T DequeueFront();
+		T DequeueBack();
 		T PeekFront();
+		T PeekBack();
 
 		#endregion
 	}
 
-	/// <summary>Implements First-In-First-Out queue data structure.</summary>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
 	[Serializable]
-	public class DequeLinked<T> : IDeque<T>
+	public class DoubleEndedQueueLinked<T> : IDoubleEndedQueue<T>
 	{
 		internal Node _head;
 		internal Node _tail;
@@ -47,7 +50,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates an instance of a queue.</summary>
 		/// <remarks>Runtime: O(1).</remarks>
-		public DequeLinked()
+		public DoubleEndedQueueLinked()
 		{
 			_head = _tail = null;
 			_count = 0;
@@ -214,3 +217,5 @@ namespace Towel.DataStructures
 		#endregion
 	}
 }
+
+#endif
