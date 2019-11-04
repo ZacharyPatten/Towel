@@ -317,9 +317,9 @@ namespace Mathematics
 			Console.WriteLine("    minor(M, 1, 1): ");
 			ConsoleWrite(M.Minor(1, 1));
 
-			// Matrix Reduced Row Echelon
-			Console.WriteLine("    ref(M): ");
-			ConsoleWrite(Matrix<double>.Echelon(M));
+			//// Matrix Reduced Row Echelon
+			//Console.WriteLine("    ref(M): ");
+			//ConsoleWrite(Matrix<double>.Echelon(M));
 
 			// Matrix Reduced Row Echelon
 			Console.WriteLine("    rref(M): ");

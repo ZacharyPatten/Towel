@@ -1374,6 +1374,8 @@ namespace Towel.Mathematics
 
 		#region Echelon
 
+#if false
+
 		/// <summary>Calculates the echelon of a matrix (aka REF).</summary>
 		/// <param name="a">The matrix to calculate the echelon of (aka REF).</param>
 		/// <param name="b">The echelon of the matrix (aka REF).</param>
@@ -1455,6 +1457,8 @@ namespace Towel.Mathematics
 		{
 			return Echelon(this);
 		}
+
+#endif
 
 		#endregion
 

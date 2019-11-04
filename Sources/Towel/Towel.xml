@@ -16389,25 +16389,6 @@
             <param name="b">The right matrix of the concatenation.</param>
             <returns>The resulting matrix of the concatenation.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Echelon(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
-            <summary>Calculates the echelon of a matrix (aka REF).</summary>
-            <param name="a">The matrix to calculate the echelon of (aka REF).</param>
-            <param name="b">The echelon of the matrix (aka REF).</param>
-            <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
-        </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Echelon(Towel.Mathematics.Matrix{`0})">
-            <summary>Calculates the echelon of a matrix (aka REF).</summary>
-            <param name="a">The matrix to calculate the echelon of (aka REF).</param>
-            <returns>The echelon of the matrix (aka REF).</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Echelon(Towel.Mathematics.Matrix{`0}@)">
-            <summary>Calculates the echelon of a matrix (aka REF).</summary>
-            <param name="b">The echelon of the matrix (aka REF).</param>
-        </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Echelon">
-            <summary>Calculates the echelon of a matrix (aka REF).</summary>
-            <returns>The echelon of the matrix (aka REF).</returns>
-        </member>
         <member name="M:Towel.Mathematics.Matrix`1.ReducedEchelon(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
             <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
             <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>

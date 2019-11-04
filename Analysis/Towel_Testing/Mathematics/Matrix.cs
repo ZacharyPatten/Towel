@@ -984,6 +984,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Echelon
 
+#if false
+
 		[TestMethod] public void Echelon()
 		{
 			// float
@@ -1075,6 +1077,8 @@ namespace Towel_Testing.Mathematics
 				Assert.IsTrue(A.Echelon() == B);
 			}
 		}
+
+#endif
 
 		#endregion
 
