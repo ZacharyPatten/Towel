@@ -419,7 +419,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Syntax.Add);
+            return MathBase(a, b, Syntax.Addition);
         }
 
         /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
@@ -449,7 +449,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Syntax.Subtract);
+            return MathBase(a, b, Syntax.Subtraction);
         }
 
         /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
@@ -479,7 +479,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static <#= measurement.Item1 #><T> Multiply(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Syntax.Multiply);
+            return MathBase(a, b, Syntax.Multiplication);
         }
 
         /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
@@ -668,7 +668,7 @@ string bIndexString = null;
 
 			T A = a[<#= aIndexString #>];
 			T B = b[<#= bIndexString #>];
-			T C = Syntax.Multiply(A, B);
+			T C = Syntax.Multiplication(A, B);
 
 			return new <#= @operator.Item2 #><T>(C
 <# foreach (var unitNonCollision in sortedUnitNoncollisions) { #>
@@ -716,7 +716,7 @@ string bIndexString = null;
 <# { int temp = 0; #>
 			T B = b[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>];
 <# } #>
-            return Syntax.Divide(A, B);
+            return Syntax.Division(A, B);
         }
 
         /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
@@ -725,7 +725,7 @@ string bIndexString = null;
         /// <returns>The result of the division.</returns>
         public static <#= measurement.Item1 #><T> Divide(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Syntax.Divide);
+            return MathBase(a, b, Syntax.Division);
         }
 
         /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
@@ -915,7 +915,7 @@ string bIndexString = null;
 
 			T A = a[<#= aIndexString #>];
 			T B = b[<#= bIndexString #>];
-			T C = Syntax.Divide(A, B);
+			T C = Syntax.Division(A, B);
 
 			return new <#= @operator.Item2 #><T>(C
 <# foreach (var unitNonCollision in sortedUnitNoncollisions) { #>
@@ -1074,7 +1074,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.Equal);
+            return LogicBase(a, b, Syntax.Equality);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1104,7 +1104,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.NotEqual);
+            return LogicBase(a, b, Syntax.Inequality);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
