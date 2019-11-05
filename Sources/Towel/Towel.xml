@@ -1099,7 +1099,7 @@
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.SetHeight(Towel.DataStructures.AvlTreeLinked{`0}.Node)">
             <summary>Sets the height of a tree based on its children's heights.</summary>
             <param name="node">The tree to have its height adjusted.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="T:Towel.DataStructures.IDataStructure`1">
             <summary>Polymorphism base for all data structures in the Towel framework.</summary>

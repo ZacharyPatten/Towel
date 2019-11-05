@@ -115,6 +115,40 @@ namespace Towel_Testing.DataStructures
 				Stepper.Iterate(100, i => tree.Remove(i));
 				Assert.IsTrue(tree.Count == 0);
 			}
+			// large randomized data set
+			{
+				const int count = 1000;
+				IAvlTree<int> tree = new AvlTreeLinked<int>();
+				for (int i = 0; i < count; i++)
+				{
+					Assert.IsTrue(tree.Count == i);
+					tree.Add(i);
+					Assert.IsTrue(tree.Count == i + 1);
+					Assert.IsTrue(tree.Contains(i));
+
+					int stepperCount = 0;
+					tree.Stepper(x => stepperCount++);
+					Assert.IsTrue(stepperCount == tree.Count);
+				}
+				int[] values = new int[count];
+				for (int i = 0; i < count; i++)
+				{
+					values[i] = i;
+				}
+				Random random = new Random(7);
+				random.Shuffle(values);
+				for (int i = 0; i < count; i++)
+				{
+					Assert.IsTrue(tree.Count == count - i);
+					tree.Remove(values[i]);
+					Assert.IsTrue(tree.Count == count - i - 1);
+					Assert.IsFalse(tree.Contains(values[i]));
+
+					int stepperCount = 0;
+					tree.Stepper(x => stepperCount++);
+					Assert.IsTrue(stepperCount == tree.Count);
+				}
+			}
 		}
 	}
 }

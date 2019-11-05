@@ -932,7 +932,7 @@ namespace Towel.DataStructures
 			if (node.LeftChild is null)
 			{
 				leftMost = node;
-				return null;
+				return node.RightChild;
 			}
 			node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
 			SetHeight(node);
@@ -949,23 +949,23 @@ namespace Towel.DataStructures
 			if (node.RightChild is null)
 			{
 				rightMost = node;
-				return null;
+				return node.LeftChild;
 			}
-			node.LeftChild = RemoveRightMost(node.RightChild, out rightMost);
+			node.RightChild = RemoveRightMost(node.RightChild, out rightMost);
 			SetHeight(node);
 			return Balance(node);
 		}
 
 		/// <summary>Sets the height of a tree based on its children's heights.</summary>
 		/// <param name="node">The tree to have its height adjusted.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		internal void SetHeight(Node node)
 		{
 			if (node.LeftChild is null && node.RightChild is null)
 			{
 				node.Height = 0;
 			}
-			else if (Height(node.LeftChild) < Height(node.RightChild))
+			else
 			{
 				node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
 			}
