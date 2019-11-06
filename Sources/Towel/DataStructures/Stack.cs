@@ -92,7 +92,7 @@ namespace Towel.DataStructures
 			Node copying = _top;
 			Node cloneTop = new Node(_top.Value, null);
 			Node cloning = cloneTop;
-			while (copying != null)
+			while (!(copying is null))
 			{
 				copying = copying.Down;
 				cloning.Down = new Node(copying.Value, null);
@@ -116,11 +116,11 @@ namespace Towel.DataStructures
 				return null;
 			}
 			T[] array = new T[_count];
-			Node looper = _top;
+			Node node = _top;
 			for (int i = 0; i < _count; i++)
 			{
-				array[i] = looper.Value;
-				looper = looper.Down;
+				array[i] = node.Value;
+				node = node.Down;
 			}
 			return array;
 		}
@@ -147,7 +147,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public T Peek()
 		{
-			if (_top == null)
+			if (_top is null)
 				throw new System.InvalidOperationException("Attempting to remove from an empty queue.");
 			T peek = _top.Value;
 			return peek;
@@ -190,9 +190,9 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Step<T> step)
 		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
+			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				step(looper.Value);
+				step(node.Value);
 			}
 		}
 
@@ -200,9 +200,9 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step)
 		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
+			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				step(ref looper.Value);
+				step(ref node.Value);
 			}
 		}
 
@@ -211,9 +211,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
+			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				if (step(looper.Value) == Break)
+				if (step(node.Value) == Break)
 				{
 					return Break;
 				}
@@ -226,9 +226,9 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
+			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				if (step(ref looper.Value) == Break)
+				if (step(ref node.Value) == Break)
 				{
 					return Break;
 				}
@@ -240,20 +240,15 @@ namespace Towel.DataStructures
 
 		#region IEnumerable
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
-			{
-				yield return looper.Value;
-			}
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		/// <summary>Gets the enumerator for this stack.</summary>
+		/// <returns>The enumerator for this stack.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node looper = _top; looper != null; looper = looper.Down)
+			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				yield return looper.Value;
+				yield return node.Value;
 			}
 		}
 

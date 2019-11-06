@@ -508,7 +508,7 @@ namespace Towel.DataStructures
 		internal bool Search(object key, out Node curr, Node[] update)
 		{
 			// Make sure key isn't null.
-			if (key == null)
+			if (key is null)
 			{
 				//string msg = resManager.GetString("NullKey");
 				throw new System.ArgumentNullException("key");
@@ -517,7 +517,7 @@ namespace Towel.DataStructures
 			bool result;
 
 			// Check to see if we will search with a comparer.
-			if (_comparer != null)
+			if (!(_comparer is null))
 			{
 				result = SearchWithComparer(key, out curr, update);
 			}

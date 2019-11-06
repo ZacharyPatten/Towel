@@ -443,7 +443,7 @@ namespace Towel.Mathematics
 		/// <returns>True if the parse succeeded or false if not.</returns>
 		public bool TryParse(string @string, TryParse<T> tryParse, out Fraction<T> fraction, out Exception exception)
 		{
-			if (tryParse != null && tryParse(@string, out T value))
+			if (!(tryParse is null) && tryParse(@string, out T value))
 			{
 				fraction = new Fraction<T>(value);
 			}

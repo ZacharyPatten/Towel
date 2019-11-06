@@ -949,7 +949,7 @@ namespace Towel
 		internal static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
 		{
 			string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
-			if (memberNameString != null)
+			if (!(memberNameString is null))
 			{
 				key += "." + memberNameString;
 			}
@@ -1012,7 +1012,7 @@ namespace Towel
 		public static string GetDocumentation(this ParameterInfo parameterInfo)
 		{
 			string memberDocumentation = parameterInfo.Member.GetDocumentation();
-			if (memberDocumentation != null)
+			if (!(memberDocumentation is null))
 			{
 				string regexPattern =
 					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +

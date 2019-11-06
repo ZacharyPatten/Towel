@@ -164,7 +164,7 @@ namespace Towel.Algorithms
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
 			PathNode<Node> start = null;
-			for (BaseAlgorithmNode<AlgorithmNode, Node> current = node; current != null; current = current.Previous)
+			for (BaseAlgorithmNode<AlgorithmNode, Node> current = node; !(current is null); current = current.Previous)
 			{
 				PathNode<Node> temp = start;
 				start = new PathNode<Node>()
@@ -176,7 +176,7 @@ namespace Towel.Algorithms
 			return step =>
 			{
 				PathNode<Node> current = start;
-				while (current != null)
+				while (!(current is null))
 				{
 					step(current.Value);
 					current = current.Next;

@@ -3028,27 +3028,37 @@
             <param name="predicate">The predicate to determine removal.</param>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.TryRemoveFirst(System.Predicate{`0})">
-            <summary>Trys to remove the first predicated value if the value exists.</summary>
+            <summary>Tries to remove the first predicated value if the value exists.</summary>
             <param name="predicate">The predicate to determine removal.</param>
+            <returns>True if the value was removed. False if the value did not exist.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.TryRemoveFirst(System.Predicate{`0},System.Exception@)">
+            <summary>Tries to remove the first predicated value if the value exists.</summary>
+            <param name="predicate">The predicate to determine removal.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the value was removed. False if the value did not exist.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for this list.</summary>
+            <returns>The enumerator for this list.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.ToArray">
             <summary>Converts the list into a standard array.</summary>
@@ -4832,7 +4842,7 @@
             <summary>Constructs a bound from a value.</summary>
             <param name="value">The value of the bound.</param>
         </member>
-        <member name="P:Towel.DataStructures.Omnitree.Bound`1.None">
+        <member name="F:Towel.DataStructures.Omnitree.Bound`1.None">
             <summary>Represents a null bound meaning it does not exist.</summary>
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bound`1.op_Implicit(`0)~Towel.DataStructures.Omnitree.Bound{`0}">
@@ -14797,6 +14807,10 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
+        <member name="M:Towel.DataStructures.StackLinked`1.GetEnumerator">
+            <summary>Gets the enumerator for this stack.</summary>
+            <returns>The enumerator for this stack.</returns>
+        </member>
         <member name="T:Towel.DataStructures.StackArray`1">
             <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
             <typeparam name="T">The generic type within the structure.</typeparam>
@@ -14886,7 +14900,7 @@
         <member name="M:Towel.DataStructures.ITree`1.Children(`0,Towel.Step{`0})">
             <summary>Stepper function for the children of a given node.</summary>
             <param name="parent">The node to step through the children of.</param>
-            <param name="step_function">The step function.</param>
+            <param name="step">The step function.</param>
         </member>
         <member name="M:Towel.DataStructures.ITree`1.Add(`0,`0)">
             <summary>Adds a node to the tree.</summary>
@@ -14923,7 +14937,7 @@
         <member name="M:Towel.DataStructures.TreeMap`1.Children(`0,Towel.Step{`0})">
             <summary>Stepper function for the children of a given node.</summary>
             <param name="parent">The node to step through the children of.</param>
-            <param name="step_function">The step function.</param>
+            <param name="step">The step function.</param>
         </member>
         <member name="M:Towel.DataStructures.TreeMap`1.Add(`0,`0)">
             <summary>Adds a node to the tree.</summary>
@@ -30048,6 +30062,9 @@
         </member>
         <member name="F:Towel.Syntax.Greater">
             <summary>The left operand is greater than the right operand.</summary>
+        </member>
+        <member name="F:Towel.Syntax.None">
+            <summary>There is no bound.</summary>
         </member>
         <member name="M:Towel.Syntax.Equality``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>

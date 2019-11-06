@@ -245,13 +245,7 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			for (int i = 0; i <= _count; i++)
-			{
-				yield return _heap[i];
-			}
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator of the heap.</summary>
 		/// <returns>The enumerator of the heap.</returns>

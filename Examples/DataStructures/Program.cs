@@ -579,8 +579,9 @@ namespace DataStructures
 				// If you want to ignore a column on a traversal, you can do so like this:
 				omnitree.Stepper(i => { /*Do Nothing*/ },
 					lookUp, lookUp,
-					Omnitree.Bound<string>.None, Omnitree.Bound<string>.None,
-					Omnitree.Bound<decimal>.None, Omnitree.Bound<decimal>.None);
+					// The "None" means there is no bound, so all values are valid
+					None, None,
+					None, None);
 
 				Console.Write("    Counting Items In a Space [" +
 					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
@@ -683,8 +684,8 @@ namespace DataStructures
 				omnitree.StepperOverlapped(i => { /*Do Nothing*/ },
 					lookUpXZ, lookUpXZ,
 					// The "None" means there is no bound, so all values are valid
-					Omnitree.Bound<string>.None, Omnitree.Bound<string>.None,
-					Omnitree.Bound<decimal>.None, Omnitree.Bound<decimal>.None);
+					None, None,
+					None, None);
 
 				Console.Write("    Counting Items In a Space [" +
 					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +

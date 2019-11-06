@@ -115,98 +115,129 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree) => tree.Stepper;
+		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree) =>
+			tree.Stepper;
+
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree) => tree.Stepper;
+		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree) =>
+			tree.Stepper;
+
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this ISortedBinaryTree<T> tree) => tree.Stepper;
+		public static StepperBreak<T> StepperBreak<T>(this ISortedBinaryTree<T> tree) =>
+			tree.Stepper;
+
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree) => tree.Stepper;
+		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree) =>
+			tree.Stepper;
+
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree) => tree.StepperReverse;
+		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree) =>
+			tree.StepperReverse;
+
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree) => tree.StepperReverse;
+		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree) =>
+			tree.StepperReverse;
+
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree) => tree.StepperReverse;
+		public static StepperBreak<T> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree) =>
+			tree.StepperReverse;
+
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree) => tree.StepperReverse;
+		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree) =>
+			tree.StepperReverse;
+
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.Stepper(y => x(y), minimum, maximum);
+		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.Stepper(y => x(y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.Stepper(y => x(ref y), minimum, maximum);
+		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.Stepper(y => x(ref y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.Stepper(y => x(y), minimum, maximum);
+		public static StepperBreak<T> StepperBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.Stepper(y => x(y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.Stepper(y => x(ref y), minimum, maximum);
+		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.Stepper(y => x(ref y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.StepperReverse(y => x(y), minimum, maximum);
+		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.StepperReverse(y => x(y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.StepperReverse(y => x(ref y), minimum, maximum);
+		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.StepperReverse(y => x(ref y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperBreak<T> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.StepperReverse(y => x(y), minimum, maximum);
+		public static StepperBreak<T> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.StepperReverse(y => x(y), minimum, maximum);
+
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) => x => tree.StepperReverse(y => x(ref y), minimum, maximum);
+		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+			x => tree.StepperReverse(y => x(ref y), minimum, maximum);
 
 		/// <summary>Tries to get a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -214,34 +245,26 @@ namespace Towel.DataStructures
 		/// <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <param name="value">The value if it is found.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare, out T value)
-		{
-			return tree.TryGet(compare, out value, out _);
-		}
+		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare, out T value) =>
+			tree.TryGet(compare, out value, out _);
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to get the value from.</param>
 		/// <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
-		public static T Get<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare)
-		{
-			if (!tree.TryGet(compare, out T value, out Exception exception))
-			{
-				throw exception;
-			}
-			return value;
-		}
+		public static T Get<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare) =>
+			tree.TryGet(compare, out T value, out Exception exception)
+			? value
+			: throw exception;
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
 		/// <param name="compare">The compare delegate.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare)
-		{
-			return tree.TryRemove(compare, out _);
-		}
+		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare) =>
+			tree.TryRemove(compare, out _);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>

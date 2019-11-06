@@ -592,7 +592,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				get
 				{
 					int depth = -1;
-					for (Node looper = this; looper != null; looper = looper.Parent)
+					for (Node node = this; !(node is null); node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -633,7 +633,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			{
 				get
 				{
-					if (Children == null)
+					if (Children is null)
 						return null;
 					if (Children.Length == OmnitreePointsLinked<T, <#= chain_AxisX #>>._children_per_node)
 						return Children[(int)child_index];
@@ -649,7 +649,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 						throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
 					// no children yet
-					if (Children == null)
+					if (Children is null)
 					{
 						Children = new Node[] { value };
 						return;
@@ -725,16 +725,16 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				: base(bounds, parent, index)
 			{ }
 
-			internal Leaf(Leaf leafToClone) : base(leafToClone)
+			internal Leaf(Leaf leaf) : base(leaf)
 			{
-				Head = new Node(leafToClone.Head.Value, null);
-				Node this_looper = Head;
-				Node other_looper = leafToClone.Head;
-				while (other_looper != null)
+				Head = new Node(leaf.Head.Value, null);
+				Node a = Head;
+				Node b = leaf.Head;
+				while (!(b is null))
 				{
-					this_looper.Next = new Node(other_looper.Next.Value, null);
-					this_looper = this_looper.Next;
-					other_looper = other_looper.Next;
+					a.Next = new Node(b.Next.Value, null);
+					a = a.Next;
+					b = b.Next;
 				}
 			}
 
@@ -779,12 +779,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 			)
 		{
-			if (locate == null)
+			if (locate is null)
 			{
 				throw new ArgumentNullException(nameof(locate));
 			}
 <# for (int j = 1; j <= i; j++) { #>
-			if (compare<#= j #> == null)
+			if (compare<#= j #> is null)
 			{
 				throw new ArgumentNullException(nameof(compare<#= j #>));
 			}
@@ -983,7 +983,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				//IAsyncResult result<#= j #> = null;
-//				if (this._subdivisionOverride<#= j #> != null)
+//				if (!(this._subdivisionOverride<#= j #> is null))
 //					values<#= j #> = null;
 //				else
 //				{
@@ -1011,7 +1011,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //
 //
 <# for (int j = 1; j <= i; j++) { #>
-//				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+//				//if (this._subdivisionOverride<#= j #> is null && allowMultithreading)
 //				//	result<#= j #>.AsyncWaitHandle.WaitOne();
 //
 <# } #>
@@ -1050,7 +1050,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				//IAsyncResult result<#= j #> = null;
-//				if (this._subdivisionOverride<#= j #> != null)
+//				if (!(this._subdivisionOverride<#= j #> is null))
 //					values<#= j #> = null;
 //				else
 //				{
@@ -1078,7 +1078,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //
 //
 <# for (int j = 1; j <= i; j++) { #>
-//				//if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+//				//if (this._subdivisionOverride<#= j #> is null && allowMultithreading)
 //				//	result<#= j #>.AsyncWaitHandle.WaitOne();
 //
 <# } #>
@@ -1108,8 +1108,8 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# for (int j = 1; j <= i; j++) { #>
 //			int median_axis<#= j #> = -1;
 <# } #>
-//			if (this._subdivisionOverride1 == null
-<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null
+//			if (this._subdivisionOverride1 is null
+<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> is null
 <# } #>)
 //				GetMedianIndexes(initial_count, child, depth, 
 <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
@@ -1118,7 +1118,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>);
 //
 <# for (int j = 1; j <= i; j++) { #>
-//			if (this._subdivisionOverride<#= j #> != null)
+//			if (!(this._subdivisionOverride<#= j #> is null))
 //				pointOfDivision<#= j #> = this._subdivisionOverride<#= j #>(parent.Bounds, additions);
 //			else
 //				pointOfDivision<#= j #> = values<#= j #>(median_axis<#= j #>);
@@ -1291,7 +1291,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; list != null; list = list.Next)
+				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -1319,7 +1319,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					<#= child_index_type #> child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; list != null; list = list.Next)
+					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
 					{
 						Omnitree.Vector<<#= chain_AxisX #>> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -1342,7 +1342,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Node child_node = branch[child_index];
 
 				// null children in branches are just empty leaves
-				if (child_node == null)
+				if (child_node is null)
 				{
 					Leaf new_leaf = new Leaf(DetermineChildBounds(branch, child_index), branch, child_index);
 					branch[child_index] = new_leaf;
@@ -1362,11 +1362,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 <# for (int j = 1; j <= i; j++) { #>
 			Axis<#= j #> division<#= j #>;
-			if (_subdivisionOverride<#= j #> != null)
+			if (!(_subdivisionOverride<#= j #> is null))
 			{
 				division<#= j #> = _subdivisionOverride<#= j #>(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; node != null; node = node.Next)
+						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -1492,7 +1492,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -1507,7 +1507,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 						));
 					Node child = branch[child_index];
-					if (child != null)
+					if (!(child is null))
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -1543,14 +1543,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (current != null)
+				while (!(current is null))
 				{
 					Omnitree.Vector<<#= chain_AxisX #>> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
 					{
 						removals++;
 						T updated = current.Value;
-						if (previous == null)
+						if (previous is null)
 						{
 							leaf.Head = current.Next;
 							goto HeadRemoved;
@@ -1560,7 +1560,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 						Node whereToAdd = GetEncapsulationParent(node.Parent, location);
 
-						if (whereToAdd == null)
+						if (whereToAdd is null)
 							throw new System.Exception("an item was updated outside the range of the omnitree");
 
 						this.Add(updated, whereToAdd, location, whereToAdd.Depth);
@@ -1633,14 +1633,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (current != null)
+				while (!(current is null))
 				{
 					Omnitree.Vector<<#= chain_AxisX #>> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
 					{
 						removals++;
 						T updated = current.Value;
-						if (previous == null)
+						if (previous is null)
 						{
 							leaf.Head = current.Next;
 							goto HeadRemoved;
@@ -1648,7 +1648,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 						else
 							previous.Next = current.Next;
 						Node whereToAdd = GetEncapsulationParent(node.Parent, location);
-						if (whereToAdd == null)
+						if (whereToAdd is null)
 							throw new System.Exception("an item was updates outside the range of the omnitree");
 						this.Add(updated, whereToAdd, location, whereToAdd.Depth);
 					}
@@ -1705,15 +1705,15 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (leaf.Head != null && where(leaf.Head.Value))
+				while (!(leaf.Head is null) && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (leaf.Head != null)
+				if (!(leaf.Head is null))
 				{
 					Leaf.Node list = leaf.Head;
-					while (list.Next != null)
+					while (!(list.Next is null))
 					{
 						if (where(list.Next.Value))
 						{
@@ -1777,7 +1777,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					Leaf leaf = node as Leaf;
 					Leaf.Node current_node = leaf.Head;
 					Leaf.Node previous_node = null;
-					while (current_node != null)
+					while (!(current_node is null))
 					{
 						Leaf.Node temp_previous = current_node;
 						if (EncapsulationCheck(bounds, LocateVector(current_node.Value)))
@@ -1849,12 +1849,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (current != null)
+				while (!(current is null))
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
 						removals++;
-						if (previous == null)
+						if (previous is null)
 						{
 							leaf.Head = current.Next;
 							goto HeadRemoved;
@@ -1936,7 +1936,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Leaf leaf = node as Leaf;
 				Leaf.Node current_node = leaf.Head;
 				Leaf.Node previous_node = null;
-				while (current_node != null)
+				while (!(current_node is null))
 				{
 					Leaf.Node temp_previous = current_node;
 					if (EqualsCheck(vector, LocateVector(current_node.Value)))
@@ -1986,7 +1986,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Leaf leaf = node as Leaf;
 				Leaf.Node current_node = leaf.Head;
 				Leaf.Node previous_node = null;
-				while (current_node != null)
+				while (!(current_node is null))
 				{
 					Leaf.Node temp_previous = current_node;
 					if (EqualsCheck(vector, LocateVector(current_node.Value)) && where(current_node.Value))
@@ -2033,7 +2033,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (list != null)
+				while (!(list is null))
 				{
 					step(list.Value);
 					list = list.Next;
@@ -2056,7 +2056,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -2085,7 +2085,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -2117,7 +2117,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; list != null; list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -2145,11 +2145,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
 			Node current = node;
-			while (current != null)
+			while (!(current is null))
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node != null; leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -2172,11 +2172,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
 			Node current = node;
-			while (current != null)
+			while (!(current is null))
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; list != null; list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -2236,7 +2236,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			Leaf leaf;
 			Node removal = null;
-			if (parent == null) // top of tree
+			if (parent is null) // top of tree
 			{
 				removal = this._top;
 				leaf = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
@@ -2265,11 +2265,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <param name="increase">The amount to increase the parent counts by.</param>
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
-			Node looper = parent;
-			while (looper != null)
+			Node node = parent;
+			while (!(node is null))
 			{
-				looper.Count += increase;
-				looper = looper.Parent;
+				node.Count += increase;
+				node = node.Parent;
 			}
 		}
 
@@ -2315,7 +2315,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<<#= chain_AxisX #>> vector)
 		{
-			while (node != null && !EncapsulationCheck(node.Bounds, vector))
+			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -2527,7 +2527,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			{
 				get
 				{
-					if (Children == null)
+					if (Children is null)
 						return null;
 					if (Children.Length == OmnitreePointsLinked<T, <#= chain_AxisX #>>._children_per_node)
 						return Children[(int)child_index];
@@ -2543,7 +2543,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 						throw new System.Exception("Bug in Omnitree (index/property mis-match when setting a child on a branch)");
 
 					// no children yet
-					if (Children == null)
+					if (Children is null)
 					{
 						Children = new Node[] { value };
 						return;
@@ -2588,7 +2588,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				get
 				{
 					int depth = -1;
-					for (Node looper = this; looper != null; looper = looper.Parent)
+					for (Node node = this; !(node is null); node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -2621,14 +2621,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Children = nodeToClone.Children.Clone() as Node[];
 				PointOfDivision = nodeToClone.PointOfDivision;
 
-				ValueNode this_looper = this.Head;
-				ValueNode other_looper = nodeToClone.Head;
+				ValueNode a = this.Head;
+				ValueNode b = nodeToClone.Head;
 
-				while (other_looper != null)
+				while (!(b is null))
 				{
-					this_looper.Next = new ValueNode(other_looper.Next.Value, null);
-					this_looper = this_looper.Next;
-					other_looper = other_looper.Next;
+					a.Next = new ValueNode(b.Next.Value, null);
+					a = a.Next;
+					b = b.Next;
 				}
 			}
 
@@ -2673,12 +2673,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 			)
 		{
-			if (getBounds == null)
+			if (getBounds is null)
 			{
 				throw new ArgumentNullException(nameof(getBounds));
 			}
 <# for (int j = 1; j <= i; j++) { #>
-			if (compare<#= j #> == null)
+			if (compare<#= j #> is null)
 			{
 				throw new ArgumentNullException(nameof(compare<#= j #>));
 			}
@@ -2857,7 +2857,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				IAsyncResult result<#= j #> = null;
-//				if (this._subdivisionOverride<#= j #> != null)
+//				if (!(this._subdivisionOverride<#= j #> is null))
 //					values<#= j #> = null;
 //				else
 //				{
@@ -2885,7 +2885,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //
 //
 <# for (int j = 1; j <= i; j++) { #>
-//				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+//				if (this._subdivisionOverride<#= j #> is null && allowMultithreading)
 //					result<#= j #>.AsyncWaitHandle.WaitOne();
 <# } #>
 //
@@ -2923,7 +2923,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				// prepare data for median computations
 //				ArrayJagged<Axis<#= j #>> values<#= j #>;
 //				IAsyncResult result<#= j #> = null;
-//				if (this._subdivisionOverride<#= j #> != null)
+//				if (!(this._subdivisionOverride<#= j #> is null))
 //					values<#= j #> = null;
 //				else
 //				{
@@ -2946,7 +2946,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //
 //
 <# for (int j = 1; j <= i; j++) { #>
-//				if (this._subdivisionOverride<#= j #> == null && allowMultithreading)
+//				if (this._subdivisionOverride<#= j #> is null && allowMultithreading)
 //					result<#= j #>.AsyncWaitHandle.WaitOne();
 //
 <# } #>
@@ -2976,8 +2976,8 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# for (int j = 1; j <= i; j++) { #>
 //			int median_axis<#= j #> = -1;
 <# } #>
-//			if (this._subdivisionOverride1 == null
-<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> == null
+//			if (this._subdivisionOverride1 is null
+<# for (int j = 2; j <= i; j++) { #> || this._subdivisionOverride<#= j #> is null
 <# } #>)
 //				GetMedianIndexes(initial_count, child, depth, 
 <# for (int j = 1; j <= i; j++) { #>prevmed<#= j #>, 
@@ -2986,7 +2986,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>);
 //
 <# for (int j = 1; j <= i; j++) { #>
-//			if (this._subdivisionOverride<#= j #> != null)
+//			if (!(this._subdivisionOverride<#= j #> is null))
 //				pointOfDivision<#= j #> = this._subdivisionOverride<#= j #>(parent.Bounds, additions);
 //			else
 //				pointOfDivision<#= j #> = values<#= j #>(median_axis<#= j #>);
@@ -3159,7 +3159,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; list != null; list = list.Next)
+				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -3191,7 +3191,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; list != null; list = list.Next)
+					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
 					{
 						Omnitree.Bounds<<#= chain_AxisX #>> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -3222,7 +3222,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				Node child_node = node[child_index];
 
 				// null children in branches are just empty leaves
-				if (child_node == null)
+				if (child_node is null)
 				{
 					Node new_node = new Node(DetermineChildBounds(node, child_index), node, child_index);
 					node[child_index] = new_node;
@@ -3425,7 +3425,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; list != null; list = list.Next)
+				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -3436,7 +3436,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				{
 					<#= child_index_type #> child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (child != null)
+					if (!(child is null))
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -3487,14 +3487,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (current != null)
+				while (!(current is null))
 				{
 					Omnitree.Bounds<<#= chain_AxisX #>> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
 					{
 						removals++;
 						T updated = current.Value;
-						if (previous == null)
+						if (previous is null)
 						{
 							node.Head = current.Next;
 							goto HeadRemoved;
@@ -3504,7 +3504,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 						Node whereToAdd = GetEncapsulationParent(node.Parent, bounds);
 
-						if (whereToAdd == null)
+						if (whereToAdd is null)
 							throw new System.Exception("an item was updated outside the range of the omnitree");
 
 						this.Add(updated, whereToAdd, bounds, whereToAdd.Depth);
@@ -3572,14 +3572,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (current != null)
+				while (!(current is null))
 				{
 					Omnitree.Bounds<<#= chain_AxisX #>> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
 					{
 						removals++;
 						T updated = current.Value;
-						if (previous == null)
+						if (previous is null)
 						{
 							node.Head = current.Next;
 							goto HeadRemoved;
@@ -3587,7 +3587,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 						else
 							previous.Next = current.Next;
 						Node whereToAdd = GetEncapsulationParent(node.Parent, item_bounds);
-						if (whereToAdd == null)
+						if (whereToAdd is null)
 							throw new System.Exception("an item was updates outside the range of the omnitree");
 						this.Add(updated, whereToAdd, item_bounds, whereToAdd.Depth);
 					}
@@ -3621,7 +3621,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			int removals = 0;
 
 			// children
-			if (node.Children != null)
+			if (!(node.Children is null))
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -3641,15 +3641,15 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			}
 
 			// items
-			while (node.Head != null && where(node.Head.Value))
+			while (!(node.Head is null) && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (node.Head != null)
+			if (!(node.Head is null))
 			{
 				Node.ValueNode list = node.Head;
-				while (list.Next != null)
+				while (!(list.Next is null))
 				{
 					if (where(list.Next.Value))
 					{
@@ -3722,7 +3722,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				// items
 				Node.ValueNode current_node = node.Head;
 				Node.ValueNode previous_node = null;
-				while (current_node != null)
+				while (!(current_node is null))
 				{
 					Node.ValueNode temp_previous = current_node;
 					if (spatialCheck(bounds, GetBoundings(current_node.Value)))
@@ -3741,7 +3741,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				}
 
 				// children
-				if (node.Children != null)
+				if (!(node.Children is null))
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -3822,12 +3822,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (current != null)
+			while (!(current is null))
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
 					removals++;
-					if (previous == null)
+					if (previous is null)
 					{
 						node.Head = current.Next;
 						goto HeadRemoved;
@@ -3841,7 +3841,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			}
 
 			// children
-			if (node.Children != null)
+			if (!(node.Children is null))
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -3923,12 +3923,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		internal void Stepper(Step<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (list != null)
+			while (!(list is null))
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (node.Children != null)
+			if (!(node.Children is null))
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -3942,11 +3942,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; list != null; list = list.Next)
+			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (node.Children != null)
+			if (!(node.Children is null))
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -3990,11 +3990,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			Omnitree.Bounds<<#= chain_AxisX #>> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<<#= chain_AxisX #>>, Omnitree.Bounds<<#= chain_AxisX #>>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; list != null; list = list.Next)
+			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (node.Children != null)
+			if (!(node.Children is null))
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -4043,12 +4043,12 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; list != null; list = list.Next)
+			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (node.Children != null)
+			if (!(node.Children is null))
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -4129,7 +4129,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			Node leaf;
 			Node removal = null;
-			if (parent == null) // top of tree
+			if (parent is null) // top of tree
 			{
 				removal = this._top;
 				leaf = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
@@ -4158,11 +4158,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <param name="increase">The amount to increase the parent counts by.</param>
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
-			Node looper = parent;
-			while (looper != null)
+			Node node = parent;
+			while (!(node is null))
 			{
-				looper.Count += increase;
-				looper = looper.Parent;
+				node.Count += increase;
+				node = node.Parent;
 			}
 		}
 
@@ -4208,7 +4208,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<<#= chain_AxisX #>> bounds)
 		{
-			while (node != null && !EncapsulationCheck(node.Bounds, bounds))
+			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}

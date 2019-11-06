@@ -692,7 +692,7 @@ namespace Towel
 			{
 				return true;
 			}
-			if (a1 == null || a2 == null)
+			if (a1 is null || a2 is null)
 			{
 				return false;
 			}
@@ -883,13 +883,13 @@ namespace Towel
 				digits[index--] = digit;
 				if (index < 0)
 				{
-					result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result == null ? string.Empty : " " + result);
+					result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result is null ? string.Empty : " " + result);
 					index = 2;
 				}
 			}
 			if (index != 2)
 			{
-				result = ConvertDigitGroup(decimal.Parse(new string(digits).Substring(index + 1)), digitGroup++) + (result == null ? string.Empty : " " + result);
+				result = ConvertDigitGroup(decimal.Parse(new string(digits).Substring(index + 1)), digitGroup++) + (result is null ? string.Empty : " " + result);
 			}
 			return result;
 		}

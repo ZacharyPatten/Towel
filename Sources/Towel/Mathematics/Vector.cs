@@ -84,7 +84,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				return this._vector == null ? 0 : this._vector.Length;
+				return this._vector is null ? 0 : this._vector.Length;
 			}
 		}
 
@@ -959,7 +959,7 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " ==" + nameof(b) + "." + nameof(b.Dimensions) + ")");
 			}
-			if (c == null || c.Dimensions != Length)
+			if (c is null || c.Dimensions != Length)
 			{
 				c = new Vector<T>(Length);
 			}

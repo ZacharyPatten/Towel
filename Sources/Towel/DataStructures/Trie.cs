@@ -47,14 +47,10 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to get the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>The value.</returns>
-		public static T Get<K, T>(this ITrie<K, T> trie, Stepper<K> stepper)
-		{
-			if (!trie.TryGet(stepper, out T value, out Exception exception))
-			{
-				throw exception;
-			}
-			return value;
-		}
+		public static T Get<K, T>(this ITrie<K, T> trie, Stepper<K> stepper) =>
+			trie.TryGet(stepper, out T value, out Exception exception)
+			? value
+			: throw exception;
 
 		/// <summary>Tries to removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>

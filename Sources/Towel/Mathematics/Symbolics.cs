@@ -3272,13 +3272,13 @@ namespace Towel.Mathematics
 					(MethodCallExpression methodCallExpression) =>
 					{
 						MethodInfo methodInfo = methodCallExpression.Method;
-						if (methodInfo == null)
+						if (methodInfo is null)
 						{
 							throw new ArgumentException("The expression could not be parsed.", nameof(e));
 						}
 
 						Expression[] arguments = null;
-						if (methodCallExpression.Arguments != null)
+						if (!(methodCallExpression.Arguments is null))
 						{
 							arguments = new Expression[methodCallExpression.Arguments.Count];
 							for (int i = 0; i < arguments.Length; i++)
@@ -3461,7 +3461,7 @@ namespace Towel.Mathematics
 										break;
 									}
 								}
-								if (leftSpecialMatch == null)
+								if (leftSpecialMatch is null)
 								{
 									string substring = @string.Substring(0, rightIndex);
 									return string.IsNullOrWhiteSpace(substring);
@@ -3499,7 +3499,7 @@ namespace Towel.Mathematics
 									}
 									rightSpecialMatch = match;
 								}
-								if (rightSpecialMatch == null)
+								if (rightSpecialMatch is null)
 								{
 									return string.IsNullOrWhiteSpace(@string.Substring(leftIndex + 1));
 								}
@@ -3513,7 +3513,7 @@ namespace Towel.Mathematics
 							if (IsUnaryLeftOperator())// first character in the expression
 													  //currentMatch.Index == 0 ||
 													  //// nothing but white space to the left
-													  //(previousMatch != null &&
+													  //(!(previousMatch is null) &&
 
 							//string.IsNullOrWhiteSpace(
 							//    @string.Substring(
@@ -3526,7 +3526,7 @@ namespace Towel.Mathematics
 
 							{
 								// Unary-Left Operator
-								if (@operator == null || priority > ParsableLeftUnaryOperators[currentMatch.Value].Item1)
+								if (@operator is null || priority > ParsableLeftUnaryOperators[currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
 									isUnaryLeftOperator = true;
@@ -3539,7 +3539,7 @@ namespace Towel.Mathematics
 							//// last character(s) in the expression
 							//(currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
 							//// nothing but white space until the next operator
-							//(nextMatch != null &&
+							//(!(nextMatch is null) &&
 							//string.IsNullOrWhiteSpace(
 							//    @string.Substring(
 							//        currentMatch.Index + currentMatch.Length,
@@ -3547,7 +3547,7 @@ namespace Towel.Mathematics
 							//        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
 							{
 								// Unary Right Operator
-								if (@operator == null || priority > ParsableRightUnaryOperators[currentMatch.Value].Item1)
+								if (@operator is null || priority > ParsableRightUnaryOperators[currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
 									isUnaryLeftOperator = false;
@@ -3561,7 +3561,7 @@ namespace Towel.Mathematics
 								if (ParsableBinaryOperators.ContainsKey(currentMatch.Value))
 								{
 									// Binary Operator
-									if (@operator == null || priority > ParsableBinaryOperators[currentMatch.Value].Item1)
+									if (@operator is null || priority > ParsableBinaryOperators[currentMatch.Value].Item1)
 									{
 										@operator = currentMatch;
 										isUnaryLeftOperator = false;
@@ -3582,7 +3582,7 @@ namespace Towel.Mathematics
 				}
 
 				// if an operator was found, parse the expression
-				if (@operator != null)
+				if (!(@operator is null))
 				{
 					if (isUnaryLeftOperator)
 					{
@@ -3824,7 +3824,7 @@ namespace Towel.Mathematics
 
 		internal static bool TryParseConstantExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
 		{
-			if (tryParse != null && tryParse(@string, out T explicitParsedValue))
+			if (!(tryParse is null) && tryParse(@string, out T explicitParsedValue))
 			{
 				parsedExpression = new Constant<T>(explicitParsedValue);
 				return true;

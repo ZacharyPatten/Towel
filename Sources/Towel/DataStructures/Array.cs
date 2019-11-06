@@ -103,7 +103,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public Array<T> Clone() => new Array<T>((T[])_array.Clone());
+		public Array<T> Clone() => (T[])_array.Clone();
 
 		#endregion
 

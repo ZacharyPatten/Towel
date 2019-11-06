@@ -115,21 +115,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static Stepper<T> Stepper<T>(this IDataStructure<T> dataStructure) => dataStructure.Stepper;
+		public static Stepper<T> Stepper<T>(this IDataStructure<T> dataStructure) =>
+			dataStructure.Stepper;
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this IDataStructure<T> dataStructure) => dataStructure.Stepper;
+		public static StepperBreak<T> StepperBreak<T>(this IDataStructure<T> dataStructure) =>
+			dataStructure.Stepper;
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="structure">The structure to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <returns>True if the add was successful or false if not.</returns>
-		public static bool TryAdd<T>(this IAddable<T> structure, T value)
-		{
-			return structure.TryAdd(value, out _);
-		}
+		public static bool TryAdd<T>(this IAddable<T> structure, T value) =>
+			structure.TryAdd(value, out _);
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -148,10 +148,8 @@ namespace Towel.DataStructures
 		/// <param name="structure">The structure to remove the value from.</param>
 		/// <param name="value">The value to be removed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this IRemovable<T> structure, T value)
-		{
-			return structure.TryRemove(value, out _);
-		}
+		public static bool TryRemove<T>(this IRemovable<T> structure, T value) =>
+			structure.TryRemove(value, out _);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>

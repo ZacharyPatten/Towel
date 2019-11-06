@@ -73,7 +73,7 @@ namespace Towel.Measurements
 				{
 					throw new Exception("There is a bug in Towel. " + nameof(ParseableUnitAttribute) + " is on a non enum type.");
 				}
-				if (!type.Name.Equals("Units") || type.DeclaringType == null)
+				if (!type.Name.Equals("Units") || type.DeclaringType is null)
 				{
 					throw new Exception("There is a bug in Towel. A unit type definition does not follow the required structure.");
 				}

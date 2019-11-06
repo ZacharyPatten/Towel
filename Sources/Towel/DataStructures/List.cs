@@ -121,7 +121,7 @@ namespace Towel.DataStructures
 			Node head = new Node(listLinked._head.Value);
 			Node current = listLinked._head.Next;
 			Node current_clone = head;
-			while (current != null)
+			while (!(current is null))
 			{
 				current_clone.Next = new Node(current.Value);
 				current_clone = current_clone.Next;
@@ -171,7 +171,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public void Add(T addition)
 		{
-			if (_tail == null)
+			if (_tail is null)
 			{
 				_head = _tail = new Node(addition);
 			}
@@ -201,10 +201,7 @@ namespace Towel.DataStructures
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		/// <runtime>θ(n)</runtime>
-		public ListLinked<T> Clone()
-		{
-			return new ListLinked<T>(this);
-		}
+		public ListLinked<T> Clone() => new ListLinked<T>(this);
 
 		#endregion
 
@@ -214,9 +211,9 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public void RemoveFirst(Predicate<T> predicate)
 		{
-			if (!TryRemoveFirst(predicate))
+			if (!TryRemoveFirst(predicate, out Exception exception))
 			{
-				throw new ArgumentException("Attempting to remove a non-existing value from a list.");
+				throw exception;
 			}
 		}
 
@@ -224,7 +221,7 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public void RemoveAll(Predicate<T> predicate)
 		{
-			if (_head == null)
+			if (_head is null)
 			{
 				return;
 			}
@@ -234,9 +231,9 @@ namespace Towel.DataStructures
 				_count--;
 			}
 			Node listNode = _head;
-			while (listNode != null)
+			while (!(listNode is null))
 			{
-				if (listNode.Next == null)
+				if (listNode.Next is null)
 				{
 					break;
 				}
@@ -252,27 +249,35 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Trys to remove the first predicated value if the value exists.</summary>
+		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst(Predicate<T> predicate)
+		public bool TryRemoveFirst(Predicate<T> predicate) =>
+			TryRemoveFirst(predicate, out _);
+
+		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
+		/// <param name="predicate">The predicate to determine removal.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the value was removed. False if the value did not exist.</returns>
+		public bool TryRemoveFirst(Predicate<T> predicate, out Exception exception)
 		{
-			if (_head == null)
+			if (_head is null)
 			{
-				return false;
+				goto NonExistingValue;
 			}
 			if (predicate(_head.Value))
 			{
 				_head = _head.Next;
 				_count--;
+				exception = null;
 				return true;
 			}
 			Node listNode = _head;
-			while (listNode != null)
+			while (!(listNode is null))
 			{
-				if (listNode.Next == null)
+				if (listNode.Next is null)
 				{
-					return false;
+					goto NonExistingValue;
 				}
 				else if (predicate(listNode.Next.Value))
 				{
@@ -282,6 +287,7 @@ namespace Towel.DataStructures
 					}
 					listNode.Next = listNode.Next.Next;
 					_count--;
+					exception = null;
 					return true;
 				}
 				else
@@ -289,6 +295,8 @@ namespace Towel.DataStructures
 					listNode = listNode.Next;
 				}
 			}
+		NonExistingValue:
+			exception = new ArgumentException("Attempting to remove a non-existing value from a list.");
 			return false;
 		}
 
@@ -297,35 +305,35 @@ namespace Towel.DataStructures
 		#region Stepper And IEnumerable
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(Step<T> step)
 		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
+			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				function(looper.Value);
+				step(node.Value);
 			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> function)
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		public void Stepper(StepRef<T> step)
 		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
+			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				T temp = looper.Value;
-				function(ref temp);
-				looper.Value = temp;
+				T temp = node.Value;
+				step(ref temp);
+				node.Value = temp;
 			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
+		public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
+			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				if (function(looper.Value) == Break)
+				if (step(node.Value) == Break)
 				{
 					return Break;
 				}
@@ -334,38 +342,32 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> function)
+		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
+			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				T temp = looper.Value;
-				if (function(ref temp) == Break)
+				T temp = node.Value;
+				if (step(ref temp) == Break)
 				{
-					looper.Value = temp;
+					node.Value = temp;
 					return Break;
 				}
-				looper.Value = temp;
+				node.Value = temp;
 			}
 			return Continue;
 		}
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
-			{
-				yield return looper.Value;
-			}
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		/// <summary>Gets the enumerator for this list.</summary>
+		/// <returns>The enumerator for this list.</returns>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node looper = _head; looper != null; looper = looper.Next)
+			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				yield return looper.Value;
+				yield return node.Value;
 			}
 		}
 

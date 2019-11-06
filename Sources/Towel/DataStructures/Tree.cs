@@ -26,8 +26,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Stepper function for the children of a given node.</summary>
 		/// <param name="parent">The node to step through the children of.</param>
-		/// <param name="step_function">The step function.</param>
-		void Children(T parent, Step<T> step_function);
+		/// <param name="step">The step function.</param>
+		void Children(T parent, Step<T> step);
 
 		/// <summary>Adds a node to the tree.</summary>
 		/// <param name="addition">The node to be added.</param>
@@ -138,12 +138,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Stepper function for the children of a given node.</summary>
 		/// <param name="parent">The node to step through the children of.</param>
-		/// <param name="step_function">The step function.</param>
-		public void Children(T parent, Step<T> step_function)
+		/// <param name="step">The step function.</param>
+		public void Children(T parent, Step<T> step)
 		{
 			if (_tree.TryGet(parent, out Node nodeData))
 			{
-				nodeData.Children.Stepper(step_function);
+				nodeData.Children.Stepper(step);
 			}
 			else
 			{

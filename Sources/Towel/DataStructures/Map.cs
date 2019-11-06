@@ -291,7 +291,7 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
-			for (Node node = _table[location]; node != null; node = node.Next)
+			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate(node.Key, key))
 				{
@@ -347,7 +347,7 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
-			for (Node node = _table[location]; node != null; node = node.Next)
+			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate(node.Key, key))
 				{
@@ -380,7 +380,7 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
-			for (Node node = _table[location]; node != null; node = node.Next)
+			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate(node.Key, key))
 				{
@@ -468,7 +468,7 @@ namespace Towel.DataStructures
 			else
 			{
 				// that value is a child node of the table index
-				for (Node node = _table[location]; node.Next != null; node = node.Next)
+				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
 				{
 					if (_equate(node.Next.Key, key))
 					{
@@ -503,7 +503,7 @@ namespace Towel.DataStructures
 			// iterate through all the values
 			for (int i = 0; i < temp.Length; i++)
 			{
-				while (temp[i] != null)
+				while (!(temp[i] is null))
 				{
 					// grab the value from the old table
 					Node node = temp[i];
@@ -560,7 +560,7 @@ namespace Towel.DataStructures
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
-			for (Node node = _table[location]; node != null; node = node.Next)
+			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate(node.Key, key))
 				{
@@ -593,7 +593,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Value);
 				}
@@ -607,7 +607,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					step(ref node.Value);
 				}
@@ -622,7 +622,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Value) == Break)
 					{
@@ -641,7 +641,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(ref node.Value) == Break)
 					{
@@ -659,7 +659,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Key);
 				}
@@ -674,7 +674,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Key) == Break)
 					{
@@ -692,7 +692,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Value, node.Key);
 				}
@@ -707,7 +707,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Value, node.Key) == Break)
 					{
@@ -725,7 +725,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					step(ref node.Value, node.Key);
 				}
@@ -740,7 +740,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(ref node.Value, node.Key) == Break)
 					{
@@ -760,7 +760,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					yield return node.Value;
 				}
@@ -780,7 +780,7 @@ namespace Towel.DataStructures
 			int index = 0;
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; node != null; node = node.Next)
+				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					array[index++] = node.Value;
 				}

@@ -134,6 +134,8 @@ namespace Towel
 		public const CompareResult Equal = CompareResult.Equal;
 		/// <summary>The left operand is greater than the right operand.</summary>
 		public const CompareResult Greater = CompareResult.Greater;
+		/// <summary>There is no bound.</summary>
+		public const Omnitree.Keyword None = Omnitree.Keyword.None;
 
 		#endregion
 
@@ -1890,7 +1892,7 @@ namespace Towel
 		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
-		//    if (hash != null && equate != null && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+		//    if (!(hash is null) && !(equate is null) && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
 		//    {
 		//        int medianIndex = 0;
 		//        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);

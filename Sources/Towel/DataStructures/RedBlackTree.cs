@@ -169,7 +169,7 @@ namespace Towel.DataStructures
 				}
 			}
 
-			if (capturedException != null)
+			if (!(capturedException is null))
 			{
 				exception = capturedException;
 				return false;
@@ -178,7 +178,7 @@ namespace Towel.DataStructures
 			addition.Value = value;
 			addition.LeftChild = _sentinelNode;
 			addition.RightChild = _sentinelNode;
-			if (addition.Parent != null)
+			if (!(addition.Parent is null))
 			{
 				CompareResult compareResult = _compare(addition.Value, addition.Parent.Value);
 				if (compareResult == Greater)
@@ -390,7 +390,7 @@ namespace Towel.DataStructures
 				x = temp.RightChild;
 			}
 			x.Parent = temp.Parent;
-			if (temp.Parent != null)
+			if (!(temp.Parent is null))
 			{
 				if (temp == temp.Parent.LeftChild)
 				{
@@ -428,7 +428,7 @@ namespace Towel.DataStructures
 		{
 			void Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					Stepper(node.LeftChild);
 					step(node.Value);
@@ -445,7 +445,7 @@ namespace Towel.DataStructures
 		{
 			void Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					Stepper(node.LeftChild);
 					step(ref node.Value);
@@ -463,7 +463,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					return
 						Stepper(node.LeftChild) == Break ? Break :
@@ -484,7 +484,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					return
 						Stepper(node.LeftChild) == Break ? Break :
@@ -510,7 +510,7 @@ namespace Towel.DataStructures
 		{
 			void Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, maximum) == Greater)
 					{
@@ -544,7 +544,7 @@ namespace Towel.DataStructures
 		{
 			void Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -578,7 +578,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -615,7 +615,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -654,7 +654,7 @@ namespace Towel.DataStructures
 		{
 			bool StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					StepperReverse(node.RightChild);
 					step(node.Value);
@@ -672,7 +672,7 @@ namespace Towel.DataStructures
 		{
 			bool StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					StepperReverse(node.RightChild);
 					step(ref node.Value);
@@ -691,7 +691,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					return
 						StepperReverse(node.RightChild) == Break ? Break :
@@ -713,7 +713,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					return
 						StepperReverse(node.RightChild) == Break ? Break :
@@ -740,7 +740,7 @@ namespace Towel.DataStructures
 		{
 			void StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, maximum) == Greater)
 					{
@@ -774,7 +774,7 @@ namespace Towel.DataStructures
 		{
 			void StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -808,7 +808,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -845,7 +845,7 @@ namespace Towel.DataStructures
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node != null && node != _sentinelNode)
+				if (!(node is null) && node != _sentinelNode)
 				{
 					if (_compare(node.Value, minimum) == Less)
 					{
@@ -890,12 +890,12 @@ namespace Towel.DataStructures
 		{
 			Node GetNextNode(Node current)
 			{
-				if (current.RightChild != null && current.RightChild != _sentinelNode)
+				if (!(current.RightChild is null) && current.RightChild != _sentinelNode)
 				{
 					return GetLeftMostNode(current.RightChild);
 				}
 				var parent = current.Parent;
-				while (parent != null && current == parent.RightChild)
+				while (!(parent is null) && current == parent.RightChild)
 				{
 					current = parent;
 					parent = parent.Parent;
@@ -903,7 +903,7 @@ namespace Towel.DataStructures
 				return parent;
 			}
 
-			for (var current = GetLeftMostNode(_root); current != null; current = GetNextNode(current))
+			for (var current = GetLeftMostNode(_root); !(current is null); current = GetNextNode(current))
 			{
 				yield return current.Value;
 			}
@@ -923,7 +923,7 @@ namespace Towel.DataStructures
 				if (balancing.Parent == balancing.Parent.Parent.LeftChild)
 				{
 					temp = balancing.Parent.Parent.RightChild;
-					if (temp != null && temp.Color == Red)
+					if (!(temp is null) && temp.Color == Red)
 					{
 						balancing.Parent.Color = Black;
 						temp.Color = Black;
@@ -945,7 +945,7 @@ namespace Towel.DataStructures
 				else
 				{
 					temp = balancing.Parent.Parent.LeftChild;
-					if (temp != null && temp.Color == Red)
+					if (!(temp is null) && temp.Color == Red)
 					{
 						balancing.Parent.Color = Black;
 						temp.Color = Black;
@@ -976,7 +976,7 @@ namespace Towel.DataStructures
 				temp.LeftChild.Parent = redBlackTree;
 			if (temp != _sentinelNode)
 				temp.Parent = redBlackTree.Parent;
-			if (redBlackTree.Parent != null)
+			if (!(redBlackTree.Parent is null))
 			{
 				if (redBlackTree == redBlackTree.Parent.LeftChild)
 					redBlackTree.Parent.LeftChild = temp;
@@ -998,7 +998,7 @@ namespace Towel.DataStructures
 				temp.RightChild.Parent = redBlacktree;
 			if (temp != _sentinelNode)
 				temp.Parent = redBlacktree.Parent;
-			if (redBlacktree.Parent != null)
+			if (!(redBlacktree.Parent is null))
 			{
 				if (redBlacktree == redBlacktree.Parent.RightChild)
 					redBlacktree.Parent.RightChild = temp;
@@ -1085,7 +1085,7 @@ namespace Towel.DataStructures
 
 		internal Node GetLeftMostNode(Node node)
 		{
-			while (node.LeftChild != null && node.LeftChild != _sentinelNode)
+			while (!(node.LeftChild is null) && node.LeftChild != _sentinelNode)
 			{
 				node = node.LeftChild;
 			}

@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public void EnqueueBack(T enqueue)
 		{
-			if (_tail == null)
+			if (_tail is null)
 			{
 				_head = _tail = new Node(enqueue);
 			}
@@ -88,7 +88,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public T DequeueFront()
 		{
-			if (_head == null)
+			if (_head is null)
 			{
 				throw new InvalidOperationException("Attempting to remove a non-existing id value.");
 			}
@@ -106,7 +106,7 @@ namespace Towel.DataStructures
 		/// <returns>The front-most value.</returns>
 		public T PeekFront()
 		{
-			if (_head == null)
+			if (_head is null)
 			{
 				throw new InvalidOperationException("Attempting to remove a non-existing id value.");
 			}
@@ -132,11 +132,11 @@ namespace Towel.DataStructures
 				return null;
 			}
 			T[] array = new T[_count];
-			Node looper = _head;
+			Node node = _head;
 			for (int i = 0; i < _count; i++)
 			{
-				array[i] = looper.Value;
-				looper = looper.Next;
+				array[i] = node.Value;
+				node = node.Next;
 			}
 			return array;
 		}
@@ -147,7 +147,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Step<T> step)
 		{
-			for (Node current = _head; current != null; current = current.Next)
+			for (Node current = _head; !(current is null); current = current.Next)
 			{
 				step(current.Value);
 			}
@@ -157,7 +157,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step)
 		{
-			for (Node current = _head; current != null; current = current.Next)
+			for (Node current = _head; !(current is null); current = current.Next)
 			{
 				step(ref current.Value);
 			}
@@ -168,7 +168,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (Node current = _head; current != null; current = current.Next)
+			for (Node current = _head; !(current is null); current = current.Next)
 			{
 				if (step(current.Value) == Break)
 				{
@@ -183,7 +183,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node current = _head; current != null; current = current.Next)
+			for (Node current = _head; !(current is null); current = current.Next)
 			{
 				if (step(ref current.Value) == Break)
 				{
@@ -199,7 +199,7 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for this dequeue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node current = _head; current != null; current = current.Next)
+			for (Node current = _head; !(current is null); current = current.Next)
 			{
 				yield return current.Value;
 			}

@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -163,8 +164,8 @@ namespace Towel.DataStructures
 			{
 				return false;
 			}
-			_edges.Remove(node, node, Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
-			_edges.Remove(Omnitree.Bound<T>.None, Omnitree.Bound<T>.None, node, node);
+			_edges.Remove(node, node, None, None);
+			_edges.Remove(None, None, node, node);
 			exception = null;
 			return true;
 		}
@@ -214,7 +215,7 @@ namespace Towel.DataStructures
 			}
 			_edges.Stepper(e => step(e.End),
 				node, node,
-				Omnitree.Bound<T>.None, Omnitree.Bound<T>.None);
+				None, None);
 		}
 
 		/// <summary>Clones this data structure.</summary>
@@ -330,7 +331,7 @@ namespace Towel.DataStructures
 				throw new InvalidOperationException("Adding an edge to a non-existing starting node.");
 			if (!_map[start].Contains(end))
 				throw new InvalidOperationException("Adding an edge to a non-existing ending node.");
-			if (_map[start] == null)
+			if (_map[start] is null)
 				_map[start] = new MapHashLinked<bool, T>(_map.Equate, _map.Hash);
 
 			_map[start].Add(end, true);
