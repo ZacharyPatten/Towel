@@ -585,11 +585,11 @@ namespace DataStructures
 
 				Console.Write("    Counting Items In a Space [" +
 					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
-					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
-				omnitree.CountSubSpace(
-					minimumXZ, maximumXZ,
-					minimumY, maximumY,
-					minimumXZ, maximumXZ);
+					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: " +
+					omnitree.CountSubSpace(
+						minimumXZ, maximumXZ,
+						minimumY, maximumY,
+						minimumXZ, maximumXZ));
 				Console.WriteLine();
 
 				int removalMinimum = random.Next(1, test / 2);
