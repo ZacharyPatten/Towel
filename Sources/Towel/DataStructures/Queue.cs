@@ -143,7 +143,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds an item to the back of the queue.</summary>
 		/// <param name="enqueue">The item to add to the queue.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Enqueue(T enqueue)
 		{
 			if (_tail == null)
@@ -163,7 +163,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes the oldest item in the queue.</summary>
 		/// <returns>The next item in the queue.</returns>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T Dequeue()
 		{
 			if (_head == null)
@@ -315,7 +315,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Gets the number of items in the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Count
 		{
 			get
@@ -325,7 +325,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Gets the current capacity of the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int CurrentCapacity
 		{
 			get
@@ -335,7 +335,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Allows you to adjust the minimum capacity of this list.</summary>
-		/// <remarks>Runtime: O(n), Omega(1).</remarks>
+		/// <runtime>O(n), Ω(1)</runtime>
 		public int MinimumCapacity
 		{
 			get
@@ -435,7 +435,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds an item to the end of the list.</summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <remarks>Runtime: O(n), EstAvg(1). </remarks>
+		/// <runtime>O(n), ε(1)</runtime>
 		public void Enqueue(T addition)
 		{
 			if (_count == _queue.Length)

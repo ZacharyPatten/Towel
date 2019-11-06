@@ -375,7 +375,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the list into a standard array.</summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// <remarks>Runtime: Towel(n).</remarks>
+		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			if (_count == 0)
@@ -469,7 +469,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Gets the number of items in the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Count { get { return this._count; } }
 
 		/// <summary>Gets the current capacity of the list.</summary>
@@ -533,7 +533,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <runtime>O(1).</runtime>
+		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
 			_list = new T[1];

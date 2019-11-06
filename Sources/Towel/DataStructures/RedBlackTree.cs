@@ -689,14 +689,14 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step)</runtime>
 		public StepStatus StepperReverse(StepBreak<T> step)
 		{
-			StepStatus StepperReverse(Node NODE)
+			StepStatus StepperReverse(Node node)
 			{
-				if (NODE != null && NODE != _sentinelNode)
+				if (node != null && node != _sentinelNode)
 				{
 					return
-						StepperReverse(NODE.RightChild) == Break ? Break :
-						step(NODE.Value) == Break ? Break :
-						StepperReverse(NODE.LeftChild) == Break ? Break :
+						StepperReverse(node.RightChild) == Break ? Break :
+						step(node.Value) == Break ? Break :
+						StepperReverse(node.LeftChild) == Break ? Break :
 						Continue;
 				}
 				return Continue;
@@ -843,24 +843,24 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum)
 		{
-			StepStatus StepperReverse(Node NODE)
+			StepStatus StepperReverse(Node node)
 			{
-				if (NODE != null && NODE != _sentinelNode)
+				if (node != null && node != _sentinelNode)
 				{
-					if (_compare(NODE.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) == Less)
 					{
-						return StepperReverse(NODE.RightChild);
+						return StepperReverse(node.RightChild);
 					}
-					else if (_compare(NODE.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) == Greater)
 					{
-						return StepperReverse(NODE.LeftChild);
+						return StepperReverse(node.LeftChild);
 					}
 					else
 					{
 						return
-							StepperReverse(NODE.RightChild) == Break ? Break :
-							step(ref NODE.Value) == Break ? Break :
-							StepperReverse(NODE.LeftChild) == Break ? Break :
+							StepperReverse(node.RightChild) == Break ? Break :
+							step(ref node.Value) == Break ? Break :
+							StepperReverse(node.LeftChild) == Break ? Break :
 							Continue;
 					}
 				}

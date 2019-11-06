@@ -108,7 +108,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
-		/// <remarks>Runtime: Towel(n).</remarks>
+		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			if (_count == 0)
@@ -144,7 +144,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T Peek()
 		{
 			if (_top == null)
@@ -159,7 +159,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes and returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T Pop()
 		{
 			T x = _top.Value;
@@ -173,7 +173,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Clears the stack to an empty state.</summary>
-		/// <remarks>Runtime: O(1). Note: causes considerable garbage collection.</remarks>
+		/// <runtime>O(1). Note: causes considerable garbage collection</runtime>
 		public void Clear()
 		{
 			_top = null;
@@ -276,7 +276,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public StackArray()
 		{
 			_array = new T[1];
@@ -286,7 +286,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public StackArray(int minimumCapacity)
 		{
 			_array = new T[minimumCapacity];
@@ -306,11 +306,11 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Gets the current capacity of the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int CurrentCapacity => _array.Length;
 
 		/// <summary>Allows you to adjust the minimum capacity of this list.</summary>
-		/// <remarks>Runtime: O(n), Omega(1).</remarks>
+		/// <runtime>O(n), Ω(1)</runtime>
 		public int MinimumCapacity
 		{
 			get
@@ -338,7 +338,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Gets the number of items in the list.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Count
 		{
 			get
@@ -379,7 +379,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds an item to the end of the list.</summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <remarks>Runtime: O(n), EstAvg(1). </remarks>
+		/// <runtime>O(n), ε(1)</runtime>
 		public void Push(T addition)
 		{
 			if (_count == _array.Length)
@@ -403,7 +403,7 @@ namespace Towel.DataStructures
 		#region Pop
 
 		/// <summary>Removes the item at a specific index.</summary>
-		/// <remarks>Runtime: Towel(n - index).</remarks>
+		/// <runtime>O(Count), Ω(1), ε(1)</runtime>
 		public T Pop()
 		{
 			if (_count == 0)
@@ -429,7 +429,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Returns the most recent addition to the stack.</summary>
 		/// <returns>The most recent addition to the stack.</returns>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T Peek() => _array[_count - 1];
 
 		#endregion
@@ -437,7 +437,7 @@ namespace Towel.DataStructures
 		#region Clear
 
 		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
 			_array = new T[_minimumCapacity];

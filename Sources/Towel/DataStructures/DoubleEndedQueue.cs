@@ -49,7 +49,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Creates an instance of a queue.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public DoubleEndedQueueLinked()
 		{
 			_head = _tail = null;

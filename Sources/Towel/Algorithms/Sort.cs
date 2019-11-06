@@ -11,7 +11,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Bubble<T>(T[] array) =>
 			Bubble(Compare.Default, array);
 
@@ -19,7 +21,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Bubble<T>(Compare<T> compare, T[] array) =>
 			Bubble(compare, array, 0, array.Length - 1);
 
@@ -29,7 +33,9 @@ namespace Towel.Algorithms
 		/// <param name="array">the array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Bubble<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Bubble(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -40,7 +46,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Bubble<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			for (int i = start; i <= end; i++)
@@ -64,7 +72,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Selection<T>(T[] array) =>
 			Selection(Compare.Default, array);
 
@@ -72,7 +82,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">Returns negative if the left is less than the right.</param>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Selection<T>(Compare<T> compare, T[] array) =>
 			Selection(compare, array, 0, array.Length - 1);
 
@@ -82,7 +94,9 @@ namespace Towel.Algorithms
 		/// <param name="array">the array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Selection<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Selection(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -93,7 +107,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Selection<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			for (int i = start; i <= end; i++)
@@ -119,7 +135,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Insertion<T>(T[] array) =>
 			Insertion(Compare.Default, array);
 
@@ -127,7 +145,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">Returns positive if left greater than right.</param>
 		/// <param name="array">the array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Insertion<T>(Compare<T> compare, T[] array) =>
 			Insertion(compare, array, 0, array.Length - 1);
 
@@ -137,7 +157,9 @@ namespace Towel.Algorithms
 		/// <param name="array">the array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Insertion<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Insertion(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -148,7 +170,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void Insertion<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			for (int i = start + 1; i <= end; i++)
@@ -170,7 +194,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
 		public static void Quick<T>(T[] array) =>
 			Quick(Compare.Default, array);
 
@@ -178,7 +204,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">The method of compare to be sorted by.</param>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
 		public static void Quick<T>(Compare<T> compare, T[] array) =>
 			Quick(compare, array, 0, array.Length - 1);
 
@@ -188,7 +216,9 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
 		public static void Quick<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Quick(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -199,7 +229,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
 		public static void Quick<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
 			Quick_Recursive(compare, get, set, start, end - start + 1);
 
@@ -242,7 +274,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+		/// <stability>True</stability>
+		/// <memory>Θ(n)</memory>
 		public static void Merge<T>(T[] array) =>
 			Merge(Compare.Default, array, 0, array.Length);
 
@@ -250,7 +284,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">Returns zero or negative if the left is less than or equal to the right.</param>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+		/// <stability>True</stability>
+		/// <memory>Θ(n)</memory>
 		public static void Merge<T>(Compare<T> compare, T[] array) =>
 			Merge(compare, array, 0, array.Length);
 
@@ -260,7 +296,9 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+		/// <stability>True</stability>
+		/// <memory>Θ(n)</memory>
 		public static void Merge<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Merge(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end - start);
 
@@ -271,7 +309,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+		/// <stability>True</stability>
+		/// <memory>Θ(n)</memory>
 		public static void Merge<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
 			Merge_Recursive(compare, get, set, start, end - start);
 
@@ -313,7 +353,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Heap<T>(T[] array) =>
 			Heap(Compare.Default, array, 0, array.Length);
 
@@ -321,7 +363,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">The method of compare for the sort.</param>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Heap<T>(Compare<T> compare, T[] array) =>
 			Heap(compare, array, 0, array.Length);
 
@@ -331,7 +375,9 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Heap<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Heap(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -342,7 +388,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Heap<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			int heapSize = end - start;
@@ -393,7 +441,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void OddEven<T>(T[] array) =>
 			OddEven(Compare.Default, array, 0, array.Length);
 
@@ -401,7 +451,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">The method of compare for the sort.</param>
 		/// <param name="array">The array to be sorted</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void OddEven<T>(Compare<T> compare, T[] array) =>
 			OddEven(compare, array, 0, array.Length);
 
@@ -411,7 +463,9 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to be sorted</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void OddEven<T>(Compare<T> compare, T[] array, int start, int end) =>
 			OddEven(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -422,7 +476,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
 		public static void OddEven<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			var sorted = false;
@@ -454,7 +510,9 @@ namespace Towel.Algorithms
 
 		#endregion
 
-		#region Counting (In Development)
+		#region Counting
+
+#if false
 
 		///// <summary>Method specifically for computing object keys in the Counting Sort algorithm.</summary>
 		///// <typeparam name="T">The type of instances in the array to be sorted.</typeparam>
@@ -466,7 +524,7 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="computeCountingKey">Method specifically for computing object keys in the Counting Sort algorithm.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Towel(Max(key)). Memory: Max(key). Stablity: yes.</remarks>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void Counting(ComputeCountingKey computeCountingKey, T[] array)
 		//{
 		//	throw new System.NotImplementedException();
@@ -503,7 +561,7 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="computeCountingKey">Method specifically for computing object keys in the Counting Sort algorithm.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Towel(Max(key)). Memory: Max(key). Stablity: yes.</remarks>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void Counting(ComputeCountingKey computeCountingKey, T[] array, int start, int end)
 		//{
 		//	throw new System.NotImplementedException();
@@ -513,11 +571,13 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="computeCountingKey">Method specifically for computing object keys in the Counting Sort algorithm.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Towel(Max(key)). Memory: Max(key). Stablity: yes.</remarks>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void Counting(ComputeCountingKey computeCountingKey, Get<T> get, Assign<T> set, int start, int end)
 		//{
 		//	throw new System.NotImplementedException();
 		//}
+
+#endif
 
 		#endregion
 
@@ -527,14 +587,16 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="random">The random to shuffle with.</param>
 		/// <param name="array">The aray to shuffle.</param>
-		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(Random random, T[] array) =>
 			Shuffle(random, array, 0, array.Length);
 
 		/// <summary>Sorts an entire array in a randomized order.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to shuffle.</param>
-		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(T[] array) =>
 			Shuffle(array, 0, array.Length);
 
@@ -545,6 +607,7 @@ namespace Towel.Algorithms
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The ending index of the shuffle.</param>
 		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(Random random, T[] array, int start, int end) =>
 			Shuffle(random, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -553,7 +616,8 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to shuffle.</param>
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The ending index of the shuffle.</param>
-		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(T[] array, int start, int end) =>
 			Shuffle(array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -563,7 +627,8 @@ namespace Towel.Algorithms
 		/// <param name="set">The set accessor of the structure to shuffle.</param>
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The ending index of the shuffle.</param>
-		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(GetIndex<T> get, SetIndex<T> set, int start, int end) =>
 			Shuffle(new Random(), get, set, start, end);
 
@@ -574,7 +639,8 @@ namespace Towel.Algorithms
 		/// <param name="set">The set accessor of the structure to shuffle.</param>
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The ending index of the shuffle.</param>
-		/// <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(Random random, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			for (int i = start; i < end; i++)
@@ -593,7 +659,9 @@ namespace Towel.Algorithms
 		/// <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="array">The array to be sorted.</param>
-		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Bogo<T>(T[] array) =>
 			Bogo(Compare.Default, array);
 
@@ -601,7 +669,9 @@ namespace Towel.Algorithms
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		/// <param name="compare">The method of compare for the sort.</param>
 		/// <param name="array">The array to be sorted.</param>
-		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Bogo<T>(Compare<T> compare, T[] array) =>
 			Bogo(compare, array, 0, array.Length - 1);
 
@@ -611,7 +681,9 @@ namespace Towel.Algorithms
 		/// <param name="array">The array to be sorted.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Bogo<T>(Compare<T> compare, T[] array, int start, int end) =>
 			Bogo(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
 
@@ -622,7 +694,9 @@ namespace Towel.Algorithms
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
-		/// <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
 		public static void Bogo<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		{
 			while (!BogoCheck(compare, get, start, end))
@@ -647,10 +721,14 @@ namespace Towel.Algorithms
 
 		#region Slow
 
+#if false
+
 		///// <summary>Sorts an entire array of in non-decreasing order using the slow sort algorithm.</summary>
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+		///// <runtime>Ω(n), ε(n*n!), O(n*n!)</runtime>
+		///// <stability></stability>
+		///// <memory>O(1)</memory>
 		//public static void Slow<T>(T[] array)
 		//{
 		//    Slow(Compare.Default, array, 0, array.Length);
@@ -660,7 +738,9 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="compare">The method of compare for the sort.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+		///// <runtime>Ω(n), ε(n*n!), O(n*n!)</runtime>
+		///// <stability></stability>
+		///// <memory>O(1)</memory>
 		//public static void Slow<T>(Compare<T> compare, T[] array)
 		//{
 		//    Slow(compare, array, 0, array.Length);
@@ -670,7 +750,9 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="compare">The method of compare for the sort.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+		///// <runtime>Ω(n), ε(n*n!), O(n*n!)</runtime>
+		///// <stability></stability>
+		///// <memory>O(1)</memory>
 		//public static void Slow<T>(Compare<T> compare, T[] array, int start, int end)
 		//{
 		//    T get(int index) { return array[index]; }
@@ -682,7 +764,9 @@ namespace Towel.Algorithms
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="compare">The method of compare for the sort.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <remarks>Runtime: Omega(n), average(n*n!), O(n*n!). Memory: in place. Stablity: N/A (not yet analyzed).</remarks>
+		///// <runtime>Ω(n), ε(n*n!), O(n*n!)</runtime>
+		///// <stability></stability>
+		///// <memory>O(1)</memory>
 		//public static void Slow<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
 		//{
 		//    throw new System.NotImplementedException();
@@ -706,6 +790,8 @@ namespace Towel.Algorithms
 		//    }
 		//    Slow_Recursive(compare, get, set, i, j - 1);
 		//}
+
+#endif
 
 		#endregion
 	}

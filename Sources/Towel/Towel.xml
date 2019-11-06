@@ -312,14 +312,18 @@
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
@@ -328,7 +332,9 @@
             <param name="array">the array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
@@ -338,20 +344,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stability: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Selection``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Selection``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">Returns negative if the left is less than the right.</param>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Selection``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -360,7 +372,9 @@
             <param name="array">the array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Selection``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the selection sort algoritm.</summary>
@@ -370,20 +384,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n^2), average(n^2), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Insertion``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Insertion``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">Returns positive if left greater than right.</param>
             <param name="array">the array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Insertion``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -392,7 +412,9 @@
             <param name="array">the array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Insertion``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the insertion sort algorithm.</summary>
@@ -402,20 +424,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Quick``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare to be sorted by.</param>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -424,7 +452,9 @@
             <param name="array">The array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
@@ -434,20 +464,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: ln(n). Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Merge``1(``0[])">
             <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Merge``1(Towel.Compare{``0},``0[])">
             <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">Returns zero or negative if the left is less than or equal to the right.</param>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Merge``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
@@ -456,7 +492,9 @@
             <param name="array">The array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Merge``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts up to an array in non-decreasing order using the merge sort algorithm.</summary>
@@ -466,20 +504,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n*ln(n)). Memory: n. Stablity: yes.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Heap``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Heap``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Heap``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
@@ -488,7 +532,9 @@
             <param name="array">The array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Heap``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
@@ -498,20 +544,26 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n*ln(n)), average(n*ln(n)), O(n^2). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.OddEven``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.OddEven``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
             <param name="array">The array to be sorted</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.OddEven``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
@@ -520,7 +572,9 @@
             <param name="array">The array to be sorted</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.OddEven``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the odd-even sort algorithm.</summary>
@@ -530,20 +584,24 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n^2), O(n^2). Memory: in place. Stablity: yes.</remarks>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,``0[])">
             <summary>Sorts an entire array in a randomized order.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="random">The random to shuffle with.</param>
             <param name="array">The aray to shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(``0[])">
             <summary>Sorts an entire array in a randomized order.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
@@ -553,6 +611,7 @@
             <param name="start">The starting index of the shuffle.</param>
             <param name="end">The ending index of the shuffle.</param>
             <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
@@ -560,7 +619,8 @@
             <param name="array">The array to shuffle.</param>
             <param name="start">The starting index of the shuffle.</param>
             <param name="end">The ending index of the shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
@@ -569,7 +629,8 @@
             <param name="set">The set accessor of the structure to shuffle.</param>
             <param name="start">The starting index of the shuffle.</param>
             <param name="end">The ending index of the shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in a randomized order.</summary>
@@ -579,20 +640,25 @@
             <param name="set">The set accessor of the structure to shuffle.</param>
             <param name="start">The starting index of the shuffle.</param>
             <param name="end">The ending index of the shuffle.</param>
-            <remarks>Runtime: O(n). Memory: in place. Stable: N/A (not a comparative sort).</remarks>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bogo``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="array">The array to be sorted.</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bogo``1(Towel.Compare{``0},``0[])">
             <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare for the sort.</param>
             <param name="array">The array to be sorted.</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bogo``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
@@ -601,7 +667,9 @@
             <param name="array">The array to be sorted.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Algorithms.Sort.Bogo``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts an entire array in non-decreasing order using the slow sort algorithm.</summary>
@@ -611,7 +679,9 @@
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
-            <remarks>Runtime: Omega(n), average(n*n!), O(infinity). Memory: in place. Stablity: no.</remarks>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
         </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
@@ -1478,7 +1548,7 @@
         </member>
         <member name="P:Towel.DataStructures.HeapArray`1.Count">
             <summary>The number of items in the queue.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.LeftChild(System.Int32)">
             <summary>Gets the index of the left child of the provided item.</summary>
@@ -1503,12 +1573,12 @@
         <member name="M:Towel.DataStructures.HeapArray`1.Dequeue">
             <summary>Dequeues the item with the highest priority.</summary>
             <returns>The item of the highest priority.</returns>
-            <remarks>O(ln(n)).</remarks>
+            <runtime>O(ln(n))</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Requeue(`0)">
             <summary>Requeues an item after a change has occured.</summary>
             <param name="item">The item to requeue.</param>
-            <remarks>Runtime: O(n).</remarks>
+            <runtime>O(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Peek">
             <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
@@ -1577,14 +1647,14 @@
         <member name="M:Towel.DataStructures.Link`1.#ctor(`0)">
             <summary>Creates a link between objects.</summary>
             <param name="_1">The #1 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`1.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`1._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.Link{`0}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -1648,14 +1718,14 @@
         <member name="M:Towel.DataStructures.LinkStruct`1.#ctor(`0)">
             <summary>Creates a link between objects.</summary>
             <param name="_1">The #1 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`1.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`1._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.LinkStruct{`0}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -1727,18 +1797,18 @@
             <summary>Creates a link between objects.</summary>
             <param name="_1">The #1 item to be linked.</param>
             <param name="_2">The #2 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`2.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`2._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`2._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -1804,18 +1874,18 @@
             <summary>Creates a link between objects.</summary>
             <param name="_1">The #1 item to be linked.</param>
             <param name="_2">The #2 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`2.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`2._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`2._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -1889,22 +1959,22 @@
             <param name="_1">The #1 item to be linked.</param>
             <param name="_2">The #2 item to be linked.</param>
             <param name="_3">The #3 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`3.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`3._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`3._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`3._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -1972,22 +2042,22 @@
             <param name="_1">The #1 item to be linked.</param>
             <param name="_2">The #2 item to be linked.</param>
             <param name="_3">The #3 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`3.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`3._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`3._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`3._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -2063,26 +2133,26 @@
             <param name="_2">The #2 item to be linked.</param>
             <param name="_3">The #3 item to be linked.</param>
             <param name="_4">The #4 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`4.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`4._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`4._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`4._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`4._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -2152,26 +2222,26 @@
             <param name="_2">The #2 item to be linked.</param>
             <param name="_3">The #3 item to be linked.</param>
             <param name="_4">The #4 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -2249,30 +2319,30 @@
             <param name="_3">The #3 item to be linked.</param>
             <param name="_4">The #4 item to be linked.</param>
             <param name="_5">The #5 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`5.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`5._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`5._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`5._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`5._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`5._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -2344,30 +2414,30 @@
             <param name="_3">The #3 item to be linked.</param>
             <param name="_4">The #4 item to be linked.</param>
             <param name="_5">The #5 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -2447,34 +2517,34 @@
             <param name="_4">The #4 item to be linked.</param>
             <param name="_5">The #5 item to be linked.</param>
             <param name="_6">The #6 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`6._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`6._6">
             <summary>The #6 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -2548,34 +2618,34 @@
             <param name="_4">The #4 item to be linked.</param>
             <param name="_5">The #5 item to be linked.</param>
             <param name="_6">The #6 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6._6">
             <summary>The #6 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -2657,38 +2727,38 @@
             <param name="_5">The #5 item to be linked.</param>
             <param name="_6">The #6 item to be linked.</param>
             <param name="_7">The #7 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link`7._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._6">
             <summary>The #6 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.Link`7._7">
             <summary>The #7 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.Link`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
@@ -2764,38 +2834,38 @@
             <param name="_5">The #5 item to be linked.</param>
             <param name="_6">The #6 item to be linked.</param>
             <param name="_7">The #7 item to be linked.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7.Size">
             <summary>The number of objects in the tuple.</summary>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._1">
             <summary>The #1 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._2">
             <summary>The #2 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._3">
             <summary>The #3 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._4">
             <summary>The #4 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._5">
             <summary>The #5 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._6">
             <summary>The #6 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7._7">
             <summary>The #7 item in the link.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
             <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
@@ -2983,7 +3053,7 @@
         <member name="M:Towel.DataStructures.ListLinked`1.ToArray">
             <summary>Converts the list into a standard array.</summary>
             <returns>A standard array of all the items.</returns>
-            <remarks>Runtime: Towel(n).</remarks>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.ListArray`1">
             <summary>A list implemented as a growing array.</summary>
@@ -3005,7 +3075,7 @@
         </member>
         <member name="P:Towel.DataStructures.ListArray`1.Count">
             <summary>Gets the number of items in the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.ListArray`1.CurrentCapacity">
             <summary>Gets the current capacity of the list.</summary>
@@ -3025,7 +3095,7 @@
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Clear">
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
-            <runtime>O(1).</runtime>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -13890,12 +13960,12 @@
         <member name="M:Towel.DataStructures.QueueLinked`1.Enqueue(`0)">
             <summary>Adds an item to the back of the queue.</summary>
             <param name="enqueue">The item to add to the queue.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Dequeue">
             <summary>Removes the oldest item in the queue.</summary>
             <returns>The next item in the queue.</returns>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Peek">
             <summary>Gets the next item in the queue without removing it.</summary>
@@ -13942,15 +14012,15 @@
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.Count">
             <summary>Gets the number of items in the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.CurrentCapacity">
             <summary>Gets the current capacity of the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.MinimumCapacity">
             <summary>Allows you to adjust the minimum capacity of this list.</summary>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.Newest">
             <summary>The newest item currently in the queue.</summary>
@@ -13969,7 +14039,7 @@
         <member name="M:Towel.DataStructures.QueueArray`1.Enqueue(`0)">
             <summary>Adds an item to the end of the list.</summary>
             <param name="addition">The item to be added.</param>
-            <remarks>Runtime: O(n), EstAvg(1). </remarks>
+            <runtime>O(n), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Dequeue">
             <summary>Removes the item at a specific index.</summary>
@@ -14688,7 +14758,7 @@
         <member name="M:Towel.DataStructures.StackLinked`1.ToArray">
             <summary>Converts the structure into an array.</summary>
             <returns>An array containing all the item in the structure.</returns>
-            <remarks>Runtime: Towel(n).</remarks>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackLinked`1.Push(`0)">
             <summary>Adds an item to the top of the stack.</summary>
@@ -14698,16 +14768,16 @@
         <member name="M:Towel.DataStructures.StackLinked`1.Peek">
             <summary>Returns the most recent addition to the stack.</summary>
             <returns>The most recent addition to the stack.</returns>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackLinked`1.Pop">
             <summary>Removes and returns the most recent addition to the stack.</summary>
             <returns>The most recent addition to the stack.</returns>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackLinked`1.Clear">
             <summary>Clears the stack to an empty state.</summary>
-            <remarks>Runtime: O(1). Note: causes considerable garbage collection.</remarks>
+            <runtime>O(1). Note: causes considerable garbage collection</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -14733,24 +14803,24 @@
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.#ctor">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.#ctor(System.Int32)">
             <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
             <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.StackArray`1.CurrentCapacity">
             <summary>Gets the current capacity of the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.StackArray`1.MinimumCapacity">
             <summary>Allows you to adjust the minimum capacity of this list.</summary>
-            <remarks>Runtime: O(n), Omega(1).</remarks>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
         <member name="P:Towel.DataStructures.StackArray`1.Count">
             <summary>Gets the number of items in the list.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -14763,20 +14833,20 @@
         <member name="M:Towel.DataStructures.StackArray`1.Push(`0)">
             <summary>Adds an item to the end of the list.</summary>
             <param name="addition">The item to be added.</param>
-            <remarks>Runtime: O(n), EstAvg(1). </remarks>
+            <runtime>O(n), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.Pop">
             <summary>Removes the item at a specific index.</summary>
-            <remarks>Runtime: Towel(n - index).</remarks>
+            <runtime>O(Count), Ω(1), ε(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.Peek">
             <summary>Returns the most recent addition to the stack.</summary>
             <returns>The most recent addition to the stack.</returns>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.Clear">
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
-            <remarks>Runtime: O(1).</remarks>
+            <runtime>O(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.StackArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>

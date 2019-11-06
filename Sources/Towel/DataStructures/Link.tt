@@ -44,7 +44,7 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 		/// <param name="_<#= j #>">The #<#= j #> item to be linked.</param>
 <# } #>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 <# for (int j = 2; j <= i; j++) { #>
 			, T<#= j #> _<#= j #>
@@ -64,7 +64,7 @@ namespace Towel.DataStructures
 		public int Size => <#= i #>;
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The #<#= j #> item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T<#= j #> _<#= j #> { get => __<#= j #>; set => __<#= j #> = value; }
 <# } #>
 
@@ -319,7 +319,7 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 		/// <param name="_<#= j #>">The #<#= j #> item to be linked.</param>
 <# } #>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 <# for (int j = 2; j <= i; j++) { #>
 			, T<#= j #> _<#= j #>
@@ -338,7 +338,7 @@ namespace Towel.DataStructures
 		public	int Size => <#= i #>;
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The #<#= j #> item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T<#= j #> _<#= j #> { get => __<#= j #>; set => __<#= j #> = value; }
 <# } #>
 

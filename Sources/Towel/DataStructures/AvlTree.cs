@@ -431,23 +431,23 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual void Stepper(Step<T> step, T minimum, T maximum)
 		{
-			void Stepper(Node NODE)
+			void Stepper(Node node)
 			{
-				if (NODE != null)
+				if (node != null)
 				{
-					if (_compare(NODE.Value, maximum) == Greater)
+					if (_compare(node.Value, maximum) == Greater)
 					{
-						Stepper(NODE.LeftChild);
+						Stepper(node.LeftChild);
 					}
-					else if (_compare(NODE.Value, minimum) == Less)
+					else if (_compare(node.Value, minimum) == Less)
 					{
-						Stepper(NODE.RightChild);
+						Stepper(node.RightChild);
 					}
 					else
 					{
-						Stepper(NODE.LeftChild);
-						step(NODE.Value);
-						Stepper(NODE.RightChild);
+						Stepper(node.LeftChild);
+						step(node.Value);
+						Stepper(node.RightChild);
 					}
 				}
 			}

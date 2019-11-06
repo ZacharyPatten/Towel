@@ -87,7 +87,7 @@ namespace Towel.DataStructures
 		public int MinimumCapacity => _minimumCapacity;
 
 		/// <summary>The number of items in the queue.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Count => _count;
 
 		#endregion
@@ -134,7 +134,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Dequeues the item with the highest priority.</summary>
 		/// <returns>The item of the highest priority.</returns>
-		/// <remarks>O(ln(n)).</remarks>
+		/// <runtime>O(ln(n))</runtime>
 		public T Dequeue()
 		{
 			if (_count > 0)
@@ -150,7 +150,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Requeues an item after a change has occured.</summary>
 		/// <param name="item">The item to requeue.</param>
-		/// <remarks>Runtime: O(n).</remarks>
+		/// <runtime>O(n)</runtime>
 		public void Requeue(T item)
 		{
 			int i;
@@ -306,7 +306,6 @@ namespace Towel.DataStructures
 	/*
 	/// <summary>Implements a mutable priority heap with static priorities using an array.</summary>
 	/// <typeparam name="Type">The type of item to be stored in this priority heap.</typeparam>
-	/// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
 	public class HeapLinkedStatic<T> : Heap<T>
 	{
 		#region HeapLinkedStaticNode
@@ -344,20 +343,20 @@ namespace Towel.DataStructures
 		internal int _writers;
 
 		/// <summary>The maximum items the queue can hold.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Capacity { get { return _heapArray.Length - 1; } }
 
 		/// <summary>The number of items in the queue.</summary
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public int Count { get { return _count; } }
 
 		/// <summary>True if full, false if there is still room.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public bool IsFull { get { return _count == _heapArray.Length - 1; } }
 
 		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
 		/// <param name="capacity">The capacity you want this priority queue to have.</param>
-		/// <remarks>Runtime: Towel(capacity).</remarks>
+		/// <runtime>Θ(capacity)</runtime>
 		public HeapLinkedStatic(int capacity)
 		{
 			_heapArray = new HeapLinkedStaticNode[capacity + 1];
@@ -371,7 +370,7 @@ namespace Towel.DataStructures
 		/// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
 		/// <param name="addition">The item to be added.</param>
 		/// <param name="priority">The priority of the addition. (LARGER PRIORITY -> HIGHER PRIORITY)</param>
-		/// <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
+		/// <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
 		public void Enqueue(Type addition, int priority)
 		{
 			WriterLock();
@@ -391,7 +390,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Dequeues the item with the highest priority.</summary>
 		/// <returns>The item of the highest priority.</returns>
-		/// <remarks>Runtime: Towel(ln(n)).</remarks>
+		/// <runtime>Θ(ln(n))</runtime>
 		public Type Dequeue()
 		{
 			WriterLock();
@@ -409,7 +408,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Type Peek()
 		{
 			ReaderLock();
@@ -424,7 +423,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Standard priority queue algorithm for up sifting.</summary>
 		/// <param name="index">The index to be up sifted.</param>
-		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftUp(int index)
 		{
 			// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
@@ -437,7 +436,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Standard priority queue algorithm for sifting down.</summary>
 		/// <param name="index">The index to be down sifted.</param>
-		/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftDown(int index)
 		{
 			// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
@@ -455,7 +454,7 @@ namespace Towel.DataStructures
 		/// <summary>Standard array swap method.</summary>
 		/// <param name="indexOne">The first index of the swap.</param>
 		/// <param name="indexTwo">The second index of the swap.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		internal void ArraySwap(int indexOne, int indexTwo)
 		{
 			HeapLinkedStaticNode swapStorage = _heapArray[indexTwo];
@@ -464,7 +463,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Returns this queue to an empty state.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public void Clear() { WriterLock(); _count = 0; WriterUnlock(); }
 
 		/// <summary>Traversal function for a heap. Following a pre-order traversal.</summary>
@@ -478,7 +477,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Implements an imperative traversal of the structure.</summary>
 		/// <param name="traversalFunction">The function to perform per node in the traversal.</param>
-		/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+		/// <runtime>O(n * traversalFunction)</runtime>
 		public bool TraversalPreOrderBreakable(Func<Type, bool> traversalFunction)
 		{
 			ReaderLock();
@@ -496,7 +495,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Implements an imperative traversal of the structure.</summary>
 		/// <param name="traversalAction">The action to perform per node in the traversal.</param>
-		/// <remarks>Runtime: O(n * traversalAction).</remarks>
+		/// <runtime>O(n * traversalAction)</runtime>
 		public void TraversalPreOrder(Action<T> traversalAction)
 		{
 			ReaderLock();
@@ -535,7 +534,6 @@ namespace Towel.DataStructures
 
 	///// <summary>Implements a mutable priority heap with static priorities using an array.</summary>
 	///// <typeparam name="Type">The type of item to be stored in this priority heap.</typeparam>
-	///// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
 	//[Serializable]
 	//public class HeapArrayStatic<T> //: Heap<T>
 	//{
@@ -567,20 +565,20 @@ namespace Towel.DataStructures
 	//	internal int _writers;
 
 	//	/// <summary>The maximum items the queue can hold.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public int Capacity { get { return _heapArray.Length - 1; } }
 
 	//	/// <summary>The number of items in the queue.</summary
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public int Count { get { return _count; } }
 
 	//	/// <summary>True if full, false if there is still room.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public bool IsFull { get { return _count == _heapArray.Length - 1; } }
 
 	//	/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
 	//	/// <param name="capacity">The capacity you want this priority queue to have.</param>
-	//	/// <remarks>Runtime: Towel(capacity).</remarks>
+	//	/// <runtime>Θ(capacity)</runtime>
 	//	public HeapArrayStatic(int capacity)
 	//	{
 	//		_heapArray = new HeapArrayLink[capacity + 1];
@@ -594,7 +592,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
 	//	/// <param name="addition">The item to be added.</param>
 	//	/// <param name="priority">The priority of the addition. (LARGER PRIORITY -> HIGHER PRIORITY)</param>
-	//	/// <remarks>Runtime: O(ln(n)), Omega(1), EstAvg(ln(n)).</remarks>
+	//	/// <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
 	//	public void Enqueue(Type addition, int priority)
 	//	{
 	//		WriterLock();
@@ -614,7 +612,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Dequeues the item with the highest priority.</summary>
 	//	/// <returns>The item of the highest priority.</returns>
-	//	/// <remarks>Runtime: Towel(ln(n)).</remarks>
+	//	/// <runtime>Θ(ln(n))</runtime>
 	//	public Type Dequeue()
 	//	{
 	//		WriterLock();
@@ -632,7 +630,7 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public Type Peek()
 	//	{
 	//		ReaderLock();
@@ -647,7 +645,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Standard priority queue algorithm for up sifting.</summary>
 	//	/// <param name="index">The index to be up sifted.</param>
-	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+	//	/// <runtime>O(ln(n)), Ω(1)</runtime>
 	//	internal void ShiftUp(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
@@ -660,7 +658,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Standard priority queue algorithm for sifting down.</summary>
 	//	/// <param name="index">The index to be down sifted.</param>
-	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+	//	/// <runtime>O(ln(n)), Ω(1)</runtime>
 	//	internal void ShiftDown(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
@@ -678,7 +676,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard array swap method.</summary>
 	//	/// <param name="indexOne">The first index of the swap.</param>
 	//	/// <param name="indexTwo">The second index of the swap.</param>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	internal void ArraySwap(int indexOne, int indexTwo)
 	//	{
 	//		HeapArrayLink swapStorage = _heapArray[indexTwo];
@@ -687,7 +685,7 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>Returns this queue to an empty state.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public void Clear() { WriterLock(); _count = 0; WriterUnlock(); }
 
 	//	/// <summary>Traversal function for a heap. Following a pre-order traversal.</summary>
@@ -701,7 +699,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Implements an imperative traversal of the structure.</summary>
 	//	/// <param name="traversalFunction">The function to perform per node in the traversal.</param>
-	//	/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+	//	/// <runtime>O(n * traversalFunction)</runtime>
 	//	public bool TraversalPreOrderBreakable(Func<Type, bool> traversalFunction)
 	//	{
 	//		ReaderLock();
@@ -719,7 +717,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Implements an imperative traversal of the structure.</summary>
 	//	/// <param name="traversalAction">The action to perform per node in the traversal.</param>
-	//	/// <remarks>Runtime: O(n * traversalAction).</remarks>
+	//	/// <runtime>O(n * traversalAction)</runtime>
 	//	public void TraversalPreOrder(Action<T> traversalAction)
 	//	{
 	//		ReaderLock();
@@ -859,7 +857,6 @@ namespace Towel.DataStructures
 
 	///// <summary>Implements a mutable priority heap with dynamic priorities using an array and a hash table.</summary>
 	///// <typeparam name="Type">The type of item to be stored in this priority heap.</typeparam>
-	///// <remarks>The runtimes of each public member are included in the "remarks" xml tags.</remarks>
 	//[Serializable]
 	//public class HeapArrayDynamic<T> : Heap<T>
 	//{
@@ -892,20 +889,20 @@ namespace Towel.DataStructures
 	//	internal int _writers;
 
 	//	/// <summary>The maximum items the queue can hold.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public int Capacity { get { ReaderLock(); int capacity = _heapArray.Length - 1; ReaderUnlock(); return capacity; } }
 
 	//	/// <summary>The number of items in the queue.</summary
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public int Count { get { ReaderLock(); int count = _count; ReaderUnlock(); return count; } }
 
 	//	/// <summary>True if full, false if there is still room.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public bool IsFull { get { ReaderLock(); bool isFull = _count == _heapArray.Length - 1; ReaderUnlock(); return isFull; } }
 
 	//	/// <summary>Generates a priority queue with a capacity of the parameter.</summary>
 	//	/// <param name="capacity">The capacity you want this priority queue to have.</param>
-	//	/// <remarks>Runtime: Towel(capacity).</remarks>
+	//	/// <runtime>Θ(capacity)</runtime>
 	//	public HeapArrayDynamic(int capacity)
 	//	{
 	//		_indexingReference = new HashTableLinked<int, Type>();
@@ -920,7 +917,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
 	//	/// <param name="addition">The item to be added.</param>
 	//	/// <param name="priority">The priority of the addition (LARGER PRIORITY -> HIGHER PRIORITY).</param>
-	//	/// <remarks>Runtime: O(n), Omega(1), EstAvg(ln(n)).</remarks>
+	//	/// <runtime>O(n), Ω(1), ε(ln(n))</runtime>
 	//	public void Enqueue(Type addition, int priority)
 	//	{
 	//		WriterLock();
@@ -941,7 +938,7 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public Type Peek()
 	//	{
 	//		ReaderLock();
@@ -957,7 +954,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Dequeues the item with the highest priority.</summary>
 	//	/// <returns>The item of the highest priority.</returns>
-	//	/// <remarks>Runtime: O(n), Omega(ln(n)), EstAvg(ln(n)).</remarks>
+	//	/// <runtime>O(n), Ω(ln(n)), ε(ln(n))</runtime>
 	//	public Type Dequeue()
 	//	{
 	//		WriterLock();
@@ -979,7 +976,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Increases the priority of an item in the queue.</summary>
 	//	/// <param name="item">The item to have its priority increased.</param>
 	//	/// <param name="priority">The ammount to increase the priority by (LARGER INT -> HIGHER PRIORITY).</param>
-	//	/// <remarks>Runtime: O(n), Omega(1), EstAvg(ln(n)).</remarks>
+	//	/// <runtime>O(n), Ω(1), ε(ln(n))</runtime>
 	//	public void IncreasePriority(Type item, int priority)
 	//	{
 	//		WriterLock();
@@ -995,7 +992,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Decreases the priority of an item in the queue.</summary>
 	//	/// <param name="item">The item to have its priority decreased.</param>
 	//	/// <param name="priority">The ammount to decrease the priority by (LARGER INT -> HIGHER PRIORITY).</param>
-	//	/// <remarks>Runtime: O(n), Omega(1), EstAvg(ln(n)).</remarks>
+	//	/// <runtime>O(n), Ω(1), ε(ln(n))</runtime>
 	//	public void DecreasePriority(Type item, int priority)
 	//	{
 	//		WriterLock();
@@ -1010,7 +1007,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Standard priority queue algorithm for up sifting.</summary>
 	//	/// <param name="index">The index to be up sifted.</param>
-	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+	//	/// <runtime>O(ln(n)), Ω(1)</runtime>
 	//	internal void ShiftUp(int index)
 	//	{
 	//		// NOTE: "index / 2" is the index of the parent of the item at location "index"
@@ -1023,7 +1020,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Standard priority queue algorithm for sifting down.</summary>
 	//	/// <param name="index">The index to be down sifted.</param>
-	//	/// <remarks>Runtime: O(ln(n)), Omega(1).</remarks>
+	//	/// <runtime>O(ln(n)), Ω(1)</runtime>
 	//	internal void ShiftDown(int index)
 	//	{
 	//		// NOTE: "index * 2" is the index of the leftchild of the item at location "index"
@@ -1041,7 +1038,7 @@ namespace Towel.DataStructures
 	//	/// <summary>Standard array swap method.</summary>
 	//	/// <param name="indexOne">The first index of the swap.</param>
 	//	/// <param name="indexTwo">The second index of the swap.</param>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	internal void ArraySwap(int indexOne, int indexTwo)
 	//	{
 	//		HeapArrayDynamicLink swapStorage = _heapArray[indexTwo];
@@ -1052,7 +1049,7 @@ namespace Towel.DataStructures
 	//	}
 
 	//	/// <summary>Returns this queue to an empty state.</summary>
-	//	/// <remarks>Runtime: O(1).</remarks>
+	//	/// <runtime>O(1)</runtime>
 	//	public void Clear() { WriterLock(); _indexingReference.Clear(); _count = 0; WriterUnlock(); }
 
 	//	/// <summary>Traversal function for a heap. Following a pre-order traversal.</summary>
@@ -1066,7 +1063,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Implements an imperative traversal of the structure.</summary>
 	//	/// <param name="traversalFunction">The function to perform per node in the traversal.</param>
-	//	/// <remarks>Runtime: O(n * traversalFunction).</remarks>
+	//	/// <runtime>O(n * traversalFunction)</runtime>
 	//	public bool TraversalPreOrderBreakable(Func<Type, bool> traversalFunction)
 	//	{
 	//		ReaderLock();
@@ -1084,7 +1081,7 @@ namespace Towel.DataStructures
 
 	//	/// <summary>Implements an imperative traversal of the structure.</summary>
 	//	/// <param name="traversalAction">The action to perform per node in the traversal.</param>
-	//	/// <remarks>Runtime: O(n * traversalAction).</remarks>
+	//	/// <runtime>O(n * traversalAction)</runtime>
 	//	public void TraversalPreOrder(Action<T> traversalAction)
 	//	{
 	//		ReaderLock();

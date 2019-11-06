@@ -31,7 +31,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			)
 		{
@@ -45,7 +45,7 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 1;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 
 		#endregion
@@ -210,7 +210,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 )
 		{
@@ -224,7 +224,7 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 1;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 
 		#endregion
@@ -399,7 +399,7 @@ namespace Towel.DataStructures
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			)
@@ -415,10 +415,10 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 2;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 
 		#endregion
@@ -624,7 +624,7 @@ namespace Towel.DataStructures
 		/// <summary>Creates a link between objects.</summary>
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 )
@@ -640,10 +640,10 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 2;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 
 		#endregion
@@ -856,7 +856,7 @@ namespace Towel.DataStructures
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			, T3 _3
@@ -874,13 +874,13 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 3;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 
 		#endregion
@@ -1129,7 +1129,7 @@ namespace Towel.DataStructures
 		/// <param name="_1">The #1 item to be linked.</param>
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 			, T3 _3
@@ -1147,13 +1147,13 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 3;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 
 		#endregion
@@ -1404,7 +1404,7 @@ namespace Towel.DataStructures
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			, T3 _3
@@ -1424,16 +1424,16 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 4;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 
 		#endregion
@@ -1727,7 +1727,7 @@ namespace Towel.DataStructures
 		/// <param name="_2">The #2 item to be linked.</param>
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 			, T3 _3
@@ -1747,16 +1747,16 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 4;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 
 		#endregion
@@ -2045,7 +2045,7 @@ namespace Towel.DataStructures
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			, T3 _3
@@ -2067,19 +2067,19 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 5;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 
 		#endregion
@@ -2420,7 +2420,7 @@ namespace Towel.DataStructures
 		/// <param name="_3">The #3 item to be linked.</param>
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 			, T3 _3
@@ -2442,19 +2442,19 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 5;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 
 		#endregion
@@ -2781,7 +2781,7 @@ namespace Towel.DataStructures
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			, T3 _3
@@ -2805,22 +2805,22 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 6;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T6 _6 { get => __6; set => __6 = value; }
 
 		#endregion
@@ -3210,7 +3210,7 @@ namespace Towel.DataStructures
 		/// <param name="_4">The #4 item to be linked.</param>
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 			, T3 _3
@@ -3234,22 +3234,22 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 6;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T6 _6 { get => __6; set => __6 = value; }
 
 		#endregion
@@ -3614,7 +3614,7 @@ namespace Towel.DataStructures
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <param name="_7">The #7 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 			, T2 _2
 			, T3 _3
@@ -3640,25 +3640,25 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public int Size => 7;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T6 _6 { get => __6; set => __6 = value; }
 		/// <summary>The #7 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T7 _7 { get => __7; set => __7 = value; }
 
 		#endregion
@@ -4099,7 +4099,7 @@ namespace Towel.DataStructures
 		/// <param name="_5">The #5 item to be linked.</param>
 		/// <param name="_6">The #6 item to be linked.</param>
 		/// <param name="_7">The #7 item to be linked.</param>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 			, T2 _2
 			, T3 _3
@@ -4125,25 +4125,25 @@ namespace Towel.DataStructures
 		/// <summary>The number of objects in the tuple.</summary>
 		public	int Size => 7;
 		/// <summary>The #1 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T1 _1 { get => __1; set => __1 = value; }
 		/// <summary>The #2 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T2 _2 { get => __2; set => __2 = value; }
 		/// <summary>The #3 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T3 _3 { get => __3; set => __3 = value; }
 		/// <summary>The #4 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T4 _4 { get => __4; set => __4 = value; }
 		/// <summary>The #5 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T5 _5 { get => __5; set => __5 = value; }
 		/// <summary>The #6 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T6 _6 { get => __6; set => __6 = value; }
 		/// <summary>The #7 item in the link.</summary>
-		/// <remarks>Runtime: O(1).</remarks>
+		/// <runtime>O(1)</runtime>
 		public T7 _7 { get => __7; set => __7 = value; }
 
 		#endregion
