@@ -86,4 +86,27 @@ namespace Towel
 		public static Comparison<T> ToSystemComparison<T>(Compare<T> compare) =>
 			(a, b) => (int)compare(a, b);
 	}
+
+	/// <summary>A compile time delegate for comparing two values.</summary>
+	/// <typeparam name="T">The generic type of values to compare.</typeparam>
+	public interface ICompare<T> : IFunc<T, T, CompareResult> { }
+
+	#region Compare - Built In Structs
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	public struct CompareRuntime<T> : ICompare<T>
+	{
+		internal Compare<T> Compare;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public CompareResult Do(T a, T b) => Compare(a, b);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="compare">The runtime Compare delegate.</param>
+		public static implicit operator CompareRuntime<T>(Compare<T> compare) =>
+			new CompareRuntime<T>() { Compare = compare, };
+	}
+
+	#endregion
 }

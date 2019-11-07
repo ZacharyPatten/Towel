@@ -10,38 +10,61 @@ namespace Towel.Algorithms
 
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		/// <param name="array">the array to be sorted</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
 		public static void Bubble<T>(T[] array) =>
-			Bubble(Compare.Default, array);
+			Bubble(array, Compare.Default);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		/// <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
-		/// <param name="array">the array to be sorted</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(Compare<T> compare, T[] array) =>
-			Bubble(compare, array, 0, array.Length - 1);
+		public static void Bubble<T>(T[] array, Compare<T> compare) =>
+			Bubble(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		/// <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
-		/// <param name="array">the array to be sorted</param>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
+		public static void Bubble<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Bubble(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(Compare<T> compare, T[] array, int start, int end) =>
-			Bubble(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
+		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare) =>
+			Bubble<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		/// <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare)
+			where Compare : struct, ICompare<T> =>
+			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <param name="compare">The compare function.</param>
 		/// <param name="get">Delegate for getting a value at a specified index.</param>
 		/// <param name="set">Delegate for setting a value at a specified index.</param>
 		/// <param name="start">The starting index of the sort.</param>
@@ -49,17 +72,36 @@ namespace Towel.Algorithms
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end)
+		public static void Bubble<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+			Bubble<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
+
+		/// <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">Delegate for getting a value at a specified index.</param>
+		/// <param name="set">Delegate for setting a value at a specified index.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
+		public static void Bubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get     : struct, IGetIndex<T>
+			where Set     : struct, ISetIndex<T>
 		{
 			for (int i = start; i <= end; i++)
 			{
 				for (int j = start; j <= end - 1; j++)
 				{
-					if (compare(get(j), get(j + 1)) == Greater)
+					if (compare.Do(get.Do(j), get.Do(j + 1)) == Greater)
 					{
-						T temp = get(j + 1);
-						set(j + 1, get(j));
-						set(j, temp);
+						T temp = get.Do(j + 1);
+						set.Do(j + 1, get.Do(j));
+						set.Do(j, temp);
 					}
 				}
 			}
@@ -198,7 +240,7 @@ namespace Towel.Algorithms
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
 		public static void Quick<T>(T[] array) =>
-			Quick(Compare.Default, array);
+			Quick(array, Compare.Default);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
@@ -207,8 +249,20 @@ namespace Towel.Algorithms
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(Compare<T> compare, T[] array) =>
-			Quick(compare, array, 0, array.Length - 1);
+		public static void Quick<T>(T[] array, Compare<T> compare) =>
+			Quick(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <typeparam name="Compare">The method of compare to be sorted by.</typeparam>
+		/// <param name="compare">The method of compare to be sorted by.</param>
+		/// <param name="array">The array to be sorted</param>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
+		public static void Quick<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Quick(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
@@ -219,8 +273,22 @@ namespace Towel.Algorithms
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(Compare<T> compare, T[] array, int start, int end) =>
-			Quick(compare, array.WrapGetIndex(), array.WrapSetIndex(), start, end);
+		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare) =>
+			Quick<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <typeparam name="Compare">The method of compare to be sorted by.</typeparam>
+		/// <param name="compare">The method of compare to be sorted by.</param>
+		/// <param name="array">The array to be sorted</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
+		public static void Quick<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
@@ -232,38 +300,60 @@ namespace Towel.Algorithms
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
-			Quick_Recursive(compare, get, set, start, end - start + 1);
+		public static void Quick<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+			Quick<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
-		internal static void Quick_Recursive<T>(Compare<T> compare, GetIndex<T> get, SetIndex<T> set, int start, int len)
+		/// <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+		/// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		/// <typeparam name="Compare">Delegate for getting a value at a specified index.</typeparam>
+		/// <typeparam name="Get">Delegate for getting a value at a specified index.</typeparam>
+		/// <typeparam name="Set">Delegate for setting a value at a specified index.</typeparam>
+		/// <param name="compare">The method of compare to be sorted by.</param>
+		/// <param name="get">Delegate for getting a value at a specified index.</param>
+		/// <param name="set">Delegate for setting a value at a specified index.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
+		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T> =>
+			Quick_Recursive<T, Compare, Get, Set>(start, end - start + 1, compare, get, set);
+
+		internal static void Quick_Recursive<T, Compare, Get, Set>(int start, int len, Compare compare, Get get, Set set)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T>
 		{
 			if (len > 1)
 			{
-				T pivot = get(start);
+				T pivot = get.Do(start);
 				int i = start;
 				int j = start + len - 1;
 				int k = j;
 				while (i <= j)
 				{
-					if (compare(get(j), pivot) == Less)
+					if (compare.Do(get.Do(j), pivot) == Less)
 					{
-						T temp = get(i);
-						set(i++, get(j));
-						set(j, temp);
+						T temp = get.Do(i);
+						set.Do(i++, get.Do(j));
+						set.Do(j, temp);
 					}
-					else if (compare(get(j), pivot) == Equal)
+					else if (compare.Do(get.Do(j), pivot) == Equal)
 					{
 						j--;
 					}
 					else
 					{
-						T temp = get(k);
-						set(k--, get(j));
-						set(j--, temp);
+						T temp = get.Do(k);
+						set.Do(k--, get.Do(j));
+						set.Do(j--, temp);
 					}
 				}
-				Quick_Recursive(compare, get, set, start, i - start);
-				Quick_Recursive(compare, get, set, k + 1, start + len - (k + 1));
+				Quick_Recursive<T, Compare, Get, Set>(start, i - start, compare, get, set);
+				Quick_Recursive<T, Compare, Get, Set>(k + 1, start + len - (k + 1), compare, get, set);
 			}
 		}
 

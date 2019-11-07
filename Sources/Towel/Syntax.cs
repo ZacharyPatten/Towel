@@ -2083,7 +2083,7 @@ namespace Towel
 			T[] ordered = new T[count];
 			int a = 0;
 			stepper(i => { ordered[a++] = i; });
-			Sort.Quick(Comparison, ordered);
+			Sort.Quick(ordered, Comparison);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];

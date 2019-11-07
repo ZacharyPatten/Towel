@@ -311,35 +311,69 @@
         <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[])">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="array">the array to be sorted</param>
+            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},``0[])">
+        <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[],Towel.Compare{``0})">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
-            <param name="array">the array to be sorted</param>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
+        <member name="M:Towel.Algorithms.Sort.Bubble``2(``0[],``1)">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
-            <param name="array">the array to be sorted</param>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Algorithms.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
             <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
-            <param name="compare">The compare function (returns a positive value if left is greater than right).</param>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Bubble``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">Delegate for getting a value at a specified index.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts an entire array in non-decreasing order using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="compare">The compare function.</param>
             <param name="get">Delegate for getting a value at a specified index.</param>
             <param name="set">Delegate for setting a value at a specified index.</param>
             <param name="start">The starting index of the sort.</param>
@@ -436,7 +470,7 @@
             <stability>False</stability>
             <memory>ln(n)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},``0[])">
+        <member name="M:Towel.Algorithms.Sort.Quick``1(``0[],Towel.Compare{``0})">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare to be sorted by.</param>
@@ -445,7 +479,17 @@
             <stability>False</stability>
             <memory>ln(n)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},``0[],System.Int32,System.Int32)">
+        <member name="M:Towel.Algorithms.Sort.Quick``2(``0[],``1)">
+            <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <typeparam name="Compare">The method of compare to be sorted by.</typeparam>
+            <param name="compare">The method of compare to be sorted by.</param>
+            <param name="array">The array to be sorted</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Quick``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
             <param name="compare">The method of compare to be sorted by.</param>
@@ -456,9 +500,36 @@
             <stability>False</stability>
             <memory>ln(n)</memory>
         </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Algorithms.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
             <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
             <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <typeparam name="Compare">The method of compare to be sorted by.</typeparam>
+            <param name="compare">The method of compare to be sorted by.</param>
+            <param name="array">The array to be sorted</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Quick``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <param name="compare">The method of compare to be sorted by.</param>
+            <param name="get">Delegate for getting a value at a specified index.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Algorithms.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts an entire array in non-decreasing order using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of objects stored within the array.</typeparam>
+            <typeparam name="Compare">Delegate for getting a value at a specified index.</typeparam>
+            <typeparam name="Get">Delegate for getting a value at a specified index.</typeparam>
+            <typeparam name="Set">Delegate for setting a value at a specified index.</typeparam>
             <param name="compare">The method of compare to be sorted by.</param>
             <param name="get">Delegate for getting a value at a specified index.</param>
             <param name="set">Delegate for setting a value at a specified index.</param>
@@ -754,6 +825,21 @@
             <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
             <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
             <returns>The converted System.Comparison delegate.</returns>
+        </member>
+        <member name="T:Towel.ICompare`1">
+            <summary>A compile time delegate for comparing two values.</summary>
+            <typeparam name="T">The generic type of values to compare.</typeparam>
+        </member>
+        <member name="T:Towel.CompareRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.CompareRuntime`1.Do(`0,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.CompareRuntime`1.op_Implicit(Towel.Compare{`0})~Towel.CompareRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="compare">The runtime Compare delegate.</param>
         </member>
         <member name="T:Towel.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
@@ -15240,6 +15326,21 @@
             <param name="compare">The compare delegate to convert to a equate.</param>
             <returns>The compare delegate converted into an equate.</returns>
         </member>
+        <member name="T:Towel.IEquate`1">
+            <summary>A compile time delegate for equating two values.</summary>
+            <typeparam name="T">The generic type of values to equate.</typeparam>
+        </member>
+        <member name="T:Towel.EquateRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to equate.</typeparam>
+        </member>
+        <member name="M:Towel.EquateRuntime`1.Do(`0,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.EquateRuntime`1.op_Implicit(Towel.Equate{`0})~Towel.EquateRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="equate">The runtime Equate delegate.</param>
+        </member>
         <member name="T:Towel.MathematicsException">
             <summary>Represents an exception in mathematical computation.</summary>
         </member>
@@ -15665,11 +15766,74 @@
             <param name="value">The value to convert into an IEnumerable.</param>
             <returns>The IEnumerable of the value.</returns>
         </member>
+        <member name="T:Towel.IAction">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IAction.Do">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IAction`1">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IAction`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IAction`2">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IAction`2.Do(`0,`1)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IAction`3">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IAction`3.Do(`0,`1,`2)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IFunc`1">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IFunc`1.Do">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IFunc`2">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IFunc`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IFunc`3">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IFunc`3.Do(`0,`1)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.IFunc`4">
+            <summary>Interface for a compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
         <member name="T:Towel.Hash`1">
             <summary>Delegate for hash code computation.</summary>
             <typeparam name="T">The type of this hash function.</typeparam>
             <param name="value">The instance to compute the hash of.</param>
             <returns>The computed hash of the given item.</returns>
+        </member>
+        <member name="T:Towel.IHash`1">
+            <summary>A compile time delegate for computing hash codes.</summary>
+            <typeparam name="T">The generic type of value to compute the hash codes of.</typeparam>
+        </member>
+        <member name="T:Towel.HashRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the value compute the hash code of.</typeparam>
+        </member>
+        <member name="M:Towel.HashRuntime`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.HashRuntime`1.op_Implicit(Towel.Hash{`0})~Towel.HashRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="hash">The runtime Hash delegate.</param>
         </member>
         <member name="T:Towel.Hash">
             <summary>Static wrapper for the based "object.GetHashCode" function.</summary>
@@ -15692,6 +15856,58 @@
             <summary>Delegate for setting a value at a specified index.</summary>
             <param name="index">The index to set the value of.</param>
             <param name="value">The value to set at the given index.</param>
+        </member>
+        <member name="T:Towel.IGetIndex`1">
+            <summary>A compile time delegate for getting a value at an index.</summary>
+            <typeparam name="T">The generic type of value to get.</typeparam>
+        </member>
+        <member name="T:Towel.GetIndexRuntime`1">
+            <summary>Built in GetIndex struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexRuntime`1.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexRuntime`1.op_Implicit(Towel.GetIndex{`0})~Towel.GetIndexRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="getIndex">The runtime GetIndex delegate.</param>
+        </member>
+        <member name="T:Towel.GetIndexArray`1">
+            <summary>Built in GetIndex struct for arrays.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexArray`1.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexArray`1.op_Implicit(`0[])~Towel.GetIndexArray{`0}">
+            <summary>Implicitly gets the getter from an array.</summary>
+            <param name="array">The array to get the getter of.</param>
+        </member>
+        <member name="T:Towel.ISetIndex`1">
+            <summary>A compile time delegate for setting a value at an index.</summary>
+            <typeparam name="T">The generic type of value to set.</typeparam>
+        </member>
+        <member name="T:Towel.SetIndexRuntime`1">
+            <summary>Built in SetIndex struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the value to set.</typeparam>
+        </member>
+        <member name="M:Towel.SetIndexRuntime`1.Do(System.Int32,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SetIndexRuntime`1.op_Implicit(Towel.SetIndex{`0})~Towel.SetIndexRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="setIndex">The runtime SetIndex delegate.</param>
+        </member>
+        <member name="T:Towel.SetIndexArray`1">
+            <summary>Built in SetIndex struct for arrays.</summary>
+            <typeparam name="T">The generic type of the value to set.</typeparam>
+        </member>
+        <member name="M:Towel.SetIndexArray`1.Do(System.Int32,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SetIndexArray`1.op_Implicit(`0[])~Towel.SetIndexArray{`0}">
+            <summary>Implicitly gets the setter from an array.</summary>
+            <param name="array">The array to get the setter of.</param>
         </member>
         <member name="T:Towel.Mathematics.Fraction`1">
             <summary>Represents a rational value with a numerator and a denominator.</summary>

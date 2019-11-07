@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Mathematics\" />
-    <Folder Include="Algorithms\" />
     <Folder Include="Measurements\" />
   </ItemGroup>
 

@@ -32,16 +32,8 @@ namespace Towel_Benchmarking
 
 	#region Benchmark Settings
 
-	public class Person
-	{
-		public Guid Id;
-		public string FirstName;
-		public string LastName;
-		public DateTime DateOfBirth;
-	}
-
 	/// <summary>Allows customization of the benchmarking.</summary>
-	public static class BenchmarkSettings
+	public static partial class BenchmarkSettings
 	{
 		/// <summary>
 		/// Allows the enabling/disabling of various benchmarking methods.
@@ -50,35 +42,106 @@ namespace Towel_Benchmarking
 		/// </summary>
 		public static ISet<Tag> EnabledTags = new SetHashLinked<Tag>()
 		{
-            // Major Tags ------------------------------------------
-            Tag.Algorithms,
+			// Major Tags ------------------------------------------
+
+			Tag.Algorithms,
 			Tag.DataStructures,
-			Tag.Diagnostics,
 			Tag.Mathematics,
 			Tag.Measurements,
-			Tag.Parallels,
 
-            // Data Structure Tags ---------------------------------
-            Tag.Link, // aka Tuple
-            Tag.Array,
-            Tag.ListArray,
-            Tag.ListLinked,
-            Tag.StackArray,
-            Tag.StackLinked,
-            Tag.QueueArray,
-            Tag.QueueLinked,
-            Tag.HeapArray,
+			// Algorithm Tags --------------------------------------
+
+			Tag.Sort,
+
+			// Data Structure Tags ---------------------------------
+
+			Tag.Link,
+			Tag.Array,
+			Tag.ListArray,
+			Tag.ListLinked,
+			Tag.StackArray,
+			Tag.StackLinked,
+			Tag.QueueArray,
+			Tag.QueueLinked,
+			Tag.HeapArray,
 			Tag.AvlTreeLinked,
 			Tag.RedBlackTreeLinked,
 			Tag.BTree,
 			Tag.SkipList,
 			Tag.SetHashArray,
 			Tag.SetHashLinked,
-			Tag.Map, // aka Dictionary
-            Tag.KdTree,
+			Tag.Map,
+			Tag.KdTree,
 			Tag.Omnitree,
 		};
+	}
 
+	#endregion
+
+	#region Benchmarking Framework
+
+	// This code is framework code for benchmarking.
+	// It should not be edited to perform benchamrking.
+
+	[AttributeUsage(AttributeTargets.Class)]
+	public class BenchmarksAttribute : Attribute
+	{
+		public Tag[] Tags;
+
+		public BenchmarksAttribute(params Tag[] tags) { Tags = tags; }
+	}
+
+	public enum Tag
+	{
+		// Major Tags
+		Algorithms,
+		DataStructures,
+		Mathematics,
+		Measurements,
+
+		// Algorithm Tags
+		Sort,
+
+		// Data Structure Tags
+		Link, // aka Tuple
+		Array,
+		ListArray,
+		ListLinked,
+		QueueArray,
+		QueueLinked,
+		StackArray,
+		StackLinked,
+		HeapArray,
+		AvlTreeLinked,
+		RedBlackTreeLinked,
+		BTree,
+		SkipList,
+		SetHashArray,
+		SetHashLinked,
+		Map, // aka Dictionary
+		KdTree,
+		Omnitree,
+
+		// Mathemtatics
+		Compute,
+		Vector,
+		Matrix,
+	}
+
+	#endregion
+
+	#region Shared Random Data Generation
+
+	public class Person
+	{
+		public Guid Id;
+		public string FirstName;
+		public string LastName;
+		public DateTime DateOfBirth;
+	}
+
+	public static partial class BenchmarkSettings
+	{
 		/// <summary>
 		/// Settings for the data structure becnhmarking methods.
 		/// </summary>
@@ -115,57 +178,6 @@ namespace Towel_Benchmarking
 				};
 			}
 		}
-	}
-
-	#endregion
-
-	#region Benchmarking Framework
-
-	// This code is framework code for benchmarking.
-	// It should not be edited to perform benchamrking.
-
-	[AttributeUsage(AttributeTargets.Class)]
-	public class BenchmarksAttribute : Attribute
-	{
-		public Tag[] Tags;
-
-		public BenchmarksAttribute(params Tag[] tags) { Tags = tags; }
-	}
-
-	public enum Tag
-	{
-		// Major Tags
-		Algorithms,
-		DataStructures,
-		Diagnostics,
-		Mathematics,
-		Measurements,
-		Parallels,
-
-		// Data Structure Tags
-		Link, // aka Tuple
-		Array,
-		ListArray,
-		ListLinked,
-		QueueArray,
-		QueueLinked,
-		StackArray,
-		StackLinked,
-		HeapArray,
-		AvlTreeLinked,
-		RedBlackTreeLinked,
-		BTree,
-		SkipList,
-		SetHashArray,
-		SetHashLinked,
-		Map, // aka Dictionary
-		KdTree,
-		Omnitree,
-
-		// Mathemtatics
-		Compute,
-		Vector,
-		Matrix,
 	}
 
 	#endregion
