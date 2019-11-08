@@ -31,33 +31,6 @@ namespace Towel.DataStructures
 			internal Node LeftChild;
 			internal Node RightChild;
 			internal int Height;
-
-			internal Node(T value)
-			{
-				Value = value;
-				LeftChild = null;
-				RightChild = null;
-				Height = 0;
-			}
-
-			internal Node(
-				T value,
-				Node leftChild,
-				Node rightChild,
-				int height)
-			{
-				Value = value;
-				LeftChild = leftChild;
-				RightChild = rightChild;
-				Height = height;
-			}
-
-			internal Node Clone() =>
-				new Node(
-					Value,
-					LeftChild?.Clone(),
-					RightChild?.Clone(),
-					Height);
 		}
 
 		#endregion
@@ -78,7 +51,16 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to clone.</param>
 		internal AvlTreeLinked(AvlTreeLinked<T> tree)
 		{
-			_root = tree._root?.Clone();
+			static Node Clone(Node node) =>
+				new Node()
+				{
+					Value = node.Value,
+					LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild),
+					RightChild = node.RightChild is null ? null : Clone(node.RightChild),
+					Height = node.Height,
+				};
+
+			_root = tree._root is null ? null : Clone(tree._root);
 			_count = tree._count;
 			_compare = tree._compare;
 		}
@@ -151,7 +133,7 @@ namespace Towel.DataStructures
 			{
 				if (node is null)
 				{
-					return new Node(value);
+					return new Node() { Value = value, };
 				}
 				CompareResult comparison = _compare(node.Value, value);
 				if (comparison == Less)
@@ -836,46 +818,46 @@ namespace Towel.DataStructures
 		/// <runtime>θ(1)</runtime>
 		internal static Node Balance(Node node)
 		{
-			static Node RotateSingleLeft(Node NODE)
+			static Node RotateSingleLeft(Node node)
 			{
-				Node temp = NODE.RightChild;
-				NODE.RightChild = temp.LeftChild;
-				temp.LeftChild = NODE;
-				SetHeight(NODE);
+				Node temp = node.RightChild;
+				node.RightChild = temp.LeftChild;
+				temp.LeftChild = node;
+				SetHeight(node);
 				SetHeight(temp);
 				return temp;
 			}
 
-			static Node RotateDoubleLeft(Node NODE)
+			static Node RotateDoubleLeft(Node node)
 			{
-				Node temp = NODE.RightChild.LeftChild;
-				NODE.RightChild.LeftChild = temp.RightChild;
-				temp.RightChild = NODE.RightChild;
-				NODE.RightChild = temp.LeftChild;
-				temp.LeftChild = NODE;
+				Node temp = node.RightChild.LeftChild;
+				node.RightChild.LeftChild = temp.RightChild;
+				temp.RightChild = node.RightChild;
+				node.RightChild = temp.LeftChild;
+				temp.LeftChild = node;
 				SetHeight(temp.LeftChild);
 				SetHeight(temp.RightChild);
 				SetHeight(temp);
 				return temp;
 			}
 
-			static Node RotateSingleRight(Node NODE)
+			static Node RotateSingleRight(Node node)
 			{
-				Node temp = NODE.LeftChild;
-				NODE.LeftChild = temp.RightChild;
-				temp.RightChild = NODE;
-				SetHeight(NODE);
+				Node temp = node.LeftChild;
+				node.LeftChild = temp.RightChild;
+				temp.RightChild = node;
+				SetHeight(node);
 				SetHeight(temp);
 				return temp;
 			}
 
-			static Node RotateDoubleRight(Node NODE)
+			static Node RotateDoubleRight(Node node)
 			{
-				Node temp = NODE.LeftChild.RightChild;
-				NODE.LeftChild.RightChild = temp.LeftChild;
-				temp.LeftChild = NODE.LeftChild;
-				NODE.LeftChild = temp.RightChild;
-				temp.RightChild = NODE;
+				Node temp = node.LeftChild.RightChild;
+				node.LeftChild.RightChild = temp.LeftChild;
+				temp.LeftChild = node.LeftChild;
+				node.LeftChild = temp.RightChild;
+				temp.RightChild = node;
 				SetHeight(temp.RightChild);
 				SetHeight(temp.LeftChild);
 				SetHeight(temp);
