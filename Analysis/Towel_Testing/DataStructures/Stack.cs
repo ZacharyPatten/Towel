@@ -11,7 +11,7 @@ namespace Towel_Testing.DataStructures
 		{
 			void Test<T>(T[] values)
 			{
-				Towel.Algorithms.Sort.Shuffle(values);
+				Towel.Sort.Shuffle(values);
 				IStack<T> stack = new StackArray<T>();
 				values.Stepper(x => stack.Push(x));
 				Array.Reverse(values);
@@ -39,7 +39,7 @@ namespace Towel_Testing.DataStructures
 		{
 			void Test<T>(T[] values)
 			{
-				Towel.Algorithms.Sort.Shuffle(values);
+				Towel.Sort.Shuffle(values);
 				IStack<T> stack = new StackLinked<T>();
 				values.Stepper(x => stack.Push(x));
 				Array.Reverse(values);

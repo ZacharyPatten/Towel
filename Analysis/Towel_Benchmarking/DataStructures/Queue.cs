@@ -3,13 +3,12 @@ using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
 {
-	[Benchmarks(Tag.DataStructures, Tag.QueueArray)]
 	public class QueueArray_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
 
-		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
+		public Person[][] RandomData => Towel_Benchmarking.RandomData.DataStructures.RandomData;
 
 		[Benchmark]
 		public void Enqueue()
@@ -32,13 +31,12 @@ namespace Towel_Benchmarking.DataStructures
 		}
 	}
 
-	[Benchmarks(Tag.DataStructures, Tag.QueueLinked)]
 	public class QueueLinked_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
 
-		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
+		public Person[][] RandomData => Towel_Benchmarking.RandomData.DataStructures.RandomData;
 
 		[Benchmark]
 		public void Enqueue()

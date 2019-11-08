@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
 using Towel.DataStructures;
-using Towel.Algorithms;
 using Towel.Measurements;
 
 namespace Towel

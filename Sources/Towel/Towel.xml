@@ -4,1022 +4,6 @@
         <name>Towel</name>
     </assembly>
     <members>
-        <member name="T:Towel.Algorithms.Search">
-            <summary>Static class taht constains algorithms for searching.</summary>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Binary``1(``0[],Towel.CompareToKnownValue{``0})">
-            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-            <typeparam name="T">The generic type of the set of values.</typeparam>
-            <param name="array">The array to binary search on.</param>
-            <param name="compare">Comparison delegate.</param>
-            <returns>The index where the specific value fits into the index, sorted items.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Binary``1(Towel.GetIndex{``0},System.Int32,Towel.CompareToKnownValue{``0})">
-            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-            <typeparam name="T">The generic type of the set of values.</typeparam>
-            <param name="get">Indexer delegate.</param>
-            <param name="length">The number of indexed items.</param>
-            <param name="compare">Comparison delegate.</param>
-            <returns>The index where the specific value fits into the index, sorted items.</returns>
-        </member>
-        <member name="T:Towel.Algorithms.Search.GraphSearchStatus">
-            <summary>The status of a graph search algorithm.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Continue">
-            <summary>Graph search was not broken.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Break">
-            <summary>Graph search was broken.</summary>
-        </member>
-        <member name="F:Towel.Algorithms.Search.GraphSearchStatus.Goal">
-            <summary>Graph search found the goal.</summary>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Syntax">
-            <summary>Syntax sugar hacks.</summary>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus">
-            <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Syntax.GraphSearchStatus.#ctor(Towel.Algorithms.Search.GraphSearchStatus)">
-            <summary>Constructs a new graph search status.</summary>
-            <param name="value">The status of the graph search.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Algorithms.Search.GraphSearchStatus)~Towel.Algorithms.Search.Syntax.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.Algorithms.Search.GraphSearchStatus"/> into a <see cref="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Algorithms.Search.GraphSearchStatus"/> to convert.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.StepStatus)~Towel.Algorithms.Search.Syntax.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.StepStatus"/> to convert.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Algorithms.Search.Syntax.GraphSearchStatus)~Towel.Algorithms.Search.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus"/> into a <see cref="T:Towel.Algorithms.Search.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Algorithms.Search.Syntax.GraphSearchStatus"/> to convert.</param>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Neighbors`1">
-            <summary>Step function for all neigbors of a given node.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="current">The node to step through all the neighbors of.</param>
-            <param name="neighbors">Step function to perform on all neighbors.</param>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Heuristic`2">
-            <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="node">The node to compute the heuristic value of.</param>
-            <returns>The computed heuristic value for this node.</returns>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Cost`2">
-            <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="current">The current (starting) node.</param>
-            <param name="neighbor">The node to compute the cost of movign to.</param>
-            <returns>The computed cost value of movign from current to neighbor.</returns>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Goal`1">
-            <summary>Predicate for determining if we have reached the goal node.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="current">The current node.</param>
-            <returns>True if the current node is a/the goal node; False if not.</returns>
-        </member>
-        <member name="T:Towel.Algorithms.Search.Check`1">
-            <summary>Checks the status of a graph search.</summary>
-            <typeparam name="Node">The node type of the search.</typeparam>
-            <param name="current">The current node of the search.</param>
-            <returns>The status of the search.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Check{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="check">Checks the status of the search.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The predicate to determine if the goal has been reached.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},Towel.Algorithms.Search.Goal{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="equate">A delegate for checking for equality between two nodes.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="equate">A delegate for checking for equality between two nodes.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Check{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="check">Checks the status of the search.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Heuristic{``0,``1},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Check{``0})">
-            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="check">Checks the status of the search.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},``0)">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.Algorithms.Search.Neighbors{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Algorithms.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Algorithms.Search.Goal{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="T:Towel.Algorithms.Sort">
-            <summary>Contains static sorting algorithms.</summary>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[])">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``2(``0[],``1)">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``1(``0[])">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">the array to be sorted</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare delegate.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``2(``0[],``1)">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare delegate.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare delegate.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts an array using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare delegate.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare delegate.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare delegate.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare delegate.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare delegate.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare delegate.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``1(``0[])">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``2(``0[],``1)">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">Returns positive if left greater than right.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">Returns positive if left greater than right.</param>
-            <param name="get">Delegate for getting a value at a specified index.</param>
-            <param name="set">Delegate for setting a value at a specified index.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(``0[])">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``2(``0[],``1)">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">Delegate for setting a value at a specified index.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``1(``0[])">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``2(``0[],``1)">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">Delegate for getting a value at a specified index.</param>
-            <param name="set">Delegate for setting a value at a specified index.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``1(``0[])">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``2(``0[],``1)">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``1(``0[])">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``2(``0[],``1)">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Shuffle``1(``0[],System.Random)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to shuffle.</param>
-            <param name="random">The random to shuffle with.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to shuffle.</param>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <param name="random">The random to shuffle with.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Shuffle``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Random)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="random">The random to shuffle with.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="random">The random to shuffle with.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``1(``0[],System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``1(``0[],Towel.Compare{``0},System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``2(``0[],``1,System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``1(``0[],System.Int32,System.Int32,Towel.Compare{``0},System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(``0[])">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(``0[],Towel.Compare{``0})">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``2(``0[],``1)">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="compare">The compare function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``2(``0[],System.Int32,System.Int32,``1)">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-        </member>
-        <member name="M:Towel.Algorithms.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-        </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
         </member>
@@ -30137,6 +29121,307 @@
             <param name="methodInfo">The method info to determine if it is a local function.</param>
             <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
+        <member name="T:Towel.Search">
+            <summary>Static class taht constains algorithms for searching.</summary>
+        </member>
+        <member name="M:Towel.Search.Binary``1(``0[],Towel.CompareToKnownValue{``0})">
+            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
+            <typeparam name="T">The generic type of the set of values.</typeparam>
+            <param name="array">The array to binary search on.</param>
+            <param name="compare">Comparison delegate.</param>
+            <returns>The index where the specific value fits into the index, sorted items.</returns>
+        </member>
+        <member name="M:Towel.Search.Binary``1(Towel.GetIndex{``0},System.Int32,Towel.CompareToKnownValue{``0})">
+            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
+            <typeparam name="T">The generic type of the set of values.</typeparam>
+            <param name="get">Indexer delegate.</param>
+            <param name="length">The number of indexed items.</param>
+            <param name="compare">Comparison delegate.</param>
+            <returns>The index where the specific value fits into the index, sorted items.</returns>
+        </member>
+        <member name="T:Towel.Search.GraphSearchStatus">
+            <summary>The status of a graph search algorithm.</summary>
+        </member>
+        <member name="F:Towel.Search.GraphSearchStatus.Continue">
+            <summary>Graph search was not broken.</summary>
+        </member>
+        <member name="F:Towel.Search.GraphSearchStatus.Break">
+            <summary>Graph search was broken.</summary>
+        </member>
+        <member name="F:Towel.Search.GraphSearchStatus.Goal">
+            <summary>Graph search found the goal.</summary>
+        </member>
+        <member name="T:Towel.Search.Syntax">
+            <summary>Syntax sugar hacks.</summary>
+        </member>
+        <member name="T:Towel.Search.Syntax.GraphSearchStatus">
+            <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
+        </member>
+        <member name="M:Towel.Search.Syntax.GraphSearchStatus.#ctor(Towel.Search.GraphSearchStatus)">
+            <summary>Constructs a new graph search status.</summary>
+            <param name="value">The status of the graph search.</param>
+        </member>
+        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Search.GraphSearchStatus)~Towel.Search.Syntax.GraphSearchStatus">
+            <summary>Converts a <see cref="T:Towel.Search.GraphSearchStatus"/> into a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Search.GraphSearchStatus"/> to convert.</param>
+        </member>
+        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.StepStatus)~Towel.Search.Syntax.GraphSearchStatus">
+            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/>.</summary>
+            <param name="value">The <see cref="T:Towel.StepStatus"/> to convert.</param>
+        </member>
+        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Search.Syntax.GraphSearchStatus)~Towel.Search.GraphSearchStatus">
+            <summary>Converts a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/> into a <see cref="T:Towel.Search.GraphSearchStatus"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/> to convert.</param>
+        </member>
+        <member name="T:Towel.Search.Neighbors`1">
+            <summary>Step function for all neigbors of a given node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="current">The node to step through all the neighbors of.</param>
+            <param name="neighbors">Step function to perform on all neighbors.</param>
+        </member>
+        <member name="T:Towel.Search.Heuristic`2">
+            <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="node">The node to compute the heuristic value of.</param>
+            <returns>The computed heuristic value for this node.</returns>
+        </member>
+        <member name="T:Towel.Search.Cost`2">
+            <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="current">The current (starting) node.</param>
+            <param name="neighbor">The node to compute the cost of movign to.</param>
+            <returns>The computed cost value of movign from current to neighbor.</returns>
+        </member>
+        <member name="T:Towel.Search.Goal`1">
+            <summary>Predicate for determining if we have reached the goal node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="current">The current node.</param>
+            <returns>True if the current node is a/the goal node; False if not.</returns>
+        </member>
+        <member name="T:Towel.Search.Check`1">
+            <summary>Checks the status of a graph search.</summary>
+            <typeparam name="Node">The node type of the search.</typeparam>
+            <param name="current">The current node of the search.</param>
+            <returns>The status of the search.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Check{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="check">Checks the status of the search.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">The predicate to determine if the goal has been reached.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to perform the search on.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">The goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">The goal node.</param>
+            <param name="equate">A delegate for checking for equality between two nodes.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to perform the search on.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">The goal node.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to perform the search on.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="goal">The goal node.</param>
+            <param name="equate">A delegate for checking for equality between two nodes.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Check{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="check">Checks the status of the search.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0)">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="equate">Delegate for checking for equality between two nodes.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0)">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="equate">Delegate for checking for equality between two nodes.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Check{``0})">
+            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="check">Checks the status of the search.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Goal{``0})">
+            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0)">
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0,Towel.Equate{``0})">
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="equate">Delegate for checking for equality between two nodes.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,Towel.Equate{``0})">
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <param name="equate">Delegate for checking for equality between two nodes.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Goal{``0})">
+            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="graph">The graph to search against.</param>
+            <param name="goal">Predicate for determining if we have reached the goal node.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
         <member name="T:Towel.Serialization">
             <summary>Static class containing serialization code.</summary>
         </member>
@@ -30251,6 +29536,721 @@
             <exception cref="T:System.NotSupportedException">
             Thrown when the delegate is pointing to a local function.
             </exception>
+        </member>
+        <member name="T:Towel.Sort">
+            <summary>Contains static sorting algorithms.</summary>
+        </member>
+        <member name="M:Towel.Sort.Bubble``1(``0[])">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bubble``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bubble``2(``0[],``1)">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bubble``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Selection``1(``0[])">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">the array to be sorted</param>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Selection``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare delegate.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Selection``2(``0[],``1)">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare delegate.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare delegate.</param>
+        </member>
+        <member name="M:Towel.Sort.Selection``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts an array using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare delegate.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Selection``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare delegate.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare delegate.</param>
+        </member>
+        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare delegate.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare delegate.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare delegate.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``1(``0[])">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``2(``0[],``1)">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">Returns positive if left greater than right.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">Returns positive if left greater than right.</param>
+            <param name="get">Delegate for getting a value at a specified index.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``1(``0[])">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``2(``0[],``1)">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``1(``0[])">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``2(``0[],``1)">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">Delegate for getting a value at a specified index.</param>
+            <param name="set">Delegate for setting a value at a specified index.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``1(``0[])">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``2(``0[],``1)">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``1(``0[])">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``2(``0[],``1)">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Shuffle``1(``0[],System.Random)">
+            <summary>Sorts values into a randomized order.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to shuffle.</param>
+            <param name="random">The random to shuffle with.</param>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
+            <summary>Sorts values into a randomized order.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to shuffle.</param>
+            <param name="start">The starting index of the shuffle.</param>
+            <param name="end">The ending index of the shuffle.</param>
+            <param name="random">The random to shuffle with.</param>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Shuffle``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Random)">
+            <summary>Sorts values into a randomized order.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="random">The random to shuffle with.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the shuffle.</param>
+            <param name="end">The ending index of the shuffle.</param>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
+            <summary>Sorts values into a randomized order.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the shuffle.</param>
+            <param name="end">The ending index of the shuffle.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="random">The random to shuffle with.</param>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``1(``0[],System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``1(``0[],Towel.Compare{``0},System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``2(``0[],``1,System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``1(``0[],System.Int32,System.Int32,Towel.Compare{``0},System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="random">The random to use while sorting.</param>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Sort.Slow``1(``0[])">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``2(``0[],``1)">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
         </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of iteration.</summary>

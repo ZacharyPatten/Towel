@@ -2,10 +2,9 @@
 using System;
 using Towel;
 
-namespace Towel_Benchmarking.Algorithms
+namespace Towel_Benchmarking
 {
-	[Benchmarks(Tag.Algorithms, Tag.Sort)]
-	public class Sort
+	public class Sort_Benchmarks
 	{
 		[Params(10, 1000, 10000)] public int N;
 
@@ -26,46 +25,46 @@ namespace Towel_Benchmarking.Algorithms
 			Array.Sort(Values, (int a, int b) => a.CompareTo(b));
 
 		[Benchmark] public void BubbleRunTime() =>
-			Towel.Algorithms.Sort.Bubble(Values, Compare.Default);
+			Towel.Sort.Bubble(Values, Compare.Default);
 
 		[Benchmark] public void BubbleCompileTime() =>
-			Towel.Algorithms.Sort.Bubble<int, CompareInt>(Values);
+			Towel.Sort.Bubble<int, CompareInt>(Values);
 
 		[Benchmark] public void SelectionRunTime() =>
-			Towel.Algorithms.Sort.Selection(Values, Compare.Default);
+			Towel.Sort.Selection(Values, Compare.Default);
 
 		[Benchmark] public void SelectionCompileTime() =>
-			Towel.Algorithms.Sort.Selection<int, CompareInt>(Values);
+			Towel.Sort.Selection<int, CompareInt>(Values);
 
 		[Benchmark] public void InsertionRunTime() =>
-			Towel.Algorithms.Sort.Insertion(Values, Compare.Default);
+			Towel.Sort.Insertion(Values, Compare.Default);
 
 		[Benchmark] public void InsertionCompileTime() =>
-			Towel.Algorithms.Sort.Insertion<int, CompareInt>(Values);
+			Towel.Sort.Insertion<int, CompareInt>(Values);
 
 		[Benchmark] public void QuickRunTime() =>
-			Towel.Algorithms.Sort.Quick(Values, Compare.Default);
+			Towel.Sort.Quick(Values, Compare.Default);
 
 		[Benchmark] public void QuickCompileTime() =>
-			Towel.Algorithms.Sort.Quick<int, CompareInt>(Values);
+			Towel.Sort.Quick<int, CompareInt>(Values);
 
 		[Benchmark] public void MergeRunTime() =>
-			Towel.Algorithms.Sort.Merge(Values, Compare.Default);
+			Towel.Sort.Merge(Values, Compare.Default);
 
 		[Benchmark] public void MergeCompileTime() =>
-			Towel.Algorithms.Sort.Merge<int, CompareInt>(Values);
+			Towel.Sort.Merge<int, CompareInt>(Values);
 
 		[Benchmark] public void HeapRunTime() =>
-			Towel.Algorithms.Sort.Heap(Values, Compare.Default);
+			Towel.Sort.Heap(Values, Compare.Default);
 
 		[Benchmark] public void HeapCompileTime() =>
-			Towel.Algorithms.Sort.Heap<int, CompareInt>(Values);
+			Towel.Sort.Heap<int, CompareInt>(Values);
 
 		[Benchmark] public void OddEvenRunTime() =>
-			Towel.Algorithms.Sort.OddEven(Values, Compare.Default);
+			Towel.Sort.OddEven(Values, Compare.Default);
 
 		[Benchmark] public void OddEvenCompileTime() =>
-			Towel.Algorithms.Sort.OddEven<int, CompareInt>(Values);
+			Towel.Sort.OddEven<int, CompareInt>(Values);
 
 		[Benchmark] public void SlowRunTime()
 		{
@@ -73,7 +72,7 @@ namespace Towel_Benchmarking.Algorithms
 			{
 				throw new Exception("Benchmark fail.");
 			}
-			Towel.Algorithms.Sort.Slow(Values, Compare.Default);
+			Towel.Sort.Slow(Values, Compare.Default);
 		}
 
 		[Benchmark] public void SlowCompileTime()
@@ -82,7 +81,7 @@ namespace Towel_Benchmarking.Algorithms
 			{
 				throw new Exception("Benchmark fail.");
 			}
-			Towel.Algorithms.Sort.Slow<int, CompareInt>(Values);
+			Towel.Sort.Slow<int, CompareInt>(Values);
 		}
 
 		[Benchmark] public void BogoRunTime()
@@ -91,7 +90,7 @@ namespace Towel_Benchmarking.Algorithms
 			{
 				throw new Exception("Benchmark fail.");
 			}
-			Towel.Algorithms.Sort.Bogo<int>(Values, Compare.Default);
+			Towel.Sort.Bogo<int>(Values, Compare.Default);
 		}
 
 		[Benchmark] public void BogoCompileTime()
@@ -100,7 +99,7 @@ namespace Towel_Benchmarking.Algorithms
 			{
 				throw new Exception("Benchmark fail.");
 			}
-			Towel.Algorithms.Sort.Bogo<int, CompareInt>(Values);
+			Towel.Sort.Bogo<int, CompareInt>(Values);
 		}
 
 		public struct CompareInt : ICompare<int>

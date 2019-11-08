@@ -1,7 +1,7 @@
 ﻿using System;
 using static Towel.Syntax;
 
-namespace Towel.Algorithms
+namespace Towel
 {
 	/// <summary>Contains static sorting algorithms.</summary>
 	public static class Sort

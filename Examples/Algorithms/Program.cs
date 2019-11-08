@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Towel;
-using Towel.Algorithms;
 using Towel.DataStructures;
 using Towel.Mathematics;
 using static Towel.Syntax;

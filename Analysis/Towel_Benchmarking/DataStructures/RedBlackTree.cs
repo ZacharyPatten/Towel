@@ -4,13 +4,12 @@ using Towel.DataStructures;
 
 namespace Towel_Benchmarking.DataStructures
 {
-	[Benchmarks(Tag.DataStructures, Tag.RedBlackTreeLinked)]
 	public class RedBlackTreeLinked_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]
 		public Person[] RandomTestData { get; set; }
 
-		public Person[][] RandomData => BenchmarkSettings.DataStructures.RandomData;
+		public Person[][] RandomData => Towel_Benchmarking.RandomData.DataStructures.RandomData;
 
 		[Benchmark]
 		public void Add()

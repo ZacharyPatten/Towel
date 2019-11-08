@@ -2,7 +2,7 @@
 using Towel.DataStructures;
 using static Towel.Syntax;
 
-namespace Towel.Algorithms
+namespace Towel
 {
 	/// <summary>Static class taht constains algorithms for searching.</summary>
 	public static class Search

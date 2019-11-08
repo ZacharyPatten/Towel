@@ -12,7 +12,7 @@ namespace Towel_Testing.DataStructures
 			void Test<T>(T[] values, Compare<T> compare)
 			{
 				T[] clonedValues = (T[])values.Clone();
-				Towel.Algorithms.Sort.Shuffle(clonedValues);
+				Towel.Sort.Shuffle(clonedValues);
 				IHeap<T> heap = new HeapArray<T>(compare);
 				clonedValues.Stepper(x => heap.Enqueue(x));
 				foreach (T value in values)

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
-using Towel.Algorithms;
 using Towel.DataStructures;
 using static Towel.Syntax;
 

@@ -11,7 +11,7 @@ namespace Towel_Testing.DataStructures
 		{
 			void Test<T>(T[] values)
 			{
-				Towel.Algorithms.Sort.Shuffle(values);
+				Towel.Sort.Shuffle(values);
 				IQueue<T> queue = new QueueArray<T>();
 				values.Stepper(x => queue.Enqueue(x));
 				values.Stepper(x => x.Equals(queue.Dequeue()));
@@ -41,7 +41,7 @@ namespace Towel_Testing.DataStructures
 		{
 			void Test<T>(T[] values)
 			{
-				Towel.Algorithms.Sort.Shuffle(values);
+				Towel.Sort.Shuffle(values);
 				IQueue<T> queue = new QueueLinked<T>();
 				values.Stepper(x => queue.Enqueue(x));
 				values.Stepper(x => x.Equals(queue.Dequeue()));

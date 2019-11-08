@@ -2,9 +2,8 @@
 using System;
 using Towel;
 using static Towel.Syntax;
-using Towel.Algorithms;
 
-namespace Towel_Testing.Algorithms
+namespace Towel_Testing
 {
 	[TestClass] public class Sort_Testing
 	{
