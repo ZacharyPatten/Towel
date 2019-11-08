@@ -495,22 +495,42 @@ namespace Towel
 			return TimeSpan.FromTicks(min.Ticks + randomLong);
 		}
 
-		/// <summary>Shuffles the elements of an IList into random order.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="random">The random algorithm for index generation.</param>
-		/// <param name="array">The structure to be shuffled.</param>
+		/// <summary>Sorts values into a randomized order.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="random">The random to shuffle with.</param>
+		/// <param name="array">The array to shuffle.</param>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(this Random random, T[] array) =>
-			Sort.Shuffle(random, array.WrapGetIndex(), array.WrapSetIndex(), 0, array.Length);
+			Sort.Shuffle(array, random);
 
-		/// <summary>Shuffles the elements of an IList into random order.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="random">The random algorithm for index generation.</param>
-		/// <param name="get">The get accessor for the structure to shuffle.</param>
-		/// <param name="assign">The set accessor for the structure to shuffle.</param>
+		/// <summary>Sorts values into a randomized order.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="random">The random to shuffle with.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
 		/// <param name="start">The starting index of the shuffle.</param>
-		/// <param name="end">The </param>
-		public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> assign, int start, int end) =>
-			Sort.Shuffle(random, get, assign, start, end);
+		/// <param name="end">The ending index of the shuffle.</param>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
+		public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
+			Sort.Shuffle(start, end, get, set, random);
+
+		/// <summary>Sorts values into a randomized order.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Get"></typeparam>
+		/// <typeparam name="Set"></typeparam>
+		/// <param name="random">The random to shuffle with.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		/// <param name="start">The starting index of the shuffle.</param>
+		/// <param name="end">The ending index of the shuffle.</param>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
+		public static void Shuffle<T, Get, Set>(this Random random, Get get, Set set, int start, int end)
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T> =>
+			Sort.Shuffle<T, Get, Set>(start, end, get, set, random);
 
 		/// <summary>Chooses an item at random (all equally weighted).</summary>
 		/// <typeparam name="T">The generic type of the items to choose from.</typeparam>

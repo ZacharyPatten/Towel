@@ -25,7 +25,7 @@ namespace Algorithms
 				Console.WriteLine("  Sorting Algorithms----------------------");
 				Console.WriteLine();
 				int[] dataSet = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-				Console.Write("    Data Set:" + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write("    Data Set: " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				// Shuffling (Randomizing)
@@ -33,74 +33,66 @@ namespace Algorithms
 				Console.Write("    Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
+				void ShuffleDataSet()
+				{
+					Console.WriteLine("    shuffling dataSet...");
+					Sort.Shuffle(dataSet);
+				}
+				Console.WriteLine();
+
 				// Bubble
 				Sort.Bubble(dataSet);
 				Console.Write("    Bubble:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-
 				// Selection
+				ShuffleDataSet();
 				Sort.Selection(dataSet);
 				Console.Write("    Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-
 				// Insertion
+				ShuffleDataSet();
 				Sort.Insertion(dataSet);
 				Console.Write("    Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-
 				// Quick
+				ShuffleDataSet();
 				Sort.Quick(dataSet);
 				Console.Write("    Quick:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
+				// Merge
 				Console.WriteLine("    shuffling dataSet...");
 				Sort.Shuffle(dataSet);
-
-				// Merge
 				Sort.Merge(dataSet);
 				Console.Write("    Merge:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-
 				// Heap
+				ShuffleDataSet();
 				Sort.Heap(dataSet);
 				Console.Write("    Heap:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-
 				// OddEven
+				ShuffleDataSet();
 				Sort.OddEven(dataSet);
 				Console.Write("    OddEven:   " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				//Console.WriteLine("  shuffling dataSet...");
-				//Sort.Shuffle(dataSet);
-
 				//// Slow
-				//Sort<int>.Slow(Logic.compare, get, set, 0, dataSet.Length);
-				//Console.Write("Slow: " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				//Console.WriteLine();
-
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
+				ShuffleDataSet();
+				Sort.Slow(dataSet);
+				Console.Write("    Slow:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
 
 				// Bogo
-				Console.Write("    Bogo:      Disabled (takes forever)");
+				ShuffleDataSet();
+				Console.Write("    Bogo:      Disabled (usually very slow...)");
 				//Sort.Bogo(dataSet);
-				//Console.Write("    Bogo: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				//Console.Write("    Bogo:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				Console.WriteLine();

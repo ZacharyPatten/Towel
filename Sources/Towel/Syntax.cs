@@ -1844,7 +1844,7 @@ namespace Towel
 			_ = compare ?? throw new ArgumentNullException(nameof(compare));
 			_ = values ?? throw new ArgumentNullException(nameof(values));
 			// standard algorithm (sort and grab middle value)
-			Sort.Merge(compare, values);
+			Sort.Merge(values, compare);
 			if (values.Length % 2 == 1) // odd... just grab middle value
 			{
 				return values[values.Length / 2];

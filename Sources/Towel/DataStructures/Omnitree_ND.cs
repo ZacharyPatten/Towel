@@ -86,8 +86,10 @@ namespace Towel.DataStructures
 	{
 		#region Spacial Types (Bound, Vector, Bounds) And Location/Bounding Functions
 
+		/// <summary>Omnitree keywords for syntax sugar.</summary>
 		public enum Keyword
 		{
+			/// <summary>Non-existant bound.</summary>
 			None,
 		}
 
@@ -119,6 +121,8 @@ namespace Towel.DataStructures
 			/// <param name="value">The value to convert into a bound.</param>
 			public static implicit operator Bound<T>(T value) => new Bound<T>(value);
 
+			/// <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
+			/// <param name="keyword">The keyword to convert into a non-existant bound.</param>
 			public static implicit operator Bound<T>(Keyword keyword) => 
 				keyword == Keyword.None
 				? None
@@ -210,9 +214,9 @@ namespace Towel.DataStructures
 			// if they have only inserted infinite bound objects it doesn't really matter what the
 			// point of division is, because the objects will never go down the tree
 			if (!exists)
-				return default(T);
+				return default;
 
-			Towel.Algorithms.Sort.Merge(Bound<T>.Compare(compare), index => bounds[index], (index, value) => { bounds[index] = value; }, 0, (int)bounds.Length);
+			Towel.Algorithms.Sort.Merge(0, (int)bounds.Length, Bound<T>.Compare(compare), index => bounds[index], (index, value) => { bounds[index] = value; });
 
 			// after sorting, we need to find the middle-most value that exists
 			ulong medianIndex = bounds.Length / 2;

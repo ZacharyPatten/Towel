@@ -23,15 +23,16 @@ namespace Towel_Testing.Algorithms
 			return true;
 		}
 
-		public static void TestAlgorithm(Action<int[]> algorithm)
+		public static void TestAlgorithm(Action<int[]> algorithm, int? sizeOverride = null)
 		{
+			int sizeAdjusted = sizeOverride ?? size;
 			Random random = new Random(randomSeed);
-			int[] array = new int[size];
-			Stepper.Iterate(size, i => array[i] = i);
-			Sort.Shuffle(random, array);
-			Assert.IsFalse(IsLeastToGreatest(array)); // make sure the data is randomized before algorithm
+			int[] array = new int[sizeAdjusted];
+			Stepper.Iterate(sizeAdjusted, i => array[i] = i);
+			Sort.Shuffle(array, random);
+			Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
 			algorithm(array);
-			Assert.IsTrue(IsLeastToGreatest(array));
+			Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
 		}
 
 		[TestMethod] public void Shuffle_Testing()
@@ -39,7 +40,7 @@ namespace Towel_Testing.Algorithms
 			Random random = new Random(randomSeed);
 			int[] array = new int[size];
 			Stepper.Iterate(size, i => array[i] = i);
-			Sort.Shuffle(random, array);
+			Sort.Shuffle(array, random);
 			Assert.IsFalse(IsLeastToGreatest(array));
 		}
 
@@ -54,5 +55,11 @@ namespace Towel_Testing.Algorithms
 		[TestMethod] public void Quick_Testing() => TestAlgorithm(Sort.Quick);
 
 		[TestMethod] public void Heap_Testing() => TestAlgorithm(Sort.Heap);
+
+		[TestMethod] public void OddEven_Testing() => TestAlgorithm(Sort.OddEven);
+
+		[TestMethod] public void Slow_Testing() => TestAlgorithm(Sort.Slow);
+
+		[TestMethod] public void Bogo_Testing() => TestAlgorithm(array => Sort.Bogo(array), 5);
 	}
 }
