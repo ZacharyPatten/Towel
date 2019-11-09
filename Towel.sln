@@ -15,17 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Examples\Algo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures", "Examples\DataStructures\DataStructures.csproj", "{A6291CD8-F96F-45F4-A233-7EB7E5637A8E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analysis", "Analysis", "{D7881A58-FA47-4F77-B8ED-C1922261375A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{D7881A58-FA47-4F77-B8ED-C1922261375A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Testing", "Analysis\Towel_Testing\Towel_Testing.csproj", "{7AE7800F-5132-4D82-A9CC-BF7CD1AC850D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Testing", "Tools\Towel_Testing\Towel_Testing.csproj", "{7AE7800F-5132-4D82-A9CC-BF7CD1AC850D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurements", "Examples\Measurements\Measurements.csproj", "{1BD3AC3A-CEF2-4AEF-8A01-19C60410F861}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Examples\Extensions\Extensions.csproj", "{C9654DF9-4F20-4730-8E5B-D5E2CCB0441B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Benchmarking", "Analysis\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Benchmarking", "Tools\Towel_Benchmarking\Towel_Benchmarking.csproj", "{CEFA125F-39A4-433C-AAED-36B61F7944A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documenting", "Analysis\Towel_Documenting\Towel_Documenting.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Documenting", "Tools\Towel_Documenting\Towel_Documenting.csproj", "{6D530E88-E507-4F83-889C-47FB888021BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection3D", "Examples\CollisionDetection3D\CollisionDetection3D.csproj", "{F5AADBDA-FB69-4644-9BD6-832DE2855922}"
 EndProject

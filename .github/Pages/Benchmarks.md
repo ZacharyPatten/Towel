@@ -95,8 +95,6 @@ InvocationCount=1  UnrollFactor=1
 </p>
 </details>
 
-## Sorting Algorithms
-
-These are the benchmarks for the data structures.
+## Data structures
 
 These benchmarks are still in development. They are not yet ready.
