@@ -81,10 +81,34 @@ namespace Algorithms
 				Console.Write("    OddEven:   " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
-				//// Slow
+				// Slow
 				ShuffleDataSet();
 				Sort.Slow(dataSet);
 				Console.Write("    Slow:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
+
+				// Cocktail
+				ShuffleDataSet();
+				Sort.Cocktail(dataSet);
+				Console.Write("    Cocktail:  " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
+
+				// Shell
+				ShuffleDataSet();
+				Sort.Shell(dataSet);
+				Console.Write("    Shell:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
+
+				// Gnome
+				ShuffleDataSet();
+				Sort.Gnome(dataSet);
+				Console.Write("    Gnome:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.WriteLine();
+
+				// Comb
+				ShuffleDataSet();
+				Sort.Comb(dataSet);
+				Console.Write("    Comb:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
 				// Bogo
