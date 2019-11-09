@@ -29552,14 +29552,6 @@
         <member name="T:Towel.Sort">
             <summary>Contains static sorting algorithms.</summary>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(``0[])">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
         <member name="M:Towel.Sort.Bubble``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
@@ -29599,7 +29591,7 @@
             <param name="end">The ending index of the sort.</param>
             <param name="compare">The compare function.</param>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the bubble sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -29624,14 +29616,6 @@
             <param name="end">The ending index of the sort.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Sort.Selection``1(``0[])">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">the array to be sorted</param>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
             <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Sort.Selection``1(``0[],Towel.Compare{``0})">
@@ -29670,7 +29654,7 @@
             <param name="end">The ending index of the sort.</param>
             <param name="compare">The compare delegate.</param>
         </member>
-        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the selection sort algoritm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare delegate.</param>
@@ -29747,7 +29731,7 @@
             <stability>True</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the insertion sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">Returns positive if left greater than right.</param>
@@ -29773,14 +29757,6 @@
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Sort.Quick``1(``0[])">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
         </member>
         <member name="M:Towel.Sort.Quick``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the quick sort algorithm.</summary>
@@ -29824,7 +29800,7 @@
             <stability>False</stability>
             <memory>ln(n)</memory>
         </member>
-        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the quick sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -29850,14 +29826,6 @@
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
             <memory>ln(n)</memory>
-        </member>
-        <member name="M:Towel.Sort.Merge``1(``0[])">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
         </member>
         <member name="M:Towel.Sort.Merge``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the merge sort algorithm.</summary>
@@ -29901,7 +29869,7 @@
             <stability>True</stability>
             <memory>Θ(n)</memory>
         </member>
-        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the merge sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -29927,14 +29895,6 @@
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
             <stability>True</stability>
             <memory>Θ(n)</memory>
-        </member>
-        <member name="M:Towel.Sort.Heap``1(``0[])">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Sort.Heap``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the heap sort algorithm.</summary>
@@ -29978,7 +29938,7 @@
             <stability>False</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the heap sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -30003,14 +29963,6 @@
             <param name="set">The set function.</param>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Sort.OddEven``1(``0[])">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
             <memory>O(1)</memory>
         </member>
         <member name="M:Towel.Sort.OddEven``1(``0[],Towel.Compare{``0})">
@@ -30055,7 +30007,7 @@
             <stability>True</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the odd even sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -30124,15 +30076,6 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(``0[],System.Random)">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
-            <param name="random">The random to use while sorting.</param>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-        </member>
         <member name="M:Towel.Sort.Bogo``1(``0[],Towel.Compare{``0},System.Random)">
             <summary>Sorts values using the bogo sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
@@ -30179,7 +30122,7 @@
             <stability>False</stability>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0},System.Random)">
+        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0},System.Random)">
             <summary>Sorts values using the bogo sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="compare">The compare function.</param>
@@ -30207,11 +30150,6 @@
             <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Sort.Slow``1(``0[])">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
         </member>
         <member name="M:Towel.Sort.Slow``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the slow sort algorithm.</summary>
@@ -30243,7 +30181,7 @@
             <param name="end">The ending index of the sort.</param>
             <param name="compare">The compare function.</param>
         </member>
-        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the slow sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="start">The starting index of the sort.</param>
@@ -30263,11 +30201,6 @@
             <param name="compare">The compare function.</param>
             <param name="get">The get function.</param>
             <param name="set">The set function.</param>
-        </member>
-        <member name="M:Towel.Sort.Gnome``1(``0[])">
-            <summary>Sorts values using the gnome sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="array">The array to be sorted.</param>
         </member>
         <member name="M:Towel.Sort.Gnome``1(``0[],Towel.Compare{``0})">
             <summary>Sorts values using the gnome sort algorithm.</summary>
@@ -30299,7 +30232,7 @@
             <param name="end">The ending index of the sort.</param>
             <param name="compare">The compare function.</param>
         </member>
-        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,Towel.Compare{``0},Towel.GetIndex{``0},Towel.SetIndex{``0})">
+        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
             <summary>Sorts values using the gnome sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="start">The starting index of the sort.</param>
@@ -30310,6 +30243,159 @@
         </member>
         <member name="M:Towel.Sort.Gnome``4(System.Int32,System.Int32,``1,``2,``3)">
             <summary>Sorts values using the gnome sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``2(``0[],``1)">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Comb``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``2(``0[],``1)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Shell``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``1(``0[],Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``2(``0[],``1)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="array">The array to be sorted.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Sorts values using the shell sort algorithm.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <typeparam name="Compare">The compare function.</typeparam>
             <typeparam name="Get">The get function.</typeparam>

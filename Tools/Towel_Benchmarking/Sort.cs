@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using Towel;
 
 namespace Towel_Benchmarking
@@ -82,9 +81,21 @@ namespace Towel_Benchmarking
 		[Benchmark] public void CombCompileTime() =>
 			Sort.Comb<int, CompareInt>(Values);
 
+		[Benchmark] public void ShellRunTime() =>
+			Sort.Shell(Values, Compare.Default);
+
+		[Benchmark] public void ShellCompileTime() =>
+			Sort.Shell<int, CompareInt>(Values);
+
+		[Benchmark] public void CocktailRunTime() =>
+			Sort.Cocktail(Values, Compare.Default);
+
+		[Benchmark] public void CocktailCompileTime() =>
+			Sort.Cocktail<int, CompareInt>(Values);
+
 		[Benchmark] public void SlowRunTime()
 		{
-			if (Values.Length > 1000)
+			if (Values.Length > 10)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -93,7 +104,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void SlowCompileTime()
 		{
-			if (Values.Length > 1000)
+			if (Values.Length > 10)
 			{
 				throw new Exception("Too Slow.");
 			}

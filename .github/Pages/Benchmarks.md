@@ -22,76 +22,100 @@ BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=3.0.100
   [Host]     : .NET Core 3.0.0 (CoreCLR 4.700.19.46205, CoreFX 4.700.19.46214), 64bit RyuJIT
-  Job-FBJKNR : .NET Core 3.0.0 (CoreCLR 4.700.19.46205, CoreFX 4.700.19.46214), 64bit RyuJIT
+  Job-BDOEBU : .NET Core 3.0.0 (CoreCLR 4.700.19.46205, CoreFX 4.700.19.46214), 64bit RyuJIT
 
 InvocationCount=1  UnrollFactor=1  
 
 ```
-|                   Method |     N |             Mean |               Error |              StdDev |           Median |
-|------------------------- |------ |-----------------:|--------------------:|--------------------:|-----------------:|
-|          **SystemArraySort** |    **10** |         **496.8 ns** |          **11.7612 ns** |          **17.9605 ns** |         **500.0 ns** |
-|  SystemArraySortDelegate |    10 |         576.7 ns |          15.6195 ns |          42.4941 ns |         600.0 ns |
-| SystemArraySortIComparer |    10 |       2,852.4 ns |          66.4189 ns |         121.4508 ns |       2,800.0 ns |
-|            BubbleRunTime |    10 |       2,316.2 ns |          47.0989 ns |          79.9775 ns |       2,300.0 ns |
-|        BubbleCompileTime |    10 |         455.6 ns |          18.3696 ns |          53.8748 ns |         500.0 ns |
-|         SelectionRunTime |    10 |       1,510.1 ns |          34.1626 ns |          82.5066 ns |       1,500.0 ns |
-|     SelectionCompileTime |    10 |         455.6 ns |          17.0291 ns |          49.9433 ns |         500.0 ns |
-|         InsertionRunTime |    10 |       1,426.8 ns |          30.2424 ns |          80.1985 ns |       1,400.0 ns |
-|     InsertionCompileTime |    10 |         290.1 ns |          10.7051 ns |          30.0183 ns |         300.0 ns |
-|             QuickRunTime |    10 |       1,870.0 ns |          38.6427 ns |          68.6873 ns |       1,900.0 ns |
-|         QuickCompileTime |    10 |         600.0 ns |           0.0000 ns |           0.0000 ns |         600.0 ns |
-|             MergeRunTime |    10 |       1,700.0 ns |          35.9302 ns |          88.8106 ns |       1,700.0 ns |
-|         MergeCompileTime |    10 |       1,106.6 ns |          36.4823 ns |          92.8591 ns |       1,100.0 ns |
-|              HeapRunTime |    10 |       2,309.1 ns |          48.0686 ns |          59.0326 ns |       2,350.0 ns |
-|          HeapCompileTime |    10 |       1,184.1 ns |          27.3102 ns |          62.7498 ns |       1,200.0 ns |
-|           OddEvenRunTime |    10 |       1,683.3 ns |          36.5239 ns |          54.6672 ns |       1,650.0 ns |
-|       OddEvenCompileTime |    10 |         354.0 ns |          16.9884 ns |          50.0908 ns |         400.0 ns |
-|              SlowRunTime |    10 |       3,857.5 ns |          77.3772 ns |         137.5379 ns |       3,850.0 ns |
-|          SlowCompileTime |    10 |       2,665.5 ns |          55.5319 ns |          81.3979 ns |       2,700.0 ns |
-|              BogoRunTime |    10 | 454,549,124.7 ns | 117,478,375.4330 ns | 340,826,068.8078 ns | 411,594,100.0 ns |
-|          BogoCompileTime |    10 | 406,109,296.9 ns | 116,914,790.0490 ns | 339,191,005.4171 ns | 316,398,900.0 ns |
-|          **SystemArraySort** |  **1000** |      **29,433.3 ns** |         **195.6524 ns** |         **152.7525 ns** |      **29,450.0 ns** |
-|  SystemArraySortDelegate |  1000 |      66,369.2 ns |       1,063.7055 ns |         888.2423 ns |      65,700.0 ns |
-| SystemArraySortIComparer |  1000 |      76,796.2 ns |         357.9802 ns |         298.9297 ns |      76,750.0 ns |
-|            BubbleRunTime |  1000 |  10,405,147.1 ns |     202,357.3616 ns |     207,806.1119 ns |  10,406,000.0 ns |
-|        BubbleCompileTime |  1000 |   1,632,356.7 ns |      31,708.7806 ns |      47,460.2097 ns |   1,630,250.0 ns |
-|         SelectionRunTime |  1000 |   4,439,530.3 ns |      87,409.3925 ns |     138,640.5593 ns |   4,417,700.0 ns |
-|     SelectionCompileTime |  1000 |     881,669.6 ns |      18,717.6255 ns |      40,291.6636 ns |     872,650.0 ns |
-|         InsertionRunTime |  1000 |   2,154,475.0 ns |      92,723.9448 ns |      91,067.3121 ns |   2,126,700.0 ns |
-|     InsertionCompileTime |  1000 |     258,826.3 ns |       9,141.9683 ns |      26,811.8105 ns |     246,000.0 ns |
-|             QuickRunTime |  1000 |     214,740.7 ns |       4,281.0689 ns |       9,030.2274 ns |     213,950.0 ns |
-|         QuickCompileTime |  1000 |      62,381.8 ns |       1,681.5602 ns |       4,931.7249 ns |      60,400.0 ns |
-|             MergeRunTime |  1000 |     139,487.7 ns |       2,748.3562 ns |       6,203.4980 ns |     140,650.0 ns |
-|         MergeCompileTime |  1000 |      63,593.3 ns |       1,240.6463 ns |       1,856.9410 ns |      63,550.0 ns |
-|              HeapRunTime |  1000 |     373,636.4 ns |       7,409.9261 ns |       9,100.0547 ns |     372,950.0 ns |
-|          HeapCompileTime |  1000 |     298,575.0 ns |       6,987.0480 ns |       6,862.2154 ns |     298,050.0 ns |
-|           OddEvenRunTime |  1000 |   5,142,362.9 ns |     101,911.5831 ns |     167,443.6535 ns |   5,108,400.0 ns |
-|       OddEvenCompileTime |  1000 |     909,385.4 ns |      25,623.9977 ns |      75,150.7496 ns |     879,750.0 ns |
-|              SlowRunTime |  1000 |               NA |                  NA |                  NA |               NA |
-|          SlowCompileTime |  1000 |               NA |                  NA |                  NA |               NA |
-|              BogoRunTime |  1000 |               NA |                  NA |                  NA |               NA |
-|          BogoCompileTime |  1000 |               NA |                  NA |                  NA |               NA |
-|          **SystemArraySort** | **10000** |     **367,530.8 ns** |       **1,107.7347 ns** |         **925.0087 ns** |     **367,600.0 ns** |
-|  SystemArraySortDelegate | 10000 |     934,860.7 ns |      23,544.0488 ns |      33,766.1713 ns |     925,800.0 ns |
-| SystemArraySortIComparer | 10000 |   1,036,469.2 ns |      18,667.0549 ns |      15,587.8363 ns |   1,038,300.0 ns |
-|            BubbleRunTime | 10000 | 577,112,500.0 ns |   2,706,925.0679 ns |   2,399,618.5655 ns | 577,886,450.0 ns |
-|        BubbleCompileTime | 10000 | 186,719,750.0 ns |   1,325,377.5967 ns |   1,174,912.7174 ns | 186,986,700.0 ns |
-|         SelectionRunTime | 10000 | 250,770,306.7 ns |   1,743,838.8797 ns |   1,631,187.9700 ns | 250,902,200.0 ns |
-|     SelectionCompileTime | 10000 |  85,242,746.7 ns |   1,588,868.4152 ns |   1,486,228.5014 ns |  84,801,700.0 ns |
-|         InsertionRunTime | 10000 | 114,083,280.0 ns |     714,929.5920 ns |     668,745.5839 ns | 114,074,400.0 ns |
-|     InsertionCompileTime | 10000 |  23,572,335.7 ns |     383,199.9462 ns |     339,696.7711 ns |  23,572,400.0 ns |
-|             QuickRunTime | 10000 |   2,788,000.0 ns |      53,786.3348 ns |      52,825.3727 ns |   2,778,150.0 ns |
-|         QuickCompileTime | 10000 |     755,259.3 ns |      15,058.4123 ns |      21,109.7910 ns |     751,800.0 ns |
-|             MergeRunTime | 10000 |   1,783,223.1 ns |      49,166.4782 ns |      67,299.6304 ns |   1,771,600.0 ns |
-|         MergeCompileTime | 10000 |     778,580.0 ns |      15,216.6407 ns |      17,523.5060 ns |     775,150.0 ns |
-|              HeapRunTime | 10000 |   5,200,527.1 ns |     101,792.8843 ns |     167,248.6280 ns |   5,134,950.0 ns |
-|          HeapCompileTime | 10000 |   4,076,458.8 ns |      79,922.8053 ns |      82,074.8367 ns |   4,078,200.0 ns |
-|           OddEvenRunTime | 10000 | 286,383,876.7 ns |   1,157,230.6908 ns |   1,082,474.3062 ns | 286,566,650.0 ns |
-|       OddEvenCompileTime | 10000 |  97,981,677.8 ns |   1,958,626.8128 ns |   2,095,708.7460 ns |  97,417,450.0 ns |
-|              SlowRunTime | 10000 |               NA |                  NA |                  NA |               NA |
-|          SlowCompileTime | 10000 |               NA |                  NA |                  NA |               NA |
-|              BogoRunTime | 10000 |               NA |                  NA |                  NA |               NA |
-|          BogoCompileTime | 10000 |               NA |                  NA |                  NA |               NA |
+|                   Method |     N |             Mean |             Error |            StdDev |           Median |
+|------------------------- |------ |-----------------:|------------------:|------------------:|-----------------:|
+|          **SystemArraySort** |    **10** |         **442.0 ns** |          **18.15 ns** |          **53.52 ns** |         **400.0 ns** |
+|  SystemArraySortDelegate |    10 |         582.2 ns |          15.47 ns |          38.52 ns |         600.0 ns |
+| SystemArraySortIComparer |    10 |       2,822.5 ns |          60.41 ns |         107.39 ns |       2,800.0 ns |
+|            BubbleRunTime |    10 |       2,261.9 ns |          55.29 ns |         101.10 ns |       2,250.0 ns |
+|        BubbleCompileTime |    10 |         382.0 ns |          18.90 ns |          55.74 ns |         400.0 ns |
+|         SelectionRunTime |    10 |       1,552.8 ns |          34.65 ns |          72.33 ns |       1,600.0 ns |
+|     SelectionCompileTime |    10 |         360.0 ns |          17.38 ns |          51.25 ns |         400.0 ns |
+|         InsertionRunTime |    10 |       1,320.8 ns |          30.24 ns |          63.12 ns |       1,300.0 ns |
+|     InsertionCompileTime |    10 |         252.5 ns |          18.45 ns |          54.10 ns |         300.0 ns |
+|             QuickRunTime |    10 |       1,822.6 ns |          40.08 ns |          91.29 ns |       1,800.0 ns |
+|         QuickCompileTime |    10 |         464.0 ns |          20.18 ns |          59.49 ns |         500.0 ns |
+|             MergeRunTime |    10 |       1,622.7 ns |          36.06 ns |          67.73 ns |       1,600.0 ns |
+|         MergeCompileTime |    10 |       1,198.7 ns |          27.21 ns |          69.76 ns |       1,200.0 ns |
+|              HeapRunTime |    10 |       2,315.7 ns |          50.28 ns |         102.71 ns |       2,300.0 ns |
+|          HeapCompileTime |    10 |       1,401.6 ns |          31.74 ns |          72.94 ns |       1,400.0 ns |
+|           OddEvenRunTime |    10 |       1,568.3 ns |          34.99 ns |          92.80 ns |       1,600.0 ns |
+|       OddEvenCompileTime |    10 |         396.5 ns |          17.77 ns |          52.12 ns |         350.0 ns |
+|             GnomeRunTime |    10 |       1,626.8 ns |          36.43 ns |          89.38 ns |       1,600.0 ns |
+|         GnomeCompileTime |    10 |         339.4 ns |          20.56 ns |          60.30 ns |         300.0 ns |
+|              CombRunTime |    10 |       1,534.2 ns |          34.54 ns |          75.09 ns |       1,550.0 ns |
+|          CombCompileTime |    10 |         323.8 ns |          36.66 ns |          43.64 ns |         300.0 ns |
+|             ShellRunTime |    10 |       1,498.6 ns |          31.74 ns |          79.04 ns |       1,500.0 ns |
+|         ShellCompileTime |    10 |         872.2 ns |          21.43 ns |          45.21 ns |         900.0 ns |
+|          CocktailRunTime |    10 |       1,684.5 ns |          37.67 ns |         101.19 ns |       1,700.0 ns |
+|      CocktailCompileTime |    10 |         337.0 ns |          16.46 ns |          48.52 ns |         300.0 ns |
+|              SlowRunTime |    10 |       3,860.7 ns |          79.02 ns |         113.33 ns |       3,900.0 ns |
+|          SlowCompileTime |    10 |       2,714.3 ns |          56.42 ns |         103.17 ns |       2,750.0 ns |
+|              BogoRunTime |    10 | 391,003,513.5 ns | 121,304,281.36 ns | 349,990,587.44 ns | 248,319,950.0 ns |
+|          BogoCompileTime |    10 | 468,765,539.4 ns | 144,668,002.39 ns | 424,286,208.04 ns | 331,454,600.0 ns |
+|          **SystemArraySort** |  **1000** |      **29,500.0 ns** |         **328.14 ns** |         **290.89 ns** |      **29,600.0 ns** |
+|  SystemArraySortDelegate |  1000 |      66,483.3 ns |       1,217.36 ns |         950.44 ns |      66,700.0 ns |
+| SystemArraySortIComparer |  1000 |      81,417.3 ns |       1,979.98 ns |       5,775.69 ns |      83,350.0 ns |
+|            BubbleRunTime |  1000 |   5,873,307.8 ns |     116,589.84 ns |     270,214.68 ns |   5,815,000.0 ns |
+|        BubbleCompileTime |  1000 |   1,733,672.4 ns |      42,492.04 ns |     123,951.28 ns |   1,699,600.0 ns |
+|         SelectionRunTime |  1000 |   3,754,555.0 ns |     423,852.01 ns |   1,249,737.23 ns |   2,915,000.0 ns |
+|     SelectionCompileTime |  1000 |     889,730.2 ns |      17,768.71 ns |      40,826.56 ns |     881,100.0 ns |
+|         InsertionRunTime |  1000 |   2,162,679.2 ns |      43,095.95 ns |      56,036.91 ns |   2,143,050.0 ns |
+|     InsertionCompileTime |  1000 |     257,657.0 ns |       8,369.26 ns |      24,676.95 ns |     244,150.0 ns |
+|             QuickRunTime |  1000 |     225,142.2 ns |       5,032.60 ns |       9,575.05 ns |     223,500.0 ns |
+|         QuickCompileTime |  1000 |      63,286.3 ns |       1,927.54 ns |       5,530.47 ns |      60,500.0 ns |
+|             MergeRunTime |  1000 |     140,117.1 ns |       2,749.50 ns |       4,517.51 ns |     140,800.0 ns |
+|         MergeCompileTime |  1000 |      68,186.3 ns |       1,798.55 ns |       5,160.38 ns |      65,800.0 ns |
+|              HeapRunTime |  1000 |     393,914.5 ns |       7,822.91 ns |      16,671.25 ns |     389,400.0 ns |
+|          HeapCompileTime |  1000 |     323,797.9 ns |       6,693.17 ns |      13,211.66 ns |     319,800.0 ns |
+|           OddEvenRunTime |  1000 |   5,011,756.2 ns |      99,918.31 ns |     155,560.77 ns |   4,986,150.0 ns |
+|       OddEvenCompileTime |  1000 |     973,746.0 ns |      33,628.10 ns |      99,153.20 ns |     933,100.0 ns |
+|             GnomeRunTime |  1000 |   4,275,907.3 ns |      97,461.02 ns |     175,742.32 ns |   4,241,100.0 ns |
+|         GnomeCompileTime |  1000 |     849,127.6 ns |      33,810.37 ns |      98,626.44 ns |     854,450.0 ns |
+|              CombRunTime |  1000 |     241,954.2 ns |       4,787.35 ns |       6,224.91 ns |     239,800.0 ns |
+|          CombCompileTime |  1000 |      55,334.8 ns |       2,596.98 ns |       3,284.34 ns |      54,100.0 ns |
+|             ShellRunTime |  1000 |     176,859.1 ns |       5,896.09 ns |       7,240.93 ns |     174,500.0 ns |
+|         ShellCompileTime |  1000 |      57,704.4 ns |       1,831.03 ns |       5,134.41 ns |      55,100.0 ns |
+|          CocktailRunTime |  1000 |   3,791,028.0 ns |     376,516.23 ns |   1,110,166.58 ns |   3,015,250.0 ns |
+|      CocktailCompileTime |  1000 |   1,053,579.4 ns |      24,157.94 ns |      70,086.57 ns |   1,027,600.0 ns |
+|              SlowRunTime |  1000 |               NA |                NA |                NA |               NA |
+|          SlowCompileTime |  1000 |               NA |                NA |                NA |               NA |
+|              BogoRunTime |  1000 |               NA |                NA |                NA |               NA |
+|          BogoCompileTime |  1000 |               NA |                NA |                NA |               NA |
+|          **SystemArraySort** | **10000** |     **375,656.0 ns** |       **7,459.47 ns** |      **15,068.50 ns** |     **369,400.0 ns** |
+|  SystemArraySortDelegate | 10000 |     923,688.9 ns |      18,135.84 ns |      19,405.15 ns |     921,550.0 ns |
+| SystemArraySortIComparer | 10000 |   1,023,473.7 ns |      20,249.16 ns |      22,506.88 ns |   1,012,700.0 ns |
+|            BubbleRunTime | 10000 | 600,867,614.3 ns |   4,690,845.44 ns |   4,158,312.30 ns | 599,017,050.0 ns |
+|        BubbleCompileTime | 10000 | 192,833,142.9 ns |   1,284,212.04 ns |   1,138,420.52 ns | 193,233,400.0 ns |
+|         SelectionRunTime | 10000 | 258,595,310.0 ns |   1,044,289.74 ns |     976,829.27 ns | 258,277,750.0 ns |
+|     SelectionCompileTime | 10000 |  87,297,760.0 ns |     805,172.87 ns |     753,159.21 ns |  87,415,600.0 ns |
+|         InsertionRunTime | 10000 | 118,025,760.0 ns |     667,270.63 ns |     624,165.36 ns | 118,021,000.0 ns |
+|     InsertionCompileTime | 10000 |  23,708,953.8 ns |     366,291.32 ns |     305,869.84 ns |  23,604,100.0 ns |
+|             QuickRunTime | 10000 |   2,771,133.9 ns |      58,543.19 ns |     126,020.39 ns |   2,722,000.0 ns |
+|         QuickCompileTime | 10000 |     760,446.7 ns |      14,437.29 ns |      13,504.65 ns |     762,000.0 ns |
+|             MergeRunTime | 10000 |   1,820,241.7 ns |      33,955.66 ns |      44,151.95 ns |   1,807,600.0 ns |
+|         MergeCompileTime | 10000 |     785,671.7 ns |      16,656.79 ns |      21,065.50 ns |     781,250.0 ns |
+|              HeapRunTime | 10000 |   5,502,445.1 ns |     109,420.81 ns |     223,517.71 ns |   5,475,900.0 ns |
+|          HeapCompileTime | 10000 |   2,795,049.0 ns |     575,587.02 ns |   1,697,131.32 ns |   4,231,450.0 ns |
+|           OddEvenRunTime | 10000 | 302,667,773.3 ns |   1,691,557.61 ns |   1,582,284.04 ns | 301,906,600.0 ns |
+|       OddEvenCompileTime | 10000 | 101,055,620.0 ns |     961,584.93 ns |     899,467.14 ns | 100,707,900.0 ns |
+|             GnomeRunTime | 10000 | 266,921,170.0 ns |   2,249,810.56 ns |   2,104,474.19 ns | 266,339,850.0 ns |
+|         GnomeCompileTime | 10000 |  67,529,863.6 ns |   1,341,591.95 ns |   1,647,595.40 ns |  67,245,750.0 ns |
+|              CombRunTime | 10000 |   3,588,997.7 ns |      70,925.62 ns |     131,465.18 ns |   3,519,500.0 ns |
+|          CombCompileTime | 10000 |     744,873.7 ns |      14,401.55 ns |      16,007.28 ns |     747,200.0 ns |
+|             ShellRunTime | 10000 |   2,640,967.4 ns |      51,866.18 ns |      96,137.29 ns |   2,611,300.0 ns |
+|         ShellCompileTime | 10000 |     752,140.0 ns |      14,695.76 ns |      19,618.42 ns |     751,300.0 ns |
+|          CocktailRunTime | 10000 | 294,716,906.7 ns |   1,392,103.18 ns |   1,302,174.18 ns | 295,169,200.0 ns |
+|      CocktailCompileTime | 10000 | 113,411,773.3 ns |     967,880.93 ns |     905,356.43 ns | 113,199,600.0 ns |
+|              SlowRunTime | 10000 |               NA |                NA |                NA |               NA |
+|          SlowCompileTime | 10000 |               NA |                NA |                NA |               NA |
+|              BogoRunTime | 10000 |               NA |                NA |                NA |               NA |
+|          BogoCompileTime | 10000 |               NA |                NA |                NA |               NA |
 
 </p>
 </details>

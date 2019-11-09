@@ -10,21 +10,12 @@ namespace Towel
 
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Bubble<T>(T[] array) =>
-			Bubble(array, Compare.Default);
-
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(T[] array, Compare<T> compare) =>
+		public static void Bubble<T>(T[] array, Compare<T> compare = null) =>
 			Bubble(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
@@ -48,7 +39,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Bubble<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
@@ -58,7 +49,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -72,7 +63,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Bubble<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Bubble<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
@@ -113,21 +104,12 @@ namespace Towel
 
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">the array to be sorted</param>
-		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Selection<T>(T[] array) =>
-			Selection(array, Compare.Default);
-
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare delegate.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Selection<T>(T[] array, Compare<T> compare) =>
+		public static void Selection<T>(T[] array, Compare<T> compare = null) =>
 			Selection(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
@@ -148,7 +130,7 @@ namespace Towel
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Selection<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Selection<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Selection<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
@@ -158,7 +140,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare delegate.</param>
-		public static void Selection<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Selection<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -172,7 +154,7 @@ namespace Towel
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Selection<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Selection<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
@@ -229,7 +211,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Insertion<T>(T[] array, Compare<T> compare) =>
+		public static void Insertion<T>(T[] array, Compare<T> compare = null) =>
 			Insertion(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
@@ -253,7 +235,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Insertion<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Insertion<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Insertion<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
@@ -266,7 +248,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Insertion<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Insertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -280,7 +262,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void Insertion<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Insertion<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
@@ -319,21 +301,12 @@ namespace Towel
 
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T>(T[] array) =>
-			Quick(array, Compare.Default);
-
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(T[] array, Compare<T> compare) =>
+		public static void Quick<T>(T[] array, Compare<T> compare = null) =>
 			Quick(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
@@ -357,7 +330,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Quick<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
@@ -384,7 +357,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Quick<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
@@ -447,22 +420,13 @@ namespace Towel
 
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(T[] array) =>
-			Merge(array, Compare.Default);
-
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(T[] array, Compare<T> compare) =>
-			Merge(array, 0, array.Length, compare);
+		public static void Merge<T>(T[] array, Compare<T> compare = null) =>
+			Merge(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -485,8 +449,8 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(T[] array, int start, int end, Compare<T> compare) =>
-			Merge<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end - start, compare, array, array);
+		public static void Merge<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Merge<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -498,7 +462,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
-		public static void Merge<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Merge<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -512,8 +476,8 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
-			Merge<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end - start, compare, get, set);
+		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Merge<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -532,7 +496,7 @@ namespace Towel
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T> =>
-			Merge_Recursive<T, Compare, Get, Set>(start, end, compare, get, set);
+			Merge_Recursive<T, Compare, Get, Set>(start, end - start + 1, compare, get, set);
 
 		internal static void Merge_Recursive<T, Compare, Get, Set>(int start, int len, Compare compare, Get get, Set set)
 			where Compare : struct, ICompare<T>
@@ -580,22 +544,13 @@ namespace Towel
 
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T>(T[] array) =>
-			Heap(array, Compare.Default);
-
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Heap<T>(T[] array, Compare<T> compare) =>
-			Heap(array, 0, array.Length, compare);
+		public static void Heap<T>(T[] array, Compare<T> compare = null) =>
+			Heap(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -618,7 +573,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Heap<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Heap<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Heap<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
@@ -631,7 +586,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Heap<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Heap<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -645,7 +600,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Heap<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Heap<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
@@ -666,38 +621,35 @@ namespace Towel
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			int heapSize = end - start;
-			for (int i = (heapSize - 1) / 2; i >= 0; i--)
+			int heapSize = end - start + 1;
+			for (int i = heapSize / 2; i >= 0; i--)
 			{
-				MaxHeapify<T, Compare, Get, Set>(heapSize, i, compare, get, set);
+				MaxHeapify<T, Compare, Get, Set>(heapSize + start, i, start, compare, get, set);
 			}
-			for (int i = end - 1; i > start; i--)
+			for (int i = end; i >= start; i--)
 			{
-				T temp = get.Do(0);
-				set.Do(0, get.Do(i));
+				T temp = get.Do(start);
+				set.Do(start, get.Do(i));
 				set.Do(i, temp);
 				heapSize--;
-				MaxHeapify<T, Compare, Get, Set>(heapSize, 0, compare, get, set);
+				MaxHeapify<T, Compare, Get, Set>(heapSize + start, 0, start, compare, get, set);
 			}
 		}
 
-		internal static void MaxHeapify<T, Compare, Get, Set>(int heapSize, int index, Compare compare, Get get, Set set)
+		internal static void MaxHeapify<T, Compare, Get, Set>(int heapSize, int index, int offset, Compare compare, Get get, Set set)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			int left = (index + 1) * 2 - 1;
-			int right = (index + 1) * 2;
-			int largest;
-			if (left < heapSize && compare.Do(get.Do(left), get.Do(index)) == Greater)
+			int left = ((index + 1) * 2 - 1) + offset;
+			int right = ((index + 1) * 2) + offset;
+			index += offset;
+			int largest = index;
+			if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) == Greater)
 			{
 				largest = left;
 			}
-			else
-			{
-				largest = index;
-			}
-			if (right < heapSize && compare.Do(get.Do(right), get.Do(largest)) == Greater)
+			if (right < heapSize  && compare.Do(get.Do(right), get.Do(largest)) == Greater)
 			{
 				largest = right;
 			}
@@ -706,7 +658,7 @@ namespace Towel
 				T temp = get.Do(index);
 				set.Do(index, get.Do(largest));
 				set.Do(largest, temp);
-				MaxHeapify<T, Compare, Get, Set>(heapSize, largest, compare, get, set);
+				MaxHeapify<T, Compare, Get, Set>(heapSize, largest - offset, offset, compare, get, set);
 			}
 		}
 
@@ -716,22 +668,13 @@ namespace Towel
 
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T>(T[] array) =>
-			OddEven(array, Compare.Default);
-
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void OddEven<T>(T[] array, Compare<T> compare) =>
-			OddEven(array, 0, array.Length, compare);
+		public static void OddEven<T>(T[] array, Compare<T> compare = null) =>
+			OddEven(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -754,7 +697,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void OddEven<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void OddEven<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			OddEven<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
@@ -767,7 +710,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void OddEven<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void OddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -781,7 +724,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		public static void OddEven<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			OddEven<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
@@ -806,7 +749,7 @@ namespace Towel
 			while (!sorted)
 			{
 				sorted = true;
-				for (int i = start + 1; i < end - 1; i += 2)
+				for (int i = start; i < end; i += 2)
 				{
 					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
 					{
@@ -816,7 +759,7 @@ namespace Towel
 						sorted = false;
 					}
 				}
-				for (int i = start; i < end - 1; i += 2)
+				for (int i = start + 1; i < end; i += 2)
 				{
 					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
 					{
@@ -967,23 +910,13 @@ namespace Towel
 
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T>(T[] array, Random random = null) =>
-			Bogo(array, Compare.Default, random);
-
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <param name="random">The random to use while sorting.</param>
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Bogo<T>(T[] array, Compare<T> compare, Random random = null) =>
+		public static void Bogo<T>(T[] array, Compare<T> compare = null, Random random = null) =>
 			Bogo(array, 0, array.Length - 1, compare, random);
 
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
@@ -1009,8 +942,8 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Bogo<T>(T[] array, int start, int end, Compare<T> compare, Random random = null) =>
-			Bogo<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
+		public static void Bogo<T>(T[] array, int start, int end, Compare<T> compare = null, Random random = null) =>
+			Bogo<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array, random);
 
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -1023,7 +956,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Bogo<T, Compare>(T[] array, int start, int end, Compare compare, Random random = null)
+		public static void Bogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
 			where Compare : struct, ICompare<T> =>
 			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
 
@@ -1038,7 +971,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		public static void Bogo<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set, Random random = null) =>
+		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare, Random random = null) =>
 			Bogo<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set, random);
 
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
@@ -1088,14 +1021,8 @@ namespace Towel
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="array">The array to be sorted.</param>
-		public static void Slow<T>(T[] array) =>
-			Slow(array, Compare.Default);
-
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Slow<T>(T[] array, Compare<T> compare) =>
+		public static void Slow<T>(T[] array, Compare<T> compare = null) =>
 			Slow(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
@@ -1113,7 +1040,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Slow<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Slow<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Slow<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
@@ -1123,7 +1050,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Slow<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Slow<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -1134,7 +1061,7 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
-		public static void Slow<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Slow<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
@@ -1181,14 +1108,8 @@ namespace Towel
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="array">The array to be sorted.</param>
-		public static void Gnome<T>(T[] array) =>
-			Gnome(array, Compare.Default);
-
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T>(T[] array, Compare<T> compare) =>
+		public static void Gnome<T>(T[] array, Compare<T> compare = null) =>
 			Gnome(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
@@ -1206,7 +1127,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Gnome<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
@@ -1216,7 +1137,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -1227,7 +1148,7 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
-		public static void Gnome<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Gnome<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
@@ -1245,10 +1166,10 @@ namespace Towel
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			int i = 0;
+			int i = start;
 			while (i <= end)
 			{
-				if (i == 0 || compare.Do(get.Do(i), get.Do(i - 1)) != Less)
+				if (i == start || compare.Do(get.Do(i), get.Do(i - 1)) != Less)
 				{
 					i++;
 				}
@@ -1269,14 +1190,8 @@ namespace Towel
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="array">The array to be sorted.</param>
-		public static void Comb<T>(T[] array) =>
-			Comb(array, Compare.Default);
-
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Comb<T>(T[] array, Compare<T> compare) =>
+		public static void Comb<T>(T[] array, Compare<T> compare = null) =>
 			Comb(array, 0, array.Length - 1, compare);
 
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
@@ -1294,7 +1209,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare) =>
+		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare = null) =>
 			Comb<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
@@ -1304,7 +1219,7 @@ namespace Towel
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="compare">The compare function.</param>
-		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare)
+		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, ICompare<T> =>
 			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
@@ -1315,7 +1230,7 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
-		public static void Comb<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
 			Comb<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
 
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
@@ -1344,7 +1259,7 @@ namespace Towel
 					gap = 1;
 					sorted = true;
 				}
-				for (int i = 0; i + gap <= end; i++)
+				for (int i = start; i + gap <= end; i++)
 				{
 					if (compare.Do(get.Do(i), get.Do(i + gap)) == Greater)
 					{
@@ -1353,6 +1268,187 @@ namespace Towel
 						set.Do(i + gap, temp);
 						sorted = false;
 					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region Shell
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Shell<T>(T[] array, Compare<T> compare = null) =>
+			Shell(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Shell<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Shell(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Shell<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Shell<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Shell<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Shell<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Shell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T>
+		{
+			int[] gaps = new int[] { 701, 301, 132, 57, 23, 10, 4, 1, };
+			foreach (int gap in gaps)
+			{
+				for (int i = gap + start; i <= end; i++)
+				{
+					T temp = get.Do(i);
+					int j = i;
+					for (; j >= gap && compare.Do(get.Do(j - gap), temp) == Greater; j -= gap)
+					{
+						set.Do(j, get.Do(j - gap));
+					}
+					set.Do(j, temp);
+				}
+			}
+		}
+
+		#endregion
+
+		#region Cocktail
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Cocktail<T>(T[] array, Compare<T> compare = null) =>
+			Cocktail(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Cocktail<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Cocktail(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Cocktail<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Cocktail<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Cocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Cocktail<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Cocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T>
+		{
+			while (true)
+			{
+				bool swapped = false;
+				for (int i = start; i <= end - 1; i++)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + 1));
+						set.Do(i + 1, temp);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
+				}
+				swapped = false;
+				for (int i = end - 1; i >= start; i--)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + 1));
+						set.Do(i + 1, temp);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
 				}
 			}
 		}
