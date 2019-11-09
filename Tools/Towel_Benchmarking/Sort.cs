@@ -86,7 +86,7 @@ namespace Towel_Benchmarking
 		{
 			if (Values.Length > 1000)
 			{
-				throw new Exception("Benchmark fail.");
+				throw new Exception("Too Slow.");
 			}
 			Sort.Slow(Values, Compare.Default);
 		}
@@ -95,7 +95,7 @@ namespace Towel_Benchmarking
 		{
 			if (Values.Length > 1000)
 			{
-				throw new Exception("Benchmark fail.");
+				throw new Exception("Too Slow.");
 			}
 			Sort.Slow<int, CompareInt>(Values);
 		}
@@ -104,7 +104,7 @@ namespace Towel_Benchmarking
 		{
 			if (Values.Length > 10)
 			{
-				throw new Exception("Benchmark fail.");
+				throw new Exception("Too Slow.");
 			}
 			Sort.Bogo(Values, Compare.Default);
 		}
@@ -113,7 +113,7 @@ namespace Towel_Benchmarking
 		{
 			if (Values.Length > 10)
 			{
-				throw new Exception("Benchmark fail.");
+				throw new Exception("Too Slow.");
 			}
 			Sort.Bogo<int, CompareInt>(Values);
 		}
