@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Towel;
 
 namespace Towel_Benchmarking
@@ -23,6 +24,9 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void SystemArraySortDelegate() =>
 			Array.Sort(Values, (int a, int b) => a.CompareTo(b));
+
+		[Benchmark] public void SystemArraySortIComparer() =>
+			Array.Sort(Values, default(ComparerInt));
 
 		[Benchmark] public void BubbleRunTime() =>
 			Towel.Sort.Bubble(Values, Compare.Default);
@@ -105,6 +109,11 @@ namespace Towel_Benchmarking
 		public struct CompareInt : ICompare<int>
 		{
 			public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
+		}
+
+		public struct ComparerInt : System.Collections.Generic.IComparer<int>
+		{
+			public int Compare(int a, int b) => a.CompareTo(b);
 		}
 	}
 }
