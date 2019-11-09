@@ -76,6 +76,12 @@ namespace Towel_Benchmarking
 		[Benchmark] public void GnomeCompileTime() =>
 			Sort.Gnome<int, CompareInt>(Values);
 
+		[Benchmark] public void CombRunTime() =>
+			Sort.Comb(Values, Compare.Default);
+
+		[Benchmark] public void CombCompileTime() =>
+			Sort.Comb<int, CompareInt>(Values);
+
 		[Benchmark] public void SlowRunTime()
 		{
 			if (Values.Length > 1000)
@@ -100,7 +106,7 @@ namespace Towel_Benchmarking
 			{
 				throw new Exception("Benchmark fail.");
 			}
-			Sort.Bogo<int>(Values, Compare.Default);
+			Sort.Bogo(Values, Compare.Default);
 		}
 
 		[Benchmark] public void BogoCompileTime()

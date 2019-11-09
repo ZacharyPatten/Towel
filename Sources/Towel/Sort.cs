@@ -1263,5 +1263,100 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region Comb
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		public static void Comb<T>(T[] array) =>
+			Comb(array, Compare.Default);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Comb<T>(T[] array, Compare<T> compare) =>
+			Comb(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Comb<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Comb(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare) =>
+			Comb<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare)
+			where Compare : struct, ICompare<T> =>
+			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Comb<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+			Comb<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Comb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T>
+		{
+			const double shrink = 1.3;
+			int gap = end - start + 1;
+			bool sorted = false;
+			while (!sorted)
+			{
+				gap = (int)(gap / shrink);
+				if (gap <= 1)
+				{
+					gap = 1;
+					sorted = true;
+				}
+				for (int i = 0; i + gap <= end; i++)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + gap)) == Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + gap));
+						set.Do(i + gap, temp);
+						sorted = false;
+					}
+				}
+			}
+		}
+
+		#endregion
 	}
 }
