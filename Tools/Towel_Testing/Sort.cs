@@ -59,6 +59,8 @@ namespace Towel_Testing
 
 		[TestMethod] public void Slow_Testing() => TestAlgorithm(Sort.Slow);
 
+		[TestMethod] public void Gnome_Testing() => TestAlgorithm(Sort.Gnome);
+
 		[TestMethod] public void Bogo_Testing() => TestAlgorithm(array => Sort.Bogo(array), 5);
 	}
 }

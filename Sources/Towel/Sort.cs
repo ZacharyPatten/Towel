@@ -1175,5 +1175,93 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region Gnome
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		public static void Gnome<T>(T[] array) =>
+			Gnome(array, Compare.Default);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Gnome<T>(T[] array, Compare<T> compare) =>
+			Gnome(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Gnome<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Gnome(array, 0, array.Length - 1, compare);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare) =>
+			Gnome<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare)
+			where Compare : struct, ICompare<T> =>
+			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Gnome<T>(int start, int end, Compare<T> compare, GetIndex<T> get, SetIndex<T> set) =>
+			Gnome<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare, get, set);
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void Gnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, ICompare<T>
+			where Get : struct, IGetIndex<T>
+			where Set : struct, ISetIndex<T>
+		{
+			int i = 0;
+			while (i <= end)
+			{
+				if (i == 0 || compare.Do(get.Do(i), get.Do(i - 1)) != Less)
+				{
+					i++;
+				}
+				else
+				{
+					T temp = get.Do(i);
+					set.Do(i, get.Do(i - 1));
+					set.Do(i - 1, temp);
+					i--;
+				}
+			}
+		}
+
+		#endregion
 	}
 }
