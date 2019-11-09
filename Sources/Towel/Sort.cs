@@ -197,15 +197,6 @@ namespace Towel
 
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T>(T[] array) =>
-			Insertion(array, Compare.Default);
-
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>

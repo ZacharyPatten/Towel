@@ -35,9 +35,6 @@ namespace Towel_Benchmarking
 
 	public static partial class RandomData
 	{
-		/// <summary>
-		/// Settings for the data structure becnhmarking methods.
-		/// </summary>
 		public static class DataStructures
 		{
 			public static Person[][] RandomData => GenerateBenchmarkData();
@@ -47,7 +44,7 @@ namespace Towel_Benchmarking
 				DateTime minimumBirthDate = new DateTime(1950, 1, 1);
 				DateTime maximumBirthDate = new DateTime(2000, 1, 1);
 
-				Random random = new Random();
+				Random random = new Random(7);
 				Person[] GenerateData(int count)
 				{
 					Person[] data = new Person[count];
