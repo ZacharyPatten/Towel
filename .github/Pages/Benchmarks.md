@@ -1,4 +1,6 @@
-These are the benchmarking results for the Towel project.
+# Benchmarks
+
+_All the source code for the benchmarks are included in this GitHub repository._
 
 ## Sorting Algorithms
 
@@ -12,8 +14,7 @@ These are the benchmarking results for the Towel project.
 - The `SystemArraySortDelegate` benchmark is the `System.Array.Sort<T>(T[], System.Comparison<T>)` method, where `System.Comparison<T>` is a runtime delegate.
 - The `SystemArraySortIComparer` bencmark is the `System.Array.Sort<T>(T[], System.Collections.Generic.IComparer<T>)`.
 
-The source code for these bencharks are included in the Towel GitHub repository here:
-TODO: add link to source
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/Sort.cs
 
 ``` ini
 
