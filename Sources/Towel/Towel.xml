@@ -29524,6 +29524,12 @@
             <exception cref="T:System.NotSupportedException">
             Thrown when the delegate is pointing to a local function.
             </exception>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when deserialization fails due to a return type mis-match.
+            </exception>
+            <exception cref="T:System.Exception">
+            Thrown when deserialization fails. See the inner exception for more information.
+            </exception>
         </member>
         <member name="M:Towel.Serialization.StaticDelegateFromXml``1(System.IO.TextReader)">
             <summary>Deserializes a static delegate from XML.</summary>
@@ -29535,6 +29541,12 @@
             </exception>
             <exception cref="T:System.NotSupportedException">
             Thrown when the delegate is pointing to a local function.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when deserialization fails due to a return type mis-match.
+            </exception>
+            <exception cref="T:System.Exception">
+            Thrown when deserialization fails. See the inner exception for more information.
             </exception>
         </member>
         <member name="T:Towel.Sort">

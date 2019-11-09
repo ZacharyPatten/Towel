@@ -94,11 +94,12 @@ namespace Towel
 
 		internal static partial class StaticDelegateConstants
 		{
-			internal const string NAME = "Delegate";
-			internal const string DECLARING_TYPE = "Method.DeclaringType.AssemblyQualifiedName";
-			internal const string METHOD_NAME = "Method.Name";
-			internal const string PARAMETERS = "Method.GetParameters";
-			internal const string PARAMETER_TYPE = "ParameterType.AssemblyQualifiedName";
+			internal const string Name = "Delegate";
+			internal const string DeclaringType = "Method.DeclaringType.AssemblyQualifiedName";
+			internal const string MethodName = "Method.Name";
+			internal const string Parameters = "Method.GetParameters";
+			internal const string ParameterType = "ParameterType.AssemblyQualifiedName";
+			internal const string ReturnType = "Method.ReturnType";
 		}
 
 		#endregion
@@ -172,25 +173,28 @@ namespace Towel
 			{
 				throw new NotSupportedException("delegates assigned to non-static methods are not supported");
 			}
-
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
-			xmlWriter.WriteStartElement(StaticDelegateConstants.NAME);
+			xmlWriter.WriteStartElement(StaticDelegateConstants.Name);
 			{
-				xmlWriter.WriteStartElement(StaticDelegateConstants.DECLARING_TYPE);
+				xmlWriter.WriteStartElement(StaticDelegateConstants.DeclaringType);
 				xmlWriter.WriteString(methodInfo.DeclaringType.AssemblyQualifiedName);
 				xmlWriter.WriteEndElement();
 
-				xmlWriter.WriteStartElement(StaticDelegateConstants.METHOD_NAME);
+				xmlWriter.WriteStartElement(StaticDelegateConstants.MethodName);
 				xmlWriter.WriteString(methodInfo.Name);
 				xmlWriter.WriteEndElement();
 
-				xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETERS);
+				xmlWriter.WriteStartElement(StaticDelegateConstants.Parameters);
 				for (int i = 0; i < parameterInfos.Length; i++)
 				{
-					xmlWriter.WriteStartElement(StaticDelegateConstants.PARAMETER_TYPE);
+					xmlWriter.WriteStartElement(StaticDelegateConstants.ParameterType);
 					xmlWriter.WriteString(parameterInfos[i].ParameterType.AssemblyQualifiedName);
 					xmlWriter.WriteEndElement();
 				}
+				xmlWriter.WriteEndElement();
+
+				xmlWriter.WriteStartElement(StaticDelegateConstants.ReturnType);
+				xmlWriter.WriteString(methodInfo.ReturnType.AssemblyQualifiedName);
 				xmlWriter.WriteEndElement();
 			}
 			xmlWriter.WriteEndElement();
@@ -210,6 +214,12 @@ namespace Towel
 		/// <exception cref="NotSupportedException">
 		/// Thrown when the delegate is pointing to a local function.
 		/// </exception>
+		/// <exception cref="InvalidOperationException">
+		/// Thrown when deserialization fails due to a return type mis-match.
+		/// </exception>
+		/// <exception cref="Exception">
+		/// Thrown when deserialization fails. See the inner exception for more information.
+		/// </exception>
 		public static T StaticDelegateFromXml<T>(string @string) where T : Delegate
 		{
 			using StringReader stringReader = new StringReader(@string);
@@ -226,6 +236,12 @@ namespace Towel
 		/// <exception cref="NotSupportedException">
 		/// Thrown when the delegate is pointing to a local function.
 		/// </exception>
+		/// <exception cref="InvalidOperationException">
+		/// Thrown when deserialization fails due to a return type mis-match.
+		/// </exception>
+		/// <exception cref="Exception">
+		/// Thrown when deserialization fails. See the inner exception for more information.
+		/// </exception>
 		public static T StaticDelegateFromXml<T>(TextReader textReader) where T : Delegate
 		{
 			try
@@ -233,6 +249,7 @@ namespace Towel
 				string declaringTypeString = null;
 				string methodNameString = null;
 				IList<string> parameterTypeStrings = new ListArray<string>();
+				string returnTypeString = null;
 				using (XmlReader xmlReader = XmlReader.Create(textReader))
 				{
 					while (xmlReader.Read())
@@ -242,20 +259,24 @@ namespace Towel
 						{
 							switch (xmlReader.Name)
 							{
-								case StaticDelegateConstants.DECLARING_TYPE:
+								case StaticDelegateConstants.DeclaringType:
 									declaringTypeString = xmlReader.ReadInnerXml();
 									goto CONTINUE;
-								case StaticDelegateConstants.METHOD_NAME:
+								case StaticDelegateConstants.MethodName:
 									methodNameString = xmlReader.ReadInnerXml();
 									goto CONTINUE;
-								case StaticDelegateConstants.PARAMETER_TYPE:
+								case StaticDelegateConstants.ParameterType:
 									parameterTypeStrings.Add(xmlReader.ReadInnerXml());
+									goto CONTINUE;
+								case StaticDelegateConstants.ReturnType:
+									returnTypeString = xmlReader.ReadInnerXml();
 									goto CONTINUE;
 							}
 						}
 					}
 				}
 				Type declaringType = Type.GetType(declaringTypeString);
+				Type returnType = Type.GetType(returnTypeString);
 				MethodInfo methodInfo = null;
 				if (parameterTypeStrings.Count > 0)
 				{
@@ -274,16 +295,22 @@ namespace Towel
 				{
 					goto ThrowNonStaticException;
 				}
+				if (methodInfo.ReturnType != returnType)
+				{
+					goto ThrowReturnTypeMisMatchException;
+				}
 				return (T)methodInfo.CreateDelegate(typeof(T));
 			}
 			catch (Exception exception)
 			{
-				throw new Exception("deserialization failed", exception);
+				throw new Exception("Deserialization failed.", exception);
 			}
 			ThrowNonStaticException:
-			throw new NotSupportedException("delegates assigned to non-static methods are not supported");
+			throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
 			ThrowLocalFunctionException:
-			throw new NotSupportedException("delegates assigned to local functions are not supported");
+			throw new NotSupportedException("Delegates assigned to local functions are not supported.");
+			ThrowReturnTypeMisMatchException:
+			throw new InvalidOperationException("Deserialization failed due to a return type mis-match.");
 		}
 
 		#endregion
