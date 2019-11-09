@@ -76,9 +76,7 @@ namespace Towel
 
 		internal static class TryParseImplementation<A>
 		{
-			internal delegate bool TryParseDelegate(string @string, out A value);
-
-			internal static TryParseDelegate Function = (string @string, out A value) =>
+			internal static TryParse<A> Function = (string @string, out A value) =>
 			{
 				static bool Default(string @string, out A value)
 				{
@@ -89,7 +87,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 				Function = methodInfo is null
 					? Default
-					: (TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
+					: (TryParse<A>)methodInfo.CreateDelegate(typeof(TryParse<A>));
 				return Function(@string, out value);
 			};
 		}
