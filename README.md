@@ -626,11 +626,19 @@ Sort.Quick<T>(...);
 Sort.Merge<T>(...);
 Sort.Heap<T>(...);
 Sort.OddEven<T>(...);
+Sort.Cocktail<T>(...);
+Sort.Comb<T>(...);
+Sort.Gnome<T>(...);
+Sort.Shell<T>(...);
+Sort.Bogo<T>(...);
+Sort.Slow<T>(...);
 
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Bread-First-Search algorithms
 Search.Graph<Node, Numeric>(...);
 ```
+
+_Note: [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md) are included for the sorting algorithms._
 
 ## Extensions
 
@@ -643,6 +651,7 @@ decimal NextDecimal(this Random random);
 DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
+void Shuffle<T>(this Random random, T[] array); // randomize arrays
 
 // Type conversion to string definition as appears in C# source code
 // Note: useful for runtime compilation from strings
