@@ -39,33 +39,6 @@ namespace Towel.DataStructures
 			internal Node LeftChild;
 			internal Node RightChild;
 			internal Node Parent;
-
-			internal Node()
-			{
-				Color = Red;
-			}
-
-			internal Node(
-				bool color,
-				T value,
-				Node parent)
-			{
-				Color = color;
-				Value = value;
-				Parent = parent;
-			}
-
-			internal Node Clone(Node parent)
-			{
-				if (this == _sentinelNode)
-				{
-					return _sentinelNode;
-				}
-				Node clone = new Node(Color, Value, parent);
-				clone.LeftChild = LeftChild?.Clone(clone);
-				clone.RightChild = RightChild?.Clone(clone);
-				return clone;
-			}
 		}
 
 		#endregion
@@ -84,9 +57,26 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to be cloned.</param>
 		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
 		{
+			static Node Clone(Node node, Node parent)
+			{
+				if (node == _sentinelNode)
+				{
+					return _sentinelNode;
+				}
+				Node clone = new Node
+				{
+					Value = node.Value,
+					Color = node.Color,
+					Parent = parent
+				};
+				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
+				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
+				return clone;
+			}
+
 			_compare = tree._compare;
 			_count = tree._count;
-			_root = tree._root.Clone(null);
+			_root = tree._root is null ? null : Clone(tree._root, null);
 		}
 
 		#endregion
