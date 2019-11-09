@@ -80,18 +80,18 @@ namespace Towel
 
 			internal static TryParseDelegate Function = (string @string, out A value) =>
 			{
+				static bool Default(string @string, out A value)
+				{
+					value = default;
+					return false;
+				}
+
 				MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 				Function = methodInfo is null
 					? Default
 					: (TryParseDelegate)methodInfo.CreateDelegate(typeof(TryParseDelegate));
 				return Function(@string, out value);
 			};
-
-			internal static bool Default(string @string, out A value)
-			{
-				value = default;
-				return false;
-			}
 		}
 
 		#endregion
