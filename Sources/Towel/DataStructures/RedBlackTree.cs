@@ -34,7 +34,7 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal bool Color;
+			internal bool Color = Red;
 			internal T Value;
 			internal Node LeftChild;
 			internal Node RightChild;
