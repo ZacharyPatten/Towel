@@ -330,7 +330,7 @@ namespace Towel
 		/// <param name="totalCost">The total cost of the path if a path was found.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Equate<Node> equate, out Numeric totalCost) =>
-			Graph(start, graph.Neighbors, heuristic, cost, (Node node) => { return equate(node, goal); }, out totalCost);
+			Graph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		#endregion
 
