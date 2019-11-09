@@ -12,7 +12,7 @@ _All the source code for the benchmarks are included in this GitHub repository._
 - The `XXXCompileTime` benchmarks use structs for their compare functions (so there is no delegate at runtime).
 - The `SystemArraySort` bencmark is the `System.Array.Sort` method. Note: the `System.Array.Sort` method does not allow custom sorting while all other benchmarked methods do.
 - The `SystemArraySortDelegate` benchmark is the `System.Array.Sort<T>(T[], System.Comparison<T>)` method, where `System.Comparison<T>` is a runtime delegate.
-- The `SystemArraySortIComparer` bencmark is the `System.Array.Sort<T>(T[], System.Collections.Generic.IComparer<T>)`.
+- The `SystemArraySortIComparer` bencmark is the `System.Array.Sort<T>(T[], System.Collections.Generic.IComparer<T>)` method.
 
 Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/Sort.cs
 
