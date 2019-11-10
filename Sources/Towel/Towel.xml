@@ -14411,16 +14411,7 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(Towel.StepRef{Towel.Stepper{`0}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(Towel.StepBreak{Towel.Stepper{`0}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(Towel.StepRefBreak{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -14434,11 +14425,11 @@
             <typeparam name="T">The type of values in the trie.</typeparam>
             <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.Step{`1})">
+        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.Step{Towel.Stepper{`0},`1})">
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.StepBreak{`1})">
+        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.StepBreak{Towel.Stepper{`0},`1})">
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
             <returns>The status of the stepper.</returns>
@@ -14515,20 +14506,11 @@
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Clear">
             <summary>Returns the trie to an empty state.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.Step{`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.Step{Towel.Stepper{`0},`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRef{`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{`1})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRefBreak{`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{Towel.Stepper{`0},`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -14537,16 +14519,7 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRef{Towel.Stepper{`0}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{Towel.Stepper{`0}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepRefBreak{Towel.Stepper{`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -30672,6 +30645,11 @@
             <param name="stepper">The stepper to determine if any predicated values exist.</param>
             <param name="where">The predicate.</param>
             <returns>True if any of the predicated values exist or </returns>
+        </member>
+        <member name="M:Towel.Stepper.ConcatToString(Towel.Stepper{System.Char})">
+            <summary>Converts a stepper into a string of the concatenated chars.</summary>
+            <param name="stepper">The stepper to concatenate the values into a string.</param>
+            <returns>The string of the concatenated chars.</returns>
         </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>

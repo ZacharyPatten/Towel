@@ -39,6 +39,8 @@ namespace Towel
 	/// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
 	public static class Compare
 	{
+		#region Members
+
 		/// <summary>Converts an int into a comparison.</summary>
 		/// <param name="compareResult">The integer comparison result to convert into a Comparison.</param>
 		/// <returns>The converted Comparison value.</returns>
@@ -85,6 +87,8 @@ namespace Towel
 		/// <returns>The converted System.Comparison delegate.</returns>
 		public static Comparison<T> ToSystemComparison<T>(Compare<T> compare) =>
 			(a, b) => (int)compare(a, b);
+
+		#endregion
 	}
 
 	/// <summary>A compile time delegate for comparing two values.</summary>

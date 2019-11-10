@@ -176,13 +176,7 @@ namespace Towel.DataStructures
 		/// <summary>Clones the AVL tree.</summary>
 		/// <returns>A clone of the AVL tree.</returns>
 		/// <runtime>θ(n)</runtime>
-		public AvlTreeLinked<T> Clone()
-		{
-			// Note: this has room for optimization
-			AvlTreeLinked<T> clone = new AvlTreeLinked<T>(_compare);
-			Stepper(x => clone.Add(x));
-			return clone;
-		}
+		public AvlTreeLinked<T> Clone() => new AvlTreeLinked<T>(this);
 
 		#endregion
 

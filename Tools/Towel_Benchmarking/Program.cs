@@ -1,8 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 using System;
-using System.Reflection;
 using Towel;
-using Towel.DataStructures;
 
 namespace Towel_Benchmarking
 {

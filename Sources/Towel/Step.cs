@@ -1,6 +1,7 @@
 ﻿using System;
 using static Towel.Syntax;
 using Towel.DataStructures;
+using System.Text;
 
 namespace Towel
 {
@@ -191,14 +192,8 @@ namespace Towel
 		/// <param name="stepper">The stepper to convert.</param>
 		/// <param name="func">The conversion function.</param>
 		/// <returns>The converted stepper.</returns>
-		public static Stepper<B> Convert<A, B>(this Stepper<A> stepper, Func<A, B> func)
-		{
-			return b =>
-				stepper(a =>
-				{
-					b(func(a));
-				});
-		}
+		public static Stepper<B> Convert<A, B>(this Stepper<A> stepper, Func<A, B> func) =>
+			b => stepper(a => b(func(a)));
 
 		/// <summary>Appends values to the stepper.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
@@ -236,8 +231,7 @@ namespace Towel
 		/// <param name="predicate">The predicate of the where filter.</param>
 		/// <returns>The filtered stepper.</returns>
 		public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate) =>
-			step =>
-				stepper(x =>
+			step => stepper(x =>
 				{
 					if (predicate(x))
 					{
@@ -353,9 +347,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(nth), nth, "!(" + nameof(nth) + " > 0)");
 			}
 			int i = 1;
-			return step =>
-			{
-				stepper(x =>
+			return step => stepper(x =>
 				{
 					if (i == nth)
 					{
@@ -367,7 +359,6 @@ namespace Towel
 						i++;
 					}
 				});
-			};
 		}
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
@@ -460,6 +451,16 @@ namespace Towel
 				? Break
 				: Continue);
 			return any;
+		}
+
+		/// <summary>Converts a stepper into a string of the concatenated chars.</summary>
+		/// <param name="stepper">The stepper to concatenate the values into a string.</param>
+		/// <returns>The string of the concatenated chars.</returns>
+		public static string ConcatToString(this Stepper<char> stepper)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			stepper(c => stringBuilder.Append(c));
+			return stringBuilder.ToString();
 		}
 
 		#endregion

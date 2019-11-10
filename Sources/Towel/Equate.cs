@@ -20,6 +20,8 @@ namespace Towel
 	/// <summary>Static wrapper for the based "object.Equals" function.</summary>
 	public static class Equate
 	{
+		#region Members
+
 		/// <summary>Static wrapper for the based "object.Equals" fuction.</summary>
 		/// <typeparam name="T">The generic type of this operation.</typeparam>
 		/// <param name="a">The first item of the equate function.</param>
@@ -33,6 +35,8 @@ namespace Towel
 		/// <returns>The compare delegate converted into an equate.</returns>
 		public static Equate<T> FromCompare<T>(Compare<T> compare) =>
 			(a, b) => compare(a, b) == Equal;
+
+		#endregion
 	}
 
 	/// <summary>A compile time delegate for equating two values.</summary>

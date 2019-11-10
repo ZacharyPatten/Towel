@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -335,14 +336,18 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Step<Stepper<T>> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<Stepper<T>> step)
-		{
-			throw new NotImplementedException();
+			void Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.IsLeaf)
+				{
+					step(stepper);
+				}
+				node.Map.Stepper((a, b) =>
+				{
+					Stepper(a, x => { stepper(x); x(b); });
+				});
+			}
+			_map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -350,15 +355,21 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<Stepper<T>> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<Stepper<T>> step)
-		{
-			throw new NotImplementedException();
+			StepStatus Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.IsLeaf)
+				{
+					if (step(stepper) == Break)
+					{
+						return Break;
+					}
+				}
+				return node.Map.Stepper((a, b) =>
+					Stepper(a, x => { stepper(x); x(b); }) == Break
+						? Break
+						: Continue);
+			}
+			return _map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
@@ -389,12 +400,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
-		void Stepper(Step<D> step);
+		void Stepper(Step<Stepper<T>, D> step);
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepBreak<D> step);
+		StepStatus Stepper(StepBreak<Stepper<T>, D> step);
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
@@ -721,46 +732,60 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<D> step)
+		public void Stepper(Step<Stepper<T>, D> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<D> step)
-		{
-			throw new NotImplementedException();
+			void Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.HasValue)
+				{
+					step(stepper, node.Value);
+				}
+				node.Map.Stepper((a, b) =>
+				{
+					Stepper(a, x => { stepper(x); x(b); });
+				});
+			}
+			_map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<D> step)
+		public StepStatus Stepper(StepBreak<Stepper<T>, D> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<D> step)
-		{
-			throw new NotImplementedException();
+			StepStatus Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.HasValue)
+				{
+					if (step(stepper, node.Value) == Break)
+					{
+						return Break;
+					}
+				}
+				return node.Map.Stepper((a, b) =>
+					Stepper(a, x => { stepper(x); x(b); }) == Break
+						? Break
+						: Continue);
+			}
+			return _map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Step<Stepper<T>> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<Stepper<T>> step)
-		{
-			throw new NotImplementedException();
+			void Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.HasValue)
+				{
+					step(stepper);
+				}
+				node.Map.Stepper((a, b) =>
+				{
+					Stepper(a, x => { stepper(x); x(b); });
+				});
+			}
+			_map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -768,15 +793,21 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<Stepper<T>> step)
 		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<Stepper<T>> step)
-		{
-			throw new NotImplementedException();
+			StepStatus Stepper(Node node, Stepper<T> stepper)
+			{
+				if (node.HasValue)
+				{
+					if (step(stepper) == Break)
+					{
+						return Break;
+					}
+				}
+				return node.Map.Stepper((a, b) =>
+					Stepper(a, x => { stepper(x); x(b); }) == Break
+						? Break
+						: Continue);
+			}
+			return _map.Stepper((a, b) => Stepper(a, x => x(b)));
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>

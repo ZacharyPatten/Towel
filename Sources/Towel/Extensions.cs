@@ -919,11 +919,11 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 1)");
 			}
-			string decimal_ToString = @decimal.ToString();
-			decimal_ToString = decimal_ToString.Substring(decimal_ToString.IndexOf(".") + 1);
-			decimal decimalAsWholeNumber = decimal.Parse(decimal_ToString);
+			string decimalToString = @decimal.ToString();
+			decimalToString = decimalToString.Substring(decimalToString.IndexOf(".") + 1);
+			decimal decimalAsWholeNumber = decimal.Parse(decimalToString);
 			string result = ConvertWholeNumber(decimalAsWholeNumber);
-			int digitCount = decimal_ToString.Length;
+			int digitCount = decimalToString.Length;
 			result += digitCount switch
 			{
 				1 => " Tenths",

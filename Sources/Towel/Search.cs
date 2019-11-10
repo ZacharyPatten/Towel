@@ -70,9 +70,9 @@ namespace Towel
 			#region Members
 
 			/// <summary>Graph search was not broken.</summary>
-			Continue = 0,
+			Continue = StepStatus.Continue,
 			/// <summary>Graph search was broken.</summary>
-			Break = 1,
+			Break = StepStatus.Break,
 			/// <summary>Graph search found the goal.</summary>
 			Goal = 2,
 

@@ -26,7 +26,7 @@ namespace Syntax
 				Console.WriteLine("    TryParse(\"12.3\", out float b) := " + b + "f");
 				Console.WriteLine("    TryParse(\"1\", out byte c) := " + c);
 				Console.WriteLine("    TryParse(\"1234\", out int d) := " + d);
-				Console.WriteLine("    TryParse(\"1234\", out Program e) := " + e ?? "null");
+				Console.WriteLine("    TryParse(\"1234\", out Program e) := " + (e?.ToString() ?? "null"));
 				Console.WriteLine();
 			}
 			#endregion

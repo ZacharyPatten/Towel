@@ -835,7 +835,9 @@ namespace DataStructures
 					trie.Add(i, strings[i].ToStepper());
 					Console.WriteLine("      " + strings[i]);
 				}
-				Console.WriteLine();
+
+				Console.WriteLine("    Traversal:");
+				trie.Stepper((stepper, value) => Console.WriteLine("      " + stepper.ConcatToString() + ": " + value));
 
 				Console.WriteLine("    Count: " + trie.Count);
 
