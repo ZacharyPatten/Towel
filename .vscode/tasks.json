@@ -31,28 +31,28 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build Algorithms Example [Debug]",
+			"label": "Build GraphSearch Example [Debug]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Examples/Algorithms/Algorithms.csproj",
+				"${workspaceFolder}/Examples/GraphSearch/GraphSearch.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build Algorithms Example [Release]",
+			"label": "Build GraphSearch Example [Release]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Examples/Algorithms/Algorithms.csproj",
+				"${workspaceFolder}/Examples/GraphSearch/GraphSearch.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -87,28 +87,28 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build Extensions Example [Debug]",
+			"label": "Build BasicsAndExtensions Example [Debug]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Examples/Extensions/Extensions.csproj",
+				"${workspaceFolder}/Examples/BasicsAndExtensions/BasicsAndExtensions.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build Extensions Example [Release]",
+			"label": "Build BasicsAndExtensions Example [Release]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Examples/Extensions/Extensions.csproj",
+				"${workspaceFolder}/Examples/BasicsAndExtensions/BasicsAndExtensions.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -165,34 +165,6 @@
 				"build",
 				"--configuration", "Release",
 				"${workspaceFolder}/Examples/Measurements/Measurements.csproj",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary",
-			],
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Build Syntax Example [Debug]",
-			"command": "dotnet",
-			"type": "process",
-			"args":
-			[
-				"build",
-				"--configuration", "Debug",
-				"${workspaceFolder}/Examples/Syntax/Syntax.csproj",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary",
-			],
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Build Syntax Example [Release]",
-			"command": "dotnet",
-			"type": "process",
-			"args":
-			[
-				"build",
-				"--configuration", "Release",
-				"${workspaceFolder}/Examples/Syntax/Syntax.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],

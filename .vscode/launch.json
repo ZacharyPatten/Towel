@@ -6,13 +6,13 @@
 	"configurations":
 	[
 		{
-			"name": "Algorithms Example [Debug]",
+			"name": "BasicsAndExtensions Example [Debug]",
 			"type": "coreclr",
 			"request": "launch",
-			"preLaunchTask": "Build Algorithms Example [Debug]",
-			"program": "${workspaceFolder}/Examples/Algorithms/bin/Debug/netcoreapp3.0/Algorithms.dll",
+			"preLaunchTask": "Build BasicsAndExtensions Example [Debug]",
+			"program": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/netcoreapp3.0/BasicsAndExtensions.dll",
 			"args": [],
-			"cwd": "${workspaceFolder}/Examples/Algorithms/bin/Debug/netcoreapp3.0",
+			"cwd": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/netcoreapp3.0",
 			"console": "internalConsole",
 			"stopAtEntry": false
 		},
@@ -28,13 +28,13 @@
 			"stopAtEntry": false
 		},
 		{
-			"name": "Extensions Example [Debug]",
+			"name": "GraphSearch Example [Debug]",
 			"type": "coreclr",
 			"request": "launch",
-			"preLaunchTask": "Build Extensions Example [Debug]",
-			"program": "${workspaceFolder}/Examples/Extensions/bin/Debug/netcoreapp3.0/Extensions.dll",
+			"preLaunchTask": "Build GraphSearch Example [Debug]",
+			"program": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/netcoreapp3.0/GraphSearch.dll",
 			"args": [],
-			"cwd": "${workspaceFolder}/Examples/Extensions/bin/Debug/netcoreapp3.0",
+			"cwd": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/netcoreapp3.0",
 			"console": "internalConsole",
 			"stopAtEntry": false
 		},
@@ -57,17 +57,6 @@
 			"program": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.0/Measurements.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.0",
-			"console": "internalConsole",
-			"stopAtEntry": false
-		},
-		{
-			"name": "Syntax Example [Debug]",
-			"type": "coreclr",
-			"request": "launch",
-			"preLaunchTask": "Build Syntax Example [Debug]",
-			"program": "${workspaceFolder}/Examples/Syntax/bin/Debug/netcoreapp3.0/Syntax.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/Syntax/bin/Debug/netcoreapp3.0",
 			"console": "internalConsole",
 			"stopAtEntry": false
 		},

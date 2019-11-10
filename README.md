@@ -588,7 +588,7 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 </details>
 
 <details>
- <summary>Trie</summary>
+ <summary><strong>Trie [click to expand]</strong></summary>
 <p>
 
 ```csharp

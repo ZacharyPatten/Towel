@@ -442,7 +442,6 @@ namespace Mathematics
 			Console.WriteLine();
 			Console.WriteLine("=================================================");
 			Console.WriteLine("Example Complete...");
-			Console.ReadLine();
 		}
 
 		#region Output Helpers

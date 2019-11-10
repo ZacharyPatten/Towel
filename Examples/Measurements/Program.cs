@@ -380,7 +380,6 @@ namespace Measurements
 			Console.WriteLine();
 			Console.WriteLine("=================================================");
 			Console.WriteLine("Example Complete...");
-			Console.ReadLine();
 		}
 	}
 }

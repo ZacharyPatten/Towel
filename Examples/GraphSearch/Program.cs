@@ -5,125 +5,17 @@ using Towel.DataStructures;
 using Towel.Mathematics;
 using static Towel.Syntax;
 
-namespace Algorithms
+namespace GraphSearch
 {
 	class Program
 	{
 		static void Main()
 		{
-			Console.WriteLine("You are runnning the Algorithms example.");
+			Console.WriteLine("You are runnning the GraphSearch example.");
 			Console.WriteLine("======================================================");
 			Console.WriteLine();
 
-			#region Sorting
-			{
-				// Note: these functions are not restricted to array types. You can use the
-				// overloads with "Get" and "Assign" delegates to use them on any int-indexed
-				// data structure.
-
-				Console.WriteLine("  Sorting Algorithms----------------------");
-				Console.WriteLine();
-				int[] dataSet = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-				Console.Write("    Data Set: " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Shuffling (Randomizing)
-				Sort.Shuffle(dataSet);
-				Console.Write("    Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				void ShuffleDataSet()
-				{
-					Console.WriteLine("    shuffling dataSet...");
-					Sort.Shuffle(dataSet);
-				}
-				Console.WriteLine();
-
-				// Bubble
-				Sort.Bubble(dataSet);
-				Console.Write("    Bubble:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Selection
-				ShuffleDataSet();
-				Sort.Selection(dataSet);
-				Console.Write("    Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Insertion
-				ShuffleDataSet();
-				Sort.Insertion(dataSet);
-				Console.Write("    Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Quick
-				ShuffleDataSet();
-				Sort.Quick(dataSet);
-				Console.Write("    Quick:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Merge
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-				Sort.Merge(dataSet);
-				Console.Write("    Merge:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Heap
-				ShuffleDataSet();
-				Sort.Heap(dataSet);
-				Console.Write("    Heap:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// OddEven
-				ShuffleDataSet();
-				Sort.OddEven(dataSet);
-				Console.Write("    OddEven:   " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Slow
-				ShuffleDataSet();
-				Sort.Slow(dataSet);
-				Console.Write("    Slow:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Cocktail
-				ShuffleDataSet();
-				Sort.Cocktail(dataSet);
-				Console.Write("    Cocktail:  " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Shell
-				ShuffleDataSet();
-				Sort.Shell(dataSet);
-				Console.Write("    Shell:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Gnome
-				ShuffleDataSet();
-				Sort.Gnome(dataSet);
-				Console.Write("    Gnome:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Comb
-				ShuffleDataSet();
-				Sort.Comb(dataSet);
-				Console.Write("    Comb:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				// Bogo
-				ShuffleDataSet();
-				Console.Write("    Bogo:      Disabled (usually very slow...)");
-				//Sort.Bogo(dataSet);
-				//Console.Write("    Bogo:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
-
-				Console.WriteLine();
-				Console.WriteLine();
-			}
-			#endregion
-
-			#region Graph Search (Using Graph Data Structure)
+			#region Simple/Small Example
 			{
 				Console.WriteLine("  Graph Searching----------------------");
 				Console.WriteLine();
@@ -231,7 +123,7 @@ namespace Algorithms
 			}
 			#endregion
 
-			#region Graph Search (Vector Game-Style Example)
+			#region Vector Game-Style Example
 			{
 				Console.WriteLine("  Graph Searching (Vector Game-Style Example)-------------------");
 				Console.WriteLine();
@@ -426,7 +318,6 @@ namespace Algorithms
 			Console.WriteLine();
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");
-			Console.ReadLine();
 		}
 	}
 }
