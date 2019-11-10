@@ -2194,14 +2194,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -4083,14 +4083,14 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion

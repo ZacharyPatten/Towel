@@ -4292,14 +4292,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -5928,14 +5928,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -7705,14 +7705,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -9625,14 +9625,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -11690,14 +11690,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -13902,14 +13902,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -16263,14 +16263,14 @@ namespace Towel.DataStructures
 			return StepStatus.Continue;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -17818,14 +17818,14 @@ namespace Towel.DataStructures
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -19484,14 +19484,14 @@ namespace Towel.DataStructures
 				, axis2, axis2
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -21324,14 +21324,14 @@ namespace Towel.DataStructures
 				, axis3, axis3
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -23338,14 +23338,14 @@ namespace Towel.DataStructures
 				, axis4, axis4
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -25526,14 +25526,14 @@ namespace Towel.DataStructures
 				, axis5, axis5
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -27888,14 +27888,14 @@ namespace Towel.DataStructures
 				, axis6, axis6
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -30424,14 +30424,14 @@ namespace Towel.DataStructures
 				, axis7, axis7
 				));
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new System.NotImplementedException();
+			// Note: this can be optimized.
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion

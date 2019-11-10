@@ -379,7 +379,9 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for the trie.</returns>
 		public System.Collections.Generic.IEnumerator<Stepper<T>> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			IList<Stepper<T>> list = new ListLinked<Stepper<T>>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion
@@ -817,7 +819,9 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for the trie.</returns>
 		public System.Collections.Generic.IEnumerator<Stepper<T>> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			IList<Stepper<T>> list = new ListLinked<Stepper<T>>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion

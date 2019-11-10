@@ -782,22 +782,9 @@ namespace Towel.DataStructures
 		/// <returns>An enumerator to iterate through the data structure.</returns>
 		public IEnumerator<T> GetEnumerator()
 		{
-			IStack<Node> forks = new StackLinked<Node>();
-			Node current = _root;
-			while (!(current is null) || forks.Count > 0)
-			{
-				if (!(current is null))
-				{
-					forks.Push(current);
-					current = current.LeftChild;
-				}
-				else if (forks.Count > 0)
-				{
-					current = forks.Pop();
-					yield return current.Value;
-					current = current.RightChild;
-				}
-			}
+			IList<T> list = new ListLinked<T>();
+			Stepper(x => list.Add(x));
+			return list.GetEnumerator();
 		}
 
 		#endregion

@@ -336,10 +336,8 @@ namespace DataStructures
 				avlTree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				//// Note: Because the nodes in AVL Tree linked do not have
-				//// a parent pointer, the IEnumerable "foreach" iteration
-				//// is extremely slow and should be avoided. It requires
-				//// a stack for it's iteration.
+				//// The "foreach" enumeration works for avl trees, but it is not optimized
+				//// and you should prefer the stepper function (it is faster).
 				//
 				//Console.Write("    Traversal Foreach: ");
 				//foreach (int i in avlTree)
@@ -551,6 +549,16 @@ namespace DataStructures
 				omnitree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
+				//// The "foreach" enumeration works for omnitrees, but it is not optimized
+				//// and you should prefer the stepper function (it is faster).
+				//
+				//Console.Write("    Traversal (Foreach): ");
+				//foreach (var i in omnitree)
+				//{
+				//	Console.Write(i);
+				//}
+				//Console.WriteLine();
+
 				int minimumXZ = random.Next(1, test / 2);
 				int maximumXZ = random.Next(1, test / 2) + test / 2;
 				string minimumY = minimumXZ.ToString();
@@ -654,6 +662,16 @@ namespace DataStructures
 				Console.Write("    Traversal: ");
 				omnitree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
+
+				//// The "foreach" enumeration works for omnitrees, but it is not optimized
+				//// and you should prefer the stepper function (it is faster).
+				//
+				//Console.Write("    Traversal (Foreach): ");
+				//foreach (var i in omnitree)
+				//{
+				//	Console.Write(i);
+				//}
+				//Console.WriteLine();
 
 				int minimumXZ = random.Next(1, test / 2);
 				int maximumXZ = random.Next(1, test / 2) + test / 2;
@@ -838,6 +856,15 @@ namespace DataStructures
 
 				Console.WriteLine("    Traversal:");
 				trie.Stepper((stepper, value) => Console.WriteLine("      " + stepper.ConcatToString() + ": " + value));
+
+				//// The "foreach" enumeration works for tries, but it is not optimized
+				//// and you should prefer the stepper function (it is faster).
+				//
+				//Console.WriteLine("    Traversal (Foreach): ");
+				//foreach (var i in trie)
+				//{
+				//	Console.WriteLine("      " + i.ConcatToString());
+				//}
 
 				Console.WriteLine("    Count: " + trie.Count);
 
