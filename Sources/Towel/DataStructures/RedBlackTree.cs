@@ -170,18 +170,11 @@ namespace Towel.DataStructures
 			addition.RightChild = _sentinelNode;
 			if (!(addition.Parent is null))
 			{
-				CompareResult compareResult = _compare(addition.Value, addition.Parent.Value);
-				if (compareResult == Greater)
+				switch (_compare(addition.Value, addition.Parent.Value))
 				{
-					addition.Parent.RightChild = addition;
-				}
-				else if (compareResult == Less)
-				{
-					addition.Parent.LeftChild = addition;
-				}
-				else
-				{
-					throw new NotImplementedException();
+					case Greater: addition.Parent.RightChild = addition; break;
+					case Less:    addition.Parent.LeftChild  = addition; break;
+					default:      throw new CorruptedDataStructureException();
 				}
 			}
 			else
@@ -229,20 +222,14 @@ namespace Towel.DataStructures
 		public bool Contains(CompareToKnownValue<T> compare)
 		{
 			Node treeNode = _root;
-			while (treeNode != _sentinelNode)
+			while (treeNode != _sentinelNode && !(treeNode is null))
 			{
 				switch (compare(treeNode.Value))
 				{
-					case Equal:
-						return true;
-					case Greater:
-						treeNode = treeNode.RightChild;
-						break;
-					case Less:
-						treeNode = treeNode.LeftChild;
-						break;
-					default:
-						throw new NotImplementedException();
+					case Equal:   return true;
+					case Greater: treeNode = treeNode.RightChild; break;
+					case Less:    treeNode = treeNode.LeftChild; break;
+					default:      throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
 			return false;
@@ -282,32 +269,6 @@ namespace Towel.DataStructures
 			exception = new ArgumentException("Attempting to get a non-existing value.");
 			return false;
 		}
-
-		///// <summary>Gets the item with the designated by the string.</summary>
-		///// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-		///// <returns>The object with the desired string ID if it exists.</returns>
-		///// <runtime>O(ln(Count)) Ω(1)</runtime>
-		//public T Get(CompareToKnownValue<T> compare)
-		//{
-		//	Node treeNode = _root;
-		//	while (treeNode != _sentinelNode)
-		//	{
-		//		switch (compare(treeNode.Value))
-		//		{
-		//			case Equal:
-		//				return treeNode.Value;
-		//			case Greater:
-		//				treeNode = treeNode.RightChild;
-		//				break;
-		//			case Less:
-		//				treeNode = treeNode.LeftChild;
-		//				break;
-		//			default:
-		//				throw new NotImplementedException();
-		//		}
-		//	}
-		//	throw new InvalidOperationException("attempting to get a non-existing value.");
-		//}
 
 		#endregion
 

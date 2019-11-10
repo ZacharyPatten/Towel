@@ -2,6 +2,8 @@
 using Towel;
 using static Towel.Syntax;
 
+#pragma warning disable IDE0039 // Use local function
+
 namespace Syntax
 {
 	class Program
@@ -111,7 +113,6 @@ namespace Syntax
 
 				/// Here is an example of creating a stepper from only functions (no backing
 				/// data structure).
-
 				Stepper<int> stepperFunctional = s => { s(1); s(2); s(3); };
 				Console.Write("    stepperFunctional values:");
 				stepperFunctional(value => Console.Write(" " + value));
@@ -127,3 +128,5 @@ namespace Syntax
 		}
 	}
 }
+
+#pragma warning restore IDE0039 // Use local function

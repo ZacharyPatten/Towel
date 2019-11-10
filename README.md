@@ -28,10 +28,8 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 ## Generic Mathematics & Logic
 
 <details>
- <summary><strong>How It Works</strong></summary>
+ <summary><strong>How It Works [click to expand]</strong></summary>
 <p>
-
-You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate. Here is an example for basic addition:
 
 ```csharp
 public static T Addition<T>(T a, T b)
@@ -51,6 +49,8 @@ internal static class AdditionImplementation<T>
 	};
 }
 ```
+
+You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate.
 
 </p>
 </details>
@@ -159,7 +159,7 @@ symExp1.Substitute("x", 5);
 ## Measurement Mathematics
 
 <details>
- <summary><strong>Supported Measurements</strong></summary>
+ <summary><strong>Supported Measurements [click to expand]</strong></summary>
 <p>
 
 Here are the currently supported measurement types:
@@ -261,7 +261,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 ## Data Structures
 
 <details>
- <summary>Heap</summary>
+ <summary><strong>Heap [click to expand]</strong></summary>
 <p>
 
 ```csharp
@@ -308,7 +308,7 @@ IHeap<T> heapArray = new HeapArray<T>();
 </details>
 
 <details>
- <summary>AVL Tree</summary>
+ <summary><strong>AVL Tree [click to expand]</strong></summary>
 <p>
 
 ```csharp
@@ -357,7 +357,7 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 </details>
 
 <details>
- <summary>Red-Black Tree</summary>
+ <summary><strong>Red Black Tree [click to expand]</strong></summary>
 <p>
 
 ```csharp
@@ -404,7 +404,7 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 </details>
 
 <details>
- <summary>Omnitree</summary>
+ <summary><strong>Omnitree [click to expand]</strong></summary>
 <p>
 
 ```csharp
@@ -540,7 +540,7 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 </details>
 
 <details>
- <summary>Tree</summary>
+ <summary><strong>Tree [click to expand]</strong></summary>
 <p>
 
 ```csharp
@@ -551,7 +551,7 @@ Tree<T> treeMap = new TreeMap<T>(...);
 </details>
 
 <details>
- <summary>Graph</summary>
+ <summary><strong>Graph [click to expand]</strong></summary>
 <p>
 
 ```csharp

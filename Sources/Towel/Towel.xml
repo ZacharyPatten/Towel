@@ -848,7 +848,7 @@
             <returns>The highest priority item in the queue.</returns>
         </member>
         <member name="T:Towel.DataStructures.HeapArray`1">
-            <summary>Implements a priority heap with static priorities using an array.</summary>
+            <summary>A heap with static priorities implemented as a array.</summary>
             <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
             <citation>
             This heap imlpementation was originally developed by 
@@ -14589,6 +14589,36 @@
             <param name="message">The message of the exception.</param>
             <param name="innerException">The inner exception.</param>
         </member>
+        <member name="T:Towel.TowelBugException">
+            <summary>Represents a bug in the Towel project. Please report it.</summary>
+        </member>
+        <member name="M:Towel.TowelBugException.#ctor">
+            <summary>Represents a bug in the Towel project. Please report it.</summary>
+        </member>
+        <member name="M:Towel.TowelBugException.#ctor(System.String)">
+            <summary>Represents a bug in the Towel project. Please report it.</summary>
+            <param name="message">The message of the exception.</param>
+        </member>
+        <member name="M:Towel.TowelBugException.#ctor(System.String,System.Exception)">
+            <summary>Represents a bug in the Towel project. Please report it.</summary>
+            <param name="message">The message of the exception.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:Towel.CorruptedDataStructureException">
+            <summary>Thrown when a data structure operation fails due to external corruption.</summary>
+        </member>
+        <member name="M:Towel.CorruptedDataStructureException.#ctor">
+            <summary>Thrown when a data structure operation fails due to external corruption.</summary>
+        </member>
+        <member name="M:Towel.CorruptedDataStructureException.#ctor(System.String)">
+            <summary>Thrown when a data structure operation fails due to external corruption.</summary>
+            <param name="message">The message of the exception.</param>
+        </member>
+        <member name="M:Towel.CorruptedDataStructureException.#ctor(System.String,System.Exception)">
+            <summary>Thrown when a data structure operation fails due to external corruption.</summary>
+            <param name="message">The message of the exception.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
         <member name="T:Towel.TowelDotNetExtensions">
             <summary>Contains Extension methods on common System types.</summary>
         </member>
@@ -18384,11 +18414,6 @@
             <param name="measurement">The measurement value of the Acceleration.</param>
             <param name="units">The units of the Acceleration.</param>
         </member>
-        <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.Acceleration.Units)">
-            <summary>Constructs an Acceleration with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Acceleration.</param>
-            <param name="units">The units of the Acceleration.</param>
-        </member>
         <member name="M:Towel.Measurements.Acceleration`1.#ctor(`0,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an Acceleration with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Acceleration.</param>
@@ -18765,11 +18790,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.AngularAcceleration`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits)">
-            <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the AngularAcceleration.</param>
-            <param name="units">The units of the AngularAcceleration.</param>
-        </member>
-        <member name="M:Towel.Measurements.AngularAcceleration`1.#ctor(`0,Towel.Measurements.AngularAcceleration.Units)">
             <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AngularAcceleration.</param>
             <param name="units">The units of the AngularAcceleration.</param>
@@ -19416,11 +19436,6 @@
             <param name="measurement">The measurement value of the AngularSpeed.</param>
             <param name="units">The units of the AngularSpeed.</param>
         </member>
-        <member name="M:Towel.Measurements.AngularSpeed`1.#ctor(`0,Towel.Measurements.AngularSpeed.Units)">
-            <summary>Constructs an AngularSpeed with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the AngularSpeed.</param>
-            <param name="units">The units of the AngularSpeed.</param>
-        </member>
         <member name="M:Towel.Measurements.AngularSpeed`1.#ctor(`0,Towel.Measurements.Angle.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an AngularSpeed with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AngularSpeed.</param>
@@ -19739,11 +19754,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Area`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits)">
-            <summary>Constructs an Area with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Area.</param>
-            <param name="units">The units of the Area.</param>
-        </member>
-        <member name="M:Towel.Measurements.Area`1.#ctor(`0,Towel.Measurements.Area.Units)">
             <summary>Constructs an Area with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Area.</param>
             <param name="units">The units of the Area.</param>
@@ -20136,11 +20146,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.AreaDensity`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits)">
-            <summary>Constructs an AreaDensity with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the AreaDensity.</param>
-            <param name="units">The units of the AreaDensity.</param>
-        </member>
-        <member name="M:Towel.Measurements.AreaDensity`1.#ctor(`0,Towel.Measurements.AreaDensity.Units)">
             <summary>Constructs an AreaDensity with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the AreaDensity.</param>
             <param name="units">The units of the AreaDensity.</param>
@@ -20540,11 +20545,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Density`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits)">
-            <summary>Constructs an Density with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Density.</param>
-            <param name="units">The units of the Density.</param>
-        </member>
-        <member name="M:Towel.Measurements.Density`1.#ctor(`0,Towel.Measurements.Density.Units)">
             <summary>Constructs an Density with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Density.</param>
             <param name="units">The units of the Density.</param>
@@ -21196,11 +21196,6 @@
             <param name="measurement">The measurement value of the ElectricCurrent.</param>
             <param name="units">The units of the ElectricCurrent.</param>
         </member>
-        <member name="M:Towel.Measurements.ElectricCurrent`1.#ctor(`0,Towel.Measurements.ElectricCurrent.Units)">
-            <summary>Constructs an ElectricCurrent with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the ElectricCurrent.</param>
-            <param name="units">The units of the ElectricCurrent.</param>
-        </member>
         <member name="M:Towel.Measurements.ElectricCurrent`1.#ctor(`0,Towel.Measurements.ElectricCharge.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an ElectricCurrent with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the ElectricCurrent.</param>
@@ -21491,11 +21486,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits)">
-            <summary>Constructs an Energy with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Energy.</param>
-            <param name="units">The units of the Energy.</param>
-        </member>
-        <member name="M:Towel.Measurements.Energy`1.#ctor(`0,Towel.Measurements.Energy.Units)">
             <summary>Constructs an Energy with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Energy.</param>
             <param name="units">The units of the Energy.</param>
@@ -21956,11 +21946,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Force`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits)">
-            <summary>Constructs an Force with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Force.</param>
-            <param name="units">The units of the Force.</param>
-        </member>
-        <member name="M:Towel.Measurements.Force`1.#ctor(`0,Towel.Measurements.Force.Units)">
             <summary>Constructs an Force with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Force.</param>
             <param name="units">The units of the Force.</param>
@@ -22884,11 +22869,6 @@
             <param name="measurement">The measurement value of the LinearDensity.</param>
             <param name="units">The units of the LinearDensity.</param>
         </member>
-        <member name="M:Towel.Measurements.LinearDensity`1.#ctor(`0,Towel.Measurements.LinearDensity.Units)">
-            <summary>Constructs an LinearDensity with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the LinearDensity.</param>
-            <param name="units">The units of the LinearDensity.</param>
-        </member>
         <member name="M:Towel.Measurements.LinearDensity`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units)">
             <summary>Constructs an LinearDensity with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearDensity.</param>
@@ -23309,11 +23289,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.LinearMass`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits)">
-            <summary>Constructs an LinearMass with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the LinearMass.</param>
-            <param name="units">The units of the LinearMass.</param>
-        </member>
-        <member name="M:Towel.Measurements.LinearMass`1.#ctor(`0,Towel.Measurements.LinearMass.Units)">
             <summary>Constructs an LinearMass with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearMass.</param>
             <param name="units">The units of the LinearMass.</param>
@@ -23774,11 +23749,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.LinearMassFlow`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits)">
-            <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the LinearMassFlow.</param>
-            <param name="units">The units of the LinearMassFlow.</param>
-        </member>
-        <member name="M:Towel.Measurements.LinearMassFlow`1.#ctor(`0,Towel.Measurements.LinearMassFlow.Units)">
             <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the LinearMassFlow.</param>
             <param name="units">The units of the LinearMassFlow.</param>
@@ -24697,11 +24667,6 @@
             <param name="measurement">The measurement value of the MassRate.</param>
             <param name="units">The units of the MassRate.</param>
         </member>
-        <member name="M:Towel.Measurements.MassRate`1.#ctor(`0,Towel.Measurements.MassRate.Units)">
-            <summary>Constructs an MassRate with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the MassRate.</param>
-            <param name="units">The units of the MassRate.</param>
-        </member>
         <member name="M:Towel.Measurements.MassRate`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an MassRate with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the MassRate.</param>
@@ -25096,11 +25061,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits)">
-            <summary>Constructs an Power with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Power.</param>
-            <param name="units">The units of the Power.</param>
-        </member>
-        <member name="M:Towel.Measurements.Power`1.#ctor(`0,Towel.Measurements.Power.Units)">
             <summary>Constructs an Power with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Power.</param>
             <param name="units">The units of the Power.</param>
@@ -25519,11 +25479,6 @@
             <param name="measurement">The measurement value of the Pressure.</param>
             <param name="units">The units of the Pressure.</param>
         </member>
-        <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.Pressure.Units)">
-            <summary>Constructs an Pressure with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Pressure.</param>
-            <param name="units">The units of the Pressure.</param>
-        </member>
         <member name="M:Towel.Measurements.Pressure`1.#ctor(`0,Towel.Measurements.Mass.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an Pressure with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Pressure.</param>
@@ -25903,11 +25858,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Speed`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits)">
-            <summary>Constructs an Speed with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Speed.</param>
-            <param name="units">The units of the Speed.</param>
-        </member>
-        <member name="M:Towel.Measurements.Speed`1.#ctor(`0,Towel.Measurements.Speed.Units)">
             <summary>Constructs an Speed with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Speed.</param>
             <param name="units">The units of the Speed.</param>
@@ -27051,11 +27001,6 @@
             <param name="measurement">The measurement value of the TimeArea.</param>
             <param name="units">The units of the TimeArea.</param>
         </member>
-        <member name="M:Towel.Measurements.TimeArea`1.#ctor(`0,Towel.Measurements.TimeArea.Units)">
-            <summary>Constructs an TimeArea with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the TimeArea.</param>
-            <param name="units">The units of the TimeArea.</param>
-        </member>
         <member name="M:Towel.Measurements.TimeArea`1.#ctor(`0,Towel.Measurements.Time.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an TimeArea with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the TimeArea.</param>
@@ -27410,11 +27355,6 @@
             <returns>True if the parse was successful or false if not.</returns>
         </member>
         <member name="M:Towel.Measurements.Volume`1.#ctor(`0,Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits)">
-            <summary>Constructs an Volume with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the Volume.</param>
-            <param name="units">The units of the Volume.</param>
-        </member>
-        <member name="M:Towel.Measurements.Volume`1.#ctor(`0,Towel.Measurements.Volume.Units)">
             <summary>Constructs an Volume with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the Volume.</param>
             <param name="units">The units of the Volume.</param>
@@ -27818,11 +27758,6 @@
             <param name="measurement">The measurement value of the VolumeRate.</param>
             <param name="units">The units of the VolumeRate.</param>
         </member>
-        <member name="M:Towel.Measurements.VolumeRate`1.#ctor(`0,Towel.Measurements.VolumeRate.Units)">
-            <summary>Constructs an VolumeRate with the measurement value and units.</summary>
-            <param name="measurement">The measurement value of the VolumeRate.</param>
-            <param name="units">The units of the VolumeRate.</param>
-        </member>
         <member name="M:Towel.Measurements.VolumeRate`1.#ctor(`0,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Length.Units,Towel.Measurements.Time.Units)">
             <summary>Constructs an VolumeRate with the measurement value and units.</summary>
             <param name="measurement">The measurement value of the VolumeRate.</param>
@@ -28174,12 +28109,6 @@
             <summary>Base hashing function for VolumeRate measurements.</summary>
             <returns>Computed hash code for this instance.</returns>
         </member>
-        <member name="T:Towel.Measurements.Acceleration">
-            <summary>Contains unit types and conversion factors for the generic Acceleration struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Acceleration.Units">
-            <summary>Units for acceleration measurements.</summary>
-        </member>
         <member name="T:Towel.Measurements.Angle">
             <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
         </member>
@@ -28197,36 +28126,6 @@
         </member>
         <member name="F:Towel.Measurements.Angle.Units.Revolutions">
             <summary>Units of an angle measurement.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AngularAcceleration">
-            <summary>Contains unit types and conversion factors for the generic AngularAcceleration struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AngularAcceleration.Units">
-            <summary>Units for angularAcceleration measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AngularSpeed">
-            <summary>Contains unit types and conversion factors for the generic AngularSpeed struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AngularSpeed.Units">
-            <summary>Units for AngularSpeed measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Area">
-            <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Area.Units">
-            <summary>Units for Volumne measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AreaDensity">
-            <summary>Contains unit types and conversion factors for the generic AreaDensity struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.AreaDensity.Units">
-            <summary>Units for AreaDensity measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Density">
-            <summary>Contains unit types and conversion factors for the generic Desnity struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Density.Units">
-            <summary>Units for Desnity measurements.</summary>
         </member>
         <member name="T:Towel.Measurements.ElectricCharge">
             <summary>Contains unit types and conversion factors for the generic ElectricCharge struct.</summary>
@@ -28296,24 +28195,6 @@
         </member>
         <member name="F:Towel.Measurements.ElectricCharge.Units.Yottacoulombs">
             <summary>Units of an electric charge measurement.</summary>
-        </member>
-        <member name="T:Towel.Measurements.ElectricCurrent">
-            <summary>Contains unit types and conversion factors for the generic ElectricCurrent struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.ElectricCurrent.Units">
-            <summary>Units for electric current measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Energy">
-            <summary>Contains unit types and conversion factors for the generic Energy struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Energy.Units">
-            <summary>Units for Energy measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Force">
-            <summary>Contains unit types and conversion factors for the generic Force struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Force.Units">
-            <summary>Units for Force measurements.</summary>
         </member>
         <member name="T:Towel.Measurements.Length">
             <summary>Contains unit types and conversion factors for the generic Length struct.</summary>
@@ -28399,24 +28280,6 @@
         <member name="F:Towel.Measurements.Length.Units.Yottameters">
             <summary>Units of an length measurement.</summary>
         </member>
-        <member name="T:Towel.Measurements.LinearDensity">
-            <summary>Contains unit types and conversion factors for the generic LinearDensity struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.LinearDensity.Units">
-            <summary>Units for LinearDensity measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.LinearMass">
-            <summary>Contains unit types and conversion factors for the generic LinearMass struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.LinearMass.Units">
-            <summary>Units for LinearMass measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.LinearMassFlow">
-            <summary>Contains unit types and conversion factors for the generic LinearMassFlow struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.LinearMassFlow.Units">
-            <summary>Units for LinearMassFlow measurements.</summary>
-        </member>
         <member name="T:Towel.Measurements.Mass">
             <summary>Contains unit types and conversion factors for the generic Mass struct.</summary>
         </member>
@@ -28486,30 +28349,6 @@
         <member name="F:Towel.Measurements.Mass.Units.Yottagrams">
             <summary>Units of an mass measurement.</summary>
         </member>
-        <member name="T:Towel.Measurements.MassRate">
-            <summary>Contains unit types and conversion factors for the generic MassRate struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.MassRate.Units">
-            <summary>Units for MassRate measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Power">
-            <summary>Contains unit types and conversion factors for the generic Power struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Power.Units">
-            <summary>Units for Power measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Pressure">
-            <summary>Contains unit types and conversion factors for the generic Pressure struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Pressure.Units">
-            <summary>Units for Pressure measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Speed">
-            <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Speed.Units">
-            <summary>Units for Speed measurements.</summary>
-        </member>
         <member name="T:Towel.Measurements.Tempurature">
             <summary>Contains unit types and conversion factors for the generic Tempurature struct.</summary>
         </member>
@@ -28545,24 +28384,6 @@
         </member>
         <member name="F:Towel.Measurements.Time.Units.Days">
             <summary>Units of an time measurement.</summary>
-        </member>
-        <member name="T:Towel.Measurements.TimeArea">
-            <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.TimeArea.Units">
-            <summary>Units for Volumne measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Volume">
-            <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.Volume.Units">
-            <summary>Units for Volumne measurements.</summary>
-        </member>
-        <member name="T:Towel.Measurements.VolumeRate">
-            <summary>Contains unit types and conversion factors for the generic VolumeRate struct.</summary>
-        </member>
-        <member name="T:Towel.Measurements.VolumeRate.Units">
-            <summary>Units for VolumeRate measurements.</summary>
         </member>
         <member name="T:Towel.Measurements.MeasurementsSyntax">
             <summary>Provides syntax for measurement unit definition. Intended to be referenced via "using static" keyword in files.</summary>

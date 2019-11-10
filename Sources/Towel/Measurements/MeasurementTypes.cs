@@ -326,13 +326,6 @@ namespace Towel.Measurements
 			, units._TimeUnits3
 			) { }
 
-		/// <summary>Constructs an Acceleration with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Acceleration.</param>
-        /// <param name="units">The units of the Acceleration.</param>
-		public Acceleration(T measurement, Acceleration.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Acceleration with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Acceleration.</param>
@@ -1250,13 +1243,6 @@ namespace Towel.Measurements
 			, units._TimeUnits3
 			) { }
 
-		/// <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the AngularAcceleration.</param>
-        /// <param name="units">The units of the AngularAcceleration.</param>
-		public AngularAcceleration(T measurement, AngularAcceleration.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an AngularAcceleration with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the AngularAcceleration.</param>
@@ -2730,13 +2716,6 @@ namespace Towel.Measurements
 			, units._TimeUnits2
 			) { }
 
-		/// <summary>Constructs an AngularSpeed with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the AngularSpeed.</param>
-        /// <param name="units">The units of the AngularSpeed.</param>
-		public AngularSpeed(T measurement, AngularSpeed.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an AngularSpeed with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the AngularSpeed.</param>
@@ -3481,13 +3460,6 @@ namespace Towel.Measurements
 			, units._LengthUnits2
 			) { }
 
-		/// <summary>Constructs an Area with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Area.</param>
-        /// <param name="units">The units of the Area.</param>
-		public Area(T measurement, Area.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Area with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Area.</param>
@@ -4405,13 +4377,6 @@ namespace Towel.Measurements
 			, units._LengthUnits3
 			) { }
 
-		/// <summary>Constructs an AreaDensity with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the AreaDensity.</param>
-        /// <param name="units">The units of the AreaDensity.</param>
-		public AreaDensity(T measurement, AreaDensity.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an AreaDensity with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the AreaDensity.</param>
@@ -5384,13 +5349,6 @@ namespace Towel.Measurements
 			, units._LengthUnits4
 			) { }
 
-		/// <summary>Constructs an Density with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Density.</param>
-        /// <param name="units">The units of the Density.</param>
-		public Density(T measurement, Density.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Density with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Density.</param>
@@ -6901,13 +6859,6 @@ namespace Towel.Measurements
 			, units._TimeUnits2
 			) { }
 
-		/// <summary>Constructs an ElectricCurrent with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the ElectricCurrent.</param>
-        /// <param name="units">The units of the ElectricCurrent.</param>
-		public ElectricCurrent(T measurement, ElectricCurrent.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an ElectricCurrent with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the ElectricCurrent.</param>
@@ -7617,13 +7568,6 @@ namespace Towel.Measurements
 			, units._TimeUnits5
 			) { }
 
-		/// <summary>Constructs an Energy with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Energy.</param>
-        /// <param name="units">The units of the Energy.</param>
-		public Energy(T measurement, Energy.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Energy with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Energy.</param>
@@ -8806,13 +8750,6 @@ namespace Towel.Measurements
 			, units._TimeUnits4
 			) { }
 
-		/// <summary>Constructs an Force with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Force.</param>
-        /// <param name="units">The units of the Force.</param>
-		public Force(T measurement, Force.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Force with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Force.</param>
@@ -10965,13 +10902,6 @@ namespace Towel.Measurements
 			, units._LengthUnits2
 			) { }
 
-		/// <summary>Constructs an LinearDensity with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the LinearDensity.</param>
-        /// <param name="units">The units of the LinearDensity.</param>
-		public LinearDensity(T measurement, LinearDensity.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an LinearDensity with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the LinearDensity.</param>
@@ -11958,13 +11888,6 @@ namespace Towel.Measurements
 			, units._LengthUnits2
 			) { }
 
-		/// <summary>Constructs an LinearMass with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the LinearMass.</param>
-        /// <param name="units">The units of the LinearMass.</param>
-		public LinearMass(T measurement, LinearMass.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an LinearMass with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the LinearMass.</param>
@@ -13048,13 +12971,6 @@ namespace Towel.Measurements
 			, units._TimeUnits3
 			) { }
 
-		/// <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the LinearMassFlow.</param>
-        /// <param name="units">The units of the LinearMassFlow.</param>
-		public LinearMassFlow(T measurement, LinearMassFlow.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an LinearMassFlow with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the LinearMassFlow.</param>
@@ -15175,13 +15091,6 @@ namespace Towel.Measurements
 			, units._TimeUnits2
 			) { }
 
-		/// <summary>Constructs an MassRate with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the MassRate.</param>
-        /// <param name="units">The units of the MassRate.</param>
-		public MassRate(T measurement, MassRate.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an MassRate with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the MassRate.</param>
@@ -16149,13 +16058,6 @@ namespace Towel.Measurements
 			, units._TimeUnits6
 			) { }
 
-		/// <summary>Constructs an Power with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Power.</param>
-        /// <param name="units">The units of the Power.</param>
-		public Power(T measurement, Power.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Power with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Power.</param>
@@ -17250,13 +17152,6 @@ namespace Towel.Measurements
 			, units._TimeUnits4
 			) { }
 
-		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Pressure.</param>
-        /// <param name="units">The units of the Pressure.</param>
-		public Pressure(T measurement, Pressure.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Pressure with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Pressure.</param>
@@ -18201,13 +18096,6 @@ namespace Towel.Measurements
 			, units._TimeUnits2
 			) { }
 
-		/// <summary>Constructs an Speed with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Speed.</param>
-        /// <param name="units">The units of the Speed.</param>
-		public Speed(T measurement, Speed.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Speed with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Speed.</param>
@@ -20776,13 +20664,6 @@ namespace Towel.Measurements
 			, units._TimeUnits2
 			) { }
 
-		/// <summary>Constructs an TimeArea with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the TimeArea.</param>
-        /// <param name="units">The units of the TimeArea.</param>
-		public TimeArea(T measurement, TimeArea.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an TimeArea with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the TimeArea.</param>
@@ -21620,13 +21501,6 @@ namespace Towel.Measurements
 			, units._LengthUnits3
 			) { }
 
-		/// <summary>Constructs an Volume with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the Volume.</param>
-        /// <param name="units">The units of the Volume.</param>
-		public Volume(T measurement, Volume.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an Volume with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the Volume.</param>
@@ -22600,13 +22474,6 @@ namespace Towel.Measurements
 			, units._TimeUnits4
 			) { }
 
-		/// <summary>Constructs an VolumeRate with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the VolumeRate.</param>
-        /// <param name="units">The units of the VolumeRate.</param>
-		public VolumeRate(T measurement, VolumeRate.Units units)
-		{
-			throw new NotImplementedException();
-		}
 
 		/// <summary>Constructs an VolumeRate with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the VolumeRate.</param>
@@ -23495,11 +23362,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct AccelerationUnits
-		{
-			public Acceleration.Units _AccelerationUnits;
-		}
-
 		public struct AngularAccelerationBaseUnits : Measurement.IUnits<AngularAccelerationBaseUnits>
 		{
 			public Angle.Units _AngleUnits1;
@@ -23521,11 +23383,6 @@ namespace Towel.Measurements
 			}
 		
 		
-		}
-
-		public struct AngularAccelerationUnits
-		{
-			public AngularAcceleration.Units _AngularAccelerationUnits;
 		}
 
 		public struct AngleUnits : Measurement.IUnits<AngleUnits>
@@ -23583,11 +23440,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct AngularSpeedUnits
-		{
-			public AngularSpeed.Units _AngularSpeedUnits;
-		}
-
 		public struct AreaBaseUnits : Measurement.IUnits<AreaBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -23622,11 +23474,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct AreaUnits
-		{
-			public Area.Units _AreaUnits;
-		}
-
 		public struct AreaDensityBaseUnits : Measurement.IUnits<AreaDensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -23659,11 +23506,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct AreaDensityUnits
-		{
-			public AreaDensity.Units _AreaDensityUnits;
-		}
-
 		public struct DensityBaseUnits : Measurement.IUnits<DensityBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -23689,11 +23531,6 @@ namespace Towel.Measurements
 		
 		
 		
-		}
-
-		public struct DensityUnits
-		{
-			public Density.Units _DensityUnits;
 		}
 
 		public struct ElectricChargeUnits : Measurement.IUnits<ElectricChargeUnits>
@@ -23739,11 +23576,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct ElectricCurrentUnits
-		{
-			public ElectricCurrent.Units _ElectricCurrentUnits;
-		}
-
 		public struct EnergyBaseUnits : Measurement.IUnits<EnergyBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -23781,11 +23613,6 @@ namespace Towel.Measurements
 				return new PowerBaseUnits(a._MassUnits1, a._LengthUnits2, a._LengthUnits3, a._TimeUnits4, a._TimeUnits5, b._TimeUnits1);
 			}
 		
-		}
-
-		public struct EnergyUnits
-		{
-			public Energy.Units _EnergyUnits;
 		}
 
 		public struct ForceBaseUnits : Measurement.IUnits<ForceBaseUnits>
@@ -23827,11 +23654,6 @@ namespace Towel.Measurements
 		
 		
 		
-		}
-
-		public struct ForceUnits
-		{
-			public Force.Units _ForceUnits;
 		}
 
 		public struct LengthUnits : Measurement.IUnits<LengthUnits>
@@ -23931,11 +23753,6 @@ namespace Towel.Measurements
 			}
 		}
 
-		public struct LinearDensityUnits
-		{
-			public LinearDensity.Units _LinearDensityUnits;
-		}
-
 		public struct LinearMassBaseUnits : Measurement.IUnits<LinearMassBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -23976,11 +23793,6 @@ namespace Towel.Measurements
 				return new ForceBaseUnits(a._MassUnits1, a._LengthUnits2, b._TimeUnits1, b._TimeUnits2);
 			}
 		
-		}
-
-		public struct LinearMassUnits
-		{
-			public LinearMass.Units _LinearMassUnits;
 		}
 
 		public struct LinearMassFlowBaseUnits : Measurement.IUnits<LinearMassFlowBaseUnits>
@@ -24025,11 +23837,6 @@ namespace Towel.Measurements
 				return new ForceBaseUnits(a._MassUnits1, a._LengthUnits2, a._TimeUnits3, b._TimeUnits1);
 			}
 		
-		}
-
-		public struct LinearMassFlowUnits
-		{
-			public LinearMassFlow.Units _LinearMassFlowUnits;
 		}
 
 		public struct MassUnits : Measurement.IUnits<MassUnits>
@@ -24122,11 +23929,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct MassRateUnits
-		{
-			public MassRate.Units _MassRateUnits;
-		}
-
 		public struct PowerBaseUnits : Measurement.IUnits<PowerBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -24161,11 +23963,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct PowerUnits
-		{
-			public Power.Units _PowerUnits;
-		}
-
 		public struct PressureBaseUnits : Measurement.IUnits<PressureBaseUnits>
 		{
 			public Mass.Units _MassUnits1;
@@ -24193,11 +23990,6 @@ namespace Towel.Measurements
 		
 		
 		
-		}
-
-		public struct PressureUnits
-		{
-			public Pressure.Units _PressureUnits;
 		}
 
 		public struct SpeedBaseUnits : Measurement.IUnits<SpeedBaseUnits>
@@ -24250,11 +24042,6 @@ namespace Towel.Measurements
 			{
 				return new AccelerationBaseUnits(a._LengthUnits1, a._TimeUnits2, b._TimeUnits1);
 			}
-		}
-
-		public struct SpeedUnits
-		{
-			public Speed.Units _SpeedUnits;
 		}
 
 		public struct TempuratureUnits : Measurement.IUnits<TempuratureUnits>
@@ -24330,11 +24117,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct TimeAreaUnits
-		{
-			public TimeArea.Units _TimeAreaUnits;
-		}
-
 		public struct VolumeBaseUnits : Measurement.IUnits<VolumeBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -24367,11 +24149,6 @@ namespace Towel.Measurements
 		
 		}
 
-		public struct VolumeUnits
-		{
-			public Volume.Units _VolumeUnits;
-		}
-
 		public struct VolumeRateBaseUnits : Measurement.IUnits<VolumeRateBaseUnits>
 		{
 			public Length.Units _LengthUnits1;
@@ -24399,11 +24176,6 @@ namespace Towel.Measurements
 		
 		
 		
-		}
-
-		public struct VolumeRateUnits
-		{
-			public VolumeRate.Units _VolumeRateUnits;
 		}
 
 	}

@@ -43,16 +43,10 @@ namespace Towel
 				int median = low + (hi - low >> 1);
 				switch (compare(get(median)))
 				{
-					case Equal:
-						return median;
-					case Less:
-						low = median + 1;
-						break;
-					case Greater:
-						hi = median - 1;
-						break;
-					default:
-						throw new NotImplementedException();
+					case Equal:   return median;
+					case Less:    low = median + 1; break;
+					case Greater: hi = median - 1; break;
+					default:      throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
 			return ~low;

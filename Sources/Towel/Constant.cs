@@ -128,7 +128,7 @@ namespace Towel
 		#endregion
 
 		#region Epsilon
-
+#if false
 		// Note sure if this method will be necessary.
 
 		//internal static T ComputeEpsilon<T>()
@@ -137,9 +137,9 @@ namespace Towel
 		//    {
 		//        return (T)(object)float.Epsilon;
 		//    }
-		//    throw new NotImplementedException();
+		//    
 		//}
-
+#endif
 		#endregion
 	}
 }

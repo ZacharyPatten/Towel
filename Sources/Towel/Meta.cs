@@ -875,7 +875,7 @@ namespace Towel
 					// Hopefully this will never hit. At the time of writing
 					// this code, type.HasElementType is only true if the type
 					// is a pointer, array, or by reference.
-					throw new NotImplementedException(nameof(GetXmlDocumenationFormattedString) + 
+					throw new TowelBugException(nameof(GetXmlDocumenationFormattedString) + 
 						" encountered an unhandled element type. " +
 						"Please submit this issue to the Towel GitHub repository. " +
 						"https://github.com/ZacharyPatten/Towel/issues/new/choose");
@@ -999,7 +999,7 @@ namespace Towel
 				// this code, I am only aware of the following Member types:
 				// FieldInfo, PropertyInfo, EventInfo, ConstructorInfo,
 				// MethodInfo, and Type.
-				throw new NotImplementedException(nameof(GetDocumentation) +
+				throw new TowelBugException(nameof(GetDocumentation) +
 					" encountered an unhandled type [" + memberInfo.GetType().FullName + "]. " +
 					"Please submit this issue to the Towel GitHub repository. " +
 					"https://github.com/ZacharyPatten/Towel/issues/new/choose");
@@ -1035,10 +1035,8 @@ namespace Towel
 		/// <summary>Determines if a MethodInfo is a local function.</summary>
 		/// <param name="methodInfo">The method info to determine if it is a local function.</param>
 		/// <returns>True if the MethodInfo is a local function. False if not.</returns>
-		public static bool IsLocalFunction(this MethodInfo methodInfo)
-		{
-			return Regex.Match(methodInfo.Name, @"g__.+\|\d+_\d+").Success;
-		}
+		public static bool IsLocalFunction(this MethodInfo methodInfo) =>
+			Regex.Match(methodInfo.Name, @"g__.+\|\d+_\d+").Success;
 
 		#endregion
 	}

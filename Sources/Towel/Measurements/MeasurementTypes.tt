@@ -247,7 +247,7 @@ namespace Towel.Measurements
 <# baseUnitIndex++; } } #>
 			) { }
 
-<# if (isDerivedUnit) { #>
+<# if (isDerivedUnit && false) { #>
 		/// <summary>Constructs an <#= measurement.Item1 #> with the measurement value and units.</summary>
         /// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
         /// <param name="units">The units of the <#= measurement.Item1 #>.</param>
@@ -1386,7 +1386,7 @@ if (unitCollisions.Count > 0)
 <# } #>
 		}
 
-<# if (isDerivedUnit) { #>
+<# if (isDerivedUnit && false) { #>
 		public struct <#= measurement.Item1 #>Units
 		{
 			public <#= measurement.Item1 #>.Units _<#= measurement.Item1 #>Units;

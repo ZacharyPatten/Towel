@@ -9,22 +9,6 @@ namespace Towel.Measurements
 	// This file contains all the unit defintions as enum values
 	// for the various type of measurements.
 
-	#region Acceleration
-
-	/// <summary>Contains unit types and conversion factors for the generic Acceleration struct.</summary>
-	public static class Acceleration
-	{
-		/// <summary>Units for acceleration measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
 	#region Angle
 
 	/// <summary>Contains unit types and conversion factors for the generic Angle struct.</summary>
@@ -59,86 +43,6 @@ namespace Towel.Measurements
 			[ConversionFactor(Degrees, "360")]
 			[ConversionFactor(Radians, "2π")]
 			Revolutions = 3,
-		}
-	}
-
-	#endregion
-
-	#region AngularAcceleration
-
-	/// <summary>Contains unit types and conversion factors for the generic AngularAcceleration struct.</summary>
-	public static class AngularAcceleration
-	{
-		/// <summary>Units for angularAcceleration measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region AngularSpeed
-
-	/// <summary>Contains unit types and conversion factors for the generic AngularSpeed struct.</summary>
-	public static class AngularSpeed
-	{
-		/// <summary>Units for AngularSpeed measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Area
-
-	/// <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-	public static class Area
-	{
-		/// <summary>Units for Volumne measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region AreaDensity
-
-	/// <summary>Contains unit types and conversion factors for the generic AreaDensity struct.</summary>
-	public static class AreaDensity
-	{
-		/// <summary>Units for AreaDensity measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Density
-
-	/// <summary>Contains unit types and conversion factors for the generic Desnity struct.</summary>
-	public static class Density
-	{
-		/// <summary>Units for Desnity measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
 		}
 	}
 
@@ -221,54 +125,6 @@ namespace Towel.Measurements
 			/// <summary>Units of an electric charge measurement.</summary>
 			[MetricUnit(MetricUnits.Yotta)]
 			Yottacoulombs = 20,
-		}
-	}
-
-	#endregion
-
-	#region ElectricCurrent
-
-	/// <summary>Contains unit types and conversion factors for the generic ElectricCurrent struct.</summary>
-	public static class ElectricCurrent
-	{
-		/// <summary>Units for electric current measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Energy
-
-	/// <summary>Contains unit types and conversion factors for the generic Energy struct.</summary>
-	public static class Energy
-	{
-		/// <summary>Units for Energy measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Force
-
-	/// <summary>Contains unit types and conversion factors for the generic Force struct.</summary>
-	public static class Force
-	{
-		/// <summary>Units for Force measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
 		}
 	}
 
@@ -483,54 +339,6 @@ namespace Towel.Measurements
 
 	#endregion
 
-	#region LinearDensity
-
-	/// <summary>Contains unit types and conversion factors for the generic LinearDensity struct.</summary>
-	public static class LinearDensity
-	{
-		/// <summary>Units for LinearDensity measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region LinearMass
-
-	/// <summary>Contains unit types and conversion factors for the generic LinearMass struct.</summary>
-	public static class LinearMass
-	{
-		/// <summary>Units for LinearMass measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region LinearMassFlow
-
-	/// <summary>Contains unit types and conversion factors for the generic LinearMassFlow struct.</summary>
-	public static class LinearMassFlow
-	{
-		/// <summary>Units for LinearMassFlow measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
 	#region Mass
 
 	/// <summary>Contains unit types and conversion factors for the generic Mass struct.</summary>
@@ -608,70 +416,6 @@ namespace Towel.Measurements
 			/// <summary>Units of an mass measurement.</summary>
 			[MetricUnit(MetricUnits.Yotta)]
 			Yottagrams = 24,
-		}
-	}
-
-	#endregion
-
-	#region MassRate
-
-	/// <summary>Contains unit types and conversion factors for the generic MassRate struct.</summary>
-	public static class MassRate
-	{
-		/// <summary>Units for MassRate measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Power
-
-	/// <summary>Contains unit types and conversion factors for the generic Power struct.</summary>
-	public static class Power
-	{
-		/// <summary>Units for Power measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Pressure
-
-	/// <summary>Contains unit types and conversion factors for the generic Pressure struct.</summary>
-	public static class Pressure
-	{
-		/// <summary>Units for Pressure measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Speed
-
-	/// <summary>Contains unit types and conversion factors for the generic Speed struct.</summary>
-	public static class Speed
-	{
-		/// <summary>Units for Speed measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
 		}
 	}
 
@@ -769,54 +513,6 @@ namespace Towel.Measurements
 			[ConversionFactor(Minutes, "1440")]
 			[ConversionFactor(Hours, "24")]
 			Days = 4,
-		}
-	}
-
-	#endregion
-
-	#region TimeArea
-
-	/// <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-	public static class TimeArea
-	{
-		/// <summary>Units for Volumne measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Volume
-
-	/// <summary>Contains unit types and conversion factors for the generic Volumne struct.</summary>
-	public static class Volume
-	{
-		/// <summary>Units for Volumne measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
-		}
-	}
-
-	#endregion
-
-	#region Volume
-
-	/// <summary>Contains unit types and conversion factors for the generic VolumeRate struct.</summary>
-	public static class VolumeRate
-	{
-		/// <summary>Units for VolumeRate measurements.</summary>
-		[Measurement.ParseableUnit]
-		[Serializable]
-		public enum Units
-		{
-			// no custom units currently
 		}
 	}
 
