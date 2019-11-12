@@ -333,7 +333,7 @@ namespace Towel.DataStructures
 		{
 			for (Node node = _head; !(node is null); node = node.Next)
 			{
-				if (step(node.Value) == Break)
+				if (step(node.Value) is Break)
 				{
 					return Break;
 				}
@@ -349,7 +349,7 @@ namespace Towel.DataStructures
 			for (Node node = _head; !(node is null); node = node.Next)
 			{
 				T temp = node.Value;
-				if (step(ref temp) == Break)
+				if (step(ref temp) is Break)
 				{
 					node.Value = temp;
 					return Break;

@@ -1317,7 +1317,7 @@ namespace Towel.Mathematics
 		{
 			for (int i = 0; i < _vector.Length; i++)
 			{
-				if (step(_vector[i]) == Break)
+				if (step(_vector[i]) is Break)
 				{
 					return Break;
 				}
@@ -1332,7 +1332,7 @@ namespace Towel.Mathematics
 		{
 			for (int i = 0; i < _vector.Length; i++)
 			{
-				if (step(ref _vector[i]) == Break)
+				if (step(ref _vector[i]) is Break)
 				{
 					return Break;
 				}

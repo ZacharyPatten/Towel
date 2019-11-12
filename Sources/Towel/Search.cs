@@ -214,11 +214,11 @@ namespace Towel
 			{
 				AstarNode<Node, Numeric> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
-				if (status == GraphSearchStatus.Break)
+				if (status is GraphSearchStatus.Break)
 				{
 					break;
 				}
-				else if (status == GraphSearchStatus.Goal)
+				else if (status is GraphSearchStatus.Goal)
 				{
 					totalCost = current.Cost;
 					return BuildPath(current);
@@ -361,11 +361,11 @@ namespace Towel
 			{
 				DijkstraNode<Node, Numeric> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
-				if (status == GraphSearchStatus.Break)
+				if (status is GraphSearchStatus.Break)
 				{
 					break;
 				}
-				if (status == GraphSearchStatus.Goal)
+				if (status is GraphSearchStatus.Goal)
 				{
 					return BuildPath(current);
 				}
@@ -486,11 +486,11 @@ namespace Towel
 			{
 				BreadthFirstSearch<Node> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
-				if (status == GraphSearchStatus.Break)
+				if (status is GraphSearchStatus.Break)
 				{
 					break;
 				}
-				if (status == GraphSearchStatus.Goal)
+				if (status is GraphSearchStatus.Goal)
 				{
 					return BuildPath(current);
 				}

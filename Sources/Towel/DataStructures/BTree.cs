@@ -464,7 +464,7 @@ namespace Towel.DataStructures
 						throw new System.NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) is Equal)
 				return true;
 			if (node.ChildCount == 0)
 				return false;
@@ -489,7 +489,7 @@ namespace Towel.DataStructures
 						throw new NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) is Equal)
 				return node.Items[loc];
 			if (node.ChildCount == 0)
 				throw new InvalidOperationException("getting a non-existing item");
@@ -514,7 +514,7 @@ namespace Towel.DataStructures
 						throw new System.NotImplementedException();
 				}
 			break_for:
-			if (loc < node.ItemCount && compare(node.Items[loc]) == Equal)
+			if (loc < node.ItemCount && compare(node.Items[loc]) is Equal)
 			{
 				RemoveKeyFromNode(node, compare, loc);
 				return;
@@ -775,7 +775,7 @@ namespace Towel.DataStructures
 			if (child.ItemCount == this._node_size)// (2 * this._node_size) - 1) // non-leaf
 			{
 				this.Add_SplitChild(node, positionToInsert, child);
-				if (this._compare(addition, node.Items[positionToInsert]) == Greater)
+				if (this._compare(addition, node.Items[positionToInsert]) is Greater)
 				{
 					positionToInsert++;
 				}

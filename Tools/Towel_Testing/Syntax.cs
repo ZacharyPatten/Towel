@@ -1164,33 +1164,33 @@ namespace Towel_Testing
 
 		[TestMethod] public void Comparison_Testing()
 		{
-			Assert.IsTrue(Comparison(0, 0) == Equal);
-			Assert.IsTrue(Comparison(-1, 0) == Less);
-			Assert.IsTrue(Comparison(1, 0) == Greater);
-			Assert.IsTrue(Comparison(777, 333) == Greater);
-			Assert.IsTrue(Comparison(333, 777) == Less);
-			Assert.IsTrue(Comparison(777, 777) == Equal);
+			Assert.IsTrue(Comparison(0, 0) is Equal);
+			Assert.IsTrue(Comparison(-1, 0) is Less);
+			Assert.IsTrue(Comparison(1, 0) is Greater);
+			Assert.IsTrue(Comparison(777, 333) is Greater);
+			Assert.IsTrue(Comparison(333, 777) is Less);
+			Assert.IsTrue(Comparison(777, 777) is Equal);
 
-			Assert.IsTrue(Comparison(0f, 0f) == Equal);
-			Assert.IsTrue(Comparison(-1f, 0f) == Less);
-			Assert.IsTrue(Comparison(1f, 0f) == Greater);
-			Assert.IsTrue(Comparison(777f, 333f) == Greater);
-			Assert.IsTrue(Comparison(333f, 777f) == Less);
-			Assert.IsTrue(Comparison(777f, 777f) == Equal);
+			Assert.IsTrue(Comparison(0f, 0f) is Equal);
+			Assert.IsTrue(Comparison(-1f, 0f) is Less);
+			Assert.IsTrue(Comparison(1f, 0f) is Greater);
+			Assert.IsTrue(Comparison(777f, 333f) is Greater);
+			Assert.IsTrue(Comparison(333f, 777f) is Less);
+			Assert.IsTrue(Comparison(777f, 777f) is Equal);
 
-			Assert.IsTrue(Comparison(0d, 0d) == Equal);
-			Assert.IsTrue(Comparison(-1d, 0d) == Less);
-			Assert.IsTrue(Comparison(1d, 0d) == Greater);
-			Assert.IsTrue(Comparison(777d, 333d) == Greater);
-			Assert.IsTrue(Comparison(333d, 777d) == Less);
-			Assert.IsTrue(Comparison(777d, 777d) == Equal);
+			Assert.IsTrue(Comparison(0d, 0d) is Equal);
+			Assert.IsTrue(Comparison(-1d, 0d) is Less);
+			Assert.IsTrue(Comparison(1d, 0d) is Greater);
+			Assert.IsTrue(Comparison(777d, 333d) is Greater);
+			Assert.IsTrue(Comparison(333d, 777d) is Less);
+			Assert.IsTrue(Comparison(777d, 777d) is Equal);
 
-			Assert.IsTrue(Comparison(0m, 0m) == Equal);
-			Assert.IsTrue(Comparison(-1m, 0m) == Less);
-			Assert.IsTrue(Comparison(1m, 0m) == Greater);
-			Assert.IsTrue(Comparison(777m, 333m) == Greater);
-			Assert.IsTrue(Comparison(333m, 777m) == Less);
-			Assert.IsTrue(Comparison(777m, 777m) == Equal);
+			Assert.IsTrue(Comparison(0m, 0m) is Equal);
+			Assert.IsTrue(Comparison(-1m, 0m) is Less);
+			Assert.IsTrue(Comparison(1m, 0m) is Greater);
+			Assert.IsTrue(Comparison(777m, 333m) is Greater);
+			Assert.IsTrue(Comparison(333m, 777m) is Less);
+			Assert.IsTrue(Comparison(777m, 777m) is Equal);
 		}
 
 		#endregion

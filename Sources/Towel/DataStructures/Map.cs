@@ -624,7 +624,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(node.Value) == Break)
+					if (step(node.Value) is Break)
 					{
 						return Break;
 					}
@@ -643,7 +643,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(ref node.Value) == Break)
+					if (step(ref node.Value) is Break)
 					{
 						return Break;
 					}
@@ -676,7 +676,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(node.Key) == Break)
+					if (step(node.Key) is Break)
 					{
 						return Break;
 					}
@@ -709,7 +709,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(node.Value, node.Key) == Break)
+					if (step(node.Value, node.Key) is Break)
 					{
 						return Break;
 					}
@@ -742,7 +742,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(ref node.Value, node.Key) == Break)
+					if (step(ref node.Value, node.Key) is Break)
 					{
 						return Break;
 					}

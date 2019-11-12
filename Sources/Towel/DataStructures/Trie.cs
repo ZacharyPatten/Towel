@@ -359,13 +359,13 @@ namespace Towel.DataStructures
 			{
 				if (node.IsLeaf)
 				{
-					if (step(stepper) == Break)
+					if (step(stepper) is Break)
 					{
 						return Break;
 					}
 				}
 				return node.Map.Stepper((a, b) =>
-					Stepper(a, x => { stepper(x); x(b); }) == Break
+					Stepper(a, x => { stepper(x); x(b); }) is Break
 						? Break
 						: Continue);
 			}
@@ -759,13 +759,13 @@ namespace Towel.DataStructures
 			{
 				if (node.HasValue)
 				{
-					if (step(stepper, node.Value) == Break)
+					if (step(stepper, node.Value) is Break)
 					{
 						return Break;
 					}
 				}
 				return node.Map.Stepper((a, b) =>
-					Stepper(a, x => { stepper(x); x(b); }) == Break
+					Stepper(a, x => { stepper(x); x(b); }) is Break
 						? Break
 						: Continue);
 			}
@@ -799,13 +799,13 @@ namespace Towel.DataStructures
 			{
 				if (node.HasValue)
 				{
-					if (step(stepper) == Break)
+					if (step(stepper) is Break)
 					{
 						return Break;
 					}
 				}
 				return node.Map.Stepper((a, b) =>
-					Stepper(a, x => { stepper(x); x(b); }) == Break
+					Stepper(a, x => { stepper(x); x(b); }) is Break
 						? Break
 						: Continue);
 			}

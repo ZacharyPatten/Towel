@@ -88,7 +88,7 @@ namespace Towel
 			{
 				for (int j = start; j <= end - 1; j++)
 				{
-					if (compare.Do(get.Do(j), get.Do(j + 1)) == Greater)
+					if (compare.Do(get.Do(j), get.Do(j + 1)) is Greater)
 					{
 						T temp = get.Do(j + 1);
 						set.Do(j + 1, get.Do(j));
@@ -180,7 +180,7 @@ namespace Towel
 				int min_idx = i;
 				for (int j = i + 1; j <= end; j++)
 				{
-					if (compare.Do(get.Do(j), get.Do(min_idx)) == Less)
+					if (compare.Do(get.Do(j), get.Do(min_idx)) is Less)
 					{
 						min_idx = j;
 					}
@@ -278,7 +278,7 @@ namespace Towel
 			{
 				T temp = get.Do(i);
 				int j = i;
-				for (; j > start && compare.Do(get.Do(j - 1), temp) == Greater; j--)
+				for (; j > start && compare.Do(get.Do(j - 1), temp) is Greater; j--)
 				{
 					set.Do(j, get.Do(j - 1));
 				}
@@ -383,13 +383,13 @@ namespace Towel
 				int k = j;
 				while (i <= j)
 				{
-					if (compare.Do(get.Do(j), pivot) == Less)
+					if (compare.Do(get.Do(j), pivot) is Less)
 					{
 						T temp = get.Do(i);
 						set.Do(i++, get.Do(j));
 						set.Do(j, temp);
 					}
-					else if (compare.Do(get.Do(j), pivot) == Equal)
+					else if (compare.Do(get.Do(j), pivot) is Equal)
 					{
 						j--;
 					}
@@ -505,7 +505,7 @@ namespace Towel
 				int k = 0;
 				while (i < start + half && j < start + len)
 				{
-					if (compare.Do(get.Do(i), get.Do(j)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(j)) is Greater)
 					{
 						sorted[k++] = get.Do(j++);
 					}
@@ -636,11 +636,11 @@ namespace Towel
 			int right = ((index + 1) * 2) + offset;
 			index += offset;
 			int largest = index;
-			if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) == Greater)
+			if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) is Greater)
 			{
 				largest = left;
 			}
-			if (right < heapSize  && compare.Do(get.Do(right), get.Do(largest)) == Greater)
+			if (right < heapSize  && compare.Do(get.Do(right), get.Do(largest)) is Greater)
 			{
 				largest = right;
 			}
@@ -742,7 +742,7 @@ namespace Towel
 				sorted = true;
 				for (int i = start; i < end; i += 2)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
 					{
 						T temp = get.Do(i);
 						set.Do(i, get.Do(i + 1));
@@ -752,7 +752,7 @@ namespace Towel
 				}
 				for (int i = start + 1; i < end; i += 2)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
 					{
 						T temp = get.Do(i);
 						set.Do(i, get.Do(i + 1));
@@ -997,7 +997,7 @@ namespace Towel
 		{
 			for (int i = start; i <= end - 1; i++)
 			{
-				if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+				if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
 				{
 					return false;
 				}
@@ -1083,7 +1083,7 @@ namespace Towel
 			int m = (i + j) / 2;
 			Slow_Recursive<T, Compare, Get, Set>(i, m, compare, get, set);
 			Slow_Recursive<T, Compare, Get, Set>(m + 1, j, compare, get, set);
-			if (compare.Do(get.Do(j), get.Do(m)) == Less)
+			if (compare.Do(get.Do(j), get.Do(m)) is Less)
 			{
 				T temp = get.Do(j);
 				set.Do(j, get.Do(m));
@@ -1252,7 +1252,7 @@ namespace Towel
 				}
 				for (int i = start; i + gap <= end; i++)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + gap)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(i + gap)) is Greater)
 					{
 						T temp = get.Do(i);
 						set.Do(i, get.Do(i + gap));
@@ -1335,7 +1335,7 @@ namespace Towel
 				{
 					T temp = get.Do(i);
 					int j = i;
-					for (; j >= gap && compare.Do(get.Do(j - gap), temp) == Greater; j -= gap)
+					for (; j >= gap && compare.Do(get.Do(j - gap), temp) is Greater; j -= gap)
 					{
 						set.Do(j, get.Do(j - gap));
 					}
@@ -1414,7 +1414,7 @@ namespace Towel
 				bool swapped = false;
 				for (int i = start; i <= end - 1; i++)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
 					{
 						T temp = get.Do(i);
 						set.Do(i, get.Do(i + 1));
@@ -1429,7 +1429,7 @@ namespace Towel
 				swapped = false;
 				for (int i = end - 1; i >= start; i--)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) == Greater)
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
 					{
 						T temp = get.Do(i);
 						set.Do(i, get.Do(i + 1));

@@ -136,15 +136,15 @@ namespace Towel.DataStructures
 					return new Node() { Value = value, };
 				}
 				CompareResult comparison = _compare(node.Value, value);
-				if (comparison == Less)
+				if (comparison is Less)
 				{
 					node.RightChild = Add(node.RightChild);
 				}
-				else if (comparison == Greater)
+				else if (comparison is Greater)
 				{
 					node.LeftChild = Add(node.LeftChild);
 				}
-				else // (comparison == Equal)
+				else // (comparison is Equal)
 				{
 					capturedException = new ArgumentException("Adding to add a duplicate value to an AVL tree.", nameof(value));
 				}
@@ -199,11 +199,11 @@ namespace Towel.DataStructures
 			while (!(node is null))
 			{
 				CompareResult compareResult = comparison(node.Value);
-				if (compareResult == Less)
+				if (compareResult is Less)
 				{
 					node = node.LeftChild;
 				}
-				else if (compareResult == Greater)
+				else if (compareResult is Greater)
 				{
 					node = node.RightChild;
 				}
@@ -231,11 +231,11 @@ namespace Towel.DataStructures
 			while (!(node is null))
 			{
 				CompareResult comparison = compare(node.Value);
-				if (comparison == Less)
+				if (comparison is Less)
 				{
 					node = node.LeftChild;
 				}
-				else if (comparison == Greater)
+				else if (comparison is Greater)
 				{
 					node = node.RightChild;
 				}
@@ -274,11 +274,11 @@ namespace Towel.DataStructures
 				if (!(node is null))
 				{
 					CompareResult compareResult = compare(node.Value);
-					if (compareResult == Less)
+					if (compareResult is Less)
 					{
 						node.RightChild = Remove(node.RightChild);
 					}
-					else if (compareResult == Greater)
+					else if (compareResult is Greater)
 					{
 						node.LeftChild = Remove(node.LeftChild);
 					}
@@ -367,9 +367,9 @@ namespace Towel.DataStructures
 				if (!(node is null))
 				{
 					return
-						Stepper(node.LeftChild) == Break ? Break :
-						step(node.Value) == Break ? Break :
-						Stepper(node.RightChild) == Break ? Break :
+						Stepper(node.LeftChild) is Break ? Break :
+						step(node.Value) is Break ? Break :
+						Stepper(node.RightChild) is Break ? Break :
 						Continue;
 				}
 				return Continue;
@@ -388,9 +388,9 @@ namespace Towel.DataStructures
 				if (!(node is null))
 				{
 					return
-						Stepper(node.LeftChild) == Break ? Break :
-						step(ref node.Value) == Break ? Break :
-						Stepper(node.RightChild) == Break ? Break :
+						Stepper(node.LeftChild) is Break ? Break :
+						step(ref node.Value) is Break ? Break :
+						Stepper(node.RightChild) is Break ? Break :
 						Continue;
 				}
 				return Continue;
@@ -413,11 +413,11 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, maximum) == Greater)
+					if (_compare(node.Value, maximum) is Greater)
 					{
 						Stepper(node.LeftChild);
 					}
-					else if (_compare(node.Value, minimum) == Less)
+					else if (_compare(node.Value, minimum) is Less)
 					{
 						Stepper(node.RightChild);
 					}
@@ -429,7 +429,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -447,11 +447,11 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						Stepper(node.LeftChild);
 					}
@@ -463,7 +463,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -481,26 +481,26 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
 					else
 					{
 						return
-							Stepper(node.LeftChild) == Break ? Break :
-							step(node.Value) == Break ? Break :
-							Stepper(node.RightChild) == Break ? Break :
+							Stepper(node.LeftChild) is Break ? Break :
+							step(node.Value) is Break ? Break :
+							Stepper(node.RightChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -518,26 +518,26 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
 					else
 					{
 						return
-							Stepper(node.LeftChild) == Break ? Break :
-							step(ref node.Value) == Break ? Break :
-							Stepper(node.RightChild) == Break ? Break :
+							Stepper(node.LeftChild) is Break ? Break :
+							step(ref node.Value) is Break ? Break :
+							Stepper(node.RightChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -595,9 +595,9 @@ namespace Towel.DataStructures
 				if (!(node is null))
 				{
 					return
-						StepperReverse(node.RightChild) == Break ? Break :
-						step(node.Value) == Break ? Break :
-						StepperReverse(node.LeftChild) == Break ? Break :
+						StepperReverse(node.RightChild) is Break ? Break :
+						step(node.Value) is Break ? Break :
+						StepperReverse(node.LeftChild) is Break ? Break :
 						Continue;
 				}
 				return Continue;
@@ -616,9 +616,9 @@ namespace Towel.DataStructures
 				if (!(node is null))
 				{
 					return
-						StepperReverse(node.RightChild) == Break ? Break :
-						step(ref node.Value) == Break ? Break :
-						StepperReverse(node.LeftChild) == Break ? Break :
+						StepperReverse(node.RightChild) is Break ? Break :
+						step(ref node.Value) is Break ? Break :
+						StepperReverse(node.LeftChild) is Break ? Break :
 						Continue;
 				}
 				return Continue;
@@ -641,11 +641,11 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, maximum) == Greater)
+					if (_compare(node.Value, maximum) is Greater)
 					{
 						StepperReverse(node.LeftChild);
 					}
-					else if (_compare(node.Value, minimum) == Less)
+					else if (_compare(node.Value, minimum) is Less)
 					{
 						StepperReverse(node.RightChild);
 					}
@@ -657,7 +657,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -675,11 +675,11 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						StepperReverse(node.LeftChild);
 					}
@@ -691,7 +691,7 @@ namespace Towel.DataStructures
 					}
 				}
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -709,26 +709,26 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
 					else
 					{
 						return
-							StepperReverse(node.RightChild) == Break ? Break :
-							step(node.Value) == Break ? Break :
-							StepperReverse(node.LeftChild) == Break ? Break :
+							StepperReverse(node.RightChild) is Break ? Break :
+							step(node.Value) is Break ? Break :
+							StepperReverse(node.LeftChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -746,26 +746,26 @@ namespace Towel.DataStructures
 			{
 				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) == Less)
+					if (_compare(node.Value, minimum) is Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) == Greater)
+					else if (_compare(node.Value, maximum) is Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
 					else
 					{
 						return
-							StepperReverse(node.RightChild) == Break ? Break :
-							step(ref node.Value) == Break ? Break :
-							StepperReverse(node.LeftChild) == Break ? Break :
+							StepperReverse(node.RightChild) is Break ? Break :
+							step(ref node.Value) is Break ? Break :
+							StepperReverse(node.LeftChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) == Greater)
+			if (_compare(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}

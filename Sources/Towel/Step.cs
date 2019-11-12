@@ -272,7 +272,7 @@ namespace Towel
 			{
 				foreach (T value in iEnumerable)
 				{
-					if (step(value) == Break)
+					if (step(value) is Break)
 					{
 						return Break;
 					};
@@ -302,7 +302,7 @@ namespace Towel
 			{
 				for (int i = 0; i < array.Length; i++)
 				{
-					if (step(ref array[i]) == Break)
+					if (step(ref array[i]) is Break)
 					{
 						return Break;
 					};

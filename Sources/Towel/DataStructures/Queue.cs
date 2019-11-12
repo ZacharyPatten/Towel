@@ -239,7 +239,7 @@ namespace Towel.DataStructures
 		{
 			for (Node current = _head; !(current is null); current = current.Next)
 			{
-				if (step(current.Value) == Break)
+				if (step(current.Value) is Break)
 				{
 					return Break;
 				}
@@ -254,7 +254,7 @@ namespace Towel.DataStructures
 		{
 			for (Node current = _head; !(current is null); current = current.Next)
 			{
-				if (step(ref current.Value) == Break)
+				if (step(ref current.Value) is Break)
 				{
 					return Break;
 				}

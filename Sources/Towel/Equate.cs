@@ -34,7 +34,7 @@ namespace Towel
 		/// <param name="compare">The compare delegate to convert to a equate.</param>
 		/// <returns>The compare delegate converted into an equate.</returns>
 		public static Equate<T> FromCompare<T>(Compare<T> compare) =>
-			(a, b) => compare(a, b) == Equal;
+			(a, b) => compare(a, b) is Equal;
 
 		#endregion
 	}

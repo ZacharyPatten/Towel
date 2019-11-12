@@ -582,7 +582,7 @@ namespace Towel
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step(array[i]) == Break)
+				if (step(array[i]) is Break)
 				{
 					return Break;
 				}
@@ -601,7 +601,7 @@ namespace Towel
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step(ref array[i]) == Break)
+				if (step(ref array[i]) is Break)
 				{
 					return Break;
 				}
@@ -637,7 +637,7 @@ namespace Towel
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
-				if (step(array[i]) == Break)
+				if (step(array[i]) is Break)
 				{
 					return Break;
 				}
@@ -654,7 +654,7 @@ namespace Towel
 		{
 			for (int i = 0; i < array.Length; i++)
 			{
-				if (step(ref array[i]) == Break)
+				if (step(ref array[i]) is Break)
 				{
 					return Break;
 				}

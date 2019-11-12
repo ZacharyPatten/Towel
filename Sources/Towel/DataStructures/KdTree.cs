@@ -245,7 +245,7 @@ namespace Towel.DataStructures
 		{
 			for (var index = 0; index < this._dimensions; index++)
 			{
-				if (!(this._compareKey(a(index), b(index)) == Equal))
+				if (!(this._compareKey(a(index), b(index)) is Equal))
 					return false;
 			}
 
@@ -419,7 +419,7 @@ namespace Towel.DataStructures
 			{
 				if (nearestNeighbours.IsCapacityReached)
 				{
-					if (this._compareKey(distanceSquaredToTarget, nearestNeighbours.GetFurtherestDistance()) == Less)
+					if (this._compareKey(distanceSquaredToTarget, nearestNeighbours.GetFurtherestDistance()) is Less)
 						AddNearestNeighbours(
 							furtherNode,
 							target,
@@ -601,7 +601,7 @@ namespace Towel.DataStructures
 				{
 					Node a = nodes[newIndex - 1];
 					Node b = nodes[newIndex];
-					if (this._compareKey(this._locate(b.Value)(byDimension), this._locate(a.Value)(byDimension)) == Less)
+					if (this._compareKey(this._locate(b.Value)(byDimension), this._locate(a.Value)(byDimension)) is Less)
 					{
 						nodes[newIndex - 1] = b;
 						nodes[newIndex] = a;
@@ -733,11 +733,11 @@ namespace Towel.DataStructures
 
 			for (var dimension = 0; dimension < length; dimension++)
 			{
-				if (this._compareT(_minPoint[dimension], toPoint(dimension)) == Greater)
+				if (this._compareT(_minPoint[dimension], toPoint(dimension)) is Greater)
 				{
 					closest[dimension] = _minPoint[dimension];
 				}
-				else if (this._compareT(_maxPoint[dimension], toPoint(dimension)) == Less)
+				else if (this._compareT(_maxPoint[dimension], toPoint(dimension)) is Less)
 				{
 					closest[dimension] = _maxPoint[dimension];
 				}
@@ -860,9 +860,9 @@ namespace Towel.DataStructures
 				// If we're moving up and our priority is higher than the next priority then swap
 				// Or if we're moving down and our priority is lower than the next priority then swap
 				if (
-					((direction == -1) && (compare == Greater))
+					((direction == -1) && (compare is Greater))
 					||
-					((direction == 1) && (compare == Less))
+					((direction == 1) && (compare is Less))
 					)
 				{
 					queue[index] = next;

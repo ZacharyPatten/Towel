@@ -358,7 +358,7 @@ namespace Towel.DataStructures
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
-					if (step(node.Value) == Break)
+					if (step(node.Value) is Break)
 					{
 						return Break;
 					}
@@ -742,7 +742,7 @@ namespace Towel.DataStructures
 			{
 				if (!(_table[i] is null))
 				{
-					if (_table[i].Stepper(step) == Break)
+					if (_table[i].Stepper(step) is Break)
 					{
 						return Break;
 					}

@@ -305,7 +305,7 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					if (step(array[i]) == Break)
+					if (step(array[i]) is Break)
 					{
 						return Break;
 					}
@@ -325,7 +325,7 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					if (step(ref array[i]) == Break)
+					if (step(ref array[i]) is Break)
 					{
 						return Break;
 					}

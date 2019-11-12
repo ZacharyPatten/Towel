@@ -233,7 +233,7 @@ namespace Towel.DataStructures
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
 <# for (int j = 1; j <= i; j++) { #>
-			if (function(this._<#= j #>) == Break)
+			if (function(this._<#= j #>) is Break)
 			{
 				return Break;
 			}
@@ -504,7 +504,7 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(StepBreak<object> function)
 		{
 <# for (int j = 1; j <= i; j++) { #>
-			if (function(this._<#= j #>) == Break)
+			if (function(this._<#= j #>) is Break)
 			{
 				return Break;
 			}

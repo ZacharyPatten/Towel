@@ -151,7 +151,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
@@ -330,7 +330,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
@@ -548,11 +548,11 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
@@ -770,11 +770,11 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
@@ -1034,15 +1034,15 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
@@ -1301,15 +1301,15 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
@@ -1611,19 +1611,19 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
@@ -1925,19 +1925,19 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
@@ -2281,23 +2281,23 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
@@ -2644,23 +2644,23 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
@@ -3046,27 +3046,27 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) == Break)
+			if (function(this._6) is Break)
 			{
 				return Break;
 			}
@@ -3460,27 +3460,27 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) == Break)
+			if (function(this._6) is Break)
 			{
 				return Break;
 			}
@@ -3908,31 +3908,31 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public	StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) == Break)
+			if (function(this._6) is Break)
 			{
 				return Break;
 			}
-			if (function(this._7) == Break)
+			if (function(this._7) is Break)
 			{
 				return Break;
 			}
@@ -4375,31 +4375,31 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepBreak<object> function)
 		{
-			if (function(this._1) == Break)
+			if (function(this._1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) == Break)
+			if (function(this._2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) == Break)
+			if (function(this._3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) == Break)
+			if (function(this._4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) == Break)
+			if (function(this._5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) == Break)
+			if (function(this._6) is Break)
 			{
 				return Break;
 			}
-			if (function(this._7) == Break)
+			if (function(this._7) is Break)
 			{
 				return Break;
 			}

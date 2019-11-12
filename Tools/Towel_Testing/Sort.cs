@@ -14,7 +14,7 @@ namespace Towel_Testing
 		{
 			for (int i = 0; i < array.Length - 1; i++)
 			{
-				if (Comparison(array[i], array[i + 1]) == Greater)
+				if (Comparison(array[i], array[i + 1]) is Greater)
 				{
 					return false;
 				}

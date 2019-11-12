@@ -171,9 +171,9 @@ namespace Towel
 
 		#region Alternative
 
-		//Equal((StepBreak<T> x) => x(a) == Break
+		//Equal((StepBreak<T> x) => x(a) is Break
 		//	? Break
-		//	: x(b) == Break
+		//	: x(b) is Break
 		//		? Break
 		//		: c.ToStepperBreak()(x));
 
@@ -304,9 +304,9 @@ namespace Towel
 		#region Alternative
 
 		//NotEqual((StepBreak<T> x) =>
-		//	x(a) == Break
+		//	x(a) is Break
 		//		? Break
-		//		: x(b) == Break
+		//		: x(b) is Break
 		//			? Break
 		//			: c.ToStepperBreak()(x));
 
