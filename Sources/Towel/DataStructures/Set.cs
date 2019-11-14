@@ -18,15 +18,17 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	public class SetHashLinked<T> : ISet<T>,
+	public class SetHashLinked<T, Equate, Hash> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
+		where Equate : struct, IEquate<T>
+		where Hash : struct, IHash<T>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;
 
-		internal Equate<T> _equate;
-		internal Hash<T> _hash;
+		internal Equate _equate;
+		internal Hash _hash;
 		internal Node[] _table;
 		internal int _count;
 
@@ -54,8 +56,8 @@ namespace Towel.DataStructures
 		/// <param name="expectedCount">The expected count of the set.</param>
 		/// <runtime>O(1)</runtime>
 		public SetHashLinked(
-			Equate<T> equate = null,
-			Hash<T> hash = null,
+			Equate equate = default,
+			Hash hash = default,
 			int? expectedCount = null)
 		{
 			if (expectedCount.HasValue && expectedCount.Value > 0)
@@ -71,15 +73,15 @@ namespace Towel.DataStructures
 			{
 				_table = new Node[2];
 			}
-			_equate = equate ?? Towel.Equate.Default;
-			_hash = hash ?? Towel.Hash.Default;
+			_equate = equate;
+			_hash = hash;
 			_count = 0;
 		}
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="set">The set to clone.</param>
 		/// <runtime>O(n)</runtime>
-		internal SetHashLinked(SetHashLinked<T> set)
+		internal SetHashLinked(SetHashLinked<T, Equate, Hash> set)
 		{
 			_equate = set._equate;
 			_hash = set._hash;
@@ -101,11 +103,17 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Hash<T> Hash => _hash;
+		Hash<T> DataStructure.IHashing<T>.Hash =>
+			_hash is HashRuntime<T> hashRuntime
+			? hashRuntime.Hash
+			: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Equate<T> Equate => _equate;
+		Equate<T> DataStructure.IEquating<T>.Equate =>
+			_equate is EquateRuntime<T> equateRuntime
+			? equateRuntime.Equate
+			: _equate.Do;
 
 		#endregion
 
@@ -122,13 +130,13 @@ namespace Towel.DataStructures
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
+			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Value, value))
+				if (_equate.Do(node.Value, value))
 				{
 					exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
 					return false;
@@ -201,11 +209,11 @@ namespace Towel.DataStructures
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
+			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// find and remove the node
-			if (_equate(_table[location].Value, value))
+			if (_equate.Do(_table[location].Value, value))
 			{
 				// the value was the head node of the table index
 				_table[location] = _table[location].Next;
@@ -218,7 +226,7 @@ namespace Towel.DataStructures
 				// that value is a child node of the table index
 				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
 				{
-					if (_equate(node.Next.Value, value))
+					if (_equate.Do(node.Next.Value, value))
 					{
 						node.Next = node.Next.Next;
 						_count--;
@@ -258,7 +266,7 @@ namespace Towel.DataStructures
 					temp[i] = node.Next;
 
 					// compute the hash code and relate it to the current table
-					int hashCode = _hash(node.Value);
+					int hashCode = _hash.Do(node.Value);
 					int location = (hashCode & int.MaxValue) % _table.Length;
 
 					// add the value to the new table
@@ -291,7 +299,7 @@ namespace Towel.DataStructures
 		/// <summary>Creates a shallow clone of this set.</summary>
 		/// <returns>A shallow clone of this set.</returns>
 		/// <runtime>Θ(n)</runtime>
-		public SetHashLinked<T> Clone() => new SetHashLinked<T>(this);
+		public SetHashLinked<T, Equate, Hash> Clone() => new SetHashLinked<T, Equate, Hash>(this);
 
 		#endregion
 
@@ -304,13 +312,13 @@ namespace Towel.DataStructures
 		public bool Contains(T value)
 		{
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
+			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Value, value))
+				if (_equate.Do(node.Value, value))
 				{
 					return true;
 				}
@@ -405,6 +413,57 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		#endregion
+	}
+
+	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
+	/// <typeparam name="T">The type of values to store in the set.</typeparam>
+	public class SetHashLinked<T> : SetHashLinked<T, EquateRuntime<T>, HashRuntime<T>>
+	{
+		#region Constructors
+
+		/// <summary>Constructs a hashed set.</summary>
+		/// <param name="equate">The equate delegate.</param>
+		/// <param name="hash">The hashing function.</param>
+		/// <param name="expectedCount">The expected count of the set.</param>
+		/// <runtime>O(1)</runtime>
+		public SetHashLinked(
+			Equate<T> equate = null,
+			Hash<T> hash = null,
+			int? expectedCount = null) : base(equate ?? Towel.Equate.Default, hash ?? Towel.Hash.Default, expectedCount) { }
+
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="set">The set to clone.</param>
+		/// <runtime>O(n)</runtime>
+		internal SetHashLinked(SetHashLinked<T> set)
+		{
+			_equate = set._equate;
+			_hash = set._hash;
+			_table = (Node[])set._table.Clone();
+			_count = set._count;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>The delegate for computing hash codes.</summary>
+		/// <runtime>O(1)</runtime>
+		public Hash<T> Hash => _hash.Hash;
+
+		/// <summary>The delegate for equality checking.</summary>
+		/// <runtime>O(1)</runtime>
+		public Equate<T> Equate => _equate.Equate;
+
+		#endregion
+
+		#region Clone
+
+		/// <summary>Creates a shallow clone of this set.</summary>
+		/// <returns>A shallow clone of this set.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public new SetHashLinked<T> Clone() => new SetHashLinked<T>(this);
 
 		#endregion
 	}

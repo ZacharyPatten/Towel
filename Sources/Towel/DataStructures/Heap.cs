@@ -29,54 +29,50 @@ namespace Towel.DataStructures
 
 	/// <summary>A heap with static priorities implemented as a array.</summary>
 	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-	/// <citation>
-	/// This heap imlpementation was originally developed by 
-	/// Rodney Howell of Kansas State University. However, it has 
-	/// been modified since its addition into the Towel framework.
-	/// </citation>
-	public class HeapArray<T> : IHeap<T>
+	/// <typeparam name="Compare">The Compare delegate.</typeparam>
+	public class HeapArray<T, Compare> : IHeap<T>
+		where Compare : struct, ICompare<T>
 	{
-		internal readonly Compare<T> _compare;
+		internal const int _root = 1; // The root index of the heap.
+
+		internal Compare _compare;
 		internal T[] _heap;
 		internal int _minimumCapacity;
 		internal int _count;
-		internal const int _root = 1; // The root index of the heap.
-
+		
 		#region Constructors
-
-		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
-		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-		/// <runtime>θ(1)</runtime>
-		public HeapArray(Compare<T> compare)
-		{
-			_compare = compare;
-			_heap = new T[2];
-			_minimumCapacity = 1;
-			_count = 0;
-		}
 
 		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
 		/// <runtime>θ(1)</runtime>
-		public HeapArray(Compare<T> compare, int minimumCapacity)
+		public HeapArray(Compare compare = default, int ? minimumCapacity = null)
 		{
+			int capacity = minimumCapacity ?? 1;
 			_compare = compare;
-			_heap = new T[minimumCapacity + 1];
-			_minimumCapacity = minimumCapacity;
+			_heap = new T[capacity + 1];
+			_minimumCapacity = capacity;
 			_count = 0;
 		}
 
-		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
-		/// <runtime>θ(1)</runtime>
-		public HeapArray() : this(Towel.Compare.Default) { }
+		internal HeapArray(HeapArray<T, Compare> heap)
+		{
+			_compare = heap._compare;
+			_heap = (T[])heap._heap.Clone();
+			_minimumCapacity = heap._minimumCapacity;
+			_count = heap._count;
+		}
 
 		#endregion
 
 		#region Properties
 
-		/// <summary>Delegate determining the comparison technique used for sorting.</summary>
-		public Compare<T> Compare => _compare;
+		/// <summary>The comparison function being utilized by this structure.</summary>
+		/// <runtime>θ(1)</runtime>
+		Compare<T> DataStructure.IComparing<T>.Compare =>
+			_compare is CompareRuntime<T> compareRuntime
+			? compareRuntime.Compare
+			: _compare.Do;
 
 		/// <summary>The maximum items the queue can hold.</summary>
 		/// <runtime>θ(1)</runtime>
@@ -156,7 +152,7 @@ namespace Towel.DataStructures
 			int i;
 			for (i = 1; i <= _count; i++)
 			{
-				if (_compare(item, _heap[i]) is Equal)
+				if (_compare.Do(item, _heap[i]) is Equal)
 				{
 					break;
 				}
@@ -186,7 +182,7 @@ namespace Towel.DataStructures
 		internal void ShiftUp(int index)
 		{
 			int parent;
-			while ((parent = Parent(index)) > 0 && _compare(_heap[index], _heap[parent]) is Greater)
+			while ((parent = Parent(index)) > 0 && _compare.Do(_heap[index], _heap[parent]) is Greater)
 			{
 				ArraySwap(index, parent);
 				index = parent;
@@ -202,11 +198,11 @@ namespace Towel.DataStructures
 			while ((leftChild = LeftChild(index)) <= _count)
 			{
 				int down = leftChild;
-				if ((rightChild = RightChild(index)) <= _count && _compare(_heap[rightChild], _heap[leftChild]) is Greater)
+				if ((rightChild = RightChild(index)) <= _count && _compare.Do(_heap[rightChild], _heap[leftChild]) is Greater)
 				{
 					down = rightChild;
 				}
-				if (_compare(_heap[down], _heap[index]) is Less)
+				if (_compare.Do(_heap[down], _heap[index]) is Less)
 				{
 					break;
 				}
@@ -277,19 +273,45 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public IDataStructure<T> Clone()
+		public HeapArray<T, Compare> Clone() => new HeapArray<T, Compare>(this);
+
+		#endregion
+	}
+
+	/// <summary>A heap with static priorities implemented as a array.</summary>
+	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
+	public class HeapArray<T> : HeapArray<T, CompareRuntime<T>>
+	{
+		#region Constructors
+
+		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
+		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
+		/// <runtime>θ(1)</runtime>
+		public HeapArray(Compare<T> compare = null, int? minimumCapacity = null) : base(compare ?? Towel.Compare.Default, minimumCapacity) { }
+
+		internal HeapArray(HeapArray<T> heap)
 		{
-			HeapArray<T> clone = new HeapArray<T>(_compare);
-			T[] cloneItems = new T[_heap.Length];
-			for (int i = 1; i <= _count; i++)
-			{
-				cloneItems[i] = _heap[i];
-			}
-			clone._heap = cloneItems;
-			clone._count = _count;
-			clone._minimumCapacity = _minimumCapacity;
-			return clone;
+			_compare = heap._compare;
+			_heap = (T[])heap._heap.Clone();
+			_minimumCapacity = heap._minimumCapacity;
+			_count = heap._count;
 		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>Delegate determining the comparison technique used for sorting.</summary>
+		public Compare<T> Compare => _compare.Compare;
+
+		#endregion
+
+		#region Clone
+
+		/// <summary>Creates a shallow clone of this data structure.</summary>
+		/// <returns>A shallow clone of this data structure.</returns>
+		public new HeapArray<T> Clone() => new HeapArray<T>(this);
 
 		#endregion
 	}

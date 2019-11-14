@@ -291,13 +291,326 @@
         <member name="T:Towel.DataStructures.AvlTree">
             <summary>Contains extensions methods for the AvlTree interface.</summary>
         </member>
+        <member name="T:Towel.DataStructures.AvlTreeLinked`2">
+            <summary>A self-sorting binary tree based on the heights of each node.</summary>
+            <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
+            <typeparam name="Compare">The Compare delegate.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.#ctor(`1)">
+            <summary>Constructs an AVL Tree.</summary>
+            <param name="compare">The comparison function for sorting the items.</param>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.#ctor(Towel.DataStructures.AvlTreeLinked{`0,`1})">
+            <summary>This constructor if for cloning purposes.</summary>
+            <param name="tree">The tree to clone.</param>
+        </member>
+        <member name="P:Towel.DataStructures.AvlTreeLinked`2.CurrentLeast">
+            <summary>Gets the current least item in the avl tree.</summary>
+            <runtime>θ(ln(Count))</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.AvlTreeLinked`2.CurrentGreatest">
+            <summary>Gets the current greated item in the avl tree.</summary>
+            <runtime>θ(ln(Count))</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.AvlTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
+            <summary>The comparison function being utilized by this structure.</summary>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.AvlTreeLinked`2.Count">
+            <summary>Gets the number of elements in the collection.</summary>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value to the AVL tree.</summary>
+            <param name="value">The value to add.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the add succeeded or false if not.</returns>
+            <runtime>O(ln(n))</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Clear">
+            <summary>Returns the tree to an iterative state.</summary>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Clone">
+            <summary>Clones the AVL tree.</summary>
+            <returns>A clone of the AVL tree.</returns>
+            <runtime>θ(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Contains(`0)">
+            <summary>Determines if the AVL tree contains a value.</summary>
+            <param name="value">The value to look for.</param>
+            <returns>Whether or not the AVL tree contains the value.</returns>
+            <runtime>O(ln(Count)) Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Contains(Towel.CompareToKnownValue{`0})">
+            <summary>Determines if this structure contains an item by a given key.</summary>
+            <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+            <returns>True of contained, False if not.</returns>
+            <runtime>O(ln(Count)) Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the get succeeded or false if not.</returns>
+            <runtime>O(ln(Count)) Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(`0,`0,Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperRef``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(`0,`0,Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(`0,`0,Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperRefBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(`0,`0,Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseRef``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(`0,`0,Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(`0,`0,Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverseRefBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.GetEnumerator">
+            <summary>Gets the enumerator for this instance.</summary>
+            <returns>An enumerator to iterate through the data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Balance(Towel.DataStructures.AvlTreeLinked{`0,`1}.Node)">
+            <summary>Standard balancing algorithm for an AVL Tree.</summary>
+            <param name="node">The tree to check the balancing of.</param>
+            <returns>The result of the possible balancing.</returns>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Height(Towel.DataStructures.AvlTreeLinked{`0,`1}.Node)">
+            <summary>This is just a protection against the null valued leaf nodes, which have a height of "-1".</summary>
+            <param name="node">The node to find the hight of.</param>
+            <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.RemoveLeftMost(Towel.DataStructures.AvlTreeLinked{`0,`1}.Node,Towel.DataStructures.AvlTreeLinked{`0,`1}.Node@)">
+            <summary>Removes the left-most child of an AVL Tree node and returns it 
+            through the out parameter.</summary>
+            <param name="node">The tree to remove the left-most child from.</param>
+            <param name="leftMost">The left-most child of this AVL tree.</param>
+            <returns>The updated tree with the removal.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.RemoveRightMost(Towel.DataStructures.AvlTreeLinked{`0,`1}.Node,Towel.DataStructures.AvlTreeLinked{`0,`1}.Node@)">
+            <summary>Removes the right-most child of an AVL Tree node and returns it 
+            through the out parameter.</summary>
+            <param name="node">The tree to remove the right-most child from.</param>
+            <param name="rightMost">The right-most child of this AVL tree.</param>
+            <returns>The updated tree with the removal.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.SetHeight(Towel.DataStructures.AvlTreeLinked{`0,`1}.Node)">
+            <summary>Sets the height of a tree based on its children's heights.</summary>
+            <param name="node">The tree to have its height adjusted.</param>
+            <runtime>O(1)</runtime>
+        </member>
         <member name="T:Towel.DataStructures.AvlTreeLinked`1">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
-            <citation>
-            This AVL tree imlpementation was originally developed by 
-            Rodney Howell of Kansas State University. However, it has 
-            been modified since its addition into the Towel framework.
-            </citation>
+            <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.#ctor(Towel.Compare{`0})">
             <summary>Constructs an AVL Tree.</summary>
@@ -308,204 +621,14 @@
             <summary>This constructor if for cloning purposes.</summary>
             <param name="tree">The tree to clone.</param>
         </member>
-        <member name="P:Towel.DataStructures.AvlTreeLinked`1.CurrentLeast">
-            <summary>Gets the current least item in the avl tree.</summary>
-            <runtime>θ(ln(Count))</runtime>
-        </member>
-        <member name="P:Towel.DataStructures.AvlTreeLinked`1.CurrentGreatest">
-            <summary>Gets the current greated item in the avl tree.</summary>
-            <runtime>θ(ln(Count))</runtime>
-        </member>
         <member name="P:Towel.DataStructures.AvlTreeLinked`1.Compare">
             <summary>The comparison function being utilized by this structure.</summary>
-            <runtime>θ(1)</runtime>
-        </member>
-        <member name="P:Towel.DataStructures.AvlTreeLinked`1.Count">
-            <summary>Gets the number of elements in the collection.</summary>
-            <runtime>θ(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryAdd(`0,System.Exception@)">
-            <summary>Tries to add a value to the AVL tree.</summary>
-            <param name="value">The value to add.</param>
-            <param name="exception">The exception that occurred if the add failed.</param>
-            <returns>True if the add succeeded or false if not.</returns>
-            <runtime>O(ln(n))</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Clear">
-            <summary>Returns the tree to an iterative state.</summary>
             <runtime>θ(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`1.Clone">
             <summary>Clones the AVL tree.</summary>
             <returns>A clone of the AVL tree.</returns>
             <runtime>θ(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Contains(`0)">
-            <summary>Determines if the AVL tree contains a value.</summary>
-            <param name="value">The value to look for.</param>
-            <returns>Whether or not the AVL tree contains the value.</returns>
-            <runtime>O(ln(Count)) Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Contains(Towel.CompareToKnownValue{`0})">
-            <summary>Determines if this structure contains an item by a given key.</summary>
-            <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
-            <returns>True of contained, False if not.</returns>
-            <runtime>O(ln(Count)) Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
-            <summary>Tries to get a value.</summary>
-            <param name="compare">The compare delegate.</param>
-            <param name="value">The value if found or default.</param>
-            <param name="exception">The exception that occurred if the get failed.</param>
-            <returns>True if the get succeeded or false if not.</returns>
-            <runtime>O(ln(Count)) Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryRemove(`0,System.Exception@)">
-            <summary>Tries to remove a value.</summary>
-            <param name="value">The value to remove.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-            <returns>True if the remove was successful or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
-            <summary>Tries to remove a value.</summary>
-            <param name="compare">The compare delegate.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-            <returns>True if the remove was successful or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.Step{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRef{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Stepper(Towel.StepRefBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.Step{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRef{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.GetEnumerator">
-            <summary>Gets the enumerator for this instance.</summary>
-            <returns>An enumerator to iterate through the data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Balance(Towel.DataStructures.AvlTreeLinked{`0}.Node)">
-            <summary>Standard balancing algorithm for an AVL Tree.</summary>
-            <param name="node">The tree to check the balancing of.</param>
-            <returns>The result of the possible balancing.</returns>
-            <runtime>θ(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Height(Towel.DataStructures.AvlTreeLinked{`0}.Node)">
-            <summary>This is just a protection against the null valued leaf nodes, which have a height of "-1".</summary>
-            <param name="node">The node to find the hight of.</param>
-            <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
-            <runtime>θ(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.RemoveLeftMost(Towel.DataStructures.AvlTreeLinked{`0}.Node,Towel.DataStructures.AvlTreeLinked{`0}.Node@)">
-            <summary>Removes the left-most child of an AVL Tree node and returns it 
-            through the out parameter.</summary>
-            <param name="node">The tree to remove the left-most child from.</param>
-            <param name="leftMost">The left-most child of this AVL tree.</param>
-            <returns>The updated tree with the removal.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.RemoveRightMost(Towel.DataStructures.AvlTreeLinked{`0}.Node,Towel.DataStructures.AvlTreeLinked{`0}.Node@)">
-            <summary>Removes the right-most child of an AVL Tree node and returns it 
-            through the out parameter.</summary>
-            <param name="node">The tree to remove the right-most child from.</param>
-            <param name="rightMost">The right-most child of this AVL tree.</param>
-            <returns>The updated tree with the removal.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.SetHeight(Towel.DataStructures.AvlTreeLinked{`0}.Node)">
-            <summary>Sets the height of a tree based on its children's heights.</summary>
-            <param name="node">The tree to have its height adjusted.</param>
-            <runtime>O(1)</runtime>
         </member>
         <member name="T:Towel.DataStructures.IDataStructure`1">
             <summary>Polymorphism base for all data structures in the Towel framework.</summary>
@@ -847,124 +970,129 @@
             <summary>Returns the highest priority item.</summary>
             <returns>The highest priority item in the queue.</returns>
         </member>
-        <member name="T:Towel.DataStructures.HeapArray`1">
+        <member name="T:Towel.DataStructures.HeapArray`2">
             <summary>A heap with static priorities implemented as a array.</summary>
             <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-            <citation>
-            This heap imlpementation was originally developed by 
-            Rodney Howell of Kansas State University. However, it has 
-            been modified since its addition into the Towel framework.
-            </citation>
+            <typeparam name="Compare">The Compare delegate.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(Towel.Compare{`0})">
-            <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
-            <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-            <runtime>θ(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(Towel.Compare{`0},System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.#ctor(`1,System.Nullable{System.Int32})">
             <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
             <param name="compare">Delegate determining the comparison technique used for sorting.</param>
             <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
             <runtime>θ(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.#ctor">
-            <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+        <member name="P:Towel.DataStructures.HeapArray`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
+            <summary>The comparison function being utilized by this structure.</summary>
             <runtime>θ(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.HeapArray`1.Compare">
-            <summary>Delegate determining the comparison technique used for sorting.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.HeapArray`1.CurrentCapacity">
+        <member name="P:Towel.DataStructures.HeapArray`2.CurrentCapacity">
             <summary>The maximum items the queue can hold.</summary>
             <runtime>θ(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.HeapArray`1.MinimumCapacity">
+        <member name="P:Towel.DataStructures.HeapArray`2.MinimumCapacity">
             <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
             <runtime>θ(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.HeapArray`1.Count">
+        <member name="P:Towel.DataStructures.HeapArray`2.Count">
             <summary>The number of items in the queue.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.LeftChild(System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.LeftChild(System.Int32)">
             <summary>Gets the index of the left child of the provided item.</summary>
             <param name="parent">The item to find the left child of.</param>
             <returns>The index of the left child of the provided item.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.RightChild(System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.RightChild(System.Int32)">
             <summary>Gets the index of the right child of the provided item.</summary>
             <param name="parent">The item to find the right child of.</param>
             <returns>The index of the right child of the provided item.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Parent(System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.Parent(System.Int32)">
             <summary>Gets the index of the parent of the provided item.</summary>
             <param name="child">The item to find the parent of.</param>
             <returns>The index of the parent of the provided item.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Enqueue(`0)">
+        <member name="M:Towel.DataStructures.HeapArray`2.Enqueue(`0)">
             <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
             <param name="addition">The item to be added.</param>
             <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Dequeue">
+        <member name="M:Towel.DataStructures.HeapArray`2.Dequeue">
             <summary>Dequeues the item with the highest priority.</summary>
             <returns>The item of the highest priority.</returns>
             <runtime>O(ln(n))</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Requeue(`0)">
+        <member name="M:Towel.DataStructures.HeapArray`2.Requeue(`0)">
             <summary>Requeues an item after a change has occured.</summary>
             <param name="item">The item to requeue.</param>
             <runtime>O(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Peek">
+        <member name="M:Towel.DataStructures.HeapArray`2.Peek">
             <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.ShiftUp(System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.ShiftUp(System.Int32)">
             <summary>Standard priority queue algorithm for up sifting.</summary>
             <param name="index">The index to be up sifted.</param>
             <runtime>O(ln(n)), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.ShiftDown(System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.ShiftDown(System.Int32)">
             <summary>Standard priority queue algorithm for sifting down.</summary>
             <param name="index">The index to be down sifted.</param>
             <runtime>O(ln(n)), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.ArraySwap(System.Int32,System.Int32)">
+        <member name="M:Towel.DataStructures.HeapArray`2.ArraySwap(System.Int32,System.Int32)">
             <summary>Standard array swap method.</summary>
             <param name="indexOne">The first index of the swap.</param>
             <param name="indexTwo">The second index of the swap.</param>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Clear">
+        <member name="M:Towel.DataStructures.HeapArray`2.Clear">
             <summary>Returns this queue to an empty state.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.ToArray">
+        <member name="M:Towel.DataStructures.HeapArray`2.ToArray">
             <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
             <returns>The array of priority-sorted items.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.GetEnumerator">
+        <member name="M:Towel.DataStructures.HeapArray`2.GetEnumerator">
             <summary>Gets the enumerator of the heap.</summary>
             <returns>The enumerator of the heap.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.Step{`0})">
+        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepBreak{`0})">
+        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Stepper(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.HeapArray`2.Clone">
+            <summary>Creates a shallow clone of this data structure.</summary>
+            <returns>A shallow clone of this data structure.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.HeapArray`1">
+            <summary>A heap with static priorities implemented as a array.</summary>
+            <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(Towel.Compare{`0},System.Nullable{System.Int32})">
+            <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+            <param name="compare">Delegate determining the comparison technique used for sorting.</param>
+            <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.HeapArray`1.Compare">
+            <summary>Delegate determining the comparison technique used for sorting.</summary>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2642,6 +2770,167 @@
             <summary>Gets the stepper for this data structure.</summary>
             <returns>The stepper for this data structure.</returns>
         </member>
+        <member name="T:Towel.DataStructures.MapHashLinked`4">
+            <summary>An unsorted structure of unique items.</summary>
+            <typeparam name="T">The generic type of the structure.</typeparam>
+            <typeparam name="K">The generic key type of this map.</typeparam>
+            <typeparam name="Equate">The equate function.</typeparam>
+            <typeparam name="Hash">The hash function.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.#ctor(`2,`3,System.Nullable{System.Int32})">
+            <summary>Constructs a hashed map.</summary>
+            <param name="equate">The equate delegate.</param>
+            <param name="hash">The hashing function.</param>
+            <param name="expectedCount">The expected count of the map.</param>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.#ctor(Towel.DataStructures.MapHashLinked{`0,`1,`2,`3})">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="map">The map to clone.</param>
+            <runtime>O(n)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.TableSize">
+            <summary>The current size of the hashed table.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Count">
+            <summary>The current number of values in the map.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Towel#DataStructures#DataStructure#IHashing{K}#Hash">
+            <summary>The delegate for computing hash codes.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Towel#DataStructures#DataStructure#IEquating{K}#Equate">
+            <summary>The delegate for equality checking.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Item(`1)">
+            <summary>Gets the value of a specified key.</summary>
+            <param name="key">The key to get the value of.</param>
+            <returns>The value of the key.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.TryAdd(`1,`0,System.Exception@)">
+            <summary>Tries to add a value to the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be added.</param>
+            <param name="exception">The exception that occured if the add failed.</param>
+            <returns>True if the value was added or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.TryGet(`1,`0@,System.Exception@)">
+            <summary>Tries to get a value by key.</summary>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occured if not found.</param>
+            <returns>True if the key was found or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Set(`1,`0)">
+            <summary>Sets value in the map.</summary>
+            <param name="key">The key of the value.</param>
+            <param name="value">The value to be set.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.TryRemove(`1,System.Exception@)">
+            <summary>Tries to remove a keyed value.</summary>
+            <param name="key">The key of the value to remove.</param>
+            <param name="exception">The exception that occurred if the removal failed.</param>
+            <returns>True if the removal was successful for false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.TryRemoveWithoutTrim(`1,System.Exception@)">
+            <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
+            <param name="key">The key of the value to remove.</param>
+            <param name="exception">The exception that occurred if the removal failed.</param>
+            <returns>True if the removal was successful for false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Resize(System.Int32)">
+            <summary>Resizes the table.</summary>
+            <param name="tableSize">The desired size of the table.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Trim">
+            <summary>Trims the table to an appropriate size based on the current count.</summary>
+            <runtime>O(n), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Clone">
+            <summary>Creates a shallow clone of this map.</summary>
+            <returns>A shallow clone of this map.</returns>
+            <runtime>Θ(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Contains(`1)">
+            <summary>Determines if a value has been added to a map.</summary>
+            <param name="key">The key of the value to look for in the map.</param>
+            <returns>True if the value has been added to the map or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Clear">
+            <summary>Removes all the values in the map.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.Step{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRef{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepBreak{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRefBreak{`0})">
+            <summary>Steps through all the values of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.Step{`1})">
+            <summary>Steps through all the keys of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.StepBreak{`1})">
+            <summary>Steps through all the keys of the map.</summary>
+            <param name="step">The action to perform on every value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.Step{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepBreak{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRef1{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRefBreak1{`0,`1})">
+            <summary>Steps through all the keys and values of the map.</summary>
+            <param name="step">The action to perform on every key and value in the map.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.GetEnumerator">
+            <summary>Gets the enumerator for the map.</summary>
+            <returns>The enumerator for the map.</returns>
+            <runtime>O(n)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.ToArray">
+            <summary>Puts all the values in this map into an array.</summary>
+            <returns>An array with all the values in the map.</returns>
+            <runtime>Θ(n)</runtime>
+        </member>
         <member name="T:Towel.DataStructures.MapHashLinked`2">
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
@@ -2659,14 +2948,6 @@
             <param name="map">The map to clone.</param>
             <runtime>O(n)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.TableSize">
-            <summary>The current size of the hashed table.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.Count">
-            <summary>The current number of values in the map.</summary>
-            <runtime>O(1)</runtime>
-        </member>
         <member name="P:Towel.DataStructures.MapHashLinked`2.Hash">
             <summary>The delegate for computing hash codes.</summary>
             <runtime>O(1)</runtime>
@@ -2675,130 +2956,9 @@
             <summary>The delegate for equality checking.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.Item(`1)">
-            <summary>Gets the value of a specified key.</summary>
-            <param name="key">The key to get the value of.</param>
-            <returns>The value of the key.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryAdd(`1,`0,System.Exception@)">
-            <summary>Tries to add a value to the map.</summary>
-            <param name="key">The key of the value.</param>
-            <param name="value">The value to be added.</param>
-            <param name="exception">The exception that occured if the add failed.</param>
-            <returns>True if the value was added or false if not.</returns>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryGet(`1,`0@,System.Exception@)">
-            <summary>Tries to get a value by key.</summary>
-            <param name="key">The key of the value to get.</param>
-            <param name="value">The value if found or default.</param>
-            <param name="exception">The exception that occured if not found.</param>
-            <returns>True if the key was found or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Set(`1,`0)">
-            <summary>Sets value in the map.</summary>
-            <param name="key">The key of the value.</param>
-            <param name="value">The value to be set.</param>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemove(`1,System.Exception@)">
-            <summary>Tries to remove a keyed value.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <param name="exception">The exception that occurred if the removal failed.</param>
-            <returns>True if the removal was successful for false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.TryRemoveWithoutTrim(`1,System.Exception@)">
-            <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
-            <param name="key">The key of the value to remove.</param>
-            <param name="exception">The exception that occurred if the removal failed.</param>
-            <returns>True if the removal was successful for false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Resize(System.Int32)">
-            <summary>Resizes the table.</summary>
-            <param name="tableSize">The desired size of the table.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Trim">
-            <summary>Trims the table to an appropriate size based on the current count.</summary>
-            <runtime>O(n), Ω(1)</runtime>
-        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
             <summary>Creates a shallow clone of this map.</summary>
             <returns>A shallow clone of this map.</returns>
-            <runtime>Θ(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Contains(`1)">
-            <summary>Determines if a value has been added to a map.</summary>
-            <param name="key">The key of the value to look for in the map.</param>
-            <returns>True if the value has been added to the map or false if not.</returns>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Clear">
-            <summary>Removes all the values in the map.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0})">
-            <summary>Steps through all the values of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRef{`0})">
-            <summary>Steps through all the values of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0})">
-            <summary>Steps through all the values of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Steps through all the values of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.Step{`1})">
-            <summary>Steps through all the keys of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Keys(Towel.StepBreak{`1})">
-            <summary>Steps through all the keys of the map.</summary>
-            <param name="step">The action to perform on every value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.Step{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepBreak{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRef1{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Stepper(Towel.StepRefBreak1{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.GetEnumerator">
-            <summary>Gets the enumerator for the map.</summary>
-            <returns>The enumerator for the map.</returns>
-            <runtime>O(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.ToArray">
-            <summary>Puts all the values in this map into an array.</summary>
-            <returns>An array with all the values in the map.</returns>
             <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.Omnitree">
@@ -13438,16 +13598,293 @@
         <member name="T:Towel.DataStructures.RedBlackTree">
             <summary>Contains extension methods for the RedBlackTree interface.</summary>
         </member>
+        <member name="T:Towel.DataStructures.RedBlackTreeLinked`2">
+            <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
+            <typeparam name="T">The generic type of the structure.</typeparam>
+            <typeparam name="Compare">The compare delegate.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.#ctor(`1)">
+            <summary>Constructs a new Red Black Tree.</summary>
+            <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.#ctor(Towel.DataStructures.RedBlackTreeLinked{`0,`1})">
+            <summary>Constructor for cloning purposes.</summary>
+            <param name="tree">The tree to be cloned.</param>
+        </member>
+        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.CurrentLeast">
+            <summary>Gets the current least item in the tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.CurrentGreatest">
+            <summary>Gets the current greated item in the tree.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.Count">
+            <summary>The number of items in this data structure.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
+            <summary>The comparison function being utilized by this structure.</summary>
+            <runtime>θ(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryAdd(`0,System.Exception@)">
+            <summary>Tries to add a value to the Red-Black tree.</summary>
+            <param name="value">The value to be added to the Red-Black tree.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <returns>True if the add was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Clear">
+            <summary>Returns the tree to an empty state.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Clone">
+            <summary>Creates a shallow clone of this data structure.</summary>
+            <returns>A shallow clone of this data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Contains(`0)">
+            <summary>Determines if the tree contains a given value;</summary>
+            <param name="value">The value to see if the tree contains.</param>
+            <returns>True if the tree contains the value. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Contains(Towel.CompareToKnownValue{`0})">
+            <summary>Determines if this structure contains an item by a given key.</summary>
+            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+            <returns>True of contained, False if not.</returns>
+            <runtime>O(ln(Count)) Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+            <summary>Tries to get a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="value">The value if it was found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the value was found or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="value">The value to remove.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+            <summary>Tries to remove a value.</summary>
+            <param name="compare">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperRef``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.Step{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepRef{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak``1(`0,`0,``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <param name="minimum">The minimum value of the optimized stepper function.</param>
+            <param name="maximum">The maximum value of the optimized stepper function.</param>
+            <runtime>O(n * step), Ω(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>Returns the IEnumerator for this data structure.</summary>
+            <returns>The IEnumerator for this data structure.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.GetEnumerator">
+            <summary>Returns the IEnumerator for this data structure.</summary>
+            <returns>The IEnumerator for this data structure.</returns>
+            <citation>
+            This method was provided by user CyrusNajmabadi from GitHub.
+            </citation>
+        </member>
         <member name="T:Towel.DataStructures.RedBlackTreeLinked`1">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
-            <citation>
-            This Red-Black Tree imlpementation was originally developed by 
-            Roy Clem and hosted as an open source project on 
-            CodeProject.com. However, it has been modified since its
-            addition into the Towel framework.
-            http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
-            </citation>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(Towel.Compare{`0})">
             <summary>Constructs a new Red Black Tree.</summary>
@@ -13457,175 +13894,110 @@
             <summary>Constructor for cloning purposes.</summary>
             <param name="tree">The tree to be cloned.</param>
         </member>
-        <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.CurrentLeast">
-            <summary>Gets the current least item in the avl tree.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.CurrentGreatest">
-            <summary>Gets the current greated item in the avl tree.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.Count">
-            <summary>The number of items in this data structure.</summary>
-        </member>
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.Compare">
             <summary>The sorting technique.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryAdd(`0,System.Exception@)">
-            <summary>Tries to add a value to the Red-Black tree.</summary>
-            <param name="value">The value to be added to the Red-Black tree.</param>
-            <param name="exception">The exception that occurred if the add failed.</param>
-            <returns>True if the add was successful or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clear">
-            <summary>Returns the tree to an empty state.</summary>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Contains(`0)">
-            <summary>Determines if the tree contains a given value;</summary>
-            <param name="value">The value to see if the tree contains.</param>
-            <returns>True if the tree contains the value. False if not.</returns>
+        <member name="T:Towel.DataStructures.ISet`1">
+            <summary>An unsorted structure of unique items.</summary>
+            <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Contains(Towel.CompareToKnownValue{`0})">
-            <summary>Determines if this structure contains an item by a given key.</summary>
-            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
-            <returns>True of contained, False if not.</returns>
-            <runtime>O(ln(Count)) Ω(1)</runtime>
+        <member name="T:Towel.DataStructures.SetHashLinked`3">
+            <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
+            <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
-            <summary>Tries to get a value.</summary>
-            <param name="compare">The compare delegate.</param>
-            <param name="value">The value if it was found or default.</param>
-            <param name="exception">The exception that occurred if the get failed.</param>
-            <returns>True if the value was found or false if not.</returns>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.#ctor(`1,`2,System.Nullable{System.Int32})">
+            <summary>Constructs a hashed set.</summary>
+            <param name="equate">The equate delegate.</param>
+            <param name="hash">The hashing function.</param>
+            <param name="expectedCount">The expected count of the set.</param>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryRemove(`0,System.Exception@)">
-            <summary>Tries to remove a value.</summary>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.#ctor(Towel.DataStructures.SetHashLinked{`0,`1,`2})">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="set">The set to clone.</param>
+            <runtime>O(n)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.TableSize">
+            <summary>The current size of the hashed table.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.Count">
+            <summary>The current number of values in the set.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.Towel#DataStructures#DataStructure#IHashing{T}#Hash">
+            <summary>The delegate for computing hash codes.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.Towel#DataStructures#DataStructure#IEquating{T}#Equate">
+            <summary>The delegate for equality checking.</summary>
+            <runtime>O(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.TryAdd(`0,System.Exception@)">
+            <summary>Adds a value to the set.</summary>
+            <param name="value">The value to add to the set.</param>
+            <param name="exception">The exception that occurred if the add failed.</param>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.TryRemove(`0,System.Exception@)">
+            <summary>Tries to remove a value from the set.</summary>
             <param name="value">The value to remove.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
-            <summary>Tries to remove a value.</summary>
-            <param name="compare">The compare delegate.</param>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.TryRemoveWithoutTrim(`0,System.Exception@)">
+            <summary>Tries to remove a value from the set without shrinking the hash table.</summary>
+            <param name="value">The value to remove.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Resize(System.Int32)">
+            <summary>Resizes the table.</summary>
+            <param name="tableSize">The desired size of the table.</param>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Trim">
+            <summary>Trims the table to an appropriate size based on the current count.</summary>
+            <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Clone">
+            <summary>Creates a shallow clone of this set.</summary>
+            <returns>A shallow clone of this set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Contains(`0)">
+            <summary>Determines if a value has been added to a set.</summary>
+            <param name="value">The value to look for in the set.</param>
+            <returns>True if the value has been added to the set or false if not.</returns>
+            <runtime>O(n), Ω(1), ε(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.Step{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Clear">
+            <summary>Removes all the values in the set.</summary>
+            <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRef{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Stepper(Towel.Step{`0})">
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.Stepper(Towel.StepBreak{`0})">
+            <summary>Steps through all the values of the set.</summary>
+            <param name="step">The action to perform on every value in the set.</param>
+            <returns>The status of the stepper.</returns>
+            <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Stepper(Towel.StepRefBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.GetEnumerator">
+            <summary>Gets the enumerator for the set.</summary>
+            <returns>The enumerator for the set.</returns>
+            <runtime>O(n)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.Step{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRef{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-            <runtime>O(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.Step{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRef{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.StepperReverse(Towel.StepRefBreak{`0},`0,`0)">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <param name="minimum">The minimum value of the optimized stepper function.</param>
-            <param name="maximum">The maximum value of the optimized stepper function.</param>
-            <runtime>O(n * step), Ω(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>Returns the IEnumerator for this data structure.</summary>
-            <returns>The IEnumerator for this data structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.GetEnumerator">
-            <summary>Returns the IEnumerator for this data structure.</summary>
-            <returns>The IEnumerator for this data structure.</returns>
-            <citation>
-            This method was provided by user CyrusNajmabadi from GitHub.
-            </citation>
-        </member>
-        <member name="T:Towel.DataStructures.ISet`1">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The type of values to store in the set.</typeparam>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.ToArray">
+            <summary>Puts all the values in this set into an array.</summary>
+            <returns>An array with all the values in the set.</returns>
+            <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.SetHashLinked`1">
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
@@ -13643,14 +14015,6 @@
             <param name="set">The set to clone.</param>
             <runtime>O(n)</runtime>
         </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`1.TableSize">
-            <summary>The current size of the hashed table.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`1.Count">
-            <summary>The current number of values in the set.</summary>
-            <runtime>O(1)</runtime>
-        </member>
         <member name="P:Towel.DataStructures.SetHashLinked`1.Hash">
             <summary>The delegate for computing hash codes.</summary>
             <runtime>O(1)</runtime>
@@ -13659,66 +14023,9 @@
             <summary>The delegate for equality checking.</summary>
             <runtime>O(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.TryAdd(`0,System.Exception@)">
-            <summary>Adds a value to the set.</summary>
-            <param name="value">The value to add to the set.</param>
-            <param name="exception">The exception that occurred if the add failed.</param>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.TryRemove(`0,System.Exception@)">
-            <summary>Tries to remove a value from the set.</summary>
-            <param name="value">The value to remove.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-            <returns>True if the remove was successful or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.TryRemoveWithoutTrim(`0,System.Exception@)">
-            <summary>Tries to remove a value from the set without shrinking the hash table.</summary>
-            <param name="value">The value to remove.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-            <returns>True if the remove was successful or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Resize(System.Int32)">
-            <summary>Resizes the table.</summary>
-            <param name="tableSize">The desired size of the table.</param>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Trim">
-            <summary>Trims the table to an appropriate size based on the current count.</summary>
-            <runtime>O(n), Ω(1)</runtime>
-        </member>
         <member name="M:Towel.DataStructures.SetHashLinked`1.Clone">
             <summary>Creates a shallow clone of this set.</summary>
             <returns>A shallow clone of this set.</returns>
-            <runtime>Θ(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Contains(`0)">
-            <summary>Determines if a value has been added to a set.</summary>
-            <param name="value">The value to look for in the set.</param>
-            <returns>True if the value has been added to the set or false if not.</returns>
-            <runtime>O(n), Ω(1), ε(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Clear">
-            <summary>Removes all the values in the set.</summary>
-            <runtime>O(1)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Stepper(Towel.Step{`0})">
-            <summary>Steps through all the values of the set.</summary>
-            <param name="step">The action to perform on every value in the set.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Stepper(Towel.StepBreak{`0})">
-            <summary>Steps through all the values of the set.</summary>
-            <param name="step">The action to perform on every value in the set.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.GetEnumerator">
-            <summary>Gets the enumerator for the set.</summary>
-            <returns>The enumerator for the set.</returns>
-            <runtime>O(n)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.ToArray">
-            <summary>Puts all the values in this set into an array.</summary>
-            <returns>An array with all the values in the set.</returns>
             <runtime>Θ(n)</runtime>
         </member>
         <member name="T:Towel.DataStructures.Set`2">
@@ -13884,52 +14191,52 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.Step{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.Step{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRef{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepBreak{`0},`0,`0)">
-            <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
-            <param name="step">The step function.</param>
-            <param name="minimum">The minimum step value.</param>
-            <param name="maximum">The maximum step value.</param>
-            <returns>The result status of the stepper function.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRefBreak{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepBreak{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.Step{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRefBreak{`0})">
+            <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
+            <param name="step">The step function.</param>
+            <param name="minimum">The minimum step value.</param>
+            <param name="maximum">The maximum step value.</param>
+            <returns>The result status of the stepper function.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.Step{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRef{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepBreak{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepBreak{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRefBreak{`0},`0,`0)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
@@ -30242,6 +30549,132 @@
             <summary>Delegate for a traversal function on a data structure.</summary>
             <typeparam name="T">The type of instances the will be traversed.</typeparam>
             <param name="step">The foreach function to perform on each iteration.</param>
+        </member>
+        <member name="T:Towel.IStep`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="T:Towel.StepRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.StepRuntime`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRuntime`1.op_Implicit(Towel.Step{`0})~Towel.StepRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepFromStepRef`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="StepRef">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepFromStepRef`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepFromStepRef`2.op_Implicit(`1)~Towel.StepFromStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRef">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.IStepRef`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="M:Towel.IStepRef`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.StepRefRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefRuntime`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefRuntime`1.op_Implicit(Towel.StepRef{`0})~Towel.StepRefRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRef">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepToStepRef`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepToStepRef`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepToStepRef`2.op_Implicit(`1)~Towel.StepToStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.IStepBreak`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="T:Towel.StepBreakRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.StepBreakRuntime`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepBreakRuntime`1.op_Implicit(Towel.StepBreak{`0})~Towel.StepBreakRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepBreak">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepBreakFromStep`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepBreakFromStep`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepBreakFromStep`2.op_Implicit(`1)~Towel.StepBreakFromStep{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.IStepRefBreak`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="M:Towel.IStepRefBreak`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.StepRefBreakRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakRuntime`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakRuntime`1.op_Implicit(Towel.StepRefBreak{`0})~Towel.StepRefBreakRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRefBreak">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepRefBreakFromStepBreak`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepBreak`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepBreak`2.op_Implicit(`1)~Towel.StepRefBreakFromStepBreak{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepRefBreakFromStepRef`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepRef`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepRef`2.op_Implicit(`1)~Towel.StepRefBreakFromStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.Step`2">
             <summary>Delegate for an action to perform while stepping.</summary>

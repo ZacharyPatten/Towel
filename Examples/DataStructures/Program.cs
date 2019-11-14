@@ -349,7 +349,7 @@ namespace DataStructures
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
-				avlTree.Stepper(i => Console.Write(i), minimum, maximum);
+				avlTree.Stepper(minimum, maximum, i => Console.Write(i));
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
@@ -396,7 +396,7 @@ namespace DataStructures
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
-				redBlackTree.Stepper(i => Console.Write(i), minimum, maximum);
+				redBlackTree.Stepper(minimum, maximum, i => Console.Write(i));
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);

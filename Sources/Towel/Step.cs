@@ -63,6 +63,191 @@ namespace Towel
 	/// <param name="step">The foreach function to perform on each iteration.</param>
 	public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
 
+	/// <summary>A compile time delegate for stepping values of iteration.</summary>
+	/// <typeparam name="T">The generic type of values to step.</typeparam>
+	public interface IStep<T> : IAction<T> { }
+
+	#region IStep - Built In Structs
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	public struct StepRuntime<T> : IStep<T>
+	{
+		internal Step<T> Step;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(T value) => Step(value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime Step delegate.</param>
+		public static implicit operator StepRuntime<T>(Step<T> step) =>
+			new StepRuntime<T>() { Step = step, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <typeparam name="StepRef">The Step function.</typeparam>
+	public struct StepFromStepRef<T, StepRef> : IStep<T>
+		where StepRef : struct, IStepRef<T>
+	{
+		internal StepRef StepRefFunction;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(T value) => StepRefFunction.Do(ref value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="stepRef">The runtime Step delegate.</param>
+		public static implicit operator StepFromStepRef<T, StepRef>(StepRef stepRef) =>
+			new StepFromStepRef<T, StepRef>() { StepRefFunction = stepRef, };
+	}
+
+	#endregion
+
+	/// <summary>A compile time delegate for stepping values of iteration.</summary>
+	/// <typeparam name="T">The generic type of values to step.</typeparam>
+	public interface IStepRef<T>
+	{
+		/// <summary>The invocation of the compile time delegate.</summary>
+		void Do(ref T a);
+	}
+
+	#region IStepRef - Built In Structs
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	public struct StepRefRuntime<T> : IStepRef<T>
+	{
+		internal StepRef<T> StepRef;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(ref T value) => StepRef(ref value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="stepRef">The runtime Step delegate.</param>
+		public static implicit operator StepRefRuntime<T>(StepRef<T> stepRef) =>
+			new StepRefRuntime<T>() { StepRef = stepRef, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <typeparam name="Step">The Step function.</typeparam>
+	public struct StepToStepRef<T, Step> : IStepRef<T>
+		where Step : struct, IStep<T>
+	{
+		internal Step StepFunction;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(ref T value) => StepFunction.Do(value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime Step delegate.</param>
+		public static implicit operator StepToStepRef<T, Step>(Step step) =>
+			new StepToStepRef<T, Step>() { StepFunction = step, };
+	}
+
+	#endregion
+
+	/// <summary>A compile time delegate for stepping values of iteration.</summary>
+	/// <typeparam name="T">The generic type of values to step.</typeparam>
+	public interface IStepBreak<T> : IFunc<T, StepStatus> { }
+
+	#region IStepBreak - Built In Structs
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	public struct StepBreakRuntime<T> : IStepBreak<T>
+	{
+		internal StepBreak<T> StepBreak;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public StepStatus Do(T value) => StepBreak(value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="stepBreak">The runtime Step delegate.</param>
+		public static implicit operator StepBreakRuntime<T>(StepBreak<T> stepBreak) =>
+			new StepBreakRuntime<T>() { StepBreak = stepBreak, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <typeparam name="Step">The Step function.</typeparam>
+	public struct StepBreakFromStep<T, Step> : IStepBreak<T>
+		where Step : struct, IStep<T>
+	{
+		internal Step StepFunction;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public StepStatus Do(T value) { StepFunction.Do(value); return Continue; }
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime Step delegate.</param>
+		public static implicit operator StepBreakFromStep<T, Step>(Step step) =>
+			new StepBreakFromStep<T, Step>() { StepFunction = step, };
+	}
+
+	#endregion
+
+	/// <summary>A compile time delegate for stepping values of iteration.</summary>
+	/// <typeparam name="T">The generic type of values to step.</typeparam>
+	public interface IStepRefBreak<T>
+	{
+		/// <summary>The invocation of the compile time delegate.</summary>
+		StepStatus Do(ref T a);
+	}
+
+	#region IStepRefBreak - Built In Structs
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	public struct StepRefBreakRuntime<T> : IStepRefBreak<T>
+	{
+		internal StepRefBreak<T> StepRefBreak;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public StepStatus Do(ref T value) => StepRefBreak(ref value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="stepRefBreak">The runtime Step delegate.</param>
+		public static implicit operator StepRefBreakRuntime<T>(StepRefBreak<T> stepRefBreak) =>
+			new StepRefBreakRuntime<T>() { StepRefBreak = stepRefBreak, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <typeparam name="Step">The Step function.</typeparam>
+	public struct StepRefBreakFromStepBreak<T, Step> : IStepRefBreak<T>
+		where Step : struct, IStepBreak<T>
+	{
+		internal Step StepFunction;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public StepStatus Do(ref T value) => StepFunction.Do(value);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime Step delegate.</param>
+		public static implicit operator StepRefBreakFromStepBreak<T, Step>(Step step) =>
+			new StepRefBreakFromStepBreak<T, Step>() { StepFunction = step, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <typeparam name="Step">The Step function.</typeparam>
+	public struct StepRefBreakFromStepRef<T, Step> : IStepRefBreak<T>
+		where Step : struct, IStepRef<T>
+	{
+		internal Step StepFunction;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public StepStatus Do(ref T value) { StepFunction.Do(ref value); return Continue; }
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime Step delegate.</param>
+		public static implicit operator StepRefBreakFromStepRef<T, Step>(Step step) =>
+			new StepRefBreakFromStepRef<T, Step>() { StepFunction = step, };
+	}
+
+	#endregion
+
 	#endregion
 
 	#region 2 Dimensional

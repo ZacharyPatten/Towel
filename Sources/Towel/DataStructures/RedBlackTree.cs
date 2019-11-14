@@ -13,20 +13,15 @@ namespace Towel.DataStructures
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <citation>
-	/// This Red-Black Tree imlpementation was originally developed by 
-	/// Roy Clem and hosted as an open source project on 
-	/// CodeProject.com. However, it has been modified since its
-	/// addition into the Towel framework.
-	/// http://www.codeproject.com/Articles/8287/Red-Black-Trees-in-C
-	/// </citation>
-	public class RedBlackTreeLinked<T> : IRedBlackTree<T>
+	/// <typeparam name="Compare">The compare delegate.</typeparam>
+	public class RedBlackTreeLinked<T, Compare> : IRedBlackTree<T>
+		where Compare : struct, ICompare<T>
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
 		internal readonly static Node _sentinelNode = new Node() { Color = Black };
 
-		internal Compare<T> _compare;
+		internal Compare _compare;
 		internal int _count;
 		internal Node _root;
 
@@ -47,15 +42,15 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new Red Black Tree.</summary>
 		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(Compare<T> compare = null)
+		public RedBlackTreeLinked(Compare compare = default)
 		{
 			_root = _sentinelNode;
-			_compare = compare ?? Towel.Compare.Default;
+			_compare = compare;
 		}
 
 		/// <summary>Constructor for cloning purposes.</summary>
 		/// <param name="tree">The tree to be cloned.</param>
-		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
+		internal RedBlackTreeLinked(RedBlackTreeLinked<T, Compare> tree)
 		{
 			static Node Clone(Node node, Node parent)
 			{
@@ -73,7 +68,6 @@ namespace Towel.DataStructures
 				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
 				return clone;
 			}
-
 			_compare = tree._compare;
 			_count = tree._count;
 			_root = tree._root is null ? null : Clone(tree._root, null);
@@ -83,7 +77,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Gets the current least item in the avl tree.</summary>
+		/// <summary>Gets the current least item in the tree.</summary>
 		public T CurrentLeast
 		{
 			get
@@ -101,7 +95,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets the current greated item in the avl tree.</summary>
+		/// <summary>Gets the current greated item in the tree.</summary>
 		public T CurrentGreatest
 		{
 			get
@@ -122,8 +116,12 @@ namespace Towel.DataStructures
 		/// <summary>The number of items in this data structure.</summary>
 		public int Count => _count;
 
-		/// <summary>The sorting technique.</summary>
-		public Compare<T> Compare => _compare;
+		/// <summary>The comparison function being utilized by this structure.</summary>
+		/// <runtime>θ(1)</runtime>
+		Compare<T> DataStructure.IComparing<T>.Compare =>
+			_compare is CompareRuntime<T> compareRuntime
+			? compareRuntime.Compare
+			: _compare.Do;
 
 		#endregion
 
@@ -143,7 +141,7 @@ namespace Towel.DataStructures
 			while (temp != _sentinelNode)
 			{
 				addition.Parent = temp;
-				CompareResult compareResult = _compare(value, temp.Value);
+				CompareResult compareResult = _compare.Do(value, temp.Value);
 				if (compareResult is Greater)
 				{
 					temp = temp.RightChild;
@@ -170,11 +168,11 @@ namespace Towel.DataStructures
 			addition.RightChild = _sentinelNode;
 			if (!(addition.Parent is null))
 			{
-				switch (_compare(addition.Value, addition.Parent.Value))
+				switch (_compare.Do(addition.Value, addition.Parent.Value))
 				{
 					case Greater: addition.Parent.RightChild = addition; break;
-					case Less:    addition.Parent.LeftChild  = addition; break;
-					default:      throw new CorruptedDataStructureException();
+					case Less: addition.Parent.LeftChild = addition; break;
+					default: throw new CorruptedDataStructureException();
 				}
 			}
 			else
@@ -204,7 +202,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public RedBlackTreeLinked<T> Clone() => new RedBlackTreeLinked<T>(this);
+		public RedBlackTreeLinked<T, Compare> Clone() => new RedBlackTreeLinked<T, Compare>(this);
 
 		#endregion
 
@@ -213,7 +211,7 @@ namespace Towel.DataStructures
 		/// <summary>Determines if the tree contains a given value;</summary>
 		/// <param name="value">The value to see if the tree contains.</param>
 		/// <returns>True if the tree contains the value. False if not.</returns>
-		public bool Contains(T value) => Contains(x => _compare(value, x));
+		public bool Contains(T value) => Contains(x => _compare.Do(value, x));
 
 		/// <summary>Determines if this structure contains an item by a given key.</summary>
 		/// <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
@@ -221,15 +219,15 @@ namespace Towel.DataStructures
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
 		public bool Contains(CompareToKnownValue<T> compare)
 		{
-			Node treeNode = _root;
-			while (treeNode != _sentinelNode && !(treeNode is null))
+			Node node = _root;
+			while (node != _sentinelNode && !(node is null))
 			{
-				switch (compare(treeNode.Value))
+				switch (compare(node.Value))
 				{
-					case Equal:   return true;
-					case Greater: treeNode = treeNode.RightChild; break;
-					case Less:    treeNode = treeNode.LeftChild; break;
-					default:      throw new TowelBugException("Unhandled CompareResult.");
+					case Equal: return true;
+					case Greater: node = node.RightChild; break;
+					case Less: node = node.LeftChild; break;
+					default: throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
 			return false;
@@ -246,21 +244,21 @@ namespace Towel.DataStructures
 		/// <returns>True if the value was found or false if not.</returns>
 		public bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception)
 		{
-			Node treeNode = _root;
-			while (treeNode != _sentinelNode)
+			Node node = _root;
+			while (node != _sentinelNode)
 			{
-				CompareResult compareResult = compare(treeNode.Value);
+				CompareResult compareResult = compare(node.Value);
 				if (compareResult is Greater)
 				{
-					treeNode = treeNode.RightChild;
+					node = node.RightChild;
 				}
 				else if (compareResult is Less)
 				{
-					treeNode = treeNode.LeftChild;
+					node = node.LeftChild;
 				}
 				else
 				{
-					value = treeNode.Value;
+					value = node.Value;
 					exception = null;
 					return true;
 				}
@@ -278,7 +276,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception) => TryRemove(x => _compare(value, x), out exception);
+		public bool TryRemove(T value, out Exception exception) => TryRemove(x => _compare.Do(value, x), out exception);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="compare">The compare delegate.</param>
@@ -373,52 +371,63 @@ namespace Towel.DataStructures
 		#region Stepper
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void Stepper(Step<T> step)
-		{
-			void Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					Stepper(node.LeftChild);
-					step(node.Value);
-					Stepper(node.RightChild);
-				}
-			}
-			Stepper(_root);
-		}
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void Stepper(StepRef<T> step)
-		{
-			void Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					Stepper(node.LeftChild);
-					step(ref node.Value);
-					Stepper(node.RightChild);
-				}
-			}
-			Stepper(_root);
-		}
+		public void Stepper(Step<T> step) =>
+			Stepper<StepRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperBreak<Step>(Step step)
+			where Step : struct, IStepBreak<T> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperRefBreak<Step>(Step step)
+			where Step : struct, IStepRefBreak<T>
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (!(node is null) && node != _sentinelNode)
+				if (node != _sentinelNode)
 				{
 					return
 						Stepper(node.LeftChild) is Break ? Break :
-						step(node.Value) is Break ? Break :
+						step.Do(ref node.Value) is Break ? Break :
 						Stepper(node.RightChild) is Break ? Break :
 						Continue;
 				}
@@ -431,22 +440,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			StepStatus Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					return
-						Stepper(node.LeftChild) is Break ? Break :
-						step(ref node.Value) is Break ? Break :
-						Stepper(node.RightChild) is Break ? Break :
-						Continue;
-				}
-				return Continue;
-			}
-			return Stepper(_root);
-		}
+		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
 		#endregion
 
@@ -457,85 +451,69 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void Stepper(Step<T> step, T minimum, T maximum)
-		{
-			void Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, maximum) is Greater)
-					{
-						Stepper(node.LeftChild);
-					}
-					else if (_compare(node.Value, minimum) is Less)
-					{
-						Stepper(node.RightChild);
-					}
-					else
-					{
-						Stepper(node.LeftChild);
-						step(node.Value);
-						Stepper(node.RightChild);
-					}
-				}
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			Stepper(_root);
-		}
+		public virtual void Stepper<Step>(T minimum, T maximum, Step step)
+			where Step : struct, IStep<T> =>
+			StepperBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void Stepper(StepRef<T> step, T minimum, T maximum)
-		{
-			void Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, minimum) is Less)
-					{
-						Stepper(node.RightChild);
-					}
-					else if (_compare(node.Value, maximum) is Greater)
-					{
-						Stepper(node.LeftChild);
-					}
-					else
-					{
-						Stepper(node.LeftChild);
-						step(ref node.Value);
-						Stepper(node.RightChild);
-					}
-				}
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			Stepper(_root);
-		}
+		public virtual void Stepper(T minimum, T maximum, Step<T> step) =>
+			Stepper<StepRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus Stepper(StepBreak<T> step, T minimum, T maximum)
+		public virtual void StepperRef<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual void Stepper(T minimum, T maximum, StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus Stepper(T minimum, T maximum, StepBreak<T> step) =>
+			StepperBreak<StepBreakRuntime<T>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus StepperRefBreak<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			StepStatus Stepper(Node node)
 			{
-				if (!(node is null) && node != _sentinelNode)
+				if (node != _sentinelNode)
 				{
-					if (_compare(node.Value, minimum) is Less)
+					if (_compare.Do(node.Value, minimum) is Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) is Greater)
+					else if (_compare.Do(node.Value, maximum) is Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
@@ -543,14 +521,14 @@ namespace Towel.DataStructures
 					{
 						return
 							Stepper(node.LeftChild) is Break ? Break :
-							step(node.Value) is Break ? Break :
+							step.Do(ref node.Value) is Break ? Break :
 							Stepper(node.RightChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) is Greater)
+			if (_compare.Do(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -562,37 +540,8 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus Stepper(StepRefBreak<T> step, T minimum, T maximum)
-		{
-			StepStatus Stepper(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, minimum) is Less)
-					{
-						return Stepper(node.RightChild);
-					}
-					else if (_compare(node.Value, maximum) is Greater)
-					{
-						return Stepper(node.LeftChild);
-					}
-					else
-					{
-						return
-							Stepper(node.LeftChild) is Break ? Break :
-							step(ref node.Value) is Break ? Break :
-							Stepper(node.RightChild) is Break ? Break :
-							Continue;
-					}
-				}
-				return Continue;
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			return Stepper(_root);
-		}
+		public virtual StepStatus Stepper(T minimum, T maximum, StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(minimum, maximum);
 
 		#endregion
 
@@ -601,58 +550,63 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void StepperReverse(Step<T> step)
-		{
-			bool StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					StepperReverse(node.RightChild);
-					step(node.Value);
-					StepperReverse(node.LeftChild);
-				}
-				return true;
-			}
-			StepperReverse(_root);
-		}
+		public void StepperReverse<Step>(Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperReverseBreak<StepBreakFromStep<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void StepperReverse(StepRef<T> step)
-		{
-			bool StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					StepperReverse(node.RightChild);
-					step(ref node.Value);
-					StepperReverse(node.LeftChild);
-				}
-				return true;
-			}
-			StepperReverse(_root);
-		}
+		public void StepperReverse(Step<T> step) =>
+			StepperReverse<StepRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperReverseRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperReverse(StepRef<T> step) =>
+			StepperReverseRef<StepRefRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus StepperReverse(StepBreak<T> step)
+		public StepStatus StepperReverseBreak<Step>(Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperReverse(StepBreak<T> step) =>
+			StepperReverseBreak<StepBreakRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperReverseRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (!(node is null) && node != _sentinelNode)
+				if (!(node is null))
 				{
 					return
 						StepperReverse(node.RightChild) is Break ? Break :
-						step(node.Value) is Break ? Break :
+						step.Do(ref node.Value) is Break ? Break :
 						StepperReverse(node.LeftChild) is Break ? Break :
 						Continue;
 				}
 				return Continue;
 			}
-
 			return StepperReverse(_root);
 		}
 
@@ -660,23 +614,8 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus StepperReverse(StepRefBreak<T> step)
-		{
-			StepStatus StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					return
-						StepperReverse(node.RightChild) is Break ? Break :
-						step(ref node.Value) is Break ? Break :
-						StepperReverse(node.LeftChild) is Break ? Break :
-						Continue;
-				}
-				return Continue;
-			}
-
-			return StepperReverse(_root);
-		}
+		public StepStatus StepperReverse(StepRefBreak<T> step) =>
+			StepperReverseRefBreak<StepRefBreakRuntime<T>>(step);
 
 		#endregion
 
@@ -687,85 +626,69 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void StepperReverse(Step<T> step, T minimum, T maximum)
-		{
-			void StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, maximum) is Greater)
-					{
-						StepperReverse(node.LeftChild);
-					}
-					else if (_compare(node.Value, minimum) is Less)
-					{
-						StepperReverse(node.RightChild);
-					}
-					else
-					{
-						StepperReverse(node.RightChild);
-						step(node.Value);
-						StepperReverse(node.LeftChild);
-					}
-				}
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			StepperReverse(_root);
-		}
+		public virtual void StepperReverse<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperReverseBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void StepperReverse(StepRef<T> step, T minimum, T maximum)
-		{
-			void StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, minimum) is Less)
-					{
-						StepperReverse(node.RightChild);
-					}
-					else if (_compare(node.Value, maximum) is Greater)
-					{
-						StepperReverse(node.LeftChild);
-					}
-					else
-					{
-						StepperReverse(node.RightChild);
-						step(ref node.Value);
-						StepperReverse(node.LeftChild);
-					}
-				}
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			StepperReverse(_root);
-		}
+		public virtual void StepperReverse(T minimum, T maximum, Step<T> step) =>
+			StepperReverse<StepRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus StepperReverse(StepBreak<T> step, T minimum, T maximum)
+		public virtual void StepperReverseRef<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual void StepperReverse(T minimum, T maximum, StepRef<T> step) =>
+			StepperReverseRef<StepRefRuntime<T>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus StepperReverse(T minimum, T maximum, StepBreak<T> step) =>
+			StepperReverseBreak<StepBreakRuntime<T>>(minimum, maximum, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
+		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
+		/// <runtime>O(n * step), Ω(1)</runtime>
+		public virtual StepStatus StepperReverseRefBreak<Step>(T minimum, T maximum, Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (!(node is null) && node != _sentinelNode)
+				if (!(node is null))
 				{
-					if (_compare(node.Value, minimum) is Less)
+					if (_compare.Do(node.Value, minimum) is Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare(node.Value, maximum) is Greater)
+					else if (_compare.Do(node.Value, maximum) is Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
@@ -773,14 +696,14 @@ namespace Towel.DataStructures
 					{
 						return
 							StepperReverse(node.RightChild) is Break ? Break :
-							step(node.Value) is Break ? Break :
+							step.Do(ref node.Value) is Break ? Break :
 							StepperReverse(node.LeftChild) is Break ? Break :
 							Continue;
 					}
 				}
 				return Continue;
 			}
-			if (_compare(minimum, maximum) is Greater)
+			if (_compare.Do(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -792,37 +715,8 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus StepperReverse(StepRefBreak<T> step, T minimum, T maximum)
-		{
-			StepStatus StepperReverse(Node node)
-			{
-				if (!(node is null) && node != _sentinelNode)
-				{
-					if (_compare(node.Value, minimum) is Less)
-					{
-						return StepperReverse(node.RightChild);
-					}
-					else if (_compare(node.Value, maximum) is Greater)
-					{
-						return StepperReverse(node.LeftChild);
-					}
-					else
-					{
-						return
-							StepperReverse(node.RightChild) is Break ? Break :
-							step(ref node.Value) is Break ? Break :
-							StepperReverse(node.LeftChild) is Break ? Break :
-							Continue;
-					}
-				}
-				return Continue;
-			}
-			if (_compare(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
-			}
-			return StepperReverse(_root);
-		}
+		public virtual StepStatus StepperReverse(T minimum, T maximum, StepRefBreak<T> step) =>
+			StepperReverseRefBreak<StepRefBreakRuntime<T>>(minimum, maximum, step);
 
 		#endregion
 
@@ -1044,6 +938,60 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		#endregion
+	}
+
+	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
+	/// <typeparam name="T">The generic type of the structure.</typeparam>
+	public class RedBlackTreeLinked<T> : RedBlackTreeLinked<T, CompareRuntime<T>>
+	{
+		#region Constructors
+
+		/// <summary>Constructs a new Red Black Tree.</summary>
+		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
+		public RedBlackTreeLinked(Compare<T> compare = null) : base(compare ?? Towel.Compare.Default) { }
+
+		/// <summary>Constructor for cloning purposes.</summary>
+		/// <param name="tree">The tree to be cloned.</param>
+		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
+		{
+			static Node Clone(Node node, Node parent)
+			{
+				if (node == _sentinelNode)
+				{
+					return _sentinelNode;
+				}
+				Node clone = new Node
+				{
+					Value = node.Value,
+					Color = node.Color,
+					Parent = parent
+				};
+				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
+				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
+				return clone;
+			}
+
+			_compare = tree._compare;
+			_count = tree._count;
+			_root = tree._root is null ? null : Clone(tree._root, null);
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>The sorting technique.</summary>
+		public Compare<T> Compare => _compare.Compare;
+
+		#endregion
+
+		#region Clone
+
+		/// <summary>Creates a shallow clone of this data structure.</summary>
+		/// <returns>A shallow clone of this data structure.</returns>
+		public new RedBlackTreeLinked<T> Clone() => new RedBlackTreeLinked<T>(this);
 
 		#endregion
 	}

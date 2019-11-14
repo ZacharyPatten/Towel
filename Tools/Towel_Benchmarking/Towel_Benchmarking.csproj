@@ -6,8 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mathematics\" />
-    <Folder Include="Measurements\" />
+    <Compile Remove="Mathematics\**" />
+    <Compile Remove="Measurements\**" />
+    <EmbeddedResource Remove="Mathematics\**" />
+    <EmbeddedResource Remove="Measurements\**" />
+    <None Remove="Mathematics\**" />
+    <None Remove="Measurements\**" />
   </ItemGroup>
 
   <ItemGroup>

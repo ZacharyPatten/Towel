@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Towel.Mathematics;
 using static Towel.Syntax;
 
 namespace Towel.DataStructures
@@ -173,15 +171,19 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashLinked<T, K> : IMap<T, K>,
+	/// <typeparam name="Equate">The equate function.</typeparam>
+	/// <typeparam name="Hash">The hash function.</typeparam>
+	public class MapHashLinked<T, K, Equate, Hash> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IHashing<K>
+		where Equate : struct, IEquate<K>
+		where Hash : struct, IHash<K>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;
 
-		internal Equate<K> _equate;
-		internal Hash<K> _hash;
+		internal Equate _equate;
+		internal Hash _hash;
 		internal Node[] _table;
 		internal int _count;
 
@@ -192,13 +194,6 @@ namespace Towel.DataStructures
 			internal K Key;
 			internal T Value;
 			internal Node Next;
-
-			internal Node(K key, T value, Node next)
-			{
-				Key = key;
-				Value = value;
-				Next = next;
-			}
 		}
 
 		#endregion
@@ -211,8 +206,8 @@ namespace Towel.DataStructures
 		/// <param name="expectedCount">The expected count of the map.</param>
 		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
-			Equate<K> equate = null,
-			Hash<K> hash = null,
+			Equate equate = default,
+			Hash hash = default,
 			int? expectedCount = null)
 		{
 			if (expectedCount.HasValue && expectedCount.Value > 0)
@@ -228,15 +223,15 @@ namespace Towel.DataStructures
 			{
 				_table = new Node[2];
 			}
-			_equate = equate ?? Towel.Equate.Default;
-			_hash = hash ?? Towel.Hash.Default;
+			_equate = equate;
+			_hash = hash;
 			_count = 0;
 		}
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="map">The map to clone.</param>
 		/// <runtime>O(n)</runtime>
-		internal MapHashLinked(MapHashLinked<T, K> map)
+		internal MapHashLinked(MapHashLinked<T, K, Equate, Hash> map)
 		{
 			_equate = map._equate;
 			_hash = map._hash;
@@ -258,11 +253,17 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Hash<K> Hash => _hash;
+		Hash<K> DataStructure.IHashing<K>.Hash =>
+			_hash is HashRuntime<K> hashRuntime
+			? hashRuntime.Hash
+			: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Equate<K> Equate => _equate;
+		Equate<K> DataStructure.IEquating<K>.Equate =>
+			_equate is EquateRuntime<K> equateRuntime
+			? equateRuntime.Equate
+			: _equate.Do;
 
 		/// <summary>Gets the value of a specified key.</summary>
 		/// <param name="key">The key to get the value of.</param>
@@ -287,13 +288,13 @@ namespace Towel.DataStructures
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(key);
+			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Key, key))
+				if (_equate.Do(node.Key, key))
 				{
 					exception = new ArgumentException("Attempting to add a duplicate keyed value to a map.", nameof(value));
 					return false;
@@ -302,7 +303,12 @@ namespace Towel.DataStructures
 
 			{
 				// add the value
-				Node node = new Node(key, value, _table[location]);
+				Node node = new Node()
+				{
+					Key = key,
+					Value = value,
+					Next = _table[location],
+				};
 				_table[location] = node;
 				_count++;
 			}
@@ -343,13 +349,13 @@ namespace Towel.DataStructures
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(key);
+			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Key, key))
+				if (_equate.Do(node.Key, key))
 				{
 					value = node.Value;
 					exception = null;
@@ -376,13 +382,13 @@ namespace Towel.DataStructures
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(key);
+			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// duplicate value check
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Key, key))
+				if (_equate.Do(node.Key, key))
 				{
 					node.Value = value;
 					return;
@@ -391,7 +397,12 @@ namespace Towel.DataStructures
 
 			{
 				// add the value
-				Node node = new Node(key, value, _table[location]);
+				Node node = new Node()
+				{
+					Key = key,
+					Value = value,
+					Next = _table[location],
+				};
 				_table[location] = node;
 				_count++;
 			}
@@ -453,11 +464,11 @@ namespace Towel.DataStructures
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(key);
+			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// find and remove the node
-			if (_equate(_table[location].Key, key))
+			if (_equate.Do(_table[location].Key, key))
 			{
 				// the value was the head node of the table index
 				_table[location] = _table[location].Next;
@@ -470,7 +481,7 @@ namespace Towel.DataStructures
 				// that value is a child node of the table index
 				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
 				{
-					if (_equate(node.Next.Key, key))
+					if (_equate.Do(node.Next.Key, key))
 					{
 						node.Next = node.Next.Next;
 						_count--;
@@ -510,7 +521,7 @@ namespace Towel.DataStructures
 					temp[i] = node.Next;
 
 					// compute the hash code and relate it to the current table
-					int hashCode = _hash(node.Key);
+					int hashCode = _hash.Do(node.Key);
 					int location = (hashCode & int.MaxValue) % _table.Length;
 
 					// add the value to the new table
@@ -543,7 +554,7 @@ namespace Towel.DataStructures
 		/// <summary>Creates a shallow clone of this map.</summary>
 		/// <returns>A shallow clone of this map.</returns>
 		/// <runtime>Θ(n)</runtime>
-		public MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
+		public MapHashLinked<T, K, Equate, Hash> Clone() => new MapHashLinked<T, K, Equate, Hash>(this);
 
 		#endregion
 
@@ -556,13 +567,13 @@ namespace Towel.DataStructures
 		public bool Contains(K key)
 		{
 			// compute the hash code and relate it to the current table
-			int hashCode = _hash(key);
+			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
 			// look for the value
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
-				if (_equate(node.Key, key))
+				if (_equate.Do(node.Key, key))
 				{
 					return true;
 				}
@@ -789,6 +800,58 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		#endregion
+	}
+
+	/// <summary>An unsorted structure of unique items.</summary>
+	/// <typeparam name="T">The generic type of the structure.</typeparam>
+	/// <typeparam name="K">The generic key type of this map.</typeparam>
+	public class MapHashLinked<T, K> : MapHashLinked<T, K, EquateRuntime<K>, HashRuntime<K>>
+	{
+		#region Constructors
+
+		/// <summary>Constructs a hashed map.</summary>
+		/// <param name="equate">The equate delegate.</param>
+		/// <param name="hash">The hashing function.</param>
+		/// <param name="expectedCount">The expected count of the map.</param>
+		/// <runtime>O(1)</runtime>
+		public MapHashLinked(
+			Equate<K> equate = null,
+			Hash<K> hash = null,
+			int? expectedCount = null) : base(equate ?? Towel.Equate.Default, hash ?? Towel.Hash.Default, expectedCount) { }
+
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="map">The map to clone.</param>
+		/// <runtime>O(n)</runtime>
+		internal MapHashLinked(MapHashLinked<T, K> map)
+		{
+			_equate = map._equate;
+			_hash = map._hash;
+			_table = (Node[])map._table.Clone();
+			_count = map._count;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>The delegate for computing hash codes.</summary>
+		/// <runtime>O(1)</runtime>
+		public Hash<K> Hash => _hash.Hash;
+
+		/// <summary>The delegate for equality checking.</summary>
+		/// <runtime>O(1)</runtime>
+		public Equate<K> Equate => _equate.Equate;
+
+		#endregion
+
+		#region Clone
+
+		/// <summary>Creates a shallow clone of this map.</summary>
+		/// <returns>A shallow clone of this map.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public new MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
 
 		#endregion
 	}
