@@ -41,12 +41,22 @@ namespace Towel
 			while (low <= hi)
 			{
 				int median = low + (hi - low >> 1);
-				switch (compare(get(median)))
+				CompareResult compareResult = compare(get(median));
+				if (compareResult is Less)
 				{
-					case Equal:   return median;
-					case Less:    low = median + 1; break;
-					case Greater: hi = median - 1; break;
-					default:      throw new TowelBugException("Unhandled CompareResult.");
+					low = median + 1;
+				}
+				else if (compareResult is Greater)
+				{
+					hi = median - 1;
+				}
+				else if (compareResult is Equal)
+				{
+					return median;
+				}
+				else
+				{
+					throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
 			return ~low;

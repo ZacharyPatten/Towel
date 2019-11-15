@@ -162,17 +162,27 @@ namespace Towel.DataStructures
 				exception = capturedException;
 				return false;
 			}
-
 			addition.Value = value;
 			addition.LeftChild = _sentinelNode;
 			addition.RightChild = _sentinelNode;
 			if (!(addition.Parent is null))
 			{
-				switch (_compare.Do(addition.Value, addition.Parent.Value))
+				CompareResult compareResult = _compare.Do(addition.Value, addition.Parent.Value);
+				if (compareResult is Less)
 				{
-					case Greater: addition.Parent.RightChild = addition; break;
-					case Less: addition.Parent.LeftChild = addition; break;
-					default: throw new CorruptedDataStructureException();
+					addition.Parent.LeftChild = addition;
+				}
+				else if (compareResult is Greater)
+				{
+					addition.Parent.RightChild = addition;
+				}
+				else if (compareResult is Equal)
+				{
+					throw new CorruptedDataStructureException();
+				}
+				else
+				{
+					throw new TowelBugException("Encountered Unhandled CompareResult.");
 				}
 			}
 			else
@@ -222,12 +232,22 @@ namespace Towel.DataStructures
 			Node node = _root;
 			while (node != _sentinelNode && !(node is null))
 			{
-				switch (compare(node.Value))
+				CompareResult compareResult = compare(node.Value);
+				if (compareResult is Less)
 				{
-					case Equal: return true;
-					case Greater: node = node.RightChild; break;
-					case Less: node = node.LeftChild; break;
-					default: throw new TowelBugException("Unhandled CompareResult.");
+					node = node.LeftChild;
+				}
+				else if (compareResult is Greater)
+				{
+					node = node.RightChild;
+				}
+				else if (compareResult is Equal)
+				{
+					return true;
+				}
+				else
+				{
+					throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
 			return false;

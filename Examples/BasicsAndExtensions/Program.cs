@@ -331,7 +331,7 @@ namespace BasicsAndExtensions
 				Console.Write("    Without Parameter: ");
 				for (int i = 1; i <= 4; i++)
 				{
-					// No Paremter
+					// No Parameter
 					Switch
 					(
 						(i == 1,  () => Console.Write(1 + ", ")),

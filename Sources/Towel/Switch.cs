@@ -37,9 +37,9 @@ namespace Towel
 			Default,
 		}
 
-		/// <summary>The delegate of the switch statement.</summary>
-		/// <typeparam name="T">The generic type of the switch statement.</typeparam>
-		/// <param name="possibleActions">The possible actions of the switch statement.</param>
+		/// <summary>The delegate of the Switch statement.</summary>
+		/// <typeparam name="T">The generic type of the Switch statement.</typeparam>
+		/// <param name="possibleActions">The possible actions of the Switch statement.</param>
 		public delegate void SwitchDelegate<T>(params (Condition<T> Condition, Action Action)[] possibleActions);
 
 		public abstract class Condition<T>

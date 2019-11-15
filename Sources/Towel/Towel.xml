@@ -30909,9 +30909,9 @@
             <summary>Definitions for Switch syntax.</summary>
         </member>
         <member name="T:Towel.SwitchSyntax.SwitchDelegate`1">
-            <summary>The delegate of the switch statement.</summary>
-            <typeparam name="T">The generic type of the switch statement.</typeparam>
-            <param name="possibleActions">The possible actions of the switch statement.</param>
+            <summary>The delegate of the Switch statement.</summary>
+            <typeparam name="T">The generic type of the Switch statement.</typeparam>
+            <param name="possibleActions">The possible actions of the Switch statement.</param>
         </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>
@@ -30966,7 +30966,7 @@
         </member>
         <member name="M:Towel.Syntax.Switch(System.ValueTuple{Towel.SwitchSyntax.Condition,System.Action}[])">
             <summary>Syntax sugar Switch statements.</summary>
-            <param name="possibleActions">The possible actions of the switch statement.</param>
+            <param name="possibleActions">The possible actions of the Switch statement.</param>
         </member>
         <member name="M:Towel.Syntax.Switch``1(``0)">
             <summary>Syntax sugar Switch statements.</summary>

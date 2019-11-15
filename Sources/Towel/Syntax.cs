@@ -140,7 +140,7 @@ namespace Towel
 		#region Switch
 
 		/// <summary>Syntax sugar Switch statements.</summary>
-		/// <param name="possibleActions">The possible actions of the switch statement.</param>
+		/// <param name="possibleActions">The possible actions of the Switch statement.</param>
 		public static void Switch(params (SwitchSyntax.Condition, Action)[] possibleActions) =>
 			SwitchSyntax.Do(possibleActions);
 
