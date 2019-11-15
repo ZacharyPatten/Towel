@@ -133,6 +133,23 @@ namespace Towel
 		public const CompareResult Greater = CompareResult.Greater;
 		/// <summary>There is no bound.</summary>
 		public const Omnitree.Keyword None = Omnitree.Keyword.None;
+		/// <summary>The default case in a Switch statement (true).</summary>
+		public const SwitchSyntax.Keyword Default = SwitchSyntax.Keyword.Default;
+		#endregion
+
+		#region Switch
+
+		/// <summary>Syntax sugar Switch statements.</summary>
+		/// <param name="possibleActions">The possible actions of the switch statement.</param>
+		public static void Switch(params (SwitchSyntax.Condition, Action)[] possibleActions) =>
+			SwitchSyntax.Do(possibleActions);
+
+		/// <summary>Syntax sugar Switch statements.</summary>
+		/// <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
+		/// <param name="value">The value argument of the Switch statement.</param>
+		/// <returns>The delegate for the Switch statement.</returns>
+		public static SwitchSyntax.SwitchDelegate<T> Switch<T>(T value) =>
+			SwitchSyntax.Do<T>(value);
 
 		#endregion
 

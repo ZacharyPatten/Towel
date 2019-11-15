@@ -30905,6 +30905,14 @@
             <param name="stepper">The stepper to concatenate the values into a string.</param>
             <returns>The string of the concatenated chars.</returns>
         </member>
+        <member name="T:Towel.SwitchSyntax">
+            <summary>Definitions for Switch syntax.</summary>
+        </member>
+        <member name="T:Towel.SwitchSyntax.SwitchDelegate`1">
+            <summary>The delegate of the switch statement.</summary>
+            <typeparam name="T">The generic type of the switch statement.</typeparam>
+            <param name="possibleActions">The possible actions of the switch statement.</param>
+        </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>
         </member>
@@ -30952,6 +30960,19 @@
         </member>
         <member name="F:Towel.Syntax.None">
             <summary>There is no bound.</summary>
+        </member>
+        <member name="F:Towel.Syntax.Default">
+            <summary>The default case in a Switch statement (true).</summary>
+        </member>
+        <member name="M:Towel.Syntax.Switch(System.ValueTuple{Towel.SwitchSyntax.Condition,System.Action}[])">
+            <summary>Syntax sugar Switch statements.</summary>
+            <param name="possibleActions">The possible actions of the switch statement.</param>
+        </member>
+        <member name="M:Towel.Syntax.Switch``1(``0)">
+            <summary>Syntax sugar Switch statements.</summary>
+            <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
+            <param name="value">The value argument of the Switch statement.</param>
+            <returns>The delegate for the Switch statement.</returns>
         </member>
         <member name="M:Towel.Syntax.Equality``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
