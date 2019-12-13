@@ -115,7 +115,7 @@ namespace Towel.DataStructures
 			}
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>
-			public readonly static Bound<T> None = new Bound<T>(false, default(T));
+			public readonly static Bound<T> None = new Bound<T>(false, default);
 
 			/// <summary>Converts a value to a bound.</summary>
 			/// <param name="value">The value to convert into a bound.</param>
@@ -176,9 +176,9 @@ namespace Towel.DataStructures
 			// if they have only inserted infinite bound objects it doesn't really matter what the
 			// point of division is, because the objects will never go down the tree
 			if (!exists)
-				return default(T);
+				return default;
 
-			System.Array.Sort(bounds, Compare.ToSystemComparison(Bound<T>.Compare(compare)));
+			Array.Sort(bounds, Compare.ToSystemComparison(Bound<T>.Compare(compare)));
 
 			// after sorting, we need to find the middle-most value that exists
 			int medianIndex = bounds.Length / 2;
@@ -187,15 +187,13 @@ namespace Towel.DataStructures
 				int adjuster = i / 2;
 				if (i % 2 == 0)
 					adjuster = -adjuster;
-
 				int adjustedMedianIndex = medianIndex + adjuster;
-
 				if (bounds[adjustedMedianIndex].Exists)
 					return bounds[adjustedMedianIndex].Value;
 			}
 
 			// This exception should never be reached
-			throw new System.Exception("There is a bug in the Towel Framwork [SubDivide]");
+			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
 		}
 
 		internal static T SubDivide<T>(ArrayJagged<Bound<T>> bounds, Compare<T> compare)
@@ -223,19 +221,17 @@ namespace Towel.DataStructures
 			for (ulong i = 0; i < bounds.Length; i++)
 			{
 				ulong adjustedMedianIndex = medianIndex;
-
 				ulong adjuster = i / 2;
 				if (i % 2 == 0)
 					adjustedMedianIndex -= adjuster;
 				else
 					adjustedMedianIndex += adjuster;
-
 				if (bounds[adjustedMedianIndex].Exists)
 					return bounds[adjustedMedianIndex].Value;
 			}
 
 			// This exception should never be reached
-			throw new System.Exception("There is a bug in the Towel Framwork [SubDivide]");
+			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
 		}
 
 		internal delegate bool SpatialCheck<T1, T2>(T1 space1, T2 space2);

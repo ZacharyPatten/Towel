@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sources\Towel\Towel.csproj" />
+    <ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />
   </ItemGroup>
 
 </Project>

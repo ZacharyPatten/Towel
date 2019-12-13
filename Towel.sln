@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection3D", "Exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicsAndExtensions", "Examples\BasicsAndExtensions\BasicsAndExtensions.csproj", "{F1CA45C1-683F-4820-BC1E-A3B6E703C986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "CommandLine\CommandLine.csproj", "{102EC2AC-A2CA-44C0-8812-15CC9C6CFFF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "Examples\CommandLine\CommandLine.csproj", "{102EC2AC-A2CA-44C0-8812-15CC9C6CFFF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

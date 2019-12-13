@@ -12,6 +12,8 @@ namespace Towel
 	/// <summary>Constains static analysis methods of the code (reflection).</summary>
 	public static class Meta
 	{
+		#region Getting Methods Via Reflection
+
 		#region GetTryParseMethod
 
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
@@ -399,6 +401,8 @@ namespace Towel
 		{
 			internal static readonly MethodInfo Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
 		}
+
+		#endregion
 
 		#endregion
 
