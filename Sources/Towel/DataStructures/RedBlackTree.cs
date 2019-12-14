@@ -19,7 +19,7 @@ namespace Towel.DataStructures
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
-		internal readonly static Node _sentinelNode = new Node() { Color = Black };
+		internal readonly Node _sentinelNode = new Node() { Color = Black };
 
 		internal Compare _compare;
 		internal int _count;
@@ -52,7 +52,7 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to be cloned.</param>
 		internal RedBlackTreeLinked(RedBlackTreeLinked<T, Compare> tree)
 		{
-			static Node Clone(Node node, Node parent)
+			Node Clone(Node node, Node parent)
 			{
 				if (node == _sentinelNode)
 				{
@@ -976,7 +976,7 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to be cloned.</param>
 		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
 		{
-			static Node Clone(Node node, Node parent)
+			Node Clone(Node node, Node parent)
 			{
 				if (node == _sentinelNode)
 				{
