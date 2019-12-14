@@ -135,6 +135,7 @@ namespace Towel
 		public const Omnitree.Keyword None = Omnitree.Keyword.None;
 		/// <summary>The default case in a Switch statement (true).</summary>
 		public const SwitchSyntax.Keyword Default = SwitchSyntax.Keyword.Default;
+
 		#endregion
 
 		#region Switch
