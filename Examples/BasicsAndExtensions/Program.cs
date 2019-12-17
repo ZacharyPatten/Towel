@@ -175,6 +175,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    Random.NextChar('a', 'z'): " + random.NextChar('a', 'z'));
 				Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
 				Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());
+				Console.WriteLine("    Random.NextUnique(5, 0, 100): " + string.Join(", ", random.NextUnique(5, 0, 100)));
 				Console.WriteLine();
 			}
 			#endregion

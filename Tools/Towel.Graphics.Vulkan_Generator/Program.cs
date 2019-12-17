@@ -10,22 +10,71 @@ using Towel;
 using static Towel.Syntax;
 using Towel.DataStructures;
 
-using VulkanCommand = Towel.DataStructures.Link<string, string, Towel.DataStructures.IList<Towel.DataStructures.Link<string, string>>>; // name, return type, VulkanCommandParameters
-using VulkanCommandParameter = Towel.DataStructures.Link<string, string>; // name, type
-using VulkanEnum = Towel.DataStructures.Link<string, Towel.DataStructures.IList<Towel.DataStructures.Link<string, int>>>; // name, VulkanEnumValues
-using VulkanEnumValue = Towel.DataStructures.Link<string, int>; // name, value
-using VulkanType = Towel.DataStructures.Link<string, string, Towel.DataStructures.IList<Towel.DataStructures.Link<string, string>>>; // name, category, VulkanTypeMembers
-using VulkanTypeMember = Towel.DataStructures.Link<string, string>; // name, type
-
 namespace Towel.Graphics.Vulkan_Generator
 {
+	#region Type Declarations
+
+	class VulkanCommand
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal string ReturnType;
+		internal IList<VulkanCommandParameter> Parameters;
+	}
+
+	class VulkanCommandParameter
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal string Type;
+	}
+
+	class VulkanEnum
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal IList<VulkanEnumValue> Values;
+	}
+
+	class VulkanEnumValue
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal int Value;
+	}
+
+	class VulkanType
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal string Content;
+		internal string Category;
+		internal IList<VulkanTypeMember> Members;
+	}
+
+	class VulkanTypeMember
+	{
+		internal int LineNumber;
+		internal string Name;
+		internal string Type;
+	}
+
+	#endregion
+
 	static class Program
 	{
-		static readonly IList<VulkanEnum> Enums = new ListArray<VulkanEnum>();
-		static readonly IList<VulkanCommand> Commands = new ListArray<VulkanCommand>();
+		static readonly IList<VulkanEnum> VulkanEnums = new ListArray<VulkanEnum>();
+		static readonly IList<VulkanCommand> VulkanCommands = new ListArray<VulkanCommand>();
 		static readonly IList<VulkanType> VulkanTypes = new ListArray<VulkanType>();
 
 		static void Main()
+		{
+			ParseVulkanXmlFile();
+			InterpretData();
+			GenerateVulkanWrapper();
+		}
+
+		static void ParseVulkanXmlFile()
 		{
 			Console.WriteLine("This is still in heavy development. It is not ready to use...");
 			Console.WriteLine("It is the work-in-progress of a generator for a Vulkan wrapper in C#.");
@@ -60,12 +109,21 @@ namespace Towel.Graphics.Vulkan_Generator
 
 			#endregion
 
+			Console.WriteLine("File Found (vk.xml)...");
+
+			#region Helpers
+
+			int LineNumber() => ((IXmlLineInfo)xmlReader).LineNumber;
+
+			#endregion
+
 			bool vulkanRegistryFound = false;
 			bool insideVulkanTypes = false;
 			bool insideVulkanCommands = false;
 			VulkanCommand currentVulkanCommand = null;
 			VulkanEnum currentVulkanEnum = null;
 			VulkanType currentVulkanType = null;
+			VulkanTypeMember currentVulkanTypeMember = null;
 
 			while (xmlReader.Read())
 			{
@@ -153,39 +211,59 @@ namespace Towel.Graphics.Vulkan_Generator
 
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "type")
 				{
-					if (!insideVulkanTypes && currentVulkanCommand is null)
+					try
 					{
-						// TODO: error when type/command logic is fixed
-						//stringBuilder.AppendLine("error " + ++errorCount + " line "+ ((IXmlLineInfo)xmlReader).LineNumber + ": type declared outside types/command member");
-						continue;
-					}
-
-					if (!(currentVulkanCommand is null))
-					{
-						string raw_value = xmlReader.Value;
-						if (!(raw_value is null))
+						if (!insideVulkanTypes && currentVulkanCommand is null)
 						{
-							currentVulkanCommand._2 = raw_value;
+							// TODO: error when type/command logic is fixed
+							//stringBuilder.AppendLine("error " + ++errorCount + " line "+ LineNumber() + ": type declared outside types/command member");
 							continue;
 						}
-					}
 
-					if (!(currentVulkanType is null))
-					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": type declared inside another type");
+						if (!(currentVulkanCommand is null))
+						{
+							string raw_value = xmlReader.Value;
+							if (!(raw_value is null))
+							{
+								currentVulkanCommand.ReturnType = raw_value;
+								continue;
+							}
+						}
+
+						//if (!(currentVulkanType is null))
+						//{
+						//	// TODO: kill this
+						//	currentVulkanType = null;
+						//	//stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": type declared inside another type");
+						//	//continue;
+						//}
+
+						string raw_name = xmlReader["name"];
+						string raw_content = xmlReader["content"];
+						string raw_category = xmlReader["category"];
+						if (!(raw_content is null))
+						{
+							stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": type missing content attribute");
+							continue;
+						}
+						currentVulkanType = new VulkanType()
+						{
+							LineNumber = LineNumber(),
+							Name = raw_name,
+							Content = raw_content,
+							Category = raw_category,
+							Members = new ListArray<VulkanTypeMember>()
+						};
+						VulkanTypes.Add(currentVulkanType);
 						continue;
 					}
-
-					string raw_content = xmlReader["content"];
-					if (!(raw_content is null))
+					finally
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": type missing content attribute");
-						continue;
+						if (xmlReader.IsEmptyElement)
+						{
+							currentVulkanType = null;
+						}
 					}
-
-					currentVulkanType = new VulkanType(null, raw_content, new ListArray<VulkanTypeMember>());
-					VulkanTypes.Add(currentVulkanType);
-					continue;
 				}
 
 				if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == "type")
@@ -200,17 +278,32 @@ namespace Towel.Graphics.Vulkan_Generator
 
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "enums")// && xmlReader["type"] == "enum")
 				{
-					string raw_name = xmlReader["name"];
-					if (raw_name is null)
+					try
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": enums missing name attribute");
+						string raw_name = xmlReader["name"];
+						if (raw_name is null)
+						{
+							stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": enums missing name attribute");
+						}
+						else
+						{
+							currentVulkanEnum = new VulkanEnum()
+							{
+								LineNumber = LineNumber(),
+								Name = raw_name,
+								Values = new ListArray<VulkanEnumValue>(),
+							};
+							VulkanEnums.Add(currentVulkanEnum);
+						}
+						continue;
 					}
-					else
+					finally
 					{
-						currentVulkanEnum = new VulkanEnum(raw_name, new ListArray<VulkanEnumValue>());
-						Enums.Add(currentVulkanEnum);
+						if (xmlReader.IsEmptyElement)
+						{
+							currentVulkanEnum = null;
+						}
 					}
-					continue;
 				}
 
 				if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == "enums")// && xmlReader["type"] == "enum")
@@ -226,7 +319,7 @@ namespace Towel.Graphics.Vulkan_Generator
 				{
 					if (currentVulkanEnum is null)
 					{
-						//stringBuilder.AppendLine("error " + ++errorCount + " line "+ ((IXmlLineInfo)xmlReader).LineNumber + ": enum declared outside enums member");
+						//stringBuilder.AppendLine("error " + ++errorCount + " line "+ LineNumber() + ": enum declared outside enums member");
 						continue;
 					}
 
@@ -242,17 +335,17 @@ namespace Towel.Graphics.Vulkan_Generator
 					}
 					if (raw_name is null)
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": enum missing name attribute [" + currentVulkanEnum + "]");
+						stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": enum missing name attribute [" + currentVulkanEnum + "]");
 						continue;
 					}
 					if (!(raw_value is null) && !(raw_bitpos is null))
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": enum contains both value and bitpos attributes [" + currentVulkanEnum + "." + raw_name + "]");
+						stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": enum contains both value and bitpos attributes [" + currentVulkanEnum + "." + raw_name + "]");
 						continue;
 					}
 					if (raw_value is null && raw_bitpos is null)
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": enum missing value/bitpos attribute [" + currentVulkanEnum + "." + raw_name + "]");
+						stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": enum missing value/bitpos attribute [" + currentVulkanEnum + "." + raw_name + "]");
 						continue;
 					}
 
@@ -266,14 +359,17 @@ namespace Towel.Graphics.Vulkan_Generator
 					bool success = isHexadecimal
 						? int.TryParse(valueString, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)
 						: int.TryParse(valueString, out value);
-
 					if (!success)
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": failed to parse value of enum [" + currentVulkanEnum + "." + raw_name + "]");
+						stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": failed to parse value of enum [" + currentVulkanEnum + "." + raw_name + "]");
 						continue;
 					}
-
-					currentVulkanEnum._2.Add(new VulkanEnumValue(raw_name, value));
+					currentVulkanEnum.Values.Add(new VulkanEnumValue()
+					{
+						LineNumber = LineNumber(),
+						Name = raw_name,
+						Value = value,
+					});
 					continue;
 				}
 
@@ -285,19 +381,47 @@ namespace Towel.Graphics.Vulkan_Generator
 				{
 					// TODO: error logic
 
+					if (!(currentVulkanTypeMember is null))
+					{
+						string raw_value = xmlReader.Value;
+
+						if (string.IsNullOrWhiteSpace(raw_value))
+						{
+							raw_value = xmlReader.ReadInnerXml();
+						}
+
+						currentVulkanTypeMember.Name = raw_value;
+
+						if (string.IsNullOrWhiteSpace(raw_value))
+						{
+							Console.WriteLine("Break");
+						}
+
+						continue;
+					}
+
 					if (!(currentVulkanCommand is null))
 					{
 						string raw_value = xmlReader.Value;
-						currentVulkanCommand._1 = raw_value;
+						currentVulkanCommand.Name = raw_value;
 						continue;
 					}
 
 					if (!(currentVulkanType is null))
 					{
-						string raw_value = xmlReader.Value;
-						currentVulkanType._1 = raw_value;
+						string raw_value = xmlReader.ReadInnerXml();
+
+						if (raw_value is null || raw_value == string.Empty)
+						{
+							Console.WriteLine("Break");
+						}
+
+						currentVulkanType.Name = raw_value;
 						continue;
 					}
+					
+					
+
 
 					// TODO: other
 
@@ -310,6 +434,41 @@ namespace Towel.Graphics.Vulkan_Generator
 
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
 				{
+					try
+					{
+						if (!(currentVulkanTypeMember is null))
+						{
+							stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": member declared inside another member");
+							//continue;
+						}
+						if (currentVulkanType is null)
+						{
+							stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": member declared outside a type");
+							//continue;
+						}
+						currentVulkanTypeMember = new VulkanTypeMember()
+						{
+							LineNumber = LineNumber(),
+						};
+						if (!(currentVulkanType is null))
+						{
+							currentVulkanType.Members.Add(currentVulkanTypeMember);
+							continue;
+						}
+						continue;
+					}
+					finally
+					{
+						if (xmlReader.IsEmptyElement)
+						{
+							currentVulkanTypeMember = null;
+						}
+					}
+				}
+
+				if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == "member")
+				{
+					currentVulkanTypeMember = null;
 					continue;
 				}
 
@@ -344,20 +503,29 @@ namespace Towel.Graphics.Vulkan_Generator
 
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "command")
 				{
-					if (!insideVulkanCommands)
+					try
 					{
-						stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": command declared outside commands member");
+						if (!insideVulkanCommands)
+						{
+							stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": command declared outside commands member");
+							continue;
+						}
+						currentVulkanCommand = new VulkanCommand()
+						{
+							LineNumber = LineNumber(),
+							Parameters = new ListArray<VulkanCommandParameter>()
+						};
+						VulkanCommands.Add(currentVulkanCommand);
 						continue;
 					}
-
-					currentVulkanCommand = new VulkanCommand(null, null, new ListArray<VulkanCommandParameter>());
-
-					continue;
+					finally
+					{
+						currentVulkanCommand = null;
+					}
 				}
 
 				if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == "command")
 				{
-					Commands.Add(currentVulkanCommand);
 					currentVulkanCommand = null;
 					continue;
 				}
@@ -429,18 +597,95 @@ namespace Towel.Graphics.Vulkan_Generator
 
 				if (xmlReader.NodeType == XmlNodeType.Element && !(xmlReader.Name is null))
 				{
-					stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": enum missing name attribute [" + currentVulkanEnum + "]");
+					stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": enum missing name attribute [" + currentVulkanEnum + "]");
 				}
 			}
 
 			if (!vulkanRegistryFound)
 			{
-				stringBuilder.AppendLine("error " + ++errorCount + " line " + ((IXmlLineInfo)xmlReader).LineNumber + ": registry not found");
+				stringBuilder.AppendLine("error " + ++errorCount + " line " + LineNumber() + ": registry not found");
 			}
 
 			File.WriteAllText("log.txt", stringBuilder.ToString());
 			Console.WriteLine("Error Count: " + errorCount);
-			Console.WriteLine("See log.txt...");
+			Console.WriteLine("File Parsing Complete...");
+		}
+
+		static void InterpretData()
+		{
+			Console.WriteLine("Interpretation Started...");
+
+			static string InterpretIdentifier(string identifier) => identifier is null
+				? null
+				: identifier.Replace(' ', '_');
+
+			VulkanEnums.Stepper(Enum =>
+			{
+				Enum.Name = InterpretIdentifier(Enum.Name);
+				Enum.Values.Stepper(Value =>
+				{
+					Value.Name = InterpretIdentifier(Value.Name);
+				});
+			});
+			VulkanCommands.Stepper(Command =>
+			{
+				Command.Name = InterpretIdentifier(Command.Name);
+				Command.Parameters.Stepper(Parameter =>
+				{
+					Parameter.Name = InterpretIdentifier(Parameter.Name);
+				});
+			});
+			VulkanTypes.Stepper(Type =>
+			{
+				Type.Name = InterpretIdentifier(Type.Name);
+				Type.Members.Stepper(Member =>
+				{
+					Member.Name = InterpretIdentifier(Member.Name);
+				});
+			});
+
+			Console.WriteLine("Interpretation Complete...");
+		}
+
+		static void GenerateVulkanWrapper()
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.AppendLine("//-----------------------------------------------------------------------------------");
+			stringBuilder.AppendLine("// <auto-generated>");
+			stringBuilder.AppendLine("//	This code was generated from the \"Tools\\Towel.Graphics.Vulkan_Generator\" project.");
+			stringBuilder.AppendLine("// </auto-generated>");
+			stringBuilder.AppendLine("//-----------------------------------------------------------------------------------");
+			stringBuilder.AppendLine();
+			stringBuilder.AppendLine();
+			stringBuilder.AppendLine();
+			stringBuilder.AppendLine(@"namespace Towel {");
+			VulkanEnums.Stepper(Enum =>
+			{
+				stringBuilder.AppendLine("\tpublic enum " + Enum.Name + " { // Line Number: " + Enum.LineNumber);
+				Enum.Values.Stepper(Value =>
+				{
+					stringBuilder.AppendLine("\t\t" + Value.Name + " = " + Value.Value + ", // Line Number: " + Value.LineNumber);
+				});
+				stringBuilder.AppendLine("\t}");
+			});
+			VulkanCommands.Stepper(Command =>
+			{
+
+			});
+			VulkanTypes.Stepper(Type =>
+			{
+				if (!(Type.Name is null || Type.Name == string.Empty))
+				{
+					stringBuilder.AppendLine("\tpublic struct " + Type.Name + " { // Line Number: " + Type.LineNumber);
+					Type.Members.Stepper(Member =>
+					{
+						stringBuilder.AppendLine("\t\t" + Member.Type + " " + Member.Name + "; // Line Number: " + Member.LineNumber);
+					});
+					stringBuilder.AppendLine("\t}");
+				}
+			});
+			stringBuilder.AppendLine(@"}");
+			File.WriteAllText("output.cs", stringBuilder.ToString());
 		}
 	}
 }

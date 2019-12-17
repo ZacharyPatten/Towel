@@ -634,7 +634,7 @@ Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
 // Path Finding (Graph Search)
-// Note: overloads for A*, Dijkstra, and Bread-First-Search algorithms
+// Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 Search.Graph<Node, Numeric>(...);
 ```
 
@@ -651,6 +651,7 @@ decimal NextDecimal(this Random random);
 DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
+IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue); // unique values
 void Shuffle<T>(this Random random, T[] array); // randomize arrays
 
 // Type conversion to string definition as appears in C# source code

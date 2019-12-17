@@ -494,6 +494,89 @@ namespace Towel
 			return TimeSpan.FromTicks(min.Ticks + randomLong);
 		}
 
+		internal class Node
+		{
+			internal int Value;
+			internal Node Next;
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
+		/// inclusive and <paramref name="b"/> is exclusive.
+		/// </summary>
+		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
+			where Step : struct, IAction<int>
+		{
+			if (minValue > maxValue)
+				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(maxValue));
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
+			if (maxValue - minValue < count)
+				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than |" + nameof(maxValue) + " - " + nameof(minValue) + "|.");
+			Node head = null;
+			for (int i = 0; i < count; i++)
+			{
+				int roll = random.Next(minValue, maxValue - i);
+				Node node = head;
+				Node previous = null;
+				while (!(node is null))
+				{
+					if (node.Value > roll)
+						break;
+					roll++;
+					previous = node;
+					node = node.Next;
+				}
+				step.Do(roll);
+				if (previous is null)
+					head = new Node() { Value = roll, Next = head, };
+				else
+					previous.Next = new Node() { Value = roll, Next = previous.Next };
+			}
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
+		/// inclusive and <paramref name="b"/> is exclusive.
+		/// </summary>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Step<int> step)
+		{
+			if (step is null)
+				throw new ArgumentNullException(nameof(step));
+			NextUnique<StepRuntime<int>>(random, count, minValue, maxValue, step);
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
+		/// inclusive and <paramref name="b"/> is exclusive.
+		/// </summary>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		public static System.Collections.Generic.IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue)
+		{
+			int i = 0;
+			int[] array = new int[count];
+			NextUnique(random, count, minValue, maxValue, value => array[i++] = value);
+			return array;
+		}
+
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="random">The random to shuffle with.</param>
