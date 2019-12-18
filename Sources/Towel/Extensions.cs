@@ -395,9 +395,9 @@ namespace Towel
 			{
 				throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
 			}
-			byte[] buf = new byte[8];
-			random.NextBytes(buf);
-			long longRand = BitConverter.ToInt64(buf, 0);
+			byte[] buffer = new byte[8];
+			random.NextBytes(buffer);
+			long longRand = BitConverter.ToInt64(buffer, 0);
 			return Math.Abs(longRand % (max - min)) + min;
 		}
 
@@ -502,8 +502,8 @@ namespace Towel
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
-		/// inclusive and <paramref name="b"/> is exclusive.
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
 		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
 		/// <param name="random">The random to generation algorithm.</param>
@@ -514,38 +514,57 @@ namespace Towel
 		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int>
 		{
-			if (minValue > maxValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(maxValue));
+			if (maxValue < minValue)
+				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
 			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than |" + nameof(maxValue) + " - " + nameof(minValue) + "|.");
-			Node head = null;
-			for (int i = 0; i < count; i++)
+				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
+			if (count < Math.Sqrt(maxValue - minValue) * 2)
 			{
-				int roll = random.Next(minValue, maxValue - i);
-				Node node = head;
-				Node previous = null;
-				while (!(node is null))
+				// Algorithm A: O(.5*count^2), Ω(count), ε(.5*count^2)
+				Node head = null;
+				for (int i = 0; i < count; i++) // Θ(count)
 				{
-					if (node.Value > roll)
-						break;
-					roll++;
-					previous = node;
-					node = node.Next;
+					int roll = random.Next(minValue, maxValue - i);
+					Node node = head;
+					Node previous = null;
+					while (!(node is null)) // O(count / 2), Ω(0), ε(count / 2)
+					{
+						if (node.Value > roll)
+							break;
+						roll++;
+						previous = node;
+						node = node.Next;
+					}
+					step.Do(roll);
+					if (previous is null)
+						head = new Node() { Value = roll, Next = head, };
+					else
+						previous.Next = new Node() { Value = roll, Next = previous.Next };
 				}
-				step.Do(roll);
-				if (previous is null)
-					head = new Node() { Value = roll, Next = head, };
-				else
-					previous.Next = new Node() { Value = roll, Next = previous.Next };
+			}
+			else
+			{
+				// Algorithm B: Θ(range + count)
+				int pool = maxValue - minValue;
+				int[] array = new int[pool];
+				for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
+					array[i] = j;
+				for (int i = 0; i < count; i++) // Θ(count)
+				{
+					int rollIndex = random.Next(0, pool);
+					int roll = array[rollIndex];
+					array[rollIndex] = array[--pool];
+					step.Do(roll);
+				}
 			}
 		}
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
-		/// inclusive and <paramref name="b"/> is exclusive.
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
@@ -561,8 +580,8 @@ namespace Towel
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="a"/>..<paramref name="b"/>] range where <paramref name="a"/> is
-		/// inclusive and <paramref name="b"/> is exclusive.
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
@@ -571,10 +590,51 @@ namespace Towel
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static System.Collections.Generic.IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue)
 		{
-			int i = 0;
-			int[] array = new int[count];
-			NextUnique(random, count, minValue, maxValue, value => array[i++] = value);
-			return array;
+			if (maxValue < minValue)
+				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
+			if (maxValue - minValue < count)
+				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
+			if (count < Math.Sqrt(maxValue - minValue) * 2)
+			{
+				// Algorithm A: O(.5*count^2), Ω(count), ε(.5*count^2)
+				Node head = null;
+				for (int i = 0; i < count; i++) // Θ(count)
+				{
+					int roll = random.Next(minValue, maxValue - i);
+					Node node = head;
+					Node previous = null;
+					while (!(node is null)) // O(count / 2), Ω(0), ε(count / 2)
+					{
+						if (node.Value > roll)
+							break;
+						roll++;
+						previous = node;
+						node = node.Next;
+					}
+					yield return roll;
+					if (previous is null)
+						head = new Node() { Value = roll, Next = head, };
+					else
+						previous.Next = new Node() { Value = roll, Next = previous.Next };
+				}
+			}
+			else
+			{
+				// Algorithm B: Θ(range + count)
+				int pool = maxValue - minValue;
+				int[] array = new int[pool];
+				for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
+					array[i] = j;
+				for (int i = 0; i < count; i++) // Θ(count)
+				{
+					int rollIndex = random.Next(0, pool);
+					int roll = array[rollIndex];
+					array[rollIndex] = array[--pool];
+					yield return roll;
+				}
+			}
 		}
 
 		/// <summary>Sorts values into a randomized order.</summary>
