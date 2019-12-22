@@ -486,5 +486,8 @@
             <summary>Test1</summary>
             <param name="a">TEST a</param>
         </member>
+        <member name="T:Towel_Testing.TestingRandom">
+            <summary>This is for testing purposes only. It lets you force values on a Random.</summary>
+        </member>
     </members>
 </doc>

@@ -514,50 +514,100 @@ namespace Towel
 		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int>
 		{
+			#pragma warning disable CS0618
+			if (count < Math.Sqrt(maxValue - minValue))
+			{
+				random.NextUniqueRollTracking(count, minValue, maxValue, step);
+			}
+			else
+			{
+				random.NextUniquePoolTracking(count, minValue, maxValue, step);
+			}
+			#pragma warning restore CS0618
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
+		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
+			where Step : struct, IAction<int>
+		{
 			if (maxValue < minValue)
 				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
 			if (maxValue - minValue < count)
 				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
-			if (count < Math.Sqrt(maxValue - minValue) * 2)
+			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
+			Node head = null;
+			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				// Algorithm A: O(.5*count^2), Ω(count), ε(.5*count^2)
-				Node head = null;
-				for (int i = 0; i < count; i++) // Θ(count)
+				int roll = random.Next(minValue, maxValue - i);
+				if (roll < minValue || roll >= maxValue - i)
 				{
-					int roll = random.Next(minValue, maxValue - i);
-					Node node = head;
-					Node previous = null;
-					while (!(node is null)) // O(count / 2), Ω(0), ε(count / 2)
-					{
-						if (node.Value > roll)
-							break;
-						roll++;
-						previous = node;
-						node = node.Next;
-					}
-					step.Do(roll);
-					if (previous is null)
-						head = new Node() { Value = roll, Next = head, };
-					else
-						previous.Next = new Node() { Value = roll, Next = previous.Next };
+					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
+				Node node = head;
+				Node previous = null;
+				while (!(node is null) && !(node.Value > roll)) // O(count / 2), Ω(0), ε(count / 2)
+				{
+					roll++;
+					previous = node;
+					node = node.Next;
+				}
+				step.Do(roll);
+				if (previous is null)
+					head = new Node() { Value = roll, Next = head, };
+				else
+					previous.Next = new Node() { Value = roll, Next = previous.Next };
 			}
-			else
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
+		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
+			where Step : struct, IAction<int>
+		{
+			if (maxValue < minValue)
+				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
+			if (maxValue - minValue < count)
+				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
+			// Algorithm B: Θ(range + count)
+			int pool = maxValue - minValue;
+			int[] array = new int[pool];
+			for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
+				array[i] = j;
+			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				// Algorithm B: Θ(range + count)
-				int pool = maxValue - minValue;
-				int[] array = new int[pool];
-				for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
-					array[i] = j;
-				for (int i = 0; i < count; i++) // Θ(count)
+				int rollIndex = random.Next(0, pool);
+				if (rollIndex < 0 || rollIndex >= pool)
 				{
-					int rollIndex = random.Next(0, pool);
-					int roll = array[rollIndex];
-					array[rollIndex] = array[--pool];
-					step.Do(roll);
+					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
+				int roll = array[rollIndex];
+				array[rollIndex] = array[--pool];
+				step.Do(roll);
 			}
 		}
 
@@ -587,54 +637,12 @@ namespace Towel
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static System.Collections.Generic.IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue)
+		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue)
 		{
-			if (maxValue < minValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
-			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
-			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
-			if (count < Math.Sqrt(maxValue - minValue) * 2)
-			{
-				// Algorithm A: O(.5*count^2), Ω(count), ε(.5*count^2)
-				Node head = null;
-				for (int i = 0; i < count; i++) // Θ(count)
-				{
-					int roll = random.Next(minValue, maxValue - i);
-					Node node = head;
-					Node previous = null;
-					while (!(node is null)) // O(count / 2), Ω(0), ε(count / 2)
-					{
-						if (node.Value > roll)
-							break;
-						roll++;
-						previous = node;
-						node = node.Next;
-					}
-					yield return roll;
-					if (previous is null)
-						head = new Node() { Value = roll, Next = head, };
-					else
-						previous.Next = new Node() { Value = roll, Next = previous.Next };
-				}
-			}
-			else
-			{
-				// Algorithm B: Θ(range + count)
-				int pool = maxValue - minValue;
-				int[] array = new int[pool];
-				for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
-					array[i] = j;
-				for (int i = 0; i < count; i++) // Θ(count)
-				{
-					int rollIndex = random.Next(0, pool);
-					int roll = array[rollIndex];
-					array[rollIndex] = array[--pool];
-					yield return roll;
-				}
-			}
+			int[] values = new int[count];
+			int i = 0;
+			NextUnique(random, count, minValue, maxValue, value => values[i++] = value);
+			return values;
 		}
 
 		/// <summary>Sorts values into a randomized order.</summary>

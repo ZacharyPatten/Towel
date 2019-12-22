@@ -132,12 +132,10 @@ namespace BasicsAndExtensions
 				decimal value1 = 12345.6789m;
 				Console.WriteLine("    Value1 = " + value1);
 				Console.WriteLine("    Value1 To Words = " + value1.ToEnglishWords());
-				Console.WriteLine();
 
 				decimal value2 = 999.888m;
 				Console.WriteLine("    Value2 = " + value2);
 				Console.WriteLine("    Value2 To Words = " + value2.ToEnglishWords());
-				Console.WriteLine();
 
 				decimal value3 = 1111111.2m;
 				Console.WriteLine("    Value3 = " + value3);
@@ -154,7 +152,6 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				Console.WriteLine("    " + typeof(IOmnitreePoints<Vector<double>, double, double, double>).ConvertToCSharpSource());
-				Console.WriteLine();
 				Console.WriteLine("    " + typeof(Symbolics.Add).ConvertToCSharpSource());
 				Console.WriteLine();
 			}
@@ -191,10 +188,9 @@ namespace BasicsAndExtensions
 				// This function loads in XML documentation so you can access it via reflection.
 				Meta.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
 
-				Console.WriteLine("    XML Documentation On Towel.Syntax:");
+				Console.Write("    XML Documentation On Towel.Syntax:");
 				Console.WriteLine(typeof(Towel.Syntax).GetDocumentation());
-				Console.WriteLine();
-				Console.WriteLine("    XML Documentation On Towel.Constant<float>.Pi:");
+				Console.Write("    XML Documentation On Towel.Constant<float>.Pi:");
 				Console.WriteLine(typeof(Constant<float>).GetField(nameof(Constant<float>.Pi)).GetDocumentation());
 			}
 			#endregion
