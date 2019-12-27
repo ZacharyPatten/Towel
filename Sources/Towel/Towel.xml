@@ -14897,9 +14897,6 @@
         <member name="T:Towel.MathematicsException">
             <summary>Represents an exception in mathematical computation.</summary>
         </member>
-        <member name="M:Towel.MathematicsException.#ctor">
-            <summary>Represents an exception in mathematical computation.</summary>
-        </member>
         <member name="M:Towel.MathematicsException.#ctor(System.String)">
             <summary>Represents an exception in mathematical computation.</summary>
             <param name="message">The message of the exception.</param>
@@ -14910,9 +14907,6 @@
             <param name="innerException">The inner exception.</param>
         </member>
         <member name="T:Towel.TowelBugException">
-            <summary>Represents a bug in the Towel project. Please report it.</summary>
-        </member>
-        <member name="M:Towel.TowelBugException.#ctor">
             <summary>Represents a bug in the Towel project. Please report it.</summary>
         </member>
         <member name="M:Towel.TowelBugException.#ctor(System.String)">
@@ -30887,7 +30881,7 @@
             <param name="otherSteppers">The other steppers of the concatenation.</param>
             <returns>The concatenated steppers as a single stepper.</returns>
         </member>
-        <member name="M:Towel.Stepper.Where``1(Towel.Stepper{``0},System.Predicate{``0})">
+        <member name="M:Towel.Stepper.Where``1(Towel.Stepper{``0},System.Func{``0,System.Boolean})">
             <summary>Filters a stepper using a where predicate.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to filter.</param>

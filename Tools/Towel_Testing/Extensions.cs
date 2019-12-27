@@ -11,22 +11,38 @@ namespace Towel_Testing
 
 		[TestMethod] public void Decimal_ToEnglishWords()
 		{
-			Assert.IsTrue((   1m).ToEnglishWords() == "One");
-			Assert.IsTrue((  -1m).ToEnglishWords() == "Negative One");
-			Assert.IsTrue(( 1.5m).ToEnglishWords() == "One And Five Tenths");
-			Assert.IsTrue((  69m).ToEnglishWords() == "Sixty-Nine");
-			Assert.IsTrue(( 120m).ToEnglishWords() == "One Hundred Twenty");
-			Assert.IsTrue((1300m).ToEnglishWords() == "One Thousand Three Hundred");
-			Assert.IsTrue((7725m).ToEnglishWords() == "Seven Thousand Seven Hundred Twenty-Five");
-			Assert.IsTrue((  12m).ToEnglishWords() == "Twelve");
-			Assert.IsTrue((1000m).ToEnglishWords() == "One Thousand");
-			Assert.IsTrue((10000m).ToEnglishWords() == "Ten Thousand");
-			Assert.IsTrue((100000m).ToEnglishWords() == "One Hundred Thousand");
-			Assert.IsTrue((1000000m).ToEnglishWords() == "One Million");
-			Assert.IsTrue((10000000m).ToEnglishWords() == "Ten Million");
+			Assert.IsTrue((        1m).ToEnglishWords() == "One");
+			Assert.IsTrue((       -1m).ToEnglishWords() == "Negative One");
+			Assert.IsTrue((      1.5m).ToEnglishWords() == "One And Five Tenths");
+			Assert.IsTrue((       69m).ToEnglishWords() == "Sixty-Nine");
+			Assert.IsTrue((      120m).ToEnglishWords() == "One Hundred Twenty");
+			Assert.IsTrue((     1300m).ToEnglishWords() == "One Thousand Three Hundred");
+			Assert.IsTrue((     7725m).ToEnglishWords() == "Seven Thousand Seven Hundred Twenty-Five");
+			Assert.IsTrue((       12m).ToEnglishWords() == "Twelve");
+			Assert.IsTrue((     1000m).ToEnglishWords() == "One Thousand");
+			Assert.IsTrue((    10000m).ToEnglishWords() == "Ten Thousand");
+			Assert.IsTrue((   100000m).ToEnglishWords() == "One Hundred Thousand");
+			Assert.IsTrue((  1000000m).ToEnglishWords() == "One Million");
+			Assert.IsTrue(( 10000000m).ToEnglishWords() == "Ten Million");
 			Assert.IsTrue((100000000m).ToEnglishWords() == "One Hundred Million");
+			Assert.IsTrue((   0.1234m).ToEnglishWords() == "One Thousand Two Hundred Thirty-Four Ten-Thousandths");
+			Assert.IsTrue((  -0.1234m).ToEnglishWords() == "Negative One Thousand Two Hundred Thirty-Four Ten-Thousandths");
 
+			// test a bunch of whole numbers for exceptions
 			for (decimal i = 0; i < 1000000; i += 13)
+			{
+				try
+				{
+					i.ToEnglishWords();
+				}
+				catch
+				{
+					Assert.Fail("Value: " + i.ToString() + ".");
+				}
+			}
+
+			// test a bunch of non-whole numbers numbers for exceptions
+			for (decimal i = -1000; i < 1000; i += 1.0001m)
 			{
 				try
 				{

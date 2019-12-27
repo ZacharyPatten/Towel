@@ -1064,7 +1064,11 @@ namespace Towel
 			}
 			if (index != 2)
 			{
-				result = ConvertDigitGroup(decimal.Parse(new string(digits).Substring(index + 1)), digitGroup++) + (result is null ? string.Empty : " " + result);
+				decimal digitsDecimal = decimal.Parse(new string(digits).Substring(index + 1));
+				if (digitsDecimal != 0)
+				{
+					result = ConvertDigitGroup(digitsDecimal, digitGroup) + (result is null ? string.Empty : " " + result);
+				}
 			}
 			return result;
 		}
@@ -1133,11 +1137,19 @@ namespace Towel
 					result += "Negative ";
 					@decimal = @decimal *= -1m;
 				}
-				result += ConvertWholeNumber(decimal.Truncate(@decimal));
+				decimal wholeNumber = decimal.Truncate(@decimal);
+				if (wholeNumber > 0)
+				{
+					result += ConvertWholeNumber(wholeNumber);
+				}
 				decimal decimalPlacesOnly = @decimal % 1m;
 				if (decimalPlacesOnly > 0m)
 				{
-					result += " And " + ConvertDecimalPlaces(decimalPlacesOnly);
+					if (wholeNumber > 0)
+					{
+						result += " And ";
+					}
+					result += ConvertDecimalPlaces(decimalPlacesOnly);
 				}
 				return result;
 			}
