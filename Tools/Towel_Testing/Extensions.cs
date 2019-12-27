@@ -19,6 +19,25 @@ namespace Towel_Testing
 			Assert.IsTrue((1300m).ToEnglishWords() == "One Thousand Three Hundred");
 			Assert.IsTrue((7725m).ToEnglishWords() == "Seven Thousand Seven Hundred Twenty-Five");
 			Assert.IsTrue((  12m).ToEnglishWords() == "Twelve");
+			Assert.IsTrue((1000m).ToEnglishWords() == "One Thousand");
+			Assert.IsTrue((10000m).ToEnglishWords() == "Ten Thousand");
+			Assert.IsTrue((100000m).ToEnglishWords() == "One Hundred Thousand");
+			Assert.IsTrue((1000000m).ToEnglishWords() == "One Million");
+			Assert.IsTrue((10000000m).ToEnglishWords() == "Ten Million");
+			Assert.IsTrue((100000000m).ToEnglishWords() == "One Hundred Million");
+
+			for (decimal i = 0; i < 1000000; i += 13)
+			{
+				try
+				{
+					i.ToEnglishWords();
+				}
+				catch
+				{
+					Assert.Fail("Value: " + i.ToString() + ".");
+				}
+			}
+
 		}
 
 		#endregion

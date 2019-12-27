@@ -13,16 +13,16 @@ namespace Towel.DataStructures
 	{
 		#region Members
 
-		/// <summary>Removes the first occurence of an item in the list.</summary>
-		/// <param name="predicate">The function to determine equality.</param>
-		void RemoveFirst(Predicate<T> predicate);
-		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
-		/// <param name="predicate">The function to determine equality.</param>
-		/// <returns>True if the item was found and removed; False if not.</returns>
-		bool TryRemoveFirst(Predicate<T> predicate);
-		/// <summary>Removes all occurences of an item in the list.</summary>
-		/// <param name="predicate">The function to determine equality.</param>
-		void RemoveAll(Predicate<T> predicate);
+		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
+		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <param name="predicate">The predicate to determine removal.</param>
+		/// <returns>True if the value was removed. False if the value did not exist.</returns>
+		bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>;
+
+		void RemoveAll<Predicate>(Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>;
 
 		#endregion
 	}
@@ -31,6 +31,26 @@ namespace Towel.DataStructures
 	public static class List
 	{
 		#region Extensions
+
+		public static void RemoveAll<T>(this IList<T> iList, Func<T, bool> predicate) =>
+			iList.RemoveAll<PredicateRuntime<T>>(predicate);
+
+		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate) =>
+			iList.TryRemoveFirst<PredicateRuntime<T>>(out _, predicate);
+
+		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception exception) =>
+			iList.TryRemoveFirst<PredicateRuntime<T>>(out exception, predicate);
+
+		/// <summary>Removes the first equality by object reference.</summary>
+		/// <param name="iList">The list to remove the value from.</param>
+		/// <param name="predicate">The predicate to determine removal.</param>
+		public static void RemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate)
+		{
+			if (!iList.TryRemoveFirst<PredicateRuntime<T>>(out Exception exception, predicate))
+			{
+				throw exception;
+			}
+		}
 
 		/// <summary>Removes the first occurence of an item in the list.</summary>
 		/// <param name="iList">The list to remove the value from.</param>
@@ -209,7 +229,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
-		public void RemoveFirst(Predicate<T> predicate)
+		public void RemoveFirst(Func<T, bool> predicate)
 		{
 			if (!TryRemoveFirst(predicate, out Exception exception))
 			{
@@ -219,53 +239,64 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes all predicated items from the list.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
-		public void RemoveAll(Predicate<T> predicate)
+		public void RemoveAll<Predicate>(Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
 		{
 			if (_head is null)
 			{
 				return;
 			}
-			if (predicate(_head.Value))
+			while (predicate.Do(_head.Value))
 			{
 				_head = _head.Next;
 				_count--;
 			}
-			Node listNode = _head;
-			while (!(listNode is null))
+			Node tail = null;
+			for (Node node = _head; !(node.Next is null); node = node.Next)
 			{
-				if (listNode.Next is null)
+				if (predicate.Do(node.Next.Value))
 				{
-					break;
-				}
-				else if (predicate(_head.Value))
-				{
-					if (listNode.Next.Equals(_tail))
+					if (node.Next.Equals(_tail))
 					{
-						_tail = listNode;
+						_tail = node;
 					}
-					listNode.Next = listNode.Next.Next;
+					node.Next = node.Next.Next;
+					_count--;
 				}
-				listNode = listNode.Next;
+				else
+				{
+					tail = node;
+				}
 			}
+			_tail = tail;
 		}
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst(Predicate<T> predicate) =>
+		public bool TryRemoveFirst(Func<T, bool> predicate) =>
 			TryRemoveFirst(predicate, out _);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst(Predicate<T> predicate, out Exception exception)
+		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception exception) =>
+			TryRemoveFirst<PredicateRuntime<T>>(out exception, predicate);
+
+		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
+		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <param name="predicate">The predicate to determine removal.</param>
+		/// <returns>True if the value was removed. False if the value did not exist.</returns>
+		public bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
 		{
 			if (_head is null)
 			{
 				goto NonExistingValue;
 			}
-			if (predicate(_head.Value))
+			if (predicate.Do(_head.Value))
 			{
 				_head = _head.Next;
 				_count--;
@@ -279,7 +310,7 @@ namespace Towel.DataStructures
 				{
 					goto NonExistingValue;
 				}
-				else if (predicate(listNode.Next.Value))
+				else if (predicate.Do(listNode.Next.Value))
 				{
 					if (listNode.Next.Equals(_tail))
 					{
@@ -593,7 +624,8 @@ namespace Towel.DataStructures
 		/// <summary>Removes all predicated items from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>Θ(n)</runtime>
-		public void RemoveAll(Predicate<T> predicate)
+		public void RemoveAll<Predicate>(Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
 		{
 			RemoveAllWithoutShrink(predicate);
 			if (_count < _list.Length / 2)
@@ -610,7 +642,8 @@ namespace Towel.DataStructures
 		/// <summary>Removes all predicated items from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>Θ(n)</runtime>
-		public void RemoveAllWithoutShrink(Predicate<T> predicate)
+		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
 		{
 			if (_count == 0)
 			{
@@ -619,7 +652,7 @@ namespace Towel.DataStructures
 			int removed = 0;
 			for (int i = 0; i < _count; i++)
 			{
-				if (predicate(_list[i]))
+				if (predicate.Do(_list[i]))
 				{
 					removed++;
 				}
@@ -634,11 +667,11 @@ namespace Towel.DataStructures
 		/// <summary>Removes the first predicated value from the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirst(Predicate<T> predicate)
+		public void RemoveFirst(Func<T, bool> predicate)
 		{
-			if (!TryRemoveFirst(predicate))
+			if (!TryRemoveFirst(predicate, out Exception exception))
 			{
-				throw new ArgumentException("Attempting to remove a non-existing item from this list.");
+				throw exception;
 			}
 		}
 
@@ -656,15 +689,15 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(T value, Equate<T> equate)
 		{
-			RemoveFirstWithoutShrink(x => equate(x, value));
+			RemoveFirstWithoutShrink(x => equate(x, value), out _);
 		}
 
 		/// <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(Predicate<T> predicate)
+		public void RemoveFirstWithoutShrink(Func<T, bool> predicate, out Exception exception)
 		{
-			if (!TryRemoveFirst(predicate))
+			if (!TryRemoveFirst(predicate, out exception))
 			{
 				throw new ArgumentException("Attempting to remove a non-existing item from this list.");
 			}
@@ -673,21 +706,32 @@ namespace Towel.DataStructures
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <returns>True if the item was found and removed. False if not.</returns>
-		public bool TryRemoveFirst(Predicate<T> predicate)
+		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception exception) =>
+			TryRemoveFirst<PredicateRuntime<T>>(out exception, predicate);
+
+		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
+		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <param name="predicate">The predicate to determine removal.</param>
+		/// <returns>True if the value was removed. False if the value did not exist.</returns>
+		public bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
 		{
 			int i;
 			for (i = 0; i < _count; i++)
 			{
-				if (predicate(_list[i]))
+				if (predicate.Do(_list[i]))
 				{
 					break;
 				}
 			}
 			if (i == _count)
 			{
+				exception = new ArgumentException("Attempting to remove a non-existing item from this list.");
 				return false;
 			}
 			Remove(i);
+			exception = null;
 			return true;
 		}
 

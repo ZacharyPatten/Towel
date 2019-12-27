@@ -401,25 +401,25 @@ namespace Mathematics
 			Console.WriteLine("  Symbolics---------------------------------------");
 			Console.WriteLine();
 
-			Expression<Func<double, double>> expression1 = (x) => 2d * (x / 7d);
+			Expression<Func<double, double>> expression1 = x => 2d * (x / 7d);
 			var symbolicExpression1 = Symbolics.Parse(expression1);
 			Console.WriteLine("    Expression 1: " + symbolicExpression1);
 			Console.WriteLine("      Simplified: " + symbolicExpression1.Simplify());
 			Console.WriteLine("      Plugin(5): " + symbolicExpression1.Substitute("x", 5d).Simplify());
 
-			Expression<Func<double, double>> expression2 = (x) => 2d * x / 7d;
+			Expression<Func<double, double>> expression2 = x => 2d * x / 7d;
 			var symbolicExpression2 = Symbolics.Parse(expression2);
 			Console.WriteLine("    Expression 2: " + symbolicExpression2);
 			Console.WriteLine("      Simplified: " + symbolicExpression2.Simplify());
 			Console.WriteLine("      Plugin(5): " + symbolicExpression2.Substitute("x", 5d).Simplify());
 
-			Expression<Func<double, double>> expression3 = (x) => 2d - x + 7d;
+			Expression<Func<double, double>> expression3 = x => 2d - x + 7d;
 			var symbolicExpression3 = Symbolics.Parse(expression3);
 			Console.WriteLine("    Expression 3: " + symbolicExpression3);
 			Console.WriteLine("      Simplified: " + symbolicExpression3.Simplify());
 			Console.WriteLine("      Plugin(5): " + symbolicExpression3.Substitute("x", 5d).Simplify());
 
-			Expression<Func<double, double>> expression4 = (x) => 2d + (x - 7d);
+			Expression<Func<double, double>> expression4 = x => 2d + (x - 7d);
 			var symbolicExpression4 = Symbolics.Parse(expression4);
 			Console.WriteLine("    Expression 4: " + symbolicExpression4);
 			Console.WriteLine("      Simplified: " + symbolicExpression4.Simplify());

@@ -6,9 +6,6 @@ namespace Towel
 	public class MathematicsException : Exception
 	{
 		/// <summary>Represents an exception in mathematical computation.</summary>
-		public MathematicsException() : base() { }
-
-		/// <summary>Represents an exception in mathematical computation.</summary>
 		/// <param name="message">The message of the exception.</param>
 		public MathematicsException(string message) : base(message) { }
 
@@ -21,9 +18,6 @@ namespace Towel
 	/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 	public class TowelBugException : Exception
 	{
-		/// <summary>Represents a bug in the Towel project. Please report it.</summary>
-		public TowelBugException() : base() { }
-
 		/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 		/// <param name="message">The message of the exception.</param>
 		public TowelBugException(string message) : base(message) { }

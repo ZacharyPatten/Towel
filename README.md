@@ -676,6 +676,7 @@ string GetDocumentation(this ParameterInfo parameterInfo);
 ## Resources
 
 - [MSDN Magazine volume 34 number 10 - Accessing XML Documentation via Reflection](https://msdn.microsoft.com/en-us/magazine/mt833526)
+- [Generating Unique Random Data: A Practical Example Of Algorithm Analysis](https://gist.github.com/ZacharyPatten/c9b43a2c9e8a5a5523883e77410f742d)
 
 ## Developer(s)
 

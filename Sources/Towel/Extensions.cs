@@ -1053,7 +1053,12 @@ namespace Towel
 				digits[index--] = digit;
 				if (index < 0)
 				{
-					result = ConvertDigitGroup(decimal.Parse(new string(digits)), digitGroup++) + (result is null ? string.Empty : " " + result);
+					decimal digitsDecimal = decimal.Parse(new string(digits));
+					if (digitsDecimal != 0)
+					{
+						result = ConvertDigitGroup(digitsDecimal, digitGroup) + (result is null ? string.Empty : " " + result);
+					}
+					digitGroup++;
 					index = 2;
 				}
 			}

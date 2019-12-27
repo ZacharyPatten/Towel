@@ -69,18 +69,20 @@ namespace Towel.Graphics.Vulkan_Generator
 
 		static void Main()
 		{
-			ParseVulkanXmlFile();
-			InterpretData();
-			GenerateVulkanWrapper();
-		}
-
-		static void ParseVulkanXmlFile()
-		{
 			Console.WriteLine("This is still in heavy development. It is not ready to use...");
 			Console.WriteLine("It is the work-in-progress of a generator for a Vulkan wrapper in C#.");
 			Console.ReadLine();
 			return;
 
+			ParseVulkanXmlFile();
+			InterpretData();
+			GenerateVulkanWrapper();
+		}
+
+		#region 1) Parse
+
+		static void ParseVulkanXmlFile()
+		{
 			int errorCount = 0;
 			StringBuilder stringBuilder = new StringBuilder();
 
@@ -611,6 +613,10 @@ namespace Towel.Graphics.Vulkan_Generator
 			Console.WriteLine("File Parsing Complete...");
 		}
 
+		#endregion
+
+		#region 2) Interpret
+
 		static void InterpretData()
 		{
 			Console.WriteLine("Interpretation Started...");
@@ -646,6 +652,10 @@ namespace Towel.Graphics.Vulkan_Generator
 
 			Console.WriteLine("Interpretation Complete...");
 		}
+
+		#endregion
+
+		#region 3) Generate
 
 		static void GenerateVulkanWrapper()
 		{
@@ -687,5 +697,7 @@ namespace Towel.Graphics.Vulkan_Generator
 			stringBuilder.AppendLine(@"}");
 			File.WriteAllText("output.cs", stringBuilder.ToString());
 		}
+
+		#endregion
 	}
 }

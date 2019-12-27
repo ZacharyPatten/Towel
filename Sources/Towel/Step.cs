@@ -415,7 +415,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to filter.</param>
 		/// <param name="predicate">The predicate of the where filter.</param>
 		/// <returns>The filtered stepper.</returns>
-		public static Stepper<T> Where<T>(this Stepper<T> stepper, Predicate<T> predicate) =>
+		public static Stepper<T> Where<T>(this Stepper<T> stepper, Func<T, bool> predicate) =>
 			step => stepper(x =>
 				{
 					if (predicate(x))
