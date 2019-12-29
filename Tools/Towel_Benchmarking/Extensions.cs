@@ -11,7 +11,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void Decimal_ToEnglishWords()
 		{
-			decimal increment = Range / 20000;
+			decimal increment = Range / 200000;
 			for (decimal i = 0; i < Range; i += increment)
 			{
 				string englishWords = i.ToEnglishWords();

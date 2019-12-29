@@ -27,6 +27,7 @@ namespace Towel_Testing
 			Assert.IsTrue((100000000m).ToEnglishWords() == "One Hundred Million");
 			Assert.IsTrue((   0.1234m).ToEnglishWords() == "One Thousand Two Hundred Thirty-Four Ten-Thousandths");
 			Assert.IsTrue((  -0.1234m).ToEnglishWords() == "Negative One Thousand Two Hundred Thirty-Four Ten-Thousandths");
+			Assert.IsTrue(decimal.MaxValue.ToEnglishWords() == "Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five");
 
 			// test a bunch of whole numbers for exceptions
 			for (decimal i = 0; i < 1000000; i += 13)

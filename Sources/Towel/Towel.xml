@@ -15395,9 +15395,49 @@
             <returns>The constructed jagged array.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Decimal)">
-            <summary>Converts a decimal to the English word representation of that value.</summary>
-            <param name="decimal">The decimal value to convert to English words.</param>
-            <returns>The English word representation of the decimal value.</returns>
+            <summary>Converts a <see cref="T:System.Decimal"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="decimal">The <see cref="T:System.Decimal"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Decimal"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int32)">
+            <summary>Converts a <see cref="T:System.Int32"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="int">The <see cref="T:System.Int32"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int32"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int64)">
+            <summary>Converts a <see cref="T:System.Int64"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="long">The <see cref="T:System.Int64"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int64"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Byte)">
+            <summary>Converts a <see cref="T:System.Byte"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="byte">The <see cref="T:System.Byte"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Byte"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.SByte)">
+            <summary>Converts a <see cref="T:System.SByte"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="sbyte">The <see cref="T:System.SByte"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.SByte"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt32)">
+            <summary>Converts a <see cref="T:System.UInt32"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="uint">The <see cref="T:System.UInt32"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt32"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt64)">
+            <summary>Converts a <see cref="T:System.UInt64"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="ulong">The <see cref="T:System.UInt64"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt64"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int16)">
+            <summary>Converts a <see cref="T:System.Int16"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="short">The <see cref="T:System.Int16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int16"/> value.</returns>
+        </member>
+        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt16)">
+            <summary>Converts a <see cref="T:System.UInt16"/> to the English words <see cref="T:System.String"/> representation.</summary>
+            <param name="ushort">The <see cref="T:System.UInt16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
+            <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt16"/> value.</returns>
         </member>
         <member name="M:Towel.TowelDotNetExtensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>

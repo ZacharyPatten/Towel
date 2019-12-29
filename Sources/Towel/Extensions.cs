@@ -380,7 +380,7 @@ namespace Towel
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="max">Maximum allowed value of the random generation.</param>
 		/// <returns>A randomly generated long value.</returns>
-		public static long NextLong(this Random random, long max) => 
+		public static long NextLong(this Random random, long max) =>
 			NextLong(random, 0, max);
 
 		/// <summary>Generates a random long value.</summary>
@@ -932,228 +932,267 @@ namespace Towel
 
 		#region To English Words
 
-		internal static string ConvertDigit(decimal @decimal) =>
-			@decimal switch
+		internal static class ToEnglishWordsDefinitions
+		{
+			internal static string[] Digit =
 			{
-				1 => "One",
-				2 => "Two",
-				3 => "Three",
-				4 => "Four",
-				5 => "Five",
-				6 => "Six",
-				7 => "Seven",
-				8 => "Eight",
-				9 => "Nine",
-				_ => throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!( 0 <= " + nameof(@decimal) + " <= 9)"),
+				/* 0 */ null,
+				/* 1 */ "One",
+				/* 2 */ "Two",
+				/* 3 */ "Three",
+				/* 4 */ "Four",
+				/* 5 */ "Five",
+				/* 6 */ "Six",
+				/* 7 */ "Seven",
+				/* 8 */ "Eight",
+				/* 9 */ "Nine",
 			};
 
-		internal static string ConvertTensDigits(decimal @decimal)
-		{
-			switch (@decimal)
+			internal static string[] FractionalSufix =
 			{
-				case 10: return "Ten";
-				case 11: return "Eleven";
-				case 12: return "Twelve";
-				case 13: return "Thirteen";
-				case 14: return "Fourteen";
-				case 15: return "Fifteen";
-				case 16: return "Sixteen";
-				case 17: return "Seventeen";
-				case 18: return "Eighteen";
-				case 19: return "Nineteen";
-				case 20: return "Twenty";
-				case 30: return "Thirty";
-				case 40: return "Forty";
-				case 50: return "Fifty";
-				case 60: return "Sixty";
-				case 70: return "Seventy";
-				case 80: return "Eighty";
-				case 90: return "Ninety";
-				default:
-					if (@decimal > 99 || @decimal < 1)
-					{
-						throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(1 <= " + nameof(@decimal) + " <= 99)");
-					}
-					else if (@decimal <= 10)
-					{
-						return ConvertDigit(@decimal);
-					}
-					else
-					{
-						decimal onesDigit = @decimal % 10;
-						decimal tensDigit = decimal.Parse(@decimal.ToString()[0].ToString()) * 10m;
-						return ConvertTensDigits(tensDigit) + "-" + ConvertDigit(onesDigit);
-					}
-			}
-		}
+				/*  0 */ null,
+				/*  1 */ "Tenths",
+				/*  2 */ "Hundredths",
+				/*  3 */ "Thousandths",
+				/*  4 */ "Ten-Thousandths",
+				/*  5 */ "Hundred-Thousandths",
+				/*  6 */ "Millionths",
+				/*  7 */ "Ten-Millionths",
+				/*  8 */ "Hundred-Millionths",
+				/*  9 */ "Billionths",
+				/* 10 */ "Ten-Billionths",
+				/* 11 */ "Hundred-Billionths",
+				/* 12 */ "Trilionths",
+				/* 13 */ "Ten-Trilionths",
+				/* 14 */ "Hundred-Trilionths",
+				/* 15 */ "Quadrillionths",
+				/* 16 */ "Ten-Quadrillionths",
+				/* 17 */ "Hundred-Quadrillionths",
+				/* 18 */ "Quintrillionths",
+				/* 19 */ "Ten-Quintrillionths",
+				/* 20 */ "Hundred-Quintrillionths",
+				/* 21 */ "Sextillionths",
+				/* 22 */ "Ten-Sextillionths",
+				/* 23 */ "Hundred-Sextillionths",
+				/* 24 */ "Septillionths",
+				/* 25 */ "Ten-Septillionths",
+				/* 26 */ "Hundred-Septillionths",
+				/* 27 */ "Octillionths",
+				/* 28 */ "Ten-Octillionths",
+				/* 29 */ "Hundred-Octillionths",
+			};
 
-		internal static string ConvertDigitGroup(decimal @decimal, int group)
-		{
-			string result;
-			if (@decimal < 0)
+			internal static string[] Ten =
 			{
-				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 999)");
-			}
-			else if (@decimal < 100)
-			{
-				result = ConvertTensDigits(@decimal);
-			}
-			else if (@decimal < 1000)
-			{
-				decimal tensDigits = @decimal % 100;
-				decimal hundredsDigit = decimal.Parse(@decimal.ToString()[0].ToString());
-				if (hundredsDigit > 0)
-				{
-					result =
-						ConvertDigit(hundredsDigit) +
-						" Hundred" +
-						(tensDigits > 0 ?
-						" " + ConvertTensDigits(tensDigits) :
-						string.Empty);
-				}
-				else
-				{
-					result = ConvertTensDigits(tensDigits);
-				}
-			}
-			else
-			{
-				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 999)");
-			}
+				/* 0 */ null,
+				/* 1 */ "Ten",
+				/* 2 */ "Twenty",
+				/* 3 */ "Thirty",
+				/* 4 */ "Forty",
+				/* 5 */ "Fifty",
+				/* 6 */ "Sixty",
+				/* 7 */ "Seventy",
+				/* 8 */ "Eighty",
+				/* 9 */ "Ninety",
+			};
 
-			return group switch
+			internal static string[] Teen =
 			{
-				0 => result,
-				1 => result + " Thousand",
-				2 => result + " Million",
-				3 => result + " Billion",
-				4 => result + " Trillion",
-				5 => result + " Quadrillion",
-				6 => result + " Quintillion",
-				7 => result + " Sextillion",
-				8 => result + " Septillion",
-				9 => result + " Octillion",
-				_ => throw new ArgumentOutOfRangeException(nameof(group), group, "!(0 <= " + nameof(group) + " <= 9) Decimal To Words Only Supports Up To (Octillion)"),
+				/* 0 */ null,
+				/* 1 */ "Eleven",
+				/* 2 */ "Twelve",
+				/* 3 */ "Thirteen",
+				/* 4 */ "Fourteen",
+				/* 5 */ "Fifteen",
+				/* 6 */ "Sixteen",
+				/* 7 */ "Seventeen",
+				/* 8 */ "Eighteen",
+				/* 9 */ "Nineteen",
+			};
+
+			internal static string[] Group =
+			{
+				/*  0 */ null,
+				/*  1 */ null,
+				/*  2 */ "Thousand",
+				/*  3 */ "Million",
+				/*  4 */ "Billion",
+				/*  5 */ "Trillion",
+				/*  6 */ "Quadrillion",
+				/*  7 */ "Quintillion",
+				/*  8 */ "Sextillion",
+				/*  9 */ "Septillion",
+				/* 10 */ "Octillion",
 			};
 		}
 
-		internal static string ConvertWholeNumber(decimal @decimal)
+		internal static string ToEnglishWords(string number)
 		{
-			if (@decimal % 1 != 0 || @decimal < 0)
-			{
-				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " & " + nameof(@decimal) + " % 1 = 0)");
-			}
-			string result = null;
-			string decimalToString = @decimal.ToString();
-			int digitGroup = 0;
-			char[] digits = new char[3];
-			int index = 2;
-			foreach (char digit in decimalToString.Reverse())
-			{
-				digits[index--] = digit;
-				if (index < 0)
-				{
-					decimal digitsDecimal = decimal.Parse(new string(digits));
-					if (digitsDecimal != 0)
-					{
-						result = ConvertDigitGroup(digitsDecimal, digitGroup) + (result is null ? string.Empty : " " + result);
-					}
-					digitGroup++;
-					index = 2;
-				}
-			}
-			if (index != 2)
-			{
-				decimal digitsDecimal = decimal.Parse(new string(digits).Substring(index + 1));
-				if (digitsDecimal != 0)
-				{
-					result = ConvertDigitGroup(digitsDecimal, digitGroup) + (result is null ? string.Empty : " " + result);
-				}
-			}
-			return result;
-		}
-
-		internal static string ConvertDecimalPlaces(decimal @decimal)
-		{
-			if (!(0 < @decimal && @decimal < 1))
-			{
-				throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "!(0 <= " + nameof(@decimal) + " <= 1)");
-			}
-			string decimalToString = @decimal.ToString();
-			decimalToString = decimalToString.Substring(decimalToString.IndexOf(".") + 1);
-			decimal decimalAsWholeNumber = decimal.Parse(decimalToString);
-			string result = ConvertWholeNumber(decimalAsWholeNumber);
-			int digitCount = decimalToString.Length;
-			result += digitCount switch
-			{
-				1 => " Tenths",
-				2 => " Hundredths",
-				3 => " Thousandths",
-				4 => " Ten-Thousandths",
-				5 => " Hundred-Thousandths",
-				6 => " Millionths",
-				7 => " Ten-Millionths",
-				8 => " Hundred-Millionths",
-				9 => " Billionths",
-				10 => " Ten-Billionths",
-				11 => " Hundred-Billionths",
-				12 => " Trilionths",
-				13 => " Ten-Trilionths",
-				14 => " Hundred-Trilionths",
-				15 => " Quadrillionths",
-				16 => " Ten-Quadrillionths",
-				17 => " Hundred-Quadrillionths",
-				18 => " Quintrillionths",
-				19 => " Ten-Quintrillionths",
-				20 => " Hundred-Quintrillionths",
-				21 => " Sextillionths",
-				22 => " Ten-Sextillionths",
-				23 => " Hundred-Sextillionths",
-				24 => " Septillionths",
-				25 => " Ten-Septillionths",
-				26 => " Hundred-Septillionths",
-				27 => " Octillionths",
-				28 => " Ten-Octillionths",
-				29 => " Hundred-Octillionths",
-				_ => throw new ArgumentOutOfRangeException(nameof(@decimal), @decimal, "Towel's decimal to words function only supports up to Hundred-Octillionths decimal places."),
-			};
-			return result;
-		}
-
-		/// <summary>Converts a decimal to the English word representation of that value.</summary>
-		/// <param name="decimal">The decimal value to convert to English words.</param>
-		/// <returns>The English word representation of the decimal value.</returns>
-		public static string ToEnglishWords(this decimal @decimal)
-		{
-			if (@decimal == 0m)
+			if (number == "0")
 			{
 				return "Zero";
 			}
-			else
+			StringBuilder stringBuilder = new StringBuilder();
+			bool spaceNeeded = false;
+			if (number[0] == '-')
 			{
-				string result = string.Empty;
-				if (@decimal < 0m)
+				Append("Negative");
+				spaceNeeded = true;
+				number = number.Substring(1);
+			}
+			if (number[0] == '0')
+			{
+				number = number.Substring(1);
+			}
+			int decimalIndex = number.IndexOf('.');
+			if (decimalIndex != 0)
+			{
+				string wholeNumber = decimalIndex >= 0
+					? number.Substring(0, decimalIndex)
+					: number;
+				WholeNumber(wholeNumber);
+			}
+			if (decimalIndex >= 0)
+			{
+				if (decimalIndex != 0)
 				{
-					result += "Negative ";
-					@decimal = @decimal *= -1m;
+					AppendLeadingSpace();
+					Append("And");
 				}
-				decimal wholeNumber = decimal.Truncate(@decimal);
-				if (wholeNumber > 0)
+				string fractionalNumber = number.Substring(decimalIndex + 1);
+				WholeNumber(fractionalNumber);
+				AppendLeadingSpace();
+				Append(ToEnglishWordsDefinitions.FractionalSufix[fractionalNumber.Length]);
+			}
+			string result = stringBuilder.ToString();
+			return result;
+
+			void Append(string @string) => stringBuilder.Append(@string);
+
+			void AppendLeadingSpace()
+			{
+				if (!spaceNeeded)
 				{
-					result += ConvertWholeNumber(wholeNumber);
+					spaceNeeded = true;
 				}
-				decimal decimalPlacesOnly = @decimal % 1m;
-				if (decimalPlacesOnly > 0m)
+				else
 				{
-					if (wholeNumber > 0)
+					Append(" ");
+				}
+			}
+
+			void WholeNumber(string wholeNumber)
+			{
+				// A "digit group" is a set of hundreds + tens + ones digits.
+				// In the number 123456789 the digit groups are the following: 123, 456, 789
+				// In the number 12345 the digit groups are the following: 12, 345
+
+				int mod3 = wholeNumber.Length % 3;
+				int digitGroup = wholeNumber.Length / 3 + (mod3 == 0 ? 0 : 1);
+				while (digitGroup > 0)
+				{
+					int i__X = (wholeNumber.Length - (digitGroup - 1) * 3) - 1; // index of ones digit
+					int i_X_ = i__X - 1;                                        // index of tens digit
+					int iX__ = i_X_ - 1;                                        // index of hundreds digit
+
+					char c__X = wholeNumber[i__X];                   // character of ones digit
+					char c_X_ = i_X_ >= 0 ? wholeNumber[i_X_] : '0'; // character of tens digit
+					char cX__ = iX__ >= 0 ? wholeNumber[iX__] : '0'; // character of hundreds digit
+
+					if (c__X > '0' || c_X_ > '0' || cX__ > '0')
 					{
-						result += " And ";
+						DigitGroup(cX__, c_X_, c__X);
+						if (digitGroup > 1)
+						{
+							AppendLeadingSpace();
+							Append(ToEnglishWordsDefinitions.Group[digitGroup]);
+						}
 					}
-					result += ConvertDecimalPlaces(decimalPlacesOnly);
+					digitGroup--;
 				}
-				return result;
+			}
+
+			void DigitGroup(char hundredsDigit, char tensDigit, char onesDigit)
+			{
+				int hundred = hundredsDigit - '0',
+					ten = tensDigit - '0',
+					one = onesDigit - '0';
+				if (hundred > 0)
+				{
+					AppendLeadingSpace();
+					Append(ToEnglishWordsDefinitions.Digit[hundred]);
+					Append(" Hundred");
+				}
+				if (ten > 0)
+				{
+					AppendLeadingSpace();
+					if (one == 0)
+					{
+						Append(ToEnglishWordsDefinitions.Ten[ten]);
+					}
+					else if (ten == 1)
+					{
+						Append(ToEnglishWordsDefinitions.Teen[one]);
+					}
+					else
+					{
+						Append(ToEnglishWordsDefinitions.Ten[ten]);
+						Append("-");
+						Append(ToEnglishWordsDefinitions.Digit[one]);
+					}
+				}
+				else if (one > 0)
+				{
+					AppendLeadingSpace();
+					Append(ToEnglishWordsDefinitions.Digit[one]);
+				}
 			}
 		}
+
+		/// <summary>Converts a <see cref="decimal"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="decimal">The <see cref="decimal"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="decimal"/> value.</returns>
+		public static string ToEnglishWords(this decimal @decimal) => ToEnglishWords(@decimal.ToString());
+
+		/// <summary>Converts a <see cref="int"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="int">The <see cref="int"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="int"/> value.</returns>
+		public static string ToEnglishWords(this int @int) => ToEnglishWords(@int.ToString());
+
+		/// <summary>Converts a <see cref="long"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="long">The <see cref="long"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="long"/> value.</returns>
+		public static string ToEnglishWords(this long @long) => ToEnglishWords(@long.ToString());
+
+		/// <summary>Converts a <see cref="byte"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="byte">The <see cref="byte"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="byte"/> value.</returns>
+		public static string ToEnglishWords(this byte @byte) => ToEnglishWords(@byte.ToString());
+
+		/// <summary>Converts a <see cref="sbyte"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="sbyte">The <see cref="sbyte"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="sbyte"/> value.</returns>
+		public static string ToEnglishWords(this sbyte @sbyte) => ToEnglishWords(@sbyte.ToString());
+
+		/// <summary>Converts a <see cref="uint"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="uint">The <see cref="uint"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="uint"/> value.</returns>
+		public static string ToEnglishWords(this uint @uint) => ToEnglishWords(@uint.ToString());
+
+		/// <summary>Converts a <see cref="ulong"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="ulong">The <see cref="ulong"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="ulong"/> value.</returns>
+		public static string ToEnglishWords(this ulong @ulong) => ToEnglishWords(@ulong.ToString());
+
+		/// <summary>Converts a <see cref="short"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="short">The <see cref="short"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="short"/> value.</returns>
+		public static string ToEnglishWords(this short @short) => ToEnglishWords(@short.ToString());
+
+		/// <summary>Converts a <see cref="ushort"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="ushort">The <see cref="ushort"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="ushort"/> value.</returns>
+		public static string ToEnglishWords(this ushort @ushort) => ToEnglishWords(@ushort.ToString());
 
 		#endregion
 
