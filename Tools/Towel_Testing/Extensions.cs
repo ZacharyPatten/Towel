@@ -11,8 +11,11 @@ namespace Towel_Testing
 
 		[TestMethod] public void Decimal_ToEnglishWords()
 		{
+			Assert.IsTrue((        0m).ToEnglishWords() == "Zero");
 			Assert.IsTrue((        1m).ToEnglishWords() == "One");
 			Assert.IsTrue((       -1m).ToEnglishWords() == "Negative One");
+			Assert.IsTrue((        2m).ToEnglishWords() == "Two");
+			Assert.IsTrue((       -2m).ToEnglishWords() == "Negative Two");
 			Assert.IsTrue((      1.5m).ToEnglishWords() == "One And Five Tenths");
 			Assert.IsTrue((       69m).ToEnglishWords() == "Sixty-Nine");
 			Assert.IsTrue((      120m).ToEnglishWords() == "One Hundred Twenty");
@@ -43,7 +46,7 @@ namespace Towel_Testing
 			}
 
 			// test a bunch of non-whole numbers numbers for exceptions
-			for (decimal i = -1000; i < 1000; i += 1.0001m)
+			for (decimal i = -10000; i < 10000; i += 1.0001m)
 			{
 				try
 				{
