@@ -928,8 +928,6 @@ namespace Towel
 
 		#endregion
 
-		#region System.Decimal
-
 		#region To English Words
 
 		internal static class ToEnglishWordsDefinitions
@@ -1193,8 +1191,6 @@ namespace Towel
 		/// <param name="ushort">The <see cref="ushort"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="ushort"/> value.</returns>
 		public static string ToEnglishWords(this ushort @ushort) => ToEnglishWords(@ushort.ToString());
-
-		#endregion
 
 		#endregion
 
