@@ -352,6 +352,7 @@ namespace BasicsAndExtensions
 					);
 				}
 				Console.WriteLine();
+				Console.WriteLine();
 			}
 			#endregion
 
@@ -375,10 +376,6 @@ namespace BasicsAndExtensions
 				Console.Write("    Iterative: ");
 				array.PermuteIterative(WriteArray);
 				Console.WriteLine();
-				Console.WriteLine();
-
-				Console.WriteLine("    Note that they iterate the permutations in different orders,");
-				Console.WriteLine("    but both algorithms cover all permutations.");
 
 			}
 			#endregion
