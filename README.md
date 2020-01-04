@@ -671,6 +671,10 @@ string GetDocumentation(this ConstructorInfo constructorInfo);
 string GetDocumentation(this MethodInfo methodInfo);
 string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
+
+// Iterating the permutations of an array
+void PermuteRecursive<T>(this T[] array, Step<T[]> step);
+void PermuteIterative<T>(this T[] array, Step<T[]> step);
 ```
 
 ## Resources

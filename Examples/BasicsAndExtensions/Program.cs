@@ -355,6 +355,34 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Permute
+			{
+				Console.WriteLine("  Permute---------------------------");
+				Console.WriteLine();
+				Console.WriteLine("    You can iterate all the permutations of an array with the");
+				Console.WriteLine("    Permute methods: PermuteIterative and PermuteRecursive");
+				Console.WriteLine();
+
+				static void WriteArray<T>(T[] array) =>
+					Console.Write(string.Concat(array) + " ");
+
+				int[] array = { 0, 1, 2, };
+
+				Console.Write("    Recursive: ");
+				array.PermuteRecursive(WriteArray);
+				Console.WriteLine();
+
+				Console.Write("    Iterative: ");
+				array.PermuteIterative(WriteArray);
+				Console.WriteLine();
+				Console.WriteLine();
+
+				Console.WriteLine("    Note that they iterate the permutations in different orders,");
+				Console.WriteLine("    but both algorithms cover all permutations.");
+
+			}
+			#endregion
+
 			Console.WriteLine();
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");

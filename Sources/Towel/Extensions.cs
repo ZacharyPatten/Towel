@@ -694,6 +694,87 @@ namespace Towel
 
 		#region Array
 
+		#region Permute
+
+		/// <summary>Iterates through all the permutations of an array (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the array.</typeparam>
+		/// <typeparam name="Step">The step to perform on each operation.</typeparam>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="step">The step to perform on each operation.</param>
+		public static void PermuteRecursive<T, Step>(this T[] array, Step step = default)
+			where Step : struct, IStep<T[]>
+		{
+			Permute(0, array.Length - 1);
+			void Permute(int k, int m)
+			{
+				if (k == m)
+				{
+					step.Do(array);
+					return;
+				}
+				for (int i = k; i <= m; i++)
+				{
+					array.Swap(k, i);
+					Permute(k + 1, m);
+					array.Swap(k, i);
+				}
+			}
+		}
+
+		/// <summary>Iterates through all the permutations of an array (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the array.</typeparam>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="step">The step to perform on each operation.</param>
+		public static void PermuteRecursive<T>(this T[] array, Step<T[]> step) =>
+			PermuteRecursive<T, StepRuntime<T[]>>(array, step);
+
+		/// <summary>Iterates through all the permutations of an array (using a iterative algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the array.</typeparam>
+		/// <typeparam name="Step">The step to perform on each operation.</typeparam>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="step">The step to perform on each operation.</param>
+		public static void PermuteIterative<T, Step>(this T[] array, Step step = default)
+			where Step : struct, IStep<T[]>
+		{
+			step.Do(array);
+			int[] indeces = new int[array.Length + 1];
+			for (int i = 0; i < indeces.Length; i++)
+				indeces[i] = i;
+			for (int i = 1; i < array.Length; step.Do(array))
+			{
+				indeces[i]--;
+				array.Swap(i, i % 2 == 1 ? indeces[i] : 0);
+				for (i = 1; indeces[i] == 0; i++)
+					indeces[i] = i;
+			}
+		}
+
+		/// <summary>Iterates through all the permutations of an array (using a iterative algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the array.</typeparam>
+		/// <typeparam name="Step">The step to perform on each operation.</typeparam>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="step">The step to perform on each operation.</param>
+		public static void PermuteIterative<T>(this T[] array, Step<T[]> step) =>
+			PermuteIterative<T, StepRuntime<T[]>>(array, step);
+
+		#endregion
+
+		/// <summary>Swaps the values of two indeces in an array.</summary>
+		/// <typeparam name="T">The generic element type of the array.</typeparam>
+		/// <param name="array">The array to swap the idexed values of.</param>
+		/// <param name="a">The first index of the swap.</param>
+		/// <param name="b">The second index of the swap.</param>
+		/// <remarks>
+		/// This is internal because it does not perform its own bounds
+		/// checking. I may make it public in the future if people want it.
+		/// </remarks>
+		internal static void Swap<T>(this T[] array, int a, int b)
+		{
+			T temp = array[a];
+			array[a] = array[b];
+			array[b] = temp;
+		}
+
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The generic type in the array.</typeparam>
 		/// <param name="array">The array to traverse.</param>
