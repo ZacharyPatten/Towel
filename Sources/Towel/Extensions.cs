@@ -751,7 +751,6 @@ namespace Towel
 
 		/// <summary>Iterates through all the permutations of an array (using a iterative algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the array.</typeparam>
-		/// <typeparam name="Step">The step to perform on each operation.</typeparam>
 		/// <param name="array">The array to iterate the permutations of.</param>
 		/// <param name="step">The step to perform on each operation.</param>
 		public static void PermuteIterative<T>(this T[] array, Step<T[]> step) =>
