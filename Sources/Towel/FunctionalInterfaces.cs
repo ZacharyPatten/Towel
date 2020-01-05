@@ -1,4 +1,6 @@
-﻿namespace Towel
+﻿using System;
+
+namespace Towel
 {
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction
@@ -6,6 +8,24 @@
 		/// <summary>The invocation of the compile time delegate.</summary>
 		void Do();
 	}
+
+	#region IAction - Built In Structs
+
+	/// <summary>Built in struct for runtime computations.</summary>
+	public struct ActionRuntime : IAction
+	{
+		internal Action Action;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do() => Action();
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="step">The runtime delegate.</param>
+		public static implicit operator ActionRuntime(Action action) =>
+			new ActionRuntime() { Action = action, };
+	}
+
+	#endregion
 
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction<A>

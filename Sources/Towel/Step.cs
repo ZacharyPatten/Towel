@@ -69,8 +69,8 @@ namespace Towel
 
 	#region IStep - Built In Structs
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepRuntime<T> : IStep<T>
 	{
 		internal Step<T> Step;
@@ -84,8 +84,8 @@ namespace Towel
 			new StepRuntime<T>() { Step = step, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="StepRef">The Step function.</typeparam>
 	public struct StepFromStepRef<T, StepRef> : IStep<T>
 		where StepRef : struct, IStepRef<T>
@@ -113,8 +113,8 @@ namespace Towel
 
 	#region IStepRef - Built In Structs
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepRefRuntime<T> : IStepRef<T>
 	{
 		internal StepRef<T> StepRef;
@@ -128,8 +128,8 @@ namespace Towel
 			new StepRefRuntime<T>() { StepRef = stepRef, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepToStepRef<T, Step> : IStepRef<T>
 		where Step : struct, IStep<T>
@@ -153,8 +153,8 @@ namespace Towel
 
 	#region IStepBreak - Built In Structs
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepBreakRuntime<T> : IStepBreak<T>
 	{
 		internal StepBreak<T> StepBreak;
@@ -168,8 +168,8 @@ namespace Towel
 			new StepBreakRuntime<T>() { StepBreak = stepBreak, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepBreakFromStep<T, Step> : IStepBreak<T>
 		where Step : struct, IStep<T>
@@ -197,8 +197,8 @@ namespace Towel
 
 	#region IStepRefBreak - Built In Structs
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepRefBreakRuntime<T> : IStepRefBreak<T>
 	{
 		internal StepRefBreak<T> StepRefBreak;
@@ -212,8 +212,8 @@ namespace Towel
 			new StepRefBreakRuntime<T>() { StepRefBreak = stepRefBreak, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepRefBreakFromStepBreak<T, Step> : IStepRefBreak<T>
 		where Step : struct, IStepBreak<T>
@@ -229,8 +229,8 @@ namespace Towel
 			new StepRefBreakFromStepBreak<T, Step>() { StepFunction = step, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// <summary>Built in struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepRefBreakFromStepRef<T, Step> : IStepRefBreak<T>
 		where Step : struct, IStepRef<T>

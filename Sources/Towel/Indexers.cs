@@ -1,4 +1,6 @@
-﻿namespace Towel
+﻿using Towel.DataStructures;
+
+namespace Towel
 {
 	/// <summary>Delegate for getting a value at a specified index.</summary>
 	/// <param name="index">The index to get the value of.</param>
@@ -46,6 +48,21 @@
 			new GetIndexArray<T>() { Array = array, };
 	}
 
+	/// <summary>Built in GetIndex struct for lists.</summary>
+	/// <typeparam name="T">The generic type of the value to get.</typeparam>
+	public struct GetIndexListArray<T> : IGetIndex<T>
+	{
+		internal ListArray<T> List;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public T Do(int index) => List[index];
+
+		/// <summary>Implicitly gets the getter from a list.</summary>
+		/// <param name="list">The list to get the getter of.</param>
+		public static implicit operator GetIndexListArray<T>(ListArray<T> list) =>
+			new GetIndexListArray<T>() { List = list, };
+	}
+
 	#endregion
 
 	/// <summary>A compile time delegate for setting a value at an index.</summary>
@@ -82,6 +99,21 @@
 		/// <param name="array">The array to get the setter of.</param>
 		public static implicit operator SetIndexArray<T>(T[] array) =>
 			new SetIndexArray<T>() { Array = array, };
+	}
+
+	/// <summary>Built in SetIndex struct for lists.</summary>
+	/// <typeparam name="T">The generic type of the value to set.</typeparam>
+	public struct SetIndexListArray<T> : ISetIndex<T>
+	{
+		internal ListArray<T> List;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(int index, T value) => List[index] = value;
+
+		/// <summary>Implicitly gets the setter from a list.</summary>
+		/// <param name="list">The list to get the setter of.</param>
+		public static implicit operator SetIndexListArray<T>(ListArray<T> list) =>
+			new SetIndexListArray<T>() { List = list, };
 	}
 
 	#endregion

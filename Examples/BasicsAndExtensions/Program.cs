@@ -361,20 +361,29 @@ namespace BasicsAndExtensions
 				Console.WriteLine("  Permute---------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    You can iterate all the permutations of an array with the");
-				Console.WriteLine("    Permute methods: PermuteIterative and PermuteRecursive");
+				Console.WriteLine("    Permute methods: PermuteIterative and PermuteRecursive.");
 				Console.WriteLine();
 
-				static void WriteArray<T>(T[] array) =>
-					Console.Write(string.Concat(array) + " ");
-
 				int[] array = { 0, 1, 2, };
+				void WriteArray() => Console.Write(string.Concat(array) + " ");
 
-				Console.Write("    Recursive: ");
+				Console.Write("    Recursive (array): ");
 				array.PermuteRecursive(WriteArray);
 				Console.WriteLine();
 
-				Console.Write("    Iterative: ");
+				Console.Write("    Iterative (array): ");
 				array.PermuteIterative(WriteArray);
+				Console.WriteLine();
+
+				ListArray<int> list = new ListArray<int> { 0, 1, 2, };
+				void WriteList() => Console.Write(string.Concat(list) + " ");
+
+				Console.Write("    Recursive (list):  ");
+				list.PermuteRecursive(WriteList);
+				Console.WriteLine();
+
+				Console.Write("    Iterative (list):  ");
+				list.PermuteIterative(WriteList);
 				Console.WriteLine();
 
 			}
