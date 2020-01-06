@@ -14933,50 +14933,50 @@
             <param name="message">The message of the exception.</param>
             <param name="innerException">The inner exception.</param>
         </member>
-        <member name="T:Towel.TowelDotNetExtensions">
+        <member name="T:Towel.Extensions">
             <summary>Contains Extension methods on common System types.</summary>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ContainsAny(System.String,System.Char[])">
+        <member name="M:Towel.Extensions.ContainsAny(System.String,System.Char[])">
             <summary>Checks if a string contains any of a collections on characters.</summary>
             <param name="string">The string to see if it contains any of the specified characters.</param>
             <param name="chars">The characters to check if the string contains any of them.</param>
             <returns>True if the string contains any of the provided characters. False if not.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.StandardizeNewLines(System.String)">
+        <member name="M:Towel.Extensions.StandardizeNewLines(System.String)">
             <summary>Removes carriage returns and then replaces all new line characters with System.Environment.NewLine.</summary>
             <param name="string">The string to standardize the new lines of.</param>
             <returns>The new line standardized string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Repeat(System.String,System.Int32)">
+        <member name="M:Towel.Extensions.Repeat(System.String,System.Int32)">
             <summary>Creates a string of a repreated string a provided number of times.</summary>
             <param name="string">The string to repeat.</param>
             <param name="count">The number of repetitions of the string to repeat.</param>
             <returns>The string of the repeated string to repeat.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.SplitLines(System.String)">
+        <member name="M:Towel.Extensions.SplitLines(System.String)">
             <summary>Splits the string into the individual lines.</summary>
             <param name="string">The string to get the lines of.</param>
             <returns>an array of the individual lines of the string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentLines(System.String)">
+        <member name="M:Towel.Extensions.IndentLines(System.String)">
             <summary>Indents every line in a string with a single tab character.</summary>
             /// <param name="string">The string to indent the lines of.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentLines(System.String,System.Int32)">
+        <member name="M:Towel.Extensions.IndentLines(System.String,System.Int32)">
             <summary>Indents every line in a string with a given number of tab characters.</summary>
             <param name="string">The string to indent the lines of.</param>
             <param name="count">The number of tabs of the indention.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
             <param name="string">The string to be indented.</param>
             <param name="start">The starting index to look for new line sequences to indent.</param>
             <param name="end">The starting index to look for new line sequences to indent.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.IndentNewLinesBetweenIndeces(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents after every new line sequence found between two string indeces.</summary>
             <param name="string">The string to be indented.</param>
             <param name="count">The number of tabs of this indention.</param>
@@ -14984,14 +14984,14 @@
             <param name="end">The starting index to look for new line sequences to indent.</param>
             <returns>The indented string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.IndentLineNumbers(System.String,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
             <param name="string">The string to indent specified lines of.</param>
             <param name="startingLineNumber">The line number to start line indention on.</param>
             <param name="endingLineNumber">The line number to stop line indention on.</param>
             <returns>The string with the specified lines indented.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.IndentLineNumbers(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.IndentLineNumbers(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>Indents a range of line numbers in a string.</summary>
             <param name="string">The string to indent specified lines of.</param>
             <param name="count">The number of tabs for the indention.</param>
@@ -14999,19 +14999,19 @@
             <param name="endingLineNumber">The line number to stop line indention on.</param>
             <returns>The string with the specified lines indented.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadLinesLeft(System.String,System.String)">
+        <member name="M:Towel.Extensions.PadLinesLeft(System.String,System.String)">
             <summary>Adds a string onto the beginning of every line in a string.</summary>
             <param name="string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadSubstringLinesRight(System.String,System.String)">
+        <member name="M:Towel.Extensions.PadSubstringLinesRight(System.String,System.String)">
             <summary>Adds a string onto the end of every line in a string.</summary>
             <param name="string">The string to pad.</param>
             <param name="padding">The padding to add to the front of every line.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadLinesLeftBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.PadLinesLeftBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
             <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
@@ -15019,7 +15019,7 @@
             <param name="end">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadLinesRightBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.PadLinesRightBetweenIndeces(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
             <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
@@ -15027,7 +15027,7 @@
             <param name="end">The ending index of the string to search for new line sequences.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.PadLinesLeft(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string after every new line squence found between two indeces of a string.</summary>
             <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply after every newline sequence found.</param>
@@ -15035,7 +15035,7 @@
             <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.PadLinesRight(System.String,System.String,System.Int32,System.Int32)">
             <summary>Adds a string before every new line squence found between two indeces of a string.</summary>
             <param name="string">The string to be padded.</param>
             <param name="padding">The padding to apply before every newline sequence found.</param>
@@ -15043,138 +15043,138 @@
             <param name="endingLineNumber">The ending index of the line in the string to pad.</param>
             <returns>The padded string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Reverse(System.String)">
+        <member name="M:Towel.Extensions.Reverse(System.String)">
             <summary>Reverses the characters in a string.</summary>
             <param name="string">The string to reverse the characters of.</param>
             <returns>The reversed character string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Remove(System.String,System.Predicate{System.Char})">
+        <member name="M:Towel.Extensions.Remove(System.String,System.Predicate{System.Char})">
             <summary>Removes all the characters from a string based on a predicate.</summary>
             <param name="string">The string to remove characters from.</param>
             <param name="where">The predicate determining removal of each character.</param>
             <returns>The string after removing any predicated characters.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.CountLines(System.String)">
+        <member name="M:Towel.Extensions.CountLines(System.String)">
             <summary>Counts the number of lines in the string.</summary>
             <param name="str">The string to get the line count of.</param>
             <returns>The number of lines in the string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextString(System.Random,System.Int32)">
+        <member name="M:Towel.Extensions.NextString(System.Random,System.Int32)">
             <summary>Generates a random string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized string to generate.</param>
             <returns>The generated randomized string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextString(System.Random,System.Int32,System.Char[])">
+        <member name="M:Towel.Extensions.NextString(System.Random,System.Int32,System.Char[])">
             <summary>Generates a random string of a given length using the System.Random generator with a specific set of characters.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized string to generate.</param>
             <param name="characterPool">The set of allowable characters.</param>
             <returns>The generated randomized string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextAlphaNumericString(System.Random,System.Int32)">
+        <member name="M:Towel.Extensions.NextAlphaNumericString(System.Random,System.Int32)">
             <summary>Generates a random alphanumeric string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized alphanumeric string to generate.</param>
             <returns>The generated randomized alphanumeric string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NumericString(System.Random,System.Int32)">
+        <member name="M:Towel.Extensions.NumericString(System.Random,System.Int32)">
             <summary>Generates a random numeric string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized numeric string to generate.</param>
             <returns>The generated randomized numeric string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextAlphabeticString(System.Random,System.Int32)">
+        <member name="M:Towel.Extensions.NextAlphabeticString(System.Random,System.Int32)">
             <summary>Generates a random alhpabetical string of a given length using the System.Random generator.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="length">The length of the randomized alphabetical string to generate.</param>
             <returns>The generated randomized alphabetical string.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextChar(System.Random)">
+        <member name="M:Towel.Extensions.NextChar(System.Random)">
             <summary>Generates a random char value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated char value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextChar(System.Random,System.Char,System.Char)">
+        <member name="M:Towel.Extensions.NextChar(System.Random,System.Char,System.Char)">
             <summary>Generates a random char value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">Minimum allowed value of the random generation.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated char value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextLong(System.Random)">
+        <member name="M:Towel.Extensions.NextLong(System.Random)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextLong(System.Random,System.Int64)">
+        <member name="M:Towel.Extensions.NextLong(System.Random,System.Int64)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextLong(System.Random,System.Int64,System.Int64)">
+        <member name="M:Towel.Extensions.NextLong(System.Random,System.Int64,System.Int64)">
             <summary>Generates a random long value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">Minimum allowed value of the random generation.</param>
             <param name="max">Maximum allowed value of the random generation.</param>
             <returns>A randomly generated long value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDecimal(System.Random)">
+        <member name="M:Towel.Extensions.NextDecimal(System.Random)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDecimal(System.Random,System.Decimal)">
+        <member name="M:Towel.Extensions.NextDecimal(System.Random,System.Decimal)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDecimal(System.Random,System.Decimal,System.Decimal)">
+        <member name="M:Towel.Extensions.NextDecimal(System.Random,System.Decimal,System.Decimal)">
             <summary>Generates a random decimal value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated decimal value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDateTime(System.Random)">
+        <member name="M:Towel.Extensions.NextDateTime(System.Random)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDateTime(System.Random,System.DateTime)">
+        <member name="M:Towel.Extensions.NextDateTime(System.Random,System.DateTime)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextDateTime(System.Random,System.DateTime,System.DateTime)">
+        <member name="M:Towel.Extensions.NextDateTime(System.Random,System.DateTime,System.DateTime)">
             <summary>Generates a random DateTime value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated DateTime value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextTimeSpan(System.Random)">
+        <member name="M:Towel.Extensions.NextTimeSpan(System.Random)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextTimeSpan(System.Random,System.TimeSpan)">
+        <member name="M:Towel.Extensions.NextTimeSpan(System.Random,System.TimeSpan)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextTimeSpan(System.Random,System.TimeSpan,System.TimeSpan)">
+        <member name="M:Towel.Extensions.NextTimeSpan(System.Random,System.TimeSpan,System.TimeSpan)">
             <summary>Generates a random TimeSpan value.</summary>
             <param name="random">The random generation algorithm.</param>
             <param name="min">The minimum allowed value of the random generation.</param>
             <param name="max">The maximum allowed value of the random generation.</param>
             <returns>A randomly generated TimeSpan value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextUnique``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
+        <member name="M:Towel.Extensions.NextUnique``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15187,7 +15187,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextUniqueRollTracking``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
+        <member name="M:Towel.Extensions.NextUniqueRollTracking``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15200,7 +15200,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextUniquePoolTracking``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
+        <member name="M:Towel.Extensions.NextUniquePoolTracking``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15213,7 +15213,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,Towel.Step{System.Int32})">
+        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,Towel.Step{System.Int32})">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15225,7 +15225,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15236,7 +15236,7 @@
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Shuffle``1(System.Random,``0[])">
+        <member name="M:Towel.Extensions.Shuffle``1(System.Random,``0[])">
             <summary>Sorts values into a randomized order.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="random">The random to shuffle with.</param>
@@ -15244,7 +15244,7 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Shuffle``1(System.Random,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
             <summary>Sorts values into a randomized order.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="random">The random to shuffle with.</param>
@@ -15255,7 +15255,7 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Shuffle``3(System.Random,``1,``2,System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Shuffle``3(System.Random,``1,``2,System.Int32,System.Int32)">
             <summary>Sorts values into a randomized order.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <typeparam name="Get"></typeparam>
@@ -15268,14 +15268,14 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Choose``1(System.Random,``0[])">
+        <member name="M:Towel.Extensions.Choose``1(System.Random,``0[])">
             <summary>Chooses an item at random (all equally weighted).</summary>
             <typeparam name="T">The generic type of the items to choose from.</typeparam>
             <param name="random">The random algorithm for index generation.</param>
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.Step{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
@@ -15283,7 +15283,7 @@
             <param name="start">The inclusive starting index.</param>
             <param name="end">The non-inclusive ending index.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
@@ -15291,16 +15291,7 @@
             <param name="start">The inclusive starting index.</param>
             <param name="end">The non-inclusive ending index.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32,System.Int32)">
-            <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
-            <param name="array">The array to traverse.</param>
-            <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="start">The inclusive starting index.</param>
-            <param name="end">The non-inclusive ending index.</param>
-            <returns>The status of the stepper.</returns>
-        </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32,System.Int32)">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
@@ -15309,59 +15300,68 @@
             <param name="end">The non-inclusive ending index.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.Step{``0})">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32,System.Int32)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The generic type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <returns>The status of the stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.Step{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRef{``0})">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRef{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepBreak{``0})">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Stepper``1(``0[],Towel.StepRefBreak{``0})">
+        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRefBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The generic type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.WrapGetIndex``1(``0[])">
+        <member name="M:Towel.Extensions.WrapGetIndex``1(``0[])">
             <summary>Converts the get indexer of an IList to a delegate.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
             <param name="array">The array to retrieve the get delegate of.</param>
             <returns>A delegate for getting an indexed value in the IList.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.WrapSetIndex``1(``0[])">
+        <member name="M:Towel.Extensions.WrapSetIndex``1(``0[])">
             <summary>Converts the set indexer of an IList to a delegate.</summary>
             <typeparam name="T">The generic type of the IList.</typeparam>
             <param name="array">The array to retrieve the set delegate of.</param>
             <returns>A delegate for setting an indexed value in the IList.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.BuildArray``1(System.Int32,System.Func{System.Int32,``0})">
+        <member name="M:Towel.Extensions.BuildArray``1(System.Int32,System.Func{System.Int32,``0})">
             <summary>Builds an array from a size and initialization delegate.</summary>
             <typeparam name="T">The generic type of the array.</typeparam>
             <param name="size">The size of the array to build.</param>
             <param name="func">The initialization pattern.</param>
             <returns>The built array.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ValuesAreEqual``1(``0[],``0[])">
+        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[])">
             <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
             <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
             <param name="a1">The first array of the deep equality check.</param>
             <param name="a2">The second array of the deep equality check.</param>
             <returns>True if the array are determined to be deeply equal. False if not.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ValuesAreEqual``1(``0[],``0[],Towel.Equate{``0})">
+        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[],Towel.Equate{``0})">
             <summary>Performs a deep equality check of two arrays.</summary>
             <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
             <param name="a1">The first array of the deep equality check.</param>
@@ -15369,94 +15369,204 @@
             /// <param name="equate">The delegate for checking two values for equality.</param>
             <returns>True if the array are determined to be deeply equal. False if not.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Format``1(``0[],``0)">
+        <member name="M:Towel.Extensions.Format``1(``0[],``0)">
             <summary>Formats an array so that all values are the same.</summary>
             <typeparam name="T">The generic type of the array to format.</typeparam>
             <param name="array">The array to format.</param>
             <param name="value">The value to format all entries in the array with.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Format``1(``0[],System.Func{System.Int32,``0})">
+        <member name="M:Towel.Extensions.Format``1(``0[],System.Func{System.Int32,``0})">
             <summary>Formats an array so that all values are the same.</summary>
             <typeparam name="T">The generic type of the array to format.</typeparam>
             <param name="array">The array to format.</param>
             <param name="func">The per-index format function.</param>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.ConstructRectangularJaggedArray``1(System.Int32,System.Int32)">
             <summary>Constructs a square jagged array of the desired dimensions.</summary>
             <typeparam name="T">The generic type to store in the jagged array.</typeparam>
             <param name="length1">The length of the first dimension.</param>
             <param name="length2">The length of the second dimension.</param>
             <returns>The constructed jagged array.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ConstructSquareJaggedArray``1(System.Int32)">
+        <member name="M:Towel.Extensions.ConstructSquareJaggedArray``1(System.Int32)">
             <summary>Constructs a square jagged array of the desired dimensions.</summary>
             <typeparam name="T">The generic type to store in the jagged array.</typeparam>
             <param name="sideLength">The length of each dimension.</param>
             <returns>The constructed jagged array.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Decimal)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.Decimal)">
             <summary>Converts a <see cref="T:System.Decimal"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="decimal">The <see cref="T:System.Decimal"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Decimal"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int32)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.Int32)">
             <summary>Converts a <see cref="T:System.Int32"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="int">The <see cref="T:System.Int32"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int32"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int64)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.Int64)">
             <summary>Converts a <see cref="T:System.Int64"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="long">The <see cref="T:System.Int64"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int64"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Byte)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.Byte)">
             <summary>Converts a <see cref="T:System.Byte"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="byte">The <see cref="T:System.Byte"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Byte"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.SByte)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.SByte)">
             <summary>Converts a <see cref="T:System.SByte"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="sbyte">The <see cref="T:System.SByte"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.SByte"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt32)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.UInt32)">
             <summary>Converts a <see cref="T:System.UInt32"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="uint">The <see cref="T:System.UInt32"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt32"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt64)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.UInt64)">
             <summary>Converts a <see cref="T:System.UInt64"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="ulong">The <see cref="T:System.UInt64"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt64"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.Int16)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.Int16)">
             <summary>Converts a <see cref="T:System.Int16"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="short">The <see cref="T:System.Int16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.Int16"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToEnglishWords(System.UInt16)">
+        <member name="M:Towel.Extensions.ToEnglishWords(System.UInt16)">
             <summary>Converts a <see cref="T:System.UInt16"/> to the English words <see cref="T:System.String"/> representation.</summary>
             <param name="ushort">The <see cref="T:System.UInt16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt16"/> value.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Time_DateTime(System.Action)">
+        <member name="M:Towel.Extensions.PermuteRecursive``2(``0[],``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``3(``0[],``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``2(``0[],``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``3(``0[],``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Extensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
             <param name="action">The action to time.</param>
             <returns>The TimeSpan the action took to complete.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.Time_StopWatch(System.Action)">
+        <member name="M:Towel.Extensions.Time_StopWatch(System.Action)">
             <summary>Times an action using System.Diagnostics.Stopwatch.</summary>
             <param name="action">The action to time.</param>
             <returns>The TimeSpan the action took to complete.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.TryFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
+        <member name="M:Towel.Extensions.TryFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
             <summary>Tries to get the first value in an IEnumerable.</summary>
             <typeparam name="T">The generic type of IEnumerable.</typeparam>
             <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
             <param name="first">The first value of the IEnumerable or default if empty.</param>
             <returns>True if the IEnumerable has a first value or false if it is empty.</returns>
         </member>
-        <member name="M:Towel.TowelDotNetExtensions.ToIEnumerable``1(``0)">
+        <member name="M:Towel.Extensions.ToIEnumerable``1(``0)">
             <summary>Converts a value to an IEnumerable.</summary>
             <typeparam name="T">The type of the value.</typeparam>
             <param name="value">The value to convert into an IEnumerable.</param>
@@ -15467,6 +15577,16 @@
         </member>
         <member name="M:Towel.IAction.Do">
             <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime">
+            <summary>Built in struct for runtime computations.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime.Do">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime.op_Implicit(System.Action)~Towel.ActionRuntime">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IAction`1">
             <summary>Interface for a compile time delegate.</summary>
@@ -15491,6 +15611,13 @@
         </member>
         <member name="M:Towel.IFunc`1.Do">
             <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`1">
+            <summary>Built in struct for runtime computations.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`1.op_Implicit(System.Func{`0})~Towel.FuncRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IFunc`2">
             <summary>Interface for a compile time delegate.</summary>
@@ -15579,6 +15706,17 @@
             <summary>Implicitly gets the getter from an array.</summary>
             <param name="array">The array to get the getter of.</param>
         </member>
+        <member name="T:Towel.GetIndexListArray`1">
+            <summary>Built in GetIndex struct for lists.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexListArray`1.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.GetIndexListArray{`0}">
+            <summary>Implicitly gets the getter from a list.</summary>
+            <param name="list">The list to get the getter of.</param>
+        </member>
         <member name="T:Towel.ISetIndex`1">
             <summary>A compile time delegate for setting a value at an index.</summary>
             <typeparam name="T">The generic type of value to set.</typeparam>
@@ -15604,6 +15742,17 @@
         <member name="M:Towel.SetIndexArray`1.op_Implicit(`0[])~Towel.SetIndexArray{`0}">
             <summary>Implicitly gets the setter from an array.</summary>
             <param name="array">The array to get the setter of.</param>
+        </member>
+        <member name="T:Towel.SetIndexListArray`1">
+            <summary>Built in SetIndex struct for lists.</summary>
+            <typeparam name="T">The generic type of the value to set.</typeparam>
+        </member>
+        <member name="M:Towel.SetIndexListArray`1.Do(System.Int32,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.SetIndexListArray{`0}">
+            <summary>Implicitly gets the setter from a list.</summary>
+            <param name="list">The list to get the setter of.</param>
         </member>
         <member name="T:Towel.Mathematics.Fraction`1">
             <summary>Represents a rational value with a numerator and a denominator.</summary>
@@ -29331,6 +29480,174 @@
             <param name="methodInfo">The method info to determine if it is a local function.</param>
             <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
+        <member name="M:Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <typeparam name="Get">The get index operation of the collection.</typeparam>
+            <typeparam name="Set">The set index operation of the collection.</typeparam>
+            <param name="start">The starting index of the values to permute.</param>
+            <param name="end">The ending index of the values to permute.</param>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="status">The status checker for cancellation.</param>
+            <param name="get">The get index operation of the collection.</param>
+            <param name="set">The set index operation of the collection.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Get">The get index operation of the collection.</typeparam>
+            <typeparam name="Set">The set index operation of the collection.</typeparam>
+            <param name="start">The starting index of the values to permute.</param>
+            <param name="end">The ending index of the values to permute.</param>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="get">The get index operation of the collection.</param>
+            <param name="set">The set index operation of the collection.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``2(``0[],``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``1(``0[],System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``2(Towel.DataStructures.ListArray{``0},``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``3(``0[],``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <typeparam name="Get">The get index operation of the collection.</typeparam>
+            <typeparam name="Set">The set index operation of the collection.</typeparam>
+            <param name="start">The starting index of the values to permute.</param>
+            <param name="end">The ending index of the values to permute.</param>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="status">The status checker for cancellation.</param>
+            <param name="get">The get index operation of the collection.</param>
+            <param name="set">The set index operation of the collection.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Get">The get index operation of the collection.</typeparam>
+            <typeparam name="Set">The set index operation of the collection.</typeparam>
+            <param name="start">The starting index of the values to permute.</param>
+            <param name="end">The ending index of the values to permute.</param>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="get">The get index operation of the collection.</param>
+            <param name="set">The set index operation of the collection.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``2(``0[],``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``1(``0[],System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``2(Towel.DataStructures.ListArray{``0},``1)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``3(``0[],``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
+        <member name="M:Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="status">The status checker for cancellation.</param>
+        </member>
         <member name="T:Towel.PredicateRuntime`1">
             <summary>Built in Compare struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values to compare.</typeparam>
@@ -30675,8 +30992,8 @@
             <typeparam name="T">The generic type of values to step.</typeparam>
         </member>
         <member name="T:Towel.StepRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
         </member>
         <member name="M:Towel.StepRuntime`1.Do(`0)">
             <summary>The invocation of the compile time delegate.</summary>
@@ -30686,8 +31003,8 @@
             <param name="step">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.StepFromStepRef`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="StepRef">The Step function.</typeparam>
         </member>
         <member name="M:Towel.StepFromStepRef`2.Do(`0)">
@@ -30705,8 +31022,8 @@
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="T:Towel.StepRefRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
         </member>
         <member name="M:Towel.StepRefRuntime`1.Do(`0@)">
             <summary>The invocation of the compile time delegate.</summary>
@@ -30716,8 +31033,8 @@
             <param name="stepRef">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.StepToStepRef`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="Step">The Step function.</typeparam>
         </member>
         <member name="M:Towel.StepToStepRef`2.Do(`0@)">
@@ -30732,8 +31049,8 @@
             <typeparam name="T">The generic type of values to step.</typeparam>
         </member>
         <member name="T:Towel.StepBreakRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
         </member>
         <member name="M:Towel.StepBreakRuntime`1.Do(`0)">
             <summary>The invocation of the compile time delegate.</summary>
@@ -30743,8 +31060,8 @@
             <param name="stepBreak">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.StepBreakFromStep`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="Step">The Step function.</typeparam>
         </member>
         <member name="M:Towel.StepBreakFromStep`2.Do(`0)">
@@ -30762,8 +31079,8 @@
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="T:Towel.StepRefBreakRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
         </member>
         <member name="M:Towel.StepRefBreakRuntime`1.Do(`0@)">
             <summary>The invocation of the compile time delegate.</summary>
@@ -30773,8 +31090,8 @@
             <param name="stepRefBreak">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.StepRefBreakFromStepBreak`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="Step">The Step function.</typeparam>
         </member>
         <member name="M:Towel.StepRefBreakFromStepBreak`2.Do(`0@)">
@@ -30785,8 +31102,8 @@
             <param name="step">The runtime Step delegate.</param>
         </member>
         <member name="T:Towel.StepRefBreakFromStepRef`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="Step">The Step function.</typeparam>
         </member>
         <member name="M:Towel.StepRefBreakFromStepRef`2.Do(`0@)">

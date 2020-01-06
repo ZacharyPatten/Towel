@@ -375,15 +375,24 @@ namespace BasicsAndExtensions
 				array.PermuteIterative(WriteArray);
 				Console.WriteLine();
 
-				ListArray<int> list = new ListArray<int> { 0, 1, 2, };
-				void WriteList() => Console.Write(string.Concat(list) + " ");
-
-				Console.Write("    Recursive (list):  ");
-				list.PermuteRecursive(WriteList);
+				Console.WriteLine();
+				Console.WriteLine("    This implementation may be used on any int-indexed collection.");
+				Console.WriteLine("    It also supports cancellation (cut off) of the iteration. Here is");
+				Console.WriteLine("    an example with a ListArray<int> that cancels after 3 permutations.");
 				Console.WriteLine();
 
+				int i = 0;
+				ListArray<int> list = new ListArray<int> { 0, 1, 2, 3, 4 };
+				void WriteList() => Console.Write(string.Concat(list) + " ");
+
+				i = 0;
+				Console.Write("    Recursive (list):  ");
+				list.PermuteRecursive(WriteList, () => (++i  >= 3 ? Break : Continue));
+				Console.WriteLine();
+
+				i = 0;
 				Console.Write("    Iterative (list):  ");
-				list.PermuteIterative(WriteList);
+				list.PermuteIterative(WriteList, () => (++i >= 3 ? Break : Continue));
 				Console.WriteLine();
 
 			}

@@ -449,7 +449,7 @@ namespace Towel.Measurements
 			T C = (Symbolics.Parse<T>("459.67").Simplify() as Symbolics.Constant<T>).Value;
 			T D = (Symbolics.Parse<T>("32").Simplify() as Symbolics.Constant<T>).Value;
 
-			Func<T, T>[][] table = TowelDotNetExtensions.ConstructSquareJaggedArray<Func<T, T>>(3);
+			Func<T, T>[][] table = Extensions.ConstructSquareJaggedArray<Func<T, T>>(3);
 
 			table[(int)Units.Kelvin][(int)Units.Kelvin] = x => x;
 			table[(int)Units.Kelvin][(int)Units.Celsius] = x => Subtraction(x, A);
@@ -567,7 +567,7 @@ namespace Towel.Measurements
 			}
 
 			int size = Convert<UNITS, int>(Meta.GetLastEnumValue<UNITS>());
-			Func<T, T>[][] conversionFactorTable = TowelDotNetExtensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
+			Func<T, T>[][] conversionFactorTable = Extensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
 			foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
 			{
 				int A = System.Convert.ToInt32(A_unit);

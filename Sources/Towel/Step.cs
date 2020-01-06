@@ -19,6 +19,15 @@ namespace Towel
 		#endregion
 	};
 
+	#region StepStatus - Built In Structs
+
+	public struct StepContinue : IFunc<StepStatus>
+	{
+		public StepStatus Do() => Continue;
+	}
+
+	#endregion
+
 	#region 1 Dimensional
 
 	/// <summary>Delegate for data structure iteration.</summary>

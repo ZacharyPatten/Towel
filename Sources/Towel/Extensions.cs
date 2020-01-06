@@ -8,7 +8,7 @@ using static Towel.Syntax;
 namespace Towel
 {
 	/// <summary>Contains Extension methods on common System types.</summary>
-	public static class TowelDotNetExtensions
+	public static class Extensions
 	{
 		#region System.String
 
@@ -1196,6 +1196,8 @@ namespace Towel
 
 		#region Permute
 
+		#region Recursive
+
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
@@ -1203,7 +1205,7 @@ namespace Towel
 		/// <param name="array">The array to iterate the permutations of.</param>
 		public static void PermuteRecursive<T, Action>(this T[] array, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Recursive<T, Action>(array, action);
+			Permute.Recursive(array, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
@@ -1217,7 +1219,7 @@ namespace Towel
 		/// <param name="list">The list to iterate the permutations of.</param>
 		public static void PermuteRecursive<T, Action>(this ListArray<T> list, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Recursive<T, Action>(list, action);
+			Permute.Recursive(list, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
@@ -1228,11 +1230,52 @@ namespace Towel
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <typeparam name="Status">The status checker for cancellation.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="status">The status checker for cancellation.</param>
+		public static void PermuteRecursive<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Permute.Recursive(array, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="status">The status checker for cancellation.</param>
+		public static void PermuteRecursive<T>(this T[] array, Action action, Func<StepStatus> status) =>
+			Permute.Recursive<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <typeparam name="Status">The status checker for cancellation.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="list">The list to iterate the permutations of.</param>
+		/// <param name="status">The status checker for cancellation.</param>
+		public static void PermuteRecursive<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Permute.Recursive(list, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="list">The list to iterate the permutations of.</param>
+		/// <param name="status">The status checker for cancellation.</param>
+		public static void PermuteRecursive<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+			Permute.Recursive<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
+
+		#endregion
+
+		#region Iterative
+
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="array">The array to iterate the permutations of.</param>
 		public static void PermuteIterative<T, Action>(this T[] array, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Iterative<T, Action>(array, action);
+			Permute.Iterative(array, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
@@ -1246,13 +1289,46 @@ namespace Towel
 		/// <param name="list">The list to iterate the permutations of.</param>
 		public static void PermuteIterative<T, Action>(this ListArray<T> list, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Iterative<T, Action>(list, action);
+			Permute.Iterative(list, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
 		public static void PermuteIterative<T>(this ListArray<T> list, Action action) =>
 			Permute.Iterative<T, ActionRuntime>(list, action);
+
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		public static void PermuteIterative<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Permute.Iterative(array, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="array">The array to iterate the permutations of.</param>
+		public static void PermuteIterative<T>(this T[] array, Action action, Func<StepStatus> status) =>
+			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="list">The list to iterate the permutations of.</param>
+		public static void PermuteIterative<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Permute.Iterative(list, action, status);
+		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+		/// <param name="action">The action to perform on each permutation.</param>
+		/// <param name="list">The list to iterate the permutations of.</param>
+		public static void PermuteIterative<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
+
+		#endregion
 
 		#endregion
 
