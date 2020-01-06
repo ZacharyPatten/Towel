@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using System;
 using Towel;
 
 namespace Towel_Benchmarking

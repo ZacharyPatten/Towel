@@ -120,6 +120,55 @@ InvocationCount=1  UnrollFactor=1
 </p>
 </details>
 
-## Data structures
+## Data Structures
 
 These benchmarks are still in development. They are not yet ready.
+
+## Other
+
+<details>
+	<summary><strong>Permute Benchmark Results [click to expand]</strong></summary>
+<p>
+
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/Permute.cs
+
+``` ini
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=3.1.100
+  [Host]     : .NET Core 3.1.0 (CoreCLR 4.700.19.56402, CoreFX 4.700.19.56404), X64 RyuJIT
+  Job-KCPEJM : .NET Core 3.1.0 (CoreCLR 4.700.19.56402, CoreFX 4.700.19.56404), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+```
+|    Method |  N |               Mean |             Error |            StdDev |             Median |
+|---------- |--- |-------------------:|------------------:|------------------:|-------------------:|
+| **Recursive** |  **1** |           **238.0 ns** |          **16.54 ns** |          **48.78 ns** |           **200.0 ns** |
+| Iterative |  1 |         1,308.1 ns |         264.19 ns |         774.82 ns |           900.0 ns |
+| **Recursive** |  **2** |           **389.4 ns** |          **10.86 ns** |          **31.00 ns** |           **400.0 ns** |
+| Iterative |  2 |           950.6 ns |          24.20 ns |          66.25 ns |           900.0 ns |
+| **Recursive** |  **3** |           **678.3 ns** |          **15.53 ns** |          **41.46 ns** |           **700.0 ns** |
+| Iterative |  3 |         1,580.4 ns |         263.52 ns |         764.53 ns |         1,200.0 ns |
+| **Recursive** |  **4** |         **1,601.7 ns** |          **33.59 ns** |          **73.73 ns** |         **1,600.0 ns** |
+| Iterative |  4 |         1,400.0 ns |           0.00 ns |           0.00 ns |         1,400.0 ns |
+| **Recursive** |  **5** |         **6,634.7 ns** |         **133.61 ns** |         **330.24 ns** |         **6,800.0 ns** |
+| Iterative |  5 |         3,672.4 ns |         270.95 ns |         790.38 ns |         3,300.0 ns |
+| **Recursive** |  **6** |        **37,373.7 ns** |         **872.69 ns** |       **2,503.92 ns** |        **38,000.0 ns** |
+| Iterative |  6 |        13,975.0 ns |         337.29 ns |         929.00 ns |        13,950.0 ns |
+| **Recursive** |  **7** |       **257,323.4 ns** |       **5,127.95 ns** |      **13,328.21 ns** |       **259,450.0 ns** |
+| Iterative |  7 |        90,068.2 ns |       1,883.18 ns |       5,186.82 ns |        90,000.0 ns |
+| **Recursive** |  **8** |     **2,071,705.3 ns** |      **43,475.75 ns** |      **48,323.18 ns** |     **2,069,000.0 ns** |
+| Iterative |  8 |       708,175.9 ns |      14,078.47 ns |      30,902.58 ns |       707,900.0 ns |
+| **Recursive** |  **9** |     **5,120,522.2 ns** |     **101,374.93 ns** |     **213,834.14 ns** |     **5,082,150.0 ns** |
+| Iterative |  9 |     6,219,026.3 ns |     117,917.14 ns |     131,064.59 ns |     6,180,000.0 ns |
+| **Recursive** | **10** |    **47,170,913.3 ns** |     **471,880.60 ns** |     **441,397.40 ns** |    **47,008,400.0 ns** |
+| Iterative | 10 |    21,223,106.7 ns |     308,924.28 ns |     288,967.96 ns |    21,233,400.0 ns |
+| **Recursive** | **11** |   **539,089,553.3 ns** |   **4,859,598.37 ns** |   **4,545,671.33 ns** |   **537,287,000.0 ns** |
+| Iterative | 11 |   222,299,092.9 ns |     705,266.78 ns |     625,200.63 ns |   222,250,150.0 ns |
+| **Recursive** | **12** | **6,636,830,906.7 ns** | **123,635,606.88 ns** | **115,648,823.39 ns** | **6,648,385,900.0 ns** |
+| Iterative | 12 | 2,751,250,807.1 ns |  12,233,483.09 ns |  10,844,664.12 ns | 2,753,578,500.0 ns |
+
+</p>
+</details>
