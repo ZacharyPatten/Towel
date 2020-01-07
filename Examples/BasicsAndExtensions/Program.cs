@@ -173,6 +173,24 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
 				Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());
 				Console.WriteLine("    Random.NextUnique(5, 0, 100): " + string.Join(", ", random.NextUnique(5, 0, 100)));
+
+				var weightedNames = new (string Name, double Weight)[]
+				{
+					("Dixie Normous ", 40d),
+					("Harry Dick    ", 70d),
+					("Ivana Humpalot", 40d),
+					("Ben Dover     ", 80d),
+					("Hue Mungus    ", 30d),
+					("Mr. Bates     ", 20d),
+				};
+				Console.WriteLine("    Random.Next (weighted)... ");
+				Console.WriteLine();
+				Console.WriteLine("        | Name           | Weight |");
+				Console.WriteLine("        |----------------|--------|");
+				foreach (var (Name, Weight) in weightedNames)
+					Console.WriteLine("        | " + Name + " |   " + Weight + "   |");
+				Console.WriteLine();
+				Console.WriteLine("        Random Weighted Selection: " + random.Next(weightedNames));
 				Console.WriteLine();
 			}
 			#endregion

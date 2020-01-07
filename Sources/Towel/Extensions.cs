@@ -291,6 +291,8 @@ namespace Towel
 
 		#region System.Random
 
+		#region String
+
 		/// <summary>Generates a random string of a given length using the System.Random generator.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized string to generate.</param>
@@ -356,6 +358,10 @@ namespace Towel
 		public static string NextAlphabeticString(this Random random, int length) =>
 			NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
 
+		#endregion
+
+		#region char
+
 		/// <summary>Generates a random char value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated char value.</returns>
@@ -369,6 +375,10 @@ namespace Towel
 		/// <returns>A randomly generated char value.</returns>
 		public static char NextChar(this Random random, char min, char max) =>
 			(char)random.Next(min, max);
+
+		#endregion
+
+		#region long
 
 		/// <summary>Generates a random long value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -400,6 +410,10 @@ namespace Towel
 			long longRand = BitConverter.ToInt64(buffer, 0);
 			return Math.Abs(longRand % (max - min)) + min;
 		}
+
+		#endregion
+
+		#region decimal
 
 		/// <summary>Generates a random decimal value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -435,6 +449,10 @@ namespace Towel
 		public static decimal NextDecimal(this Random random, decimal min, decimal max) =>
 			(NextDecimal(random) % (max - min)) + min;
 
+		#endregion
+
+		#region DateTime
+
 		/// <summary>Generates a random DateTime value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated DateTime value.</returns>
@@ -463,6 +481,10 @@ namespace Towel
 			TimeSpan randomTimeSpan = NextTimeSpan(random, TimeSpan.Zero, max - min);
 			return min.Add(randomTimeSpan);
 		}
+
+		#endregion
+
+		#region TimeSpan
 
 		/// <summary>Generates a random TimeSpan value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -494,11 +516,9 @@ namespace Towel
 			return TimeSpan.FromTicks(min.Ticks + randomLong);
 		}
 
-		internal class Node
-		{
-			internal int Value;
-			internal Node Next;
-		}
+		#endregion
+
+		#region NextUnique
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -570,6 +590,11 @@ namespace Towel
 				else
 					previous.Next = new Node() { Value = roll, Next = previous.Next };
 			}
+		}
+		internal class Node
+		{
+			internal int Value;
+			internal Node Next;
 		}
 
 		/// <summary>
@@ -645,6 +670,10 @@ namespace Towel
 			return values;
 		}
 
+		#endregion
+
+		#region Shuffle
+
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="random">The random to shuffle with.</param>
@@ -682,6 +711,10 @@ namespace Towel
 			where Set : struct, ISetIndex<T> =>
 			Sort.Shuffle<T, Get, Set>(start, end, get, set, random);
 
+		#endregion
+
+		#region Choose
+
 		/// <summary>Chooses an item at random (all equally weighted).</summary>
 		/// <typeparam name="T">The generic type of the items to choose from.</typeparam>
 		/// <param name="random">The random algorithm for index generation.</param>
@@ -689,6 +722,98 @@ namespace Towel
 		/// <returns>A randomly selected value from the supplied options.</returns>
 		public static T Choose<T>(this Random random, params T[] values) =>
 			values[random.Next(values.Length)];
+
+		#endregion
+
+		#region Next (Weighted)
+
+		/// <summary>Selects a random value from a collection of weighted options.</summary>
+		/// <typeparam name="T">The generic type to select a random instance of.</typeparam>
+		/// <param name="random">The random algorithm.</param>
+		/// <param name="pool">The pool of weighted values to choose from.</param>
+		/// <param name="totalWeight">The total weight of all the values in the pool.</param>
+		/// <returns>A randomly selected value from the weighted pool.</returns>
+		public static T Next<T>(this Random random, System.Collections.Generic.IEnumerable<(T Value, double Weight)> pool, double? totalWeight = null)
+		{
+			if (!totalWeight.HasValue)
+			{
+				totalWeight = 0;
+				foreach (var (Value, Weight) in pool)
+				{
+					if (Weight < 0)
+						throw new ArgumentOutOfRangeException("A value in the pool had a weight less than zero.");
+					totalWeight += Weight;
+				}
+			}
+			else
+			{
+				if (totalWeight < 0)
+					throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than zero.");
+			}
+			if (totalWeight == 0)
+				throw new ArgumentOutOfRangeException("The total weight of all values in the pool was zero.");
+			if (double.IsInfinity(totalWeight.Value))
+				throw new ArgumentOutOfRangeException("The total weight of all values in the pool was an infinite double.");
+			double randomDouble = random.NextDouble();
+			double range = 0;
+			foreach (var (Value, Weight) in pool)
+			{
+				range += Weight;
+				if (range > totalWeight)
+					throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than the actual total weight.");
+				if (randomDouble < range / totalWeight)
+					return Value;
+			}
+			throw new TowelBugException("There is a bug in the code.");
+		}
+
+#if false
+
+		//public static T Next<T>(this Random random, StepperBreak<(T Value, double Weight)> pool, double? totalWeight = null)
+		//{
+		//	if (!totalWeight.HasValue)
+		//	{
+		//		totalWeight = 0;
+		//		pool(x =>
+		//		{
+		//			if (x.Weight < 0)
+		//				throw new ArgumentOutOfRangeException("A value in the pool had a weight less than zero.");
+		//			totalWeight += x.Weight;
+		//			return Continue;
+		//		});
+		//	}
+		//	else
+		//	{
+		//		if (totalWeight < 0)
+		//			throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than zero.");
+		//	}
+		//	if (totalWeight == 0)
+		//		throw new ArgumentOutOfRangeException("The total weight of all values in the pool was zero.");
+		//	if (double.IsInfinity(totalWeight.Value))
+		//		throw new ArgumentOutOfRangeException("The total weight of all values in the pool was an infinite double.");
+		//	double randomDouble = random.NextDouble();
+		//	double range = 0;
+		//	T @return = default;
+		//	StepStatus status = pool(x =>
+		//	{
+		//		range += x.Weight;
+		//		if (range > totalWeight)
+		//			throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than the actual total weight.");
+		//		if (randomDouble < range / totalWeight)
+		//		{
+		//			@return = x.Value;
+		//			return Break;
+		//		}
+		//		return Continue;
+		//	});
+		//	return status is Break
+		//		? @return
+		//		: throw new TowelBugException("There is a bug in the code.");
+		//}
+
+#endif
+
+		#endregion
 
 		#endregion
 

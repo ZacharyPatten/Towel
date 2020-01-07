@@ -3,7 +3,7 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
-	public class DecimalToEnglishWords_Benchmarks
+	public class ToEnglishWords_Benchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]
 		public decimal Range;
