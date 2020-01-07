@@ -652,6 +652,7 @@ DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
 IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue); // unique values
+T Next<T>(this Random random, IEnumerable<(T Value, double Weight)> pool); // weighted values
 void Shuffle<T>(this Random random, T[] array); // randomize arrays
 
 // Type conversion to string definition as appears in C# source code
