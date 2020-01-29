@@ -486,5 +486,3 @@ namespace Mathematics
 		#endregion
 	}
 }
-
-// Testing GitHub Actions

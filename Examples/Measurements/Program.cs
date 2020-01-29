@@ -383,5 +383,3 @@ namespace Measurements
 		}
 	}
 }
-
-// Testing GitHub Actions
