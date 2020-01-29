@@ -1,0 +1,12 @@
+name: Examples GraphSearch Build
+on:
+  push:
+    paths:
+    - 'Examples/GraphSearch/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dotnet build
+      run: dotnet build Examples/GraphSearch/GraphSearch.csproj --configuration 'Release'

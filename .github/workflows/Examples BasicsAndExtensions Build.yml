@@ -1,0 +1,12 @@
+name: Examples BasicsAndExtensions Build
+on:
+  push:
+    paths:
+    - 'Examples/BasicsAndExtensions/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dotnet build
+      run: dotnet build Examples/BasicsAndExtensions/BasicsAndExtensions.csproj --configuration 'Release'

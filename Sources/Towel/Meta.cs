@@ -466,7 +466,7 @@ namespace Towel
 
 		#endregion
 
-		#region ConvertToCSharpSourceDefinition
+		#region ConvertToCSharpSource
 
 		/// <summary>Converts a <see cref="System.Type"/> into a <see cref="string"/> as it would appear in C# source code.</summary>
 		/// <param name="type">The <see cref="System.Type"/> to convert to a <see cref="string"/>.</param>
@@ -476,36 +476,36 @@ namespace Towel
 		{
 			IQueue<Type> genericParameters = new QueueArray<Type>();
 			type.GetGenericArguments().Stepper(x => genericParameters.Enqueue(x));
-			return ConvertToCsharpSource(type, genericParameters, showGenericParameters);
-		}
+			return ConvertToCsharpSource(type);
 
-		internal static string ConvertToCsharpSource(Type type, IQueue<Type> genericParameters, bool showGenericParameters)
-		{
-			_ = type ?? throw new ArgumentNullException(nameof(type));
-			string result = type.IsNested
-				? ConvertToCsharpSource(type.DeclaringType, genericParameters, showGenericParameters) + "."
-				: type.Namespace + ".";
-			result += Regex.Replace(type.Name, "`.*", string.Empty);
-			if (type.IsGenericType)
+			string ConvertToCsharpSource(Type type)
 			{
-				result += "<";
-				bool firstIteration = true;
-				foreach (Type generic in type.GetGenericArguments())
+				_ = type ?? throw new ArgumentNullException(nameof(type));
+				string result = type.IsNested
+					? ConvertToCsharpSource(type.DeclaringType) + "."
+					: type.Namespace + ".";
+				result += Regex.Replace(type.Name, "`.*", string.Empty);
+				if (type.IsGenericType)
 				{
-					if (genericParameters.Count <= 0)
+					result += "<";
+					bool firstIteration = true;
+					foreach (Type generic in type.GetGenericArguments())
 					{
-						break;
+						if (genericParameters.Count <= 0)
+						{
+							break;
+						}
+						Type correctGeneric = genericParameters.Dequeue();
+						result += (firstIteration ? string.Empty : ",") +
+							(correctGeneric.IsGenericParameter
+							? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
+							: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
+						firstIteration = false;
 					}
-					Type correctGeneric = genericParameters.Dequeue();
-					result += (firstIteration ? string.Empty : ",") +
-						(correctGeneric.IsGenericParameter
-						? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
-						: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
-					firstIteration = false;
+					result += ">";
 				}
-				result += ">";
+				return result;
 			}
-			return result;
 		}
 
 		#endregion

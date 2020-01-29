@@ -1,0 +1,12 @@
+name: Examples Mathematics Build
+on:
+  push:
+    paths:
+    - 'Examples/Mathematics/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dotnet build
+      run: dotnet build Examples/Mathematics/Mathematics.csproj --configuration 'Release'
