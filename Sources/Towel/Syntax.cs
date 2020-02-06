@@ -154,6 +154,12 @@ namespace Towel
 
 		#endregion
 
+		#region Chance
+
+		public static ChanceSyntax Chance => default;
+
+		#endregion
+
 		// Logic
 
 		#region Equality

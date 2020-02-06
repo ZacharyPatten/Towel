@@ -412,7 +412,18 @@ namespace BasicsAndExtensions
 				Console.Write("    Iterative (list):  ");
 				list.PermuteIterative(WriteList, () => (++i >= 3 ? Break : Continue));
 				Console.WriteLine();
+				Console.WriteLine();
+			}
+			#endregion
 
+			#region Chance
+			{
+				Console.WriteLine("  Chance syntax----------------------");
+				Console.WriteLine();
+
+				Console.WriteLine("    20% Chance: " + (20% Chance));
+				Console.WriteLine("    50% Chance: " + (50% Chance));
+				Console.WriteLine("    70% Chance: " + (70% Chance));
 			}
 			#endregion
 
