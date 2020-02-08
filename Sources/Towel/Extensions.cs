@@ -731,6 +731,23 @@ namespace Towel
 		/// <typeparam name="T">The generic type to select a random instance of.</typeparam>
 		/// <param name="random">The random algorithm.</param>
 		/// <param name="pool">The pool of weighted values to choose from.</param>
+		/// <returns>A randomly selected value from the weighted pool.</returns>
+		public static T Next<T>(this Random random, params (T Value, double Weight)[] pool) =>
+			random.Next((System.Collections.Generic.IEnumerable<(T Value, double Weight)>)pool);
+
+		/// <summary>Selects a random value from a collection of weighted options.</summary>
+		/// <typeparam name="T">The generic type to select a random instance of.</typeparam>
+		/// <param name="random">The random algorithm.</param>
+		/// <param name="pool">The pool of weighted values to choose from.</param>
+		/// <param name="totalWeight">The total weight of all the values in the pool.</param>
+		/// <returns>A randomly selected value from the weighted pool.</returns>
+		public static T Next<T>(this Random random, double totalWeight, params (T Value, double Weight)[] pool) =>
+			random.Next(pool, totalWeight);
+
+		/// <summary>Selects a random value from a collection of weighted options.</summary>
+		/// <typeparam name="T">The generic type to select a random instance of.</typeparam>
+		/// <param name="random">The random algorithm.</param>
+		/// <param name="pool">The pool of weighted values to choose from.</param>
 		/// <param name="totalWeight">The total weight of all the values in the pool.</param>
 		/// <returns>A randomly selected value from the weighted pool.</returns>
 		public static T Next<T>(this Random random, System.Collections.Generic.IEnumerable<(T Value, double Weight)> pool, double? totalWeight = null)

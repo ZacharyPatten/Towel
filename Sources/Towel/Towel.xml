@@ -15275,6 +15275,21 @@
             <param name="values">The values to choose from.</param>
             <returns>A randomly selected value from the supplied options.</returns>
         </member>
+        <member name="M:Towel.Extensions.Next``1(System.Random,System.ValueTuple{``0,System.Double}[])">
+            <summary>Selects a random value from a collection of weighted options.</summary>
+            <typeparam name="T">The generic type to select a random instance of.</typeparam>
+            <param name="random">The random algorithm.</param>
+            <param name="pool">The pool of weighted values to choose from.</param>
+            <returns>A randomly selected value from the weighted pool.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Next``1(System.Random,System.Double,System.ValueTuple{``0,System.Double}[])">
+            <summary>Selects a random value from a collection of weighted options.</summary>
+            <typeparam name="T">The generic type to select a random instance of.</typeparam>
+            <param name="random">The random algorithm.</param>
+            <param name="pool">The pool of weighted values to choose from.</param>
+            <param name="totalWeight">The total weight of all the values in the pool.</param>
+            <returns>A randomly selected value from the weighted pool.</returns>
+        </member>
         <member name="M:Towel.Extensions.Next``1(System.Random,System.Collections.Generic.IEnumerable{System.ValueTuple{``0,System.Double}},System.Nullable{System.Double})">
             <summary>Selects a random value from a collection of weighted options.</summary>
             <typeparam name="T">The generic type to select a random instance of.</typeparam>
