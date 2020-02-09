@@ -4,6 +4,18 @@
         <name>Towel</name>
     </assembly>
     <members>
+        <member name="T:Towel.ChanceSyntax">
+            <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
+        </member>
+        <member name="F:Towel.ChanceSyntax.Algorithm">
+            <summary>The random algorithm currently being used by chance syntax.</summary>
+        </member>
+        <member name="M:Towel.ChanceSyntax.op_Modulus(System.Double,Towel.ChanceSyntax)">
+            <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
+            <param name="percentage">The value of the percentage.</param>
+            <param name="chance">The chance syntax struct object.</param>
+            <returns></returns>
+        </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
         </member>
