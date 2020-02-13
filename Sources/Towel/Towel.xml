@@ -16,6 +16,83 @@
             <param name="chance">The chance syntax struct object.</param>
             <returns></returns>
         </member>
+        <member name="T:Towel.CommandLine">
+            <summary>Contains static helpers for handling command line input and output.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.DefaultInfoString">
+            <summary>The default information string for the entry assembly of the currently running application.</summary>
+        </member>
+        <member name="T:Towel.CommandLine.ArgumentStatus">
+            <summary>An enum representing the statuses of command line arguemnts.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.Null">
+            <summary>The default value of null representing a command line argument that has not been processed.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.Default">
+            <summary>The default value of null representing a command line argument that has not been processed.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.SyntaxError">
+            <summary>There is a syntax error in the source code for this command line argument instance.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.NotProvided">
+            <summary>The command line argument was not provided and no default value exists.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.DuplicateProvided">
+            <summary>The command line argument was provided multiple times. The argument is in error.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.ParseFailed">
+            <summary>The command line argument was provided but it failed to parse to the expected type. The argument is in error.</summary>
+        </member>
+        <member name="F:Towel.CommandLine.ArgumentStatus.ValueProvided">
+            <summary>The command line argument was provided and it successfully parsed.</summary>
+        </member>
+        <member name="T:Towel.CommandLine.Argument">
+            <summary>A helper type for processing command line arguments.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument.Exists">
+            <summary>True if a value for this command line argument exists.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument.Status">
+            <summary>Gets the status of the command line argument.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument.Index">
+            <summary>The index of the parameter if it was found in the command line arguments.</summary>
+        </member>
+        <member name="T:Towel.CommandLine.Argument`1">
+            <summary>A helper type for processing command line arguments.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.Value">
+            <summary>The value of the command line argument.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.HasDefaultValue">
+            <summary>True if the command line argument is defined with a default value.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.DefaultValue">
+            <summary>The default value of the command line argument.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.DefaultValueObject">
+            <summary>The default value of the command line argument.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.HasValue">
+            <summary>True if the command line argument has a value.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.Status">
+            <summary>The status of the command line argument.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.Index">
+            <summary>The index of the parameter if it was found in the command line arguments.</summary>
+        </member>
+        <member name="P:Towel.CommandLine.Argument`1.Type">
+            <summary>The type of the command line argument.</summary>
+        </member>
+        <member name="M:Towel.CommandLine.Argument`1.op_Implicit(Towel.CommandLine.Argument{`0})~`0">
+            <summary>Converts the command line argument into its current value.</summary>
+            <param name="argument">The command line argument to get the value of.</param>
+        </member>
+        <member name="M:Towel.CommandLine.Argument`1.op_Implicit(`0)~Towel.CommandLine.Argument{`0}">
+            <summary>Creates a command line argument from a default value.</summary>
+            <param name="value">The default value of the command line argument.</param>
+        </member>
         <member name="T:Towel.CompareResult">
             <summary>The result of a comparison between two values.</summary>
         </member>

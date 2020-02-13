@@ -5,8 +5,10 @@ using static Towel.Syntax;
 
 namespace Towel
 {
+	/// <summary>Contains static helpers for handling command line input and output.</summary>
 	public static class CommandLine
 	{
+		/// <summary>The default information string for the entry assembly of the currently running application.</summary>
 		public static string DefaultInfoString
 		{
 			get
@@ -43,7 +45,7 @@ namespace Towel
 						{
 							stringBuilder.AppendLine();
 							stringBuilder.Append("      Default: ");
-							stringBuilder.Append(genericArgument.DefaultValueString);
+							stringBuilder.Append(genericArgument.DefaultValueObject.ToString());
 						}
 					}
 					else if (fieldValue is Argument)
@@ -63,33 +65,44 @@ namespace Towel
 			}
 		}
 
+		/// <summary>An enum representing the statuses of command line arguemnts.</summary>
 		public enum ArgumentStatus
 		{
+			/// <summary>The default value of null representing a command line argument that has not been processed.</summary>
 			Null = 0,
+			/// <summary>The default value of null representing a command line argument that has not been processed.</summary>
 			Default,
+			/// <summary>There is a syntax error in the source code for this command line argument instance.</summary>
 			SyntaxError,
+			/// <summary>The command line argument was not provided and no default value exists.</summary>
 			NotProvided,
+			/// <summary>The command line argument was provided multiple times. The argument is in error.</summary>
 			DuplicateProvided,
+			/// <summary>The command line argument was provided but it failed to parse to the expected type. The argument is in error.</summary>
 			ParseFailed,
+			/// <summary>The command line argument was provided and it successfully parsed.</summary>
 			ValueProvided,
 		}
 
 		internal interface IGenericArgument
 		{
 			bool HasDefaultValue { get; }
-			string DefaultValueString { get; }
+			object DefaultValueObject { get; }
 			Type Type { get; }
 		}
 
+		/// <summary>A helper type for processing command line arguments.</summary>
 		public struct Argument
 		{
 			internal class Data
 			{
 				internal ArgumentStatus _status;
+				internal int? _index;
 			}
 
 			internal Data _data;
 
+			/// <summary>True if a value for this command line argument exists.</summary>
 			public bool Exists
 			{
 				get
@@ -99,6 +112,7 @@ namespace Towel
 				}
 			}
 
+			/// <summary>Gets the status of the command line argument.</summary>
 			public ArgumentStatus Status
 			{
 				get
@@ -107,6 +121,9 @@ namespace Towel
 					return _data._status;
 				}
 			}
+
+			/// <summary>The index of the parameter if it was found in the command line arguments.</summary>
+			public int? Index => _data._index;
 
 			internal void Process()
 			{
@@ -142,11 +159,13 @@ namespace Towel
 									if (index > -1)
 									{
 										_data._status = ArgumentStatus.DuplicateProvided;
+										_data._index = null;
 										return;
 									}
 									else
 									{
 										index = i;
+										_data._index = i;
 									}
 								}
 							}
@@ -168,6 +187,7 @@ namespace Towel
 			}
 		}
 
+		/// <summary>A helper type for processing command line arguments.</summary>
 		public struct Argument<T> : IGenericArgument
 		{
 			internal class Data
@@ -176,10 +196,12 @@ namespace Towel
 				internal T _value;
 				internal T _defaultValue;
 				internal bool _hasDefault;
+				internal int? _index;
 			}
 
 			internal Data _data;
 
+			/// <summary>The value of the command line argument.</summary>
 			public T Value
 			{
 				get
@@ -191,6 +213,7 @@ namespace Towel
 				}
 			}
 
+			/// <summary>True if the command line argument is defined with a default value.</summary>
 			public bool HasDefaultValue
 			{
 				get
@@ -200,6 +223,7 @@ namespace Towel
 				}
 			}
 
+			/// <summary>The default value of the command line argument.</summary>
 			public T DefaultValue
 			{
 				get
@@ -211,17 +235,19 @@ namespace Towel
 				}
 			}
 
-			public string DefaultValueString
+			/// <summary>The default value of the command line argument.</summary>
+			public object DefaultValueObject
 			{
 				get
 				{
 					Process();
 					return _data._hasDefault
-						? _data._defaultValue.ToString()
+						? _data._defaultValue
 						: throw new InvalidOperationException("Attempted to get the default value string of a command line argument with no default value.");
 				}
 			}
 
+			/// <summary>True if the command line argument has a value.</summary>
 			public bool HasValue
 			{
 				get
@@ -231,6 +257,7 @@ namespace Towel
 				}
 			}
 
+			/// <summary>The status of the command line argument.</summary>
 			public ArgumentStatus Status
 			{
 				get
@@ -240,6 +267,10 @@ namespace Towel
 				}
 			}
 
+			/// <summary>The index of the parameter if it was found in the command line arguments.</summary>
+			public int? Index => _data._index;
+
+			/// <summary>The type of the command line argument.</summary>
 			public Type Type => typeof(T);
 
 			internal void Process()
@@ -276,11 +307,13 @@ namespace Towel
 									if (index > -1)
 									{
 										_data._status = ArgumentStatus.DuplicateProvided;
+										_data._index = null;
 										return;
 									}
 									else
 									{
 										index = i;
+										_data._index = i;
 									}
 								}
 							}
@@ -326,8 +359,12 @@ namespace Towel
 				return;
 			}
 
+			/// <summary>Converts the command line argument into its current value.</summary>
+			/// <param name="argument">The command line argument to get the value of.</param>
 			public static implicit operator T(Argument<T> argument) => argument.Value;
 
+			/// <summary>Creates a command line argument from a default value.</summary>
+			/// <param name="value">The default value of the command line argument.</param>
 			public static implicit operator Argument<T>(T value) =>
 				new Argument<T>()
 				{
