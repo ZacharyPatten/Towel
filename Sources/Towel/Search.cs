@@ -188,6 +188,20 @@ namespace Towel
 			};
 		}
 
+		internal struct AStarPriorityCompare<Node, Numeric> : ICompare<AstarNode<Node, Numeric>>
+		{
+			// NOTE: Typical A* implementations prioritize smaller values
+			public CompareResult Do(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
+				Comparison(b.Priority, a.Priority);
+		}
+
+		internal struct DijkstraPriorityCompare<Node, Numeric> : ICompare<DijkstraNode<Node, Numeric>>
+		{
+			// NOTE: Typical A* implementations prioritize smaller values
+			public CompareResult Do(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
+				Comparison(b.Priority, a.Priority);
+		}
+
 		#endregion
 
 		#region A* Algorithm
@@ -205,9 +219,7 @@ namespace Towel
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Check<Node> check, out Numeric totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
-			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>>(
-				// NOTE: Typical A* implementations prioritize smaller values
-				(a, b) => Comparison(b.Priority, a.Priority));
+			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>>();
 
 			// push starting node
 			fringe.Enqueue(
@@ -353,9 +365,7 @@ namespace Towel
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Check<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
-			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>>(
-				// NOTE: Typical graph search implementations prioritize smaller values
-				(a, b) => Comparison(b.Priority, a.Priority));
+			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>>();
 
 			// push starting node
 			fringe.Enqueue(
