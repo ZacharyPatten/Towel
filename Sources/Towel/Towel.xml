@@ -13593,23 +13593,53 @@
             <summary>Resets the queue to an empty state.</summary>
             <runtime>O(1)</runtime>
         </member>
+        <member name="M:Towel.DataStructures.QueueLinked`1.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueLinked`1.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueLinked`1.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueLinked`1.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.GetEnumerator">
             <summary>Gets the enumerator for this queue.</summary>
@@ -13671,23 +13701,53 @@
             <summary>Empties the list back and reduces it back to its original capacity.</summary>
             <runtime>O(1)</runtime>
         </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.QueueArray`1.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.GetEnumerator">
             <summary>Gets the enumerator for this queue.</summary>
@@ -15387,65 +15447,141 @@
             <param name="totalWeight">The total weight of all the values in the pool.</param>
             <returns>A randomly selected value from the weighted pool.</returns>
         </member>
-        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.Step{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Stepper``2(``0[],``1)">
             <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="start">The inclusive starting index.</param>
-            <param name="end">The non-inclusive ending index.</param>
-        </member>
-        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRef{``0},System.Int32,System.Int32)">
-            <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
-            <param name="array">The array to traverse.</param>
-            <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="start">The inclusive starting index.</param>
-            <param name="end">The non-inclusive ending index.</param>
-        </member>
-        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepBreak{``0},System.Int32,System.Int32)">
-            <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
-            <param name="array">The array to traverse.</param>
-            <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="start">The inclusive starting index.</param>
-            <param name="end">The non-inclusive ending index.</param>
-            <returns>The status of the stepper.</returns>
-        </member>
-        <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRefBreak{``0},System.Int32,System.Int32)">
-            <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
-            <param name="array">The array to traverse.</param>
-            <param name="step">The operation to perform on each value of th traversal.</param>
-            <param name="start">The inclusive starting index.</param>
-            <param name="end">The non-inclusive ending index.</param>
-            <returns>The status of the stepper.</returns>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.Step{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
+            <typeparam name="T">The element type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperRef``2(``0[],``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRef{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
+            <typeparam name="T">The element type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperBreak``2(``0[],``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
+            <typeparam name="T">The element type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <returns>The status of the stepper.</returns>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="M:Towel.Extensions.Stepper``1(``0[],Towel.StepRefBreak{``0})">
             <summary>Traverses an array and performs an operation on each value.</summary>
-            <typeparam name="T">The generic type in the array.</typeparam>
+            <typeparam name="T">The element type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
-            <returns>The status of the stepper.</returns>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperRefBreak``2(``0[],``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``1(``0[],System.Int32,System.Int32,Towel.Step{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperRef``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``1(``0[],System.Int32,System.Int32,Towel.StepRef{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperBreak``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``1(``0[],System.Int32,System.Int32,Towel.StepBreak{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Stepper``1(``0[],System.Int32,System.Int32,Towel.StepRefBreak{``0})">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
+        </member>
+        <member name="M:Towel.Extensions.StepperRefBreak``2(``0[],System.Int32,System.Int32,``1)">
+            <summary>Traverses an array and performs an operation on each value.</summary>
+            <typeparam name="T">The element type in the array.</typeparam>
+            <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+            <param name="array">The array to traverse.</param>
+            <param name="start">The inclusive starting index.</param>
+            <param name="end">The non-inclusive ending index.</param>
+            <param name="step">The operation to perform on each value of th traversal.</param>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="M:Towel.Extensions.WrapGetIndex``1(``0[])">
             <summary>Converts the get indexer of an IList to a delegate.</summary>

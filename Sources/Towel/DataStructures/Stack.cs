@@ -445,21 +445,21 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _array.Stepper(step, 0, _count);
+		public void Stepper(Step<T> step) => _array.Stepper(0, _count, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _array.Stepper(step, 0, _count);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _array.Stepper(step, 0, _count);
+		public void Stepper(StepRef<T> step) => _array.Stepper(0, _count, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step, 0, _count);
+		public StepStatus Stepper(StepBreak<T> step) => _array.Stepper(0, _count, step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
