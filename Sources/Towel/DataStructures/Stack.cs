@@ -163,6 +163,10 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public T Pop()
 		{
+			if (_count == 0)
+			{
+				throw new InvalidOperationException("attempting to pop from an empty stack.");
+			}
 			T x = _top.Value;
 			_top = _top.Down;
 			_count--;
@@ -183,53 +187,68 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Stepper and IEnumerable
-
 		#region Stepper
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (Node node = _top; !(node is null); node = node.Down)
-			{
-				step(node.Value);
-			}
-		}
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (Node node = _top; !(node is null); node = node.Down)
-			{
-				step(ref node.Value);
-			}
-		}
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(Step<T> step) =>
+			Stepper<StepRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (Node node = _top; !(node is null); node = node.Down)
-			{
-				if (step(node.Value) is Break)
-				{
-					return Break;
-				}
-			}
-			return Continue;
-		}
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			for (Node node = _top; !(node is null); node = node.Down)
 			{
-				if (step(ref node.Value) is Break)
+				if (step.Do(ref node.Value) is Break)
 				{
 					return Break;
 				}
@@ -252,8 +271,6 @@ namespace Towel.DataStructures
 				yield return node.Value;
 			}
 		}
-
-		#endregion
 
 		#endregion
 
@@ -404,7 +421,7 @@ namespace Towel.DataStructures
 		{
 			if (_count == 0)
 			{
-				throw new InvalidOperationException("attempting to dequeue from an empty queue.");
+				throw new InvalidOperationException("attempting to pop from an empty stack.");
 			}
 			if (_count < _array.Length / 4 && _array.Length / 2 > _minimumCapacity)
 			{
@@ -504,7 +521,7 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Stepper
+		#region IEnumerable
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
