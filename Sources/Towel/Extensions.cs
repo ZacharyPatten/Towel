@@ -70,7 +70,7 @@ namespace Towel
 
 		/// <summary>Splits the string into the individual lines.</summary>
 		/// <param name="string">The string to get the lines of.</param>
-		/// <returns>an array of the individual lines of the string.</returns>
+		/// <returns>memory of the individual lines of the string.</returns>
 		public static string[] SplitLines(this string @string)
 		{
 			_ = @string ?? throw new ArgumentNullException(nameof(@string));
@@ -620,9 +620,9 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
 			// Algorithm B: Θ(range + count)
 			int pool = maxValue - minValue;
-			int[] array = new int[pool];
+			Memory<int> memory = new int[pool];
 			for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
-				array[i] = j;
+				memory.Span[i] = j;
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
 				int rollIndex = random.Next(0, pool);
@@ -630,8 +630,8 @@ namespace Towel
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
-				int roll = array[rollIndex];
-				array[rollIndex] = array[--pool];
+				int roll = memory.Span[rollIndex];
+				memory.Span[rollIndex] = memory.Span[--pool];
 				step.Do(roll);
 			}
 		}
@@ -677,11 +677,11 @@ namespace Towel
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <param name="random">The random to shuffle with.</param>
-		/// <param name="array">The array to shuffle.</param>
+		/// <param name="memory">The memory to shuffle.</param>
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(this Random random, T[] array) =>
-			Sort.Shuffle(array, random);
+		public static void Shuffle<T>(this Random random, Memory<T> memory) =>
+			Sort.Shuffle(memory, random);
 
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -834,172 +834,183 @@ namespace Towel
 
 		#endregion
 
-		#region Array
+		#region memory
 
 		#region Stepper
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T, Step>(this T[] array, Step step = default)
+		public static void Stepper<T, Step>(this Memory<T> memory, Step step = default)
 			where Step : struct, IStep<T> =>
-			StepperRef<T, StepToStepRef<T, Step>>(array, step);
+			StepperRef<T, StepToStepRef<T, Step>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, Step<T> step) =>
-			Stepper<T, StepRuntime<T>>(array, step);
+		public static void Stepper<T>(this Memory<T> memory, Step<T> step) =>
+			Stepper<T, StepRuntime<T>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void StepperRef<T, Step>(this T[] array, Step step = default)
+		public static void StepperRef<T, Step>(this Memory<T> memory, Step step = default)
 			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<T, StepRefBreakFromStepRef<T, Step>>(array, step);
+			StepperRefBreak<T, StepRefBreakFromStepRef<T, Step>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, StepRef<T> step) =>
-			StepperRef<T, StepRefRuntime<T>>(array, step);
+		public static void Stepper<T>(this Memory<T> memory, StepRef<T> step) =>
+			StepperRef<T, StepRefRuntime<T>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, Step>(this T[] array, Step step = default)
+		public static StepStatus StepperBreak<T, Step>(this Memory<T> memory, Step step = default)
 			where Step : struct, IStepBreak<T> =>
-			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, step);
+			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, StepBreak<T> step) =>
-			StepperBreak<T, StepBreakRuntime<T>>(array, step);
+		public static StepStatus Stepper<T>(this Memory<T> memory, StepBreak<T> step) =>
+			StepperBreak<T, StepBreakRuntime<T>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step) =>
-			StepperRefBreak<T, StepRefBreakRuntime<T>>(array, step);
+		public static StepStatus Stepper<T>(this Memory<T> memory, StepRefBreak<T> step) =>
+			StepperRefBreak<T, StepRefBreakRuntime<T>>(memory, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperRefBreak<T, Step>(this T[] array, Step step = default)
+		public static StepStatus StepperRefBreak<T, Step>(this Memory<T> memory, Step step = default)
 			where Step : struct, IStepRefBreak<T> =>
-			StepperRefBreak<T, Step>(array, 0, array.Length, step);
+			StepperRefBreak<T, Step>(memory, 0, memory.Length, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T, Step>(this T[] array, int start, int end, Step step = default)
+		public static void Stepper<T, Step>(this Memory<T> memory, int start, int end, Step step = default)
 			where Step : struct, IStep<T> =>
-			StepperRef<T, StepToStepRef<T, Step>>(array, start, end, step);
+			StepperRef<T, StepToStepRef<T, Step>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, int start, int end, Step<T> step) =>
-			Stepper<T, StepRuntime<T>>(array, start, end, step);
+		public static void Stepper<T>(this Memory<T> memory, int start, int end, Step<T> step) =>
+			Stepper<T, StepRuntime<T>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void StepperRef<T, Step>(this T[] array, int start, int end, Step step = default)
+		public static void StepperRef<T, Step>(this Memory<T> memory, int start, int end, Step step = default)
 			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<T,StepRefBreakFromStepRef<T, Step>>(array, start, end, step);
+			StepperRefBreak<T,StepRefBreakFromStepRef<T, Step>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, int start, int end, StepRef<T> step) =>
-			StepperRef<T, StepRefRuntime<T>>(array, start, end, step);
+		public static void Stepper<T>(this Memory<T> memory, int start, int end, StepRef<T> step) =>
+			StepperRef<T, StepRefRuntime<T>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, Step>(this T[] array, int start, int end, Step step = default)
+		public static StepStatus StepperBreak<T, Step>(this Memory<T> memory, int start, int end, Step step = default)
 			where Step : struct, IStepBreak<T> =>
-			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, start, end, step);
+			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, int start, int end, StepBreak<T> step) =>
-			StepperBreak<T, StepBreakRuntime<T>>(array, start, end, step);
+		public static StepStatus Stepper<T>(this Memory<T> memory, int start, int end, StepBreak<T> step) =>
+			StepperBreak<T, StepBreakRuntime<T>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, int start, int end, StepRefBreak<T> step) =>
-			StepperRefBreak<T, StepRefBreakRuntime<T>>(array, start, end, step);
+		public static StepStatus Stepper<T>(this Memory<T> memory, int start, int end, StepRefBreak<T> step) =>
+			StepperRefBreak<T, StepRefBreakRuntime<T>>(memory, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <summary>Traverses memory and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="memory">The memory to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperRefBreak<T, Step>(this T[] array, int start, int end, Step step = default)
+		public static StepStatus StepperRefBreak<T, Step>(this Memory<T> memory, int start, int end, Step step = default)
+			where Step : struct, IStepRefBreak<T> => StepperRefBreak(memory.Span, start, end, step);
+		
+		/// <summary>Traverses a Span and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the memory.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The Span to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static StepStatus StepperRefBreak<T, Step>(this Span<T> span, int start, int end, Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step.Do(ref array[i]) is Break)
+				if (step.Do(ref span[i]) is Break)
 				{
 					return Break;
 				}
@@ -1011,47 +1022,47 @@ namespace Towel
 
 		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="array">The array to retrieve the get delegate of.</param>
+		/// <param name="memory">The memory to retrieve the get delegate of.</param>
 		/// <returns>A delegate for getting an indexed value in the IList.</returns>
-		public static GetIndex<T> WrapGetIndex<T>(this T[] array) =>
-			index => array[index];
+		public static GetIndex<T> WrapGetIndex<T>(this Memory<T> memory) =>
+			index => memory.Span[index];
 
 		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="array">The array to retrieve the set delegate of.</param>
+		/// <param name="memory">The memory to retrieve the set delegate of.</param>
 		/// <returns>A delegate for setting an indexed value in the IList.</returns>
-		public static SetIndex<T> WrapSetIndex<T>(this T[] array) =>
-			(index, value) => array[index] = value;
+		public static SetIndex<T> WrapSetIndex<T>(this Memory<T> memory) =>
+			(index, value) => memory.Span[index] = value;
 
-		/// <summary>Builds an array from a size and initialization delegate.</summary>
-		/// <typeparam name="T">The generic type of the array.</typeparam>
-		/// <param name="size">The size of the array to build.</param>
+		/// <summary>Builds memory from a size and initialization delegate.</summary>
+		/// <typeparam name="T">The generic type of the memory.</typeparam>
+		/// <param name="size">The size of the memory to build.</param>
 		/// <param name="func">The initialization pattern.</param>
-		/// <returns>The built array.</returns>
-		public static T[] BuildArray<T>(int size, Func<int, T> func)
+		/// <returns>The built memory.</returns>
+		public static T[] Buildmemory<T>(int size, Func<int, T> func)
 		{
-			T[] array = new T[size];
+			Memory<T> memory = new T[size];
 			for (int i = 0; i < size; i++)
 			{
-				array[i] = func(i);
+				memory.Span[i] = func(i);
 			}
-			return array;
+			return memory;
 		}
 
-		/// <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
-		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-		/// <param name="a1">The first array of the deep equality check.</param>
-		/// <param name="a2">The second array of the deep equality check.</param>
-		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
+		/// <summary>Performs a deep equality check of two memorys using the default equality check of the generic type.</summary>
+		/// <typeparam name="T">The generic type of the memorys to check for deep equality.</typeparam>
+		/// <param name="a1">The first memory of the deep equality check.</param>
+		/// <param name="a2">The second memory of the deep equality check.</param>
+		/// <returns>True if the memory are determined to be deeply equal. False if not.</returns>
 		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2) =>
 			a1.ValuesAreEqual(a2, Equate.Default);
 
-		/// <summary>Performs a deep equality check of two arrays.</summary>
-		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-		/// <param name="a1">The first array of the deep equality check.</param>
-		/// <param name="a2">The second array of the deep equality check.</param>
+		/// <summary>Performs a deep equality check of two memorys.</summary>
+		/// <typeparam name="T">The generic type of the memorys to check for deep equality.</typeparam>
+		/// <param name="a1">The first memory of the deep equality check.</param>
+		/// <param name="a2">The second memory of the deep equality check.</param>
 		/// /// <param name="equate">The delegate for checking two values for equality.</param>
-		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
+		/// <returns>True if the memory are determined to be deeply equal. False if not.</returns>
 		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Equate<T> equate)
 		{
 			if (ReferenceEquals(a1, a2))
@@ -1076,51 +1087,51 @@ namespace Towel
 			return true;
 		}
 
-		/// <summary>Formats an array so that all values are the same.</summary>
-		/// <typeparam name="T">The generic type of the array to format.</typeparam>
-		/// <param name="array">The array to format.</param>
-		/// <param name="value">The value to format all entries in the array with.</param>
-		public static void Format<T>(this T[] array, T value)
+		/// <summary>Formats memory so that all values are the same.</summary>
+		/// <typeparam name="T">The generic type of the memory to format.</typeparam>
+		/// <param name="memory">The memory to format.</param>
+		/// <param name="value">The value to format all entries in the memory with.</param>
+		public static void Format<T>(this Memory<T> memory, T value)
 		{
-			for (int i = 0; i < array.Length; i++)
+			for (int i = 0; i < memory.Length; i++)
 			{
-				array[i] = value;
+				memory.Span[i] = value;
 			}
 		}
 
-		/// <summary>Formats an array so that all values are the same.</summary>
-		/// <typeparam name="T">The generic type of the array to format.</typeparam>
-		/// <param name="array">The array to format.</param>
+		/// <summary>Formats memory so that all values are the same.</summary>
+		/// <typeparam name="T">The generic type of the memory to format.</typeparam>
+		/// <param name="memory">The memory to format.</param>
 		/// <param name="func">The per-index format function.</param>
-		public static void Format<T>(this T[] array, Func<int, T> func)
+		public static void Format<T>(this Memory<T> memory, Func<int, T> func)
 		{
-			for (int i = 0; i < array.Length; i++)
+			for (int i = 0; i < memory.Length; i++)
 			{
-				array[i] = func(i);
+				memory.Span[i] = func(i);
 			}
 		}
 
-		/// <summary>Constructs a square jagged array of the desired dimensions.</summary>
-		/// <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+		/// <summary>Constructs a square jagged memory of the desired dimensions.</summary>
+		/// <typeparam name="T">The generic type to store in the jagged memory.</typeparam>
 		/// <param name="length1">The length of the first dimension.</param>
 		/// <param name="length2">The length of the second dimension.</param>
-		/// <returns>The constructed jagged array.</returns>
-		public static T[][] ConstructRectangularJaggedArray<T>(int length1, int length2)
+		/// <returns>The constructed jagged memory.</returns>
+		public static T[][] ConstructRectangularJaggedmemory<T>(int length1, int length2)
 		{
-			T[][] jaggedArray = new T[length1][];
+			T[][] jaggedarray = new T[length1][];
 			for (int i = 0; i < length1; i++)
 			{
-				jaggedArray[i] = new T[length2];
+				jaggedarray.Span[i] = new T[length2];
 			}
-			return jaggedArray;
+			return jaggedarray;
 		}
 
-		/// <summary>Constructs a square jagged array of the desired dimensions.</summary>
-		/// <typeparam name="T">The generic type to store in the jagged array.</typeparam>
+		/// <summary>Constructs a square jagged memory of the desired dimensions.</summary>
+		/// <typeparam name="T">The generic type to store in the jagged memory.</typeparam>
 		/// <param name="sideLength">The length of each dimension.</param>
-		/// <returns>The constructed jagged array.</returns>
-		public static T[][] ConstructSquareJaggedArray<T>(int sideLength) =>
-			ConstructRectangularJaggedArray<T>(sideLength, sideLength);
+		/// <returns>The constructed jagged memory.</returns>
+		public static T[][] ConstructSquareJaggedmemory<T>(int sideLength) =>
+			ConstructRectangularJaggedmemory<T>(sideLength, sideLength);
 
 		#endregion
 
@@ -1398,29 +1409,29 @@ namespace Towel
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteRecursive<T, Action>(this T[] array, Action action = default)
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteRecursive<T, Action>(this Memory<T> memory, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Recursive(array, action);
+			Permute.Recursive(memory, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteRecursive<T>(this T[] array, Action action) =>
-			Permute.Recursive<T, ActionRuntime>(array, action);
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteRecursive<T>(this Memory<T> memory, Action action) =>
+			Permute.Recursive<T, ActionRuntime>(memory, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteRecursive<T, Action>(this ListArray<T> list, Action action = default)
+		public static void PermuteRecursive<T, Action>(this Listmemory<T> list, Action action = default)
 			where Action : struct, IAction =>
 			Permute.Recursive(list, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteRecursive<T>(this ListArray<T> list, Action action) =>
+		public static void PermuteRecursive<T>(this Listmemory<T> list, Action action) =>
 			Permute.Recursive<T, ActionRuntime>(list, action);
 
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
@@ -1428,19 +1439,19 @@ namespace Towel
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <typeparam name="Status">The status checker for cancellation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="memory">The memory to iterate the permutations of.</param>
 		/// <param name="status">The status checker for cancellation.</param>
-		public static void PermuteRecursive<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+		public static void PermuteRecursive<T, Action, Status>(this Memory<T> memory, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
-			Permute.Recursive(array, action, status);
+			Permute.Recursive(memory, action, status);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="memory">The memory to iterate the permutations of.</param>
 		/// <param name="status">The status checker for cancellation.</param>
-		public static void PermuteRecursive<T>(this T[] array, Action action, Func<StepStatus> status) =>
-			Permute.Recursive<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+		public static void PermuteRecursive<T>(this Memory<T> memory, Action action, Func<StepStatus> status) =>
+			Permute.Recursive<T, ActionRuntime, FuncRuntime<StepStatus>>(memory, action, status);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
@@ -1448,7 +1459,7 @@ namespace Towel
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
 		/// <param name="status">The status checker for cancellation.</param>
-		public static void PermuteRecursive<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+		public static void PermuteRecursive<T, Action, Status>(this Listmemory<T> list, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			Permute.Recursive(list, action, status);
@@ -1457,7 +1468,7 @@ namespace Towel
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
 		/// <param name="status">The status checker for cancellation.</param>
-		public static void PermuteRecursive<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+		public static void PermuteRecursive<T>(this Listmemory<T> list, Action action, Func<StepStatus> status) =>
 			Permute.Recursive<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
 
 		#endregion
@@ -1468,52 +1479,52 @@ namespace Towel
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteIterative<T, Action>(this T[] array, Action action = default)
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteIterative<T, Action>(this Memory<T> memory, Action action = default)
 			where Action : struct, IAction =>
-			Permute.Iterative(array, action);
+			Permute.Iterative(memory, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteIterative<T>(this T[] array, Action action) =>
-			Permute.Iterative<T, ActionRuntime>(array, action);
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteIterative<T>(this Memory<T> memory, Action action) =>
+			Permute.Iterative<T, ActionRuntime>(memory, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteIterative<T, Action>(this ListArray<T> list, Action action = default)
+		public static void PermuteIterative<T, Action>(this Listmemory<T> list, Action action = default)
 			where Action : struct, IAction =>
 			Permute.Iterative(list, action);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteIterative<T>(this ListArray<T> list, Action action) =>
+		public static void PermuteIterative<T>(this Listmemory<T> list, Action action) =>
 			Permute.Iterative<T, ActionRuntime>(list, action);
 
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteIterative<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteIterative<T, Action, Status>(this Memory<T> memory, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
-			Permute.Iterative(array, action, status);
+			Permute.Iterative(memory, action, status);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
-		/// <param name="array">The array to iterate the permutations of.</param>
-		public static void PermuteIterative<T>(this T[] array, Action action, Func<StepStatus> status) =>
-			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+		/// <param name="memory">The memory to iterate the permutations of.</param>
+		public static void PermuteIterative<T>(this Memory<T> memory, Action action, Func<StepStatus> status) =>
+			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(memory, action, status);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteIterative<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+		public static void PermuteIterative<T, Action, Status>(this Listmemory<T> list, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			Permute.Iterative(list, action, status);
@@ -1521,7 +1532,7 @@ namespace Towel
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
-		public static void PermuteIterative<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+		public static void PermuteIterative<T>(this Listmemory<T> list, Action action, Func<StepStatus> status) =>
 			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
 
 		#endregion
