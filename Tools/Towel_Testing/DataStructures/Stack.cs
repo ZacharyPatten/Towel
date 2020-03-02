@@ -31,6 +31,61 @@ namespace Towel_Testing.DataStructures
 				Test(values);
 			}
 		}
+
+		[TestMethod]
+		public void Stepper_Testing()
+		{
+			{ // push only
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				IStack<int> stack = new StackArray<int>();
+				values.Stepper(i => stack.Push(i));
+				Assert.IsTrue(stack.Stepper().Count() == values.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				values.Stepper(i => set.Add(i));
+				stack.Stepper(i =>
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				});
+				Assert.IsTrue(set.Count == 0);
+			}
+			{ // push + pop
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				int[] expectedValues = { 0, 1, 2, 3, };
+				IStack<int> stack = new StackArray<int>();
+				values.Stepper(i => stack.Push(i));
+				stack.Pop();
+				stack.Pop();
+				Assert.IsTrue(stack.Stepper().Count() == expectedValues.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				expectedValues.Stepper(i => set.Add(i));
+				stack.Stepper(i =>
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				});
+				Assert.IsTrue(set.Count == 0);
+			}
+			{ // push + pop
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				IStack<int> stack = new StackArray<int>();
+				values.Stepper(i => stack.Push(i));
+				values.Stepper(i =>
+				{
+					stack.Pop();
+					stack.Push(i);
+				});
+				Assert.IsTrue(stack.Stepper().Count() == values.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				values.Stepper(i => set.Add(i));
+				stack.Stepper(i =>
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				});
+				Assert.IsTrue(set.Count == 0);
+			}
+		}
 	}
 
 	[TestClass] public class StackLinked_Testing
