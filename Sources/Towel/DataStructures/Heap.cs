@@ -36,7 +36,7 @@ namespace Towel.DataStructures
 		internal const int _root = 1; // The root index of the heap.
 
 		internal Compare _compare;
-		internal T[] _heap;
+		internal Memory<T> _heap;
 		internal int _minimumCapacity;
 		internal int _count;
 		
@@ -58,7 +58,8 @@ namespace Towel.DataStructures
 		internal HeapArray(HeapArray<T, Compare> heap)
 		{
 			_compare = heap._compare;
-			_heap = (T[])heap._heap.Clone();
+			_heap = new T[heap._heap.Length];
+			heap._heap.CopyTo(_heap);
 			_minimumCapacity = heap._minimumCapacity;
 			_count = heap._count;
 		}
@@ -110,21 +111,19 @@ namespace Towel.DataStructures
 		/// <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
 		public void Enqueue(T addition)
 		{
-			if (!(_count + 1 < _heap.Length))
+			var heap = _heap.Span;
+			if (!(_count + 1 < heap.Length))
 			{
-				if (_heap.Length * 2 > int.MaxValue)
+				if (heap.Length * 2 > int.MaxValue)
 				{
 					throw new InvalidOperationException("this heap has become too large");
 				}
-				T[] _newHeap = new T[_heap.Length * 2];
-				for (int i = 1; i <= _count; i++)
-				{
-					_newHeap[i] = _heap[i];
-				}
-				_heap = _newHeap;
+				Memory<T> _newHeap = new T[heap.Length * 2];
+				heap.CopyTo(_newHeap.Span);
+				heap = _newHeap;
 			}
 			_count++;
-			_heap[_count] = addition;
+			heap[_count] = addition;
 			ShiftUp(_count);
 		}
 
@@ -135,8 +134,8 @@ namespace Towel.DataStructures
 		{
 			if (_count > 0)
 			{
-				T removal = _heap[_root];
-				ArraySwap(_root, _count);
+				T removal = _heap.Span[_root];
+				Swap(_root, _count);
 				_count--;
 				ShiftDown(_root);
 				return removal;
@@ -149,10 +148,11 @@ namespace Towel.DataStructures
 		/// <runtime>O(n)</runtime>
 		public void Requeue(T item)
 		{
+			var heap = _heap.Span;
 			int i;
 			for (i = 1; i <= _count; i++)
 			{
-				if (_compare.Do(item, _heap[i]) is Equal)
+				if (_compare.Do(item, heap[i]) is Equal)
 				{
 					break;
 				}
@@ -171,42 +171,44 @@ namespace Towel.DataStructures
 		{
 			if (_count > 0)
 			{
-				return _heap[_root];
+				return _heap.Span[_root];
 			}
 			throw new InvalidOperationException("Attempting to peek at an empty priority queue.");
 		}
 
-		/// <summary>Standard priority queue algorithm for up sifting.</summary>
+		/// <summary>Standard priority queue algorithm for up shifting.</summary>
 		/// <param name="index">The index to be up sifted.</param>
 		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftUp(int index)
 		{
+			var heap = _heap.Span;
 			int parent;
-			while ((parent = Parent(index)) > 0 && _compare.Do(_heap[index], _heap[parent]) is Greater)
+			while ((parent = Parent(index)) > 0 && _compare.Do(heap[index], heap[parent]) is Greater)
 			{
-				ArraySwap(index, parent);
+				Swap(index, parent);
 				index = parent;
 			}
 		}
 
-		/// <summary>Standard priority queue algorithm for sifting down.</summary>
+		/// <summary>Standard priority queue algorithm for shifting down.</summary>
 		/// <param name="index">The index to be down sifted.</param>
 		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftDown(int index)
 		{
+			var heap = _heap.Span;
 			int leftChild, rightChild;
 			while ((leftChild = LeftChild(index)) <= _count)
 			{
 				int down = leftChild;
-				if ((rightChild = RightChild(index)) <= _count && _compare.Do(_heap[rightChild], _heap[leftChild]) is Greater)
+				if ((rightChild = RightChild(index)) <= _count && _compare.Do(heap[rightChild], heap[leftChild]) is Greater)
 				{
 					down = rightChild;
 				}
-				if (_compare.Do(_heap[down], _heap[index]) is Less)
+				if (_compare.Do(heap[down], heap[index]) is Less)
 				{
 					break;
 				}
-				ArraySwap(index, down);
+				Swap(index, down);
 				index = down;
 			}
 		}
@@ -215,11 +217,12 @@ namespace Towel.DataStructures
 		/// <param name="indexOne">The first index of the swap.</param>
 		/// <param name="indexTwo">The second index of the swap.</param>
 		/// <runtime>O(1)</runtime>
-		internal void ArraySwap(int indexOne, int indexTwo)
+		internal void Swap(int indexOne, int indexTwo)
 		{
-			T temp = _heap[indexTwo];
-			_heap[indexTwo] = _heap[indexOne];
-			_heap[indexOne] = temp;
+			var heap = _heap.Span;
+			T temp = heap[indexTwo];
+			heap[indexTwo] = heap[indexOne];
+			heap[indexOne] = temp;
 		}
 
 		/// <summary>Returns this queue to an empty state.</summary>
@@ -229,29 +232,23 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
+		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered). Copies</summary>
 		/// <returns>The array of priority-sorted items.</returns>
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			for (int i = 1; i <= _count; i++)
-			{
-				array[i] = _heap[i];
-			}
-			return array;
-		}
+		public T[] ToArray() => AsSpan().ToArray();
+
+		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered). Zero Allocation</summary>
+		/// <returns>The Span of priority-sorted items.</returns>
+		public ReadOnlySpan<T> AsSpan() => _heap.Span.Slice(0, _count);
+
+		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered). Zero Allocation</summary>
+		/// <returns>The array of priority-sorted items.</returns>
+		public ReadOnlyMemory<T> AsMemory() => _heap.Slice(0, _count);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator of the heap.</summary>
 		/// <returns>The enumerator of the heap.</returns>
-		public IEnumerator<T> GetEnumerator()
-		{
-			for (int i = 0; i <= _count; i++)
-			{
-				yield return _heap[i];
-			}
-		}
+		public IEnumerator<T> GetEnumerator() => REMOVE?;
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -293,7 +290,8 @@ namespace Towel.DataStructures
 		internal HeapArray(HeapArray<T> heap)
 		{
 			_compare = heap._compare;
-			_heap = (T[])heap._heap.Clone();
+			_heap = new T[heap._heap.Length];
+			heap._heap.CopyTo(_heap);
 			_minimumCapacity = heap._minimumCapacity;
 			_count = heap._count;
 		}
