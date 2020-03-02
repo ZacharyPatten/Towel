@@ -444,6 +444,26 @@ namespace Towel.DataStructures
 			return array;
 		}
 
+		/// <summary>Converts the list into a Memory Slice.</summary>
+		/// <returns>A Memory Slice of all the items.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public Memory<T> ToMemory()
+		{
+			if (_count == 0)
+			{
+				return Memory<T>.Empty;
+			}
+			Memory<T> memory = new T[_count];
+			var span = memory.Span;
+			Node node = _head;
+			for (int i = 0; i < _count; i++)
+			{
+				span[i] = node.Value;
+				node = node.Next;
+			}
+			return memory;
+		}
+
 		#endregion
 
 		#endregion
@@ -454,7 +474,7 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class ListArray<T> : IList<T>
 	{
-		internal T[] _list;
+		internal Memory<T> _list;
 		internal int _count;
 
 		#region Constructor
@@ -479,14 +499,11 @@ namespace Towel.DataStructures
 		internal ListArray(ListArray<T> listArray)
 		{
 			_list = new T[listArray._list.Length];
-			for (int i = 0; i < _list.Length; i++)
-			{
-				_list[i] = listArray._list[i];
-			}
+			listArray._list.CopyTo(_list);
 			_count = listArray._count;
 		}
 
-		internal ListArray(T[] list, int count)
+		internal ListArray(Memory<T> list, int count)
 		{
 			_list = list;
 			_count = count;
@@ -499,7 +516,7 @@ namespace Towel.DataStructures
 		/// <summary>Look-up and set an indexed item in the list.</summary>
 		/// <param name="index">The index of the item to get or set.</param>
 		/// <returns>The value at the given index.</returns>
-		public T this[int index]
+		public ref T this[int index]
 		{
 			get
 			{
@@ -507,16 +524,7 @@ namespace Towel.DataStructures
 				{
 					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
 				}
-				T returnValue = _list[index];
-				return returnValue;
-			}
-			set
-			{
-				if (index < 0 || index > _count)
-				{
-					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
-				}
-				_list[index] = value;
+				return ref _list.Span[index];
 			}
 		}
 
@@ -548,11 +556,11 @@ namespace Towel.DataStructures
 					exception = new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
 					return false;
 				}
-				T[] newList = new T[_list.Length * 2];
-				_list.CopyTo(newList, 0);
+				Memory<T> newList = new T[_list.Length * 2];
+				_list.CopyTo(newList);
 				_list = newList;
 			}
-			_list[_count++] = value;
+			_list.Span[_count++] = value;
 			exception = null;
 			return true;
 		}
@@ -568,15 +576,17 @@ namespace Towel.DataStructures
 				{
 					throw new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
 				}
-				T[] newList = new T[_list.Length * 2];
-				_list.CopyTo(newList, 0);
+				Memory<T> newList = new T[_list.Length * 2];
+				_list.CopyTo(newList);
 				_list = newList;
 			}
+
+			var list = _list.Span;
 			for (int i = _count; i > index; i--)
 			{
-				_list[i] = _list[i - 1];
+				list[i] = list[i - 1];
 			}
-			_list[index] = addition;
+			list[index] = addition;
 			_count++;
 		}
 
@@ -584,11 +594,11 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
+		/// <summary>Empties the list</summary>
 		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
-			_list = new T[1];
+			_list = Memory<T>.Empty;
 			_count = 0;
 		}
 
@@ -615,12 +625,9 @@ namespace Towel.DataStructures
 			RemoveWithoutShrink(index);
 			if (_count < _list.Length / 2)
 			{
-				T[] newList = new T[_list.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newList[i] = _list[i];
-				}
-				_list = newList;
+				Memory<T> newList = new T[_list.Length / 2];
+				_list.Slice(0, _count).CopyTo(newList);
+					_list = newList;
 			}
 		}
 
@@ -633,10 +640,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(ListArray<T>) + "." + nameof(Count) + ")");
 			}
-			for (int i = index; i < _count - 1; i++)
-			{
-				_list[i] = _list[i + 1];
-			}
+			_list.Slice(index + 1, _count).CopyTo(_list.Slice(index, _count));
 			_count--;
 		}
 
@@ -647,13 +651,11 @@ namespace Towel.DataStructures
 			where Predicate : struct, IFunc<T, bool>
 		{
 			RemoveAllWithoutShrink(predicate);
-			if (_count < _list.Length / 2)
+			var newSize = _list.Length / 2;
+			if (_count < newSize)
 			{
-				T[] newList = new T[_list.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newList[i] = _list[i];
-				}
+				Memory<T> newList = new T[newSize];
+				_list.Slice(0, newSize).CopyTo(newList);
 				_list = newList;
 			}
 		}
@@ -668,16 +670,18 @@ namespace Towel.DataStructures
 			{
 				return;
 			}
+
+			var list = _list.Span;
 			int removed = 0;
 			for (int i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_list[i]))
+				if (predicate.Do(list[i]))
 				{
 					removed++;
 				}
 				else
 				{
-					_list[i - removed] = _list[i];
+					list[i - removed] = list[i];
 				}
 			}
 			_count -= removed;
@@ -736,10 +740,11 @@ namespace Towel.DataStructures
 		public bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
+			var list = _list.Span;
 			int i;
 			for (i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_list[i]))
+				if (predicate.Do(list[i]))
 				{
 					break;
 				}
@@ -824,13 +829,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the data structure.</summary>
 		/// <returns>The enumerator for the data structure.</returns>
-		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-		{
-			for (int i = 0; i < _count; i++)
-			{
-				yield return _list[i];
-			}
-		}
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => REMOVE?;
 
 		#endregion
 
@@ -838,12 +837,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			Array.Copy(_list, array, _count);
-			return array;
-		}
+		public T[] ToArray() => AsSpan().ToArray();
+
+		public ReadOnlySpan<T> AsSpan() => _list.Span.Slice(0, _count);
+		public ReadOnlyMemory<T> AsMemory() => _list.Slice(0, _count);
 
 		#endregion
 
@@ -852,11 +849,8 @@ namespace Towel.DataStructures
 		/// <summary>Resizes this allocation to the current count.</summary>
 		public void Trim()
 		{
-			T[] newList = new T[_count];
-			for (int i = 0; i < _count; i++)
-			{
-				newList[i] = _list[i];
-			}
+			Memory<T> newList = new T[_count];
+			_list.CopyTo(newList);
 			_list = newList;
 		}
 
