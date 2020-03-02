@@ -87,6 +87,60 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(set.Count == 0);
 			}
 		}
+
+		[TestMethod] public void IEnumerable_Testing()
+		{
+			{ // enqueue only
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				IQueue<int> queue = new QueueArray<int>();
+				values.Stepper(i => queue.Enqueue(i));
+				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				values.Stepper(i => set.Add(i));
+				foreach (int i in queue)
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				}
+				Assert.IsTrue(set.Count == 0);
+			}
+			{ // enqueue + dequeue
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				int[] expectedValues = { 2, 3, 4, 5, };
+				IQueue<int> queue = new QueueArray<int>();
+				values.Stepper(i => queue.Enqueue(i));
+				queue.Dequeue();
+				queue.Dequeue();
+				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == expectedValues.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				expectedValues.Stepper(i => set.Add(i));
+				foreach (int i in queue)
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				};
+				Assert.IsTrue(set.Count == 0);
+			}
+			{ // enqueue + dequeue
+				int[] values = { 0, 1, 2, 3, 4, 5, };
+				IQueue<int> queue = new QueueArray<int>();
+				values.Stepper(i => queue.Enqueue(i));
+				values.Stepper(i =>
+				{
+					queue.Dequeue();
+					queue.Enqueue(i);
+				});
+				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
+				ISet<int> set = new SetHashLinked<int>();
+				values.Stepper(i => set.Add(i));
+				foreach (int i in queue)
+				{
+					Assert.IsTrue(set.Contains(i));
+					set.Remove(i);
+				};
+				Assert.IsTrue(set.Count == 0);
+			}
+		}
 	}
 
 	[TestClass] public class QueueLinked_Testing

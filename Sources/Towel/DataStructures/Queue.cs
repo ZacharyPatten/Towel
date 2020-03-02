@@ -616,9 +616,13 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for this queue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (int i = 0; i < _count; i++)
+			for (int i = 0, index = _start; i < _count; i++, index++)
 			{
-				yield return _queue[i];
+				if (index == _queue.Length)
+				{
+					index = 0;
+				}
+				yield return _queue[index];
 			}
 		}
 
