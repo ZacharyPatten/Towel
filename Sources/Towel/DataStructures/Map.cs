@@ -184,7 +184,7 @@ namespace Towel.DataStructures
 
 		internal Equate _equate;
 		internal Hash _hash;
-		internal Node[] _table;
+		internal Memory<Node> _table;
 		internal int _count;
 
 		#region Node
@@ -235,7 +235,8 @@ namespace Towel.DataStructures
 		{
 			_equate = map._equate;
 			_hash = map._hash;
-			_table = (Node[])map._table.Clone();
+			_table = new Node[map._table.Length];
+			map._table.CopyTo(_table);
 			_count = map._count;
 		}
 
@@ -291,8 +292,9 @@ namespace Towel.DataStructures
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
+			var table = _table.Span;
 			// duplicate value check
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node node = table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -307,9 +309,9 @@ namespace Towel.DataStructures
 				{
 					Key = key,
 					Value = value,
-					Next = _table[location],
+					Next = table[location],
 				};
-				_table[location] = node;
+				table[location] = node;
 				_count++;
 			}
 
@@ -352,8 +354,9 @@ namespace Towel.DataStructures
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
+			var table = _table.Span;
 			// look for the value
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node node = table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -385,8 +388,9 @@ namespace Towel.DataStructures
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
+			var table = _table.Span;
 			// duplicate value check
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node node = table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -401,9 +405,9 @@ namespace Towel.DataStructures
 				{
 					Key = key,
 					Value = value,
-					Next = _table[location],
+					Next = table[location],
 				};
-				_table[location] = node;
+				table[location] = node;
 				_count++;
 			}
 
@@ -467,11 +471,12 @@ namespace Towel.DataStructures
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
+			var table = _table.Span;
 			// find and remove the node
-			if (_equate.Do(_table[location].Key, key))
+			if (_equate.Do(table[location].Key, key))
 			{
 				// the value was the head node of the table index
-				_table[location] = _table[location].Next;
+				table[location] = table[location].Next;
 				_count--;
 				exception = null;
 				return true;
@@ -479,7 +484,7 @@ namespace Towel.DataStructures
 			else
 			{
 				// that value is a child node of the table index
-				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
+				for (Node node = table[location]; !(node.Next is null); node = node.Next)
 				{
 					if (_equate.Do(node.Next.Key, key))
 					{
@@ -508,8 +513,9 @@ namespace Towel.DataStructures
 				return;
 			}
 
-			Node[] temp = _table;
+			var temp = _table.Span;
 			_table = new Node[tableSize];
+			var table = _table.Span;
 
 			// iterate through all the values
 			for (int i = 0; i < temp.Length; i++)
@@ -522,11 +528,11 @@ namespace Towel.DataStructures
 
 					// compute the hash code and relate it to the current table
 					int hashCode = _hash.Do(node.Key);
-					int location = (hashCode & int.MaxValue) % _table.Length;
+					int location = (hashCode & int.MaxValue) % table.Length;
 
 					// add the value to the new table
-					node.Next = _table[location];
-					_table[location] = node;
+					node.Next = table[location];
+					table[location] = node;
 				}
 			}
 		}
@@ -570,8 +576,9 @@ namespace Towel.DataStructures
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
+			var table = _table.Span;
 			// look for the value
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node node = table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -602,9 +609,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public void Stepper(Step<T> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Value);
 				}
@@ -616,9 +624,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public void Stepper(StepRef<T> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					step(ref node.Value);
 				}
@@ -631,9 +640,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Stepper(StepBreak<T> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Value) is Break)
 					{
@@ -650,9 +660,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					if (step(ref node.Value) is Break)
 					{
@@ -668,9 +679,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public void Keys(Step<K> step)
 		{
+			var table = _table.Span;
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Key);
 				}
@@ -683,9 +695,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Keys(StepBreak<K> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Key) is Break)
 					{
@@ -701,9 +714,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public void Stepper(Step<T, K> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					step(node.Value, node.Key);
 				}
@@ -716,9 +730,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Stepper(StepBreak<T, K> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Value, node.Key) is Break)
 					{
@@ -734,9 +749,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public void Stepper(StepRef1<T, K> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					step(ref node.Value, node.Key);
 				}
@@ -749,9 +765,10 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n * step)</runtime>
 		public StepStatus Stepper(StepRefBreak1<T, K> step)
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					if (step(ref node.Value, node.Key) is Break)
 					{
@@ -769,9 +786,10 @@ namespace Towel.DataStructures
 		/// <runtime>O(n)</runtime>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (int i = 0; i < _table.Length; i++)
+			var table = _table.Span;
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					yield return node.Value;
 				}
@@ -787,16 +805,35 @@ namespace Towel.DataStructures
 		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
+			var table = _table.Span;
 			T[] array = new T[_count];
 			int index = 0;
-			for (int i = 0; i < _table.Length; i++)
+			for (int i = 0; i < table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node node = table[i]; !(node is null); node = node.Next)
 				{
 					array[index++] = node.Value;
 				}
 			}
 			return array;
+		}
+		
+		/// <summary>Puts all the values in this map into a Memory Slice.</summary>
+		/// <returns>A Memory Slice with all the values in the map.</returns>
+		/// <runtime>Θ(n)</runtime>
+		public Memory<T> ToMemory()
+		{
+			Memory<T> memory = new T[_count];
+			var span = memory.Span;
+			int index = 0;
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node node = span[i]; !(node is null); node = node.Next)
+				{
+					span[index++] = node.Value;
+				}
+			}
+			return memory;
 		}
 
 		#endregion
@@ -828,7 +865,8 @@ namespace Towel.DataStructures
 		{
 			_equate = map._equate;
 			_hash = map._hash;
-			_table = (Node[])map._table.Clone();
+			_table = new Node[map._table.Length];
+			map._table.CopyTo(_table);
 			_count = map._count;
 		}
 
