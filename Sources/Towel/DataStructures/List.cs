@@ -333,54 +333,69 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Stepper And IEnumerable
+		#region Stepper
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
-		{
-			for (Node node = _head; !(node is null); node = node.Next)
-			{
-				step(node.Value);
-			}
-		}
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(Step<T> step) =>
+			Stepper<StepRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (Node node = _head; !(node is null); node = node.Next)
-			{
-				T temp = node.Value;
-				step(ref temp);
-				node.Value = temp;
-			}
-		}
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			for (Node node = _head; !(node is null); node = node.Next)
-			{
-				if (step(node.Value) is Break)
-				{
-					return Break;
-				}
-			}
-			return Continue;
-		}
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			for (Node node = _head; !(node is null); node = node.Next)
 			{
 				T temp = node.Value;
-				if (step(ref temp) is Break)
+				if (step.Do(ref temp) is Break)
 				{
 					node.Value = temp;
 					return Break;
@@ -389,6 +404,10 @@ namespace Towel.DataStructures
 			}
 			return Continue;
 		}
+
+		#endregion
+
+		#region IEnumerable
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -737,25 +756,69 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#region Stepper And IEnumerable
+		#region Stepper
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IStep<T> =>
+			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _list.Stepper(0, _count, step);
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(Step<T> step) =>
+			Stepper<StepRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <runtime>O(n * step)</runtime>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _list.Stepper(0, _count, step);
+		/// <runtime>O(n * step)</runtime>
+		public void Stepper(StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IStepBreak<T> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _list.Stepper(0, _count, step);
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _list.Stepper(0, _count, step);
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The delegate to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		/// <runtime>O(n * step)</runtime>
+		public StepStatus StepperRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<T> =>
+			_list.StepperRefBreak(0, _count, step);
+
+		#endregion
+
+		#region IEnumerable
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 

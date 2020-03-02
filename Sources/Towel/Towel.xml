@@ -2597,23 +2597,53 @@
             <param name="predicate">The predicate to determine removal.</param>
             <returns>True if the value was removed. False if the value did not exist.</returns>
         </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListLinked`1.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListLinked`1.GetEnumerator">
             <summary>Gets the enumerator for this list.</summary>
@@ -2723,23 +2753,53 @@
             <param name="predicate">The predicate to determine removal.</param>
             <returns>True if the value was removed. False if the value did not exist.</returns>
         </member>
+        <member name="M:Towel.DataStructures.ListArray`1.Stepper``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.Step{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListArray`1.StepperRef``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListArray`1.StepperBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
+        </member>
+        <member name="M:Towel.DataStructures.ListArray`1.StepperRefBreak``1(``0)">
+            <summary>Invokes a delegate for each entry in the data structure.</summary>
+            <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+            <runtime>O(n * step)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.GetEnumerator">
             <summary>Gets the enumerator for the data structure.</summary>
