@@ -204,7 +204,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				// This function loads in XML documentation so you can access it via reflection.
-				Meta.LoadXmlDocumentation(File.ReadAllText(@"..\..\..\..\..\Sources\Towel\Towel.xml"));
+				Meta.LoadXmlDocumentation(File.ReadAllText(Path.Combine("..", "..", "..", "..", "..", "Sources", "Towel", "Towel.xml")));
 
 				Console.Write("    XML Documentation On Towel.Syntax:");
 				Console.WriteLine(typeof(Towel.Syntax).GetDocumentation());
