@@ -481,102 +481,102 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region Equality_Testing
+		#region EqualTo_Testing
 
-		[TestMethod] public void Equality_Testing()
+		[TestMethod] public void EqualTo_Testing()
 		{
-			Assert.IsTrue(Equality(0, 0));
-			Assert.IsTrue(Equality(1, 1));
-			Assert.IsTrue(Equality(2, 2));
-			Assert.IsFalse(Equality(0, 1));
+			Assert.IsTrue(EqualTo(0, 0));
+			Assert.IsTrue(EqualTo(1, 1));
+			Assert.IsTrue(EqualTo(2, 2));
+			Assert.IsFalse(EqualTo(0, 1));
 
-			Assert.IsTrue(Equality(0f, 0f));
-			Assert.IsTrue(Equality(1f, 1f));
-			Assert.IsTrue(Equality(2f, 2f));
-			Assert.IsFalse(Equality(0f, 1f));
+			Assert.IsTrue(EqualTo(0f, 0f));
+			Assert.IsTrue(EqualTo(1f, 1f));
+			Assert.IsTrue(EqualTo(2f, 2f));
+			Assert.IsFalse(EqualTo(0f, 1f));
 
-			Assert.IsTrue(Equality(0d, 0d));
-			Assert.IsTrue(Equality(1d, 1d));
-			Assert.IsTrue(Equality(2d, 2d));
-			Assert.IsFalse(Equality(0d, 1d));
+			Assert.IsTrue(EqualTo(0d, 0d));
+			Assert.IsTrue(EqualTo(1d, 1d));
+			Assert.IsTrue(EqualTo(2d, 2d));
+			Assert.IsFalse(EqualTo(0d, 1d));
 
-			Assert.IsTrue(Equality(0m, 0m));
-			Assert.IsTrue(Equality(1m, 1m));
-			Assert.IsTrue(Equality(2m, 2m));
-			Assert.IsFalse(Equality(0m, 1m));
+			Assert.IsTrue(EqualTo(0m, 0m));
+			Assert.IsTrue(EqualTo(1m, 1m));
+			Assert.IsTrue(EqualTo(2m, 2m));
+			Assert.IsFalse(EqualTo(0m, 1m));
 
 			// More than 2 operands
 
-			Assert.IsTrue(Equality(0, 0, 0));
-			Assert.IsTrue(Equality(1, 1, 1));
-			Assert.IsTrue(Equality(2, 2, 2));
+			Assert.IsTrue(EqualTo(0, 0, 0));
+			Assert.IsTrue(EqualTo(1, 1, 1));
+			Assert.IsTrue(EqualTo(2, 2, 2));
 
-			Assert.IsFalse(Equality(0, 0, 1));
-			Assert.IsFalse(Equality(1, 1, 2));
-			Assert.IsFalse(Equality(2, 2, 3));
+			Assert.IsFalse(EqualTo(0, 0, 1));
+			Assert.IsFalse(EqualTo(1, 1, 2));
+			Assert.IsFalse(EqualTo(2, 2, 3));
 
-			Assert.IsFalse(Equality(0, 1, 0));
-			Assert.IsFalse(Equality(1, 2, 1));
-			Assert.IsFalse(Equality(2, 3, 2));
+			Assert.IsFalse(EqualTo(0, 1, 0));
+			Assert.IsFalse(EqualTo(1, 2, 1));
+			Assert.IsFalse(EqualTo(2, 3, 2));
 
-			Assert.IsFalse(Equality(1, 0, 0));
-			Assert.IsFalse(Equality(2, 1, 1));
-			Assert.IsFalse(Equality(3, 2, 2));
+			Assert.IsFalse(EqualTo(1, 0, 0));
+			Assert.IsFalse(EqualTo(2, 1, 1));
+			Assert.IsFalse(EqualTo(3, 2, 2));
 		}
 
 		#endregion
 
-		#region EqualityLeniency_Testing
+		#region EqualToLeniency_Testing
 
-		[TestMethod] public void EqualityLeniency_Testing()
+		[TestMethod] public void EqualToLeniency_Testing()
 		{
-			Assert.IsTrue(EqualityLeniency(0, 0, 0));
-			Assert.IsTrue(EqualityLeniency(1, 1, 0));
-			Assert.IsTrue(EqualityLeniency(2, 2, 0));
+			Assert.IsTrue(EqualToLeniency(0, 0, 0));
+			Assert.IsTrue(EqualToLeniency(1, 1, 0));
+			Assert.IsTrue(EqualToLeniency(2, 2, 0));
 
-			Assert.IsTrue(EqualityLeniency(0f, 0f, 0f));
-			Assert.IsTrue(EqualityLeniency(1f, 1f, 0f));
-			Assert.IsTrue(EqualityLeniency(2f, 2f, 0f));
+			Assert.IsTrue(EqualToLeniency(0f, 0f, 0f));
+			Assert.IsTrue(EqualToLeniency(1f, 1f, 0f));
+			Assert.IsTrue(EqualToLeniency(2f, 2f, 0f));
 
-			Assert.IsTrue(EqualityLeniency(0d, 0d, 0d));
-			Assert.IsTrue(EqualityLeniency(1d, 1d, 0d));
-			Assert.IsTrue(EqualityLeniency(2d, 2d, 0d));
+			Assert.IsTrue(EqualToLeniency(0d, 0d, 0d));
+			Assert.IsTrue(EqualToLeniency(1d, 1d, 0d));
+			Assert.IsTrue(EqualToLeniency(2d, 2d, 0d));
 
-			Assert.IsTrue(EqualityLeniency(0m, 0m, 0m));
-			Assert.IsTrue(EqualityLeniency(1m, 1m, 0m));
-			Assert.IsTrue(EqualityLeniency(2m, 2m, 0m));
+			Assert.IsTrue(EqualToLeniency(0m, 0m, 0m));
+			Assert.IsTrue(EqualToLeniency(1m, 1m, 0m));
+			Assert.IsTrue(EqualToLeniency(2m, 2m, 0m));
 
-			Assert.IsTrue(EqualityLeniency(0, 1, 1));
-			Assert.IsTrue(EqualityLeniency(1, 2, 1));
-			Assert.IsTrue(EqualityLeniency(2, 3, 1));
+			Assert.IsTrue(EqualToLeniency(0, 1, 1));
+			Assert.IsTrue(EqualToLeniency(1, 2, 1));
+			Assert.IsTrue(EqualToLeniency(2, 3, 1));
 
-			Assert.IsTrue(EqualityLeniency(0f, 1f, 1f));
-			Assert.IsTrue(EqualityLeniency(1f, 2f, 1f));
-			Assert.IsTrue(EqualityLeniency(2f, 3f, 1f));
+			Assert.IsTrue(EqualToLeniency(0f, 1f, 1f));
+			Assert.IsTrue(EqualToLeniency(1f, 2f, 1f));
+			Assert.IsTrue(EqualToLeniency(2f, 3f, 1f));
 
-			Assert.IsTrue(EqualityLeniency(0d, 1d, 1d));
-			Assert.IsTrue(EqualityLeniency(1d, 2d, 1d));
-			Assert.IsTrue(EqualityLeniency(2d, 3d, 1d));
+			Assert.IsTrue(EqualToLeniency(0d, 1d, 1d));
+			Assert.IsTrue(EqualToLeniency(1d, 2d, 1d));
+			Assert.IsTrue(EqualToLeniency(2d, 3d, 1d));
 
-			Assert.IsTrue(EqualityLeniency(0m, 1m, 1m));
-			Assert.IsTrue(EqualityLeniency(1m, 2m, 1m));
-			Assert.IsTrue(EqualityLeniency(2m, 3m, 1m));
+			Assert.IsTrue(EqualToLeniency(0m, 1m, 1m));
+			Assert.IsTrue(EqualToLeniency(1m, 2m, 1m));
+			Assert.IsTrue(EqualToLeniency(2m, 3m, 1m));
 
-			Assert.IsFalse(EqualityLeniency(0, 2, 1));
-			Assert.IsFalse(EqualityLeniency(1, 3, 1));
-			Assert.IsFalse(EqualityLeniency(2, 4, 1));
+			Assert.IsFalse(EqualToLeniency(0, 2, 1));
+			Assert.IsFalse(EqualToLeniency(1, 3, 1));
+			Assert.IsFalse(EqualToLeniency(2, 4, 1));
 
-			Assert.IsFalse(EqualityLeniency(0f, 2f, 1f));
-			Assert.IsFalse(EqualityLeniency(1f, 3f, 1f));
-			Assert.IsFalse(EqualityLeniency(2f, 4f, 1f));
+			Assert.IsFalse(EqualToLeniency(0f, 2f, 1f));
+			Assert.IsFalse(EqualToLeniency(1f, 3f, 1f));
+			Assert.IsFalse(EqualToLeniency(2f, 4f, 1f));
 
-			Assert.IsFalse(EqualityLeniency(0d, 2d, 1d));
-			Assert.IsFalse(EqualityLeniency(1d, 3d, 1d));
-			Assert.IsFalse(EqualityLeniency(2d, 4d, 1d));
+			Assert.IsFalse(EqualToLeniency(0d, 2d, 1d));
+			Assert.IsFalse(EqualToLeniency(1d, 3d, 1d));
+			Assert.IsFalse(EqualToLeniency(2d, 4d, 1d));
 
-			Assert.IsFalse(EqualityLeniency(0m, 2m, 1m));
-			Assert.IsFalse(EqualityLeniency(1m, 3m, 1m));
-			Assert.IsFalse(EqualityLeniency(2m, 4m, 1m));
+			Assert.IsFalse(EqualToLeniency(0m, 2m, 1m));
+			Assert.IsFalse(EqualToLeniency(1m, 3m, 1m));
+			Assert.IsFalse(EqualToLeniency(2m, 4m, 1m));
 		}
 
 		#endregion
@@ -589,22 +589,22 @@ namespace Towel_Testing
 			Assert.IsTrue(sine_zero == 0d);
 
 			double sine_pi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_pi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_pi, 0d, .00001d));
 
 			double sine_2pi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_2pi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_2pi, 0d, .00001d));
 
 			double sine_halfPi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_halfPi, 1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_halfPi, 1d, .00001d));
 
 			double sine_3halfsPi = SineTaylorSeries(new Angle<double>(Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_3halfsPi, -1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_3halfsPi, -1d, .00001d));
 
 			double sine_neghalfPi = SineTaylorSeries(new Angle<double>(-Constant<double>.Pi / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_neghalfPi, -1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_neghalfPi, -1d, .00001d));
 
 			double sine_neg3halfsPi = SineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(sine_neg3halfsPi, 1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(sine_neg3halfsPi, 1d, .00001d));
 		}
 
 		#endregion
@@ -614,25 +614,25 @@ namespace Towel_Testing
 		[TestMethod] public void CosineTaylorSeries_Testing()
 		{
 			double cosine_zero = CosineTaylorSeries(new Angle<double>(0d, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_zero, 1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_zero, 1d, .00001d));
 
 			double cosine_pi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_pi, -1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_pi, -1d, .00001d));
 
 			double cosine_2pi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_2pi, 1d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_2pi, 1d, .00001d));
 
 			double cosine_halfPi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_halfPi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_halfPi, 0d, .00001d));
 
 			double cosine_3halfsPi = CosineTaylorSeries(new Angle<double>(Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_3halfsPi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_3halfsPi, 0d, .00001d));
 
 			double cosine_neghalfPi = CosineTaylorSeries(new Angle<double>(-Constant<double>.Pi / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_neghalfPi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_neghalfPi, 0d, .00001d));
 
 			double cosine_neg3halfsPi = CosineTaylorSeries(new Angle<double>(-Constant<double>.Pi * 3 / 2, Angle.Units.Radians));
-			Assert.IsTrue(EqualityLeniency(cosine_neg3halfsPi, 0d, .00001d));
+			Assert.IsTrue(EqualToLeniency(cosine_neg3halfsPi, 0d, .00001d));
 		}
 
 		#endregion
@@ -1133,29 +1133,29 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region Inequality_Testing
+		#region InequalTo_Testing
 
-		[TestMethod] public void Inequality_Testing()
+		[TestMethod] public void InequalTo_Testing()
 		{
-			Assert.IsTrue(Inequality(0, 1));
-			Assert.IsTrue(Inequality(-1, 1));
-			Assert.IsFalse(Inequality(1, 1));
-			Assert.IsTrue(Inequality(6, 7));
+			Assert.IsTrue(InequalTo(0, 1));
+			Assert.IsTrue(InequalTo(-1, 1));
+			Assert.IsFalse(InequalTo(1, 1));
+			Assert.IsTrue(InequalTo(6, 7));
 
-			Assert.IsTrue(Inequality(0f, 1f));
-			Assert.IsTrue(Inequality(-1f, 1f));
-			Assert.IsFalse(Inequality(1f, 1f));
-			Assert.IsTrue(Inequality(6f, 7f));
+			Assert.IsTrue(InequalTo(0f, 1f));
+			Assert.IsTrue(InequalTo(-1f, 1f));
+			Assert.IsFalse(InequalTo(1f, 1f));
+			Assert.IsTrue(InequalTo(6f, 7f));
 
-			Assert.IsTrue(Inequality(0d, 1d));
-			Assert.IsTrue(Inequality(-1d, 1d));
-			Assert.IsFalse(Inequality(1d, 1d));
-			Assert.IsTrue(Inequality(6d, 7d));
+			Assert.IsTrue(InequalTo(0d, 1d));
+			Assert.IsTrue(InequalTo(-1d, 1d));
+			Assert.IsFalse(InequalTo(1d, 1d));
+			Assert.IsTrue(InequalTo(6d, 7d));
 
-			Assert.IsTrue(Inequality(0m, 1m));
-			Assert.IsTrue(Inequality(-1m, 1m));
-			Assert.IsFalse(Inequality(1m, 1m));
-			Assert.IsTrue(Inequality(6m, 7m));
+			Assert.IsTrue(InequalTo(0m, 1m));
+			Assert.IsTrue(InequalTo(-1m, 1m));
+			Assert.IsFalse(InequalTo(1m, 1m));
+			Assert.IsTrue(InequalTo(6m, 7m));
 		}
 
 		#endregion

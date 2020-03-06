@@ -76,10 +76,10 @@ namespace Mathematics
 			CompareResult compare = Comparison((Fraction<short>)7, (Fraction<short>)7);
 			Console.WriteLine("    Compare(7, 7): " + compare);
 
-			bool equality = Equality(7, 6);
+			bool equality = EqualTo(7, 6);
 			Console.WriteLine("    Equate(7, 6): " + equality);
 
-			bool equalsLeniency = EqualityLeniency(2, 1, 1);
+			bool equalsLeniency = EqualToLeniency(2, 1, 1);
 			Console.WriteLine("    EqualsLeniency(2, 1, 1): " + equalsLeniency);
 
 			Console.WriteLine();

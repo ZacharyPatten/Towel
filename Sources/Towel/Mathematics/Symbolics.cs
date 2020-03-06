@@ -593,13 +593,13 @@ namespace Towel.Mathematics
 			public readonly T Value;
 
 			/// <summary>True if this numeric value is zero (0).</summary>
-			public override bool IsZero => Equality(Value, Towel.Constant<T>.Zero);
+			public override bool IsZero => EqualTo(Value, Towel.Constant<T>.Zero);
 			/// <summary>True if this numeric value is one (1).</summary>
-			public override bool IsOne => Equality(Value, Towel.Constant<T>.One);
+			public override bool IsOne => EqualTo(Value, Towel.Constant<T>.One);
 			/// <summary>True if this numeric value is two (2).</summary>
-			public override bool IsTwo => Equality(Value, Towel.Constant<T>.Two);
+			public override bool IsTwo => EqualTo(Value, Towel.Constant<T>.Two);
 			/// <summary>True if this numeric value is three (3).</summary>
-			public override bool IsThree => Equality(Value, Towel.Constant<T>.Three);
+			public override bool IsThree => EqualTo(Value, Towel.Constant<T>.Three);
 
 			/// <summary>Determines if the constant is negative.</summary>
 			public override bool IsNegative => IsNegative(Value);
@@ -629,7 +629,7 @@ namespace Towel.Mathematics
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Constant<T> B)
 				{
-					return Equality(Value, B.Value);
+					return EqualTo(Value, B.Value);
 				}
 				return false;
 			}
@@ -2639,7 +2639,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Equality(a.Value, b.Value));
+					return new Constant<bool>(EqualTo(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}
@@ -2695,7 +2695,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(Inequality(a.Value, b.Value));
+					return new Constant<bool>(InequalTo(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}

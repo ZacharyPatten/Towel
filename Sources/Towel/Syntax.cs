@@ -160,9 +160,76 @@ namespace Towel
 
 		#endregion
 
+		#region Inequality
+
+		public struct Inequality<T>
+		{
+			private bool Cast;
+			private T A;
+
+			public static implicit operator Inequality<T>(T a) =>
+				new Inequality<T>()
+				{
+					Cast = true,
+					A = a,
+				};
+
+			public static OperatorValidated.Inequality<T> operator >(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Greater, b);
+
+			public static OperatorValidated.Inequality<T> operator <(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Less, b);
+
+			public static OperatorValidated.Inequality<T> operator >=(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Less, b);
+
+			public static OperatorValidated.Inequality<T> operator <=(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Greater, b);
+
+			public override string ToString() => throw new InequalitySyntaxException();
+		}
+
+		public static partial class OperatorValidated
+		{
+			public struct Inequality<T>
+			{
+				private readonly bool Result;
+				private readonly T A;
+
+				internal Inequality(bool result, T a)
+				{
+					Result = result;
+					A = a;
+				}
+
+				public static implicit operator bool(Inequality<T> inequality) =>
+					inequality.Result;
+
+				public static Inequality<T> operator >(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Greater, b);
+
+				public static Inequality<T> operator <(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Less, b);
+
+				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Less, b);
+
+				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Greater, b);
+
+				public override string ToString() => Result.ToString();
+			}
+		}
+
+		#endregion
+
 		// Logic
 
-		#region Equality
+		#region EqualTo
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
@@ -171,16 +238,16 @@ namespace Towel
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality.</returns>
-		public static C Equality<A, B, C>(A a, B b) =>
-			EqualityImplementation<A, B, C>.Function(a, b);
+		public static C EqualTo<A, B, C>(A a, B b) =>
+			EqualToImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality check.</returns>
-		public static bool Equality<T>(T a, T b) =>
-			Equality<T, T, bool>(a, b);
+		public static bool EqualTo<T>(T a, T b) =>
+			EqualTo<T, T, bool>(a, b);
 
 		/// <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -188,10 +255,10 @@ namespace Towel
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="c">The remaining operands of the equality check.</param>
 		/// <returns>True if all operands are equal or false if not.</returns>
-		public static bool Equality<T>(T a, T b, params T[] c) =>
+		public static bool EqualTo<T>(T a, T b, params T[] c) =>
 			c is null ? throw new ArgumentNullException(nameof(c)) :
 			c.Length == 0 ? throw new ArgumentException("The array is empty.", nameof(c)) :
-			Equality(a, b) && !c.Any(x => !Equality(a, x));
+			EqualTo(a, b) && !c.Any(x => !EqualTo(a, x));
 
 		#region Alternative
 
@@ -239,7 +306,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equality<T>(Stepper<T> stepper)
+		public static bool EqualTo<T>(Stepper<T> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
@@ -248,7 +315,7 @@ namespace Towel
 			{
 				if (assigned)
 				{
-					return !Equality(value, x);
+					return !EqualTo(value, x);
 				}
 				else
 				{
@@ -268,7 +335,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equality<T>(StepperBreak<T> stepper)
+		public static bool EqualTo<T>(StepperBreak<T> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
@@ -277,7 +344,7 @@ namespace Towel
 			{
 				if (assigned)
 				{
-					return !Equality(value, x);
+					return !EqualTo(value, x);
 				}
 				else
 				{
@@ -291,7 +358,7 @@ namespace Towel
 				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
 		}
 
-		internal static class EqualityImplementation<A, B, C>
+		internal static class EqualToImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
@@ -305,7 +372,7 @@ namespace Towel
 
 		#endregion
 
-		#region Inequality
+		#region InequalTo
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
@@ -314,16 +381,16 @@ namespace Towel
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the inequality.</returns>
-		public static C Inequality<A, B, C>(A a, B b) =>
-			InequalityImplementation<A, B, C>.Function(a, b);
+		public static C InequalTo<A, B, C>(A a, B b) =>
+			InequalToImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the inequality check.</param>
 		/// <param name="b">The second operand of the inequality check.</param>
 		/// <returns>The result of the inequality check.</returns>
-		public static bool Inequality<T>(T a, T b) =>
-			Inequality<T, T, bool>(a, b);
+		public static bool InequalTo<T>(T a, T b) =>
+			InequalTo<T, T, bool>(a, b);
 
 		#region Alternative
 
@@ -368,7 +435,7 @@ namespace Towel
 
 		#endregion
 
-		internal static class InequalityImplementation<A, B, C>
+		internal static class InequalToImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
@@ -1183,7 +1250,7 @@ namespace Towel
 				{
 					if (IsInteger(A) && !LessThan(A, Constant<T>.Two))
 					{
-						if (Equality(A, Constant<T>.Two))
+						if (EqualTo(A, Constant<T>.Two))
 						{
 							return true;
 						}
@@ -1194,7 +1261,7 @@ namespace Towel
 						T squareRoot = SquareRoot(A);
 						for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Addition(divisor, Constant<T>.Two))
 						{
-							if (Equality(Remainder<T>(A, divisor), Constant<T>.Zero))
+							if (EqualTo(Remainder<T>(A, divisor), Constant<T>.Zero))
 							{
 								return false;
 							}
@@ -1315,7 +1382,7 @@ namespace Towel
 
 		#endregion
 
-		#region EqualityLeniency
+		#region EqualToLeniency
 
 		/// <summary>Checks for equality between two numeric values with a range of possibly leniency.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1323,11 +1390,11 @@ namespace Towel
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="leniency">The allowed distance between the values to still be considered equal.</param>
 		/// <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
-		public static bool EqualityLeniency<T>(T a, T b, T leniency) =>
+		public static bool EqualToLeniency<T>(T a, T b, T leniency) =>
 			// TODO: add an ArgumentOutOfBounds check on leniency
-			EqualityLeniencyImplementation<T>.Function(a, b, leniency);
+			EqualToLeniencyImplementation<T>.Function(a, b, leniency);
 
-		internal static class EqualityLeniencyImplementation<T>
+		internal static class EqualToLeniencyImplementation<T>
 		{
 			internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
 			{
@@ -1456,7 +1523,7 @@ namespace Towel
 			stepper((T n) =>
 			{
 				_ = n ?? throw new ArgumentNullException(nameof(n));
-				if (Equality(n, Constant<T>.Zero))
+				if (EqualTo(n, Constant<T>.Zero))
 				{
 					throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
 				}
@@ -1475,7 +1542,7 @@ namespace Towel
 					{
 						T a = answer;
 						T b = n;
-						while (Inequality(b, Constant<T>.Zero))
+						while (InequalTo(b, Constant<T>.Zero))
 						{
 							T remainder = Remainder(a, b);
 							a = b;
@@ -1516,7 +1583,7 @@ namespace Towel
 			T answer = default;
 			stepper(parameter =>
 			{
-				if (Equality(parameter, Constant<T>.Zero))
+				if (EqualTo(parameter, Constant<T>.Zero))
 				{
 					throw new MathematicsException(nameof(stepper) + " contains 0 value(s).");
 				}
@@ -1562,9 +1629,9 @@ namespace Towel
 			{
 				throw new MathematicsException("Arguments out of range !(" + nameof(x0) + " <= " + nameof(x) + " <= " + nameof(x1) + ") [" + x0 + " <= " + x + " <= " + x1 + "].");
 			}
-			if (Equality(x0, x1))
+			if (EqualTo(x0, x1))
 			{
-				if (Inequality(y0, y1))
+				if (InequalTo(y0, y1))
 				{
 					throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) + ") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
 				}
@@ -1844,7 +1911,7 @@ namespace Towel
 				i = Addition(i, Constant<T>.One);
 				sum = Addition(sum, step);
 			});
-			if (Equality(i, Constant<T>.Zero))
+			if (EqualTo(i, Constant<T>.Zero))
 			{
 				throw new ArgumentException("The argument is empty.", nameof(stepper));
 			}
@@ -2255,7 +2322,7 @@ namespace Towel
 				}
 				isAddTerm = !isAddTerm;
 				i = Addition(i, Constant<T>.Two);
-			} while (Inequality(sine, previous) && (predicate is null || !predicate(sine)));
+			} while (InequalTo(sine, previous) && (predicate is null || !predicate(sine)));
 			return sine;
 		}
 
@@ -2341,7 +2408,7 @@ namespace Towel
 				}
 				isAddTerm = !isAddTerm;
 				i = Addition(i, Constant<T>.Two);
-			} while (Inequality(cosine, previous) && (predicate is null || !predicate(cosine)));
+			} while (InequalTo(cosine, previous) && (predicate is null || !predicate(cosine)));
 			return cosine;
 		}
 
@@ -2807,7 +2874,7 @@ namespace Towel
 					}
 					for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Addition(i, Constant<T>.Two))
 					{
-						while (Equality(Remainder(A, i), Constant<T>.Zero))
+						while (EqualTo(Remainder(A, i), Constant<T>.Zero))
 						{
 							step(i);
 							A = Division(A, i);

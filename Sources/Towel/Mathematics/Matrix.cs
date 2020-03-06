@@ -232,7 +232,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
 		{
-			if (Equality(default(T), Constant<T>.Zero))
+			if (EqualTo(default(T), Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = (ROWS, COLUMNS) => new Matrix<T>(ROWS, COLUMNS);
 			}
@@ -267,7 +267,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
 		{
-			if (Equality(default(T), Constant<T>.Zero))
+			if (EqualTo(default(T), Constant<T>.Zero))
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
@@ -426,7 +426,7 @@ namespace Towel.Mathematics
 			{
 				for (int column = row + 1; column < rows; column++)
 				{
-					if (Inequality(A[row * rows + column], A[column * rows + row]))
+					if (InequalTo(A[row * rows + column], A[column * rows + row]))
 					{
 						return false;
 					}
@@ -1491,7 +1491,7 @@ namespace Towel.Mathematics
 			{
 				if (Columns <= lead) break;
 				int i = r;
-				while (Equality(b.Get(i, lead), Constant<T>.Zero))
+				while (EqualTo(b.Get(i, lead), Constant<T>.Zero))
 				{
 					i++;
 					if (i == Rows)
@@ -1512,7 +1512,7 @@ namespace Towel.Mathematics
 					b.Set(i, j, temp);
 				}
 				T div = b.Get(r, lead);
-				if (Inequality(div, Constant<T>.Zero))
+				if (InequalTo(div, Constant<T>.Zero))
 				{
 					for (int j = 0; j < Columns; j++)
 					{
@@ -1636,7 +1636,7 @@ namespace Towel.Mathematics
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
 			T determinent = Determinent(a);
-			if (Equality(determinent, Constant<T>.Zero))
+			if (EqualTo(determinent, Constant<T>.Zero))
 			{
 				throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
 			}
@@ -1967,7 +1967,7 @@ namespace Towel.Mathematics
 						k0 = i;
 					}
 				}
-				if (Equality(p, Constant<T>.Zero))
+				if (EqualTo(p, Constant<T>.Zero))
 				{
 					throw new MathematicsException("The matrix is singular!");
 				}
@@ -2076,7 +2076,7 @@ namespace Towel.Mathematics
 			}
 
 			// if the angle is zero, no rotation is required
-			if (Equality(angle._measurement, Constant<T>.Zero))
+			if (EqualTo(angle._measurement, Constant<T>.Zero))
 			{
 				return matrix.Clone();
 			}
@@ -2189,7 +2189,7 @@ namespace Towel.Mathematics
 			int Length = A.Length;
 			for (int i = 0; i < Length; i++)
 			{
-				if (!Equality(A[i], B[i]))
+				if (!EqualTo(A[i], B[i]))
 				{
 					return false;
 				}
@@ -2260,7 +2260,7 @@ namespace Towel.Mathematics
 			int Length = A.Length;
 			for (int i = 0; i < Length; i++)
 			{
-				if (!EqualityLeniency(A[i], B[i], leniency))
+				if (!EqualToLeniency(A[i], B[i], leniency))
 				{
 					return false;
 				}

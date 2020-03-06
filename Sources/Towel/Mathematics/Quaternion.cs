@@ -170,10 +170,10 @@ namespace Towel.Mathematics
 		public static bool GetHasZeroMagnitude(Quaternion<T> a)
 		{
 			return
-				Syntax.Equality(a._x, Constant<T>.Zero) &&
-				Syntax.Equality(a._y, Constant<T>.Zero) &&
-				Syntax.Equality(a._z, Constant<T>.Zero) &&
-				Syntax.Equality(a._w, Constant<T>.Zero);
+				Syntax.EqualTo(a._x, Constant<T>.Zero) &&
+				Syntax.EqualTo(a._y, Constant<T>.Zero) &&
+				Syntax.EqualTo(a._z, Constant<T>.Zero) &&
+				Syntax.EqualTo(a._w, Constant<T>.Zero);
 		}
 
 		/// <summary>Checks quaternion for zero magnitude.</summary>
@@ -815,7 +815,7 @@ namespace Towel.Mathematics
 			T y;
 			T z;
 			T w;
-			if (Syntax.Equality(magnitudeSquared, Constant<T>.Zero))
+			if (Syntax.EqualTo(magnitudeSquared, Constant<T>.Zero))
 			{
 				x = a._x;
 				y = a._y;
@@ -1074,10 +1074,10 @@ namespace Towel.Mathematics
 				return false;
 			}
 			return
-				Syntax.Equality(a._x, b._x) &&
-				Syntax.Equality(a._y, b._y) &&
-				Syntax.Equality(a._z, b._z) &&
-				Syntax.Equality(a._w, b._w);
+				Syntax.EqualTo(a._x, b._x) &&
+				Syntax.EqualTo(a._y, b._y) &&
+				Syntax.EqualTo(a._z, b._z) &&
+				Syntax.EqualTo(a._w, b._w);
 		}
 
 		/// <summary>Does a value equality check.</summary>
@@ -1124,10 +1124,10 @@ namespace Towel.Mathematics
 				return false;
 			}
 			return
-				Syntax.EqualityLeniency(a._x, b._x, leniency) &&
-				Syntax.EqualityLeniency(a._y, b._y, leniency) &&
-				Syntax.EqualityLeniency(a._z, b._z, leniency) &&
-				Syntax.EqualityLeniency(a._w, b._w, leniency);
+				Syntax.EqualToLeniency(a._x, b._x, leniency) &&
+				Syntax.EqualToLeniency(a._y, b._y, leniency) &&
+				Syntax.EqualToLeniency(a._z, b._z, leniency) &&
+				Syntax.EqualToLeniency(a._w, b._w, leniency);
 		}
 
 		/// <summary>Does a value equality check with leniency.</summary>

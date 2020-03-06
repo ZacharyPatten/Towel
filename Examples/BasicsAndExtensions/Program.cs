@@ -317,7 +317,6 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				Console.WriteLine();
-				Console.WriteLine();
 			}
 			#endregion
 
@@ -424,6 +423,48 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    20% Chance: " + (20% Chance));
 				Console.WriteLine("    50% Chance: " + (50% Chance));
 				Console.WriteLine("    70% Chance: " + (70% Chance));
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region Inequality
+			{
+				Console.WriteLine("  Inequality syntax------------------");
+				Console.WriteLine();
+				// valid syntax
+				{
+					Console.WriteLine("    " + ((Inequality<float>) 1 < 2 < 3 < 4 <= 4 < 5 < 6));
+					Console.WriteLine("    " + ((Inequality<float>) 6 > 5 > 4 >= 4 > 3 > 2 > 1));
+					Console.WriteLine("    " + ((Inequality<float>) 3 < 2 < 1));
+					Console.WriteLine("    " + ((Inequality<float>) 1 > 2 > 3));
+				}
+				// invalid syntax
+				{
+					//// this will not compile (a good thing)
+					//if ((Inequality<float>) 1)
+					//{
+					//
+					//}
+
+					try
+					{
+						Console.WriteLine("    " + ((Inequality<float>) 1));
+					}
+					catch (InequalitySyntaxException)
+					{
+						Console.WriteLine("    Inequality Syntax Error");
+					}
+
+					try
+					{
+						Inequality<float> a = default;
+						Console.WriteLine("    " + (a < 1));
+					}
+					catch (InequalitySyntaxException)
+					{
+						Console.WriteLine("    Inequality Syntax Error");
+					}
+				}
 			}
 			#endregion
 

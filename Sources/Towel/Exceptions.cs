@@ -43,4 +43,13 @@ namespace Towel
 		/// <param name="innerException">The inner exception.</param>
 		public CorruptedDataStructureException(string message, Exception innerException) : base(message, innerException) { }
 	}
+
+	public class InequalitySyntaxException : Exception
+	{
+		public InequalitySyntaxException() : base() { }
+
+		public InequalitySyntaxException(string message) : base(message) { }
+
+		public InequalitySyntaxException(string message, Exception innerException) : base(message, innerException) { }
+	}
 }

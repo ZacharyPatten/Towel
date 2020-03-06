@@ -26,7 +26,7 @@ namespace Towel.Mathematics
 			get => _denominator;
 			set
 			{
-				if (Syntax.Equality(value, Constant<T>.Zero))
+				if (Syntax.EqualTo(value, Constant<T>.Zero))
 				{
 					throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
 				}
@@ -203,7 +203,7 @@ namespace Towel.Mathematics
 
 		internal static void ReduceInternal(T a, T b, out T c, out T d)
 		{
-			if (Syntax.Equality(a, Constant<T>.Zero))
+			if (Syntax.EqualTo(a, Constant<T>.Zero))
 			{
 				c = a;
 				d = Constant<T>.One;
@@ -247,8 +247,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equality(Fraction<T> a, Fraction<T> b) =>
-			Syntax.Equality(a._numerator, b._numerator) &&
-			Syntax.Equality(a._denominator, b._denominator);
+			Syntax.EqualTo(a._numerator, b._numerator) &&
+			Syntax.EqualTo(a._denominator, b._denominator);
 
 		/// <summary>Checks for equality between two values.</summary>
 		/// <param name="b">The second operand.</param>
@@ -280,8 +280,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand.</param>
 		/// <returns>The result of the inequality check.</returns>
 		public static bool NotEqual(Fraction<T> a, Fraction<T> b) =>
-			Inequality(a._numerator, b._numerator) ||
-			Inequality(a._denominator, b._denominator);
+			InequalTo(a._numerator, b._numerator) ||
+			InequalTo(a._denominator, b._denominator);
 
 		/// <summary>Checks for inequality between two values.</summary>
 		/// <param name="b">The second operand.</param>
@@ -535,7 +535,7 @@ namespace Towel.Mathematics
 		/// <returns>The value represented as a string.</returns>
 		public static string ToString(Fraction<T> fraction, ToString<T> toString)
 		{
-			if (Syntax.Equality(fraction._denominator, Constant<T>.One))
+			if (Syntax.EqualTo(fraction._denominator, Constant<T>.One))
 			{
 				return toString(fraction._numerator);
 			}

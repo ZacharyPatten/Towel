@@ -353,7 +353,7 @@ namespace Towel_Testing.Mathematics
 				Angle<float> expected = new Angle<float>(136.2f, Angle.Units.Degrees);
 				float angleDegrees = angle[Angle.Units.Degrees];
 				float expectedDegrees = expected[Angle.Units.Degrees];
-				Assert.IsTrue(EqualityLeniency(angleDegrees, expectedDegrees, 0.1f));
+				Assert.IsTrue(EqualToLeniency(angleDegrees, expectedDegrees, 0.1f));
 			}
 			{ // double
 				Vector<double> a = new Vector<double>(2d, 9d, -3d);
@@ -362,7 +362,7 @@ namespace Towel_Testing.Mathematics
 				Angle<double> expected = new Angle<double>(136.2d, Angle.Units.Degrees);
 				double angleDegrees = angle[Angle.Units.Degrees];
 				double expectedDegrees = expected[Angle.Units.Degrees];
-				Assert.IsTrue(EqualityLeniency(angleDegrees, expectedDegrees, 0.1d));
+				Assert.IsTrue(EqualToLeniency(angleDegrees, expectedDegrees, 0.1d));
 			}
 			{ // decimal
 				Vector<decimal> a = new Vector<decimal>(2m, 9m, -3m);
@@ -371,7 +371,7 @@ namespace Towel_Testing.Mathematics
 				Angle<decimal> expected = new Angle<decimal>(136.2m, Angle.Units.Degrees);
 				decimal angleDegrees = angle[Angle.Units.Degrees];
 				decimal expectedDegrees = expected[Angle.Units.Degrees];
-				Assert.IsTrue(EqualityLeniency(angleDegrees, expectedDegrees, 0.1m));
+				Assert.IsTrue(EqualToLeniency(angleDegrees, expectedDegrees, 0.1m));
 			}
 		}
 

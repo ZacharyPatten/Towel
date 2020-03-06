@@ -184,7 +184,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryZeroImplementation = dimensions =>
 		{
-			if (Syntax.Equality(default(T), Constant<T>.Zero))
+			if (Syntax.EqualTo(default(T), Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -210,7 +210,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryOneImplementation = dimensions =>
 		{
-			if (Syntax.Equality(default(T), Constant<T>.One))
+			if (Syntax.EqualTo(default(T), Constant<T>.One))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -756,7 +756,7 @@ namespace Towel.Mathematics
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
 			}
 			T magnitude = a.Magnitude;
-			if (Syntax.Equality(magnitude, Constant<T>.Zero))
+			if (Syntax.EqualTo(magnitude, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
@@ -848,7 +848,7 @@ namespace Towel.Mathematics
 				c = new Vector<T>(Dimensions);
 			}
 			T magSquared = a.MagnitudeSquared;
-			if (Syntax.Equality(magSquared, Constant<T>.Zero))
+			if (Syntax.EqualTo(magSquared, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
@@ -1053,7 +1053,7 @@ namespace Towel.Mathematics
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
 			_ = c ?? throw new ArgumentNullException(nameof(c));
-			if (Syntax.Equality(a.Dimensions, b.Dimensions, c.Dimensions))
+			if (Syntax.EqualTo(a.Dimensions, b.Dimensions, c.Dimensions))
 			{
 				throw new MathematicsException("Arguments invalid !(" +
 					nameof(a) + "." + nameof(a.Dimensions) + " == " +
@@ -1126,7 +1126,7 @@ namespace Towel.Mathematics
 				T[] B = b._vector;
 				for (int i = 0; i < Length; i++)
 				{
-					if (Syntax.Inequality(A[i], B[i]))
+					if (Syntax.InequalTo(A[i], B[i]))
 					{
 						return false;
 					}
@@ -1210,7 +1210,7 @@ namespace Towel.Mathematics
 			T[] A = a._vector;
 			T[] B = b._vector;
 			for (int i = 0; i < Length; i++)
-				if (!Syntax.EqualityLeniency(A[i], B[i], leniency))
+				if (!Syntax.EqualToLeniency(A[i], B[i], leniency))
 					return false;
 			return true;
 		}

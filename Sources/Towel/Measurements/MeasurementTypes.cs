@@ -1033,7 +1033,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Acceleration measurement is equal to another Acceleration measurement.</summary>
@@ -1063,7 +1063,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Acceleration<T> a, Acceleration<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Acceleration measurement is not equal to another Acceleration measurement.</summary>
@@ -1786,7 +1786,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is equal to another AngularAcceleration measurement.</summary>
@@ -1816,7 +1816,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AngularAcceleration<T> a, AngularAcceleration<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an AngularAcceleration measurement is not equal to another AngularAcceleration measurement.</summary>
@@ -2524,7 +2524,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Angle measurement is equal to another Angle measurement.</summary>
@@ -2554,7 +2554,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Angle<T> a, Angle<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Angle measurement is not equal to another Angle measurement.</summary>
@@ -3266,7 +3266,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is equal to another AngularSpeed measurement.</summary>
@@ -3296,7 +3296,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AngularSpeed<T> a, AngularSpeed<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an AngularSpeed measurement is not equal to another AngularSpeed measurement.</summary>
@@ -4169,7 +4169,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Area measurement is equal to another Area measurement.</summary>
@@ -4199,7 +4199,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Area<T> a, Area<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Area measurement is not equal to another Area measurement.</summary>
@@ -5124,7 +5124,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an AreaDensity measurement is equal to another AreaDensity measurement.</summary>
@@ -5154,7 +5154,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(AreaDensity<T> a, AreaDensity<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an AreaDensity measurement is not equal to another AreaDensity measurement.</summary>
@@ -6008,7 +6008,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Density measurement is equal to another Density measurement.</summary>
@@ -6038,7 +6038,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Density<T> a, Density<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Density measurement is not equal to another Density measurement.</summary>
@@ -6667,7 +6667,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is equal to another ElectricCharge measurement.</summary>
@@ -6697,7 +6697,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(ElectricCharge<T> a, ElectricCharge<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an ElectricCharge measurement is not equal to another ElectricCharge measurement.</summary>
@@ -7329,7 +7329,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is equal to another ElectricCurrent measurement.</summary>
@@ -7359,7 +7359,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(ElectricCurrent<T> a, ElectricCurrent<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an ElectricCurrent measurement is not equal to another ElectricCurrent measurement.</summary>
@@ -8523,7 +8523,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Energy measurement is equal to another Energy measurement.</summary>
@@ -8553,7 +8553,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Energy<T> a, Energy<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Energy measurement is not equal to another Energy measurement.</summary>
@@ -9659,7 +9659,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Force measurement is equal to another Force measurement.</summary>
@@ -9689,7 +9689,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Force<T> a, Force<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Force measurement is not equal to another Force measurement.</summary>
@@ -10710,7 +10710,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Length measurement is equal to another Length measurement.</summary>
@@ -10740,7 +10740,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Length<T> a, Length<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Length measurement is not equal to another Length measurement.</summary>
@@ -11694,7 +11694,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an LinearDensity measurement is equal to another LinearDensity measurement.</summary>
@@ -11724,7 +11724,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearDensity<T> a, LinearDensity<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an LinearDensity measurement is not equal to another LinearDensity measurement.</summary>
@@ -12763,7 +12763,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an LinearMass measurement is equal to another LinearMass measurement.</summary>
@@ -12793,7 +12793,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearMass<T> a, LinearMass<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an LinearMass measurement is not equal to another LinearMass measurement.</summary>
@@ -13884,7 +13884,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is equal to another LinearMassFlow measurement.</summary>
@@ -13914,7 +13914,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(LinearMassFlow<T> a, LinearMassFlow<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an LinearMassFlow measurement is not equal to another LinearMassFlow measurement.</summary>
@@ -14899,7 +14899,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Mass measurement is equal to another Mass measurement.</summary>
@@ -14929,7 +14929,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Mass<T> a, Mass<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Mass measurement is not equal to another Mass measurement.</summary>
@@ -15804,7 +15804,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an MassRate measurement is equal to another MassRate measurement.</summary>
@@ -15834,7 +15834,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(MassRate<T> a, MassRate<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an MassRate measurement is not equal to another MassRate measurement.</summary>
@@ -16924,7 +16924,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Power measurement is equal to another Power measurement.</summary>
@@ -16954,7 +16954,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Power<T> a, Power<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Power measurement is not equal to another Power measurement.</summary>
@@ -17900,7 +17900,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Pressure measurement is equal to another Pressure measurement.</summary>
@@ -17930,7 +17930,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Pressure<T> a, Pressure<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Pressure measurement is not equal to another Pressure measurement.</summary>
@@ -18887,7 +18887,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Speed measurement is equal to another Speed measurement.</summary>
@@ -18917,7 +18917,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Speed<T> a, Speed<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Speed measurement is not equal to another Speed measurement.</summary>
@@ -19466,7 +19466,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Tempurature measurement is equal to another Tempurature measurement.</summary>
@@ -19496,7 +19496,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Tempurature<T> a, Tempurature<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Tempurature measurement is not equal to another Tempurature measurement.</summary>
@@ -20472,7 +20472,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Time measurement is equal to another Time measurement.</summary>
@@ -20502,7 +20502,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Time<T> a, Time<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Time measurement is not equal to another Time measurement.</summary>
@@ -21293,7 +21293,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an TimeArea measurement is equal to another TimeArea measurement.</summary>
@@ -21323,7 +21323,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(TimeArea<T> a, TimeArea<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an TimeArea measurement is not equal to another TimeArea measurement.</summary>
@@ -22250,7 +22250,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an Volume measurement is equal to another Volume measurement.</summary>
@@ -22280,7 +22280,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(Volume<T> a, Volume<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an Volume measurement is not equal to another Volume measurement.</summary>
@@ -23219,7 +23219,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Syntax.Equality);
+            return LogicBase(a, b, Syntax.EqualTo);
         }
 
         /// <summary>Determines if an VolumeRate measurement is equal to another VolumeRate measurement.</summary>
@@ -23249,7 +23249,7 @@ namespace Towel.Measurements
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(VolumeRate<T> a, VolumeRate<T> b)
         {
-            return LogicBase(a, b, Syntax.Inequality);
+            return LogicBase(a, b, Syntax.InequalTo);
         }
 
         /// <summary>Determines if an VolumeRate measurement is not equal to another VolumeRate measurement.</summary>
