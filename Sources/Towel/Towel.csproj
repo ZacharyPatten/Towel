@@ -2,20 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageProjectUrl>https://github.com/ZacharyPatten/Towel</PackageProjectUrl>
-    <PackageIconUrl>http://towelcode.com/wp-content/uploads/2019/04/Towel-Icon.png</PackageIconUrl>
-    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
     <PackageTags>mathematics,matrix,vector,quaternion,linear-algebra,linear-regression,data-structures,pathfinding,generic-mathematics,sorting-algorithms,avl-tree,graph-algorithms,octree,quadtree,omnitree,redblacktree,symbolic-computation,measurements,statistics,algorithms</PackageTags>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <Copyright>Copyright (c) 2019 Zachary Patten</Copyright>
-    <Description>Towel is a C# .Net Standard libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
-
-Generic mathematics, symbolic mathematics, generic path finding (graph search), sorting algorithms, extensions... Towel has low level topics that could help any program.</Description>
+    <Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
+    <Description>Towel is a C# .Net Standard libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.</Description>
     <PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
     <Authors>Zachary Patten</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.10-alpha</Version>
+    <Version>1.0.11-alpha</Version>
     <LangVersion>8.0</LangVersion>
+    <AssemblyVersion>1.0.11.0</AssemblyVersion>
+    <FileVersion>1.0.11.0</FileVersion>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryType></RepositoryType>
+    <Company />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +35,10 @@ Generic mathematics, symbolic mathematics, generic path finding (graph search), 
   <ItemGroup>
     <None Remove="DataStructures\ve-1A2.tmp" />
     <None Remove="Measurements\MeasurementGeneration.tt" />
+    <None Include="..\..\.github\Resources\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
