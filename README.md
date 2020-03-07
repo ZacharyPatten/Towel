@@ -9,7 +9,7 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 | Topic | Info |
 | :---    | :--- |
 | GitHub  | https://github.com/ZacharyPatten/Towel |
-| Status  | ![](https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg) |
+| Status  | <a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a> |
 | NuGet   | [![nuget](https://img.shields.io/nuget/v/Towel.svg)](https://www.nuget.org/packages/Towel/) |
 | License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ZacharyPatten/Towel/blob/master/LICENSE) |
 | Discord | <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a> |
@@ -57,7 +57,7 @@ You can break type safe-ness using generic types and runtime compilation, and yo
 
 ```csharp
 // Logic Fundamentals
-bool Equality<T>(T a , T b);
+bool EqualTo<T>(T a , T b);
 bool LessThan<T>(T a, T b);
 bool GreaterThan<T>(T a, T b);
 CompareResult Compare<T>(T a, T b);
