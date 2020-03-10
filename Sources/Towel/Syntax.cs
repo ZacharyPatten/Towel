@@ -78,17 +78,45 @@ namespace Towel
 		{
 			internal static TryParse<A> Function = (string @string, out A value) =>
 			{
-				static bool Default(string @string, out A value)
+				static bool FailParse(string @string, out A value)
 				{
 					value = default;
 					return false;
 				}
 
-				MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
-				Function = methodInfo is null
-					? Default
-					: (TryParse<A>)methodInfo.CreateDelegate(typeof(TryParse<A>));
-				return Function(@string, out value);
+				if (typeof(A).IsEnum)
+				{
+					foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
+						BindingFlags.Static |
+						BindingFlags.Public))
+					{
+						if (methodInfo.Name == nameof(Enum.TryParse) &&
+							methodInfo.IsGenericMethod &&
+							methodInfo.IsStatic &&
+							methodInfo.IsPublic &&
+							methodInfo.ReturnType == typeof(bool))
+						{
+							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
+							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
+							if (parameters.Length == 2 &&
+								parameters[0].ParameterType == typeof(string) &&
+								parameters[1].ParameterType == typeof(A).MakeByRefType())
+							{
+								Function = (TryParse<A>)genericMethodInfo.CreateDelegate(typeof(TryParse<A>));
+								return Function(@string, out value);
+							}
+						}
+					}
+					throw new TowelBugException("temp");
+				}
+				else
+				{
+					MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
+					Function = methodInfo is null
+						? FailParse
+						: (TryParse<A>)methodInfo.CreateDelegate(typeof(TryParse<A>));
+					return Function(@string, out value);
+				}
 			};
 		}
 

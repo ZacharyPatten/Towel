@@ -18,24 +18,32 @@ namespace Towel_Testing
 				Assert.IsTrue(TryParse("1.2", out float _float) && _float == 1.2f);
 				Assert.IsTrue(TryParse("1.23", out double _double) && _double == 1.23d);
 				Assert.IsTrue(TryParse("1.234", out decimal _decimal) && _decimal == 1.234m);
+				Assert.IsTrue(TryParse("Red", out ConsoleColor _ConsoleColor) && _ConsoleColor == ConsoleColor.Red);
+				Assert.IsTrue(TryParse("Ordinal", out StringComparison _StringComparison) && _StringComparison == StringComparison.Ordinal);
 			}
 			{ // default value (parse fails)
 				Assert.IsTrue(TryParse<int>("a", Default: 1) == 1);
 				Assert.IsTrue(TryParse<float>("a", Default: 1) == 1);
 				Assert.IsTrue(TryParse<double>("a", Default: 1) == 1);
 				Assert.IsTrue(TryParse<decimal>("a", Default: 1) == 1);
+				Assert.IsTrue(TryParse<ConsoleColor>("a", Default: (ConsoleColor)1) == (ConsoleColor)1);
+				Assert.IsTrue(TryParse<StringComparison>("a", Default: (StringComparison)1) == (StringComparison)1);
 			}
 			{ // parse fails
 				Assert.IsFalse(TryParse("a", out int _));
 				Assert.IsFalse(TryParse("a", out float _));
 				Assert.IsFalse(TryParse("a", out double _));
 				Assert.IsFalse(TryParse("a", out decimal _));
+				Assert.IsFalse(TryParse("a", out ConsoleColor _));
+				Assert.IsFalse(TryParse("a", out StringComparison _));
 			}
 			{ // successful parse (default override)
 				Assert.IsTrue(TryParse<int>("1", Default: -1) == 1);
 				Assert.IsTrue(TryParse<float>("1.2", Default: -1) == 1.2f);
 				Assert.IsTrue(TryParse<double>("1.23", Default: -1) == 1.23d);
 				Assert.IsTrue(TryParse<decimal>("1.234", Default: -1) == 1.234m);
+				Assert.IsTrue(TryParse<ConsoleColor>("Red", Default: (ConsoleColor)1) == ConsoleColor.Red);
+				Assert.IsTrue(TryParse<StringComparison>("Ordinal", Default: (StringComparison)1) == StringComparison.Ordinal);
 			}
 		}
 

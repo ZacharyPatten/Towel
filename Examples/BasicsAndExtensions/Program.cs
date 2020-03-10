@@ -18,11 +18,13 @@ namespace BasicsAndExtensions
 
 			#region TryParse
 			{
-				TryParse("123.4", out double a);
-				TryParse("12.3", out float b);
-				TryParse("1", out byte c);
-				TryParse("1234", out int d);
-				TryParse("1234", out Program e);
+				TryParse("123.4",   out double a);
+				TryParse("12.3",    out float b);
+				TryParse("1",       out byte c);
+				TryParse("1234",    out int d);
+				TryParse("1234",    out Program e);
+				TryParse("Red",     out ConsoleColor f);
+				TryParse("Ordinal", out StringComparison g);
 
 				Console.WriteLine("  TryParse------------------------------------");
 				Console.WriteLine();
@@ -31,6 +33,8 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    TryParse(\"1\", out byte c) := " + c);
 				Console.WriteLine("    TryParse(\"1234\", out int d) := " + d);
 				Console.WriteLine("    TryParse(\"1234\", out Program e) := " + (e?.ToString() ?? "null"));
+				Console.WriteLine("    TryParse(\"Red\", out ConsoleColor f) := " + f);
+				Console.WriteLine("    TryParse(\"Ordinal\", out ConsoleColor g) := " + g);
 				Console.WriteLine();
 			}
 			#endregion
