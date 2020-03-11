@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Towel.DataStructures;
@@ -1581,6 +1582,19 @@ namespace Towel
 		{
 			yield return value;
 		}
+
+		#endregion
+
+		#region System.Reflection.MethodInfo
+
+		/// <summary>Creates a delegate of the specified type from this method.</summary>
+		/// <typeparam name="Delegate">The type of the delegate to create.</typeparam>
+		/// <param name="methodInfo">The method value to create the delegate from.</param>
+		/// <returns>The delegate for this method.</returns>
+		/// <remarks>This extension is syntax sugar so you don't have to cast the return.</remarks>
+		public static Delegate CreateDelegate<Delegate>(this MethodInfo methodInfo)
+			where Delegate : System.Delegate =>
+			(Delegate)methodInfo.CreateDelegate(typeof(Delegate));
 
 		#endregion
 	}

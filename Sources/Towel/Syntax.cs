@@ -78,43 +78,54 @@ namespace Towel
 		{
 			internal static TryParse<A> Function = (string @string, out A value) =>
 			{
-				static bool FailParse(string @string, out A value)
+				static bool Fail(string @string, out A value)
 				{
 					value = default;
 					return false;
 				}
-
 				if (typeof(A).IsEnum)
 				{
-					foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
-						BindingFlags.Static |
-						BindingFlags.Public))
+					MethodInfo methodInfo = typeof(Enum).GetMethod<MethodSignatures.System.Enum.TryParse<A>>();
+					if (methodInfo is null)
 					{
-						if (methodInfo.Name == nameof(Enum.TryParse) &&
-							methodInfo.IsGenericMethod &&
-							methodInfo.IsStatic &&
-							methodInfo.IsPublic &&
-							methodInfo.ReturnType == typeof(bool))
-						{
-							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
-							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
-							if (parameters.Length == 2 &&
-								parameters[0].ParameterType == typeof(string) &&
-								parameters[1].ParameterType == typeof(A).MakeByRefType())
-							{
-								Function = (TryParse<A>)genericMethodInfo.CreateDelegate(typeof(TryParse<A>));
-								return Function(@string, out value);
-							}
-						}
+						throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
 					}
-					throw new TowelBugException("temp");
+					Function = methodInfo.CreateDelegate<TryParse<A>>();
+					return Function(@string, out value);
+
+					#region Old Version
+
+					//foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
+					//	BindingFlags.Static |
+					//	BindingFlags.Public))
+					//{
+					//	if (methodInfo.Name == nameof(Enum.TryParse) &&
+					//		methodInfo.IsGenericMethod &&
+					//		methodInfo.IsStatic &&
+					//		methodInfo.IsPublic &&
+					//		methodInfo.ReturnType == typeof(bool))
+					//	{
+					//		MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
+					//		ParameterInfo[] parameters = genericMethodInfo.GetParameters();
+					//		if (parameters.Length == 2 &&
+					//			parameters[0].ParameterType == typeof(string) &&
+					//			parameters[1].ParameterType == typeof(A).MakeByRefType())
+					//		{
+					//			Function = genericMethodInfo.CreateDelegate<TryParse<A>>();
+					//			return Function(@string, out value);
+					//		}
+					//	}
+					//}
+					//throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
+
+					#endregion
 				}
 				else
 				{
 					MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 					Function = methodInfo is null
-						? FailParse
-						: (TryParse<A>)methodInfo.CreateDelegate(typeof(TryParse<A>));
+						? Fail
+						: methodInfo.CreateDelegate<TryParse<A>>();
 					return Function(@string, out value);
 				}
 			};
@@ -1087,7 +1098,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsIntegerMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1118,7 +1129,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsNonNegativeMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1147,7 +1158,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsNegativeMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1177,7 +1188,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsPositiveMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1206,7 +1217,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsEvenMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1235,7 +1246,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsOddMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1269,7 +1280,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetIsPrimeMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, bool>)methodInfo.CreateDelegate(typeof(Func<T, bool>));
+					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
@@ -1691,7 +1702,7 @@ namespace Towel
 				MethodInfo methodInfo = Meta.GetFactorialMethod<T>();
 				if (!(methodInfo is null))
 				{
-					Function = (Func<T, T>)methodInfo.CreateDelegate(typeof(Func<T, T>));
+					Function = methodInfo.CreateDelegate<Func<T, T>>();
 					return Function(a);
 				}
 

@@ -15940,6 +15940,13 @@
             <param name="value">The value to convert into an IEnumerable.</param>
             <returns>The IEnumerable of the value.</returns>
         </member>
+        <member name="M:Towel.Extensions.CreateDelegate``1(System.Reflection.MethodInfo)">
+            <summary>Creates a delegate of the specified type from this method.</summary>
+            <typeparam name="Delegate">The type of the delegate to create.</typeparam>
+            <param name="methodInfo">The method value to create the delegate from.</param>
+            <returns>The delegate for this method.</returns>
+            <remarks>This extension is syntax sugar so you don't have to cast the return.</remarks>
+        </member>
         <member name="T:Towel.IAction">
             <summary>Interface for a compile time delegate.</summary>
         </member>
@@ -29573,6 +29580,16 @@
         <member name="T:Towel.Meta">
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
+        <member name="M:Towel.Meta.GetMethod``1(System.Type)">
+            <summary>Gets a method on a type by signature.</summary>
+            <typeparam name="Signature">
+            The signature of the method to get as a delegate type. Must match the 
+            method in return type, parameter types, generic types, parameter names,
+            generic parameter names, and delegate/method name.
+            </typeparam>
+            <param name="declaringType">The declaring type of the method to get.</param>
+            <returns>The method info if found. null if not.</returns>
+        </member>
         <member name="M:Towel.Meta.GetTryParseMethod``1">
             <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The type of the out parameter.</typeparam>
@@ -29847,6 +29864,9 @@
             <summary>Determines if a MethodInfo is a local function.</summary>
             <param name="methodInfo">The method info to determine if it is a local function.</param>
             <returns>True if the MethodInfo is a local function. False if not.</returns>
+        </member>
+        <member name="T:Towel.MethodSignatures">
+            <summary>Contains static method signatures for reflection look ups.</summary>
         </member>
         <member name="M:Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
             <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
@@ -30439,7 +30459,7 @@
         </member>
         <member name="M:Towel.Serialization.StaticDelegateFromXml``1(System.IO.TextReader)">
             <summary>Deserializes a static delegate from XML.</summary>
-            <typeparam name="T">The type of the delegate to deserialize.</typeparam>
+            <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
             <param name="textReader">The text reader providing the XML to deserialize.</param>
             <returns>The deserialized delegate.</returns>
             <exception cref="T:System.NotSupportedException">

@@ -227,7 +227,7 @@ namespace Towel
 		}
 
 		/// <summary>Deserializes a static delegate from XML.</summary>
-		/// <typeparam name="T">The type of the delegate to deserialize.</typeparam>
+		/// <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
 		/// <param name="textReader">The text reader providing the XML to deserialize.</param>
 		/// <returns>The deserialized delegate.</returns>
 		/// <exception cref="NotSupportedException">
@@ -242,7 +242,7 @@ namespace Towel
 		/// <exception cref="Exception">
 		/// Thrown when deserialization fails. See the inner exception for more information.
 		/// </exception>
-		public static T StaticDelegateFromXml<T>(TextReader textReader) where T : Delegate
+		public static Delegate StaticDelegateFromXml<Delegate>(TextReader textReader) where Delegate : System.Delegate
 		{
 			try
 			{
@@ -299,7 +299,7 @@ namespace Towel
 				{
 					goto ThrowReturnTypeMisMatchException;
 				}
-				return (T)methodInfo.CreateDelegate(typeof(T));
+				return methodInfo.CreateDelegate<Delegate>();
 			}
 			catch (Exception exception)
 			{

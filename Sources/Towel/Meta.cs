@@ -14,6 +14,71 @@ namespace Towel
 	{
 		#region Getting Methods Via Reflection
 
+		#region System.Type.GetMethod
+
+		/// <summary>Gets a method on a type by signature.</summary>
+		/// <typeparam name="Signature">
+		/// The signature of the method to get as a delegate type. Must match the 
+		/// method in return type, parameter types, generic types, parameter names,
+		/// generic parameter names, and delegate/method name.
+		/// </typeparam>
+		/// <param name="declaringType">The declaring type of the method to get.</param>
+		/// <returns>The method info if found. null if not.</returns>
+		public static MethodInfo GetMethod<Signature>(this Type declaringType)
+			where Signature : Delegate
+		{
+			Type signature = typeof(Signature);
+			string name = Regex.Replace(signature.Name, @"`\d+", string.Empty);
+			Type[] signatureGenerics = signature.GetGenericArguments();
+			MethodInfo signatureMethodInfo = signature.GetMethod("Invoke");
+			ParameterInfo[] signatureParameters = signatureMethodInfo.GetParameters();
+			Type signatureGeneric = signature.GetGenericTypeDefinition();
+			Type[] signatureGenericGenerics = signatureGeneric.GetGenericArguments();
+			foreach (MethodInfo currentMethodInfo in declaringType.GetMethods(
+				BindingFlags.Instance |
+				BindingFlags.Static |
+				BindingFlags.Public |
+				BindingFlags.NonPublic))
+			{
+				MethodInfo methodInfo = currentMethodInfo;
+				if (methodInfo.Name != name ||
+					signature.IsGenericType != methodInfo.IsGenericMethod)
+				{
+					continue;
+				}
+				if (signature.IsGenericType)
+				{
+					Type[] methodInfoGenerics = methodInfo.GetGenericArguments();
+					if (methodInfoGenerics.Length != signatureGenerics.Length ||
+						!signatureGenericGenerics.ValuesAreEqual(methodInfoGenerics, (a, b) =>
+							a.Name == b.Name))
+					{
+						continue;
+					}
+					try
+					{
+						methodInfo = methodInfo.MakeGenericMethod(signatureGenerics);
+					}
+					catch (ArgumentException)
+					{
+						// this is likely a contraint validation error
+						continue;
+					}
+				}
+				if (signatureMethodInfo.ReturnType != methodInfo.ReturnType ||
+					!signatureParameters.ValuesAreEqual(methodInfo.GetParameters(), (a, b) =>
+						a.ParameterType == b.ParameterType &&
+						a.Name == b.Name))
+				{
+					continue;
+				}
+				return methodInfo;
+			}
+			return null;
+		}
+
+		#endregion
+
 		#region GetTryParseMethod
 
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
@@ -466,7 +531,7 @@ namespace Towel
 
 		#endregion
 
-		#region ConvertToCSharpSource
+		#region System.Type.ConvertToCSharpSource
 
 		/// <summary>Converts a <see cref="System.Type"/> into a <see cref="string"/> as it would appear in C# source code.</summary>
 		/// <param name="type">The <see cref="System.Type"/> to convert to a <see cref="string"/>.</param>
@@ -510,7 +575,7 @@ namespace Towel
 
 		#endregion
 
-		#region Enum
+		#region System.Enum
 
 		/// <summary>Gets a custom attribute on an enum value by generic type.</summary>
 		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
@@ -551,7 +616,7 @@ namespace Towel
 
 		#endregion
 
-		#region Assembly
+		#region System.Reflection.Assembly
 
 		/// <summary>Enumerates through all the events with a custom attribute.</summary>
 		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
@@ -1034,7 +1099,7 @@ namespace Towel
 
 		#endregion
 
-		#region MethodInfo
+		#region System.Reflection.MethodInfo
 
 		/// <summary>Determines if a MethodInfo is a local function.</summary>
 		/// <param name="methodInfo">The method info to determine if it is a local function.</param>
