@@ -29866,7 +29866,7 @@
             <returns>True if the MethodInfo is a local function. False if not.</returns>
         </member>
         <member name="T:Towel.MethodSignatures">
-            <summary>Contains static method signatures for reflection look ups.</summary>
+            <summary>Contains internal static method signatures for reflection look ups.</summary>
         </member>
         <member name="M:Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
             <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>

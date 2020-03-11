@@ -34,7 +34,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    TryParse(\"1234\", out int d) := " + d);
 				Console.WriteLine("    TryParse(\"1234\", out Program e) := " + (e?.ToString() ?? "null"));
 				Console.WriteLine("    TryParse(\"Red\", out ConsoleColor f) := " + f);
-				Console.WriteLine("    TryParse(\"Ordinal\", out ConsoleColor g) := " + g);
+				Console.WriteLine("    TryParse(\"Ordinal\", out StringComparison g) := " + g);
 				Console.WriteLine();
 			}
 			#endregion
