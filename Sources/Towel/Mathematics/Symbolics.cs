@@ -315,7 +315,7 @@ namespace Towel.Mathematics
 				else
 				{
 					Type constantType = typeof(Constant<>).MakeGenericType(valueType);
-					ConstructorInfo constructorInfo = constantType.GetConstructor(new Type[] { valueType });
+					ConstructorInfo constructorInfo = constantType.GetConstructor(Ɐ(valueType));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(object));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, System.Linq.Expressions.Expression.Convert(A, valueType));
 					Func<object, Expression> newFunction = System.Linq.Expressions.Expression.Lambda<Func<object, Expression>>(newExpression, A).Compile();
@@ -3063,7 +3063,7 @@ namespace Towel.Mathematics
 				ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Unary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression) });
+					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
@@ -3101,7 +3101,7 @@ namespace Towel.Mathematics
 				ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Binary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression), typeof(Expression) });
+					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
@@ -3133,7 +3133,7 @@ namespace Towel.Mathematics
 				ParsableTernaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Ternary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression), typeof(Expression), typeof(Expression) });
+					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression), typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
@@ -3160,7 +3160,7 @@ namespace Towel.Mathematics
 				ParsableMultinaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Multinary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(Expression[]) });
+					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression[])));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression[]));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();

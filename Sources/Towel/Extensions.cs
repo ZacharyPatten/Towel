@@ -1574,15 +1574,6 @@ namespace Towel
 			return false;
 		}
 
-		/// <summary>Converts a value to an IEnumerable.</summary>
-		/// <typeparam name="T">The type of the value.</typeparam>
-		/// <param name="value">The value to convert into an IEnumerable.</param>
-		/// <returns>The IEnumerable of the value.</returns>
-		public static System.Collections.Generic.IEnumerable<T> ToIEnumerable<T>(this T value)
-		{
-			yield return value;
-		}
-
 		#endregion
 
 		#region System.Reflection.MethodInfo

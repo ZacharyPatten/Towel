@@ -511,7 +511,7 @@ namespace Towel.DataStructures
 	//                // no children yet
 	//                if (this._children is null)
 	//                {
-	//                    this._children = new Node[] { value };
+	//                    this._children = Ɐ(value);
 	//                    return;
 	//                }
 	//                // max children overwrite

@@ -134,7 +134,7 @@ namespace Mathematics
 			int factorial = Factorial(random7);
 			Console.WriteLine("    " + random7 + "!: " + factorial);
 
-			int combinations = Combinations(7, new int[] { 3, 4 });
+			int combinations = Combinations(7, Ɐ(3, 4));
 			Console.WriteLine("    7! / (3! * 4!): " + combinations);
 
 			int binomialCoefficient = BinomialCoefficient(7, 2);

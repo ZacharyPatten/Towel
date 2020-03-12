@@ -15934,12 +15934,6 @@
             <param name="first">The first value of the IEnumerable or default if empty.</param>
             <returns>True if the IEnumerable has a first value or false if it is empty.</returns>
         </member>
-        <member name="M:Towel.Extensions.ToIEnumerable``1(``0)">
-            <summary>Converts a value to an IEnumerable.</summary>
-            <typeparam name="T">The type of the value.</typeparam>
-            <param name="value">The value to convert into an IEnumerable.</param>
-            <returns>The IEnumerable of the value.</returns>
-        </member>
         <member name="M:Towel.Extensions.CreateDelegate``1(System.Reflection.MethodInfo)">
             <summary>Creates a delegate of the specified type from this method.</summary>
             <typeparam name="Delegate">The type of the delegate to create.</typeparam>
@@ -31798,6 +31792,16 @@
             <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
             <param name="value">The value argument of the Switch statement.</param>
             <returns>The delegate for the Switch statement.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Ɐ``1(``0[])">
+            <summary>Universal Quantification Operator.</summary>
+            <typeparam name="T">The element type of the universal quantification to declare.</typeparam>
+            <param name="values">The values of the universal quantification.</param>
+            <returns>The declared universal quantification.</returns>
+        </member>
+        <member name="T:Towel.Syntax.UniversalQuantification`1">
+            <summary>Universal Quantification.</summary>
+            <typeparam name="T">The element type of the universal quantification.</typeparam>
         </member>
         <member name="M:Towel.Syntax.EqualTo``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>

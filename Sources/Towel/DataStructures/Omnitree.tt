@@ -6,6 +6,7 @@
 
 using System;
 using System.Numerics;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -651,7 +652,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -2545,7 +2546,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite

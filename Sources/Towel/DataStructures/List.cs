@@ -432,7 +432,7 @@ namespace Towel.DataStructures
 		{
 			if (_count == 0)
 			{
-				return new T[] { };
+				return new T[0];
 			}
 			T[] array = new T[_count];
 			Node node = _head;

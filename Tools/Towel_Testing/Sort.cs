@@ -45,10 +45,10 @@ namespace Towel_Testing
 			if (sizeOverride is null) Test(1000); // Large(er) Data Set
 
 			{ // Partial Array Sort
-				int[] array = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, };
+				int[] array = Ɐ(9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
 				watchArray = array;
 				algorithmPartial(array, 3, 7, Compare.Default);
-				int[] expected = new int[] { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0, };
+				int[] expected = Ɐ(9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0);
 				for (int i = 0; i < size; i++)
 				{
 					Assert.IsTrue(array[i] == expected[i]);

@@ -6,6 +6,7 @@
 
 using System;
 using System.Numerics;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -3088,7 +3089,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -4618,7 +4619,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -6287,7 +6288,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -8097,7 +8098,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -10050,7 +10051,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -12148,7 +12149,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -14393,7 +14394,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -16638,7 +16639,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -18183,7 +18184,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -19902,7 +19903,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -21795,7 +21796,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -23862,7 +23863,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -26103,7 +26104,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite
@@ -28518,7 +28519,7 @@ namespace Towel.DataStructures
 					// no children yet
 					if (Children is null)
 					{
-						Children = new Node[] { value };
+						Children = Ɐ(value);
 						return;
 					}
 					// max children overwrite

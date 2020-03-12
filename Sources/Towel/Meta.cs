@@ -97,7 +97,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { typeof(string), a.MakeByRefType() },
+				Ɐ(typeof(string), a.MakeByRefType()),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -130,7 +130,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -163,7 +163,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -196,7 +196,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -229,7 +229,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -262,7 +262,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -296,7 +296,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a, },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -330,7 +330,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a, },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -364,7 +364,7 @@ namespace Towel
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
-				new Type[] { a, },
+				Ɐ(a),
 				null);
 			return !(methodInfo is null)
 				&& methodInfo.ReturnType == typeof(bool)
@@ -397,7 +397,6 @@ namespace Towel
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			Type[] parameterTypes = new Type[] { a, b, };
 			MethodInfo CheckType(Type type)
 			{
 				MethodInfo methodInfo = type.GetMethod(
@@ -406,7 +405,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic,
 					null,
-					parameterTypes,
+					Ɐ(a, b),
 					null);
 				return !(methodInfo is null)
 					&& methodInfo.ReturnType == c
@@ -442,7 +441,6 @@ namespace Towel
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			Type[] parameterTypes = new Type[] { a, b, };
 			MethodInfo CheckType(Type type)
 			{
 				MethodInfo methodInfo = type.GetMethod(
@@ -451,7 +449,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic,
 					null,
-					parameterTypes,
+					Ɐ(a, b),
 					null);
 				return !(methodInfo is null)
 					&& methodInfo.ReturnType == c
@@ -501,7 +499,6 @@ namespace Towel
 			string methodName = @implicit
 				? "op_Implicit"
 				: "op_Explicit";
-			Type[] parameterTypes = new Type[] { fromType, };
 			bool CheckType(Type type)
 			{
 				MethodInfo methodInfo = type.GetMethod(
@@ -510,7 +507,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic,
 					null,
-					parameterTypes,
+					Ɐ(fromType),
 					null);
 				return !(methodInfo is null)
 					&& methodInfo.ReturnType == toType

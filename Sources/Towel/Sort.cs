@@ -1328,7 +1328,7 @@ namespace Towel
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			int[] gaps = new int[] { 701, 301, 132, 57, 23, 10, 4, 1, };
+			int[] gaps = Ɐ(701, 301, 132, 57, 23, 10, 4, 1);
 			foreach (int gap in gaps)
 			{
 				for (int i = gap + start; i <= end; i++)

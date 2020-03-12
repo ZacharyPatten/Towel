@@ -282,6 +282,8 @@ namespace Towel.DataStructures
 	[Serializable]
 	public class StackArray<T> : IStack<T>
 	{
+		const int DefaultMinimumCapacity = 1;
+
 		internal T[] _array;
 		internal int _count;
 		internal int _minimumCapacity;
@@ -294,7 +296,7 @@ namespace Towel.DataStructures
 		{
 			_array = new T[1];
 			_count = 0;
-			_minimumCapacity = 1;
+			_minimumCapacity = DefaultMinimumCapacity;
 		}
 
 		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
@@ -307,11 +309,11 @@ namespace Towel.DataStructures
 			_minimumCapacity = minimumCapacity;
 		}
 
-		internal StackArray(StackArray<T> stack)
+		internal StackArray(T[] array, int count, int minimumCapacity = DefaultMinimumCapacity)
 		{
-			this._array = (T[])stack._array.Clone();
-			this._count = stack._count;
-			this._minimumCapacity = stack._minimumCapacity;
+			this._array = array;
+			this._count = count;
+			this._minimumCapacity = minimumCapacity;
 		}
 
 		#endregion
@@ -368,7 +370,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackArray<T> Clone() => new StackArray<T>(this);
+		public StackArray<T> Clone() => new StackArray<T>((T[])_array.Clone(), _count, _minimumCapacity);
 
 		#endregion
 

@@ -66,7 +66,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    There are pros/cons to both methodologies.");
 				Console.WriteLine();
 
-				System.Collections.Generic.IEnumerable<int> iEnumerable = new int[] { 1, 2, 3, };
+				System.Collections.Generic.IEnumerable<int> iEnumerable = Ɐ(1, 2, 3);
 				Console.Write("    iEnumerable values:");
 				foreach (int value in iEnumerable)
 				{
@@ -74,7 +74,7 @@ namespace BasicsAndExtensions
 				}
 				Console.WriteLine();
 
-				Stepper<int> stepper = new int[] { 1, 2, 3, }.ToStepper();
+				Stepper<int> stepper = Ɐ(1, 2, 3);
 				Console.Write("    stepper values:");
 				stepper(value => Console.Write(" " + value));
 				Console.WriteLine();
@@ -83,7 +83,7 @@ namespace BasicsAndExtensions
 				/// For this, there is another type of stepper that is breakable. "Towel.StepperBreak<T>"
 				/// is a breakable version of the stepper.
 
-				StepperBreak<int> stepperBreak = new int[] { 1, 2, 3, 4, 5, 6, }.ToStepperBreak();
+				StepperBreak<int> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
 				Console.Write("    stepperBreak values:");
 				stepperBreak(value =>
 				{
@@ -95,7 +95,7 @@ namespace BasicsAndExtensions
 				/// You cannot alter the values of an IEnumerable during iteration, however,
 				/// you can do so with a "Towel.StepperRef<T>".
 
-				StepperRef<int> stepperRef = new int[] { 0, 1, 2, }.ToStepperRef();
+				StepperRef<int> stepperRef = Ɐ(0, 1, 2);
 				Console.Write("    stepperRef values:");
 				stepperRef((ref int value) =>
 				{
@@ -107,7 +107,7 @@ namespace BasicsAndExtensions
 				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
 				/// values and breaking iteration.
 
-				StepperRefBreak<int> stepperRefBreak = new int[] { 0, 1, 2, 3, 4, 5, }.ToStepperRefBreak();
+				StepperRefBreak<int> stepperRefBreak = Ɐ(0, 1, 2, 3, 4, 5);
 				Console.Write("    stepperRefBreak values:");
 				stepperRefBreak((ref int value) =>
 				{
@@ -225,7 +225,7 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Sorting Algorithms----------------------");
 				Console.WriteLine();
-				int[] dataSet = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+				int[] dataSet = Ɐ(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 				Console.Write("    Data Set: " + string.Join(", ", dataSet.Select(x => x.ToString())));
 				Console.WriteLine();
 
@@ -469,6 +469,34 @@ namespace BasicsAndExtensions
 						Console.WriteLine("    Inequality Syntax Error");
 					}
 				}
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region Universal Quantifier
+			{
+				Console.WriteLine("  Universal Quantifier---------------");
+				Console.WriteLine();
+				Console.WriteLine("    (debug source code for examples)");
+
+				// Ever wish there was one syntax that unified all the data structure types
+				// and interfaces? Well... try out the "universal quantifier" syntax:
+
+				System.Collections.Generic.IEnumerable<int> a = Ɐ(1, 2, 3);
+				System.Collections.Generic.IList<int>       b = Ɐ(1, 2, 3);
+				int[]                                       c = Ɐ(1, 2, 3);
+				System.Collections.Generic.List<int>        d = Ɐ(1, 2, 3);
+				System.Collections.Generic.HashSet<int>     e = Ɐ(1, 2, 3);
+				System.Collections.Generic.LinkedList<int>  f = Ɐ(1, 2, 3);
+				System.Collections.Generic.Stack<int>       g = Ɐ(1, 2, 3);
+				System.Collections.Generic.Queue<int>       h = Ɐ(1, 2, 3);
+				System.Collections.Generic.SortedSet<int>   i = Ɐ(1, 2, 3);
+				Stepper<int>                                j = Ɐ(1, 2, 3);
+				StepperRef<int>                             k = Ɐ(1, 2, 3);
+				StepperBreak<int>                           l = Ɐ(1, 2, 3);
+				StepperRefBreak<int>                        m = Ɐ(1, 2, 3);
+				Towel.DataStructures.Array<int>             n = Ɐ(1, 2, 3);
+				Towel.DataStructures.ListArray<int>         o = Ɐ(1, 2, 3);
 			}
 			#endregion
 

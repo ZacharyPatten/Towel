@@ -156,6 +156,8 @@ namespace Towel
 
 		#endregion
 
+		#region Syntax Sugar
+
 		#region Keywords
 
 		/// <summary>Stepper was not broken.</summary>
@@ -266,7 +268,79 @@ namespace Towel
 
 		#endregion
 
-		// Logic
+		#region UniversalQuantification
+
+		/// <summary>Universal Quantification Operator.</summary>
+		/// <typeparam name="T">The element type of the universal quantification to declare.</typeparam>
+		/// <param name="values">The values of the universal quantification.</param>
+		/// <returns>The declared universal quantification.</returns>
+		public static UniversalQuantification<T> Ɐ<T>(params T[] values) => new UniversalQuantification<T>(values);
+
+		/// <summary>Universal Quantification.</summary>
+		/// <typeparam name="T">The element type of the universal quantification.</typeparam>
+		public struct UniversalQuantification<T> :
+			System.Collections.Generic.IEnumerable<T>,
+			System.Collections.Generic.IList<T>,
+			Towel.DataStructures.IArray<T>
+		{
+			internal T[] Value;
+
+			public UniversalQuantification(T[] array) => Value = array;
+
+			#region Towel.Datastructures.IArray<T>
+			public int Length => Value.Length;
+			public void Stepper(Step<T> step) => Value.Stepper(step);
+			public StepStatus Stepper(StepBreak<T> step) => Value.Stepper(step);
+			#endregion
+
+			#region System.Collections.Generic.IList<T>
+			public T this[int index]
+			{
+				get => ((System.Collections.Generic.IList<T>)Value)[index];
+				set => ((System.Collections.Generic.IList<T>)Value)[index] = value;
+			}
+			public int Count => ((System.Collections.Generic.IList<T>)Value).Count;
+			public bool IsReadOnly => ((System.Collections.Generic.IList<T>)Value).IsReadOnly;
+			public void Add(T item) => ((System.Collections.Generic.IList<T>)Value).Add(item);
+			public void Clear() => ((System.Collections.Generic.IList<T>)Value).Clear();
+			public bool Contains(T item) => ((System.Collections.Generic.IList<T>)Value).Contains(item);
+			public void CopyTo(T[] array, int arrayIndex) => ((System.Collections.Generic.IList<T>)Value).CopyTo(array, arrayIndex);
+			public int IndexOf(T item) => ((System.Collections.Generic.IList<T>)Value).IndexOf(item);
+			public void Insert(int index, T item) => ((System.Collections.Generic.IList<T>)Value).Insert(index, item);
+			public bool Remove(T item) => ((System.Collections.Generic.IList<T>)Value).Remove(item);
+			public void RemoveAt(int index) => ((System.Collections.Generic.IList<T>)Value).RemoveAt(index);
+			#endregion
+
+			#region System.Collections.Generic.IEnumerable<T>
+			public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)Value).GetEnumerator();
+			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => Value.GetEnumerator();
+			#endregion
+
+			#region Implicit Casting Operators
+
+			public static implicit operator T[](UniversalQuantification<T> array) => array.Value;
+			public static implicit operator System.Collections.Generic.List<T>(UniversalQuantification<T> array) => new System.Collections.Generic.List<T>(array.Value);
+			public static implicit operator System.Collections.Generic.HashSet<T>(UniversalQuantification<T> array) => new System.Collections.Generic.HashSet<T>(array.Value);
+			public static implicit operator System.Collections.Generic.LinkedList<T>(UniversalQuantification<T> array) => new System.Collections.Generic.LinkedList<T>(array.Value);
+			public static implicit operator System.Collections.Generic.Stack<T>(UniversalQuantification<T> array) => new System.Collections.Generic.Stack<T>(array.Value);
+			public static implicit operator System.Collections.Generic.Queue<T>(UniversalQuantification<T> array) => new System.Collections.Generic.Queue<T>(array.Value);
+			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> array) => new System.Collections.Generic.SortedSet<T>(array.Value);
+			public static implicit operator Stepper<T>(UniversalQuantification<T> array) => array.Value.ToStepper();
+			public static implicit operator StepperRef<T>(UniversalQuantification<T> array) => array.Value.ToStepperRef();
+			public static implicit operator StepperBreak<T>(UniversalQuantification<T> array) => array.Value.ToStepperBreak();
+			public static implicit operator StepperRefBreak<T>(UniversalQuantification<T> array) => array.Value.ToStepperRefBreak();
+			public static implicit operator Towel.DataStructures.Array<T>(UniversalQuantification<T> array) => array.Value;
+			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> array) => new ListArray<T>(array.Value, array.Value.Length);
+			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> array) => new StackArray<T>(array.Value, array.Length);
+
+			#endregion
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Logic
 
 		#region EqualTo
 
@@ -624,7 +698,9 @@ namespace Towel
 
 		#endregion
 
-		// Mathematics
+		#endregion
+
+		#region Mathematics
 
 		#region Negation
 
@@ -1442,7 +1518,7 @@ namespace Towel
 				ParameterExpression C = Expression.Parameter(typeof(T));
 				ParameterExpression D = Expression.Variable(typeof(T));
 				LabelTarget RETURN = Expression.Label(typeof(bool));
-				Expression BODY = Expression.Block(new ParameterExpression[] { D },
+				Expression BODY = Expression.Block(Ɐ(D),
 					Expression.Assign(D, Expression.Subtract(A, B)),
 					Expression.IfThenElse(
 						Expression.LessThan(D, Expression.Constant(Constant<T>.Zero)),
@@ -2927,6 +3003,8 @@ namespace Towel
 				Function(a, x);
 			};
 		}
+
+		#endregion
 
 		#endregion
 	}
